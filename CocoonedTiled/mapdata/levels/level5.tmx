@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="60" height="40" tilewidth="8" tileheight="8">
+ <properties>
+  <property name="finishLocation" value="!json! {&quot;x&quot; : 21, &quot;y&quot; : 21}"/>
+  <property name="playerLocation" value="!json! {&quot;x&quot; : 1, &quot;y&quot; : 1}"/>
+ </properties>
+ <tileset firstgid="1" name="tileset_bob" tilewidth="32" tileheight="32">
+  <image source="../tileset_bob.png" width="288" height="64"/>
+  <tile id="8">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="tiles" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzlljGSxDAIBJ1e6v8/9tItl8T0AGJdd4ES71rQzAC+r+u6g/PzcVbPPn9bPe84u1y6776DeBO8u7jdsSKNJ3infbTSeIp32kcrL0/wVnvG8eLzHadvHV1WfUJjnGZ1dMvm4tbTOVk/VXgJJ/VFdPfud7Jfu3ijHJyaqG+A7NxQnnTedfhVTSK2E6xVXqdPdvd0fl9VejvSIPPNoLzbwUtr4vBmesPR7xSruwMqu+fpi0ldV/tC9WGUJ+1/taO6WaP5n9U5Mx9O80a6PHMn+4L63N3HXazE0ytO8kzxE97q7CA1y8YlPtq9Q2pHverMEWc+Ut7Iu7QGGe+quxSrq0lUD/W/ifkUaUj+R70V3dPpZxVjVXd1b2V2kD7L9IviJfp15JXhVfqpvlQx3JxJnkoPN3ZUXzWnMnlHszbL6/iK7gmiLY2p8nbqRWO7tSB9m62x60unzvQ+oi/R3a0zyZPuDJeT1K7KleWO9oXDSXepu3O6uel+2TFW5+YE84pzp9eOkfZItx877tvxUMaJPLP3Rv3WXccTx9GGzs8381b1PXH/txkna/823r8Q4015/DdedX4BsLdoYg==
+  </data>
+ </layer>
+</map>
