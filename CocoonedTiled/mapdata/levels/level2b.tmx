@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="12" tilewidth="72" tileheight="72">
+ <tileset firstgid="1" name="icewall" tilewidth="72" tileheight="72">
+  <image source="../../../../../../../Downloads/ice wall 1.png" width="72" height="72"/>
+ </tileset>
+ <tileset firstgid="2" name="bg2" tilewidth="72" tileheight="72">
+  <image source="../../../../../../../Downloads/bg 2.jpg" width="1136" height="640"/>
+ </tileset>
+ <tileset firstgid="122" name="aura" tilewidth="72" tileheight="72">
+  <image source="../../../../../../../Downloads/blue aura sphere 1 (1).png" width="72" height="72"/>
+ </tileset>
+ <layer name="background" width="20" height="12">
+  <data encoding="base64" compression="zlib">
+   eJy10EVSXAEAQMEp3F2Cu2sgCe7u7u6QEFxvTx9g/mqKRW/e8kWFQqFoYogljngSSCSJZFJIJY10MgJaJllkk0MueeTzgwIKKaKYEkopC2jlVFBJFdXUUEsd9TTQSBPNtNAa0Npo5ycddPKL3/yhi2566KWPfgYC2iBDDDPCKGOMM8EkU0wzwyxzzAf8W2CRJZZZYZU11tlgky222WGXvYB/+xxwyBHHnHDKGedccMkV19zwN+DfP275zx33PPDIE8+88Mob73zw+Q3/wrVI/oVrkfwL1yL5F659AeRmP4U=
+  </data>
+ </layer>
+ <layer name="foreground" width="20" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAPMJKpb9Q8hHnY8GAHuNw9FMKbUlBFZfOQAbnmAQBxWACQ
+  </data>
+ </layer>
+</map>

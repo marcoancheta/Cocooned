@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="12" tilewidth="72" tileheight="72">
+ <tileset firstgid="1" name="bg 2" tilewidth="72" tileheight="72">
+  <image source="../../../../../../../Downloads/bg 2.jpg" width="1136" height="640"/>
+ </tileset>
+ <tileset firstgid="121" name="rune1" tilewidth="72" tileheight="72">
+  <image source="../../../../../../../Downloads/rune 1.png" width="72" height="72"/>
+ </tileset>
+ <tileset firstgid="122" name="ice wall 1" tilewidth="72" tileheight="72">
+  <image source="../../../../../../../Downloads/ice wall 1.png" width="72" height="72"/>
+ </tileset>
+ <layer name="background" width="20" height="12">
+  <data encoding="base64" compression="zlib">
+   eJzV0kdPVVEYBdBHkSJIR4r07pOHNNEHSO+hgxTp0pso2MKvZ5FcJsQ7YcZgZZ/swc4ZfAmRSCSRJJJ5QQqppJHOSzLI5BVZ3AaZHeTDO4dc8singEJeU0QxJZTyhjLKg737rAjy4V1JFdXUUEsd9TTQSBNvifKO5mAv+qiL0cJ7WmmjnQ46+UAXH/lEnG56gr34o66Xz/TRzwCDDDHMCKOMMc4Ek0wFe/8zzQyzzDHPAossscwXVlhljXW+hnQbbLLFNjvsssc39jngkCOOOeE0pDvjnAsu+c4VP/jJNTf84jd/+Mu/kO4p9xJ2Q0+9l7Abij2D/90Bz9cy4w==
+  </data>
+ </layer>
+ <layer name="foreground" width="20" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYBh8oHKgHTAKRsEQAQCDmwB6
+  </data>
+ </layer>
+</map>

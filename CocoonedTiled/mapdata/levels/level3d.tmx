@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="12" tilewidth="72" tileheight="72">
+ <tileset firstgid="1" name="bg2" tilewidth="72" tileheight="72">
+  <image source="../art/bg2.jpg" width="1136" height="640"/>
+ </tileset>
+ <tileset firstgid="121" name="icewall" tilewidth="72" tileheight="72">
+  <image source="../art/ice wall 1.png" width="72" height="72"/>
+ </tileset>
+ <layer name="background" width="20" height="12">
+  <data encoding="base64" compression="zlib">
+   eJyt0EVblAEAhdGhQULCoBFQQqS7u0QapVGQ7o5/z1nMap5vVsPibN7FXdy4UCgUTwKJJJFMCqmk8Y50Msgki5eA9p5scsgljw985BOfyaeAQooopiS8F9lKKeML5VRQyVe+UUU1NdTynTp+hPciWz0NNNJEMy200kY7HXTSRTc99Ib3Ilsf/QwwyBDDjDDKGONMMMkU0/wM7wX5xSxzzLPAIksss8Jv/rDKGutsRPlvky222eEv/9hlj//sc8AhRxxzEuW/U84454JLrrjmhlvuuOeBR554fuP/ZqK0WP4LarH8F9Ri+S+ovQJW9kIt
+  </data>
+ </layer>
+ <layer name="foreground" width="20" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDFUAAAPAAAE=
+  </data>
+ </layer>
+</map>
