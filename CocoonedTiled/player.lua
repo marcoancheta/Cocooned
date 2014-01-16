@@ -8,11 +8,17 @@ local playerInstance = {
 	name = "hello"
 } 
 
+
 --returns a player instance
 function playerInstance:new (o) 
       setmetatable(o, self)
       self.__index = self
       return o
+end
+
+--basic function that changes color
+function playerInstance:changeColor (color)
+      self.color = color
 end
 
 --call this to create a new player, but make sure to change parameters
