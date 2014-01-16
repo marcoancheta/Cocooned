@@ -20,7 +20,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"..\/..\/black tile.png",
+         "image":"..\/..\/art\/black tile.png",
          "imageheight":72,
          "imagewidth":72,
          "margin":0,
@@ -45,7 +45,7 @@
         }, 
         {
          "firstgid":2,
-         "image":"..\/..\/white tile.png",
+         "image":"..\/..\/art\/white tile.png",
          "imageheight":72,
          "imagewidth":72,
          "margin":0,

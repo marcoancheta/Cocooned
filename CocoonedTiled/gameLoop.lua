@@ -39,6 +39,7 @@ local mapData = {
 
 local switchPaneMechanic = require("switchPane")
 local movementMechanic = require("accelerometer")
+local json = require("json")
 
 --------------------------------------------------------------------------------
 -- Creating display group
@@ -55,10 +56,12 @@ gui:insert(gui.front)
 --------------------------------------------------------------------------------
 local dusk = require("Dusk.Dusk")
 
-map = dusk.buildMap("mapdata/levels/".. mapData.levelNum.. "/".. mapData.pane ..".json")
+map = dusk.buildMap("mapdata/levels/temp/M.json")
 gui.back:insert(map)
 
 map.layer["tiles"]:insert(ball)
+
+print(map.layer["objects"])
 
 ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 
@@ -72,9 +75,11 @@ end
 
 -- control mechanic
 local function controlMovement(event) 
+
 	-- call accelerometer to get data
 	physicsParam = movementMechanic.onAccelerate(event)
 	--print(physicsParam.xGrav)
+
 	--change physics gravity
 	physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
 end
@@ -87,7 +92,7 @@ local function swipeMechanics(event)
 	-- if touch ended then change map if pane is switched
 	if "ended" == event.phase then
 		mapData.pane = newPane
-		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .."/" .. mapData.pane .. ".json")
+		map = dusk.buildMap("mapdata/levels/temp/" .. mapData.pane .. ".json")
 		map.layer["tiles"]:insert(ball)
 	end
 end
