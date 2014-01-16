@@ -34,6 +34,7 @@ local mapData = {
 }
 
 local switchPaneMechanic = require("switchPane")
+local movementMechanic = require("accelerometer")
 
 --------------------------------------------------------------------------------
 -- Creating display group
@@ -65,6 +66,13 @@ local function gameLoop (event)
 	map.updateView()
 end
 
+local function controlMovement(event) 
+	physicsParam = movementMechanic.onAccelerate(event)
+	print(physicsParam.xGrav)
+	physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
+end
+
+
 local function swipeMechanics(event)
 
 	local newPane = switchPaneMechanic.switchP(event, mapData)
@@ -83,3 +91,4 @@ end
 
 Runtime:addEventListener("enterFrame", gameLoop)
 Runtime:addEventListener("touch", swipeMechanics)
+Runtime:addEventListener( "accelerometer", controlMovement)
