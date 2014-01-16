@@ -1,5 +1,6 @@
 -- accelerometer movement
---TODO: change class parameters to take in object and intensity? intensity -negative if backwards
+--TODO: change class parameters to take in object and intensity? -negative if backwards?
+--to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
 local function onAccelerate( event )
 	local xGrav=1
 	local yGrav=1
