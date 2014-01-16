@@ -49,11 +49,7 @@ local function onAccelerate( event)
 	return physicsParam
 end
 
---[[ check if accel needs to be checked 
-if accelerometerON == true then
-		whenever accelerometer data changes, call on accelerate
-		
-	end]]
+
 local accelerometer = {
 	onAccelerate = onAccelerate
 }
