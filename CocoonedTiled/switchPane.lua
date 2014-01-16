@@ -3,9 +3,15 @@ local print = print
 
 
 function switchP(event, mapData)
+
+	--create temp mapData
 	local mapDataT = mapData
+
+	--get swipe length for x and y
 	local swipeLength = math.abs(event.x - event.xStart)
 	local swipeLengthy = math.abs(event.y - event.yStart)
+
+	--get phase name
 	local t = event.target
 	local phase = event.phase
 
@@ -45,6 +51,8 @@ function switchP(event, mapData)
 		-- print debug for white pane is swtiched
 		--print(mapDataT.pane)
 	end	
+
+	-- return new pane
 	return mapDataT.pane
 end
 
@@ -53,3 +61,5 @@ local switchPane = {
 }
 
 return switchPane
+
+--end of switchPane mechanic

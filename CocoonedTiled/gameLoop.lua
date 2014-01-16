@@ -33,6 +33,10 @@ local mapData = {
 	pane = "M",
 }
 
+--------------------------------------------------------------------------------
+-- add in mechanics
+--------------------------------------------------------------------------------
+
 local switchPaneMechanic = require("switchPane")
 local movementMechanic = require("accelerometer")
 
@@ -66,17 +70,21 @@ local function gameLoop (event)
 	map.updateView()
 end
 
+-- control mechanic
 local function controlMovement(event) 
+	-- call accelerometer to get data
 	physicsParam = movementMechanic.onAccelerate(event)
-	print(physicsParam.xGrav)
+	--print(physicsParam.xGrav)
+	--change physics gravity
 	physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
 end
 
-
+-- swipe mechanic
 local function swipeMechanics(event)
-
+	-- call swipe mechanic
 	local newPane = switchPaneMechanic.switchP(event, mapData)
 	
+	-- if touch ended then change map if pane is switched
 	if "ended" == event.phase then
 		mapData.pane = newPane
 		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .."/" .. mapData.pane .. ".json")
