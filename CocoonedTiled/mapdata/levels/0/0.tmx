@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="12" tilewidth="72" tileheight="72">
+ <properties>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 10, &quot;y&quot;:2 }"/>
+ </properties>
+ <tileset firstgid="1" name="black tile" tilewidth="72" tileheight="72">
+  <image source="../../black tile.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="2" name="white tile" tilewidth="72" tileheight="72">
+  <image source="../../white tile.png" width="72" height="72"/>
+ </tileset>
+ <layer name="tiles" width="20" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYKQyZqISJsc8fO4g1Tx0tdj4xJrHSISZ6Oah68Emh8/NpLoPm3pKzKOm+6gdH7RIL6TYRS0MAO22AY0=
+  </data>
+ </layer>
+</map>

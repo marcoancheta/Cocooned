@@ -33,3 +33,8 @@ if accelerometerON == true then
 		whenever accelerometer data changes, call on accelerate
 		Runtime:addEventListener( "accelerometer", onAccelerate )
 	end]]
+local accelerometer = {
+	onAccelerate = onAccelerate
+}
+
+return accelerometer
