@@ -25,3 +25,9 @@ end
 
 alertListener({index = 3})
 --native.showAlert("Bob", "Welcome to the Dusk demo!\n\nChoose your level.", {"3", "2", "1"}, alertListener)
+
+--for rCorona
+if system.getInfo("environment") == "simulator" then
+	local rcorona = require("rcorona")
+	rcorona.startServer(8181)
+end
