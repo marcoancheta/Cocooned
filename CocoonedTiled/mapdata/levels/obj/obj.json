@@ -1,0 +1,78 @@
+{ "height":12,
+ "layers":[
+        {
+         "data":[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+         "height":12,
+         "name":"tiles",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":20,
+         "x":0,
+         "y":0
+        }],
+ "orientation":"orthogonal",
+ "properties":
+    {
+     "playerLocation":"!json! {\"x\":10, \"y\":6)"
+    },
+ "tileheight":72,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"..\/..\/art\/black tile.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"black tile",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "physics:bounce":"0",
+                 "physics:enabed":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":2,
+         "image":"..\/..\/art\/blue aura sphere 1.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"blue aura sphere 1",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":3,
+         "image":"..\/..\/art\/white tile.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"white tile",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tilewidth":72
+        }],
+ "tilewidth":72,
+ "version":1,
+ "width":20
+}
