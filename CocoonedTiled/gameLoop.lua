@@ -39,6 +39,14 @@ local mapData = {
 
 local switchPaneMechanic = require("switchPane")
 local movementMechanic = require("accelerometer")
+local player = require("player")
+local player1 = player.create()
+local player2 = player.create()
+player1:changeColor('green')
+player2.name = "test"
+
+print("player name = ", player1.name)
+print("player color = ", player1.color)
 
 --------------------------------------------------------------------------------
 -- Creating display group
