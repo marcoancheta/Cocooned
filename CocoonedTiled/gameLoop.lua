@@ -21,13 +21,13 @@ local math_abs = math.abs
 -- Variables
 --------------------------------------------------------------------------------
 
--- Variables
-local gui
-local map
+-- Local Variables
 
 -- Global Variables
-local global = {
-	gameActive = false
+global = {
+	gameActive = false,
+	gui,
+	map,
 }
 
 -- ball variables and add ball image
@@ -95,7 +95,7 @@ ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocatio
 --------------------------------------------------------------------------------
 
 -- control mechanic
-local function controlMovement(event) 
+controlMovement = function (event) 
 
 	-- call accelerometer to get data
 	physicsParam = movementMechanic.onAccelerate(event)
@@ -106,7 +106,7 @@ local function controlMovement(event)
 end
 
 -- swipe mechanic
-local function swipeMechanics(event)
+swipeMechanics = function (event)
 	-- call swipe mechanic
 	local newPane = switchPaneMechanic.switchP(event, mapData)
 	
@@ -122,16 +122,15 @@ end
 -- gameloop
 --------------------------------------------------------------------------------
 if gameActive == nil then
+	gameActive = false
 	-- game is NOT active go to menu.
 	main.MM(event)
 end
 
 local function gameLoop (event)
 	if gameActive then
-	
 		physics.start()
 		physics.addBody(ball, {radius = 38, bounce = .25})
-		
 		map.updateView()
 	end
 end
@@ -141,8 +140,6 @@ end
 --------------------------------------------------------------------------------
 
 Runtime:addEventListener("enterFrame", gameLoop)
-Runtime:addEventListener("touch", swipeMechanics)
-Runtime:addEventListener( "accelerometer", controlMovement)
 
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)
