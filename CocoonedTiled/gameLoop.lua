@@ -1,5 +1,11 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- gameLoop.lua
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
 -- Localize
 --------------------------------------------------------------------------------
 local require = require
@@ -27,9 +33,6 @@ local global = {
 -- ball variables and add ball image
 local ball = display.newImage("mapdata/graphics/ball 1.png")
 
-physics.start()
-physics.addBody(ball, {radius = 38, bounce = .25})
-
 -- level variable
 local mapData = {
 	levelNum = 1,
@@ -37,7 +40,7 @@ local mapData = {
 }
 
 --------------------------------------------------------------------------------
--- add in menu
+-- add in main menu
 --------------------------------------------------------------------------------
 
 local main = require("menu")
@@ -86,7 +89,9 @@ print(map.layer["objects"])
 ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 
 --------------------------------------------------------------------------------
--- gameloop
+-- Game Functions:
+------- controlMovement
+------- swipeMechanics
 --------------------------------------------------------------------------------
 
 -- control mechanic
@@ -99,8 +104,6 @@ local function controlMovement(event)
 	--change physics gravity
 	physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
 end
-
-gui:addEventListener( "accelerometer", controlMovement)
 
 -- swipe mechanic
 local function swipeMechanics(event)
@@ -115,24 +118,54 @@ local function swipeMechanics(event)
 	end
 end
 
-map:addEventListener("touch", swipeMechanics)
+--------------------------------------------------------------------------------
+-- gameloop
+--------------------------------------------------------------------------------
+if gameActive == nil then
+	-- game is NOT active go to menu.
+	main.MM(event)
+end
 
 local function gameLoop (event)
-
-	map.updateView()
-	
 	if gameActive then
-		print("Gameplay in Progress")
-	else
-		main.MM(event)
-	end
 	
+		physics.start()
+		physics.addBody(ball, {radius = 38, bounce = .25})
+		
+		map.updateView()
+	end
 end
 
 --------------------------------------------------------------------------------
--- Finish Up
+-- Finish Up - Call gameLoop every 30 fps
 --------------------------------------------------------------------------------
 
 Runtime:addEventListener("enterFrame", gameLoop)
+Runtime:addEventListener("touch", swipeMechanics)
+Runtime:addEventListener( "accelerometer", controlMovement)
+
+--------------------------------------------------------------------------------
+-- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)
+--------------------------------------------------------------------------------
+local prevTextMem = 0
+local prevMemCount = 0
+local monitorMem = function()
+collectgarbage()
+local memCount = collectgarbage("count")
+	if (prevMemCount ~= memCount) then
+		print( "MemUsage: " .. memCount)
+		prevMemCount = memCount
+	end
+	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
+	if (prevTextMem ~= textMem) then
+		prevTextMem = textMem
+		print( "TexMem: " .. textMem )
+	end
+end
+
+Runtime:addEventListener( "enterFrame", monitorMem )
+--------------------------------------------------------------------------------
+-- END MEMORY CHECKER
+--------------------------------------------------------------------------------
 
 return global
