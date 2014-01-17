@@ -1,5 +1,4 @@
 --------------------------------------------------------------------------------
-
 --------------------------------------------------------------------------------
 -- Localize
 --------------------------------------------------------------------------------
@@ -16,10 +15,14 @@ local math_abs = math.abs
 -- Variables
 --------------------------------------------------------------------------------
 
--- Variables we'll use often
+-- Variables
 local gui
 local map
 
+-- Global Variables
+local global = {
+	gameActive = false
+}
 
 -- ball variables and add ball image
 local ball = display.newImage("mapdata/graphics/ball 1.png")
@@ -32,6 +35,12 @@ local mapData = {
 	levelNum = 1,
 	pane = "M",
 }
+
+--------------------------------------------------------------------------------
+-- add in menu
+--------------------------------------------------------------------------------
+
+local main = require("menu")
 
 --------------------------------------------------------------------------------
 -- add in mechanics
@@ -82,10 +91,6 @@ ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocatio
 -- gameloop
 --------------------------------------------------------------------------------
 
-local function gameLoop (event)
-	map.updateView()
-end
-
 -- control mechanic
 local function controlMovement(event) 
 
@@ -96,6 +101,8 @@ local function controlMovement(event)
 	--change physics gravity
 	physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
 end
+
+gui:addEventListener( "accelerometer", controlMovement)
 
 -- swipe mechanic
 local function swipeMechanics(event)
@@ -110,11 +117,24 @@ local function swipeMechanics(event)
 	end
 end
 
+map:addEventListener("touch", swipeMechanics)
+
+local function gameLoop (event)
+
+	map.updateView()
+	
+	if gameActive then
+		print("Gameplay in Progress")
+	else
+		main.MM(event)
+	end
+	
+end
 
 --------------------------------------------------------------------------------
 -- Finish Up
 --------------------------------------------------------------------------------
 
 Runtime:addEventListener("enterFrame", gameLoop)
-Runtime:addEventListener("touch", swipeMechanics)
-Runtime:addEventListener( "accelerometer", controlMovement)
+
+return global
