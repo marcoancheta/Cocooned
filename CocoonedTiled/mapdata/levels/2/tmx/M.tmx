@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="12" tilewidth="72" tileheight="72">
+ <tileset firstgid="1" name="bg2" tilewidth="72" tileheight="72">
+  <image source="../../../art/bg2.jpg" width="3000" height="1690"/>
+ </tileset>
+ <tileset firstgid="944" name="icewall" tilewidth="72" tileheight="72">
+  <image source="../../../art/ice wall 1.png" width="72" height="72"/>
+ </tileset>
+ <layer name="background" width="20" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxt0lVulQEQBtC/91aRtIUF4FIXZA241AUpFFZRHOqCBFsALi11JC2wAFzqggRbAG6n4T6SzMn3MMmXTDLVQRDUUEsd9TTQSBPNtHCUYxznBDfCQXBSnuI0ZzhLK21Te9rpoJMuuumhl5vc4jZ3In19sp+73OM+AwwyxDAjjDLGOBNM8orXvOFtpO+dfM8HPvKJIMoQIkw0McQSRzwJTGM6M5gZ9a8vUSaRzCxmk0IqaaSTQSZZZJNDLstYzgpWRvr+J88unwIKKaKYEkopo5wtbGUb26lgBzupZBe7qWIPe9nHfg5wkEMc5gjV1FBLHfU00EgTzbRwjvNc4CKXuMwVrnKN67TSNnUn7XTQSRfd9NDLAx7yiMc84SnPeM4LXjLAIEMMM8IoY4wzwSSf+cJXvvGdH/zkF7/5QxDyB4QIE00MscQRTwJzmMs85rOAhSxiMUtYSgqppJFOBplkkU0OuaxiNWtYyzrWs4GNbGIzeeRTQCFFFFNCKWWU8xdiT3dD
+  </data>
+ </layer>
+ <layer name="foreground" width="20" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDFUAAAPAAAE=
+  </data>
+ </layer>
+</map>
