@@ -42,6 +42,10 @@ local movementMechanic = require("accelerometer")
 
 local json = require("json")
 
+local level = require("mapdata.levels.temp.M")
+print("print: ", tostring(tileset[0])
+
+
 local player = require("player")
 local player1 = player.create()
 local player2 = player.create()
@@ -71,8 +75,6 @@ map = dusk.buildMap("mapdata/levels/temp/M.json")
 gui.back:insert(map)
 
 map.layer["tiles"]:insert(ball)
-
-print(map.layer["objects"])
 
 ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 

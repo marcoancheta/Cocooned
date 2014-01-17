@@ -10,6 +10,45 @@
          "width":20,
          "x":0,
          "y":0
+        }, 
+        {
+         "height":12,
+         "name":"objects",
+         "objects":[
+                {
+                 "gid":3,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1152,
+                 "y":432
+                }, 
+                {
+                 "gid":3,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":720,
+                 "y":792
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":20,
+         "x":0,
+         "y":0
         }],
  "orientation":"orthogonal",
  "properties":
@@ -49,6 +88,21 @@
          "imagewidth":72,
          "margin":0,
          "name":"white tile",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":3,
+         "image":"..\/..\/art\/blue aura sphere 1.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"blue aura sphere 1",
          "properties":
             {
 

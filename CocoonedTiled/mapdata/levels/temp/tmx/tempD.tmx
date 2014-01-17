@@ -16,9 +16,13 @@
  <tileset firstgid="2" name="white tile" tilewidth="72" tileheight="72">
   <image source="../../../art/white tile.png" width="72" height="72"/>
  </tileset>
+ <tileset firstgid="3" name="blue aura sphere 1" tilewidth="72" tileheight="72">
+  <image source="../../../art/blue aura sphere 1.png" width="72" height="72"/>
+ </tileset>
  <layer name="tiles" width="20" height="12">
   <data encoding="base64" compression="zlib">
    eJxjZGBgYKQyZsKB0eXwqWUi0jxGItWSqoaQOmLNIwWPVPOITT/k6CfVPEL+pYZ51MQA9MIBkA==
   </data>
  </layer>
+ <objectgroup name="objects" width="20" height="12"/>
 </map>
