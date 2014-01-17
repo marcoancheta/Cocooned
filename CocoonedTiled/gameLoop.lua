@@ -1,4 +1,9 @@
 --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- gameLoop.lua
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 -- Localize
@@ -16,22 +21,29 @@ local math_abs = math.abs
 -- Variables
 --------------------------------------------------------------------------------
 
--- Variables we'll use often
-local gui
-local map
+-- Local Variables
 
+-- Global Variables
+global = {
+	gameActive = false,
+	gui,
+	map,
+}
 
 -- ball variables and add ball image
 local ball = display.newImage("mapdata/graphics/ball 1.png")
-
-physics.start()
-physics.addBody(ball, {radius = 38, bounce = .25})
 
 -- level variable
 local mapData = {
 	levelNum = 1,
 	pane = "M",
 }
+
+--------------------------------------------------------------------------------
+-- add in main menu
+--------------------------------------------------------------------------------
+
+local main = require("menu")
 
 --------------------------------------------------------------------------------
 -- add in mechanics
@@ -77,15 +89,13 @@ print(map.layer["objects"])
 ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 
 --------------------------------------------------------------------------------
--- gameloop
+-- Game Functions:
+------- controlMovement
+------- swipeMechanics
 --------------------------------------------------------------------------------
 
-local function gameLoop (event)
-	map.updateView()
-end
-
 -- control mechanic
-local function controlMovement(event) 
+controlMovement = function (event) 
 
 	-- call accelerometer to get data
 	physicsParam = movementMechanic.onAccelerate(event)
@@ -96,7 +106,7 @@ local function controlMovement(event)
 end
 
 -- swipe mechanic
-local function swipeMechanics(event)
+swipeMechanics = function (event)
 	-- call swipe mechanic
 	local newPane = switchPaneMechanic.switchP(event, mapData)
 	
@@ -108,11 +118,51 @@ local function swipeMechanics(event)
 	end
 end
 
+--------------------------------------------------------------------------------
+-- gameloop
+--------------------------------------------------------------------------------
+if gameActive == nil then
+	gameActive = false
+	-- game is NOT active go to menu.
+	main.MM(event)
+end
+
+local function gameLoop (event)
+	if gameActive then
+		physics.start()
+		physics.addBody(ball, {radius = 38, bounce = .25})
+		map.updateView()
+	end
+end
 
 --------------------------------------------------------------------------------
--- Finish Up
+-- Finish Up - Call gameLoop every 30 fps
 --------------------------------------------------------------------------------
 
 Runtime:addEventListener("enterFrame", gameLoop)
-Runtime:addEventListener("touch", swipeMechanics)
-Runtime:addEventListener( "accelerometer", controlMovement)
+
+--------------------------------------------------------------------------------
+-- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)
+--------------------------------------------------------------------------------
+local prevTextMem = 0
+local prevMemCount = 0
+local monitorMem = function()
+collectgarbage()
+local memCount = collectgarbage("count")
+	if (prevMemCount ~= memCount) then
+		print( "MemUsage: " .. memCount)
+		prevMemCount = memCount
+	end
+	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
+	if (prevTextMem ~= textMem) then
+		prevTextMem = textMem
+		print( "TexMem: " .. textMem )
+	end
+end
+
+Runtime:addEventListener( "enterFrame", monitorMem )
+--------------------------------------------------------------------------------
+-- END MEMORY CHECKER
+--------------------------------------------------------------------------------
+
+return global
