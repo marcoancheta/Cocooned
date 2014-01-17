@@ -52,7 +52,6 @@ local movementMechanic = require("accelerometer")
 local json = require("json")
 
 local level = require("mapdata.levels.temp.M")
-print("print: ", tostring(tileset[0])
 
 
 local player = require("player")
