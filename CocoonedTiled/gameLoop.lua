@@ -19,22 +19,17 @@ local math_abs = math.abs
 local gui
 local map
 
--- Global Variables
-local global = {
-	gameActive = false
-}
-
 -- ball variables and add ball image
 local ball = display.newImage("mapdata/graphics/ball 1.png")
-
-physics.start()
-physics.addBody(ball, {radius = 38, bounce = .25})
 
 -- level variable
 local mapData = {
 	levelNum = 1,
 	pane = "M",
 }
+
+-- load in global Variables
+local gameData = require("gameData")
 
 --------------------------------------------------------------------------------
 -- add in menu
@@ -48,21 +43,22 @@ local main = require("menu")
 
 local switchPaneMechanic = require("switchPane")
 local movementMechanic = require("accelerometer")
+local collisionDetection = require("collisionDetection")
 
-local json = require("json")
-
-local level = require("mapdata.levels.temp.M")
-
+--------------------------------------------------------------------------------
+-- create player
+--------------------------------------------------------------------------------
 
 local player = require("player")
 local player1 = player.create()
 local player2 = player.create()
-player1:changeColor('green')
-player2.name = "test"
 
 print("player name = ", player1.name)
 print("player color = ", player1.color)
 
+physics.start()
+physics.addBody(ball, {radius = 38, bounce = .25})
+physics.pause()
 
 --------------------------------------------------------------------------------
 -- Creating display group
@@ -81,8 +77,16 @@ local dusk = require("Dusk.Dusk")
 
 map = dusk.buildMap("mapdata/levels/temp/M.json")
 gui.back:insert(map)
+--gui.front:insert(test)
+
+map:insert(ball)
+ball.name = "player"
 
 map.layer["tiles"]:insert(ball)
+local loc = map.tilesToPixels(10,6)
+print(map.tilesToPixels(10 , 6))
+print(map.pixelsToTiles(684, 440))
+--physics = mapBuilder.buildMap("mapdata/levels/temp/M.lua", map)
 
 ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 
@@ -95,17 +99,15 @@ local function controlMovement(event)
 
 	-- call accelerometer to get data
 	physicsParam = movementMechanic.onAccelerate(event)
-	--print(physicsParam.xGrav)
 
 	--change physics gravity
 	physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
 end
 
-gui:addEventListener( "accelerometer", controlMovement)
-
 -- swipe mechanic
 local function swipeMechanics(event)
-	-- call swipe mechanic
+
+	-- call swipe mechanic and get new Pane
 	local newPane = switchPaneMechanic.switchP(event, mapData)
 	
 	-- if touch ended then change map if pane is switched
@@ -116,19 +118,40 @@ local function swipeMechanics(event)
 	end
 end
 
-map:addEventListener("touch", swipeMechanics)
+
+
 
 local function gameLoop (event)
 
 	map.updateView()
 	
-	if gameActive then
+	-- Start game play once "play" is tapped
+	-- Only call these event listeners once
+	if gameData.gameStart then
+
+		-- Start physics engine
+		physics.start()
+
+		-- start collision detection for player ball
+		collisionDetection.createCollisionDetection(ball)
+
+		-- start other mechanics for levels
+		map:addEventListener("touch", swipeMechanics)
+		gui:addEventListener( "accelerometer", controlMovement)
 		print("Gameplay in Progress")
-	else
+
+		-- set global gameStart to false so it will only be called once
+		gameData.gameStart = false
+
+	-- If game Start is false then start the mainMenu
+	-- Only call this event once so game isn't laggy
+	elseif gameData.menuOn then
 		main.MM(event)
+		gameData.menuOn = false
 	end
-	
 end
+
+
 
 --------------------------------------------------------------------------------
 -- Finish Up

@@ -28,15 +28,16 @@ local getDirectory = lib_functions.getDirectory
 --------------------------------------------------------------------------------
 function imagelayer.createLayer(data, dirTree)
 	local props = getProperties(data.properties or {}, "image", true)
-
+	
 	local layer = display_newGroup()
 	layer.props = {}
 
 	local imageDir, filename = getDirectory(dirTree, data.image)
 
 	layer.image = display_newImage(layer,  imageDir .. filename)
+	
 	layer.image.x, layer.image.y = data.x + (layer.image.width * 0.5), data.y + (layer.image.height * 0.5)
-
+	print(layer.image.x, layer.image.y)
 	------------------------------------------------------------------------------
 	-- Destroy Layer
 	------------------------------------------------------------------------------

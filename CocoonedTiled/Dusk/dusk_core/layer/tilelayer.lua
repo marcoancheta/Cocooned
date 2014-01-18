@@ -258,6 +258,7 @@ function tilelayer.createLayer(mapData, data, dataIndex, tileIndex, imageSheets,
 		tprint.assert((x ~= nil) and (y ~= nil), "Missing argument(s).")
 
 		x, y = x - 0.5, y - 0.5
+		print("width", mapData.stats.tilewidth)
 		x, y = (x * mapData.stats.tileWidth), (y * mapData.stats.tileHeight)
 
 		tprint.remove()

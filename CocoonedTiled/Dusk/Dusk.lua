@@ -29,7 +29,7 @@ dusk.getPreference = lib_settings.get
 --------------------------------------------------------------------------------
 function dusk.buildMap(filename, base)
 	tprint.add("Build Map")
-
+	
 	local map = dusk_core.buildMap(filename, base)
 	map.updateView()
 
