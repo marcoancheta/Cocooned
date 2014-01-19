@@ -25,7 +25,7 @@ function MM(event)
 	-- Scale background image
 	mainMenu.x = 700
 	mainMenu.y = 400
-	mainMenu:scale(3, 3)
+	mainMenu:scale(2, 2)
 
 	-- Add Play button
 	play = display.newImage("graphics/play.png")
