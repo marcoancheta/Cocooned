@@ -25,7 +25,7 @@ function MM(event)
 	-- Scale background image
 	mainMenu.x = 700
 	mainMenu.y = 400
-	mainMenu:scale(3, 3)
+	mainMenu:scale(0.5, 0.5)
 
 	-- Add Play button
 	play = display.newImage("graphics/play.png")
@@ -35,21 +35,21 @@ function MM(event)
 	play.name = "playButton"
 	
 	-- Play button fixed location and scaled
-	play.x = 700
-	play.y = 600
+	play.x = 350
+	play.y = 580
 	play.anchorX = 0.5
 	play.anchorY = 0.5
-	play:scale(3, 3)
+	play:scale(2.5, 2.5)
 
 	-- Option buttons: See play button details
 	options = display.newImage("graphics/options.png")
 	options:setFillColor(0.5,0.5,0.5)
 	options.name = "optionButton"
-	options.x = 700
-	options.y = 800
+	options.x = 350
+	options.y = 750
 	options.anchorX = 0.5
 	options.anchorY = 0.5
-	options:scale(3, 3)
+	options:scale(2.5, 2.5)
 	
 	-- Insert all images/buttons into group
 	menuGroup:insert(mainMenu)
