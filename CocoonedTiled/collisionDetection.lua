@@ -12,7 +12,7 @@
 function createCollisionDetection(player) 
 
   -- function for pre collision detection
-  function player:preCollision( event )
+  function player:preCollision(event)
  
    local collideObject = event.other
     if ( collideObject.collType == "passThru" ) then
@@ -43,13 +43,21 @@ function createCollisionDetection(player)
 
 end
 
+function changeCollision(player) 
+  player:removeEventListener("collision" , player)
+  player:removeEventListener("preCollision")
+
+  createCollisionDetection(player)
+end
+
 
 
 --------------------------------------------------------------------------------
 -- Finish up
 --------------------------------------------------------------------------------
 local collisionDetection = {
-  createCollisionDetection = createCollisionDetection
+  createCollisionDetection = createCollisionDetection,
+  changeCollision = changeCollision
 }
 
 return collisionDetection

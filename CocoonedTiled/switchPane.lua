@@ -11,8 +11,6 @@ local print = print
 
 function switchP(event, mapData)
 
-	--create temp mapData
-	local mapDataT = mapData
 
 	--get swipe length for x and y
 	local swipeLength = math.abs(event.x - event.xStart)
@@ -27,40 +25,37 @@ function switchP(event, mapData)
 	if "ended" == phase or "cancelled" == phase then
 		if event.xStart > event.x and swipeLength > 50 then 
 			print("Swiped Left")
-			if mapDataT.pane == "M" then
-				mapDataT.pane = "L"
-			elseif mapDataT.pane == "R" then
-				mapDataT.pane = "M"
+			if mapData.pane == "M" then
+				mapData.pane = "L"
+			elseif mapData.pane == "R" then
+				mapData.pane = "M"
 			end
 		elseif event.xStart < event.x and swipeLength > 50 then 
 			print( "Swiped Right" )
-			if mapDataT.pane == "M" then
-				mapDataT.pane = "R"
-			elseif mapDataT.pane == "L" then
-				mapDataT.pane = "M"
+			if mapData.pane == "M" then
+				mapData.pane = "R"
+			elseif mapData.pane == "L" then
+				mapData.pane = "M"
 			end
 		elseif event.yStart > event.y and swipeLengthy > 50 then
 			print( "Swiped Down" )
-			if mapDataT.pane == "M" then
-				mapDataT.pane = "D"
-			elseif mapDataT.pane == "U" then
-				mapDataT.pane = "M"
+			if mapData.pane == "M" then
+				mapData.pane = "D"
+			elseif mapData.pane == "U" then
+				mapData.pane = "M"
 			end
 		elseif event.yStart < event.y and swipeLengthy > 50 then
 			print( "Swiped Up" )
-			if mapDataT.pane == "M" then
-				mapDataT.pane = "U"
-			elseif mapDataT.pane == "D" then
-				mapDataT.pane = "M"
+			if mapData.pane == "M" then
+				mapData.pane = "U"
+			elseif mapData.pane == "D" then
+				mapData.pane = "M"
 			end
 		end	
-		mapDataT.pane = tostring(mapDataT.pane)
+		
 		-- print debug for white pane is swtiched
 		--print(mapDataT.pane)
 	end	
-
-	-- return new pane
-	return mapDataT.pane
 end
 
 local switchPane = {
