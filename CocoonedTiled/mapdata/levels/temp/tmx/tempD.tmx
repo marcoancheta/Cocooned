@@ -8,6 +8,7 @@
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
+    <property name="name" value="blackTile"/>
     <property name="physics:bounce" value="0"/>
     <property name="physics:enabled" value="true"/>
    </properties>
@@ -18,6 +19,15 @@
  </tileset>
  <tileset firstgid="3" name="blue aura sphere 1" tilewidth="72" tileheight="72">
   <image source="../../../art/blue aura sphere 1.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="name" value="blueAura"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <objectgroup name="objects" width="20" height="12"/>
  <layer name="tiles" width="20" height="12">

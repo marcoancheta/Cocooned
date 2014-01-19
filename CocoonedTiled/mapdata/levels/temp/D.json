@@ -1,6 +1,17 @@
 { "height":12,
  "layers":[
         {
+         "height":12,
+         "name":"objects",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":20,
+         "x":0,
+         "y":0
+        }, 
+        {
          "data":[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
          "height":12,
          "name":"tiles",
@@ -36,6 +47,7 @@
              "0":
                 {
                  "bodyType":"static",
+                 "name":"blackTile",
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 }
@@ -55,6 +67,32 @@
             },
          "spacing":0,
          "tileheight":72,
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":3,
+         "image":"..\/..\/art\/blue aura sphere 1.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"blue aura sphere 1",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "name":"blueAura",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
          "tilewidth":72
         }],
  "tilewidth":72,
