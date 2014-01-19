@@ -1,32 +1,63 @@
 --------------------------------------------------------------------------------
---[[
-Dusk Engine Demo
-
-This is a rather unpolished interface; I wanted to publicize the engine before working on better demos.
---]]
+--------------------------------------------------------------------------------
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- main.lua
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Source(s) Cited:
+--   Splash Screen Detail - http://developer.coronalabs.com/code/android-friendly-splash-screen-logic
+--------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
-display.setStatusBar(display.HiddenStatusBar)
+-- Global Variables
+local sCounter = 0
 
-local textureFilter = "nearest"
-display.setDefault("minTextureFilter", textureFilter)
-display.setDefault("magTextureFilter", textureFilter)
+function main(event)
 
-_G.levelNum = 1 -- Normally I'd be against using _G, but, in this case, this is the only way I can think of without making bob.lua one big function (or using a globals file, which would be a bit much just for a level designation number)
+   sCounter = sCounter + 1
+   if( sCounter == 1 ) then
+      -- Display splash screen
+      splashScreen = display.newImageRect("Default.png", 1500, 800)
+      splashScreen.x = 720
+      splashScreen.y = 440
+   elseif (sCounter > 120) then   -- show splash screen for 120 milliseconds
+   
+      -- Clear splash screen objects
+      if (splashScreen ~= nil) then
+           splashScreen:removeSelf()
+           splashScreen = nil
+      end
+       
+	  -- Remove Splash Screen Listener
+      Runtime:removeEventListener("enterFrame", main)
 
-local function loadDemo()
-	require("gameLoop")
+	  -- End Splash Screen Code
+	   
+	  -- Begin game details
+	  display.setStatusBar(display.HiddenStatusBar)
+
+	  local textureFilter = "nearest"
+	  display.setDefault("minTextureFilter", textureFilter)
+	  display.setDefault("magTextureFilter", textureFilter)
+
+	  local function loadDemo()
+			require("gameLoop")
+	  end
+
+	  local function alertListener(event)
+			levelNum = 1 -- Because we put the buttons reversed so that they would be in the right positions, we have to invert the index to get the correct level
+			loadDemo()
+	  end
+
+	  alertListener({index = 3})
+
+	  --for rCorona
+	  if system.getInfo("environment") == "simulator" then
+			local rcorona = require("rcorona")
+			rcorona.startServer(8181)
+	  end
+	 
+   end
 end
-
-local function alertListener(event)
-	levelNum = 1 -- Because we put the buttons reversed so that they would be in the right positions, we have to invert the index to get the correct level
-	loadDemo()
-end
-
-alertListener({index = 3})
-
---for rCorona
-if system.getInfo("environment") == "simulator" then
-	local rcorona = require("rcorona")
-	rcorona.startServer(8181)
-end
+ 
+Runtime:addEventListener( "enterFrame", main )

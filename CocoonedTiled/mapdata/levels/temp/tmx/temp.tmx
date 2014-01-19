@@ -31,7 +31,7 @@
  </tileset>
  <layer name="tiles" width="20" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYKQyZqISHjVv1LyhYh4zkWZRGwMAGtUBpQ==
+   eJxjZGBgYKQyZqISHjVv1LyhYh4zCeZREwMAGy0Bpg==
   </data>
  </layer>
 </map>

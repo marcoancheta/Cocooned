@@ -1,5 +1,11 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- gameLoop.lua
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
 -- Localize
 --------------------------------------------------------------------------------
 local require = require
@@ -14,13 +20,8 @@ local math_abs = math.abs
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
-
--- Variables
-local gui
-local map
-
 -- ball variables and add ball image
-local ball = display.newImage("mapdata/graphics/ball 1.png")
+local ball
 
 -- level variable
 local mapData = {
@@ -32,7 +33,7 @@ local mapData = {
 local gameData = require("gameData")
 
 --------------------------------------------------------------------------------
--- add in menu
+-- add in main menu
 --------------------------------------------------------------------------------
 
 local main = require("menu")
@@ -45,6 +46,9 @@ local switchPaneMechanic = require("switchPane")
 local movementMechanic = require("accelerometer")
 local collisionDetection = require("collisionDetection")
 
+-- tile engine
+local dusk = require("Dusk.Dusk")
+
 --------------------------------------------------------------------------------
 -- create player
 --------------------------------------------------------------------------------
@@ -56,42 +60,46 @@ local player2 = player.create()
 print("player name = ", player1.name)
 print("player color = ", player1.color)
 
-physics.start()
-physics.addBody(ball, {radius = 38, bounce = .25})
-physics.pause()
-
---------------------------------------------------------------------------------
--- Creating display group
---------------------------------------------------------------------------------
-gui = display.newGroup()
-gui.front = display.newGroup()
-gui.back = display.newGroup()
-
-gui:insert(gui.back)
-gui:insert(gui.front)
 
 --------------------------------------------------------------------------------
 -- Load Map
 --------------------------------------------------------------------------------
-local dusk = require("Dusk.Dusk")
+local function loadMap() 
 
-map = dusk.buildMap("mapdata/levels/temp/M.json")
-gui.back:insert(map)
---gui.front:insert(test)
+	--------------------------------------------------------------------------------
+	-- Creating display group
+	--------------------------------------------------------------------------------
+	gui = display.newGroup()
+	gui.front = display.newGroup()
+	gui.back = display.newGroup()
 
-map:insert(ball)
-ball.name = "player"
+	gui:insert(gui.back)
+	gui:insert(gui.front)
 
-map.layer["tiles"]:insert(ball)
-local loc = map.tilesToPixels(10,6)
-print(map.tilesToPixels(10 , 6))
-print(map.pixelsToTiles(684, 440))
---physics = mapBuilder.buildMap("mapdata/levels/temp/M.lua", map)
+	
 
-ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
+	map = dusk.buildMap("mapdata/levels/temp/M.json")
+	gui.back:insert(map)
+
+	ball = display.newImage("mapdata/graphics/ball 1.png")
+	physics.addBody(ball, {radius = 38, bounce = .25})
+	map:insert(ball)
+	ball.name = "player"
+
+	map.layer["tiles"]:insert(ball)
+	local loc = map.tilesToPixels(10,6)
+	print(map.tilesToPixels(10 , 6))
+	print(map.pixelsToTiles(684, 440))
+	--physics = mapBuilder.buildMap("mapdata/levels/temp/M.lua", map)
+
+	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
+end
+
 
 --------------------------------------------------------------------------------
--- gameloop
+-- Game Functions:
+------- controlMovement
+------- swipeMechanics
 --------------------------------------------------------------------------------
 
 -- control mechanic
@@ -119,18 +127,23 @@ local function swipeMechanics(event)
 end
 
 
-
+--------------------------------------------------------------------------------
+-- Game Loop
+--------------------------------------------------------------------------------
 
 local function gameLoop (event)
 
-	map.updateView()
+	--map.updateView()
 	
 	-- Start game play once "play" is tapped
 	-- Only call these event listeners once
 	if gameData.gameStart then
 
+		
 		-- Start physics engine
 		physics.start()
+		-- load in map
+		loadMap()
 
 		-- start collision detection for player ball
 		collisionDetection.createCollisionDetection(ball)
@@ -154,9 +167,33 @@ end
 
 
 --------------------------------------------------------------------------------
--- Finish Up
+-- Finish Up - Call gameLoop every 30 fps
 --------------------------------------------------------------------------------
 
 Runtime:addEventListener("enterFrame", gameLoop)
+
+--------------------------------------------------------------------------------
+-- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)
+--------------------------------------------------------------------------------
+local prevTextMem = 0
+local prevMemCount = 0
+local monitorMem = function()
+collectgarbage()
+local memCount = collectgarbage("count")
+	if (prevMemCount ~= memCount) then
+		print( "MemUsage: " .. memCount)
+		prevMemCount = memCount
+	end
+	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
+	if (prevTextMem ~= textMem) then
+		prevTextMem = textMem
+		print( "TexMem: " .. textMem )
+	end
+end
+
+Runtime:addEventListener( "enterFrame", monitorMem )
+--------------------------------------------------------------------------------
+-- END MEMORY CHECKER
+--------------------------------------------------------------------------------
 
 return global

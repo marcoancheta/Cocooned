@@ -1,3 +1,11 @@
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- Accelerometer.lua
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
 -- accelerometer movement
 --TODO: change class parameters to take in object and intensity? -negative if backwards?
 --to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
