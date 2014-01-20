@@ -80,9 +80,9 @@ local function loadMap()
 
 	map = dusk.buildMap("mapdata/levels/temp/M.json")
 	gui.back:insert(map)
-
-	ball = display.newImage("mapdata/graphics/ball 1.png")
-	physics.addBody(ball, {radius = 38, bounce = .25})
+	player1.imageObject = display.newImage("mapdata/graphics/ball 1.png")
+	ball = player1.imageObject
+	physics.addBody(ball, {player1.radius, player1.bounce})
 	map:insert(ball)
 	ball.name = "player"
 
@@ -146,7 +146,7 @@ local function gameLoop (event)
 		loadMap()
 
 		-- start collision detection for player ball
-		collisionDetection.createCollisionDetection(ball)
+		collisionDetection.createCollisionDetection(ball, player1)
 
 		-- start other mechanics for levels
 		map:addEventListener("touch", swipeMechanics)
