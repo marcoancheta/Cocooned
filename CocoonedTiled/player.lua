@@ -4,6 +4,9 @@
 -- player.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+local floor = math.floor
+local atan2 = math.atan2
+local pi = math.pi
 
 --default player prototype
 local playerInstance = {
@@ -21,6 +24,12 @@ local playerInstance = {
 } 
 
 
+local function rotateTransition(imageObject, rotationDelta, timeDelta)
+        transition.to( imageObject, { rotation=rotationDelta, time=timeDelta, transition=easing.inOutCubic, tag='rotation' } )
+end
+
+timer.performWithDelay( 600, rockRect, 0 ) 
+
 --returns a player instance
 function playerInstance:new (o) 
       	setmetatable(o, self)
@@ -34,6 +43,12 @@ function playerInstance:changeColor (color)
     	self.color = color
     	c=colors[color]
     	self.imageObject:setFillColor(c[1],c[2],c[3])
+end
+
+function playerInstance:rotate (x,y)
+		transition.cancel('rotation')
+		angle = (floor(atan2(y, x) * ( 180 / pi))) 
+		rotateTransition(self.imageObject, -angle, 60)
 end
 
 --call this to create a new player, but make sure to change parameters

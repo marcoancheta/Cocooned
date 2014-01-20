@@ -13,11 +13,14 @@
 -- data for acceleromter to return
 local physicsParam = {
 	xGrav = 0,
-	yGrav = 0
+	yGrav = 0,
+	xRot=0,
+	yRot=0
 }
 
 -- acceleromter call
 local function onAccelerate( event)
+	print("accel")
 	local xGrav=1
 	local yGrav=1
 
@@ -50,8 +53,10 @@ local function onAccelerate( event)
 	-- print('onAccelerate called')
 
 	-- offset the gravity to return
-	physicsParam.xGrav=50*xGrav
-	physicsParam.yGrav=50*yGrav
+	physicsParam.xGrav=12*xGrav
+	physicsParam.yGrav=12*yGrav
+	physicsParam.xRot=event.xGravity
+	physicsParam.yRot=event.yGravity
 
 	--return physics parameters
 	return physicsParam

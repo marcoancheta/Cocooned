@@ -43,7 +43,7 @@ local main = require("menu")
 --------------------------------------------------------------------------------
 
 local switchPaneMechanic = require("switchPane")
-local movementMechanic = require("accelerometer")
+local movementMechanic = require("Accelerometer")
 local collisionDetection = require("collisionDetection")
 
 -- tile engine
@@ -56,6 +56,11 @@ local dusk = require("Dusk.Dusk")
 local player = require("player")
 local player1 = player.create()
 local player2 = player.create()
+local spriteOptions = { -- Sprite options for player and finish star
+		player = {
+			frames = {8,7,6,5,4,3,2,1}, name = "move", time = 500},
+			--{frames = {6, 7, 8, 9, 10, 9, 8, 7}, name = "still", time = 1000}
+		}
 
 print("player name = ", player1.name)
 print("player color = ", player1.color)
@@ -75,17 +80,18 @@ local function loadMap()
 
 	gui:insert(gui.back)
 	gui:insert(gui.front)
-
+	local playerSheet = graphics.newImageSheet("mapdata/graphics/sprite sheet - 8 frames - rough.png", {width = 72, height = 72, sheetContentWidth = 576, sheetContentHeight = 72, numFrames = 8})
 	
 
 	map = dusk.buildMap("mapdata/levels/temp/M.json")
 	gui.back:insert(map)
-	player1.imageObject = display.newImage("mapdata/graphics/ball 1.png")
+	player1.imageObject = display.newSprite(playerSheet, spriteOptions.player )
 	ball = player1.imageObject
 	physics.addBody(ball, {player1.radius, player1.bounce})
 	map:insert(ball)
 	ball.name = "player"
-
+	ball:setSequence("move")
+	ball:play()
 	map.layer["tiles"]:insert(ball)
 	local loc = map.tilesToPixels(10,6)
 	print(map.tilesToPixels(10 , 6))
@@ -108,6 +114,7 @@ local function controlMovement(event)
 	-- call accelerometer to get data
 	physicsParam = movementMechanic.onAccelerate(event)
 
+	player1:rotate(physicsParam.xRot, physicsParam.yRot)
 	--change physics gravity
 	physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
 end
@@ -157,7 +164,7 @@ local function gameLoop (event)
 
 		-- start other mechanics for levels
 		map:addEventListener("touch", swipeMechanics)
-		gui:addEventListener( "accelerometer", controlMovement)
+		Runtime:addEventListener( "accelerometer", controlMovement)
 		print("Gameplay in Progress")
 
 		-- set global gameStart to false so it will only be called once
