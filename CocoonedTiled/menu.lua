@@ -16,6 +16,9 @@ local ingame = false
 -- Creating Main Menu System
 --------------------------------------------------------------------------------
 function MM(event)
+
+	ingame = false
+
 	-- Create new menu group
 	menuGroup = display.newGroup()
 	
@@ -134,9 +137,10 @@ function playGame(event)
 		-- Remove listeners and group objects
 		--display.remove(menuGroup)
 		
+		ingame = true
+		
 		-- User pressed play, set gameActive to true
 		gameData.gameStart = true
-		ingame = true
 		
 		-- Remove display group
 		menuGroup:removeSelf()
@@ -147,6 +151,7 @@ end
 function optionMenu(event)
 	if event.target.name == "optionButton" then
 		print("options")
+		
 		
 		-- Remove listeners and group objects
 		display.remove(menuGroup)
@@ -164,6 +169,10 @@ function backtoMain(event)
 		display.remove(optionsGroup)
 		
 		print("back to main menu")
+		
+		if ingame then
+			gui:removeSelf()
+		end
 		
 		-- Callback to main menu display
 		MM(event)
