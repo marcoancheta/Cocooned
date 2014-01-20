@@ -145,9 +145,9 @@ local function gameLoop (event)
 	-- Only call these event listeners once
 	if gameData.gameStart then
 
-		
 		-- Start physics engine
 		physics.start()
+		
 		-- load in map
 		loadMap()
 		main.ingameO(event)
@@ -185,7 +185,9 @@ Runtime:addEventListener("enterFrame", gameLoop)
 local prevTextMem = 0
 local prevMemCount = 0
 local monitorMem = function()
+
 collectgarbage()
+
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
 		--print( "MemUsage: " .. memCount)
