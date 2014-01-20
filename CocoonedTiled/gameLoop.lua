@@ -126,7 +126,7 @@ local function swipeMechanics(event)
 		physics.start()
 		physics.addBody(ball, {radius = 38, bounce = .25})
 		map = dusk.buildMap("mapdata/levels/temp/" .. mapData.pane .. ".json")
-		collisionDetection.changeCollision(ball)
+		collisionDetection.changeCollision(ball, player1)
 		--gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
 	end

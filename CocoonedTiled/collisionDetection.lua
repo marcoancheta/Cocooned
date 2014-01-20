@@ -43,11 +43,11 @@ function createCollisionDetection(imageObject, player)
 
 end
 
-function changeCollision(player) 
-  player:removeEventListener("collision" , player)
-  player:removeEventListener("preCollision")
+function changeCollision(imageObject, player) 
+  imageObject:removeEventListener("collision" , imageObject)
+  imageObject:removeEventListener("preCollision")
 
-  createCollisionDetection(player)
+  createCollisionDetection(imageObject, player)
 end
 
 
