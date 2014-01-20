@@ -9,15 +9,15 @@
 --------------------------------------------------------------------------------
 -- Collision Detection Mechanic
 --------------------------------------------------------------------------------
-function createCollisionDetection(player) 
+function createCollisionDetection(imageObject, player) 
 
   -- function for pre collision detection
-  function player:preCollision(event)
+  function imageObject:preCollision( event )
  
    local collideObject = event.other
     if ( collideObject.collType == "passThru" ) then
       event.contact.isEnabled = false  --disable this specific collision!
-      player:setFillColor(0.5,0.5,1)  -- change color of player
+      player:changeColor('blue')  -- change color of player
     end
   end
 
@@ -37,9 +37,9 @@ function createCollisionDetection(player)
   end
 
   -- add event listener to collision detection and pre collision detection
-  player.collision = onLocalCollision
-  player:addEventListener( "collision", player )
-  player:addEventListener( "preCollision")
+  imageObject.collision = onLocalCollision
+  imageObject:addEventListener( "collision", imageObject )
+  imageObject:addEventListener( "preCollision")
 
 end
 
