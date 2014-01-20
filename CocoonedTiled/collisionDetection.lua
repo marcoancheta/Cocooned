@@ -18,6 +18,22 @@ function createCollisionDetection(imageObject, player)
     if ( collideObject.collType == "passThru" ) then
       event.contact.isEnabled = false  --disable this specific collision!
       player:changeColor('blue')  -- change color of player
+      collideObject:removeSelf( )
+      if (collideObject.collectable == true) then
+        collideObject:removeSelf()
+        player.hasItem = {key}
+        setItem = true 
+        --inventory:itemSet()
+      end
+     --[[ Magnetism: repel the ball when colliding with magnetized wall
+     if (collideObject.name == "icewall") then
+        print( "ran into iceWall")
+        imageObject:applyLinearImpulse(.5, .5, imageObject.x)
+        if(collideObject.name == "magnet") then
+          collideObject:removeSelf()
+        end
+      end
+      ]]--
     end
   end
 
