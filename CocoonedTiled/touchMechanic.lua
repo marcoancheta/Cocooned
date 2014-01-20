@@ -22,7 +22,7 @@ local miniMapDisplay
 --------------------------------------------------------------------------------
 -- touchScreen function
 --------------------------------------------------------------------------------
-function touchScreen(event, mapData)
+function touchScreen(event, mapData, player)
 
 	-- phase name
 	local phase = event.phase
@@ -41,7 +41,7 @@ function touchScreen(event, mapData)
 					gameData.isShowingMiniMap = false
 					print("show miniMap")
 				else
-					miniMapDisplay = miniMap.createMiniMap(mapData)
+					miniMapDisplay = miniMap.createMiniMap(mapData, player)
 					gameData.isShowingMiniMap = true
 				end
 			end
