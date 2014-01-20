@@ -220,6 +220,7 @@ function resumeGame(event)
 		iOptionsGroup:removeSelf()
 				
 		playGame(event)
+		ingameO(event)
 		
 		physics.start()
 	end
