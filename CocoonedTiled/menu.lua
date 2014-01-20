@@ -16,6 +16,9 @@ local ingame = false
 -- Creating Main Menu System
 --------------------------------------------------------------------------------
 function MM(event)
+
+	ingame = false
+
 	-- Create new menu group
 	menuGroup = display.newGroup()
 	
@@ -121,6 +124,55 @@ function O(event)
 	mainM:addEventListener("tap", backtoMain)
 end
 
+--------------------------------------------------------------------------------
+-- Options Button Event
+--------------------------------------------------------------------------------
+function gameO(event)
+
+	-- Create options group
+	iOptionsGroup = display.newGroup()
+	
+	-- Add options background image
+	iOptionsBG = display.newImage("graphics/cocooned_bg.png")
+	
+	-- Scale background image
+	iOptionsBG.x = 700
+	iOptionsBG.y = 470
+	iOptionsBG:scale(2, 3)
+	iOptionsBG:rotate(180)
+	
+	
+	-- Add Main Menu button
+	iMainM = display.newImage("graphics/main.png")
+	-- Add Resume game button
+	iResume = display.newImage("graphics/resume.png")
+	
+	
+	-- Assign name for runtime functions
+	iMainM.name = "BacktoMain"
+	iResume.name = "resume"
+	
+	-- Main menu button fixed location and scaled
+	iMainM.x = 700
+	iMainM.y = 650
+	iMainM.anchorX = 0.5
+	iMainM.anchorY = 0.5
+	iMainM:scale(2, 2)
+	
+	iResume.x = 700
+	iResume.y = 500
+	iResume.anchorX = 0.5
+	iResume.anchorY = 0.5
+	iResume:scale(2, 2)
+	
+	iOptionsGroup:insert(iOptionsBG)
+	iOptionsGroup:insert(iMainM)
+	iOptionsGroup:insert(iResume)
+	
+	iMainM:addEventListener("tap", backtoMain)
+	iResume:addEventListener("tap", resumeGame)
+end
+
 
 --------------------------------------------------------------------------------
 -- Play Button Event
@@ -134,9 +186,10 @@ function playGame(event)
 		-- Remove listeners and group objects
 		--display.remove(menuGroup)
 		
+		ingame = true
+		
 		-- User pressed play, set gameActive to true
 		gameData.gameStart = true
-		ingame = true
 		
 		-- Remove display group
 		menuGroup:removeSelf()
@@ -147,6 +200,7 @@ end
 function optionMenu(event)
 	if event.target.name == "optionButton" then
 		print("options")
+		
 		
 		-- Remove listeners and group objects
 		display.remove(menuGroup)
@@ -159,11 +213,27 @@ function optionMenu(event)
 	end
 end
 
+function resumeGame(event)
+	if event.target.name == "resume" then
+		print("Return to game")
+		
+		iOptionsGroup:removeSelf()
+				
+		playGame(event)
+		
+		physics.start()
+	end
+end
+
 function backtoMain(event)
 	if event.target.name == "BacktoMain" then
 		display.remove(optionsGroup)
 		
 		print("back to main menu")
+		
+		if ingame then
+			gui:removeSelf()
+		end
 		
 		-- Callback to main menu display
 		MM(event)
@@ -176,7 +246,9 @@ function gametoOptions(event)
 		
 		print("ingame options open")
 		
-		O(event)
+		physics.pause()
+		
+		gameO(event)
 		igoptions:removeEventListener("tap", gametoOptions)
 	end
 end
@@ -192,7 +264,10 @@ local menu = {
 	optionMenu = optionMenu,
 	backtoMain = backtoMain,
 	ingameO = ingameO,
-	gametoOptions = gametoOptions
+	gametoOptions = gametoOptions,
+	ingame = ingame,
+	resumeGame = resumeGame,
+	gameO = gameO
 }
 
 return menu

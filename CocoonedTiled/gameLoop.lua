@@ -43,7 +43,7 @@ local main = require("menu")
 --------------------------------------------------------------------------------
 
 local switchPaneMechanic = require("switchPane")
-local movementMechanic = require("accelerometer")
+local movementMechanic = require("Accelerometer")
 local collisionDetection = require("collisionDetection")
 local inventory = require("inventory")
 local magnetismMechanic = require("magnetism")
@@ -63,6 +63,8 @@ print("player name = ", player1.name)
 print("player color = ", player1.color)
 
 
+
+
 --------------------------------------------------------------------------------
 -- Load Map
 --------------------------------------------------------------------------------
@@ -78,11 +80,10 @@ local function loadMap()
 	gui:insert(gui.back)
 	gui:insert(gui.front)
 
-	
 
 	map = dusk.buildMap("mapdata/levels/temp/M.json")
 	gui.back:insert(map)
-	player1.imageObject = display.newImage("mapdata/graphics/ball 1.png")
+	player1.imageObject = display.newImage("mapdata/graphics/ball1.png")
 	ball = player1.imageObject
 	physics.addBody(ball, {player1.radius, player1.bounce})
 	map:insert(ball)
@@ -147,9 +148,9 @@ local function gameLoop (event)
 	-- Only call these event listeners once
 	if gameData.gameStart then
 
-		
 		-- Start physics engine
 		physics.start()
+		
 		-- load in map
 		loadMap()
 		main.ingameO(event)
@@ -187,7 +188,9 @@ Runtime:addEventListener("enterFrame", gameLoop)
 local prevTextMem = 0
 local prevMemCount = 0
 local monitorMem = function()
+
 collectgarbage()
+
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
 		--print( "MemUsage: " .. memCount)
