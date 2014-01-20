@@ -43,13 +43,21 @@ function createCollisionDetection(imageObject, player)
 
 end
 
+function changeCollision(player) 
+  player:removeEventListener("collision" , player)
+  player:removeEventListener("preCollision")
+
+  createCollisionDetection(player)
+end
+
 
 
 --------------------------------------------------------------------------------
 -- Finish up
 --------------------------------------------------------------------------------
 local collisionDetection = {
-  createCollisionDetection = createCollisionDetection
+  createCollisionDetection = createCollisionDetection,
+  changeCollision = changeCollision
 }
 
 return collisionDetection

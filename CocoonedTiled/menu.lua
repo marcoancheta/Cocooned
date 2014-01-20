@@ -10,7 +10,7 @@
 -- Require Global Variables
 --------------------------------------------------------------------------------
 local gameData = require("gameData")
-
+local ingame = false
 
 --------------------------------------------------------------------------------
 -- Creating Main Menu System
@@ -61,6 +61,29 @@ function MM(event)
 	options:addEventListener("tap", optionMenu)
 end
 
+--------------------------------------------------------------------------------
+-- In-Game Options Button Event
+--------------------------------------------------------------------------------
+function ingameO(event)
+	
+	-- Create in-game options group
+	igoptionsGroup = display.newGroup()
+	
+	-- Add in-game options image (option_wheel.png)
+	igoptions = display.newImage("graphics/option_wheel.png")
+	
+	-- Scale image size
+	igoptions.x = 1435
+	igoptions.y = 60
+	igoptions:scale(1, 1)
+	
+	igoptions.name = "igo"
+	
+	igoptionsGroup:insert(igoptions)
+	
+	igoptions:addEventListener("tap", gametoOptions)
+	
+end
 
 
 --------------------------------------------------------------------------------
@@ -113,6 +136,7 @@ function playGame(event)
 		
 		-- User pressed play, set gameActive to true
 		gameData.gameStart = true
+		ingame = true
 		
 		-- Remove display group
 		menuGroup:removeSelf()
@@ -146,6 +170,17 @@ function backtoMain(event)
 	end
 end
 
+function gametoOptions(event)
+	if event.target.name == "igo" then
+		display.remove(igoptionsGroup)
+		
+		print("ingame options open")
+		
+		O(event)
+		igoptions:removeEventListener("tap", gametoOptions)
+	end
+end
+
 
 --------------------------------------------------------------------------------
 -- Finish up
@@ -155,7 +190,9 @@ local menu = {
 	MM = MM,
 	playGame = playGame,
 	optionMenu = optionMenu,
-	backtoMain = backtoMain
+	backtoMain = backtoMain,
+	ingameO = ingameO,
+	gametoOptions = gametoOptions
 }
 
 return menu

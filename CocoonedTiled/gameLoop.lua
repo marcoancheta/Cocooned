@@ -115,13 +115,19 @@ end
 -- swipe mechanic
 local function swipeMechanics(event)
 
+	local tempPane = mapData.pane
+
 	-- call swipe mechanic and get new Pane
-	local newPane = switchPaneMechanic.switchP(event, mapData)
+	switchPaneMechanic.switchP(event, mapData)
 	
 	-- if touch ended then change map if pane is switched
-	if "ended" == event.phase then
-		mapData.pane = newPane
+	if "ended" == event.phase and mapData.pane ~= tempPane then
+		physics.stop()
+		physics.start()
+		physics.addBody(ball, {radius = 38, bounce = .25})
 		map = dusk.buildMap("mapdata/levels/temp/" .. mapData.pane .. ".json")
+		collisionDetection.changeCollision(ball)
+		--gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
 	end
 end
@@ -144,7 +150,8 @@ local function gameLoop (event)
 		physics.start()
 		-- load in map
 		loadMap()
-
+		main.ingameO(event)
+		
 		-- start collision detection for player ball
 		collisionDetection.createCollisionDetection(ball, player1)
 
@@ -181,13 +188,13 @@ local monitorMem = function()
 collectgarbage()
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		print( "MemUsage: " .. memCount)
+		--print( "MemUsage: " .. memCount)
 		prevMemCount = memCount
 	end
 	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
 	if (prevTextMem ~= textMem) then
 		prevTextMem = textMem
-		print( "TexMem: " .. textMem )
+		--print( "TexMem: " .. textMem )
 	end
 end
 
