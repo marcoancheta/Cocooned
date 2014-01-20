@@ -11,7 +11,9 @@
 
 local gameData = {
 	gameStart = false,
-	menuOn = true
+	menuOn = true,
+	showMiniMap = false,
+	isShowingMiniMap = false
 }
 
 return gameData

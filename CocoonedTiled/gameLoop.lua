@@ -36,13 +36,13 @@ local gameData = require("gameData")
 -- add in main menu
 --------------------------------------------------------------------------------
 
-local main = require("menu")
+local menu = require("menu")
 
 --------------------------------------------------------------------------------
 -- add in mechanics
 --------------------------------------------------------------------------------
 
-local switchPaneMechanic = require("switchPane")
+local touch = require("touchMechanic")
 local movementMechanic = require("accelerometer")
 local collisionDetection = require("collisionDetection")
 
@@ -59,6 +59,7 @@ local player2 = player.create()
 
 print("player name = ", player1.name)
 print("player color = ", player1.color)
+print(tostring(mapData.pane))
 
 
 --------------------------------------------------------------------------------
@@ -106,10 +107,12 @@ end
 local function controlMovement(event) 
 
 	-- call accelerometer to get data
-	physicsParam = movementMechanic.onAccelerate(event)
+	if gameData.isShowingMiniMap == false then
+		physicsParam = movementMechanic.onAccelerate(event)
 
-	--change physics gravity
-	physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
+		--change physics gravity
+		physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
+	end
 end
 
 -- swipe mechanic
@@ -118,7 +121,7 @@ local function swipeMechanics(event)
 	local tempPane = mapData.pane
 
 	-- call swipe mechanic and get new Pane
-	switchPaneMechanic.switchP(event, mapData)
+	touch.touchScreen(event, mapData)
 	
 	-- if touch ended then change map if pane is switched
 	if "ended" == event.phase and mapData.pane ~= tempPane then
@@ -150,14 +153,17 @@ local function gameLoop (event)
 		physics.start()
 		-- load in map
 		loadMap()
-		main.ingameO(event)
+		menu.ingameO(event)
+
+		-- change gameData variables
+		gameData.showMiniMap = true
 		
 		-- start collision detection for player ball
 		collisionDetection.createCollisionDetection(ball, player1)
 
 		-- start other mechanics for levels
 		map:addEventListener("touch", swipeMechanics)
-		gui:addEventListener( "accelerometer", controlMovement)
+		Runtime:addEventListener( "accelerometer", controlMovement)
 		print("Gameplay in Progress")
 
 		-- set global gameStart to false so it will only be called once
@@ -166,7 +172,7 @@ local function gameLoop (event)
 	-- If game Start is false then start the mainMenu
 	-- Only call this event once so game isn't laggy
 	elseif gameData.menuOn then
-		main.MM(event)
+		menu.MM(event)
 		gameData.menuOn = false
 	end
 end
