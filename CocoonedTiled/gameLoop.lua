@@ -150,7 +150,8 @@ local function gameLoop (event)
 		physics.start()
 		-- load in map
 		loadMap()
-
+		main.ingameO(event)
+		
 		-- start collision detection for player ball
 		collisionDetection.createCollisionDetection(ball)
 
