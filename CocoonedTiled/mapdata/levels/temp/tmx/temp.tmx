@@ -29,9 +29,49 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="4" name="magnet" tilewidth="72" tileheight="72">
+  <image source="../../../art/magnet3.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="name" value="magnet"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="5" name="ice wall 1" tilewidth="72" tileheight="72">
+  <image source="../../../art/ice wall 1.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="name" value="icewall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="6" name="key" tilewidth="72" tileheight="72">
+  <image source="../../../art/key.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="collectable" value="true"/>
+    <property name="name" value="key"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="7" name="chest" tilewidth="72" tileheight="72">
+  <image source="../../../art/chest.png" width="72" height="72"/>
+ </tileset>
  <layer name="tiles" width="20" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYKQyZqISHjVv1LyhYh4zCeZREwMAGy0Bpg==
+   eJxjZGBgYKQyZqISHo7msVDJPHzmUMu/6HaQYh4bFdzHigfTOn5ZSDSPmQT/UhMDAEUNAcc=
   </data>
  </layer>
 </map>

@@ -1,7 +1,7 @@
 { "height":12,
  "layers":[
         {
-         "data":[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+         "data":[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
          "height":12,
          "name":"tiles",
          "opacity":1,
@@ -82,6 +82,100 @@
                  "physics:enabled":"true"
                 }
             },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":4,
+         "image":"..\/..\/art\/magnet3.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"magnet",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "name":"magnet",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":5,
+         "image":"..\/..\/art\/ice wall 1.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"ice wall 1",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"solid",
+                 "name":"icewall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":6,
+         "image":"..\/..\/art\/key.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"key",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "collectable":"true",
+                 "name":"key",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":7,
+         "image":"..\/..\/art\/chest.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"chest",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
          "tilewidth":72
         }],
  "tilewidth":72,
