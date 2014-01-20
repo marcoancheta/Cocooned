@@ -26,7 +26,7 @@ function createCollisionDetection(player)
     if ( event.phase == "began" ) then
 
       -- debug print once collision began           
-      print( "began: " .. self.bodyType .. event.other.name)
+      print( "began: " .. event.other.name)
    
     elseif ( event.phase == "ended" ) then
 
