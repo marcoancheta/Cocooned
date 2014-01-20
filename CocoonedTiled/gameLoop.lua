@@ -46,7 +46,7 @@ local switchPaneMechanic = require("switchPane")
 local movementMechanic = require("Accelerometer")
 local collisionDetection = require("collisionDetection")
 local inventory = require("inventory")
-local magnetismMechanic = require("magnetism")
+--local magnetismMechanic = require("magnetism")
 
 -- tile engine
 local dusk = require("Dusk.Dusk")
