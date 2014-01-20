@@ -139,12 +139,14 @@ function gameO(event)
 	iOptionsBG.x = 700
 	iOptionsBG.y = 470
 	iOptionsBG:scale(2, 3)
+	iOptionsBG:rotate(180)
 	
 	
 	-- Add Main Menu button
 	iMainM = display.newImage("graphics/main.png")
 	-- Add Resume game button
 	iResume = display.newImage("graphics/resume.png")
+	
 	
 	-- Assign name for runtime functions
 	iMainM.name = "BacktoMain"
