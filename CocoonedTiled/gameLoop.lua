@@ -65,7 +65,8 @@ local spriteOptions = { -- Sprite options for player and finish star
 
 print("player name = ", player1.name)
 print("player color = ", player1.color)
-print(tostring(mapData.pane))
+
+
 
 
 
@@ -85,9 +86,11 @@ local function loadMap()
 	gui:insert(gui.back)
 	gui:insert(gui.front)
 	local playerSheet = graphics.newImageSheet("mapdata/graphics/sprite sheet - 8 frames - rough.png", {width = 72, height = 72, sheetContentWidth = 576, sheetContentHeight = 72, numFrames = 8})
-	
+	local textObject = display.newText("Testing", 200, 100, native.Systemfont, 40)
+	textObject:setFillColor(0,0,0)
+	gui.front:insert(textObject)
 
-	map = dusk.buildMap("mapdata/levels/temp/M.json")
+	map = dusk.buildMap("mapdata/levels/tempNew/M.json")
 	gui.back:insert(map)
 	player1.imageObject = display.newSprite(playerSheet, spriteOptions.player )
 	ball = player1.imageObject
@@ -137,7 +140,7 @@ local function swipeMechanics(event)
 		physics.stop()
 		physics.start()
 		physics.addBody(ball, {radius = 38, bounce = .25})
-		map = dusk.buildMap("mapdata/levels/temp/" .. mapData.pane .. ".json")
+		map = dusk.buildMap("mapdata/levels/tempNew/" .. mapData.pane .. ".json")
 		collisionDetection.changeCollision(ball, player1)
 		--gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)

@@ -16,11 +16,11 @@ function createMiniMap(mapData, player)
 	bg:setFillColor(0.5,0.5,0.5)
 
 	-- create pane images
-	local Mpane = display.newImage("mapdata/levels/temp/tmx/M.png")
-	local Upane = display.newImage("mapdata/levels/temp/tmx/U.png")
-	local Dpane = display.newImage("mapdata/levels/temp/tmx/D.png")
-	local Lpane = display.newImage("mapdata/levels/temp/tmx/L.png")
-	local Rpane = display.newImage("mapdata/levels/temp/tmx/R.png")
+	local Mpane = display.newImage("mapdata/levels/tempNew/tmx/M.png")
+	local Upane = display.newImage("mapdata/levels/tempNew/tmx/U.png")
+	local Dpane = display.newImage("mapdata/levels/tempNew/tmx/D.png")
+	local Lpane = display.newImage("mapdata/levels/tempNew/tmx/L.png")
+	local Rpane = display.newImage("mapdata/levels/tempNew/tmx/R.png")
 
 	-- scale images
 	Mpane:scale(0.25, 0.25)
