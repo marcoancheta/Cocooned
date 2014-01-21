@@ -29,34 +29,30 @@ function main(event)
       end
        
 	  -- Remove Splash Screen Listener
-      Runtime:removeEventListener("enterFrame", main)
+      --Runtime:removeEventListener("enterFrame", main)
 
 	  -- End Splash Screen Code
 	   
 	  -- Begin game details
-	  display.setStatusBar(display.HiddenStatusBar)
+	  --display.setStatusBar(display.HiddenStatusBar)
 
 	  local textureFilter = "nearest"
 	  display.setDefault("minTextureFilter", textureFilter)
 	  display.setDefault("magTextureFilter", textureFilter)
 
-	  local function loadDemo()
+	  local function loadGame()
 			require("gameLoop")
 	  end
 
-	  local function alertListener(event)
-			levelNum = 1 -- Because we put the buttons reversed so that they would be in the right positions, we have to invert the index to get the correct level
-			loadDemo()
-	  end
+	  loadGame()
 
-	  alertListener({index = 3})
 
 	  --for rCorona
-	  if system.getInfo("environment") == "simulator" then
+	  --[[if system.getInfo("environment") == "simulator" then
 			local rcorona = require("rcorona")
 			rcorona.startServer(8181)
 	  end
-	 
+	 ]]
    end
 end
  
