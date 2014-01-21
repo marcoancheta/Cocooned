@@ -22,7 +22,7 @@ local miniMapDisplay
 --------------------------------------------------------------------------------
 -- touchScreen function
 --------------------------------------------------------------------------------
-function touchScreen(event, mapData)
+function touchScreen(event, mapData, player)
 
 	-- phase name
 	local phase = event.phase
@@ -41,7 +41,7 @@ function touchScreen(event, mapData)
 					gameData.isShowingMiniMap = false
 					print("show miniMap")
 				else
-					miniMapDisplay = miniMap.createMiniMap(mapData)
+					miniMapDisplay = miniMap.createMiniMap(mapData, player)
 					gameData.isShowingMiniMap = true
 				end
 			end
@@ -63,29 +63,29 @@ function touchScreen(event, mapData)
 		if event.xStart > event.x and swipeLength > 50 then 
 			print("Swiped Left")
 			if mapData.pane == "M" then
-				mapData.pane = "L"
-			elseif mapData.pane == "R" then
+				mapData.pane = "R"
+			elseif mapData.pane == "L" then
 				mapData.pane = "M"
 			end
 		elseif event.xStart < event.x and swipeLength > 50 then 
 			print( "Swiped Right" )
 			if mapData.pane == "M" then
-				mapData.pane = "R"
-			elseif mapData.pane == "L" then
+				mapData.pane = "L"
+			elseif mapData.pane == "R" then
 				mapData.pane = "M"
 			end
 		elseif event.yStart > event.y and swipeLengthy > 50 then
 			print( "Swiped Down" )
 			if mapData.pane == "M" then
-				mapData.pane = "D"
-			elseif mapData.pane == "U" then
+				mapData.pane = "U"
+			elseif mapData.pane == "D" then
 				mapData.pane = "M"
 			end
 		elseif event.yStart < event.y and swipeLengthy > 50 then
 			print( "Swiped Up" )
 			if mapData.pane == "M" then
-				mapData.pane = "U"
-			elseif mapData.pane == "D" then
+				mapData.pane = "D"
+			elseif mapData.pane == "U" then
 				mapData.pane = "M"
 			end
 		end	

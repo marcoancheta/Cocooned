@@ -7,7 +7,7 @@
 
 local gameData = require("gameData")
 
-function createMiniMap(mapData)
+function createMiniMap(mapData, player)
 	-- create new display group
 	local miniMap = display.newGroup()
 
@@ -61,6 +61,15 @@ function createMiniMap(mapData)
 	miniMap:insert(Dpane)
 	miniMap:insert(Lpane)
 	miniMap:insert(Rpane)
+	
+	if #player.inventory.items > 0 then
+		for count = 1, #player.inventory.items do
+			local item = player.inventory.items[1]
+			local displayItem = display.newImage("mapdata/art/" .. player.inventory.items[count].name .. ".png")
+			displayItem.x, displayItem.y = 100, 100
+			miniMap:insert(displayItem)
+		end
+	end
 
 	miniMap.alpha = 0.75
 
