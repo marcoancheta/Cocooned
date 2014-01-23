@@ -34,17 +34,23 @@ function touchScreen(event, mapData, player)
 
 	if gameData.showMiniMap then
 		if "ended" == phase then
+			-- if double tapped within 300 milli seconds
 			if (event.time - tapTime) < 300 then
 				print(event.time - tapTime)
+				-- if miniMap showing, take it down
 				if gameData.isShowingMiniMap then
+					physics.start()
 					miniMapDisplay:removeSelf()
 					gameData.isShowingMiniMap = false
 					print("show miniMap")
+				-- else show miniMap
 				else
+					physics.pause()
 					miniMapDisplay = miniMap.createMiniMap(mapData, player)
 					gameData.isShowingMiniMap = true
 				end
 			end
+			-- store tapTimes for double tap check
 			tapTime = event.time
 		end
 	end
@@ -90,6 +96,7 @@ function touchScreen(event, mapData, player)
 			end
 		end	
 
+		-- if miniMap is showing and pane switched, remove miniMap
 		if tempPane ~= mapData.pane and gameData.isShowingMiniMap then
 			miniMapDisplay:removeSelf()
 			gameData.isShowingMiniMap = false
