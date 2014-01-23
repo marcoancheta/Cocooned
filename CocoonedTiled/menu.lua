@@ -186,6 +186,7 @@ function playGame(event)
 		
 		-- User pressed play, set gameActive to true
 		gameData.gameStart = true
+		gameData.inOptions = false
 		
 		-- Remove display group
 		menuGroup:removeSelf()
