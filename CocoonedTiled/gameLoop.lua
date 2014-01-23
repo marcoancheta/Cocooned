@@ -153,7 +153,7 @@ local function gameLoop (event)
 	--map.updateView()
 	
 	--print("inOptions", gameData.inOptions)
-	print("showMiniMap", gameData.showMiniMap)
+	--print("showMiniMap", gameData.showMiniMap)
 	
 	-- Start game play once "play" is tapped
 	-- Only call these event listeners once
