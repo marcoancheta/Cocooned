@@ -13,7 +13,9 @@ local gameData = {
 	gameStart = false,
 	menuOn = true,
 	showMiniMap = false,
-	isShowingMiniMap = false
+	isShowingMiniMap = false,
+	ingame = false,
+	inOptions = false
 }
 
 return gameData
