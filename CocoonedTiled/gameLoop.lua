@@ -37,8 +37,12 @@ require("animation")
 --------------------------------------------------------------------------------
 -- add in main menu
 --------------------------------------------------------------------------------
-
 local menu = require("menu")
+
+--------------------------------------------------------------------------------
+-- add in sounds
+--------------------------------------------------------------------------------
+local sound = require("sound")
 
 --------------------------------------------------------------------------------
 -- add in mechanics
@@ -63,7 +67,6 @@ local player2 = player.create()
 
 print("player name = ", player1.name)
 print("player color = ", player1.color)
-
 
 --------------------------------------------------------------------------------
 -- Load Map
@@ -116,6 +119,17 @@ local function controlMovement(event)
 	if gameData.isShowingMiniMap == false then
 		physicsParam = movementMechanic.onAccelerate(event)
 		player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
+		print('xRot=', physicsParam.xRot)
+		print('yRot=', physicsParam.yRot)
+		if physicsParam.xRot >= physicsParam.yRot then
+			scale = physicsParam.xRot
+		else
+			scale = physicsParam.yRot
+		end
+		if scale >= .05 then
+			ball.timeScale = 1-scale
+			print("scale=",1-scale)
+		end
 		--change physics gravity
 		physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
 	end
@@ -192,21 +206,6 @@ local function gameLoop (event)
 	elseif gameData.menuOn then
 		menu.MM(event)
 		gameData.menuOn = false
-	end
-	
-	if gamehasstarted then
-		local velX = player1.imageObject.x
-		local velY = player1.imageObject.y
-		local deltaX = velX-player1.x
-		local  deltaY = velY - player1.y
-		if deltaX == 0 and deltaY ==0 then
-			ball:pause()
-		else
-			ball:play()
-		end
-		player1.x = player1.imageObject.x
-		player1.y = player1.imageObject.y
-		player1.imageObject.isAwake = true
 	end
 	
 	if gameData.inOptions == true then
