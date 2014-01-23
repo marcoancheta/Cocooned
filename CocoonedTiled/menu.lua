@@ -70,22 +70,21 @@ end
 function ingameO(event)
 	
 	-- Create in-game options group
-	igoptionsGroup = display.newGroup()
+	ingameOptionsGroup = display.newGroup()
 	
 	-- Add in-game options image (option_wheel.png)
-	igoptions = display.newImage("graphics/option_wheel.png")
+	ingameOptions = display.newImage("graphics/option_wheel.png")
 	
 	-- Scale image size
-	igoptions.x = 1435
-	igoptions.y = 60
-	igoptions:scale(1, 1)
+	ingameOptions.x = 1435
+	ingameOptions.y = 60
+	ingameOptions:scale(1, 1)
 	
-	igoptions.name = "igo"
+	ingameOptions.name = "igo"
 	
-	igoptionsGroup:insert(igoptions)
+	gui:insert(ingameOptions)
 	
-	igoptions:addEventListener("tap", gametoOptions)
-	
+	ingameOptions:addEventListener("tap", gametoOptions)
 end
 
 
@@ -127,50 +126,48 @@ end
 --------------------------------------------------------------------------------
 -- Options Button Event
 --------------------------------------------------------------------------------
-function gameO(event)
+function gameO(event, gui)
 
 	-- Create options group
-	iOptionsGroup = display.newGroup()
+	gameOptionsGroup = display.newGroup()
 	
 	-- Add options background image
-	iOptionsBG = display.newImage("graphics/cocooned_bg.png")
+	gameOptionsBG = display.newImage("graphics/cocooned_bg.png")
 	
 	-- Scale background image
-	iOptionsBG.x = 700
-	iOptionsBG.y = 470
-	iOptionsBG:scale(2, 3)
-	iOptionsBG:rotate(180)
-	
-	
+	gameOptionsBG.x = 700
+	gameOptionsBG.y = 470
+	gameOptionsBG:scale(2, 3)
+	gameOptionsBG:rotate(180)
+		
 	-- Add Main Menu button
-	iMainM = display.newImage("graphics/main.png")
+	gameMainM = display.newImage("graphics/main.png")
 	-- Add Resume game button
-	iResume = display.newImage("graphics/resume.png")
-	
-	
+	gameResume = display.newImage("graphics/resume.png")
+		
 	-- Assign name for runtime functions
-	iMainM.name = "BacktoMain"
-	iResume.name = "resume"
+	gameMainM.name = "BacktoMain"
+	gameResume.name = "resume"
 	
 	-- Main menu button fixed location and scaled
-	iMainM.x = 700
-	iMainM.y = 650
-	iMainM.anchorX = 0.5
-	iMainM.anchorY = 0.5
-	iMainM:scale(2, 2)
+	gameMainM.x = 700
+	gameMainM.y = 650
+	gameMainM.anchorX = 0.5
+	gameMainM.anchorY = 0.5
+	gameMainM:scale(2, 2)
 	
-	iResume.x = 700
-	iResume.y = 500
-	iResume.anchorX = 0.5
-	iResume.anchorY = 0.5
-	iResume:scale(2, 2)
+	gameResume.x = 700
+	gameResume.y = 500
+	gameResume.anchorX = 0.5
+	gameResume.anchorY = 0.5
+	gameResume:scale(2, 2)
 	
-	iOptionsGroup:insert(iOptionsBG)
-	iOptionsGroup:insert(iMainM)
-	iOptionsGroup:insert(iResume)
+	gameOptionsGroup:insert(gameOptionsBG)
+	gameOptionsGroup:insert(gameMainM)
+	gameOptionsGroup:insert(gameResume)
 	
-	iMainM:addEventListener("tap", backtoMain)
-	iResume:addEventListener("tap", resumeGame)
+	gameMainM:addEventListener("tap", backtoMain)
+	gameResume:addEventListener("tap", resumeGame)
 end
 
 
@@ -185,8 +182,7 @@ function playGame(event)
 		
 		-- Remove listeners and group objects
 		--display.remove(menuGroup)
-		
-		ingame = true
+		gameData.ingame = true
 		
 		-- User pressed play, set gameActive to true
 		gameData.gameStart = true
@@ -196,61 +192,91 @@ function playGame(event)
 	end
 end
 
+
+--------------------------------------------------------------------------------
+-- Option Menu Button Event
+--------------------------------------------------------------------------------
+
 -- When option button is clicked, do:
 function optionMenu(event)
 	if event.target.name == "optionButton" then
 		print("options")
 		
-		
 		-- Remove listeners and group objects
 		display.remove(menuGroup)
 				
 		-- Make sure gameData.gameOn is still false
-		gameData.gameOn = false
+		--gameData.gameOn = false
+		--gameData.inOptions = true		
 		
 		-- Call to options display
 		O(event)
 	end
 end
 
+--------------------------------------------------------------------------------
+-- In-Game Option Menu Button Event
+--------------------------------------------------------------------------------
+
+-- When in-game option button is clicked, do:
+function gametoOptions(event)
+	if event.target.name == "igo" then	
+		print("ingame options open")
+		
+		-- Pause physics, mechanics, etc.
+		physics.pause()
+		gameData.inOptions = true
+		
+		-- Remove display objects and event listeners
+		ingameOptions:removeEventListener("tap", gametoOptions)
+		ingameOptionsGroup:removeSelf()
+		
+		-- go to game options
+		gameO(event)
+	end
+end
+
+--------------------------------------------------------------------------------
+-- In-Game Option Choices Event
+--------------------------------------------------------------------------------
+
+-- When resume game button is clicked, do:
 function resumeGame(event)
 	if event.target.name == "resume" then
 		print("Return to game")
-		
-		iOptionsGroup:removeSelf()
 				
-		playGame(event)
+		-- Re-add option menu button and listeners
 		ingameO(event)
 		
+		-- Resume physics
 		physics.start()
+		--gameData.ingame = true
+		gameData.inOptions = false
+		gameData.showMiniMap = true
+	
+		-- Remove everything in in-game option menu
+		if gameOptionsGroup then
+			display.remove(gameOptionsGroup)
+		end
 	end
 end
 
+-- also used in main menu options
+-- When back to main menu button is clicked, do:
 function backtoMain(event)
 	if event.target.name == "BacktoMain" then
-		display.remove(optionsGroup)
+
+    	display.remove(optionsGroup)
 		
 		print("back to main menu")
 		
-		if ingame then
+		if gameData.ingame then
 			gui:removeSelf()
 		end
 		
+		
 		-- Callback to main menu display
 		MM(event)
-	end
-end
-
-function gametoOptions(event)
-	if event.target.name == "igo" then
-		display.remove(igoptionsGroup)
-		
-		print("ingame options open")
-		
-		physics.pause()
-		
-		gameO(event)
-		igoptions:removeEventListener("tap", gametoOptions)
 	end
 end
 
@@ -258,7 +284,6 @@ end
 --------------------------------------------------------------------------------
 -- Finish up
 --------------------------------------------------------------------------------
-
 local menu = {
 	MM = MM,
 	playGame = playGame,
