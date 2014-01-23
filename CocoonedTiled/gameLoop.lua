@@ -207,21 +207,6 @@ local function gameLoop (event)
 		menu.MM(event)
 		gameData.menuOn = false
 	end
-
-	if gamehasstarted then
-		local velX = player1.imageObject.x
-		local velY = player1.imageObject.y
-		local deltaX = velX-player1.x
-		local  deltaY = velY - player1.y
-		if deltaX == 0 and deltaY ==0 then
-			ball:pause()
-		else
-			ball:play()
-		end
-		player1.x = player1.imageObject.x
-		player1.y = player1.imageObject.y
-		player1.imageObject.isAwake = true
-	end
 	
 	if gameData.inOptions == true then
 		gameData.showMiniMap = false
