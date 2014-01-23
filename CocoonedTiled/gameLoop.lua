@@ -116,6 +116,17 @@ local function controlMovement(event)
 	if gameData.isShowingMiniMap == false then
 		physicsParam = movementMechanic.onAccelerate(event)
 		player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
+		print('xRot=', physicsParam.xRot)
+		print('yRot=', physicsParam.yRot)
+		if physicsParam.xRot >= physicsParam.yRot then
+			scale = physicsParam.xRot
+		else
+			scale = physicsParam.yRot
+		end
+		if scale >= .05 then
+			ball.timeScale = 1-scale
+			print("scale=",1-scale)
+		end
 		--change physics gravity
 		physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
 	end
@@ -193,7 +204,7 @@ local function gameLoop (event)
 		menu.MM(event)
 		gameData.menuOn = false
 	end
-	
+
 	if gamehasstarted then
 		local velX = player1.imageObject.x
 		local velY = player1.imageObject.y
