@@ -82,7 +82,7 @@ local function loadMap()
 
 	gui:insert(gui.back)
 	gui:insert(gui.front)
-	local playerSheet = graphics.newImageSheet("mapdata/graphics/sprite sheet - 8 frames - rough.png", {width = 72, height = 72, sheetContentWidth = 576, sheetContentHeight = 72, numFrames = 8})
+	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
 	local textObject = display.newText("Testing", 200, 100, native.Systemfont, 40)
 	textObject:setFillColor(0,0,0)
 	gui.front:insert(textObject)
