@@ -67,10 +67,6 @@ print("player name = ", player1.name)
 print("player color = ", player1.color)
 
 
-
-
-
-
 --------------------------------------------------------------------------------
 -- Load Map
 --------------------------------------------------------------------------------
@@ -142,7 +138,7 @@ local function swipeMechanics(event)
 		physics.addBody(ball, {radius = 38, bounce = .25})
 		map = dusk.buildMap("mapdata/levels/tempNew/" .. mapData.pane .. ".json")
 		collisionDetection.changeCollision(ball, player1)
-		--gui.back:insert(map)
+		gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
 	end
 end
@@ -156,40 +152,48 @@ local function gameLoop (event)
 
 	--map.updateView()
 	
+	--print("inOptions", gameData.inOptions)
+	print("showMiniMap", gameData.showMiniMap)
+	
 	-- Start game play once "play" is tapped
 	-- Only call these event listeners once
 	if gameData.gameStart then
-
+		
 		-- Start physics engine
 		physics.start()
 		
 		-- load in map
 		loadMap()
-		menu.ingameO(event)
-
-		-- change gameData variables
-		gameData.showMiniMap = true
 		
 		-- start collision detection for player ball
 		collisionDetection.createCollisionDetection(ball, player1)
 
 		-- start other mechanics for levels
-		map:addEventListener("touch", swipeMechanics)
-		Runtime:addEventListener( "accelerometer", controlMovement)
+		if gameData.inOptions == false then 
+			map:addEventListener("touch", swipeMechanics)
+			Runtime:addEventListener("accelerometer", controlMovement)
+			menu.ingameO(event)
+		end
+		
 		print("Gameplay in Progress")
-
+			
+		-- change gameData variables
 		-- set global gameStart to false so it will only be called once
 		gameData.gameStart = false
-
+		gameData.showMiniMap = true
+		
 	-- If game Start is false then start the mainMenu
 	-- Only call this event once so game isn't laggy
 	elseif gameData.menuOn then
 		menu.MM(event)
 		gameData.menuOn = false
 	end
+	
+	if gameData.inOptions == true then
+		gameData.showMiniMap = false
+		Runtime:removeEventListener( "accelerometer", controlMovement)
+	end
 end
-
-
 
 --------------------------------------------------------------------------------
 -- Finish Up - Call gameLoop every 30 fps
