@@ -250,8 +250,4 @@ Runtime:addEventListener( "enterFrame", monitorMem )
 -- END MEMORY CHECKER
 --------------------------------------------------------------------------------
 
-local global = {
-	loadSounds = loadSounds
-}
-
 return global
