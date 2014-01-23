@@ -53,8 +53,8 @@ local function onAccelerate( event)
 	-- print('onAccelerate called')
 
 	-- offset the gravity to return
-	physicsParam.xGrav=12*xGrav
-	physicsParam.yGrav=12*yGrav
+	physicsParam.xGrav=25*xGrav
+	physicsParam.yGrav=25*yGrav
 	physicsParam.xRot=event.xGravity
 	physicsParam.yRot=event.yGravity
 

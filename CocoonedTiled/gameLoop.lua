@@ -31,6 +31,8 @@ local mapData = {
 
 -- load in global Variables
 local gameData = require("gameData")
+--animation Variables
+require("animation")
 
 --------------------------------------------------------------------------------
 -- add in main menu
@@ -57,11 +59,7 @@ local dusk = require("Dusk.Dusk")
 local player = require("player")
 local player1 = player.create()
 local player2 = player.create()
-local spriteOptions = { -- Sprite options for player and finish star
-		player = {
-			frames = {8,7,6,5,4,3,2,1}, name = "move", time = 500},
-			--{frames = {6, 7, 8, 9, 10, 9, 8, 7}, name = "still", time = 1000}
-		}
+
 
 print("player name = ", player1.name)
 print("player color = ", player1.color)
@@ -121,7 +119,7 @@ local function controlMovement(event)
 	-- call accelerometer to get data
 	if gameData.isShowingMiniMap == false then
 		physicsParam = movementMechanic.onAccelerate(event)
-		player1:rotate(physicsParam.xRot, physicsParam.yRot)
+		player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
 		--change physics gravity
 		physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
 	end
@@ -151,9 +149,9 @@ end
 --------------------------------------------------------------------------------
 -- Game Loop
 --------------------------------------------------------------------------------
-
+local gamehasstarted = false
 local function gameLoop (event)
-
+	
 	--map.updateView()
 	
 	-- Start game play once "play" is tapped
@@ -176,6 +174,7 @@ local function gameLoop (event)
 		-- start other mechanics for levels
 		map:addEventListener("touch", swipeMechanics)
 		Runtime:addEventListener( "accelerometer", controlMovement)
+		gamehasstarted = true
 		print("Gameplay in Progress")
 
 		-- set global gameStart to false so it will only be called once
@@ -187,6 +186,21 @@ local function gameLoop (event)
 		menu.MM(event)
 		gameData.menuOn = false
 	end
+	if gamehasstarted then
+		local velX = player1.imageObject.x
+		local velY = player1.imageObject.y
+		local deltaX = velX-player1.x
+		local  deltaY = velY - player1.y
+		if deltaX == 0 and deltaY ==0 then
+			ball:pause()
+		else
+			ball:play()
+		end
+		player1.x = player1.imageObject.x
+		player1.y = player1.imageObject.y
+		player1.imageObject.isAwake = true
+	end
+
 end
 
 

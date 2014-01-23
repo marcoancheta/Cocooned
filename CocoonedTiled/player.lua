@@ -52,7 +52,7 @@ end
 function playerInstance:rotate (x,y)
 		transition.cancel('rotation')
 		angle = (floor(atan2(y, x) * ( 180 / pi))) 
-		rotateTransition(self.imageObject, -angle, 60)
+		self.imageObject.rotation = angle +90
 end
 
 function playerInstance:addInventory(item)

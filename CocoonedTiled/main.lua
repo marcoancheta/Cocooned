@@ -48,11 +48,11 @@ function main(event)
 
 
 	  --for rCorona
-	  --[[if system.getInfo("environment") == "simulator" then
+	  if system.getInfo("environment") == "simulator" then
 			local rcorona = require("rcorona")
 			rcorona.startServer(8181)
 	  end
-	 ]]
+	 
    end
 end
  
