@@ -16,9 +16,10 @@ function createCollisionDetection(imageObject, player)
  
    local collideObject = event.other
     if ( collideObject.collType == "passThru" ) then
+      if(collideObject.name == "blueAura") then 
       event.contact.isEnabled = false  --disable this specific collision!
       player:changeColor('blue')  -- change color of player
-      if (collideObject.collectable == true) then
+      elseif (collideObject.collectable == true) then
         print(collideObject.name)
         player:addInventory(collideObject)
         collideObject:removeSelf( )
@@ -43,6 +44,12 @@ function createCollisionDetection(imageObject, player)
       -- debug print once collision began           
       print( "began: " .. collideObject.name)
       -- check to see if key is in inventory 
+      --print(player.inventory.items[1].name)
+      if(collideObject.name == "chest") and #player.inventory.items > 0 then
+        if player.inventory.items[1].name == "key" then
+          collideObject:removeSelf()
+        end
+      end
       
     elseif ( event.phase == "ended" ) then
 
