@@ -10,6 +10,7 @@
 -- Require Global Variables
 --------------------------------------------------------------------------------
 local gameData = require("gameData")
+local sound = require("sound")
 local ingame = false
 
 --------------------------------------------------------------------------------
@@ -180,8 +181,10 @@ function playGame(event)
 	if event.target.name == "playButton" then
 		print("play")
 		
+		-- Play Sound
+		sound.playSound(event, sound.mainmenuSound)
+				
 		-- Remove listeners and group objects
-		--display.remove(menuGroup)
 		gameData.ingame = true
 		
 		-- User pressed play, set gameActive to true
@@ -206,9 +209,8 @@ function optionMenu(event)
 		-- Remove listeners and group objects
 		display.remove(menuGroup)
 				
-		-- Make sure gameData.gameOn is still false
-		--gameData.gameOn = false
-		--gameData.inOptions = true		
+		-- Play Sound
+		sound.playSound(event, sound.mainmenuSound)
 		
 		-- Call to options display
 		O(event)
@@ -223,6 +225,9 @@ end
 function gametoOptions(event)
 	if event.target.name == "igo" then	
 		print("ingame options open")
+		
+		-- Play Sound
+		sound.playSound(event, sound.mainmenuSound)
 		
 		-- Pause physics, mechanics, etc.
 		physics.pause()
@@ -249,8 +254,12 @@ function resumeGame(event)
 		-- Re-add option menu button and listeners
 		ingameO(event)
 		
+		-- Play Sound
+		sound.playSound(event, sound.mainmenuSound)
+		
 		-- Resume physics
 		physics.start()
+		
 		--gameData.ingame = true
 		gameData.inOptions = false
 		gameData.showMiniMap = true
@@ -266,15 +275,15 @@ end
 -- When back to main menu button is clicked, do:
 function backtoMain(event)
 	if event.target.name == "BacktoMain" then
-
-    	display.remove(optionsGroup)
-		
 		print("back to main menu")
-		
+				
 		if gameData.ingame then
+			display.remove(optionsGroup)
 			gui:removeSelf()
 		end
 		
+		-- Play Sound
+		sound.playSound(event, sound.mainmenuSound)
 		
 		-- Callback to main menu display
 		MM(event)
