@@ -233,12 +233,12 @@ function gametoOptions(event)
 		physics.pause()
 		gameData.inOptions = true
 		
+		-- go to game options
+		gameO(event)
+		
 		-- Remove display objects and event listeners
 		ingameOptions:removeEventListener("tap", gametoOptions)
 		ingameOptionsGroup:removeSelf()
-		
-		-- go to game options
-		gameO(event)
 	end
 end
 
