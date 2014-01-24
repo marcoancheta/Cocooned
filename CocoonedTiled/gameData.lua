@@ -15,7 +15,10 @@ local gameData = {
 	showMiniMap = false,
 	isShowingMiniMap = false,
 	ingame = false,
-	inOptions = false
+	inGameOptions = false,
+	resumeGame = false,
+	inOptions = false,
+	BGM = 1    -- [1=ON, 2=OFF]
 }
 
 return gameData

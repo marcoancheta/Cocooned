@@ -46,7 +46,6 @@ function main(event)
 
 	  loadGame()
 
-
 	  --for rCorona
 	  if system.getInfo("environment") == "simulator" then
 			local rcorona = require("rcorona")

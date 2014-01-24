@@ -1,4 +1,3 @@
-
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
@@ -7,29 +6,63 @@
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
--- Require Global Variables
+-- Load in Global Variables
 --------------------------------------------------------------------------------
 local gameData = require("gameData")
 local sound = require("sound")
-local ingame = false
+local widget = require("widget")
+
+-- Create new menu display group
+menuGroup = display.newGroup()
+-- Create options group
+optionsGroup = display.newGroup()
+-- Create in-game options group
+ingameOptionsGroup = display.newGroup()
+
 
 --------------------------------------------------------------------------------
--- Creating Main Menu System
+-- Create Sound Options system
 --------------------------------------------------------------------------------
-function MM(event)
+--[[
+local function onSwitchPress(event)
+	switch = event.target
+	print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+	if switch.isOn then
+		gameData.BGM = true
+		print(gameData.BGM)
+	elseif switch.isOn == false then
+		gameData.BGM = false
+		print(gameData.BGM)
+	end
+end
 
-	ingame = false
+function soundOptions(event)
+	-- Create the widget
+	local onOffSwitch = widget.newSwitch
+	{
+		left = 250,
+		top = 200,
+		style = "onOff",
+		id = "onOffSwitch",
+		isOn=true, 
+		isAnimated=true,
+		onPress = onSwitchPress
+	}
+end
+]]--
 
-	-- Create new menu group
-	menuGroup = display.newGroup()
-	
+--------------------------------------------------------------------------------
+-- Create Main Menu System
+--------------------------------------------------------------------------------
+function MainMenu(event)
+
 	-- Add main menu background image
-	mainMenu = display.newImage("graphics/SILHOUETTE1.png")
-	
+	main = display.newImage("graphics/cocooned.png")
+		
 	-- Scale background image
-	mainMenu.x = 700
-	mainMenu.y = 400
-	mainMenu:scale(0.5, 0.5)
+	main.x = 700
+	main.y = 400
+	main:scale(0.5, 0.5)
 
 	-- Add Play button
 	play = display.newImage("graphics/play.png")
@@ -56,22 +89,55 @@ function MM(event)
 	options:scale(2.5, 2.5)
 	
 	-- Insert all images/buttons into group
-	menuGroup:insert(mainMenu)
+	menuGroup:insert(main)
 	menuGroup:insert(play)
 	menuGroup:insert(options)
 	
-	-- Add listeners for click detection
-	play:addEventListener("tap", playGame)
-	options:addEventListener("tap", optionMenu)
+	play:addEventListener("tap", buttonPressed)
+	options:addEventListener("tap", buttonPressed)
 end
 
 --------------------------------------------------------------------------------
--- In-Game Options Button Event
+-- Create Options System
 --------------------------------------------------------------------------------
-function ingameO(event)
+function Options(event)
 	
-	-- Create in-game options group
-	ingameOptionsGroup = display.newGroup()
+	-- Add options background image
+	optionsBG = display.newImage("graphics/cocooned_menu.png")
+	
+	-- Create onScreen text object
+	optionText = display.newText("OPTIONS", 200, 150, native.Systemfont, 72)
+	optionText:setFillColor(0, 0, 0)
+	
+	-- Scale background image
+	optionsBG.x = 700
+	optionsBG.y = 400
+	optionsBG:scale(0.5, 0.5)
+	
+	-- Add Main Menu button
+	backtoMain = display.newImage("graphics/main.png")
+	
+	-- Assign name for runtime functions
+	backtoMain.name = "BacktoMain"
+	
+	-- Main menu button fixed location and scaled
+	backtoMain.x = 350
+	backtoMain.y = 650
+	backtoMain.anchorX = 0.5
+	backtoMain.anchorY = 0.5
+	backtoMain:scale(2.5, 2.5)
+	
+	optionsGroup:insert(optionsBG)
+	optionsGroup:insert(backtoMain)
+	optionsGroup:insert(optionText)
+	
+	backtoMain:addEventListener("tap", buttonPressed)
+end
+
+--------------------------------------------------------------------------------
+-- Create In-Game Options System
+--------------------------------------------------------------------------------
+function ingameOptionsbutton(event)
 	
 	-- Add in-game options image (option_wheel.png)
 	ingameOptions = display.newImage("graphics/option_wheel.png")
@@ -81,65 +147,30 @@ function ingameO(event)
 	ingameOptions.y = 60
 	ingameOptions:scale(1, 1)
 	
-	ingameOptions.name = "igo"
+	ingameOptions.name = "inGameOptionsBTN"
 	
-	gui:insert(ingameOptions)
+	gui.front:insert(ingameOptions)
 	
-	ingameOptions:addEventListener("tap", gametoOptions)
-end
-
-
---------------------------------------------------------------------------------
--- Options Button Event
---------------------------------------------------------------------------------
-function O(event)
-
-	-- Create options group
-	optionsGroup = display.newGroup()
-	
-	-- Add options background image
-	optionsBG = display.newImage("graphics/cocooned_bg.png")
-	
-	-- Scale background image
-	optionsBG.x = 700
-	optionsBG.y = 470
-	optionsBG:scale(2, 3)
-	
-	-- Add Main Menu button
-	mainM = display.newImage("graphics/main.png")
-	
-	-- Assign name for runtime functions
-	mainM.name = "BacktoMain"
-	
-	-- Main menu button fixed location and scaled
-	mainM.x = 700
-	mainM.y = 650
-	mainM.anchorX = 0.5
-	mainM.anchorY = 0.5
-	mainM:scale(2, 2)
-	
-	optionsGroup:insert(optionsBG)
-	optionsGroup:insert(mainM)
-	
-	mainM:addEventListener("tap", backtoMain)
+	ingameOptions:addEventListener("tap", buttonPressed)
 end
 
 --------------------------------------------------------------------------------
--- Options Button Event
+-- In-Game Options Menu
 --------------------------------------------------------------------------------
-function gameO(event, gui)
-
-	-- Create options group
-	gameOptionsGroup = display.newGroup()
+function ingameMenu(event)
 	
+	print("ingameMenu")
 	-- Add options background image
-	gameOptionsBG = display.newImage("graphics/cocooned_bg.png")
+	gameOptionsBG = display.newImage("graphics/cocooned_menu.png")
+	
+	-- Create onScreen text object
+	ingameOptionText = display.newText("PAUSED", 1155, 100, native.Systemfont, 69)
+	ingameOptionText:setFillColor(1, 0, 0)
 	
 	-- Scale background image
 	gameOptionsBG.x = 700
-	gameOptionsBG.y = 470
-	gameOptionsBG:scale(2, 3)
-	gameOptionsBG:rotate(180)
+	gameOptionsBG.y = 400
+	gameOptionsBG:scale(-0.5, 0.5)
 		
 	-- Add Main Menu button
 	gameMainM = display.newImage("graphics/main.png")
@@ -147,163 +178,149 @@ function gameO(event, gui)
 	gameResume = display.newImage("graphics/resume.png")
 		
 	-- Assign name for runtime functions
-	gameMainM.name = "BacktoMain"
-	gameResume.name = "resume"
+	gameMainM.name = "gotoMain"
+	gameResume.name = "Resume"
 	
 	-- Main menu button fixed location and scaled
-	gameMainM.x = 700
-	gameMainM.y = 650
+	gameMainM.x = 1050
+	gameMainM.y = 720
 	gameMainM.anchorX = 0.5
 	gameMainM.anchorY = 0.5
-	gameMainM:scale(2, 2)
+	gameMainM:scale(2.5, 2.5)
 	
-	gameResume.x = 700
-	gameResume.y = 500
+	gameResume.x = 1050
+	gameResume.y = 550
 	gameResume.anchorX = 0.5
 	gameResume.anchorY = 0.5
-	gameResume:scale(2, 2)
+	gameResume:scale(2.5, 2.5)
 	
-	gameOptionsGroup:insert(gameOptionsBG)
-	gameOptionsGroup:insert(gameMainM)
-	gameOptionsGroup:insert(gameResume)
+	gui.front:insert(gameOptionsBG)
+	gui.front:insert(gameMainM)
+	gui.front:insert(gameResume)
+	gui.front:insert(ingameOptionText)
 	
-	gameMainM:addEventListener("tap", backtoMain)
-	gameResume:addEventListener("tap", resumeGame)
+	gameMainM:addEventListener("tap", buttonPressed)
+	gameResume:addEventListener("tap", buttonPressed)
 end
 
-
 --------------------------------------------------------------------------------
--- Play Button Event
+-- Button events
 --------------------------------------------------------------------------------
-
--- When play button is clicked, do:
-function playGame(event)
+function buttonPressed(event)
+	-----------------------------
+	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then
-		print("play")
+		print("play button pressed")
 		
 		-- Play Sound
-		sound.playSound(event, sound.mainmenuSound)
-				
-		-- Remove listeners and group objects
-		gameData.ingame = true
+		sound.playSound(event, sound.clickSound)
+								
+		-- Remove menuGroup
+		play:removeEventListener("tap", buttonPressed)
+		options:removeEventListener("tap", buttonPressed)
+		menuGroup:remove(main)
+		menuGroup:remove(play)
+		menuGroup:remove(options)
 		
 		-- User pressed play, set gameActive to true
 		gameData.gameStart = true
-		gameData.inOptions = false
-		
-		-- Remove display group
-		menuGroup:removeSelf()
-	end
-end
-
-
---------------------------------------------------------------------------------
--- Option Menu Button Event
---------------------------------------------------------------------------------
-
--- When option button is clicked, do:
-function optionMenu(event)
-	if event.target.name == "optionButton" then
-		print("options")
-		
-		-- Remove listeners and group objects
-		display.remove(menuGroup)
-				
+		gameData.inGameOptions = false
+	
+	--------------------------------
+	--[[ Options button pressed ]]--
+	elseif event.target.name == "optionButton" then
+		print("options button pressed")
+						
 		-- Play Sound
-		sound.playSound(event, sound.mainmenuSound)
+		sound.playSound(event, sound.clickSound)
+						
+		-- Remove menuGroup
+		play:removeEventListener("tap", buttonPressed)
+		options:removeEventListener("tap", buttonPressed)
+		menuGroup:remove(main)
+		menuGroup:remove(play)
+		menuGroup:remove(options)
 		
 		-- Call to options display
-		O(event)
-	end
-end
-
---------------------------------------------------------------------------------
--- In-Game Option Menu Button Event
---------------------------------------------------------------------------------
-
--- When in-game option button is clicked, do:
-function gametoOptions(event)
-	if event.target.name == "igo" then	
-		print("ingame options open")
-		
-		-- Play Sound
-		sound.playSound(event, sound.mainmenuSound)
-		
-		-- Pause physics, mechanics, etc.
-		physics.pause()
 		gameData.inOptions = true
-		
-		-- go to game options
-		gameO(event)
-		
-		-- Remove display objects and event listeners
-		ingameOptions:removeEventListener("tap", gametoOptions)
-		ingameOptionsGroup:removeSelf()
-	end
-end
 
---------------------------------------------------------------------------------
--- In-Game Option Choices Event
---------------------------------------------------------------------------------
-
--- When resume game button is clicked, do:
-function resumeGame(event)
-	if event.target.name == "resume" then
-		print("Return to game")
-				
-		-- Re-add option menu button and listeners
-		ingameO(event)
+	-------------------------------------
+	--[[ Back to Main button pressed ]]--
+	elseif event.target.name == "BacktoMain" then
+		print("Back to Main Menu")
 		
 		-- Play Sound
-		sound.playSound(event, sound.mainmenuSound)
+		sound.playSound(event, sound.clickSound)
 		
-		-- Resume physics
+		-- Remove optionsGroup
+		--optionsGroup:removeSelf()
+		--backtoMain:removeEventListener("tap", buttonPressed)
+		if optionsGroup then
+			optionsGroup:remove(optionsBG)
+			optionsGroup:remove(backtoMain)
+			optionsGroup:remove(optionText)
+		end
+		
+		gameData.menuOn = true
+		
+	----------------------------------------
+	--[[ In game options button pressed ]]--	
+	elseif event.target.name == "inGameOptionsBTN" then
+
+		print("In game options")
+		
+		-- Play Sound
+		sound.playSound(event, sound.clickSound)
+	
+		-- Pause physics
+		physics.pause()
+	
+		gui.front:remove(ingameOptions)
+	
+		gameData.inGameOptions = true
+		
+	--------------------------------------------------
+	--[[ Back to Main from In-Game button pressed ]]--
+	elseif event.target.name == "gotoMain" then
+		print("Back to Main Menu")
+				
+		-- Play Sound
+		sound.playSound(event, sound.clickSound)
+		
+		gui.front:removeSelf()
+		gui.back:removeSelf()
+
+		gameData.menuOn = true
+
+	---------------------------------------
+	--[[ Resume In-Game button pressed ]]--
+	elseif event.target.name == "Resume" then
+		print("Resume game")
+		
+		-- Play Sound
+		sound.playSound(event, sound.clickSound)
+		
+		gui.front:remove(ingameOptionText)
+		gui.front:remove(gameOptionsBG)
+		gui.front:remove(gameMainM)
+		gui.front:remove(gameResume)
+
 		physics.start()
 		
-		--gameData.ingame = true
-		gameData.inOptions = false
-		gameData.showMiniMap = true
-	
-		-- Remove everything in in-game option menu
-		if gameOptionsGroup then
-			display.remove(gameOptionsGroup)
-		end
+		gameData.resumeGame = true
 	end
 end
-
--- also used in main menu options
--- When back to main menu button is clicked, do:
-function backtoMain(event)
-	if event.target.name == "BacktoMain" then
-		print("back to main menu")
-				
-		if gameData.ingame then
-			display.remove(optionsGroup)
-			gui:removeSelf()
-		end
-		
-		-- Play Sound
-		sound.playSound(event, sound.mainmenuSound)
-		
-		-- Callback to main menu display
-		MM(event)
-	end
-end
-
 
 --------------------------------------------------------------------------------
 -- Finish up
 --------------------------------------------------------------------------------
 local menu = {
-	MM = MM,
-	playGame = playGame,
-	optionMenu = optionMenu,
-	backtoMain = backtoMain,
-	ingameO = ingameO,
-	gametoOptions = gametoOptions,
-	ingame = ingame,
-	resumeGame = resumeGame,
-	gameO = gameO
+	--soundOptions = soundOptions,
+	MainMenu = MainMenu,
+	Options = Options,
+	ingameOptionsbutton = ingameOptionsbutton,
+	ingameMenu = ingameMenu,
+	buttonPressed = buttonPressed
 }
 
 return menu
