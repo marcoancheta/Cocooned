@@ -22,7 +22,7 @@ function playSound(event, name)
 end
 
 function playBGM(event, name)
-	audio.setVolume(0.3, {channel = 2} )
+	audio.setVolume(.75, {channel = 2} )
 	local temp = audio.play(name, {channel=2, loops=-1})
 	print("play BGM:", name)
 end

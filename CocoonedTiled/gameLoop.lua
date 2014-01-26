@@ -205,7 +205,7 @@ local function gameLoop(event)
 	
 		-- Start mechanics
 		collisionDetection.createCollisionDetection(ball, player1)
-		ball:addEventListener("accelerometer", controlMovement)
+		Runtime:addEventListener("accelerometer", controlMovement)
 		map:addEventListener("touch", swipeMechanics)
 		menu.ingameOptionsbutton(event)
 		
@@ -290,7 +290,7 @@ local function menuLoop(event)
 		
 		-- Add object listeners
 		map:addEventListener("touch", swipeMechanics)
-		ball:addEventListener("accelerometer", controlMovement)
+		Runtime:addEventListener("accelerometer", controlMovement)
 		
 		-- Re-evaluate gameData booleans
 		gameData.inGameOptions = false
