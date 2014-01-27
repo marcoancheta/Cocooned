@@ -149,9 +149,12 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="25" name="bg" tilewidth="1440" tileheight="864">
+  <image source="../../../art/bg.png" width="1440" height="864"/>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztw8EJAAAMA6H7Zv+Fu0dRcNVUVVX1+QOBUyHB
+   eJztl8EJADAIA/N1hO6/qLhCVXqFHPiVI3klJAX8qNivh/36kP3o+dH9CvvdQ+93w+8M/iJnV/zQLxnn18P5mZfQ+53ac5vbMgE2XQOe
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">

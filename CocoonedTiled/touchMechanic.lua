@@ -22,7 +22,7 @@ local miniMapDisplay
 --------------------------------------------------------------------------------
 -- touchScreen function
 --------------------------------------------------------------------------------
-function touchScreen(event, mapData, player)
+function touchScreen(event, mapData, player, physics)
 
 	-- phase name
 	local phase = event.phase
@@ -36,7 +36,7 @@ function touchScreen(event, mapData, player)
 		if "ended" == phase then
 			-- if double tapped within 300 milli seconds
 			if (event.time - tapTime) < 300 then
-				print(event.time - tapTime)
+				print("time:",event.time - tapTime)
 				-- if miniMap showing, take it down
 				if gameData.isShowingMiniMap then
 					physics.start()

@@ -18,6 +18,8 @@ local dusk = require("Dusk.Dusk")
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("gameData")
+-- Load level function (loadLevel.lua)
+local loadLevel = require("loadLevel")
 -- Animation variables/data (animation.lua)
 local animation = require("animation")
 -- Menu variables/objects (menu.lua)
@@ -44,12 +46,13 @@ local collisionDetection = require("collisionDetection")
 --------------------------------------------------------------------------------
 -- Initialize ball
 local ball
-local map
+local mapPanes
 
 -- Initialize map data
 local mapData = {
 	levelNum = 1,
-	pane = "M"
+	pane = "M",
+	version = 0
 }
 
 -- Initialize player(s)
@@ -64,33 +67,20 @@ local player2 = player.create()
 	print("player2 color =", player1.color)
 ]]--
 
+-- Create onScreen text object
+local textObject = display.newText("Testing", 350, 100, native.Systemfont, 40)
+textObject:setFillColor(0, 0, 0)
 	
 --------------------------------------------------------------------------------
 -- Load Map
 --------------------------------------------------------------------------------
 function loadMap()
-		
-	-- Create game user interface (GUI) group
-	gui = display.newGroup()
+
 	
-	-- Create GUI subgroups
-	gui.front = display.newGroup()
-	gui.back = display.newGroup()
 		
-	-- Add subgroups into main GUI group
-	gui:insert(gui.back)
-	gui:insert(gui.front)
-	
 	-- Create player sprite sheet
 	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-	
-	-- Create onScreen text object
-	local textObject = display.newText("Testing", 200, 100, native.Systemfont, 40)
-		  textObject:setFillColor(0, 0, 0)
-		  
-	-- Load in map
-	map = dusk.buildMap("mapdata/levels/tempNew/M.json")
 	
 	-- Create player/ball object to map
 	player1.imageObject = display.newSprite(playerSheet, spriteOptions.player)
@@ -101,20 +91,11 @@ function loadMap()
 	
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
-	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
-	
-	-- Add objects to its proper groups
-	gui.front:insert(textObject)
-	gui.back:insert(map)
-	map:insert(ball)
-	map.layer["tiles"]:insert(ball)
-	
-	-- Not sure what this is for:
-	local loc = map.tilesToPixels(10, 6)
-	local loc2 = map.pixelsToTiles(684, 440)
-	print("loc", loc)
-	print("loc2", loc2)
 
+	-- Load in map
+	gui = loadLevel.createLevel(mapData, ball)
+	
+	gui.front:insert(textObject)
 end
 
 --------------------------------------------------------------------------------
@@ -153,7 +134,7 @@ end
 
 -- swipe mechanic
 local function swipeMechanics(event)
-	print("swipeMechanics(event)")
+	--print("swipeMechanics(event)")
 	
 	local tempPane = mapData.pane
 
@@ -162,8 +143,9 @@ local function swipeMechanics(event)
 	
 	-- if touch ended then change map if pane is switched
 	if "ended" == event.phase and mapData.pane ~= tempPane then
+
 		-- delete everything on map
-		map:removeSelf()
+		gui.back:remove(1)
 		-- Pause physics
 		physics.pause()
 		---------------------------------------------------
@@ -173,14 +155,13 @@ local function swipeMechanics(event)
 		physics.start()
 		
 		-- load map
-		map = dusk.buildMap("mapdata/levels/tempNew/" .. mapData.pane .. ".json")
+		map = loadLevel.changePane(mapData)
 		-- insert objects onto map layer
 		gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
 		
 		-- Reassign game mechanic listeners
-		collisionDetection.changeCollision(ball, player1)
-		map:addEventListener("touch", swipeMechanics)
+		collisionDetection.changeCollision(ball, player1, mapData)
 	end
 	
 end
@@ -204,9 +185,9 @@ local function gameLoop(event)
 		print("Game Start!")
 	
 		-- Start mechanics
-		collisionDetection.createCollisionDetection(ball, player1)
+		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1])
 		Runtime:addEventListener("accelerometer", controlMovement)
-		map:addEventListener("touch", swipeMechanics)
+		gui.back:addEventListener("touch", swipeMechanics)
 		menu.ingameOptionsbutton(event)
 		
 		-- Re-evaluate gameData booleans
@@ -271,7 +252,7 @@ local function menuLoop(event)
 		menu.ingameMenu(event)
 		
 		-- Remove object listeners
-		map:removeEventListener("touch", swipeMechanics)
+		gui.back:removeEventListener("touch", swipeMechanics)
 		ball:removeEventListener("accelerometer", controlMovement)
 		
 		-- Re-evaluate gameData booleans
@@ -289,7 +270,7 @@ local function menuLoop(event)
 		menu.ingameOptionsbutton(event)
 		
 		-- Add object listeners
-		map:addEventListener("touch", swipeMechanics)
+		gui.back:addEventListener("touch", swipeMechanics)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		
 		-- Re-evaluate gameData booleans
@@ -341,6 +322,7 @@ collectgarbage()
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
 		print( "MemUsage: " .. memCount)
+		textObject.text = "MemUsage: " .. memCount
 		prevMemCount = memCount
 	end
 	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000

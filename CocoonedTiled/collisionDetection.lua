@@ -6,41 +6,25 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
+
+
 --------------------------------------------------------------------------------
 -- Collision Detection Mechanic
 --------------------------------------------------------------------------------
-function createCollisionDetection(imageObject, player) 
+function createCollisionDetection(imageObject, player, mapData, map) 
+
 
   -- function for pre collision detection
   function imageObject:preCollision( event )
  
    local collideObject = event.other
-    if ( collideObject.collType == "passThru" ) then
-      if(collideObject.name == "blueAura") then 
-      event.contact.isEnabled = false  --disable this specific collision!
-      player:changeColor('blue')  -- change color of player
-      elseif (collideObject.collectable == true) then
-        print(collideObject.name)
-        player:addInventory(collideObject)
-        collideObject:removeSelf( )
-      end
-     --[[ Magnetism: repel the ball when colliding with magnetized wall
-     if (collideObject.name == "icewall") then
-        print( "ran into iceWall")
-        imageObject:applyLinearImpulse(.5, .5, imageObject.x)
-        if(collideObject.name == "magnet") then
-          collideObject:removeSelf()
-        end
-      end
-      ]]--
-    end
+   
   end
 
   --function for collision detection
   function onLocalCollision( self, event )
     local collideObject = event.other
     if ( event.phase == "began" ) then
-
       -- debug print once collision began           
       print( "began: " .. collideObject.name)
       -- check to see if key is in inventory 
@@ -66,11 +50,11 @@ function createCollisionDetection(imageObject, player)
 
 end
 
-function changeCollision(imageObject, player) 
+function changeCollision(imageObject, player, mapData) 
   imageObject:removeEventListener("collision" , imageObject)
   imageObject:removeEventListener("preCollision")
 
-  createCollisionDetection(imageObject, player)
+  createCollisionDetection(imageObject, player, mapData)
 end
 
 
