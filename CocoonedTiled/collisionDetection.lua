@@ -18,6 +18,10 @@ function createCollisionDetection(imageObject, player, mapData, map)
   function imageObject:preCollision( event )
  
    local collideObject = event.other
+   if collideObject.collType == "passThru" then
+      require("Objects." .. collideObject.func)
+      collide(collideObject, player, event, mapData)
+   end
    
   end
 
@@ -27,12 +31,10 @@ function createCollisionDetection(imageObject, player, mapData, map)
     if ( event.phase == "began" ) then
       -- debug print once collision began           
       print( "began: " .. collideObject.name)
-      -- check to see if key is in inventory 
-      --print(player.inventory.items[1].name)
-      if(collideObject.name == "chest") and #player.inventory.items > 0 then
-        if player.inventory.items[1].name == "key" then
-          collideObject:removeSelf()
-        end
+
+      if collideObject.collType == "solid" then
+        require("Objects." .. collideObject.func)
+        collide(collideObject, player, event, mapData)
       end
       
     elseif ( event.phase == "ended" ) then

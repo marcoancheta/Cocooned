@@ -50,7 +50,7 @@ local mapPanes
 
 -- Initialize map data
 local mapData = {
-	levelNum = 1,
+	levelNum = 0,
 	pane = "M",
 	version = 0
 }
@@ -66,10 +66,6 @@ local player2 = player.create()
 	print("player2 name =", player1.name)
 	print("player2 color =", player1.color)
 ]]--
-
--- Create onScreen text object
-local textObject = display.newText("Testing", 350, 100, native.Systemfont, 40)
-textObject:setFillColor(0, 0, 0)
 	
 --------------------------------------------------------------------------------
 -- Load Map
@@ -95,7 +91,7 @@ function loadMap()
 	-- Load in map
 	gui = loadLevel.createLevel(mapData, ball)
 	
-	gui.front:insert(textObject)
+	
 end
 
 --------------------------------------------------------------------------------
@@ -228,7 +224,11 @@ local function menuLoop(event)
 			-- Start BGM
 			sound.playBGM(event, sound.mainmenuSound)
 		end
-								
+		
+		-- reset mapData variables
+		mapData.pane = "M"
+		mapData.version = 0
+
 		-- Re-evaluate gameData booleans
 		gameData.gameStart = false
 		gameData.ingame = false
@@ -326,14 +326,13 @@ collectgarbage()
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		print( "MemUsage: " .. memCount)
-		textObject.text = "MemUsage: " .. memCount
+		--print( "MemUsage: " .. memCount)
 		prevMemCount = memCount
 	end
 	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
 	if (prevTextMem ~= textMem) then
 		prevTextMem = textMem
-		print( "TexMem: " .. textMem )
+		--print( "TexMem: " .. textMem )
 	end
 	
 	-- Display fps

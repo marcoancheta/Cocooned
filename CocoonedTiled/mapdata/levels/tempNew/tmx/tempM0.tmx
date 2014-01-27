@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="objects" value="!json! {&quot;key&quot;: true , &quot;chest&quot;: true, &quot;blueAura&quot;: true}"/>
+  <property name="objects" value="!json! { 1: &quot;key&quot;, 2: &quot;chest&quot;}"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 4, &quot;y&quot;:4}"/>
  </properties>
  <tileset firstgid="1" name="ice wall 1" tilewidth="36" tileheight="36">
@@ -30,7 +30,7 @@
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
+    <property name="collType" value="wall"/>
     <property name="name" value="blackTile"/>
     <property name="physics:bounce" value="0"/>
     <property name="physics:enabled" value="true"/>
@@ -46,6 +46,7 @@
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
+    <property name="func" value="blueAuraCollision"/>
     <property name="name" value="blueAura"/>
     <property name="physics:enabled" value="true"/>
    </properties>
@@ -54,6 +55,7 @@
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
+    <property name="func" value="blueAuraCollision"/>
     <property name="name" value="blueAura"/>
     <property name="physics:enabled" value="true"/>
    </properties>
@@ -62,6 +64,7 @@
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
+    <property name="func" value="blueAuraCollision"/>
     <property name="name" value="blueAura"/>
     <property name="physics:enabled" value="true"/>
    </properties>
@@ -70,6 +73,7 @@
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
+    <property name="func" value="blueAuraCollision"/>
     <property name="name" value="blueAura"/>
     <property name="physics:enabled" value="true"/>
    </properties>
@@ -82,6 +86,7 @@
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
     <property name="collectable" value="true"/>
+    <property name="func" value="keyCollision"/>
     <property name="name" value="key"/>
     <property name="physics:enabled" value="true"/>
    </properties>
@@ -94,6 +99,7 @@
     <property name="bodyType" value="static"/>
     <property name="collType" value="solid"/>
     <property name="collectable" value="false"/>
+    <property name="func" value="chestCollision"/>
     <property name="name" value="chest"/>
     <property name="physics:bounce" value="0"/>
     <property name="physics:enabled" value="true"/>
@@ -105,7 +111,7 @@
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztzgEJAAAMA6B1eP+ujzEGmsAEAFh37QAADHiXkAAU
+   eJztzjENAAAIA7A9KMC/V2QsJK2CJgC0TTvAe9sOAMADB8bUABk=
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">

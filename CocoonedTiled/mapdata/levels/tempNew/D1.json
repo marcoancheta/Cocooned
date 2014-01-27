@@ -81,7 +81,7 @@
              "0":
                 {
                  "bodyType":"static",
-                 "collType":"solid",
+                 "collType":"wall",
                  "name":"blackTile",
                  "physics:bounce":"0",
                  "physics:enabled":"true"
@@ -220,6 +220,7 @@
                  "bodyType":"static",
                  "collType":"solid",
                  "collectable":"false",
+                 "func":"chestCollision",
                  "name":"chest",
                  "physics:bounce":"0",
                  "physics:enabled":"true"
