@@ -83,15 +83,15 @@ function touchScreen(event, mapData, player, physics)
 		elseif event.yStart > event.y and swipeLengthy > 50 then
 			print( "Swiped Down" )
 			if mapData.pane == "M" then
-				mapData.pane = "U"
-			elseif mapData.pane == "D" then
+				mapData.pane = "D"
+			elseif mapData.pane == "U" then
 				mapData.pane = "M"
 			end
 		elseif event.yStart < event.y and swipeLengthy > 50 then
 			print( "Swiped Up" )
 			if mapData.pane == "M" then
-				mapData.pane = "D"
-			elseif mapData.pane == "U" then
+				mapData.pane = "U"
+			elseif mapData.pane == "D" then
 				mapData.pane = "M"
 			end
 		end	

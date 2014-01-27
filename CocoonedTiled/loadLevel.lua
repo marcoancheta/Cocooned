@@ -1,10 +1,7 @@
 
 local dusk = require("Dusk.Dusk")
 
-function createLevel(map, player)
-
-
-	
+function createLevel(mapData, player)
 
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
@@ -16,9 +13,14 @@ function createLevel(map, player)
 	-- Add subgroups into main GUI group
 	gui:insert(gui.back)
 	gui:insert(gui.front)
-		  
+
 	-- Load in map
-	map = dusk.buildMap("mapdata/levels/tempNew/" .. map.pane .. map.version .. ".json")
+	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. mapData.version .. ".json")
+
+	if map.tutorial == true then
+		require("tutorial")
+		printMovementText()
+	end
 
 	player.x, player.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 
@@ -27,7 +29,6 @@ function createLevel(map, player)
 	map:insert(player)
 	map.layer["tiles"]:insert(player)
 	map.layer["tiles"]:remove(1)
-	print(map.layer["tiles"][1].name)
 
 	return gui
 end
@@ -35,7 +36,7 @@ end
 function changePane(mapData)
 
 	-- Load in map
-	map = dusk.buildMap("mapdata/levels/tempNew/" .. mapData.pane .. mapData.version .. ".json")
+	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. mapData.version .. ".json")
 
 	return map
 
