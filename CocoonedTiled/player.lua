@@ -28,9 +28,13 @@ local playerInstance = {
 
 local function rotateTransition(imageObject, rotationDelta, timeDelta)
         transition.to( imageObject, { rotation=rotationDelta, time=timeDelta, transition=easing.inOutCubic, tag='rotation' } )
-end
+end 
 
-timer.performWithDelay( 600, rockRect, 0 ) 
+--call this to create a new player, but make sure to change parameters
+function create(o)
+	o = o or {} -- create object if user does not provide one
+	return playerInstance:new(o)
+end
 
 --returns a player instance
 function playerInstance:new (o) 
@@ -59,12 +63,6 @@ function playerInstance:addInventory(item)
 	if item.name == "key" then 
 		self.inventory:addItem(item)
 	end
-end
- 
---call this to create a new player, but make sure to change parameters
-function create(o)
-	o = o or {} -- create object if user does not provide one
-	return playerInstance:new(o)
 end
 
 local player  = {

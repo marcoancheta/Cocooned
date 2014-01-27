@@ -26,26 +26,26 @@ local function onAccelerate( event)
 
 	-- X gravity change
 	if event.yInstant > 0.1 then
-		xGrav = -1
+		xGrav = -event.yInstant
 	elseif event.yInstant < -0.1 then
-		xGrav = 1
+		xGrav = -event.yInstant
 	elseif event.yGravity > 0.1 then
-		xGrav = -1
+		xGrav = -event.yGravity
 	elseif event.yGravity < -0.1 then
-		xGrav = 1
+		xGrav = -event.yGravity
 		else
 			xGrav = 0
 	end
 
 	-- Y gravity change
 	if event.xInstant > 0.1 then
-		yGrav = -1
+		yGrav = -event.xInstant
 	elseif event.xInstant < -0.1 then
-		yGrav = 1
+		yGrav = -event.xInstant
 	elseif event.xGravity > 0.1 then
-		yGrav = -1
+		yGrav = -event.xGravity
 	elseif event.xGravity < -0.1 then
-		yGrav = 1
+		yGrav = -event.xGravity
 		else
 			yGrav = 0
 	end
@@ -53,8 +53,8 @@ local function onAccelerate( event)
 	-- print('onAccelerate called')
 
 	-- offset the gravity to return
-	physicsParam.xGrav=25*xGrav
-	physicsParam.yGrav=25*yGrav
+	physicsParam.xGrav=10*xGrav
+	physicsParam.yGrav=10*yGrav
 	physicsParam.xRot=event.xGravity
 	physicsParam.yRot=event.yGravity
 

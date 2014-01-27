@@ -77,7 +77,7 @@ textObject:setFillColor(0, 0, 0)
 function loadMap()
 
 	
-		
+	system.setAccelerometerInterval( 50)
 	-- Create player sprite sheet
 	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
@@ -91,7 +91,7 @@ function loadMap()
 	
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
-
+	ball.linearDamping = 3
 	-- Load in map
 	gui = loadLevel.createLevel(mapData, ball)
 	
@@ -111,11 +111,15 @@ local function controlMovement(event)
 	-- call accelerometer to get data
 	if gameData.isShowingMiniMap == false then
 		physicsParam = movementMechanic.onAccelerate(event)
-		player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
-		
+		ball:pause()
+		if(physicsParam.xGrav ~= 0 or physicsParam.yGrav ~= 0) then
+			player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
+			ball:play()
+		end
+		--[[
 		print('xRot=', physicsParam.xRot)
 		print('yRot=', physicsParam.yRot)
-		
+		--scale for speed of animation will move later
 		if physicsParam.xRot >= physicsParam.yRot then
 			scale = physicsParam.xRot
 		else
@@ -124,10 +128,11 @@ local function controlMovement(event)
 		if scale >= .05 then
 			ball.timeScale = 1-scale
 			print("scale=",1-scale)
-		end
+		end]]
 		
 		--change physics gravity
-		physics.setGravity(physicsParam.xGrav, physicsParam.yGrav)
+		ball:applyForce(physicsParam.xGrav, physicsParam.yGrav, ball.x, ball.y)
+		physics.setGravity(0,0)
 	end
 	
 end
