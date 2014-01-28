@@ -84,6 +84,23 @@ function printTutorial()
 	textBox = display.newRect( tBox.boxX, tBox.boxY, tBox.boxW, tBox.boxH)
 	textBox.alpha = tBox.boxA
 
+	
+	-- create text objects
+	textObject = { }
+		
+	for i=1, 5 do
+		textObject[i] = display.newText(text[tNum][i], tBox.x, tBox.y + tBox.offsetLG*(i-1), tBox.font, tBox.fontSizeSM)
+		-- set color of text objects
+		textObject[i]:setFillColor(0,0,0)
+	end
+
+	-- insert text objects to display group
+	tutorial:insert(textBox)
+	for i=1, #textObject do
+		tutorial:insert(textObject[i])
+	end
+	
+	--[[
 	-- create text objects
 	textObject1 = display.newText(text[tNum][1], tBox.x, tBox.y, tBox.font, tBox.fontSizeLG)
 	textObject2 = display.newText(text[tNum][2], tBox.x, tBox.y + tBox.offsetLG, tBox.font, tBox.fontSizeSM)
@@ -97,7 +114,7 @@ function printTutorial()
 	textObject3:setFillColor(0,0,0)
 	textObject4:setFillColor(0,0,0)
 	textObject5:setFillColor(0,0,0)
-
+	
 	-- insert text objects to display group
 	tutorial:insert(textBox)
 	tutorial:insert(textObject1)
@@ -105,6 +122,7 @@ function printTutorial()
 	tutorial:insert(textObject3)
 	tutorial:insert(textObject4)
 	tutorial:insert(textObject5)
+	--]]
 
 	-- add display group to event listener (tap function)
 	tutorial:addEventListener("tap", tutorialPressed)
