@@ -21,6 +21,8 @@ function createLevel(mapData, player)
 	gui:insert(gui.back)
 	gui:insert(gui.front)
 
+	print("loadMap", mapData.pane)
+
 	-- Load in map
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. mapData.version .. ".json")
 

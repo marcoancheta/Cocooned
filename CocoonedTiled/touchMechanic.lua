@@ -54,7 +54,7 @@ function touchScreen(event, mapData, player, physics)
 			tapTime = event.time
 		end
 	end
-	
+
 --------------------------------------------------------------------------------
 -- swipe mechanic
 --------------------------------------------------------------------------------
@@ -62,6 +62,13 @@ function touchScreen(event, mapData, player, physics)
 	--get swipe length for x and y
 	local swipeLength = math.abs(event.x - event.xStart)
 	local swipeLengthY = math.abs(event.y - event.yStart)
+
+	local swipeX = event.x - event.xStart
+	local swipeY = event.y - event.yStart
+
+	if gameData.isShowingMiniMap then
+		miniMap.updateMiniMap(mapData, miniMapDisplay, swipeX, swipeY)
+	end
 	
 	-- if event touch is ended, check which way was swiped 
 	-- change pane is possible
