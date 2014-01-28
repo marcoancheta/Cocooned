@@ -3,11 +3,15 @@
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
 -- main.lua
 --------------------------------------------------------------------------------
+
 --------------------------------------------------------------------------------
 -- Source(s) Cited:
 --   Splash Screen Detail - http://developer.coronalabs.com/code/android-friendly-splash-screen-logic
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+
+-- disable sleep screen mode on device
+system.setIdleTimer(false)
 
 -- Global Variables
 local sCounter = 0

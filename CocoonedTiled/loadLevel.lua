@@ -1,4 +1,15 @@
+<<<<<<< HEAD
 local selectLevel = require("selectLevel")
+=======
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- loadLevel.lua
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+>>>>>>> 728e834545bb0cb8ff92c6fdf61373b293550eab
 local dusk = require("Dusk.Dusk")
 
 function createLevel(mapData, player)
@@ -19,7 +30,7 @@ function createLevel(mapData, player)
 
 	if map.tutorial == true then
 		require("tutorial")
-		printMovementText()
+		printTutorial()
 	end
 
 	player.x, player.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
