@@ -18,6 +18,8 @@ local dusk = require("Dusk.Dusk")
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("gameData")
+-- Select level function (loadLevel.lua)
+local selectLevel = require("selectLevel")
 -- Load level function (loadLevel.lua)
 local loadLevel = require("loadLevel")
 -- Animation variables/data (animation.lua)
@@ -66,13 +68,12 @@ local player2 = player.create()
 	print("player2 name =", player1.name)
 	print("player2 color =", player1.color)
 ]]--
-	
+
 --------------------------------------------------------------------------------
 -- Load Map
 --------------------------------------------------------------------------------
 function loadMap()
 
-	
 	system.setAccelerometerInterval( 50)
 	-- Create player sprite sheet
 	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
@@ -112,6 +113,7 @@ local function controlMovement(event)
 			player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
 			ball:play()
 		end
+		
 		--[[
 		print('xRot=', physicsParam.xRot)
 		print('yRot=', physicsParam.yRot)
@@ -171,6 +173,22 @@ end
 -- Core Game Loop
 --------------------------------------------------------------------------------
 local function gameLoop(event)
+	---------------------------------
+	--[[ START LVL SELECTOR LOOP ]]--
+	-- If select level do:
+	if gameData.selectLevel then
+		selectLevel.setupLevelSelector(event)
+		gameData.inLevelSelector = true
+		gameData.selectLevel = false
+	end
+
+	if gameData.inLevelSelector then
+		mapData.levelNum = selectLevel.levelNum
+		mapData.pane = selectLevel.pane
+		mapData.version = selectLevel.version
+		gameData.inLevelSelector = false
+	end
+	
 	-----------------------------
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
@@ -196,6 +214,7 @@ local function gameLoop(event)
 		gameData.menuOn = false
 		gameData.BGM = false
 		gameData.ingame = true
+		gameData.allowPaneSwitch = true
 		gameData.showMiniMap = true
 		gameData.gameStart = false
 	end

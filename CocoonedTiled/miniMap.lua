@@ -8,6 +8,9 @@
 local gameData = require("gameData")
 
 function createMiniMap(mapData, player)
+
+	gameData.allowPaneSwitch = false
+
 	-- create new display group
 	local miniMap = display.newGroup()
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
+ <properties>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 4, &quot;y&quot;: 4}"/>
+ </properties>
+ <tileset firstgid="1" name="blackTile" tilewidth="36" tileheight="36">
+  <image source="../../../art/black tile.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="blackTile"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="5" name="bg" tilewidth="1440" tileheight="864">
+  <tileoffset x="-720" y="432"/>
+  <image source="../../../art/bg.png" width="1440" height="864"/>
+ </tileset>
+ <layer name="bg" width="40" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztziEBAAAIA7Ab+lcmwgUCsyVYAgA08x0AAM4WNhAABg==
+  </data>
+ </layer>
+ <layer name="tiles" width="40" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztlbENACAIwOD/p10d0aJhaBM20nSCjIgcPhW696ou++6xj2Efwz5G5Va/uuNVV6dvd/7+byd9nS77mMs+5rKPuexjLvuYa/osfqsAtA==
+  </data>
+ </layer>
+</map>
