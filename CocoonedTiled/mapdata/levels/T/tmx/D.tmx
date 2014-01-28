@@ -2,7 +2,6 @@
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 4, &quot;y&quot;: 4}"/>
-  <property name="tutorial" value="true"/>
  </properties>
  <tileset firstgid="1" name="blackTile" tilewidth="36" tileheight="36">
   <image source="../../../art/black tile.png" width="72" height="72"/>
@@ -16,30 +15,18 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="5" name="rune" tilewidth="72" tileheight="72">
-  <image source="../../../art/rune 1.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="rune"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="6" name="bg" tilewidth="1440" tileheight="864">
+ <tileset firstgid="5" name="bg" tilewidth="1440" tileheight="864">
   <tileoffset x="-720" y="432"/>
   <image source="../../../art/bg.png" width="1440" height="864"/>
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztziEBAAAIA7Ar+kcmwgUCsyVYAgA08x0AAM4WPeAABw==
+   eJztziEBAAAIA7Ab+lcmwgUCsyVYAgA08x0AAM4WNhAABg==
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlTEKADAIxHTo/7/sF7Qn1UICbiUEh+pm5ssnQ/e7rIu+e+jToE+DPo3Jf7zS18nUfav0dbro01z0aS76NNfrvlN0sT/N9UPf5gmuwwC9
+   eJzt1MEJADAIxVDdf+muYBtBC/ngrYR3akZELr/Kut9VW/rep49NH5s+tsl//MbXOX282dnSx1r6WEsfa+ljrR98m+8AF18Apg==
   </data>
  </layer>
 </map>

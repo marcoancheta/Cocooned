@@ -223,7 +223,8 @@ function buttonPressed(event)
 		menuGroup:remove(options)
 		
 		-- User pressed play, set gameActive to true
-		gameData.gameStart = true
+		gameData.selectLevel = true
+		--gameData.gameStart = true
 		gameData.inGameOptions = false
 	
 	--------------------------------

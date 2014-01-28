@@ -39,7 +39,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlTEKADAIxHTo/7/sF7Qn1UICbiUEh+pm5ssnQ/e7rIu+e+jToE+DPo3Jf7zS18nUfav0dbro01z0aS76NNfrvlN0sT/N9UPf5gmuwwC9
+   eJztlbEJADAIwPT/p/uCNoIOCbhJyKQZEXl8KkzvVV32/WMfwz6GfYzNO97pm2Trv3X6Jl32MZd9zGUfc9nHXPYx1/V5oVMAuA==
   </data>
  </layer>
 </map>
