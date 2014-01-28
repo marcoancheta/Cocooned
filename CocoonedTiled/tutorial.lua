@@ -64,6 +64,10 @@ local text = {
 	}
 }
 
+function setTutorial()
+	tNum = 1
+end
+
 
 function printTutorial()
 

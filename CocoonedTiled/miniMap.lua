@@ -93,6 +93,8 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 			pSW1, pSW2 = 3, 6
 		elseif mapData.pane == "L" then
 			pSW1, pSW2 = 7, 3
+		else
+			pSW1, pSW2 = 4, 5
 		end
 
 		if swipeX > 0 and miniMap[2].x > miniMap[pSW1].x then
@@ -109,6 +111,8 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 			pSW1, pSW2 = 5, 3
 		elseif mapData.pane == "D" then
 			pSW1, pSW2 = 3, 4
+		else
+			pSW1, pSW2 = 6, 7
 		end
 		if swipeY > 0 and miniMap[2].y > miniMap[pSW1].y then
 			miniMap[2].y = miniMap[2].y - 20

@@ -26,6 +26,7 @@ function createLevel(mapData, player)
 
 	if map.tutorial == true then
 		require("tutorial")
+		setTutorial()
 		printTutorial()
 	end
 
