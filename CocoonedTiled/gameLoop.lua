@@ -345,13 +345,13 @@ collectgarbage()
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		--print( "MemUsage: " .. memCount)
+		print( "MemUsage: " .. memCount)
 		prevMemCount = memCount
 	end
 	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
 	if (prevTextMem ~= textMem) then
 		prevTextMem = textMem
-		--print( "TexMem: " .. textMem )
+		print( "TexMem: " .. textMem )
 	end
 	
 	-- Display fps

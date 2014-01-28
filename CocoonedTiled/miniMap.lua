@@ -83,8 +83,6 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 
 	local pSW1, pSW2
 
-	print("swipe", swipeX)
-
 	if math.abs(swipeX) > math.abs(swipeY) and math.abs(swipeX) > 40 then
 
 		if mapData.pane == "M" then
