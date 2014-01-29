@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- switchPane.lua
+-- touchMechanic.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -54,40 +54,47 @@ function touchScreen(event, mapData, player, physics)
 			tapTime = event.time
 		end
 	end
-	
+
 --------------------------------------------------------------------------------
 -- swipe mechanic
 --------------------------------------------------------------------------------
 
 	--get swipe length for x and y
 	local swipeLength = math.abs(event.x - event.xStart)
-	local swipeLengthy = math.abs(event.y - event.yStart)
+	local swipeLengthY = math.abs(event.y - event.yStart)
+
+	local swipeX = event.x - event.xStart
+	local swipeY = event.y - event.yStart
+
+	if gameData.isShowingMiniMap then
+		miniMap.updateMiniMap(mapData, miniMapDisplay, swipeX, swipeY)
+	end
 	
 	-- if event touch is ended, check which way was swiped 
 	-- change pane is possible
 	if "ended" == phase or "cancelled" == phase then
-		if event.xStart > event.x and swipeLength > 50 then 
+		if event.xStart > event.x and swipeLength > 50 and swipeLengthY < 50 then 
 			print("Swiped Left")
 			if mapData.pane == "M" then
 				mapData.pane = "R"
 			elseif mapData.pane == "L" then
 				mapData.pane = "M"
 			end
-		elseif event.xStart < event.x and swipeLength > 50 then 
+		elseif event.xStart < event.x and swipeLength > 50  and swipeLengthY < 50 then 
 			print( "Swiped Right" )
 			if mapData.pane == "M" then
 				mapData.pane = "L"
 			elseif mapData.pane == "R" then
 				mapData.pane = "M"
 			end
-		elseif event.yStart > event.y and swipeLengthy > 50 then
+		elseif event.yStart > event.y and swipeLengthY > 50 and swipeLength < 50 then
 			print( "Swiped Down" )
 			if mapData.pane == "M" then
 				mapData.pane = "D"
 			elseif mapData.pane == "U" then
 				mapData.pane = "M"
 			end
-		elseif event.yStart < event.y and swipeLengthy > 50 then
+		elseif event.yStart < event.y and swipeLengthY > 50 and swipeLength <50 then
 			print( "Swiped Up" )
 			if mapData.pane == "M" then
 				mapData.pane = "U"

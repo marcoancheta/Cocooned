@@ -8,6 +8,9 @@
 local gameData = require("gameData")
 
 function createMiniMap(mapData, player)
+
+	gameData.allowPaneSwitch = false
+
 	-- create new display group
 	local miniMap = display.newGroup()
 
@@ -54,13 +57,13 @@ function createMiniMap(mapData, player)
 	currentPane:setFillColor(1,0,0)
 
 	-- add images to group
-	miniMap:insert(bg)
-	miniMap:insert(currentPane)
-	miniMap:insert(Mpane)
-	miniMap:insert(Upane)
-	miniMap:insert(Dpane)
-	miniMap:insert(Lpane)
-	miniMap:insert(Rpane)
+	miniMap:insert(1,bg)
+	miniMap:insert(2,currentPane)
+	miniMap:insert(3,Mpane)
+	miniMap:insert(4,Upane)
+	miniMap:insert(5,Dpane)
+	miniMap:insert(6,Lpane)
+	miniMap:insert(7,Rpane)
 	
 	if #player.inventory.items > 0 then
 		for count = 1, #player.inventory.items do
@@ -76,8 +79,55 @@ function createMiniMap(mapData, player)
 	return miniMap
 end
 
+function updateMiniMap(mapData, miniMap, swipeX, swipeY)
+
+	local pSW1, pSW2
+
+	print("swipe", swipeX)
+
+	if math.abs(swipeX) > math.abs(swipeY) and math.abs(swipeX) > 40 then
+
+		if mapData.pane == "M" then
+			pSW1, pSW2 = 6, 7
+		elseif mapData.pane == "R" then
+			pSW1, pSW2 = 3, 6
+		elseif mapData.pane == "L" then
+			pSW1, pSW2 = 7, 3
+		else
+			pSW1, pSW2 = 4, 5
+		end
+
+		if swipeX > 0 and miniMap[2].x > miniMap[pSW1].x then
+			miniMap[2].x = miniMap[2].x - 20
+		elseif swipeX < 0 and miniMap[2].x < miniMap[pSW2].x then
+			miniMap[2].x = miniMap[2].x + 20
+		end
+
+	elseif math.abs(swipeX) < math.abs(swipeY) and math.abs(swipeY) > 40 then
+
+		if mapData.pane == "M" then
+			pSW1, pSW2 = 4, 5
+		elseif mapData.pane == "U" then
+			pSW1, pSW2 = 5, 3
+		elseif mapData.pane == "D" then
+			pSW1, pSW2 = 3, 4
+		else
+			pSW1, pSW2 = 6, 7
+		end
+		if swipeY > 0 and miniMap[2].y > miniMap[pSW1].y then
+			miniMap[2].y = miniMap[2].y - 20
+		elseif swipeY < 0 and miniMap[2].y < miniMap[pSW2].y then
+			miniMap[2].y = miniMap[2].y + 20
+		end
+	end
+
+
+
+end
+
 local miniMap = {
-	createMiniMap = createMiniMap
+	createMiniMap = createMiniMap,
+	updateMiniMap = updateMiniMap
 }
 
 return miniMap

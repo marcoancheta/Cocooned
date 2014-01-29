@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
+ <properties>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 4, &quot;y&quot;:4}"/>
+ </properties>
+ <tileset firstgid="1" name="ice wall 1" tilewidth="36" tileheight="36">
+  <image source="../../../art/ice wall 1.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="name" value="iceWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="name" value="iceWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="5" name="black tile" tilewidth="36" tileheight="36">
+  <image source="../../../art/black tile.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="blackTile"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="9" name="white tile" tilewidth="36" tileheight="36">
+  <image source="../../../art/white tile.png" width="72" height="72"/>
+ </tileset>
+ <tileset firstgid="13" name="key" tilewidth="36" tileheight="36">
+  <image source="../../../art/key.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="collectable" value="true"/>
+    <property name="name" value="key"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="collectable" value="true"/>
+    <property name="name" value="key"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="collectable" value="true"/>
+    <property name="name" value="key"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="collectable" value="true"/>
+    <property name="name" value="key"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="17" name="blue aura sphere 1" tilewidth="36" tileheight="36">
+  <image source="../../../art/blue aura sphere 1.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="name" value="blueAura"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="name" value="blueAura"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="name" value="blueAura"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="name" value="blueAura"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="21" name="chest" tilewidth="36" tileheight="36">
+  <image source="../../../art/chest.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="name" value="chest"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="name" value="chest"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="name" value="chest"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="name" value="chest"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="25" name="bg" tilewidth="1440" tileheight="864">
+  <image source="../../../art/bg.png" width="1440" height="864"/>
+ </tileset>
+ <layer name="bg" width="40" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzt1sEJADAIBMH7WkL6bzTYQvSxR27Ab1gEISWp4EOVvhlyW3PYX/re0fta+mZ+6zuLb9HvI30z9D4HtP25/J0dOOzQoY88F2jZBBw=
+  </data>
+ </layer>
+ <layer name="tiles" width="40" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztlkEKACAMwyay/3/Z+5ggtEjRBnbwMAhBwYyIFB8WA9jtPNh+E9i94fd6P+X716HUr4Ptx8Z+GL/5+f1iuB+G+2G83k/9/1JdFPvVs/uds/NTngWKIwLh
+  </data>
+ </layer>
+</map>

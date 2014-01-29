@@ -1,4 +1,9 @@
-
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- loadLevel.lua
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 local dusk = require("Dusk.Dusk")
 
 function createLevel(mapData, player)
@@ -14,12 +19,15 @@ function createLevel(mapData, player)
 	gui:insert(gui.back)
 	gui:insert(gui.front)
 
+	print("loadMap", mapData.pane)
+
 	-- Load in map
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. mapData.version .. ".json")
 
 	if map.tutorial == true then
 		require("tutorial")
-		printMovementText()
+		setTutorial()
+		printTutorial()
 	end
 
 	player.x, player.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
