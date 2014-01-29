@@ -15,7 +15,8 @@ local physicsParam = {
 	xGrav = 0,
 	yGrav = 0,
 	xRot=0,
-	yRot=0
+	yRot=0,
+	coefficient=10
 }
 
 -- acceleromter call
