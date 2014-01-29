@@ -84,7 +84,7 @@ function loadMap()
 	ball = player1.imageObject
 	ball.name = "player"
 	ball:setSequence("move")
-	ball:play()
+	--ball:play()
 	
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
@@ -104,31 +104,32 @@ end
 -- control mechanic
 local function controlMovement(event) 
 	print("controlMovement(event)")
-	
 	-- call accelerometer to get data
 	if gameData.isShowingMiniMap == false then
 		physicsParam = movementMechanic.onAccelerate(event)
+		--update player(rotation and animation)
+		--move to animation.lua or player.lua?
 		ball:pause()
 		if(physicsParam.xGrav ~= 0 or physicsParam.yGrav ~= 0) then
 			player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
 			ball:play()
 		end
-		
-		--[[
-		print('xRot=', physicsParam.xRot)
-		print('yRot=', physicsParam.yRot)
-		--scale for speed of animation will move later
-		if physicsParam.xRot >= physicsParam.yRot then
-			scale = physicsParam.xRot
+		local vx, vy = ball:getLinearVelocity()
+		local speed = math.sqrt((vy*vy)+(vx*vx))
+		if speed > 300 then
+			ball.timeScale = 1.5
+		elseif speed > 150 then
+			ball.timeScale = 1
+		elseif speed >75 then
+			ball.timeScale = .5
+		elseif speed> 37.5 then
+			ball.timeScale = .1
+		elseif speed>0 then
+			ball.timeScale = .05
 		else
-			scale = physicsParam.yRot
+			ball:pause()
 		end
-		if scale >= .05 then
-			ball.timeScale = 1-scale
-			print("scale=",1-scale)
-		end]]
-		
-		--change physics gravity
+		--apply force instead of changing gravity
 		ball:applyForce(physicsParam.xGrav, physicsParam.yGrav, ball.x, ball.y)
 		physics.setGravity(0,0)
 	end
