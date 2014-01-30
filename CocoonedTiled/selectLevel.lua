@@ -86,7 +86,7 @@ function setupLevelSelector(event)
 	lockedLevels = {}
 	
 	for i=1, 10 do
-		if i ~= 1 and i~=2 and i~=3 then
+		if i ~= 1 and i~=2 and i~=3 and i~=7 then
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x
 			lockedLevels[i].y = kCircle[i].y
@@ -98,48 +98,51 @@ function setupLevelSelector(event)
 	end
 end
 
--- When player tap's levels once:
-local function tapOnce(event)
-	if event.numTaps >= 2 then	
-		--	Clean up on-screen items	
-		display.remove(lvlNumber)
-		display.remove(textPos)
-		display.remove(kipcha)
-		display.remove(levelsMap)
+-- When player tap's levels twice:
+local function tapTwice(event)
+	for i=1, #kCircle do
+		if event.target.name == kCircle[i].name then
+			if event.numTaps >= 2 and kCircle[i].isAwake then	
+				--	Clean up on-screen items	
+				display.remove(lvlNumber)
+				display.remove(textPos)
+				display.remove(kipcha)
+				display.remove(levelsMap)
+						
+				for p=1, #kCircle do
+					display.remove(kCircle[p])
+					display.remove(levels[p])
+					display.remove(lockedLevels[p])
+					kCircle[p]:removeEventListener("touch", runLevelSelector)
+				end
 				
-		for p=1, #kCircle do
-			display.remove(kCircle[p])
-			display.remove(levels[p])
-			display.remove(lockedLevels[p])
-			kCircle[p]:removeEventListener("touch", runLevelSelector)
+				-- Send data to start game
+				gameData.gameStart = true
+			end
 		end
-		
-		-- Send data to start game
-		gameData.gameStart = true
 	end
 end
 
--- When player tap's levels twice:
-local function tapTwice(event)
-	if event.numTaps == 1 then
-		for i=1, #kCircle do
-			if event.target.name == kCircle[i].name then
-				if kCircle[i].isAwake then
-					-- Move kipcha to the selected circle
-					kipcha.x = kCircle[i].x
-					kipcha.y = kCircle[i].y
-					goTo = kCircle[i].name
-					selectLevel.levelNum = goTo
-					kCircle[i]:setFillColor(167/255, 219/255, 216/255)
+-- When player tap's levels once:
+local function tapOnce(event)
+	for i=1, #kCircle do
+		if event.target.name == kCircle[i].name then
+			if event.numTaps == 1 and kCircle[i].isAwake then
+				print("kCircle[", i, "]", kCircle[i], kCircle[i].isAwake)
+				-- Move kipcha to the selected circle
+				kipcha.x = kCircle[i].x
+				kipcha.y = kCircle[i].y
+				goTo = kCircle[i].name
+				selectLevel.levelNum = goTo
+				kCircle[i]:setFillColor(167/255, 219/255, 216/255)
 					
-					-- Send signal to refresh sent mapData
-					gameData.inLevelSelector = true
-				end
-			else
-				for j=1, #kCircle do
-					if kCircle[j].name ~= event.target.name then
-						kCircle[j]:setFillColor(105/255, 210/255, 231/255)
-					end
+				-- Send signal to refresh sent mapData
+				gameData.inLevelSelector = true
+			end
+		else
+			for j=1, #kCircle do
+				if kCircle[j].name ~= event.target.name then
+					kCircle[j]:setFillColor(105/255, 210/255, 231/255)
 				end
 			end
 		end
