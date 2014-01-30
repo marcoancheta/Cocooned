@@ -1,25 +1,268 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
- <tileset firstgid="1" name="ice wall 1" tilewidth="36" tileheight="36">
-  <image source="../../../art/ice wall 1.png" width="72" height="72"/>
+ <properties>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
+  <property name="tutorial" value="false"/>
+ </properties>
+ <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
+  <tileoffset x="-720" y="432"/>
+  <image source="../../../art/bg.png" width="1440" height="864"/>
  </tileset>
- <tileset firstgid="5" name="key" tilewidth="72" tileheight="72">
-  <image source="../../../art/key.png" width="72" height="72"/>
+ <tileset firstgid="2" name="redWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/redWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="redWallCollision"/>
+    <property name="name" value="redWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="redWallCollision"/>
+    <property name="name" value="redWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="redWallCollision"/>
+    <property name="name" value="redWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="redWallCollision"/>
+    <property name="name" value="redWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
  </tileset>
- <tileset firstgid="6" name="blue aura sphere 1" tilewidth="72" tileheight="72">
-  <image source="../../../art/blue aura sphere 1.png" width="72" height="72"/>
+ <tileset firstgid="6" name="aura" tilewidth="72" tileheight="72">
+  <image source="../../../art/aura.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="blueAuraCollision"/>
+    <property name="name" value="blueAura"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
  </tileset>
- <tileset firstgid="7" name="bg2" tilewidth="36" tileheight="36">
-  <image source="../../../art/bg2.jpg" width="3000" height="1690"/>
+ <tileset firstgid="7" name="rune" tilewidth="72" tileheight="72">
+  <image source="../../../art/rune.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="runeCollision"/>
+    <property name="name" value="rune"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
  </tileset>
- <layer name="background" width="40" height="24">
+ <tileset firstgid="8" name="key" tilewidth="72" tileheight="72">
+  <image source="../../../art/antler.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="collectible" value="true"/>
+    <property name="func" value="keyCollision"/>
+    <property name="name" value="key"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="9" name="blueWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blueWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="blueWallCollision"/>
+    <property name="name" value="blueWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="blueWallCollision"/>
+    <property name="name" value="blueWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="blueWallCollision"/>
+    <property name="name" value="blueWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="blueWallCollision"/>
+    <property name="name" value="blueWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="13" name="greenWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/greenWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="greenWallCollision"/>
+    <property name="name" value="greenWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="static"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="greenWallCollision"/>
+    <property name="name" value="greenWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="greenWallCollision"/>
+    <property name="name" value="greenWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="greenWallCollision"/>
+    <property name="name" value="greenWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="17" name="lockedDoor" tilewidth="72" tileheight="72">
+  <image source="../../../art/lockeddoor.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="lockedDoorCollision"/>
+    <property name="name" value="lockedDoor"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="18" name="runeblue" tilewidth="72" tileheight="72">
+  <image source="../../../art/runeblue.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="runeCollision"/>
+    <property name="name" value="blueRune"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="19" name="runegreen" tilewidth="72" tileheight="72">
+  <image source="../../../art/runegreen.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="runeCollision"/>
+    <property name="name" value="greenRune"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="20" name="runepink" tilewidth="72" tileheight="72">
+  <image source="../../../art/runepink.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="runeCollision"/>
+    <property name="name" value="pinkRune"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="21" name="runepurple" tilewidth="72" tileheight="72">
+  <image source="../../../art/runepurple.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="runeCollision"/>
+    <property name="name" value="purpleRune"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="22" name="runeyellow" tilewidth="72" tileheight="72">
+  <image source="../../../art/runeyellow.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="runeCollision"/>
+    <property name="name" value="yellowRune"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJwN1+VfF4gBwOHfJETBbr3e7WLXdrdSioBK2N16vf5st7i2uxUEBQzK7tbrXe7a7lZKUdnz4vkLvq++ucGBQB75FFDIRjaxmS1sZRvb2cFOdrGbPexlH/s5wEEOcZgjHOUjPuYTPuUzPucL/suXfMXXfMO3fEelkEAgiGBCCKUyYVShKuFEUI3q1KAmtahNHepSj/o0oCGNaEwTHuBBHuJhHuFRHuO3PM7veIIneYqn6U8SyaSQygAGMojBDGEowxjOCEYyitGMYSzjGM8EJjKJyUzhZV7hVV7jdd7gTf7AH/kTf+Yv/JW/kUU2OaxlHevZQC555FNAIRvZxGa2sJVtbGcHO9nFbvawl33s5wAHOcRhjnCUj/iYT/iUz/icLyjnLve4TwWB0EDgN1QiiGBCCKUyYVShKuFEUI3q1KAmtahNHepSj/o0oCGNaEwTHuBBHuJhHuFRHiOOPsSTQCJ96Ud/kkgmhVQGMJBBDGYIQxnGcEYwklGMZgxjGcd4JjCRSUxmCi/zCq/yGq/zBm+SRjqryCCT1awhi2xyWMs61rOBXPLIp4BCNrKJzWxhK9vYzg52sovd7GEv+9jPAQ5yiMMc4ShFFFNCKWXc5g7l3OUe96kgUFl7KhFEMCGEUpkwqlCVcCKoRnVqUJNa1KYOdalHfRrQkEY0pgmRRBFNDLH0ojdx9CGeBBLpSz/6k0QyKaQygIEMYjBDGMowhjOCkYxiNGMYyzjGM4GJTGIyU1jMEpayjOWsYCVppLOKDDJZzRqyyCaHtaxjPRvIJY98CihkI5vYzBa2so3t7GAnu9jNHvayjytc5RrXucFNblFEMSWUUsZt7lDOXe5xnwoCYdpTiSCCCSGUyoRRhaqEE0E1qlODmtSiNnWoS2e60JVudKcHPYkkimhiiKUXvYmjD/EkkEhf+tGfJJJJIZUBDGQQgxnCUIYxnBGMZBSjGcNY5jCXecxnAQtZxGKWsJRlLGcFK0kjnVVkkMlq1pBFNjmsZR3r2UAueeRTQCEb2cRmtrCVbWznLOc4zwUuconLXOEq17jODW5yiyKKKaGUMm5zh3Luco/7VBCooj2VCCKYEEKpTBhVqEo4EVSjDW1pR3s60JFOdKYLXelGd3rQk0iiiCaGWHrRmzj6EE8CifSlH/1JIpkUUhnAQAYxmCEMZRhTmcZ0ZjCTWcxmDnOZx3wWsJBFLGYJS1nGclawkjTSWUUGmaxmDVlkk8Na1rGeDeSSRz4FFHKM45zgJKc4zRnOco7zXOAil7jMFa5yjevc4Ca3KKKYEkop4zZ3KOcu97hPBYGq2lOJIIIJIZSmNKM5LWhJK1rThra0oz0d6EgnOtOFrnSjOz3oSSRRRBNDLL3oTRx9iCeBRPrSj/4kkUwKqbzNO7zLe7zPB3zIVKYxnRnMZBazmcNc5jGfBSxkEYtZwlKWsZwVrCSNdFaRQSarWUMW2eSwlnV8zw/8yE/8zC/8yjGOc4KTnOI0ZzjLOc5zgYtc4jJXuMo1rnODm9yiiGJKKKWM29yhnLvc4z4VPBMeCDzLczzPC7zISzSlGc1pQUta0Zo2tKUd7elARzrRmS50pRvd6UFPIokimhhi6UVv4uhDPAkk8nf+wVv8k3/xb/7D27zDu7zH+3zAh0xlGtOZwUxmMZs5zGUe81nAQhaxmCUsZRnLWcFK0khnFRlk8iVf8TXf8C3f8T++5wd+5Cd+5hd+5RjHOcFJTnGaM5zlHOe5wEUucZkrXOUa17nBTW5RRDEllFLG4xG+iSd4kqd4mt/zDM/yHM/zAi/yEk1pRnNa0JJWtKYNbWlHezrQkU50pgtd6UZ3etCTSKKIJoZY/g8iMQHQ
+   eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
   </data>
  </layer>
- <layer name="foreground" width="40" height="24">
+ <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt0LEKACAIQMGs///nluYUHFzuQByVtxYAAFXxZn/2pDN8PxPTDyT069GvR7+eSr8Li0AAIQ==
+   eJztlkEKwDAIBL2a+v/3th68CS26Cwl1IHhQjAxCoiKynqObxkv6LECPDJ9NAX1Y8/ls46/O7v5Mxl+Hv+yfAXpknOLPAJEByh8L1P6xYPrb6f+S8db3y71sf5181Iy/Wt6Z/avno2b81fJRg3p/WfEGpBkHbw==
   </data>
  </layer>
 </map>
