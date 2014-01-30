@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 16, &quot;y&quot;: 9}"/>
-  <property name="tutorial" value="true"/>
+  <property name="Dpane" value="0"/>
+  <property name="Lpane" value="1"/>
+  <property name="Mpane" value="1"/>
+  <property name="Rpane" value="1"/>
+  <property name="Upane" value="0"/>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 4,&quot;y&quot;: 12}"/>
  </properties>
- <tileset firstgid="1" name="blackTile" tilewidth="36" tileheight="36">
+ <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
+  <tileoffset x="-720" y="432"/>
+  <image source="../../../art/bg.png" width="1440" height="864"/>
+ </tileset>
+ <tileset firstgid="2" name="black tile" tilewidth="36" tileheight="36">
   <image source="../../../art/black tile.png" width="72" height="72"/>
   <tile id="0">
    <properties>
@@ -16,7 +24,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="5" name="rune" tilewidth="72" tileheight="72">
+ <tileset firstgid="6" name="rune 1" tilewidth="72" tileheight="72">
   <image source="../../../art/rune 1.png" width="72" height="72"/>
   <tile id="0">
    <properties>
@@ -28,18 +36,17 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="6" name="bg" tilewidth="1440" tileheight="864">
-  <tileoffset x="-720" y="432"/>
-  <image source="../../../art/bg.png" width="1440" height="864"/>
+ <tileset firstgid="7" name="ice wall 1" tilewidth="36" tileheight="36">
+  <image source="../../../art/ice wall 1.png" width="72" height="72"/>
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztziEBAAAIA7Ar+kcmwgUCsyVYAgA08x0AAM4WPeAABw==
+   eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlUEKACAMw7b/f9qjp8lYpwxJwFMrBETqZubDz1Tw08BPo+p3utP5F2/5VbKoj18ui/r45bKo372JE/aX9919/HJZ1P9x316BnwZ+Gje2qPss6gMAyg==
+   eJztjjEKQDEIxaRD73/kTn8JDs2fLDzBxWDIqqo1fP9M93d7u2EfT59zkE/q2w2f1Nfx9DkHefqcgzx9zkGePucgT59zkKfPOcjT5xzk6XMO8hf6Ju8Bv9wBrw==
   </data>
  </layer>
 </map>
