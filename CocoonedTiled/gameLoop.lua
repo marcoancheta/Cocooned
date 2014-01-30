@@ -116,16 +116,17 @@ local function controlMovement(event)
 		end
 		local vx, vy = ball:getLinearVelocity()
 		local speed = math.sqrt((vy*vy)+(vx*vx))
+		
 		if speed > 300 then
-			ball.timeScale = 1.5
+			ball.timeScale = 2.5
 		elseif speed > 150 then
-			ball.timeScale = 1
+			ball.timeScale = 2
 		elseif speed >75 then
-			ball.timeScale = .5
-		elseif speed> 37.5 then
-			ball.timeScale = .1
-		elseif speed>0 then
-			ball.timeScale = .05
+			ball.timeScale = 1
+		elseif speed > 0 then
+			ball.timeScale = .25
+		--elseif speed > 0 then
+		--	ball.timeScale = .15
 		else
 			ball:pause()
 		end
