@@ -22,38 +22,12 @@ local miniMapDisplay
 --------------------------------------------------------------------------------
 -- touchScreen function
 --------------------------------------------------------------------------------
-function touchScreen(event, mapData, player, physics)
+function swipeScreen(event, mapData, player)
 
 	-- phase name
 	local phase = event.phase
 	local tempPane = mapData.pane
 
---------------------------------------------------------------------------------
--- miniMap mechanic
---------------------------------------------------------------------------------
-
-	if gameData.showMiniMap then
-		if "ended" == phase then
-			-- if double tapped within 300 milli seconds
-			if (event.time - tapTime) < 300 then
-				print("time:",event.time - tapTime)
-				-- if miniMap showing, take it down
-				if gameData.isShowingMiniMap then
-					physics.start()
-					miniMapDisplay:removeSelf()
-					gameData.isShowingMiniMap = false
-					print("show miniMap")
-				-- else show miniMap
-				else
-					physics.pause()
-					miniMapDisplay = miniMap.createMiniMap(mapData, player)
-					gameData.isShowingMiniMap = true
-				end
-			end
-			-- store tapTimes for double tap check
-			tapTime = event.time
-		end
-	end
 
 --------------------------------------------------------------------------------
 -- swipe mechanic
@@ -74,27 +48,27 @@ function touchScreen(event, mapData, player, physics)
 	-- change pane is possible
 	if "ended" == phase or "cancelled" == phase then
 		if event.xStart > event.x and swipeLength > 50 and swipeLengthY < 50 then 
-			print("Swiped Left")
-			if mapData.pane == "M" then
-				mapData.pane = "R"
-			elseif mapData.pane == "L" then
-				mapData.pane = "M"
-			end
-		elseif event.xStart < event.x and swipeLength > 50  and swipeLengthY < 50 then 
-			print( "Swiped Right" )
+			print("Swiped Right")
 			if mapData.pane == "M" then
 				mapData.pane = "L"
 			elseif mapData.pane == "R" then
 				mapData.pane = "M"
 			end
-		elseif event.yStart > event.y and swipeLengthY > 50 and swipeLength < 50 then
+		elseif event.xStart < event.x and swipeLength > 50  and swipeLengthY < 50 then 
+			print( "Swiped Left" )
+			if mapData.pane == "M" then
+				mapData.pane = "R"
+			elseif mapData.pane == "L" then
+				mapData.pane = "M"
+			end
+		elseif event.yStart > event.y and swipeLengthY > 35 and swipeLength < 50 then
 			print( "Swiped Down" )
 			if mapData.pane == "M" then
 				mapData.pane = "D"
 			elseif mapData.pane == "U" then
 				mapData.pane = "M"
 			end
-		elseif event.yStart < event.y and swipeLengthY > 50 and swipeLength <50 then
+		elseif event.yStart < event.y and swipeLengthY > 35 and swipeLength <50 then
 			print( "Swiped Up" )
 			if mapData.pane == "M" then
 				mapData.pane = "U"
@@ -105,6 +79,7 @@ function touchScreen(event, mapData, player, physics)
 
 		-- if miniMap is showing and pane switched, remove miniMap
 		if tempPane ~= mapData.pane and gameData.isShowingMiniMap then
+			miniMap.resetMiniMap()
 			miniMapDisplay:removeSelf()
 			gameData.isShowingMiniMap = false
 			print("showing miniMap")
@@ -114,8 +89,33 @@ function touchScreen(event, mapData, player, physics)
 	end	
 end
 
+function tapScreen(event, mapData, player, physics) 
+
+	--------------------------------------------------------------------------------
+	-- miniMap mechanic
+	--------------------------------------------------------------------------------
+
+	if event.numTaps >= 2 then
+		if gameData.showMiniMap then
+			if gameData.isShowingMiniMap then
+				physics.start()
+				miniMapDisplay:removeSelf()
+				gameData.isShowingMiniMap = false
+				print("show miniMap")
+			else
+				physics.pause()
+				miniMapDisplay = miniMap.createMiniMap(mapData, player)
+				gameData.isShowingMiniMap = true
+			end
+
+		end
+	end
+end
+
+
 local touchMechanic = {
-	touchScreen = touchScreen
+	swipeScreen = swipeScreen,
+	tapScreen = tapScreen
 }
 
 return touchMechanic
