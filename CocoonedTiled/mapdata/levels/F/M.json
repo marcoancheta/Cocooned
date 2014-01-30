@@ -25,6 +25,7 @@
  "orientation":"orthogonal",
  "properties":
     {
+     "itemSize":"1",
      "playerLocation":"!json! {\"x\": 4, \"y\":3 }",
      "tutorial":"false"
     },
