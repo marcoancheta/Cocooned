@@ -6,10 +6,10 @@
  </properties>
  <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
   <tileoffset x="-720" y="432"/>
-  <image source="../../../art/bg.png" width="1440" height="864"/>
+  <image source="../../art/bg.png" width="1440" height="864"/>
  </tileset>
  <tileset firstgid="2" name="redWall" tilewidth="36" tileheight="36">
-  <image source="../../../art/redWall.png" width="72" height="72"/>
+  <image source="../../art/redWall.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -52,7 +52,7 @@
   </tile>
  </tileset>
  <tileset firstgid="6" name="aura" tilewidth="72" tileheight="72">
-  <image source="../../../art/aura.png" width="72" height="72"/>
+  <image source="../../art/aura.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -65,7 +65,7 @@
   </tile>
  </tileset>
  <tileset firstgid="7" name="rune" tilewidth="72" tileheight="72">
-  <image source="../../../art/rune.png" width="72" height="72"/>
+  <image source="../../art/rune.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -78,7 +78,7 @@
   </tile>
  </tileset>
  <tileset firstgid="8" name="key" tilewidth="72" tileheight="72">
-  <image source="../../../art/antler.png" width="72" height="72"/>
+  <image source="../../art/antler.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -92,7 +92,7 @@
   </tile>
  </tileset>
  <tileset firstgid="9" name="blueWall" tilewidth="36" tileheight="36">
-  <image source="../../../art/blueWall.png" width="72" height="72"/>
+  <image source="../../art/blueWall.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -135,7 +135,7 @@
   </tile>
  </tileset>
  <tileset firstgid="13" name="greenWall" tilewidth="36" tileheight="36">
-  <image source="../../../art/greenWall.png" width="72" height="72"/>
+  <image source="../../art/greenWall.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -178,7 +178,7 @@
   </tile>
  </tileset>
  <tileset firstgid="17" name="lockedDoor" tilewidth="72" tileheight="72">
-  <image source="../../../art/lockeddoor.png" width="72" height="72"/>
+  <image source="../../art/lockeddoor.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -191,7 +191,7 @@
   </tile>
  </tileset>
  <tileset firstgid="18" name="runeblue" tilewidth="72" tileheight="72">
-  <image source="../../../art/runeblue.png" width="72" height="72"/>
+  <image source="../../art/runeblue.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -204,7 +204,7 @@
   </tile>
  </tileset>
  <tileset firstgid="19" name="runegreen" tilewidth="72" tileheight="72">
-  <image source="../../../art/runegreen.png" width="72" height="72"/>
+  <image source="../../art/runegreen.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -217,7 +217,7 @@
   </tile>
  </tileset>
  <tileset firstgid="20" name="runepink" tilewidth="72" tileheight="72">
-  <image source="../../../art/runepink.png" width="72" height="72"/>
+  <image source="../../art/runepink.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -230,7 +230,7 @@
   </tile>
  </tileset>
  <tileset firstgid="21" name="runepurple" tilewidth="72" tileheight="72">
-  <image source="../../../art/runepurple.png" width="72" height="72"/>
+  <image source="../../art/runepurple.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -243,7 +243,7 @@
   </tile>
  </tileset>
  <tileset firstgid="22" name="runeyellow" tilewidth="72" tileheight="72">
-  <image source="../../../art/runeyellow.png" width="72" height="72"/>
+  <image source="../../art/runeyellow.png" width="72" height="72"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -255,9 +255,6 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="23" name="icecrackspritesheet" tilewidth="72" tileheight="72">
-  <image source="../../../art/icecrackspritesheet.png" width="288" height="72"/>
- </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -265,7 +262,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt1jEKACEMRNFps6bf+990tRAsXBGmcIR5IGnDJ4UB4KkvRGeBrrZbnF5ioe029ntPLfLjtn5qEu7H8P1x3I/jfhz347gfR72f/8/7Zn9j3x+n90vh+QHSCAUx
+   eJzt0CEOACAMxdDZAfc/LyCwCCqY6EuW2Z9mRLR1WfT3qGtvy98jLvY2+72zH2M/xn6M/Rj7MfZj7MfYj7Efc/qNwn8CaX0FAQ==
   </data>
  </layer>
 </map>
