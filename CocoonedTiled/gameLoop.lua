@@ -143,7 +143,8 @@ local function swipeMechanics(event)
 	local tempPane = mapData.pane
 
 	-- call swipe mechanic and get new Pane
-	touch.touchScreen(event, mapData, player1, physics)
+	touch.swipeScreen(event, mapData, player1)
+
 	
 	-- if touch ended then change map if pane is switched
 	if "ended" == event.phase and mapData.pane ~= tempPane then
@@ -167,7 +168,10 @@ local function swipeMechanics(event)
 		-- Reassign game mechanic listeners
 		collisionDetection.changeCollision(ball, player1, mapData)
 	end
-	
+end
+
+local function tapMechanic(event)
+	touch.tapScreen(event, mapData, player1, physics)
 end
 
 --------------------------------------------------------------------------------
@@ -208,6 +212,7 @@ local function gameLoop(event)
 		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1])
 		Runtime:addEventListener("accelerometer", controlMovement)
 		gui.back:addEventListener("touch", swipeMechanics)
+		gui.back:addEventListener("tap", tapMechanic)
 		menu.ingameOptionsbutton(event)
 		
 		-- Re-evaluate gameData booleans
@@ -278,6 +283,7 @@ local function menuLoop(event)
 		
 		-- Remove object listeners
 		gui.back:removeEventListener("touch", swipeMechanics)
+		gui.back:addEventListener("tap", tapMechanic)
 		ball:removeEventListener("accelerometer", controlMovement)
 		
 		-- Re-evaluate gameData booleans
@@ -296,6 +302,7 @@ local function menuLoop(event)
 		
 		-- Add object listeners
 		gui.back:addEventListener("touch", swipeMechanics)
+		gui.back:addEventListener("tap", tapMechanic)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		
 		-- Re-evaluate gameData booleans
@@ -346,13 +353,13 @@ collectgarbage()
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		print( "MemUsage: " .. memCount)
+		--print( "MemUsage: " .. memCount)
 		prevMemCount = memCount
 	end
 	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
 	if (prevTextMem ~= textMem) then
 		prevTextMem = textMem
-		print( "TexMem: " .. textMem )
+		--print( "TexMem: " .. textMem )
 	end
 	
 	-- Display fps

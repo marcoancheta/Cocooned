@@ -39,21 +39,9 @@ function createMiniMap(mapData, player)
 	Lpane.x, Lpane.y = 320, 432
 	Rpane.x, Rpane.y = 1120, 432
 
-	-- create highlight for current pane
-	local x, y
-	if mapData.pane == "M" then
-		x, y = Mpane.x , Mpane.y
-	elseif mapData.pane == "U" then
-		x, y = Upane.x , Upane.y
-	elseif mapData.pane == "D" then
-		x, y = Dpane.x , Dpane.y
-	elseif mapData.pane == "L" then
-		x, y = Lpane.x , Lpane.y
-	elseif mapData.pane == "R" then
-		x, y = Rpane.x , Rpane.y
-	end
+	
 
-	local currentPane = display.newRect(x,y, 380, 236)
+	local currentPane = display.newRect(720, 432, 380, 236)
 	currentPane:setFillColor(1,0,0)
 
 	-- add images to group
@@ -64,6 +52,19 @@ function createMiniMap(mapData, player)
 	miniMap:insert(5,Dpane)
 	miniMap:insert(6,Lpane)
 	miniMap:insert(7,Rpane)
+
+	-- create highlight for current pane
+	for m = 3, 7 do
+		if mapData.pane == "U" then
+			miniMap[m].y = miniMap[m].y + 240
+		elseif mapData.pane == "D" then
+			miniMap[m].y = miniMap[m].y - 240
+		elseif mapData.pane == "L" then
+			miniMap[m].x = miniMap[m].x - 400
+		elseif mapData.pane == "R" then
+			miniMap[m].x = miniMap[m].x + 400
+		end
+	end
 	
 	if #player.inventory.items > 0 then
 		for count = 1, #player.inventory.items do
@@ -79,53 +80,54 @@ function createMiniMap(mapData, player)
 	return miniMap
 end
 
-function updateMiniMap(mapData, miniMap, swipeX, swipeY)
+local miniMapMovement = 0
 
-	local pSW1, pSW2
+function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 
 	if math.abs(swipeX) > math.abs(swipeY) and math.abs(swipeX) > 40 then
 
-		if mapData.pane == "M" then
-			pSW1, pSW2 = 6, 7
-		elseif mapData.pane == "R" then
-			pSW1, pSW2 = 3, 6
-		elseif mapData.pane == "L" then
-			pSW1, pSW2 = 7, 3
-		else
-			pSW1, pSW2 = 4, 5
+		if mapData.pane == "M" or mapData.pane == "R" or mapData.pane == "L" then
+			if swipeX > 0 and miniMapMovement < 400 and mapData.pane ~= "R" then
+				for m = 3, 7 do
+					miniMap[m].x = miniMap[m].x + 20
+				end
+				miniMapMovement = miniMapMovement + 20
+			elseif swipeX < 0 and miniMapMovement < 400  and mapData.pane ~= "L" then
+				for m = 3, 7 do
+					miniMap[m].x = miniMap[m].x - 20
+				end
+				miniMapMovement = miniMapMovement + 20
+			end
+			
 		end
 
-		if swipeX > 0 and miniMap[2].x > miniMap[pSW1].x then
-			miniMap[2].x = miniMap[2].x - 20
-		elseif swipeX < 0 and miniMap[2].x < miniMap[pSW2].x then
-			miniMap[2].x = miniMap[2].x + 20
-		end
+	elseif math.abs(swipeX) < math.abs(swipeY) and math.abs(swipeY) > 25 then
 
-	elseif math.abs(swipeX) < math.abs(swipeY) and math.abs(swipeY) > 40 then
-
-		if mapData.pane == "M" then
-			pSW1, pSW2 = 4, 5
-		elseif mapData.pane == "U" then
-			pSW1, pSW2 = 5, 3
-		elseif mapData.pane == "D" then
-			pSW1, pSW2 = 3, 4
-		else
-			pSW1, pSW2 = 6, 7
-		end
-		if swipeY > 0 and miniMap[2].y > miniMap[pSW1].y then
-			miniMap[2].y = miniMap[2].y - 20
-		elseif swipeY < 0 and miniMap[2].y < miniMap[pSW2].y then
-			miniMap[2].y = miniMap[2].y + 20
+		if mapData.pane == "M" or mapData.pane == "U" or mapData.pane == "D" then
+			if swipeY > 0 and miniMapMovement < 240 and mapData.pane ~= "U" then
+				for m = 3, 7 do
+					miniMap[m].y = miniMap[m].y + 20
+				end
+				miniMapMovement = miniMapMovement + 20
+			elseif swipeY < 0 and miniMapMovement < 240 and mapData.pane ~= "D" then
+				for m = 3, 7 do
+					miniMap[m].y = miniMap[m].y - 20
+				end
+				miniMapMovement = miniMapMovement + 20
+			end
+			
 		end
 	end
+end
 
-
-
+function resetMiniMap()
+	miniMapMovement = 0
 end
 
 local miniMap = {
 	createMiniMap = createMiniMap,
-	updateMiniMap = updateMiniMap
+	updateMiniMap = updateMiniMap,
+	resetMiniMap = resetMiniMap
 }
 
 return miniMap
