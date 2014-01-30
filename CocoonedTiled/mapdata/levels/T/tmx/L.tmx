@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 3, &quot;y&quot;:10 }"/>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 3, &quot;y&quot;:10}"/>
   <property name="tutorial" value="false"/>
  </properties>
  <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
@@ -190,71 +190,6 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="18" name="runeblue" tilewidth="72" tileheight="72">
-  <image source="../../../art/runeblue.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="blueRune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="19" name="runegreen" tilewidth="72" tileheight="72">
-  <image source="../../../art/runegreen.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="greenRune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="20" name="runepink" tilewidth="72" tileheight="72">
-  <image source="../../../art/runepink.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="pinkRune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="21" name="runepurple" tilewidth="72" tileheight="72">
-  <image source="../../../art/runepurple.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="purpleRune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="22" name="runeyellow" tilewidth="72" tileheight="72">
-  <image source="../../../art/runeyellow.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="yellowRune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -262,7 +197,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlTEKACAMA7tWnf3/U9XBxUHUgEbIQSiCQzgodTMLNU46o/HSuvnrEhNaN/k7p/vzxYSNv2j6bvzgjxX5w2Dzl4e3/GHIH8bu/bgZ3Q8c+cOQP4xf/CXiWQDL6gfG
+   eJzt0jEKACAMBMFro/7/vZrC1sIrjLADkvZYDEltvSh6u+rKbfF6xEFuo989+nno56Gfh34e+nlCtff90I//d49+Hvp5dr9R+E5ePQT/
   </data>
  </layer>
 </map>
