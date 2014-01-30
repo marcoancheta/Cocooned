@@ -4,9 +4,15 @@
 -- loadLevel.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-local dusk = require("Dusk.Dusk")
 
-function createLevel(mapData, player)
+
+local dusk = require("Dusk.Dusk")
+local miniMap = require("miniMap")
+
+--------------------------------------------------------------------------------
+-- Load level on startup
+--------------------------------------------------------------------------------
+function createLevel(mapData, ball, player)
 
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
@@ -22,7 +28,7 @@ function createLevel(mapData, player)
 	print("loadMap", mapData.pane)
 
 	-- Load in map
-	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. mapData.version .. ".json")
+	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
 
 	if map.tutorial == true then
 		require("tutorial")
@@ -30,25 +36,53 @@ function createLevel(mapData, player)
 		printTutorial()
 	end
 
-	player.x, player.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
+	-- set players location
+	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
+
+	-- create miniMap for level
+	local miniMapDisplay = miniMap.createMiniMap(mapData, player)
+	miniMapDisplay.name = "miniMapName"
 
 	-- Add objects to its proper groups
-	gui.back:insert(map)
-	map:insert(player)
-	map.layer["tiles"]:insert(player)
-	map.layer["tiles"]:remove(1)
+	gui.back:insert(1, map)
+	map:insert(ball)
+	map.layer["tiles"]:insert(ball)
 
-	return gui
+	return gui, miniMapDisplay
 end
 
-function changePane(mapData)
+
+--------------------------------------------------------------------------------
+-- update pane for level
+--------------------------------------------------------------------------------
+function changePane(mapData, player)
 
 	-- Load in map
-	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. mapData.version .. ".json")
+	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
 
+	-- if an item was previously taken, remove it from map
+	if tonumber(map.itemSize) > 0 and #player.inventory.items > 0 then
+		-- check for N number of items on map if they were taken
+		for count = 1, #player.inventory.items do
+			local itemName = player.inventory.items[count]
+			local remove = 0
+			-- check map display group for picked up item then remove it
+			for check = 1, map.layer["tiles"].numChildren do
+				if map.layer["tiles"][check].name == itemName then
+					remove = check
+				end
+			end
+			if remove > 0 then
+				-- remove that item
+				map.layer["tiles"]:remove(remove)
+			end
+		end
+	end
+
+	-- return new pane
 	return map
-
 end
+
 
 
 local loadLevel = {
@@ -57,3 +91,5 @@ local loadLevel = {
 }
 
 return loadLevel
+
+-- end of loadLevel

@@ -7,7 +7,7 @@
 
 local dusk = require("Dusk.Dusk")
 local gameData = require("gameData")
-local miniMap = require("miniMap")
+local miniMapMechanic = require("miniMap")
 local print = print
 
 --------------------------------------------------------------------------------
@@ -22,12 +22,11 @@ local miniMapDisplay
 --------------------------------------------------------------------------------
 -- touchScreen function
 --------------------------------------------------------------------------------
-function swipeScreen(event, mapData, player)
+function swipeScreen(event, mapData, player, miniMap)
 
 	-- phase name
 	local phase = event.phase
 	local tempPane = mapData.pane
-
 
 --------------------------------------------------------------------------------
 -- swipe mechanic
@@ -37,38 +36,37 @@ function swipeScreen(event, mapData, player)
 	local swipeLength = math.abs(event.x - event.xStart)
 	local swipeLengthY = math.abs(event.y - event.yStart)
 
+	-- move miniMap to show feedback of panes moving
 	local swipeX = event.x - event.xStart
 	local swipeY = event.y - event.yStart
-
-	if gameData.isShowingMiniMap then
-		miniMap.updateMiniMap(mapData, miniMapDisplay, swipeX, swipeY)
-	end
+	-- function call to move miniMap
+	miniMapMechanic.updateMiniMap(mapData, miniMap, swipeX, swipeY)
 	
 	-- if event touch is ended, check which way was swiped 
 	-- change pane is possible
 	if "ended" == phase or "cancelled" == phase then
-		if event.xStart > event.x and swipeLength > 50 and swipeLengthY < 50 then 
+		if event.xStart > event.x and swipeLength > swipeLengthY then 
 			print("Swiped Right")
 			if mapData.pane == "M" then
 				mapData.pane = "L"
 			elseif mapData.pane == "R" then
 				mapData.pane = "M"
 			end
-		elseif event.xStart < event.x and swipeLength > 50  and swipeLengthY < 50 then 
+		elseif event.xStart < event.x and swipeLength > swipeLengthY then 
 			print( "Swiped Left" )
 			if mapData.pane == "M" then
 				mapData.pane = "R"
 			elseif mapData.pane == "L" then
 				mapData.pane = "M"
 			end
-		elseif event.yStart > event.y and swipeLengthY > 35 and swipeLength < 50 then
+		elseif event.yStart > event.y and swipeLength < swipeLengthY then
 			print( "Swiped Down" )
 			if mapData.pane == "M" then
 				mapData.pane = "D"
 			elseif mapData.pane == "U" then
 				mapData.pane = "M"
 			end
-		elseif event.yStart < event.y and swipeLengthY > 35 and swipeLength <50 then
+		elseif event.yStart < event.y and swipeLength < swipeLengthY then
 			print( "Swiped Up" )
 			if mapData.pane == "M" then
 				mapData.pane = "U"
@@ -76,38 +74,33 @@ function swipeScreen(event, mapData, player)
 				mapData.pane = "M"
 			end
 		end	
-
-		-- if miniMap is showing and pane switched, remove miniMap
-		if tempPane ~= mapData.pane and gameData.isShowingMiniMap then
-			miniMap.resetMiniMap()
-			miniMapDisplay:removeSelf()
-			gameData.isShowingMiniMap = false
-			print("showing miniMap")
-		end
-		-- print debug for white pane is swtiched
-		--print(mapDataT.pane)
 	end	
+
+	-- if switching panes, move miniMap cursor to that pane and set alpha to 0
+	if tempPane ~= mapData.pane then
+		miniMapMechanic.resetMiniMap(miniMap, mapData)
+		if gameData.isShowingMiniMap then
+			miniMap.alpha = 0
+			gameData.isShowingMiniMap = false
+		end
+	end
+
 end
 
-function tapScreen(event, mapData, player, physics) 
-
-	--------------------------------------------------------------------------------
-	-- miniMap mechanic
-	--------------------------------------------------------------------------------
-
+--------------------------------------------------------------------------------
+-- tap mechanic
+--------------------------------------------------------------------------------
+function tapScreen(event, miniMap, physics) 
+	-- if tapped twice, show miniMap or if showing, hide it
 	if event.numTaps >= 2 then
-		if gameData.showMiniMap then
-			if gameData.isShowingMiniMap then
-				physics.start()
-				miniMapDisplay:removeSelf()
-				gameData.isShowingMiniMap = false
-				print("show miniMap")
-			else
-				physics.pause()
-				miniMapDisplay = miniMap.createMiniMap(mapData, player)
-				gameData.isShowingMiniMap = true
-			end
-
+		-- show miniMap 
+		if miniMap.alpha == 0 then
+			gameData.isShowingMiniMap = true
+			miniMap.alpha = 0.75
+		else
+		--hide miniMap
+			gameData.isShowingMiniMap = false
+			miniMap.alpha = 0
 		end
 	end
 end

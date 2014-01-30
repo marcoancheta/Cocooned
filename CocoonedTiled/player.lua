@@ -22,7 +22,8 @@ local playerInstance = {
 	imageObject = '',
 	hasItem={},
 	tapPosition=0,
-	inventory = inventoryMechanic.createInventory()
+	inventory = inventoryMechanic.createInventory(),
+
 } 
 
 
@@ -40,7 +41,6 @@ end
 function playerInstance:new (o) 
       	setmetatable(o, self)
     	self.__index = self
-    	--inventory = inventoryMechanic.createInventory{}
     	return o
 end
 
@@ -59,10 +59,8 @@ function playerInstance:rotate (x,y)
 		self.imageObject.rotation = angle +90
 end
 
-function playerInstance:addInventory(item)
-	if item.name == "key" then 
-		self.inventory:addItem(item)
-	end
+function playerInstance:addInventory(item) 
+	self.inventory:addItem(item)
 end
 
 local player  = {

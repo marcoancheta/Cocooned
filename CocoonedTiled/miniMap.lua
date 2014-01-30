@@ -7,6 +7,12 @@
 
 local gameData = require("gameData")
 
+-- variables for panes
+local Mpane, Upane, Dpane, Lpane, Rpane
+
+--------------------------------------------------------------------------------
+-- create miniMap
+--------------------------------------------------------------------------------
 function createMiniMap(mapData, player)
 
 	gameData.allowPaneSwitch = false
@@ -19,11 +25,11 @@ function createMiniMap(mapData, player)
 	bg:setFillColor(0.5,0.5,0.5)
 
 	-- create pane images
-	local Mpane = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/M.png")
-	local Upane = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/U.png")
-	local Dpane = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/D.png")
-	local Lpane = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/L.png")
-	local Rpane = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/R.png")
+	Mpane = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/M.png")
+	Upane = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/U.png")
+	Dpane = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/D.png")
+	Lpane = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/R.png")
+	Rpane = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/L.png")
 
 	-- scale images
 	Mpane:scale(0.25, 0.25)
@@ -38,8 +44,6 @@ function createMiniMap(mapData, player)
 	Upane.x, Upane.y = 720, 192
 	Lpane.x, Lpane.y = 320, 432
 	Rpane.x, Rpane.y = 1120, 432
-
-	
 
 	local currentPane = display.newRect(720, 432, 380, 236)
 	currentPane:setFillColor(1,0,0)
@@ -66,24 +70,21 @@ function createMiniMap(mapData, player)
 		end
 	end
 	
-	if #player.inventory.items > 0 then
-		for count = 1, #player.inventory.items do
-			local item = player.inventory.items[1]
-			local displayItem = display.newImage("mapdata/art/" .. player.inventory.items[count].name .. ".png")
-			displayItem.x, displayItem.y = 100, 100
-			miniMap:insert(displayItem)
-		end
-	end
-
-	miniMap.alpha = 0.75
+	-- set miniMap to first be invisible
+	miniMap.alpha = 0
 
 	return miniMap
 end
 
 local miniMapMovement = 0
 
+
+--------------------------------------------------------------------------------
+-- update miniMap
+--------------------------------------------------------------------------------
 function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 
+	-- if swiping to right of left, move miniMap for feedback
 	if math.abs(swipeX) > math.abs(swipeY) and math.abs(swipeX) > 40 then
 
 		if mapData.pane == "M" or mapData.pane == "R" or mapData.pane == "L" then
@@ -101,6 +102,7 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 			
 		end
 
+	-- if swiping up or down, move miniMap for feedback
 	elseif math.abs(swipeX) < math.abs(swipeY) and math.abs(swipeY) > 25 then
 
 		if mapData.pane == "M" or mapData.pane == "U" or mapData.pane == "D" then
@@ -120,8 +122,34 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 	end
 end
 
-function resetMiniMap()
+--------------------------------------------------------------------------------
+-- reset miniMap
+--------------------------------------------------------------------------------
+function resetMiniMap(miniMap, mapData)
+
+	-- set image locations
+	Mpane.x, Mpane.y = 720, 432
+	Dpane.x, Dpane.y = 720, 672
+	Upane.x, Upane.y = 720, 192
+	Lpane.x, Lpane.y = 320, 432
+	Rpane.x, Rpane.y = 1120, 432
+
+	-- create highlight for current pane
+	for m = 3, 7 do
+		if mapData.pane == "U" then
+			miniMap[m].y = miniMap[m].y + 240
+		elseif mapData.pane == "D" then
+			miniMap[m].y = miniMap[m].y - 240
+		elseif mapData.pane == "L" then
+			miniMap[m].x = miniMap[m].x - 400
+		elseif mapData.pane == "R" then
+			miniMap[m].x = miniMap[m].x + 400
+		end
+	end
+
+	-- reset miniMap movement
 	miniMapMovement = 0
+
 end
 
 local miniMap = {

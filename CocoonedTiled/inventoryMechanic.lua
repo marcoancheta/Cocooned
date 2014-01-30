@@ -6,12 +6,16 @@
 --------------------------------------------------------------------------------
 
 local inventoryInstance = {
-	items = {}
+	items = {},
+	size = 1
 }
 
 function inventoryInstance:addItem(item)
-	print(item)
-	table.insert(self.items, item)
+	
+
+	table.insert(self.items, item.name)
+	print(#self.items)
+	self.size = self.size + 1
 end
 
 function inventoryInstance:new (o)

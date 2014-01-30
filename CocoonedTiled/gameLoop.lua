@@ -89,9 +89,9 @@ function loadMap()
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
 	ball.linearDamping = 3
+
 	-- Load in map
-	gui = loadLevel.createLevel(mapData, ball)
-	
+	gui, miniMap = loadLevel.createLevel(mapData, ball, player1)
 	
 end
 
@@ -99,6 +99,7 @@ end
 -- Game Functions:
 ------- controlMovement
 ------- swipeMechanics
+------- tapMechanics
 --------------------------------------------------------------------------------
 
 -- control mechanic
@@ -144,7 +145,7 @@ local function swipeMechanics(event)
 	local tempPane = mapData.pane
 
 	-- call swipe mechanic and get new Pane
-	touch.swipeScreen(event, mapData, player1)
+	touch.swipeScreen(event, mapData, player1, miniMap)
 
 	
 	-- if touch ended then change map if pane is switched
@@ -161,7 +162,7 @@ local function swipeMechanics(event)
 		physics.start()
 		
 		-- load map
-		map = loadLevel.changePane(mapData)
+		map = loadLevel.changePane(mapData, player1)
 		-- insert objects onto map layer
 		gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
@@ -171,8 +172,10 @@ local function swipeMechanics(event)
 	end
 end
 
+-- swipe mechanic
 local function tapMechanic(event)
-	touch.tapScreen(event, mapData, player1, physics)
+	-- mechanic to show or hide minimap
+	touch.tapScreen(event, miniMap, physics)
 end
 
 --------------------------------------------------------------------------------
