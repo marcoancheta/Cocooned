@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12}"/>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 3, &quot;y&quot;:10}"/>
   <property name="tutorial" value="false"/>
  </properties>
  <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
@@ -197,7 +197,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt0CEOACAMxdDZAfc/LyCwCCqY6EuW2Z9mRLR1WfT3qGtvy98jLvY2+72zH2M/xn6M/Rj7MfZj7MfYj7Efc/qNwn8CaX0FAQ==
+   eJztljEKACAMA7tW/f97tYNjHRrBCDmQQKdwqNTNrK3jpNmNl+jmr0sciG7yV+cXfwzv1JPZD/5YkT8M+cOQP4zsT7yRt3Yrdn+6f3XkD0P+MLa/QZwTVOYH0g==
   </data>
  </layer>
 </map>
