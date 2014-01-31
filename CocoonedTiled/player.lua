@@ -63,6 +63,9 @@ function playerInstance:addInventory(item)
 	if item.name == "key" then 
 		self.inventory:addItem(item)
 	end
+	if item.name == "antler" then
+		self.inventory:addItem(item)
+	end
 end
 
 local player  = {

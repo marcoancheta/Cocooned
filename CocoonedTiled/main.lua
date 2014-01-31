@@ -10,6 +10,9 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
+-- Hide status bar
+display.setStatusBar(display.HiddenStatusBar);
+
 -- disable sleep screen mode on device
 system.setIdleTimer(false)
 

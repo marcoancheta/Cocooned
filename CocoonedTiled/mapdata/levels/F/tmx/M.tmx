@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
+  <property name="itemSize" value="1"/>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 4, &quot;y&quot;:3 }"/>
   <property name="tutorial" value="false"/>
  </properties>
  <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
@@ -255,14 +256,33 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="23" name="icecrackspritesheet" tilewidth="72" tileheight="72">
+  <image source="../../../art/icecrackspritesheet.png" width="288" height="72"/>
+ </tileset>
+ <tileset firstgid="27" name="antler" tilewidth="72" tileheight="72">
+  <image source="../../../art/antler.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="antlerCollision"/>
+    <property name="name" value="antler"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="28" name="kiphca" tilewidth="162" tileheight="201">
+  <image source="../../../art/kiphca.png" width="162" height="201"/>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
+   eJztzkENAAAIBCBNYf+mhrg5P5CAKlLzHQDgXH8HAIDYAlLDABk=
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlkEKwDAIBL2a+v/3th68CS26Cwl1IHhQjAxCoiKynqObxkv6LECPDJ9NAX1Y8/ls46/O7v5Mxl+Hv+yfAXpknOLPAJEByh8L1P6xYPrb6f+S8db3y71sf5181Iy/Wt6Z/avno2b81fJRg3p/WfEGpBkHbw==
+   eJztlmEKgCAMhf1reYO6/zkrMIhh720qqeQHMcGx4dtyeufccn4e2ED2PdkvsavjLGRfxgiKmBquuF7hx/LJGOw8Wq64U798RtEvxDWyiNb6MVr3H6MH/dg9muuLsOiHziHrafFFWPV7I6Wf1hdh1e/t35bzuVZ9rfqxN8I9z0vuqie1+k9q0lv/yZzI13KfWfVL1SrVU7XqW2t+yJxzftj4cv7uGXFG0W+L9m/9p3mfIquZGbn2ABDACnk=
   </data>
  </layer>
 </map>
