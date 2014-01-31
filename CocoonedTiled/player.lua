@@ -46,7 +46,7 @@ end
 
 --basic function that changes color
 function playerInstance:changeColor (color)
-		colors={['white']={0,0,0},['red']={1,0.5,0.5},['green']={0.5,1,0.5},['blue']={0.5,0.5,1}}
+		colors={['white']={1,1,1},['red']={1,0.5,0.5},['green']={0.5,1,0.5},['blue']={0.5,0.5,1}}
 		print(self.color)
     	self.color = color
     	c=colors[color]
