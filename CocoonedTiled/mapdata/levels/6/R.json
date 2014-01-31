@@ -1,281 +1,656 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
- <properties>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
-  <property name="tutorial" value="false"/>
- </properties>
- <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
-  <tileoffset x="-720" y="432"/>
-  <image source="../../art/bg.png" width="1440" height="864"/>
- </tileset>
- <tileset firstgid="2" name="redWall" tilewidth="36" tileheight="36">
-  <image source="../../art/redWall.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="6" name="aura" tilewidth="72" tileheight="72">
-  <image source="../../art/aura.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="blueAuraCollision"/>
-    <property name="name" value="blueAura"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="7" name="rune" tilewidth="72" tileheight="72">
-  <image source="../../art/rune.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="rune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="8" name="key" tilewidth="72" tileheight="72">
-  <image source="../../art/antler.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="collectible" value="true"/>
-    <property name="func" value="keyCollision"/>
-    <property name="name" value="key"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="9" name="blueWall" tilewidth="36" tileheight="36">
-  <image source="../../art/blueWall.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="func" value="blueWallCollision"/>
-    <property name="name" value="blueWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="func" value="blueWallCollision"/>
-    <property name="name" value="blueWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="func" value="blueWallCollision"/>
-    <property name="name" value="blueWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="func" value="blueWallCollision"/>
-    <property name="name" value="blueWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="13" name="greenWall" tilewidth="36" tileheight="36">
-  <image source="../../art/greenWall.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="static"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="17" name="lockedDoor" tilewidth="72" tileheight="72">
-  <image source="../../art/lockeddoor.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="lockedDoorCollision"/>
-    <property name="name" value="lockedDoor"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="18" name="runeblue" tilewidth="72" tileheight="72">
-  <image source="../../art/runeblue.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="blueRune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="19" name="runegreen" tilewidth="72" tileheight="72">
-  <image source="../../art/runegreen.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="greenRune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="20" name="runepink" tilewidth="72" tileheight="72">
-  <image source="../../art/runepink.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="pinkRune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="21" name="runepurple" tilewidth="72" tileheight="72">
-  <image source="../../art/runepurple.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="purpleRune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="22" name="runeyellow" tilewidth="72" tileheight="72">
-  <image source="../../art/runeyellow.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="yellowRune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="23" name="blackWall" tilewidth="36" tileheight="36">
-  <image source="../../art/blackWall.png" width="72" height="72"/>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="func" value="blackWallCollision"/>
-    <property name="name" value="blackWall"/>
-    <property name="physics:bounce" value="1"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <layer name="bg" width="40" height="24">
-  <data encoding="base64" compression="zlib">
-   eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
-  </data>
- </layer>
- <layer name="tiles" width="40" height="24">
-  <data encoding="base64" compression="zlib">
-   eJzNV1sOwyAMy9/U0gts9z/oOglrKMVOWFFXS4g+wDEOULqY2bqX5aZ1qdefchesdtS21fJvlFrgYanPN3ffQ+v5yFh8zhi8BvjX8igOpT0LNi7EXd0zH7MY16jG/tzLq9a47qHHgXheO/z0YBpnzE/PwbThHcuZ8pHFYjwMSlurQXFHGlR/NbYMf3a9RkCMh4sdIeKP/MvqQ1tgpI9qO8s/YAv4Rvln+mf23YOzuNK/lie7D531L/sdY3tuhIgf31KGjH+qf2Zv+tU/5D4aX4RMfhgPm39M28haYfAcSmPPP+Wb8jJ7PuhxMI1+/hXTOZ1xxlZnN6+x9Q9a1XwHx+j5NNsP76EJucR5esb8Oov2fwP+Rb5dDfwLtWvhrvUbnzEMkQ==
-  </data>
- </layer>
-</map>
+{ "height":24,
+ "layers":[
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":24,
+         "name":"bg",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":40,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 11, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 9, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 9, 11, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 11, 9, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 9, 11, 0, 0, 0, 9, 0, 0, 0, 9, 10, 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 9, 10, 10, 0, 0, 0, 10, 0, 0, 0, 12, 9, 0, 0, 0, 11, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 12, 0, 0, 0, 9, 11, 0, 0, 0, 9, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 11, 9, 0, 0, 0, 9, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 31, 32, 31, 32, 31, 32, 31, 32, 31, 32, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 12, 0, 0, 0, 9, 11, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 29, 30, 29, 30, 0, 0, 0, 0, 0, 0, 29, 30, 29, 30, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 11, 9, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 31, 32, 31, 32, 0, 0, 0, 0, 0, 0, 31, 32, 31, 32, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 9, 11, 0, 0, 0, 9, 0, 0, 33, 34, 33, 34, 0, 0, 29, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 30, 0, 0, 33, 34, 33, 34, 0, 0, 10, 0, 0, 0, 11, 9, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 31, 32, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 31, 32, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 9, 11, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 29, 30, 29, 30, 0, 0, 0, 0, 0, 0, 29, 30, 29, 30, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 11, 9, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 31, 32, 31, 32, 0, 0, 0, 0, 0, 0, 31, 32, 31, 32, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 10, 11, 0, 0, 0, 9, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 29, 30, 29, 30, 29, 30, 30, 29, 29, 30, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 11, 9, 0, 0, 0, 9, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 31, 32, 31, 32, 31, 32, 32, 31, 31, 32, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 10, 0, 0, 0, 9, 11, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0, 11, 9, 0, 0, 0, 11, 0, 0, 0, 11, 12, 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 12, 0, 0, 0, 12, 0, 0, 0, 10, 11, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 11, 9, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 9, 11, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 11, 9, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 9, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12],
+         "height":24,
+         "name":"tiles",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":40,
+         "x":0,
+         "y":0
+        }],
+ "orientation":"orthogonal",
+ "properties":
+    {
+     "itemGoal":"0",
+     "itemSize":"0",
+     "playerLocation":"!json! {\"x\": 20, \"y\":12 }",
+     "tutorial":"false"
+    },
+ "tileheight":36,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"..\/..\/art\/bg.png",
+         "imageheight":864,
+         "imagewidth":1440,
+         "margin":0,
+         "name":"bg",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":864,
+         "tileoffset":
+            {
+             "x":-720,
+             "y":432
+            },
+         "tilewidth":1440
+        }, 
+        {
+         "firstgid":2,
+         "image":"..\/..\/art\/redWall.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"redWall",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"solid",
+                 "func":"redWallCollision",
+                 "name":"redWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "1":
+                {
+                 "bodyType":"static",
+                 "collType":"solid",
+                 "func":"redWallCollision",
+                 "name":"redWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "2":
+                {
+                 "bodyType":"static",
+                 "collType":"solid",
+                 "func":"redWallCollision",
+                 "name":"redWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "3":
+                {
+                 "bodyType":"static",
+                 "collType":"solid",
+                 "func":"redWallCollision",
+                 "name":"redWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":36
+        }, 
+        {
+         "firstgid":6,
+         "image":"..\/..\/art\/aura.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"aura",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"blueAuraCollision",
+                 "name":"blueAura",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":7,
+         "image":"..\/..\/art\/rune.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"rune",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"runeCollision",
+                 "name":"rune",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":8,
+         "image":"..\/..\/art\/antler.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"key",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "collectible":"true",
+                 "func":"keyCollision",
+                 "name":"key",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":9,
+         "image":"..\/..\/art\/blueWall.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"blueWall",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "func":"blueWallCollision",
+                 "name":"blueWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "1":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "func":"blueWallCollision",
+                 "name":"blueWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "2":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "func":"blueWallCollision",
+                 "name":"blueWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "3":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "func":"blueWallCollision",
+                 "name":"blueWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":36
+        }, 
+        {
+         "firstgid":13,
+         "image":"..\/..\/art\/greenWall.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"greenWall",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"solid",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"static"
+                },
+             "1":
+                {
+                 "bodyType":"static",
+                 "collType":"solid",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "2":
+                {
+                 "bodyType":"static",
+                 "collType":"solid",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "3":
+                {
+                 "bodyType":"static",
+                 "collType":"solid",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":36
+        }, 
+        {
+         "firstgid":17,
+         "image":"..\/..\/art\/lockeddoor.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"lockedDoor",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"solid",
+                 "func":"lockedDoorCollision",
+                 "name":"lockedDoor",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":18,
+         "image":"..\/..\/art\/runeblue.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"runeblue",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"runeCollision",
+                 "name":"blueRune",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":19,
+         "image":"..\/..\/art\/runegreen.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"runegreen",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"runeCollision",
+                 "name":"greenRune",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":20,
+         "image":"..\/..\/art\/runepink.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"runepink",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"runeCollision",
+                 "name":"pinkRune",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":21,
+         "image":"..\/..\/art\/runepurple.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"runepurple",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"runeCollision",
+                 "name":"purpleRune",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":22,
+         "image":"..\/..\/art\/runeyellow.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"runeyellow",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"runeCollision",
+                 "name":"yellowRune",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":23,
+         "image":"..\/..\/art\/greenaura1.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"greenAura1",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenAuraCollision",
+                 "name":"greenAura",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":24,
+         "image":"..\/..\/art\/greenaura2.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"greenAura2",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenAuraCollision",
+                 "name":"greenAura",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":25,
+         "image":"..\/..\/art\/whiteaura.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"whiteAura",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"whiteAuraCollision",
+                 "name":"whiteAura",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":26,
+         "image":"..\/..\/art\/redaura.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"redAura",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"redAuraCollision",
+                 "name":"redAura",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":27,
+         "image":"..\/..\/art\/redaura1.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"redAura1",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"redAuraCollision",
+                 "name":"redAura",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":28,
+         "image":"..\/..\/art\/redaura2.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"redAura2",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"redAuraCollision",
+                 "name":"redAura",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
+        }, 
+        {
+         "firstgid":29,
+         "image":"..\/..\/art\/blackWall.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"blackWall",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tilewidth":36
+        }, 
+        {
+         "firstgid":33,
+         "image":"..\/..\/art\/bounceWall.png",
+         "imageheight":37,
+         "imagewidth":72,
+         "margin":0,
+         "name":"bounceWall",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tilewidth":36
+        }],
+ "tilewidth":36,
+ "version":1,
+ "width":40
+}
