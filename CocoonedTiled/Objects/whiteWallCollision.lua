@@ -1,11 +1,11 @@
 function collide(collideObject, player, event, mapData, map)
-	if player.color == 'red' then
+	if player.color == 'white' then
 		event.contact.isEnabled = false
 	end
 end
 
-local redWallCollision = {
+local whiteWallCollision = {
 	collide = collide
 }
 
-return redWallCollision
+return whiteWallCollision
