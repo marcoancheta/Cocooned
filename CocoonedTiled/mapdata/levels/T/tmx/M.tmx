@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="itemSize" value="0"/>
+  <property name="itemSize" value="1"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 3, &quot;y&quot;:12 }"/>
-  <property name="tutorial" value="false"/>
+  <property name="tutorial" value="true"/>
  </properties>
  <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
   <tileoffset x="-720" y="432"/>
@@ -263,7 +263,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztljEKACAMA7tJ1f+/V7sKdrCDCeRAgls4aKmbWd/PQXMYLtHNf5dIiG7y9w6Lv98zmiWDP1Tkrwaav3b85a8Giz+EPXy7rRj8oSJ/NeSvBou/CZwLj3oH2g==
+   eJztljEKACAMA7tW3fz/X9XBRcTBDk0gBxLcwkFL3czKfA6a1XBZ3Ty7xIPVTf7+YfGXPaOvZPCHivzFQPPXj7/8xWDxd9vR2Xt531YM/lCRvxjyF4PFXwPOAepiB+Y=
   </data>
  </layer>
 </map>

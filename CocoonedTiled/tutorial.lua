@@ -8,7 +8,7 @@
 -- variables
 local tutorial
 local tNum = 1
-local textBox
+local textBox, box
 local textObject1, textObject2, textObject3, textObject4, textObject5
 
 -- tutorial text and box variables
@@ -21,9 +21,9 @@ local tBox = {
 	offset = 50,
 	offsetLG = 60,
 	boxX = 720,
-	boxY = 320,
+	boxY = 432,
 	boxW = 1100,
-	boxH = 350,
+	boxH = 70,
 	boxA = 0.75
 }
 
@@ -33,17 +33,18 @@ local text = {
 	[1] = {
 		[1] = "MOVEMENT TUTORIAL:",
 		[2] = "Tilt your device to move the character",
-		[3] = "(Tap this box to continue on with game)",
-		[4] = "",
-		[5] = ""
+		[3] = "OBJECTIVE:",
+		[4] = "Get to the RUNE",
+		[5] = "(Tap to continue)",
+		[6] = -100
 	},
 
 	[2] = {
 		[1] = "MAP TUTORIAL:",
-		[2] = "Tap twice to show a map of the level",
-		[3] = "Tap twice again to close map",
-		[4] = "The highlighted pane is the pane you are in",
-		[5] = "(Tap this box to continue on with game)"
+		[2] = "Tap twice to show or hide map of the level",
+		[3] = "OBJECTIVE",
+		[4] = "Get the RUNE at bottom pane",
+		[5] = "(Tap to continue)"
 	},
 
 	[3] = {
@@ -60,13 +61,8 @@ local text = {
 		[3] = "Try and get to the rune in the middle pane",
 		[4] = "(Tap this box to continue on with game)",
 		[5] = ""
-
 	}
 }
-
-function setTutorial()
-	tNum = 1
-end
 
 
 function printTutorial()
@@ -80,49 +76,31 @@ function printTutorial()
 	-- name display group for event listener
 	tutorial.name = "tutorial"
 
+	box = display.newRect( 720, 432, 1500, 864)
+	box.alpha = 0.01
+
 	-- create background box for text display and set alpha
-	textBox = display.newRect( tBox.boxX, tBox.boxY, tBox.boxW, tBox.boxH)
+	local boxH = tBox.boxH*#text[tNum]
+
+	textBox = display.newRect( tBox.boxX, tBox.boxY + text[tNum][#text[tNum]], tBox.boxW, boxH)
 	textBox.alpha = tBox.boxA
 
 	
 	-- create text objects
 	textObject = { }
 		
-	for i=1, 5 do
+	for i=1, #text[tNum]-1 do
 		textObject[i] = display.newText(text[tNum][i], tBox.x, tBox.y + tBox.offsetLG*(i-1), tBox.font, tBox.fontSizeSM)
 		-- set color of text objects
 		textObject[i]:setFillColor(0,0,0)
 	end
 
 	-- insert text objects to display group
+	tutorial:insert(box)
 	tutorial:insert(textBox)
 	for i=1, #textObject do
 		tutorial:insert(textObject[i])
 	end
-	
-	--[[
-	-- create text objects
-	textObject1 = display.newText(text[tNum][1], tBox.x, tBox.y, tBox.font, tBox.fontSizeLG)
-	textObject2 = display.newText(text[tNum][2], tBox.x, tBox.y + tBox.offsetLG, tBox.font, tBox.fontSizeSM)
-	textObject3 = display.newText(text[tNum][3], tBox.x, tBox.y + tBox.offsetLG*2, tBox.font, tBox.fontSizeSM)
-	textObject4 = display.newText(text[tNum][4], tBox.x, tBox.y + tBox.offsetLG*3, tBox.font, tBox.fontSizeSM)
-	textObject5 = display.newText(text[tNum][5], tBox.x, tBox.y + tBox.offsetLG*4, tBox.font, tBox.fontSizeSM)
-
-	-- set color of text objects
-	textObject1:setFillColor(0,0,0)
-	textObject2:setFillColor(0,0,0)
-	textObject3:setFillColor(0,0,0)
-	textObject4:setFillColor(0,0,0)
-	textObject5:setFillColor(0,0,0)
-	
-	-- insert text objects to display group
-	tutorial:insert(textBox)
-	tutorial:insert(textObject1)
-	tutorial:insert(textObject2)
-	tutorial:insert(textObject3)
-	tutorial:insert(textObject4)
-	tutorial:insert(textObject5)
-	--]]
 
 	-- add display group to event listener (tap function)
 	tutorial:addEventListener("tap", tutorialPressed)
@@ -141,18 +119,11 @@ function tutorialPressed(event)
 
 		-- unpause physics
 		physics.start()
-		if tNum < 4 then
-
-			-- create a set timer for other tutorials
-			timer.performWithDelay(2500, printTutorial)
-		elseif tNum == 4 then
-
-			-- play last tutorial
-			printTutorial()
-		end
-		
-		
 	end
+end
+
+function resetTutorial()
+	tNum = 1
 end
 
 -- funtion to remove tutorial asap

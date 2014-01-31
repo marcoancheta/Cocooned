@@ -32,7 +32,7 @@ function createLevel(mapData, ball, player)
 
 	if map.tutorial == true then
 		require("tutorial")
-		setTutorial()
+		resetTutorial()
 		printTutorial()
 	end
 
@@ -65,16 +65,16 @@ function changePane(mapData, player)
 		-- check for N number of items on map if they were taken
 		for count = 1, #player.inventory.items do
 			local itemName = player.inventory.items[count]
-			local remove = 0
+			local removeItem = 0
 			-- check map display group for picked up item then remove it
 			for check = 1, map.layer["tiles"].numChildren do
 				if map.layer["tiles"][check].name == itemName then
-					remove = check
+					removeItem = check
 				end
 			end
-			if remove > 0 then
+			if removeItem > 0 then
 				-- remove that item
-				map.layer["tiles"]:remove(remove)
+				map.layer["tiles"]:remove(removeItem)
 			end
 		end
 	end

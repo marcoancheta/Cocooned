@@ -46,7 +46,7 @@ function createMiniMap(mapData, player)
 	Rpane.x, Rpane.y = 1120, 432
 
 	local currentPane = display.newRect(720, 432, 380, 236)
-	currentPane:setFillColor(1,0,0)
+	currentPane:setFillColor(1,1,1)
 
 	-- add images to group
 	miniMap:insert(1,bg)
