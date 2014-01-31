@@ -45,28 +45,28 @@ function swipeScreen(event, mapData, player, miniMap)
 	-- if event touch is ended, check which way was swiped 
 	-- change pane is possible
 	if "ended" == phase or "cancelled" == phase then
-		if event.xStart > event.x and swipeLength > swipeLengthY then 
+		if event.xStart > event.x and swipeLength > swipeLengthY and swipeLength > 20 then 
 			print("Swiped Right")
 			if mapData.pane == "M" then
 				mapData.pane = "L"
 			elseif mapData.pane == "R" then
 				mapData.pane = "M"
 			end
-		elseif event.xStart < event.x and swipeLength > swipeLengthY then 
+		elseif event.xStart < event.x and swipeLength > swipeLengthY and swipeLength > 20 then 
 			print( "Swiped Left" )
 			if mapData.pane == "M" then
 				mapData.pane = "R"
 			elseif mapData.pane == "L" then
 				mapData.pane = "M"
 			end
-		elseif event.yStart > event.y and swipeLength < swipeLengthY then
+		elseif event.yStart > event.y and swipeLength < swipeLengthY and swipeLengthY > 15 then
 			print( "Swiped Down" )
 			if mapData.pane == "M" then
 				mapData.pane = "D"
 			elseif mapData.pane == "U" then
 				mapData.pane = "M"
 			end
-		elseif event.yStart < event.y and swipeLength < swipeLengthY then
+		elseif event.yStart < event.y and swipeLength < swipeLengthY and swipeLengthY > 15 then
 			print( "Swiped Up" )
 			if mapData.pane == "M" then
 				mapData.pane = "U"

@@ -25,9 +25,10 @@
  "orientation":"orthogonal",
  "properties":
     {
+     "itemGoal":"5",
      "itemSize":"1",
      "playerLocation":"!json! {\"x\": 3, \"y\":12 }",
-     "tutorial":"false"
+     "tutorial":"true"
     },
  "tileheight":36,
  "tilesets":[

@@ -168,7 +168,7 @@ local function swipeMechanics(event)
 		map.layer["tiles"]:insert(ball)
 		
 		-- Reassign game mechanic listeners
-		collisionDetection.changeCollision(ball, player1, mapData)
+		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1])
 	end
 end
 
@@ -227,6 +227,26 @@ local function gameLoop(event)
 		gameData.allowPaneSwitch = true
 		gameData.showMiniMap = true
 		gameData.gameStart = false
+	end
+
+	if gameData.gameEnd then
+
+		gui.back:removeEventListener("touch", swipeMechanics)
+		gui.back:removeEventListener("tap", tapMechanic)
+		ball:removeEventListener("accelerometer", controlMovement)
+
+		ball:removeSelf()
+		gui:removeSelf()
+		miniMap:removeSelf()
+		
+		player1.inventory.items = {}
+
+		gameData.gameEnd = false
+
+		selectLevel.setupLevelSelector(event)
+		gameData.inLevelSelector = true
+		gameData.selectLevel = false
+
 	end
 	
 	----------------------
@@ -287,6 +307,7 @@ local function menuLoop(event)
 		
 		-- Remove object listeners
 		gui.back:removeEventListener("touch", swipeMechanics)
+		gui.back:removeEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
 		ball:removeEventListener("accelerometer", controlMovement)
 		
@@ -306,6 +327,7 @@ local function menuLoop(event)
 		
 		-- Add object listeners
 		gui.back:addEventListener("touch", swipeMechanics)
+		gui.back:removeEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		
@@ -357,13 +379,13 @@ collectgarbage()
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		--print( "MemUsage: " .. memCount)
+		print( "MemUsage: " .. memCount)
 		prevMemCount = memCount
 	end
 	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
 	if (prevTextMem ~= textMem) then
 		prevTextMem = textMem
-		--print( "TexMem: " .. textMem )
+		print( "TexMem: " .. textMem )
 	end
 	
 	-- Display fps

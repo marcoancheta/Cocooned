@@ -20,7 +20,7 @@ function createCollisionDetection(imageObject, player, mapData, map)
    local collideObject = event.other
    if collideObject.collType == "passThru" then
       require("Objects." .. collideObject.func)
-      collide(collideObject, player, event, mapData)
+      collide(collideObject, player, event, mapData, map)
    end
    
   end
@@ -52,11 +52,11 @@ function createCollisionDetection(imageObject, player, mapData, map)
 
 end
 
-function changeCollision(imageObject, player, mapData) 
+function changeCollision(imageObject, player, mapData, map) 
   imageObject:removeEventListener("collision" , imageObject)
   imageObject:removeEventListener("preCollision")
 
-  createCollisionDetection(imageObject, player, mapData)
+  createCollisionDetection(imageObject, player, mapData, map)
 end
 
 

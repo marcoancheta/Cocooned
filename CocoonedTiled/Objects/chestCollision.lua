@@ -1,4 +1,4 @@
-function collide(collideObject, player, event, mapData)
+function collide(collideObject, player, event, mapData, map)
 	if #player.inventory.items > 0 then
 		if player.inventory.items[1].name == "key" then
 			collideObject:removeSelf()

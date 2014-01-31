@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
+  <property name="itemGoal" value="5"/>
   <property name="itemSize" value="1"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 3, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="true"/>
@@ -263,7 +264,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztljEKACAMA7tW3fz/X9XBRcTBDk0gBxLcwkFL3czKfA6a1XBZ3Ty7xIPVTf7+YfGXPaOvZPCHivzFQPPXj7/8xWDxd9vR2Xt531YM/lCRvxjyF4PFXwPOAepiB+Y=
+   eJztljEKACAMA7tW3fz/X7WDmzjYoQnkQFKcwoFSN7O2j4NmN1yim1eXeBDd5O8fFn/Vb/SVDP5Qkb8cSP7m5U7+crD4u/2LZ67erRj8oSJ/OeQvB4u/AZwL6rIH5g==
   </data>
  </layer>
 </map>

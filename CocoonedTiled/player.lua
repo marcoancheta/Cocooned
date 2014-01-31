@@ -59,6 +59,7 @@ function playerInstance:rotate (x,y)
 		self.imageObject.rotation = angle +90
 end
 
+
 function playerInstance:addInventory(item) 
 	self.inventory:addItem(item)
 end

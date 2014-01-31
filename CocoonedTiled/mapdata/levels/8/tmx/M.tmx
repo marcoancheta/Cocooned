@@ -261,6 +261,16 @@
  </tileset>
  <tileset firstgid="27" name="antler" tilewidth="72" tileheight="72">
   <image source="../../../art/antler.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="antlerCollision"/>
+    <property name="name" value="antler"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">

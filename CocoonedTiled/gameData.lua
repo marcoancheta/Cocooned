@@ -11,6 +11,7 @@
 
 local gameData = {
 	gameStart = false,
+	gameEnd = false,
 	menuOn = true,
 	selectLevel = false,
 	inLevelSelector = false,

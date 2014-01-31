@@ -42,17 +42,21 @@ local text = {
 	[2] = {
 		[1] = "MAP TUTORIAL:",
 		[2] = "Tap twice to show or hide map of the level",
-		[3] = "OBJECTIVE",
-		[4] = "Get the RUNE at bottom pane",
-		[5] = "(Tap to continue)"
+		[3] = "SWITCH PANES TUTORIAL:",
+		[4] = "Swipe Left, Right, Up, or Down to switch panes",
+		[5] = "OBJECTIVE:",
+		[6] = "Get the RUNE at the bottom pane",
+		[7] = "(Tap to continue)",
+		[8] = -50
 	},
 
 	[3] = {
-		[1] = "SWITCH PANES TUTORIAL:",
-		[2] = "Swipe Left, Right, Up, or Down to switch panes",
-		[3] = "You can swipe in map mode as well",
-		[4] = "But you can only swipe to adjacent panes",
-		[5] = "(Tap this box to continue)"
+		[1] = "Great!!",
+		[2] = "You've completed the basic tutorial!",
+		[3] = "OBJECTIVE:",
+		[4] = "Collect 3 more RUNES in the level",
+		[5] = "(Tap this box to continue)",
+		[6] = -100
 	},
 
 	[4] = {
