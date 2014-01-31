@@ -335,6 +335,9 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="29" name="blackWall" tilewidth="72" tileheight="72">
+  <image source="../../art/blackWall.png" width="72" height="72"/>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
