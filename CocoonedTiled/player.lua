@@ -47,7 +47,7 @@ end
 --basic function that changes color
 function playerInstance:changeColor (color)
 		colors={['white']={1,1,1},['red']={1,0.5,0.5},['green']={0.5,1,0.5},['blue']={0.5,0.5,1}}
-		print(self.color)
+		--print(self.color)
     	self.color = color
     	c=colors[color]
     	self.imageObject:setFillColor(c[1],c[2],c[3])

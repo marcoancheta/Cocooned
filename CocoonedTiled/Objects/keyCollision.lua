@@ -3,3 +3,9 @@ function collide(collideObject, player, event, mapData, map)
 	player:addInventory(collideObject)
  	collideObject:removeSelf( )
 end
+
+local keyCollision = {
+	collide = collide
+}
+
+return keyCollision

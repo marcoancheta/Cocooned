@@ -19,8 +19,13 @@ function createCollisionDetection(imageObject, player, mapData, map)
  
    local collideObject = event.other
    if collideObject.collType == "passThru" then
-      require("Objects." .. collideObject.func)
-      collide(collideObject, player, event, mapData, map)
+      local col = require("Objects." .. collideObject.func)
+      col.collide(collideObject, player, event, mapData, map)
+   end
+
+   if collideObject.collType == "solid" then
+      local col = require("Objects." .. collideObject.func)
+      col.collide(collideObject, player, event, mapData, map)
    end
    
   end
@@ -33,8 +38,8 @@ function createCollisionDetection(imageObject, player, mapData, map)
       print( "began: " .. collideObject.name)
 
       if collideObject.collType == "solid" then
-        require("Objects." .. collideObject.func)
-        collide(collideObject, player, event, mapData)
+        local col = require("Objects." .. collideObject.func)
+        col.collide(collideObject, player, event, mapData)
       end
       
     elseif ( event.phase == "ended" ) then

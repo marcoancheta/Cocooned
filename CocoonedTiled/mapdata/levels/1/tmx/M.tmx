@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="itemGoal" value="0"/>
-  <property name="itemSize" value="0"/>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 18, &quot;y&quot;:3}"/>
+  <property name="itemGoal" value="4"/>
+  <property name="itemSize" value="1"/>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 4, &quot;y&quot;: 12}"/>
   <property name="tutorial" value="false"/>
  </properties>
  <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
@@ -340,12 +340,12 @@
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztzkERAAAEADBS6N9UCA/nbAkWAXxX2wE4ILcDAMBYAxMnABk=
+   eJztz0ENAAAIxDDwbxoNvC6BVsFWBQA7nQ4I+PgMANcMH5QAAw==
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztljEKwDAMA7W6yV6a/z+0yVDw1KFWqME6CN6EODTEABzzWdLbkJfVzf4u8cLqJn/fye6vg+fvJOV4svvT/mIw/Q1SjqeSvx1U8neRcjz6v8SotL8daH8xtL8Yj7+e+N7rVwVO
+   eJzVVUEKwzAMM6OXJB6DHff/h7aFmm0h2SwVnFQQ3IOFhFDSJCJ5O2nSWQRDAvcNN4JTCL1If7sWmh+6b1gIDpMf64/hRebH8FS4/BJ4csXLf77P3N87uN/jeXSZ/j3A/VeH5/HH9A/Nz/yZlh4zO7iR+dU5ePxF5/cJPebzBzcyv1pntvyKfPdPu4w3Rt5fj27E+2f+rvb+eXQj+9fKr/V/a+1E+ENz3zGyfx6M7J8HI/vnwVXy04nnCuazCns=
   </data>
  </layer>
 </map>

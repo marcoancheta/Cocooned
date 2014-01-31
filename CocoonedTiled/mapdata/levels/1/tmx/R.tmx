@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="itemSize" value="0"/>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 3, &quot;y&quot;:12 }"/>
+  <property name="itemGoal" value="4"/>
+  <property name="itemSize" value="1"/>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 4, &quot;y&quot;: 12}"/>
   <property name="tutorial" value="false"/>
  </properties>
  <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
@@ -71,7 +72,7 @@
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollisionT"/>
+    <property name="func" value="runeCollision"/>
     <property name="name" value="rune"/>
     <property name="physics:bounce" value="0"/>
     <property name="physics:enabled" value="true"/>
@@ -256,6 +257,87 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="23" name="greenAura1" tilewidth="72" tileheight="72">
+  <image source="../../../art/greenaura1.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="greenAuraCollision"/>
+    <property name="name" value="greenAura"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="24" name="greenAura2" tilewidth="72" tileheight="72">
+  <image source="../../../art/greenaura2.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="greenAuraCollision"/>
+    <property name="name" value="greenAura"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="25" name="whiteAura" tilewidth="72" tileheight="72">
+  <image source="../../../art/whiteaura.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="whiteAuraCollision"/>
+    <property name="name" value="whiteAura"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="26" name="redAura" tilewidth="72" tileheight="72">
+  <image source="../../../art/redaura.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="redAuraCollision"/>
+    <property name="name" value="redAura"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="27" name="redAura1" tilewidth="72" tileheight="72">
+  <image source="../../../art/redaura1.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="redAuraCollision"/>
+    <property name="name" value="redAura"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="28" name="redAura2" tilewidth="72" tileheight="72">
+  <image source="../../../art/redaura2.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="redAuraCollision"/>
+    <property name="name" value="redAura"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="29" name="blackWall" tilewidth="72" tileheight="72">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -263,7 +345,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt1jEKACEMRNF0EvX+59UUllqYgBOcD0u6JTxQVBGp81PQ2QQ3201fL3HIdqPffVn8Xp/R08zghxr9fNHPF/18LT+Ee3j3tsrghxr9fEX7lcB/Wb/5Rbf8OvAcadoH2g==
+   eJztVl0LwzAIlO7JtqMPe2n3/3/oFphUOvtxKmsoOxCF5og1egkTUfs2rtR3hIHB9RFe5+Ch/xPhsYP3r9+M2uvXO3mTYU9ly28FclZ7M6vhqR8Kya/52E35tVi8p/8i+Vk5WF7iX9aPaftcJdbwzq/Vf1smPBS1z+8Z+vcAOFesX4G3/9D58LxfUCD6crb+IRpYm/5Z91um/o3KsvQv4/08mau+87uD+xRk6N9afksM4D4FGfp3NL8r168PeA7y9/wLg8IOLw==
   </data>
  </layer>
 </map>

@@ -17,3 +17,9 @@ end
 function removeObject(map, index, player)
 
 end
+
+local runeCollision = {
+	collide = collide
+}
+
+return runeCollision

@@ -6,3 +6,9 @@ function collide(collideObject, player, event, mapData, map)
 		end
 	end
 end
+
+local chestCollision = {
+	collide = collide
+}
+
+return chestCollision
