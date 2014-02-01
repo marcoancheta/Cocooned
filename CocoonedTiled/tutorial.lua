@@ -22,7 +22,7 @@ local tBox = {
 	offsetLG = 60,
 	boxX = 720,
 	boxY = 432,
-	boxW = 1100,
+	boxW = 1250,
 	boxH = 70,
 	boxA = 0.75
 }
@@ -51,12 +51,13 @@ local text = {
 	},
 
 	[3] = {
-		[1] = "Great!!",
-		[2] = "You've completed the basic tutorial!",
-		[3] = "OBJECTIVE:",
-		[4] = "Collect 3 more RUNES in the level",
-		[5] = "(Tap this box to continue)",
-		[6] = -100
+		[1] = "COLOR CHANGING TUTORIAL:",
+		[2] = "Roll over the green or white aura to change colors",
+		[3] = "You can pass through colored walls if you match colors",
+		[4] = "OBJECTIVE:",
+		[5] = "Collect 2 more RUNES in the level",
+		[6] = "(Tap this box to continue)",
+		[7] = -90
 	},
 
 	[4] = {
