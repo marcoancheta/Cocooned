@@ -49,6 +49,7 @@ local collisionDetection = require("collisionDetection")
 -- Initialize ball
 local ball
 local mapPanes
+local t = 1
 
 -- Initialize map data
 local mapData = {
@@ -169,7 +170,8 @@ local function gameLoop(event)
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
-		selectLevel.setupLevelSelector(event)
+		sound.playEventSound(event, sound.selectMapSound)
+		selectLevel.setupLevelSelector(event)	
 		gameData.inLevelSelector = true
 		gameData.selectLevel = false
 	end
