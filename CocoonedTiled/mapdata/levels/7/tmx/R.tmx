@@ -376,7 +376,7 @@
     <property name="moveable" value="true"/>
     <property name="name" value="blackWall"/>
     <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="enabled"/>
+    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="3">

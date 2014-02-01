@@ -431,12 +431,12 @@
   </tile>
   <tile id="2">
    <properties>
-    <property name="bodyType" value=""/>
-    <property name="collType" value=""/>
-    <property name="func" value=""/>
-    <property name="name" value=""/>
-    <property name="physics:bounce" value=""/>
-    <property name="physics:enabled" value=""/>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="switchWallCollision"/>
+    <property name="name" value="switchWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
  </tileset>
@@ -447,7 +447,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztluEKgCAMhEf0R/Mpit7/FWs/BLEdaWw1yAOZiLDj24EGIornCk7rQldF4UxLU8dd9haE86TkRdLccZe9Sfws/d3xW4s94udlvplfnUkv82Ufb/OT8oT0Rf4kHkgof5uSF9SzVYjfruQF9WzV4Cf3bNXgJ/dslXd+6P/ind+f34+e7GR+XFNRLfn1ZAflzxu/Wl74ofxZ+tPgZznfJ/yS43oA+joIiQ==
+   eJztl+EKgCAMhEf0R/Mp6v3fsfZDENtRS81RHshEBI9vB6ojIn8MZ7QudJYX1mppUuxlb05YD5W8SJoVe9mbxK+lvyt+azJH/Kz0N/LLM2mlv+zjbX5SnpB65E/igYTyt1Xygs68K8Svpb/Br0yDX5m+xA+9X6zz+/P9oelN5Mc1JLUlP40/lD9r/HJZ4YfyZ8Vfj//HE37BcN0BsnoIew==
   </data>
  </layer>
 </map>
