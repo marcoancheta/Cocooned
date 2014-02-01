@@ -338,9 +338,6 @@
  <tileset firstgid="29" name="blackWall" tilewidth="36" tileheight="36">
   <image source="../../../art/blackWall.png" width="72" height="72"/>
  </tileset>
- <tileset firstgid="33" name="bounceWall" tilewidth="36" tileheight="36">
-  <image source="../../../art/bounceWall.png" width="72" height="37"/>
- </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztzsEJACAMBLD2Kbj/vF1BEDkfyQSp+t9KBw7sdACApzodAACuDTy7ABc=
@@ -348,7 +345,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzdltEKwyAMRfNa7Qb7/5d+ip82C1ru0kTFZSq7ILY21MONGjcicrFti/Y+Pa8mzrbDtzh2nG0kD3rkYcwLMaPZcG4HY1JuZ+basXf0D3O603hhTnHNaTkt+fiI7dnRa5J8y70nXZqPlnycDdVytkh7xYqv5E2auxqT4oI1H/+npN6zuXVdtcZpavWvd95v+az9exnz/Yt/s/ZHviPUYriszpeaNzX/NHbL87lUS1n9DS1s1nwSY/YM/Tv5MmOp5vxKWHPxrsV96tnPVuI+8vWn5XqElHv8xeQ+x8NIRswp0X39zcyppnw39el51f4Njeoa0A==
+   eJzlVssKxCAM9Opje9z//9RtoYEwRJPaNCt0QKxRmGGiaXJKqewjLzrX83s1oLYm7EcB/aksXoVzRwz1PgnOVyCO2iN1ISqs0b/C4tGQuFvq53Tk42cf28SsaUMd6B+i56OnvtE7tNQWad9Ln1YjNP8ImGtr3kbnLLyztdlDnwVW/6y8X2d9b/Hvbn3pweofvjMPfVZezT9p38s/7V+q+TeT+6sYaeT3j/pBwr/6K64D/WssHg2JW7p/kb4hpD41w5rOReeX+BrESRPqie6fOXjPN1ujnwb1ptQPrjr/AGWgDa0=
   </data>
  </layer>
 </map>
