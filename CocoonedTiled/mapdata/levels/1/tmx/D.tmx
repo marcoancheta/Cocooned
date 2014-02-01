@@ -340,7 +340,7 @@
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztzkERAAAEADBS6N9UCA/nbAkWAXxX2wE4ILcDAMBYAxMnABk=
+   eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">
