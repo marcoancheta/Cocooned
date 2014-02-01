@@ -338,6 +338,9 @@
  <tileset firstgid="29" name="blackWall" tilewidth="72" tileheight="72">
   <image source="../../../art/blackWall.png" width="72" height="72"/>
  </tileset>
+ <tileset firstgid="30" name="kiphca" tilewidth="162" tileheight="201">
+  <image source="../../../art/kiphca.png" width="162" height="201"/>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -345,7 +348,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztllELgCAMhPe69D3q///QehmJyLhlXRIehGTbqM+bpiKynJcOOiaJSYlxKVCnzGHFaaBOmcOKm/z64nKgjukNfl4PW50VrDf9d2l0/01+fXElv93Jv3MesvjV3zea/+r3Z/JD1qu1ZyJi8auff+W/Dczv4aLSXg/v3xTh91T/onMm1H/ePZoXmTOx+zfKj73//ZVfHng8AMhUCXg=
+   eJzt1rEOABAQA9Cuh2/w/5+JwUhCg4v0JXJr03RgAEJ95vRG+NWy2esQEy2b+tvnvb8E9cfQ/jjqj7PaXz4VZOC3/m7T/4Wj/XG0P472x+n9Jce3AFlwBSI=
   </data>
  </layer>
 </map>
