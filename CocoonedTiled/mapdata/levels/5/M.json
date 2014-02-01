@@ -27,6 +27,7 @@
     {
      "itemGoal":"4",
      "itemSize":"0",
+     "moveObj":"0",
      "playerLocation":"!json! {\"x\": 2, \"y\":3 }",
      "tutorial":"false"
     },

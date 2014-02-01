@@ -3,6 +3,7 @@
  <properties>
   <property name="itemGoal" value="0"/>
   <property name="itemSize" value="0"/>
+  <property name="moveObj" value="1"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
@@ -341,6 +342,34 @@
  <tileset firstgid="30" name="kiphca" tilewidth="162" tileheight="201">
   <image source="../../../art/kiphca.png" width="162" height="201"/>
  </tileset>
+ <tileset firstgid="31" name="blackWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="blackWallCollision"/>
+    <property name="moveLocX" value="5"/>
+    <property name="moveLocY" value="3"/>
+    <property name="moveable" value="true"/>
+    <property name="name" value="blackWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="blackWallCollision"/>
+    <property name="moveLocX" value="6"/>
+    <property name="moveLocY" value="9"/>
+    <property name="name" value="blackWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -348,7 +377,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt1rEOABAQA9Cuh2/w/5+JwUhCg4v0JXJr03RgAEJ95vRG+NWy2esQEy2b+tvnvb8E9cfQ/jjqj7PaXz4VZOC3/m7T/4Wj/XG0P472x+n9Jce3AFlwBSI=
+   eJzjZGBg4AJizkFKczMMXgByG+dAOwIPALmNFuEnTyVzRmr4UQvwMIyGHwgokKlvNP1RBkbDjzJAavjJ0cohOMBwCz96g9H2C2VgNP1RBkbTH2VgNP1RBmDhxzOIaQAt0QVh
   </data>
  </layer>
 </map>

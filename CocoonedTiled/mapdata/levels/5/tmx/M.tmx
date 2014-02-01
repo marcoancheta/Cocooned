@@ -3,6 +3,7 @@
  <properties>
   <property name="itemGoal" value="4"/>
   <property name="itemSize" value="0"/>
+  <property name="moveObj" value="0"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 2, &quot;y&quot;:3 }"/>
   <property name="tutorial" value="false"/>
  </properties>

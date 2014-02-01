@@ -12,7 +12,7 @@ local miniMap = require("miniMap")
 --------------------------------------------------------------------------------
 -- Load level on startup
 --------------------------------------------------------------------------------
-function createLevel(mapData, ball, player)
+function createLevel(mapData, ball, player, moveObj)
 
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
@@ -29,6 +29,8 @@ function createLevel(mapData, ball, player)
 
 	-- Load in map
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
+
+	moveObj.createMoveableObjects(map)
 
 	if map.tutorial == true then
 		require("tutorial")
@@ -55,10 +57,13 @@ end
 --------------------------------------------------------------------------------
 -- update pane for level
 --------------------------------------------------------------------------------
-function changePane(mapData, player)
+function changePane(mapData, player, moveObj)
 
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
+
+	-- load 
+	moveObj.createMoveableObjects(map)
 
 	-- if an item was previously taken, remove it from map
 	if tonumber(map.itemSize) > 0 and #player.inventory.items > 0 then

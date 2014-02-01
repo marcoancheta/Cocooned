@@ -3,6 +3,7 @@
  <properties>
   <property name="itemGoal" value="4"/>
   <property name="itemSize" value="1"/>
+  <property name="moveObj" value="0"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
@@ -345,7 +346,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzjZGBg4AJizkFKczMMXgByGycR6iRp7RAcAOS2oRh+Qmj8kRB+4mTo4WEYGumP1DzPC8R8JNCUlC3EhN9AgaGafwcLGA0/ysBo+FEGkMsYLjzqcJVPhMwmVL4Rsm+wh99o+qMMDJf280CB0fRHGYCFH88gpgFEUwfG
+   eJzjZGBg4AJizkFKczMMXgByGycR6iRp7RAcAOS2oRh+Qmj8kRB+4mTo4WEYGumP1DzPC8R8JNCUlC3EhN9AgaGafwcLGA0/ysBo+FEGkMsYfOUaKeUgjE1qOcqLxb7BHn6j6Y8yMFzazwMFRtMfZQAWfjyDmAYAk6oIxQ==
   </data>
  </layer>
 </map>
