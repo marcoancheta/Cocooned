@@ -3,6 +3,10 @@
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
 -- selectLvl.lua
 --------------------------------------------------------------------------------
+-- Notes:
+--		- Select Map sound byte derived from:
+--		http://themushroomkingdom.net/sounds/wav/mk64/mk64_announcer05-jp.wav
+--		This sound byte is a temporary place holder. 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
@@ -27,7 +31,7 @@ local selectLevel = {
 }
 
 function setupLevelSelector(event)
-		
+
 	local phase = event.phase
 	
 	-- Load in map level background
@@ -35,7 +39,17 @@ function setupLevelSelector(event)
 	levelsMap.x = 700
 	levelsMap.y = 455
 	levelsMap:scale(1.5, 1.3)
-		
+	
+	-- Create onScreen text object
+	selLevelText = display.newText("Select Level:", 265, 125, native.systemFontBold, 100)
+	selLevelText:setFillColor(0, 0, 0)
+	
+	silKipcha = display.newImage("graphics/sil_kipcha.png")
+	silKipcha.x = 1250
+	silKipcha.y = 650
+	silKipcha:scale(1.5, 1.5)
+	silKipcha.name = "sillykipchatrixareforkids"
+					
 	lvlNumber = {	
 		[1] = "T", [2] = "1", [3] = "2",
 		[4] = "3", [5] = "4", [6] = "5",
@@ -75,12 +89,17 @@ function setupLevelSelector(event)
 		levels[i]:setFillColor(0, 0, 0)
 	end
 					
+	kCircle[1].isAwake = true
+	selectLevel.levelNum = kCircle[1].name
+	kCircle[1]:setFillColor(167/255, 219/255, 216/255)
+					
 	kipcha = display.newImage("graphics/Kipcha135px.png")
 	kipcha.x = kCircle[1].x
 	kipcha.y = kCircle[1].y
 	
 	for p=1, #kCircle do
 		kCircle[p]:addEventListener("touch", runLevelSelector)
+		silKipcha:addEventListener("touch", runLevelSelector)
 	end
 	
 	lockedLevels = {}
@@ -96,9 +115,11 @@ function setupLevelSelector(event)
 			kCircle[i].isAwake = true
 		end
 	end
+	
 end
 
 -- When player tap's levels twice:
+--[[
 local function tapTwice(event)
 	for i=1, #kCircle do
 		if event.target.name == kCircle[i].name then
@@ -122,6 +143,33 @@ local function tapTwice(event)
 		end
 	end
 end
+]]--
+
+-- When player tap's silKipcha twice:
+--[[
+local function tapTwice(event)
+	-- Double tap silhouette to play game
+	if event.numTaps >= 2 then	
+		if event.target.name == "sillykipchatrixareforkids" then
+			--	Clean up on-screen items	
+			display.remove(lvlNumber)
+			display.remove(textPos)
+			display.remove(kipcha)
+			display.remove(levelsMap)
+						
+			for p=1, #kCircle do
+				display.remove(kCircle[p])
+				display.remove(levels[p])
+				display.remove(lockedLevels[p])
+				kCircle[p]:removeEventListener("touch", runLevelSelector)
+			end
+			
+			-- Send data to start game
+			gameData.gameStart = true
+		end
+	end
+end
+--]]
 
 -- When player tap's levels once:
 local function tapOnce(event)
@@ -130,6 +178,7 @@ local function tapOnce(event)
 			if event.numTaps == 1 and kCircle[i].isAwake then
 				print("kCircle[", i, "]", kCircle[i], kCircle[i].isAwake)
 				-- Move kipcha to the selected circle
+				print("i =", i)
 				kipcha.x = kCircle[i].x
 				kipcha.y = kCircle[i].y
 				goTo = kCircle[i].name
@@ -147,6 +196,28 @@ local function tapOnce(event)
 			end
 		end
 	end
+	
+	-- If player taps silhouette kipcha, start game
+	if event.numTaps == 1 and event.target.name == silKipcha.name then
+		--	Clean up on-screen items	
+		display.remove(lvlNumber)
+		display.remove(textPos)
+		display.remove(kipcha)
+		display.remove(levelsMap)
+		display.remove(silKipcha)
+		display.remove(selLevelText)
+						
+		for p=1, #kCircle do
+			display.remove(kCircle[p])
+			display.remove(levels[p])
+			display.remove(lockedLevels[p])
+			kCircle[p]:removeEventListener("touch", runLevelSelector)
+			silKipcha:removeEventListener("touch", runLevelSelector)
+		end
+			
+		-- Send data to start game
+		gameData.gameStart = true
+	end
 end
 
 
@@ -155,14 +226,16 @@ function runLevelSelector(event)
 	local phase = event.phase
 
 	for i=1, #kCircle do
+		silKipcha:addEventListener("tap", tapOnce)
 		kCircle[i]:addEventListener("tap", tapOnce)
-		kCircle[i]:addEventListener("tap", tapTwice)
+		--kCircle[i]:addEventListener("tap", tapTwice)
 	end
 	
 	if gameData.gameStart then
 		for i=1, #kCircle do
 			kCircle[i]:removeEventListener("tap", tapOnce)
-			kCircle[i]:removeEventListener("tap", tapTwice)
+			silKipcha:removeEventListener("tap", tapOnce)
+			--kCircle[i]:removeEventListener("tap", tapTwice)
 		end
 	end
 end

@@ -16,9 +16,15 @@ local name
 -- Play Sounds
 --------------------------------------------------------------------------------
 function playSound(event, name)
-	audio.setVolume(0.08, {channel=1} )
-	local temp = audio.play(name, {channel=1, loops=0})
+	audio.setVolume(0.1, {channel = 4} )
+	local temp = audio.play(name, {channel=4, loops=0})
 	print("play sound:", name)
+end
+
+function playEventSound(event, name)
+	audio.setVolume(0.4, {channel = 3} )
+	local temp = audio.play(name, {channel=3, loops=0})
+	print("play event sound:", name)
 end
 
 function playBGM(event, name)
@@ -41,6 +47,7 @@ local sound = {
 	soundOptions = soundOptions,
 	BGMOptions = BGMOptions,
 	playSound = playSound,
+	playEventSound = playEventSound,
 	playBGM = playBGM,
 	stopBGM = stopBGM,
 	
@@ -50,7 +57,8 @@ local sound = {
 	
 	-- Load Sounds here:
 	clickSound = audio.loadSound("sounds/menu_tone.wav"),
-	mainmenuSound = audio.loadSound("sounds/cocoonedmusic.wav")
+	mainmenuSound = audio.loadSound("sounds/cocoonedmusic.wav"),
+	selectMapSound = audio.loadSound('sounds/selectMap.wav')
 }
 
 return sound

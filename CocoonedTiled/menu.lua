@@ -92,7 +92,7 @@ function MainMenu(event)
 	menuGroup:insert(main)
 	menuGroup:insert(play)
 	menuGroup:insert(options)
-	
+		
 	play:addEventListener("tap", buttonPressed)
 	options:addEventListener("tap", buttonPressed)
 end
