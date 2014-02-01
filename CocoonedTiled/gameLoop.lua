@@ -75,7 +75,7 @@ local player2 = player.create()
 --------------------------------------------------------------------------------
 function loadMap()
 
-	system.setAccelerometerInterval( 50)
+	system.setAccelerometerInterval(50)
 	-- Create player sprite sheet
 	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})

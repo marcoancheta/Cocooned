@@ -25,9 +25,9 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "itemGoal":"0",
+     "itemGoal":"4",
      "itemSize":"0",
-     "playerLocation":"!json! {\"x\": 20, \"y\":12 }",
+     "playerLocation":"!json! {\"x\": 2, \"y\":3 }",
      "tutorial":"false"
     },
  "tileheight":36,

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="itemGoal" value="0"/>
+  <property name="itemGoal" value="4"/>
   <property name="itemSize" value="0"/>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 2, &quot;y&quot;:3 }"/>
   <property name="tutorial" value="false"/>
  </properties>
  <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">

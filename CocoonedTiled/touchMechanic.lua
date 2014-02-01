@@ -17,7 +17,6 @@ local print = print
 -- variable for miniMap mechanic for previous tap time
 local tapTime = 0
 local canSwipe = true
-local miniMapDisplay
 
 --------------------------------------------------------------------------------
 -- touchScreen function

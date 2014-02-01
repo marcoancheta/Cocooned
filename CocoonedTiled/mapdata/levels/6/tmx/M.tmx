@@ -257,9 +257,15 @@
    </properties>
   </tile>
  </tileset>
+<<<<<<< HEAD
+ <tileset firstgid="23" name="blackWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="1">
+=======
  <tileset firstgid="23" name="greenAura1" tilewidth="72" tileheight="72">
   <image source="../../../art/greenaura1.png" width="72" height="72"/>
   <tile id="0">
+>>>>>>> 61f4cf607be59bd5e98ea9400f339896274995b2
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
@@ -343,12 +349,10 @@
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztzsEJACAMBLD2Kbj/vF1BEDkfyQSp+t9KBw7sdACApzodAACuDTy7ABc=
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzdlkEOhCAMRdli3XkC5/6HVBOaNN8/GGSGVl9CKERI82yAnFKa9paD9lLiaGBus2MuiJQ+m1jHPSyd6w8mE7N/6+lRYIz+dE5bSx0jrevZHnM6+8N8R8Fq65u/Fta9fSp9T36s/rzOmn/5+xVv8ReJJ/qLlF90f/pGuPpuBHf93T1vkat9otcfO0eYPzHz7O6v3fO1ObaH/Za9m1j9sXfEKJirDGNvrEdbf57eEHWm/iJ4Q/RtKiWO2m/XvwqT
   </data>
  </layer>
 </map>

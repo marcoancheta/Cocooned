@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="itemGoal" value="0"/>
-  <property name="itemSize" value="0"/>
+  <property name="itemGoal" value="4"/>
+  <property name="itemSize" value="1"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
@@ -358,7 +358,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzdlkELgzAMhcPYpeoYeNlN/P+/cvMwGME8n1mSlT0opfQl4mfa2ERkeI3W6TzKOTWnz4pD+cYTz3vrRvr0e1scFpCjgThLd9K35X6o9Z5WkKM3frPay+a3fIzB8K0gxyR1/JAPneFMft/6KuvP4/tHfhFcWJ+HXwQX1sfw8/bDKn5sHz2K8/gYfmwf0LqQPpSP+V57dyajK+mLqD8dwyiCH1N/ej+DH/o3zTq/lfWH1paq6u+X5zfz/uudX2T/mDqen6AmCb0=
+   eJzdVl0LwyAMDF1fbDsGe+lb6f//lVNYoQQ9ry5a2UEoMR/imZg6EZm8uE6/s1yDI9dzem49YM7YY3iCXFf0AxvYy4G4FF4gV8B60teIXWMHe/XG31vZLPkLtTx6Gbw8vrm3k0yJuB3stYgdfxrsuY87TPWwFX8a7Llb9W8s969+/8ifBS+sXwl/Frywfgx/pfOwFX/sHM3Flfgx/LFzQGMg/VA+5r5ibyaDkfSzqD8dw8CCP6b+tL0Gf+jftFb/tqw/pKfQqv7u7N+a71/v/FnOj6Xj7wewFgoP
   </data>
  </layer>
 </map>
