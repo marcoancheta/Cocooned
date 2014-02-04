@@ -94,10 +94,12 @@ function tapScreen(event, miniMap, physics)
 	if event.numTaps >= 2 then
 		-- show miniMap 
 		if miniMap.alpha == 0 then
+			physics.pause()
 			gameData.isShowingMiniMap = true
 			miniMap.alpha = 0.75
 		else
 		--hide miniMap
+			physics.start()
 			gameData.isShowingMiniMap = false
 			miniMap.alpha = 0
 		end
