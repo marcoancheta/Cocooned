@@ -314,7 +314,7 @@ local function menuLoop(event)
 		gui.back:removeEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
 		ball:removeEventListener("accelerometer", controlMovement)
-		
+
 		-- Re-evaluate gameData booleans
 		gameData.ingame = false
 		gameData.showMiniMap = false
@@ -328,7 +328,7 @@ local function menuLoop(event)
 		
 		-- Re-add in game options button
 		menu.ingameOptionsbutton(event)
-		
+
 		-- Add object listeners
 		gui.back:addEventListener("touch", swipeMechanics)
 		gui.back:removeEventListener("tap", tapMechanic)

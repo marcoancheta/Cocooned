@@ -58,7 +58,7 @@ local sound = {
 	-- Load Sounds here:
 	clickSound = audio.loadSound("sounds/menu_tone.wav"),
 	mainmenuSound = audio.loadSound("sounds/cocoonedmusic.wav"),
-	selectMapSound = audio.loadSound('sounds/selectMap.wav')
+	--selectMapSound = audio.loadSound('sounds/selectMap.wav')
 }
 
 return sound
