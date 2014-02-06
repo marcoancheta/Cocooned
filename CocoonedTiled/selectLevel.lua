@@ -138,13 +138,9 @@ function selectLoop(event)
 	
 	lockedLevels = {}
 	
-<<<<<<< HEAD
-	for i=1, 10 do
-		if i~= 1 and i~=2 and i~=3 and i~=4 and i~=10 then
-=======
+
 	for i=1, #lvlNumber do
 		if i~= 1 and i~=2 and i~=3 and i~=4 then
->>>>>>> Updated levelSelector
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x
 			lockedLevels[i].y = kCircle[i].y
