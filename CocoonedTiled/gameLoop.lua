@@ -4,7 +4,6 @@
 -- gameLoop.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 --------------------------------------------------------------------------------
 -- Localize (Load in files) - [System Files]
 --------------------------------------------------------------------------------
@@ -113,10 +112,27 @@ local function controlMovement(event)
 		physicsParam = movementMechanic.onAccelerate(event)
 		--update player(rotation and animation)
 		--move to animation.lua or player.lua?
+		ball:pause()
 		if(physicsParam.xGrav ~= 0 or physicsParam.yGrav ~= 0) then
 			player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
+			ball:play()
 		end
-
+		local vx, vy = ball:getLinearVelocity()
+		local speed = math.sqrt((vy*vy)+(vx*vx))
+		
+		if speed > 300 then
+			ball.timeScale = 2.5
+		elseif speed > 150 then
+			ball.timeScale = 2
+		elseif speed >75 then
+			ball.timeScale = 1
+		elseif speed > 0 then
+			ball.timeScale = .25
+		--elseif speed > 0 then
+		--	ball.timeScale = .15
+		else
+			ball:pause()
+		end
 		--apply force instead of changing gravity
 		ball:applyForce(physicsParam.xGrav, physicsParam.yGrav, ball.x, ball.y)
 		physics.setGravity(0,0)
@@ -173,7 +189,8 @@ local function gameLoop(event)
 	-- If select level do:
 	if gameData.selectLevel then
 		sound.playEventSound(event, sound.selectMapSound)
-		selectLevel.setupLevelSelector(event)	
+		selectLevel.selectLoop(event)	
+		gameData.allowTouch = true
 		gameData.inLevelSelector = true
 		gameData.selectLevel = false
 	end
@@ -182,9 +199,10 @@ local function gameLoop(event)
 		mapData.levelNum = selectLevel.levelNum
 		mapData.pane = selectLevel.pane
 		mapData.version = selectLevel.version
+		--Runtime:removeEventListener("enterFrame", selectLevel.setCameratoPlayer)
 		gameData.inLevelSelector = false
 	end
-	
+
 	-----------------------------
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
@@ -230,7 +248,7 @@ local function gameLoop(event)
 
 		gameData.gameEnd = false
 
-		selectLevel.setupLevelSelector(event)
+		--selectLevel.setupLevelSelector(event)
 		gameData.inLevelSelector = true
 		gameData.selectLevel = false
 
@@ -238,30 +256,10 @@ local function gameLoop(event)
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--
-	-- If ingame has started do:
-	if gameData.ingame then
+	-- If in-game has started do:
+	--if gameData.ingame then
 		--print(display.fps)
-		local vx, vy = ball:getLinearVelocity()
-		local speed = math.sqrt((vy*vy)+(vx*vx))
-		
-		if speed > 300 then
-			ball:play()
-			ball.timeScale = 2.5
-		elseif speed > 150 then
-			ball:play()
-			ball.timeScale = 2
-		elseif speed >75 then
-			ball:play()
-			ball.timeScale = 1
-		elseif speed > 0 then
-			ball:play()
-			ball.timeScale = .25
-		--elseif speed > 0 then
-		--	ball.timeScale = .15
-		else
-			ball:pause()
-		end
-	end
+	--end
 end
 
 --------------------------------------------------------------------------------
