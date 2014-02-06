@@ -113,27 +113,10 @@ local function controlMovement(event)
 		physicsParam = movementMechanic.onAccelerate(event)
 		--update player(rotation and animation)
 		--move to animation.lua or player.lua?
-		ball:pause()
 		if(physicsParam.xGrav ~= 0 or physicsParam.yGrav ~= 0) then
 			player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
-			ball:play()
 		end
-		local vx, vy = ball:getLinearVelocity()
-		local speed = math.sqrt((vy*vy)+(vx*vx))
-		
-		if speed > 300 then
-			ball.timeScale = 2.5
-		elseif speed > 150 then
-			ball.timeScale = 2
-		elseif speed >75 then
-			ball.timeScale = 1
-		elseif speed > 0 then
-			ball.timeScale = .25
-		--elseif speed > 0 then
-		--	ball.timeScale = .15
-		else
-			ball:pause()
-		end
+
 		--apply force instead of changing gravity
 		ball:applyForce(physicsParam.xGrav, physicsParam.yGrav, ball.x, ball.y)
 		physics.setGravity(0,0)
@@ -255,10 +238,30 @@ local function gameLoop(event)
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--
-	-- If in-game has started do:
-	--if gameData.ingame then
+	-- If ingame has started do:
+	if gameData.ingame then
 		--print(display.fps)
-	--end
+		local vx, vy = ball:getLinearVelocity()
+		local speed = math.sqrt((vy*vy)+(vx*vx))
+		
+		if speed > 300 then
+			ball:play()
+			ball.timeScale = 2.5
+		elseif speed > 150 then
+			ball:play()
+			ball.timeScale = 2
+		elseif speed >75 then
+			ball:play()
+			ball.timeScale = 1
+		elseif speed > 0 then
+			ball:play()
+			ball.timeScale = .25
+		--elseif speed > 0 then
+		--	ball.timeScale = .15
+		else
+			ball:pause()
+		end
+	end
 end
 
 --------------------------------------------------------------------------------
