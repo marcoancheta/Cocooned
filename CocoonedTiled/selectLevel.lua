@@ -9,6 +9,8 @@
 --		This sound byte is a temporary place holder. 
 --------------------------------------------------------------------------------
 
+display.setStatusBar(display.HiddenStatusBar);
+
 --------------------------------------------------------------------------------
 -- Load in Global Variables
 --------------------------------------------------------------------------------
@@ -35,7 +37,7 @@ function setupLevelSelector(event)
 	local phase = event.phase
 	
 	-- Load in map level background
-	levelsMap = display.newImage("graphics/levelSelector.png")
+	levelsMap = display.newImage("graphics/levelSelector.png", 0, 0, true)
 	levelsMap.x = 700
 	levelsMap.y = 455
 	levelsMap:scale(1.5, 1.3)
@@ -44,7 +46,7 @@ function setupLevelSelector(event)
 	selLevelText = display.newText("Select Level:", 265, 125, native.systemFontBold, 100)
 	selLevelText:setFillColor(0, 0, 0)
 	
-	silKipcha = display.newImage("graphics/sil_kipcha.png")
+	silKipcha = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
 	silKipcha.x = 1250
 	silKipcha.y = 650
 	silKipcha:scale(1.5, 1.5)

@@ -57,15 +57,13 @@ end
 function MainMenu(event)
 
 	-- Add main menu background image
-	main = display.newImage("graphics/cocooned.png")
+	main = display.newImage("graphics/cocooned.png", 700, 400, true)
 		
 	-- Scale background image
-	main.x = 700
-	main.y = 400
 	main:scale(0.5, 0.5)
 
 	-- Add Play button
-	play = display.newImage("graphics/play.png")
+	play = display.newImage("graphics/play.png", 0, 0, true)
 	play:setFillColor(0.5,0.5,0.5)
 	
 	-- Assign name for runtime functions
@@ -79,7 +77,7 @@ function MainMenu(event)
 	play:scale(2.5, 2.5)
 
 	-- Option buttons: See play button details
-	options = display.newImage("graphics/options.png")
+	options = display.newImage("graphics/options.png", 0, 0, true)
 	options:setFillColor(0.5,0.5,0.5)
 	options.name = "optionButton"
 	options.x = 350
@@ -103,7 +101,7 @@ end
 function Options(event)
 	
 	-- Add options background image
-	optionsBG = display.newImage("graphics/cocooned_menu.png")
+	optionsBG = display.newImage("graphics/cocooned_menu.png", 0, 0, true)
 	
 	-- Create onScreen text object
 	optionText = display.newText("OPTIONS", 200, 150, native.Systemfont, 72)
@@ -115,7 +113,7 @@ function Options(event)
 	optionsBG:scale(0.5, 0.5)
 	
 	-- Add Main Menu button
-	backtoMain = display.newImage("graphics/main.png")
+	backtoMain = display.newImage("graphics/main.png", 0, 0, true)
 	
 	-- Assign name for runtime functions
 	backtoMain.name = "BacktoMain"
@@ -140,7 +138,7 @@ end
 function ingameOptionsbutton(event)
 	
 	-- Add in-game options image (option_wheel.png)
-	ingameOptions = display.newImage("graphics/option_wheel.png")
+	ingameOptions = display.newImage("graphics/option_wheel.png", 0, 0, true)
 	
 	-- Scale image size
 	ingameOptions.x = 1435
@@ -161,7 +159,7 @@ function ingameMenu(event)
 	
 	print("ingameMenu")
 	-- Add options background image
-	gameOptionsBG = display.newImage("graphics/cocooned_menu.png")
+	gameOptionsBG = display.newImage("graphics/cocooned_menu.png", 0, 0, true)
 	
 	-- Create onScreen text object
 	ingameOptionText = display.newText("PAUSED", 1155, 100, native.Systemfont, 69)
@@ -173,9 +171,9 @@ function ingameMenu(event)
 	gameOptionsBG:scale(-0.5, 0.5)
 		
 	-- Add Main Menu button
-	gameMainM = display.newImage("graphics/main.png")
+	gameMainM = display.newImage("graphics/main.png", 0, 0, true)
 	-- Add Resume game button
-	gameResume = display.newImage("graphics/resume.png")
+	gameResume = display.newImage("graphics/resume.png", 0, 0, true)
 		
 	-- Assign name for runtime functions
 	gameMainM.name = "gotoMain"
