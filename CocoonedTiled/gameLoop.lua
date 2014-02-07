@@ -188,8 +188,9 @@ local function gameLoop(event)
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
-		sound.playEventSound(event, sound.selectMapSound)
+		sound.playEventSound(event, sound.selectMapSound)	
 		selectLevel.selectLoop(event)	
+		selectLevel.levelCamera(event)
 		gameData.allowTouch = true
 		gameData.inLevelSelector = true
 		gameData.selectLevel = false
@@ -209,7 +210,7 @@ local function gameLoop(event)
 	if gameData.gameStart then
 	
 		-- Stop BGM
-		sound.stopBGM(event)
+		sound.stopBGM(event, sound.mainmenuSound)
 		-- Start physics
 		physics.start()
 		-- Load Map
@@ -384,13 +385,15 @@ collectgarbage()
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		--print( "MemUsage: " .. memCount)
+		print( "MemUsage: " .. memCount)
 		prevMemCount = memCount
 	end
+	
 	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
+	
 	if (prevTextMem ~= textMem) then
 		prevTextMem = textMem
-		--print( "TexMem: " .. textMem )
+		print( "TexMem: " .. textMem )
 	end
 	
 	-- Display fps

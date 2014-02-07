@@ -764,7 +764,6 @@
                  "bodyType":"static",
                  "collType":"wall",
                  "func":"downWallCollision",
-                 "moveable":"true",
                  "name":"downWall",
                  "physics:bounce":"0",
                  "physics:enabled":"true"

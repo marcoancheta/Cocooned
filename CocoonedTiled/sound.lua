@@ -36,7 +36,8 @@ end
 --------------------------------------------------------------------------------
 -- Stop Sounds
 --------------------------------------------------------------------------------
-function stopBGM(event)
+function stopBGM(event, name)
+	audio.dispose(name)
 	audio.stop()
 end
 

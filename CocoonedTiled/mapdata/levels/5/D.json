@@ -710,7 +710,6 @@
                  "bodyType":"static",
                  "collType":"wall",
                  "func":"leftWallCollision",
-                 "moveable":"true",
                  "name":"leftWall",
                  "physics:bounce":"0",
                  "physics:enabled":"true"
@@ -738,7 +737,6 @@
                  "bodyType":"static",
                  "collType":"wall",
                  "func":"rightWallCollision",
-                 "moveable":"true",
                  "name":"rightWall",
                  "physics:bounce":"0",
                  "physics:enabled":"true"
@@ -766,7 +764,6 @@
                  "bodyType":"static",
                  "collType":"wall",
                  "func":"upWallCollision",
-                 "moveable":"true",
                  "name":"upWall",
                  "physics:bounce":"0",
                  "physics:enabled":"true"
@@ -794,7 +791,6 @@
                  "bodyType":"static",
                  "collType":"wall",
                  "func":"downWallCollision",
-                 "moveable":"true",
                  "name":"downWall",
                  "physics:bounce":"0",
                  "physics:enabled":"true"
