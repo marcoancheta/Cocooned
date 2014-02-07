@@ -352,6 +352,19 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="34" name="switch" tilewidth="72" tileheight="72">
+  <image source="../../../art/switch.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="switchCollision"/>
+    <property name="name" value="switch"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -359,7 +372,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlksKgDAMRLutH9y4ciG9/yl1I5Rgx0nsDzEgVfKSwpg09c654Xx8p+vodOaNXCoO5RsV+8UxFi4Vh/J5xX5xjIVrpd9Gcj3qJ2tdm29S7HeZtf4Qh3q4Vv1ZuJr9a+F+/d5xX9DPOg9r6cfOgac4C8fox84BaTvJoXzM/7o7MxkLJJej/mQMYzn0Y+pP+kvoh+6mpfq3Zv2h75QFkpuBr4f+XaL3VfhKnn+B5Frpx3IL8F36TR2vByznCgA=
+   eJztlsEKgDAMQ3vdnOLNu///kW6exmg6UFsq24MSyEBD6KGBiGKe0GgEvoYG4X0hngR8DVCG4gfwFpWycKAMxZ/99en1VyYxagX6fyKc3QPS/nlA2j8PzP7eMVJ/x0ffqRmpPw2k+8UD3vv7y/6teTZGrUC3s7R/u020myf3n3V/yJ/99akznI0v3a6cr6HSDX8BcCsHCQ==
   </data>
  </layer>
 </map>

@@ -2,9 +2,9 @@
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
   <property name="itemGoal" value="4"/>
-  <property name="itemSize" value="0"/>
+  <property name="itemSize" value="1"/>
   <property name="moveObj" value="0"/>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 2, &quot;y&quot;:3 }"/>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
  <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
@@ -339,8 +339,18 @@
  <tileset firstgid="29" name="blackWall" tilewidth="72" tileheight="72">
   <image source="../../../art/blackWall.png" width="72" height="72"/>
  </tileset>
- <tileset firstgid="30" name="switchWall" tilewidth="36" tileheight="36">
-  <image source="../../../art/blueWall.png" width="72" height="72"/>
+ <tileset firstgid="30" name="whiteWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/whiteWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="whiteWallCollision"/>
+    <property name="name" value="whiteWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
@@ -349,7 +359,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlr0KwDAIhF1NM/Xn/V+1zVAo4kkgmBrwgyCcQ47D4ZiIyvNYzAJ0j8nGfiOdCnQPkIemM9gVJy8ayEPTX++72P2V3yH0FfJrrypzFuj/Sth7BL73FxHr/iKQ+Y2R+Y2R+Y1h9ZcIRM9vlftD3XUW6P/sz3309OdT7P7K7xL6Cvmh7qrpHtPq8DdTcgb2
+   eJzdVl0LwyAMDF1fbDsGe+lb6f//lVNYoQQ9ry5a2UEoMR/imZg6EZm8uE6/s1yDI9dzem49YM7YY3iCXFf0AxvYy4G4FF4gV8B60teIXWMHe/XG31vZLPkLtTx6Gbw8vrm3k0yJuB3stYgdfxrsuY87TPWwFX8a7Llb9W8s969+/8ifBS+sXwl/Frywfgx/pfOwFX/sHM3Flfgx/LFzQGMg/VA+5r5ibyaDkfSzqD8dw8CCP6b+tL0Gf+jftFb/tqw/pKfQqv7u7N+a71/v/FnOj6Xj7wewFgoP
   </data>
  </layer>
 </map>

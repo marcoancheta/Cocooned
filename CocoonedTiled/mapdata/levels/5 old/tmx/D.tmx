@@ -2,9 +2,9 @@
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
   <property name="itemGoal" value="4"/>
-  <property name="itemSize" value="0"/>
+  <property name="itemSize" value="1"/>
   <property name="moveObj" value="0"/>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 2, &quot;y&quot;:3 }"/>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
  <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
@@ -339,9 +339,6 @@
  <tileset firstgid="29" name="blackWall" tilewidth="72" tileheight="72">
   <image source="../../../art/blackWall.png" width="72" height="72"/>
  </tileset>
- <tileset firstgid="30" name="switchWall" tilewidth="36" tileheight="36">
-  <image source="../../../art/blueWall.png" width="72" height="72"/>
- </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -349,7 +346,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlr0KwDAIhF1NM/Xn/V+1zVAo4kkgmBrwgyCcQ47D4ZiIyvNYzAJ0j8nGfiOdCnQPkIemM9gVJy8ayEPTX++72P2V3yH0FfJrrypzFuj/Sth7BL73FxHr/iKQ+Y2R+Y2R+Y1h9ZcIRM9vlftD3XUW6P/sz3309OdT7P7K7xL6Cvmh7qrpHtPq8DdTcgb2
+   eJztVkEKwzAMC6OXrCk77NT/f3TbITSERJXcEUxbQQnGsg2qEzuGEJ7fLzo956AhGnm9OJRvFuqVMRZeLw7li0K9MsbCy/Yq5Lu6fnWvq/mSUC/Dqh/ioTs8qv8svJH9Z+F50G8BPg/6vYDvDPr9/PmeK/PQot+7UXsvT+33pl9qxDB4kDzUf8z/KueAcp8mknf0/WPnaA1Wv6PvH7vH1VD0Q7spo185I0fqx/Yfsnu4+2/jILsH7/r9c39Jjs8PD+kJLw==
   </data>
  </layer>
 </map>

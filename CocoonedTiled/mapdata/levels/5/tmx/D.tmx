@@ -339,6 +339,32 @@
  <tileset firstgid="29" name="blackWall" tilewidth="72" tileheight="72">
   <image source="../../../art/blackWall.png" width="72" height="72"/>
  </tileset>
+ <tileset firstgid="30" name="switchWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blueWall2.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="switchWallCollision"/>
+    <property name="name" value="switchWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="34" name="switch" tilewidth="72" tileheight="72">
+  <image source="../../../art/switch.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="switchCollision"/>
+    <property name="name" value="switch"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -346,7 +372,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztVkEKwzAMC6OXrCk77NT/f3TbITSERJXcEUxbQQnGsg2qEzuGEJ7fLzo956AhGnm9OJRvFuqVMRZeLw7li0K9MsbCy/Yq5Lu6fnWvq/mSUC/Dqh/ioTs8qv8svJH9Z+F50G8BPg/6vYDvDPr9/PmeK/PQot+7UXsvT+33pl9qxDB4kDzUf8z/KueAcp8mknf0/WPnaA1Wv6PvH7vH1VD0Q7spo185I0fqx/Yfsnu4+2/jILsH7/r9c39Jjs8PD+kJLw==
+   eJztls0KgDAMg4s/h+lQzx5EfP+H1CEDkaZOdLOiH4xCijOEHGaIqFqOeXAaYV8TTwf0GAxAd94M2DWRvHCMQHfe/vyOGYHu82tpzWs/U+E8WGZawvlpQOqfBqT+aeDP7xpfyq+/6Z4tX8ovBtL7RQPa83tL/9DbNRXo/1L/bODd2XJyZp4BeZD6F5pfwWhl4Lce5EHq35n89mjMb9pod+eH3q6cHmPWwn4GgaUHhQ==
   </data>
  </layer>
 </map>

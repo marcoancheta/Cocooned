@@ -359,7 +359,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzdVl0LwyAMDF1fbDsGe+lb6f//lVNYoQQ9ry5a2UEoMR/imZg6EZm8uE6/s1yDI9dzem49YM7YY3iCXFf0AxvYy4G4FF4gV8B60teIXWMHe/XG31vZLPkLtTx6Gbw8vrm3k0yJuB3stYgdfxrsuY87TPWwFX8a7Llb9W8s969+/8ifBS+sXwl/Frywfgx/pfOwFX/sHM3Flfgx/LFzQGMg/VA+5r5ibyaDkfSzqD8dw8CCP6b+tL0Gf+jftFb/tqw/pKfQqv7u7N+a71/v/FnOj6Xj7wewFgoP
+   eJztlt0KwCAIhb3t537v/6ZbjNgIj1lpVx0IQZvJlywDEcVnhcZG4PewQYgn4pWBf0UoJ6qh+AOIxfVy1DlRDcV/+PVz9viVlRlrLSknd34mXLuHRu9E6j8Pjd6J1H8eOvxead+GVrv4ab7h9uzkN7Onx+9ichx+n0b7T5pfJGn5rb5Jnvws5Nl/Fqr8tP+vKmt+6PzZ+Xk3P047+UnnHH7zqvzQ7Mr502+h+KglIX4DzdMIXg==
   </data>
  </layer>
 </map>
