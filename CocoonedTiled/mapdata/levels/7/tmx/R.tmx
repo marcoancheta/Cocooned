@@ -342,7 +342,7 @@
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="wall"/>
-    <property name="func" value="blackWallCollision"/>
+    <property name="func" value="rightWallCollision"/>
     <property name="moveLocX" value="19"/>
     <property name="moveLocY" value="3"/>
     <property name="moveable" value="true"/>
@@ -370,7 +370,7 @@
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="wall"/>
-    <property name="func" value="blackWallCollision"/>
+    <property name="func" value="downWallCollision"/>
     <property name="moveLocX" value="26"/>
     <property name="moveLocY" value="20"/>
     <property name="moveable" value="true"/>
@@ -383,7 +383,7 @@
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="wall"/>
-    <property name="func" value="blackWallCollision"/>
+    <property name="func" value="upWallCollision"/>
     <property name="moveLocX" value="26"/>
     <property name="moveLocY" value="3"/>
     <property name="moveable" value="true"/>
@@ -413,7 +413,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztl70KgDAMhLu2VhwcBMHB939J7Sb5KU2bQAp+IIES8ThPOGMIIb1XdDqXgEnEmRarYLdoi8R5rtxzyeQgNsFu0Ub516LvAOdn4zM1/LN8vz3+wUzW/BtF4l/RQflniUb+LNHInyWUfzez+/uHmTF/O7P7+4eZMX/c98v1F0tm9I9jlvyVmT/TS3/h8uelv/T0Pw/9uUUf7MuwT3NY/3+M0uNfdjwf4KYIJQ==
+   eJztltEKgCAMRX21jB56CIKo/v8nSyiKuVWzDSZ0QAZLcVxvcL1zrtqWN1prl1IhPSkaxt44m0f64ebMyBsnoWXsjbNh+r2Zrwf94eGu47uEfprvm6Mf9OSdfl/h6BfnwPTTRMJ/mkj4TxNMv4XY++t3Mu/Lqv+mfWH6dcQZK/6j+P2Xwvl/qfyiSYn6UZTiv1jDpVrJL5T/rOSXnPxnIT+/mQ/mZZinIZL5WfN9c/QLhusKRXQI1w==
   </data>
  </layer>
 </map>
