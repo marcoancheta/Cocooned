@@ -15,6 +15,7 @@ local gameData = {
 	menuOn = true,
 	selectLevel = false,
 	inLevelSelector = false,
+	allowTouch = false,
 	allowPaneSwitch = false,
 	showMiniMap = false,
 	isShowingMiniMap = false,

@@ -4,7 +4,6 @@
 -- gameLoop.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 --------------------------------------------------------------------------------
 -- Localize (Load in files) - [System Files]
 --------------------------------------------------------------------------------
@@ -190,7 +189,8 @@ local function gameLoop(event)
 	-- If select level do:
 	if gameData.selectLevel then
 		sound.playEventSound(event, sound.selectMapSound)
-		selectLevel.setupLevelSelector(event)	
+		selectLevel.selectLoop(event)	
+		gameData.allowTouch = true
 		gameData.inLevelSelector = true
 		gameData.selectLevel = false
 	end
@@ -199,9 +199,10 @@ local function gameLoop(event)
 		mapData.levelNum = selectLevel.levelNum
 		mapData.pane = selectLevel.pane
 		mapData.version = selectLevel.version
+		--Runtime:removeEventListener("enterFrame", selectLevel.setCameratoPlayer)
 		gameData.inLevelSelector = false
 	end
-	
+
 	-----------------------------
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
@@ -247,7 +248,7 @@ local function gameLoop(event)
 
 		gameData.gameEnd = false
 
-		selectLevel.setupLevelSelector(event)
+		--selectLevel.setupLevelSelector(event)
 		gameData.inLevelSelector = true
 		gameData.selectLevel = false
 
@@ -314,7 +315,7 @@ local function menuLoop(event)
 		gui.back:removeEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
 		ball:removeEventListener("accelerometer", controlMovement)
-		
+
 		-- Re-evaluate gameData booleans
 		gameData.ingame = false
 		gameData.showMiniMap = false
@@ -328,7 +329,7 @@ local function menuLoop(event)
 		
 		-- Re-add in game options button
 		menu.ingameOptionsbutton(event)
-		
+
 		-- Add object listeners
 		gui.back:addEventListener("touch", swipeMechanics)
 		gui.back:removeEventListener("tap", tapMechanic)
