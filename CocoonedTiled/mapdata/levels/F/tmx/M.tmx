@@ -316,6 +316,19 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="32" name="switchWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blueWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="switchWallCollision"/>
+    <property name="name" value="switchWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztzkENAAAIBCBNYf+mhrg5P5CAKlLzHQDgXH8HAIDYAlLDABk=
@@ -323,7 +336,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztV9EKgCAM9NX0peeK/v8vK0iIobtNLY06iEEbN3ZbzqwxZtgfy1gP/Bb4S6wzGAPwUw4v4JTg4LWCOJSPcqB6pDh4e9fPnXzIcmitH0Lr+UP49StDD/qhczQ3lkMt/Wg/uZo1vaf6LSB+TLyP6ZfCXfqFXRg7G+l+rtVf7fyhO0KooeSsv0Ki33qJTYFqctf8oVhpTi5W8z1q5i/Vq9hM1epvrf1Bc/77Q4cn9++cwfMW/abTfm3+JPd7zmr+E7R2AyPnCp0=
+   eJztkkEKACAIBL1a/f+95T0KmiCDHZA9CLIMupmVMb7Ittn7Zk+yWl6im78usSC6ZfeXud8P/vR/58gfQ/4Y8seQP4b8MeSPIX+MX/w1mPXSnVl2kR0FAw==
   </data>
  </layer>
 </map>

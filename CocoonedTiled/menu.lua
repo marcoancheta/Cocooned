@@ -103,7 +103,7 @@ function Options(event)
 	-- Add options background image
 	optionsBG = display.newImage("graphics/cocooned_menu.png", 0, 0, true)
 	
-	-- Create onScreen text object
+	-- Create onScreen text objects
 	optionText = display.newText("OPTIONS", 200, 150, native.Systemfont, 72)
 	optionText:setFillColor(0, 0, 0)
 	
@@ -114,9 +114,15 @@ function Options(event)
 	
 	-- Add Main Menu button
 	backtoMain = display.newImage("graphics/main.png", 0, 0, true)
-	
+
 	-- Assign name for runtime functions
 	backtoMain.name = "BacktoMain"
+
+	-- Add Sound button
+	soundOptions = display.newImage("graphics/sound.png", 0, 0, true)
+
+	-- Assign name for runtime functions
+	soundOptions.name = "soundOptions"
 	
 	-- Main menu button fixed location and scaled
 	backtoMain.x = 350
@@ -124,12 +130,21 @@ function Options(event)
 	backtoMain.anchorX = 0.5
 	backtoMain.anchorY = 0.5
 	backtoMain:scale(2.5, 2.5)
+
+	-- Sound options location
+	soundOptions.x = 1000
+	soundOptions.y = 650
+	soundOptions.anchorX = 0.5
+	soundOptions.anchorY = 0.5
+	soundOptions:scale(2.5, 2.5)
 	
 	optionsGroup:insert(optionsBG)
 	optionsGroup:insert(backtoMain)
+	optionsGroup:insert(soundOptions)
 	optionsGroup:insert(optionText)
 	
 	backtoMain:addEventListener("tap", buttonPressed)
+	soundOptions:addEventListener("tap", buttonPressed)
 end
 
 --------------------------------------------------------------------------------
@@ -257,6 +272,26 @@ function buttonPressed(event)
 		if optionsGroup then
 			optionsGroup:remove(optionsBG)
 			optionsGroup:remove(backtoMain)
+			optionsGroup:remove(soundOptions)
+			optionsGroup:remove(optionText)
+		end
+		
+		gameData.menuOn = true
+
+		-------------------------------------
+	--[[ Sound button pressed ]]--
+	elseif event.target.name == "soundOptions" then
+		
+		-- Play Sound
+		sound.playSound(event, sound.clickSound)
+		
+		-- Remove optionsGroup
+		--optionsGroup:removeSelf()
+		--backtoMain:removeEventListener("tap", buttonPressed)
+		if optionsGroup then
+			optionsGroup:remove(optionsBG)
+			optionsGroup:remove(soundOptions)
+			optionsGroup:remove(backToMain)
 			optionsGroup:remove(optionText)
 		end
 		

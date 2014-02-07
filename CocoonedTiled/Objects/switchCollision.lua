@@ -1,6 +1,6 @@
 function collide(collideObject, player, event, mapData, map)
 	for check = 1, map.layer["tiles"].numChildren do
-		if map.layer["tiles"][check].name == "lockedDoor" then
+		if map.layer["tiles"][check].name == "switchWall" then
 			map.layer["tiles"][check]:removeSelf()
 		end
 	end
