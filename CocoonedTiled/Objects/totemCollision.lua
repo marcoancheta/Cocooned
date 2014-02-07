@@ -1,5 +1,8 @@
 function collide(collideObject, player, event, mapData, map)
-	player:repel()
+	
+	if player.color ~= 'green' then
+		player:repel()
+	end
 end
 
 local totemCollision = {

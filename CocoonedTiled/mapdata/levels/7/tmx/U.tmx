@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="itemGoal" value="0"/>
-  <property name="itemSize" value="0"/>
-  <property name="moveObj" value="0"/>
+  <property name="itemGoal" value="4"/>
+  <property name="itemSize" value="1"/>
+  <property name="moveObj" value="6"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
@@ -343,12 +343,100 @@
     <property name="bodyType" value="static"/>
     <property name="collType" value="wall"/>
     <property name="func" value="blackWallCollision"/>
-    <property name="moveLocX" value="3"/>
-    <property name="moveLocY" value="12"/>
+    <property name="moveLocX" value="19"/>
+    <property name="moveLocY" value="3"/>
     <property name="moveable" value="true"/>
     <property name="name" value="blackWall"/>
     <property name="physics:bounce" value="0"/>
     <property name="physics:enabled" value="true"/>
+    <property name="startLocX" value="12"/>
+    <property name="startLocY" value="4"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="blackWallCollision"/>
+    <property name="moveLocX" value="14"/>
+    <property name="moveLocY" value="21"/>
+    <property name="moveable" value="true"/>
+    <property name="name" value="blackWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="blackWallCollision"/>
+    <property name="moveLocX" value="26"/>
+    <property name="moveLocY" value="20"/>
+    <property name="moveable" value="true"/>
+    <property name="name" value="blackWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="enabled"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="blackWallCollision"/>
+    <property name="moveLocX" value="26"/>
+    <property name="moveLocY" value="3"/>
+    <property name="moveable" value="true"/>
+    <property name="name" value="blackWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="33" name="greenTotem" tilewidth="72" tileheight="72">
+  <image source="../../../art/totem.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="totemCollision"/>
+    <property name="name" value="greenTotem"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="34" name="switch" tilewidth="72" tileheight="72">
+  <image source="../../../art/switch.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="switchCollision"/>
+    <property name="name" value="switch"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="35" name="switchWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blueWall2.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="switchWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="bodyType" value=""/>
+    <property name="collType" value=""/>
+    <property name="func" value=""/>
+    <property name="name" value=""/>
+    <property name="physics:bounce" value=""/>
+    <property name="physics:enabled" value=""/>
    </properties>
   </tile>
  </tileset>
@@ -359,7 +447,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztljEKQCEMQ7tWvf95v4tbhgTLp0geSJdA4JHBjIixXza9M/4lhewU8xUoPlLMV2B/dyg+lpiv4CV/3h/uZLE/3Mlif7iTpbs//19wJ4v3hztZvD/cyeL94U6W4281vh/NgwXg
+   eJztl7EKwzAMRL068dqxdOj//2ObIVAUnaUXDE2pHxgHy1IuFw9yLaUs71EvOq/lyOKsbdzFuqWeyPFYTa2dJvY/QF2a41GL75/SR+qOQPmn/m9Wh/fNUY7au9V6OiOD0tHT0NNuaUGtCPWungaiT50/kk/Wo5hFnT+ST9ajmGX6x2KW6R+LWaZ/udhN7FX9S5Z/8U/xK+fvs2fdn7P5VAPxg/bPWR2j+ivaPxMdI3LU+aP+kTvGN/wjd4wz/rULzy8b3gk+
   </data>
  </layer>
 </map>

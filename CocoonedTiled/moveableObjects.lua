@@ -7,6 +7,7 @@ function createMoveableObjects(map)
 				local obj = map.layer["tiles"][check]
 				local moveObj = require("Objects." .. obj.func)
 				moveObj.move(obj)
+				
 			end
 		end
 	end
