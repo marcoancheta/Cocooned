@@ -2,8 +2,8 @@
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
   <property name="itemGoal" value="4"/>
-  <property name="itemSize" value="1"/>
-  <property name="moveObj" value="0"/>
+  <property name="itemSize" value="0"/>
+  <property name="moveObj" value="4"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
@@ -365,6 +365,58 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="35" name="leftWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="leftWallCollision"/>
+    <property name="name" value="leftWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="39" name="rightWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="rightWallCollision"/>
+    <property name="name" value="rightWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="43" name="upWal" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="upWallCollision"/>
+    <property name="name" value="upWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="47" name="downWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="downWallCollision"/>
+    <property name="name" value="downWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -372,7 +424,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztls0KgDAMg4s/h+lQzx5EfP+H1CEDkaZOdLOiH4xCijOEHGaIqFqOeXAaYV8TTwf0GAxAd94M2DWRvHCMQHfe/vyOGYHu82tpzWs/U+E8WGZawvlpQOqfBqT+aeDP7xpfyq+/6Z4tX8ovBtL7RQPa83tL/9DbNRXo/1L/bODd2XJyZp4BeZD6F5pfwWhl4Lce5EHq35n89mjMb9pod+eH3q6cHmPWwn4GgaUHhQ==
+   eJztlsEKgzAMhoObh84yd95hiDvs4GHv/3azSEAkf1ZpqwH9QAJ/MYaPCHVEdBsft2N1ynlDMg+Ql+AF8jCbA2f3QrNIdCAPs53+/tOBnP21NPla1q0IM3ihesL+LKDtnwW0/bNADn8fIfsm9mSO4K8kOf09M/WZcwR/g5C9E3sy2v3FAuf/mwb7Q3fXrUDf1/bPR/auxuci1DWgGbT9i/V3FbI68l0GzaDt3xp/Syz662dZbn/o7irlJWqjnP8AYEgIKQ==
   </data>
  </layer>
 </map>

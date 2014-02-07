@@ -2,7 +2,7 @@
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
   <property name="itemGoal" value="4"/>
-  <property name="itemSize" value="1"/>
+  <property name="itemSize" value="0"/>
   <property name="moveObj" value="0"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
@@ -352,6 +352,19 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="34" name="downWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="downWallCollision"/>
+    <property name="name" value="downWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -359,7 +372,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlt0KwCAIhb3t537v/6ZbjNgIj1lpVx0IQZvJlywDEcVnhcZG4PewQYgn4pWBf0UoJ6qh+AOIxfVy1DlRDcV/+PVz9viVlRlrLSknd34mXLuHRu9E6j8Pjd6J1H8eOvxead+GVrv4ab7h9uzkN7Onx+9ichx+n0b7T5pfJGn5rb5Jnvws5Nl/Fqr8tP+vKmt+6PzZ+Xk3P047+UnnHH7zqvzQ7Mr502+h+KglIX4DzdMIXg==
+   eJztlt0KwCAIhb21ut/93v8hty5iY3jMfgwGHQhBy+RLKiaicA/+2AD8HpaVeCRZCfhHhHKiGrKfQSyMl2POiWrI/s2vnrPGL48k2NnSckr7J8K1e6j1TLT+81DrmWj956G/8juBv5ef9W34ahU/yxppzqr+s6yR5tT4HUKOze9Ra/9p/xdNVn6jb5Invxny7L8ZKvys91fRbH5o/97/82p+klby0/bZ/PpV+KG/q+SPr4HirZaU+AX7GgiA
   </data>
  </layer>
 </map>
