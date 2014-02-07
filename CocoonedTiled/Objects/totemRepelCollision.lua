@@ -1,4 +1,5 @@
 function collide(collideObject, player, event, mapData, map)
+	
 	player:repel()
 end
 

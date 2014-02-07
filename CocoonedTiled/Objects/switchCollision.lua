@@ -1,4 +1,5 @@
 function collide(collideObject, player, event, mapData, map)
+	event.contact.isEnabled = false
 	for check = 1, map.layer["tiles"].numChildren do
 		if map.layer["tiles"][check].name == "switchWall" then
 			map.layer["tiles"][check]:removeSelf()

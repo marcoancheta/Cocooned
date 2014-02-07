@@ -7,15 +7,15 @@ local startX, startY
 function move(obj)
 	newX, newY = map.tilesToPixels(obj.moveLocX + 0.5, obj.moveLocY + 0.5)
 	startX, startY = obj.x, obj.y
-	startTransition(obj)
+	startTransitionX(obj)
 end
 
-function startTransition(obj)
-	transition.to(obj, {time = 1000, x = newX, y = newY, onComplete = goBack})
+function startTransitionX(obj)
+	transition.to(obj, {time = 300, x = obj.x+300, y = y, onComplete = goBackX})
 end
 
-function goBack(obj)
-	transition.to(obj, {time = 1000, x = startX, y = startY, onComplete = startTransition})
+function goBackX(obj)
+	transition.to(obj, {time = 300, x = obj.x-300, y = y, onComplete = startTransitionX})
 end
 
 local blackWallCollision = {

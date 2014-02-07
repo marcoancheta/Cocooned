@@ -249,8 +249,8 @@ local function gameLoop(event)
 		gameData.gameEnd = false
 
 		--selectLevel.setupLevelSelector(event)
-		gameData.inLevelSelector = true
-		gameData.selectLevel = false
+		gameData.inLevelSelector = false
+		gameData.selectLevel = true
 
 	end
 	

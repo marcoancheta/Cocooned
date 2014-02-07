@@ -20,7 +20,7 @@ system.setIdleTimer(false)
 local sCounter = 0
 
 function main(event)
-
+	--[[
    sCounter = sCounter + 1
    if( sCounter == 1 ) then
       -- Display splash screen
@@ -35,6 +35,7 @@ function main(event)
            splashScreen = nil
       end
        
+   end]]
 	  -- Remove Splash Screen Listener
       --Runtime:removeEventListener("enterFrame", main)
 
@@ -58,8 +59,6 @@ function main(event)
 			local rcorona = require("rcorona")
 			rcorona.startServer(8181)
 	  end
-	 
-   end
 end
  
 Runtime:addEventListener( "enterFrame", main )

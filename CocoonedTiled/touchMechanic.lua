@@ -31,6 +31,8 @@ function swipeScreen(event, mapData, player, miniMap)
 -- swipe mechanic
 --------------------------------------------------------------------------------
 
+
+
 	--get swipe length for x and y
 	local swipeLength = math.abs(event.x - event.xStart)
 	local swipeLengthY = math.abs(event.y - event.yStart)
@@ -39,45 +41,92 @@ function swipeScreen(event, mapData, player, miniMap)
 	local swipeX = event.x - event.xStart
 	local swipeY = event.y - event.yStart
 	-- function call to move miniMap
+	--miniMapMechanic.updateMiniMap(mapData, miniMap, swipeX, swipeY)
+
+	local swipeDirection
+
 	miniMapMechanic.updateMiniMap(mapData, miniMap, swipeX, swipeY)
-	
+
 	-- if event touch is ended, check which way was swiped 
 	-- change pane is possible
 	if "ended" == phase or "cancelled" == phase then
-		if event.xStart > event.x and swipeLength > swipeLengthY and swipeLength > 20 then 
-			print("Swiped Right")
-			if mapData.pane == "M" then
+
+		if mapData.pane == "M" then
+			if event.xStart > event.x and swipeLength > swipeLengthY and swipeLength > 150 then
 				mapData.pane = "L"
-			elseif mapData.pane == "R" then
-				mapData.pane = "M"
-			end
-		elseif event.xStart < event.x and swipeLength > swipeLengthY and swipeLength > 20 then 
-			print( "Swiped Left" )
-			if mapData.pane == "M" then
+				swipeDirection = "L"
+			elseif event.xStart < event.x and swipeLength > swipeLengthY and swipeLength > 150 then
 				mapData.pane = "R"
-			elseif mapData.pane == "L" then
-				mapData.pane = "M"
-			end
-		elseif event.yStart > event.y and swipeLength < swipeLengthY and swipeLengthY > 15 then
-			print( "Swiped Down" )
-			if mapData.pane == "M" then
+				swipeDirection = "R"
+			elseif event.yStart > event.y and swipeLength < swipeLengthY and swipeLengthY > 150 then
 				mapData.pane = "D"
-			elseif mapData.pane == "U" then
-				mapData.pane = "M"
-			end
-		elseif event.yStart < event.y and swipeLength < swipeLengthY and swipeLengthY > 15 then
-			print( "Swiped Up" )
-			if mapData.pane == "M" then
+				swipeDirection = "D"
+			elseif event.yStart < event.y and swipeLength < swipeLengthY and swipeLengthY > 150 then
 				mapData.pane = "U"
-			elseif mapData.pane == "D" then
-				mapData.pane = "M"
+				swipeDirection = "U"
 			end
-		end	
-	end	
+		elseif mapData.pane == "L" then
+			if event.xStart < event.x and swipeLength > swipeLengthY and swipeLengthY < 150 then
+				mapData.pane = "M"
+				swipeDirection = "R"
+			elseif swipeLength > 150 and swipeLengthY > 150 and swipeX > 0 then
+				if event.yStart > event.y then
+					mapData.pane = "D"
+					swipeDirection = "DR"
+				elseif event.yStart < event.y then
+					mapData.pane = "U"
+					swipeDirection = "UR"
+				end
+			end
+		elseif mapData.pane == "R" then
+			if event.xStart > event.x and swipeLength > swipeLengthY and swipeLengthY < 150 then
+				mapData.pane = "M"
+				swipeDirection = "L"
+			elseif swipeLength > 150 and swipeLengthY > 150 and swipeX < 0 then
+				if event.yStart > event.y then
+					mapData.pane = "D"
+					swipeDirection = "DL"
+				elseif event.yStart < event.y then
+					mapData.pane = "U"
+					swipeDirection = "UL"
+				end
+			end
+		elseif mapData.pane == "U" then
+			if event.yStart > event.y and swipeLength < swipeLengthY and swipeLength < 150 then
+				mapData.pane = "M"
+				swipeDirection = "D"
+			elseif swipeLengthY > 150 and swipeLength > 150 and swipeY < 0 then
+				if event.xStart < event.x then
+					mapData.pane = "R"
+					swipeDirection = "DR"
+				elseif event.xStart > event.x then
+					mapData.pane = "L"
+					swipeDirection = "DL"
+				end
+			end
+		elseif mapData.pane == "D" then
+			if event.yStart < event.y and swipeLength < swipeLengthY and swipeLength < 150 then
+				mapData.pane = "M"
+				swipeDirection = "U"
+			elseif swipeLengthY > 150 and swipeLength > 150 and swipeY > 0 then
+				if event.xStart < event.x then
+					mapData.pane = "R"
+					swipeDirection = "UR"
+				elseif event.xStart > event.x then
+					mapData.pane = "L"
+					swipeDirection = "UL"
+				end
+			end
+		end
+		--miniMapMechanic.resetMiniMap(miniMap, mapData, player)
+		print(swipeDirection)
+		
+	end
 
 	-- if switching panes, move miniMap cursor to that pane and set alpha to 0
 	if tempPane ~= mapData.pane then
-		miniMapMechanic.resetMiniMap(miniMap, mapData)
+		miniMapMechanic.resetMiniMap(miniMap, mapData, player)
+		
 		if gameData.isShowingMiniMap then
 			miniMap.alpha = 0
 			gameData.isShowingMiniMap = false
@@ -94,10 +143,12 @@ function tapScreen(event, miniMap, physics)
 	if event.numTaps >= 2 then
 		-- show miniMap 
 		if miniMap.alpha == 0 then
+			physics.pause()
 			gameData.isShowingMiniMap = true
 			miniMap.alpha = 0.75
 		else
 		--hide miniMap
+			physics.start()
 			gameData.isShowingMiniMap = false
 			miniMap.alpha = 0
 		end

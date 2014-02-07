@@ -352,6 +352,19 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="34" name="totem" tilewidth="72" tileheight="72">
+  <image source="../../../art/totem.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="totemCollision"/>
+    <property name="name" value="totem"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -359,7 +372,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlksKwCAMREM/i1jvf942CymUJGoSFxYfyEBcWKdTOggA6Vn40STMRygq+xfwZGFeSJX9Hg5hTs+GxvOle1nYhDkq59T8k+5lYXb/aGVGNVrz3wL5dzKaIfY9fandsYaWvwi837iWvwiWfz6Wfz6Wfz68/mn9JYK/+zdL/iz/dqlT9HSMAvWXnVFPf470fUT/i8ztiP68/Hv943KdhfkI1Tr8DWKEB8M=
+   eJztlksOgCAMRBs/i2JP4f0PqSzckH6AlgWGl5DGssCOQxwEgPQuLGoS+iMqKvsX8JDQ/0jGfguH0M/vhp3nS3P1sAl9VM6x9JPm6mF2/fIipmrU+r+GrN/JVILY71RizWih+S8C7x3X/BfB0s/H0s/H0s9Hq3538azllwhm1K/USGMW//X826VM0ZIxPnJ+2Znqyc+Ruo/If5G+HZGf/6ofd38t/Thfk9AfUbUM/wDbOwgp
   </data>
  </layer>
 </map>

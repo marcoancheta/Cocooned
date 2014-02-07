@@ -365,6 +365,32 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="35" name="totem" tilewidth="72" tileheight="72">
+  <image source="../../../art/totem.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="totemCollision"/>
+    <property name="name" value="totem"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="36" name="switchWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blueWall2.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="switchWallCollision"/>
+    <property name="name" value="switchWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -372,7 +398,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlsEKgDAMQ3vdnOLNu///kW6exmg6UFsq24MSyEBD6KGBiGKe0GgEvoYG4X0hngR8DVCG4gfwFpWycKAMxZ/99en1VyYxagX6fyKc3QPS/nlA2j8PzP7eMVJ/x0ffqRmpPw2k+8UD3vv7y/6teTZGrUC3s7R/u020myf3n3V/yJ/99akznI0v3a6cr6HSDX8BcCsHCQ==
+   eJztllELgzAMhEO3l3ad+Oa7Tvz//3DtQCwlFxk0tVA/CKdXqOGMUktELpTN1AFfQ62w/iIeD3wNUA/Rt2DNKfXCgXqI/p3fOWf5xfKM1gI93xPuvQWk+WsBaf5aoGR+S6F9UnrKT4OS+U3ZfYn33VN+Gkjnl3/p+fv9hFoZXa9r7cee3zvUwOhWqQ8T6sGoNH8j1cvPAF+av5r5PYEv/f/u/A7S/Obkes8PnV05X0OlM/wXxXcI6w==
   </data>
  </layer>
 </map>
