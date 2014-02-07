@@ -398,6 +398,7 @@
     <property name="bodyType" value="static"/>
     <property name="collType" value="wall"/>
     <property name="func" value="downWallCollision"/>
+    <property name="moveable" value="true"/>
     <property name="name" value="downWall"/>
     <property name="physics:bounce" value="0"/>
     <property name="physics:enabled" value="true"/>

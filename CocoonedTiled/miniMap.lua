@@ -113,7 +113,7 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 	end
 	]]
 	-- if swiping to right of left, move miniMap for feedback
-	--[[
+	
 	if math.abs(swipeX) > math.abs(swipeY) and math.abs(swipeX) > 40 then
 
 		if mapData.pane == "M" or mapData.pane == "R" or mapData.pane == "L" then
@@ -128,6 +128,7 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 				end
 				miniMapMovement = miniMapMovement + 20
 			end
+			--[[
 			if mapData.pane ~= "M" then
 				if swipeY > 40 and miniMapMovement < 400 then
 					for m = 3, 7 do
@@ -139,6 +140,7 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 					end
 				end
 			end
+			]]
 		end
 
 	-- if swiping up or down, move miniMap for feedback
@@ -156,6 +158,7 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 				end
 				miniMapMovement = miniMapMovement + 20
 			end
+			--[[
 			if mapData.pane ~= "M" then
 				if swipeX > 40 and miniMapMovement < 400 then
 					for m = 3, 7 do
@@ -167,11 +170,12 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 					end
 				end
 			end
+			]]
 		end
 	end
-	]]
-
 	
+
+	--[[
 		local mmCheck = miniMap[7]
 
 	
@@ -225,7 +229,7 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 				miniMapMovement = miniMapMovement + 20
 			end
 		end
-		
+		]]
 	
 
 end

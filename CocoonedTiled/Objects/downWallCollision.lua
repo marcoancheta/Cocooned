@@ -2,15 +2,15 @@ function collide(collideObject, player, event, mapData, map)
 end
 
 function move(obj)
-	startTransitionX(obj)
+	startTransitionD(obj)
 end
 
-function startTransitionX(obj)
-	transition.to(obj, {time = 300, x = x, y = obj.y+300, onComplete = goBackX})
+function startTransitionD(obj)
+	transition.to(obj, {time = 300, x = x, y = obj.y+300, onComplete = goBackD})
 end
 
-function goBackX(obj)
-	transition.to(obj, {time = 300, x = x, y = obj.y-300, onComplete = startTransitionX})
+function goBackD(obj)
+	transition.to(obj, {time = 300, x = x, y = obj.y-300, onComplete = startTransitionD})
 end
 
 local downWallCollision = {

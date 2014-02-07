@@ -3,7 +3,7 @@
  <properties>
   <property name="itemGoal" value="4"/>
   <property name="itemSize" value="0"/>
-  <property name="moveObj" value="0"/>
+  <property name="moveObj" value="1"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
@@ -359,6 +359,7 @@
     <property name="bodyType" value="static"/>
     <property name="collType" value="wall"/>
     <property name="func" value="downWallCollision"/>
+    <property name="moveable" value="true"/>
     <property name="name" value="downWall"/>
     <property name="physics:bounce" value="0"/>
     <property name="physics:enabled" value="true"/>
@@ -372,7 +373,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlt0KwCAIhb21ut/93v8hty5iY3jMfgwGHQhBy+RLKiaicA/+2AD8HpaVeCRZCfhHhHKiGrKfQSyMl2POiWrI/s2vnrPGL48k2NnSckr7J8K1e6j1TLT+81DrmWj956G/8juBv5ef9W34ahU/yxppzqr+s6yR5tT4HUKOze9Ra/9p/xdNVn6jb5Invxny7L8ZKvys91fRbH5o/97/82p+klby0/bZ/PpV+KG/q+SPr4HirZaU+AX7GgiA
+   eJztlt0KwCAIhb21ut/93v8hty5iY3jMfgwGHQjByuRLSiaicA/+2AD8HpaV+UiyEvCPCMVEOWQ/g7kwno45Jsoh+ze/eswavzySYGcLxWRwfiKcu4da70SrPw+13olWfx76I79TWd/Lz/o3fLWKn2WPtGZV/Vn2SGtq/A4hxub3qLX+tP5Fk5Xf6J/kyW+GPOtvhgo/6/tVNJsfOr+3f17NT9JKfto5m1+/Cj/Uu0r++BpovtVqeVxi6QiS
   </data>
  </layer>
 </map>
