@@ -13,9 +13,9 @@ function goBackX(obj)
 	transition.to(obj, {time = 300, x = x, y = obj.y-300, onComplete = startTransitionX})
 end
 
-local blackWallCollision = {
+local downWallCollision = {
 	collide = collide,
 	move = move
 }
 
-return blackWallCollision
+return downWallCollision
