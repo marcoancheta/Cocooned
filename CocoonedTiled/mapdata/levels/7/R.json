@@ -672,7 +672,7 @@
                  "moveable":"true",
                  "name":"blackWall",
                  "physics:bounce":"0",
-                 "physics:enabled":"enabled"
+                 "physics:enabled":"true"
                 },
              "3":
                 {

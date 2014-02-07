@@ -10,7 +10,6 @@ function startTransitionU(obj)
 end
 
 function goBackU(obj)
-	print("up")
 	transition.to(obj, {time = 300, x = x, y = obj.y+300, onComplete = startTransitionU})
 end
 
