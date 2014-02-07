@@ -10,7 +10,6 @@ function startTransitionR(obj)
 end
 
 function goBackR(obj)
-	print("right")
 	transition.to(obj, {time = 300, x = obj.x-300, y = y, onComplete = startTransitionR})
 end
 

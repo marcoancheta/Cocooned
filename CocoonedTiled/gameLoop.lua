@@ -238,7 +238,7 @@ local function gameLoop(event)
 
 		gui.back:removeEventListener("touch", swipeMechanics)
 		gui.back:removeEventListener("tap", tapMechanic)
-		ball:removeEventListener("accelerometer", controlMovement)
+		Runtime:removeEventListener("accelerometer", controlMovement)
 
 		ball:removeSelf()
 		gui:removeSelf()
@@ -314,7 +314,7 @@ local function menuLoop(event)
 		gui.back:removeEventListener("touch", swipeMechanics)
 		gui.back:removeEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
-		ball:removeEventListener("accelerometer", controlMovement)
+		Runtime:removeEventListener("accelerometer", controlMovement)
 
 		-- Re-evaluate gameData booleans
 		gameData.ingame = false
