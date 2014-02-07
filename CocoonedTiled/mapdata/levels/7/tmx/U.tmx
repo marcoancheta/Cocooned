@@ -342,7 +342,7 @@
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="wall"/>
-    <property name="func" value="blackWallCollision"/>
+    <property name="func" value="rightWallCollision"/>
     <property name="moveLocX" value="19"/>
     <property name="moveLocY" value="3"/>
     <property name="moveable" value="true"/>
@@ -447,7 +447,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztl7EKwzAMRL068dqxdOj//2ObIVAUnaUXDE2pHxgHy1IuFw9yLaUs71EvOq/lyOKsbdzFuqWeyPFYTa2dJvY/QF2a41GL75/SR+qOQPmn/m9Wh/fNUY7au9V6OiOD0tHT0NNuaUGtCPWungaiT50/kk/Wo5hFnT+ST9ajmGX6x2KW6R+LWaZ/udhN7FX9S5Z/8U/xK+fvs2fdn7P5VAPxg/bPWR2j+ivaPxMdI3LU+aP+kTvGN/wjd4wz/rULzy8b3gk+
+   eJztlrEOgCAMRLsirI5O/v8/qoOJqT3aUxI18hKCobQcJ0OTiAzrSC+ds5wZjLWNCaxr0oUci6xq7RSwP3rW8c539CWx/UP6mLotQP6h/xvVYd3Zy0F7t1qzMSIgHTUNNe2a4tTyQGfVNDD60Ptj8pl1L6ZB74/JZ9a9mKb7x8U03T8upun+xWIj2Iv6lyh/8Q/xlfd37Fn372g+q4Hxg+2fozpa9Vds/8zoaJGD3h/rH9PDP+Efo++Kf+XF8wLj7wk4
   </data>
  </layer>
 </map>
