@@ -11,11 +11,11 @@ function move(obj)
 end
 
 function startTransition(obj)
-	transition.to(obj, {time = 1000, x = newX, y = newY, onComplete = goBack})
+	transition.to(obj, {time = 100000, x = newX, y = newY, onComplete = goBack})
 end
 
 function goBack(obj)
-	transition.to(obj, {time = 1000, x = startX, y = startY, onComplete = startTransition})
+	transition.to(obj, {time = 100000, x = startX, y = startY, onComplete = startTransition})
 end
 
 local blackWallCollision = {

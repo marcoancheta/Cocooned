@@ -107,7 +107,7 @@ function setupLevelSelector(event)
 	lockedLevels = {}
 	
 	for i=1, 10 do
-		if i~= 1 and i~=2 and i~=3 then
+		if i~= 1 and i~=2 and i~=3 and i~= 4 and i~=8 then
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x
 			lockedLevels[i].y = kCircle[i].y
