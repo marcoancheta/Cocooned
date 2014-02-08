@@ -190,8 +190,6 @@ local function gameLoop(event)
 	if gameData.selectLevel then
 		sound.playEventSound(event, sound.selectMapSound)	
 		selectLevel.selectLoop(event)	
-		selectLevel.levelCamera(event)
-		gameData.allowTouch = true
 		gameData.inLevelSelector = true
 		gameData.selectLevel = false
 	end

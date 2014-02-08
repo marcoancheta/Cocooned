@@ -235,6 +235,9 @@ function buttonPressed(event)
 		menuGroup:remove(play)
 		menuGroup:remove(options)
 		
+		physics.start()
+		physics.setGravity(0, 0)
+		
 		-- User pressed play, set gameActive to true
 		gameData.selectLevel = true
 		--gameData.gameStart = true
@@ -323,6 +326,7 @@ function buttonPressed(event)
 		
 		gui.front:removeSelf()
 		gui.back:removeSelf()
+		physics.stop()
 
 		gameData.menuOn = true
 

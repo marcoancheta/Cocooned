@@ -8,10 +8,8 @@
 --------------------------------------------------------------------------------
 -- Load in files
 --------------------------------------------------------------------------------
-local physics = require("physics") 
-	  physics.start()
-	  physics.setGravity(0, 0)
 local math_abs = math.abs
+local physics = require("physics") 
 local animation = require("animation")
 local dusk = require("Dusk.Dusk")
 local gameData = require("gameData")
@@ -22,34 +20,60 @@ local selectLevel = {
 	version = 0,
 }
 
+-- Local Variables
+local levelGUI
+local dPad
 local map
 local player
-local levelGUI
+local playerSheet
+local cameraTRK
+
+-- Local Booleans
 local trackPlayer = true
 local trackInvisibleBoat = false
 local allowPlay = true
 
-local function setCameratoPlayer(event)
-	
-	if trackPlayer then
-		-- Set up map camera
-		map.setCameraFocus(player)
-		map.setTrackingLevel(0.1)
-	elseif trackInvisibleBoat then
-		map.setCameraFocus(cameraTRK)
-		map.setTrackingLevel(0.1)
-	end
-	
-	if trackInvisibleBoat == false then
-		cameraTRK.x = player.x
-		cameraTRK.y = player.y
-	end
-end
+-- Start physics
+physics.start()
+physics.setGravity(0, 0)
 
 local function stopAnimation(event)
 	player:setSequence("still")
 	player:play()
 	allowPlay = true
+end
+
+-- Quick function to make all buttons uniform
+local function newButton(parent) 
+	local butt = display.newRoundedRect(parent, 0, 0, 60, 60, 10) 
+	      butt:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862) 
+		  butt:setStrokeColor(1, 1, 1)
+		  butt.strokeWidth = 3
+   return butt 
+end
+
+-- Point in rect, using Corona objects rather than a list of coordinates
+local function pointInRect(point, rect) 
+	return (point.x <= rect.contentBounds.xMax) and 
+		   (point.x >= rect.contentBounds.xMin) and 
+		   (point.y <= rect.contentBounds.yMax) and 
+		   (point.y >= rect.contentBounds.yMin) 
+end
+
+local function setCameratoPlayer(event)
+	if trackPlayer then
+		trackInvisibleBoat = false
+		-- Set up map camera
+		map.setCameraFocus(player)
+		map.setTrackingLevel(0.1)
+		
+		cameraTRK.x = player.x
+		cameraTRK.y = player.y
+	elseif trackInvisibleBoat then
+		trackPlayer = false
+		map.setCameraFocus(cameraTRK)
+		map.setTrackingLevel(0.1)
+	end
 end
 
 -- Select Level Loop
@@ -60,45 +84,57 @@ local function selectLoop(event)
 	levelGUI = display.newGroup()
 	levelGUI.front = display.newGroup()
 	levelGUI.back = display.newGroup()
-
-	levelGUI:insert(levelGUI.back)
-	levelGUI:insert(levelGUI.front)
+	dPad = display.newGroup()
+	
+	-- Create Arrays
+	kCircle = {} -- Color Circle Array
+	levels = {}  -- Level Indicator Array
+	lockedLevels = {} -- Locked Levels Array
 		
-	--------------------------------------------------------------------------------
 	-- Load Map
-	--------------------------------------------------------------------------------
 	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
-	levelGUI.back:insert(map)
-		
-	--------------------------------------------------------------------------------
-	-- Load in image sheet
-	--------------------------------------------------------------------------------
-	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
+	-- Load image sheet
+	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-	--------------------------------------------------------------------------------
+						   
 	-- Create player
-	--------------------------------------------------------------------------------
 	player = display.newSprite(playerSheet, spriteOptions.player)
 	player.speed = 250
 	player.title = "player"
 	player:scale(0.8, 0.8)
 
-	physics.addBody(player, "static", {radius = 0.1})
-
+	-- Create play button
 	silKipcha = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
 	silKipcha.x = 1300
 	silKipcha.y = 725
 	silKipcha:scale(1.5, 1.5)
 	silKipcha.name = "sillykipchatrixareforkids"
-	levelGUI.front:insert(silKipcha)
 
+	-- Create invisible camera tracker
 	cameraTRK = display.newImage("mapdata/art/invisibleBoat.png", 0, 0, true)
 	cameraTRK.speed = 500
-	cameraTRK.title = "camera"
-		
-	physics.addBody(cameraTRK, "dynamic", {radius = 0.1})
-	cameraTRK.isSensor = true
 	
+	-- Create dPad
+	dPad.result = "n"
+	dPad.prevResult = "n"
+	
+	-- Create dPad buttons and position them
+	dPad.l = newButton(dPad); dPad.l.x, dPad.l.y = -60, 0 
+	dPad.r = newButton(dPad); dPad.r.x, dPad.r.y = 60, 0
+	dPad.u = newButton(dPad); dPad.u.x, dPad.u.y = 0, -60 
+	dPad.d = newButton(dPad); dPad.d.x, dPad.d.y = 0, 60
+	
+	-- Assign names to dPad
+	dPad.l.name = "l"
+	dPad.r.name = "r"
+	dPad.u.name = "u"
+	dPad.d.name = "d"
+	
+	-- Position dPad buttons
+	dPad.x = display.screenOriginX + dPad.contentWidth * 0.5 + 40
+	dPad.y = display.contentHeight - dPad.contentHeight * 0.5 - 40
+		
+	-- Create level numbers
 	lvlNumber = {	
 		[1] = "T", [2] = "1", [3] = "2",
 		[4] = "3", [5] = "4", [6] = "5",
@@ -108,6 +144,7 @@ local function selectLoop(event)
 		[16] = "15", [17] = "F"
 	}
 	
+	-- Level numbers' position
 	textPos = {
 		--      X,         Y,
 		[1] = 150,   [2] = 105,  -- T
@@ -128,16 +165,7 @@ local function selectLoop(event)
 		[31] = 960, [32] = 750,  -- 15
 		[33] = 1225, [34] = 750,  -- 16
 	}
-	
-	-- Set player start position
-	player.x = textPos[1]
-	player.y = textPos[2]
-	
-	-- Create Color Circle Array
-	kCircle = {}
-	-- Create Level Indicator Array
-	levels = {}
-
+		
 	for i=1, #lvlNumber do
 		-- Make & assign attributes to the 10 circles (kCircle[array])
 		kCircle[i] = display.newCircle(textPos[2*i-1], textPos[2*i], 35)
@@ -151,17 +179,11 @@ local function selectLoop(event)
 		levels[i]:setFillColor(0, 0, 0)
 		map.layer["tiles"]:insert(kCircle[i])
 		map.layer["tiles"]:insert(levels[i])
-	end
-					
-	kCircle[1].isAwake = true
-	selectLevel.levelNum = kCircle[1].name
-	kCircle[1]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
-	
-	
-	lockedLevels = {}
-	
-	for i=1, #lvlNumber do
-		if i~= 1 and i~=2 and i~=3 and i~=4 and i~=5 and i ~= 6 and i~=8 then
+		
+		-- Unlock && lock levels
+		if i~=1 and i~=2 and i~=3 and 
+		   i~=4 and i~=5 and i~=6 and 
+		   i~=8 and i~=16 then
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x
 			lockedLevels[i].y = kCircle[i].y
@@ -173,20 +195,50 @@ local function selectLoop(event)
 		end
 	end
 	
+	-- Add physics
+	physics.addBody(player, "static", {radius = 0.1}) -- to player
+	physics.addBody(cameraTRK, "dynamic", {radius = 0.1}) -- to invisible camera
+	
+	-- Turn off collision for invisible camera
+	cameraTRK.isSensor = true
+	cameraTRK.isAwake = true
+	
+	-- Set player start position
+	player.x = textPos[1]
+	player.y = textPos[2]
+	
+	-- Insert objects/groups to their proper display group
+	levelGUI:insert(levelGUI.back)
+	levelGUI:insert(levelGUI.front)
+	levelGUI.back:insert(map)
+	levelGUI.front:insert(silKipcha)
+	levelGUI.front:insert(dPad)
+	
+	selectLevel.levelNum = kCircle[1].name
+	kCircle[1].isAwake = true
+	kCircle[1]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
+	
+	-- Insert objects into map layer "tiles"
 	map.layer["tiles"]:insert(player)
-	map:addEventListener("touch", runLevelSelector)
+	map.layer["tiles"]:insert(cameraTRK)
+	
+	for i=1, #kCircle do
+		kCircle[i]:addEventListener("tap", tapOnce)
+	end
+	
+	silKipcha:addEventListener("tap", tapOnce)
+	dPad:addEventListener("touch", tapOnce)
 	Runtime:addEventListener("enterFrame", setCameratoPlayer)
-	Runtime:addEventListener("enterFrame", trackCamera)
 end
-
+	
 
 -- When player tap's levels once:
 function tapOnce(event)
-	trackInvisibleBoat = false
-	trackPlayer = true
 
+	-- kCircles button detection
 	for i=1, #kCircle do
 		if event.target.name == kCircle[i].name then
+			trackPlayer = true
 			if event.numTaps == 1 and kCircle[i].isAwake then
 			
 				selectLevel.levelNum = kCircle[i].name
@@ -210,101 +262,9 @@ function tapOnce(event)
 			end
 		end
 	end
-	
-	if allowPlay then
-		-- If player taps silhouette kipcha, start game
-		if event.target.name == silKipcha.name then
 		
-				-- Send data to start game
-			gameData.gameStart = true
-			
-			map:removeEventListener("touch", runLevelSelector)
-			Runtime:removeEventListener("enterFrame", setCameratoPlayer)
-			Runtime:removeEventListener("enterFrame", trackCamera)
-			silKipcha:removeEventListener("tap", tapOnce)
-			
-			--	Clean up on-screen items
-			levelGUI:removeSelf()
-			dPad:removeSelf()
-			map = nil
-			player = nil
-			trackPlayer = nil
-			trackInvisibleBoat = nil
-			allowPlay = nil
-							
-			for p=1, #kCircle do
-				display.remove(kCircle[p])
-				display.remove(levels[p])
-				display.remove(lockedLevels[p])
-			end
-		end
-	end
-end
-
-
-function runLevelSelector(event)
-	for i=1, #kCircle do
-		silKipcha:addEventListener("tap", tapOnce)
-		kCircle[i]:addEventListener("tap", tapOnce)
-	end
-				
-	if gameData.gameStart then
-		for i=1, #kCircle do
-			kCircle[i]:removeEventListener("tap", tapOnce)
-		end
-	end
-end
-
-function trackCamera(event)
-
-	-- Set player velocity according to movement result
-	    if dPad.result == "l" then cameraTRK:setLinearVelocity(-cameraTRK.speed, 0)
-	elseif dPad.result == "r" then cameraTRK:setLinearVelocity(cameraTRK.speed, 0)
-	elseif dPad.result == "u" then cameraTRK:setLinearVelocity(0, -cameraTRK.speed)
-	elseif dPad.result == "d" then cameraTRK:setLinearVelocity(0, cameraTRK.speed)
-	elseif dPad.result == "n" then cameraTRK:setLinearVelocity(0, 0)
-	end
-	
-end
-
--- Quick function to make all buttons uniform
-local function newButton(parent) 
-	local b = display.newRoundedRect(parent, 0, 0, 60, 60, 10) 
-	      b:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862) 
-		  b:setStrokeColor(1, 1, 1)
-		  b.strokeWidth = 3
-   return b 
-end
-
--- Point in rect, using Corona objects rather than a list of coordinates
-local function pointInRect(point, rect) 
-	return (point.x <= rect.contentBounds.xMax) and 
-		   (point.x >= rect.contentBounds.xMin) and 
-		   (point.y <= rect.contentBounds.yMax) and 
-		   (point.y >= rect.contentBounds.yMin) 
-end
-
---------------------------------------------------------------------------------
--- Camera Movement Controls
---------------------------------------------------------------------------------
-local function levelCamera(event)
-	dPad = display.newGroup()
-	
-	map.layer["tiles"]:insert(cameraTRK)
-	
-	dPad.result = "n"
-	-- Used to detect if the direction has moved
-	dPad.prevResult = "n"
-
-	-- Create the four buttons and position them
-	dPad.l = newButton(dPad); dPad.l.x, dPad.l.y = -60, 0; dPad.r = newButton(dPad); dPad.r.x, dPad.r.y = 60, 0; dPad.u = newButton(dPad); dPad.u.x, dPad.u.y = 0, -60; dPad.d = newButton(dPad); dPad.d.x, dPad.d.y = 0, 60
-
-	-- Position controls at lower-left
-	dPad.x = display.screenOriginX + dPad.contentWidth * 0.5 + 40
-	dPad.y = display.contentHeight - dPad.contentHeight * 0.5 - 40
-		
-	-- Touch listener for controls
-	function dPad:touch(event)
+	-- dPad Button detection
+	if event.target.name == dPad.l.name or dPad.r.name or dPad.u.name or dPad.d.name then
 		if event.target.isFocus or "began" == event.phase then
 			dPad.prevResult = dPad.result
 			-- Set result according to where touch is
@@ -314,47 +274,70 @@ local function levelCamera(event)
 				elseif pointInRect(event, dPad.d) then dPad.result = "d"
 			end
 		end
-			-- Just a generic touch listener
-			if "began" == event.phase then
-				trackPlayer = false
-				trackInvisibleBoat = true
-											
-				display.getCurrentStage():setFocus(event.target)
-				event.target.isFocus = true
-			elseif event.target.isFocus then
-				if "ended" == event.phase or "cancelled" == event.phase then
-					display.getCurrentStage():setFocus(nil)
-					event.target.isFocus = false
-					dPad.result = "n"
-				end
-			end
 
-			-- Did the direction change?
-			if dPad.prevResult ~= dPad.result then 
-				dPad.changed = true 
+		-- Just a generic touch listener
+		if "began" == event.phase then	
+			display.getCurrentStage():setFocus(event.target)
+			event.target.isFocus = true
+			trackPlayer = false
+			trackInvisibleBoat = true	
+		elseif event.target.isFocus then
+			if "ended" == event.phase or "cancelled" == event.phase then
+				display.getCurrentStage():setFocus(nil)
+				event.target.isFocus = false
+				dPad.result = "n"
+				dPad.l.alpha = 1; dPad.r.alpha = 1; 
+				dPad.u.alpha = 1; dPad.d.alpha = 1
 			end
-			return true
+		end
+
+		-- Did the direction change?
+		if dPad.prevResult ~= dPad.result then 
+			dPad.changed = true 
+		end
+		
+			-- Set player velocity according to movement result
+			if dPad.result == "l" then cameraTRK:setLinearVelocity(-cameraTRK.speed, 0)
+		elseif dPad.result == "r" then cameraTRK:setLinearVelocity(cameraTRK.speed, 0)
+		elseif dPad.result == "u" then cameraTRK:setLinearVelocity(0, -cameraTRK.speed)
+		elseif dPad.result == "d" then cameraTRK:setLinearVelocity(0, cameraTRK.speed)
+		elseif dPad.result == "n" then cameraTRK:setLinearVelocity(0, 0)
+		end
+		
+		print(cameraTRK.speed)
+	end
+	
+	-- Kipcha Play button detection
+	if allowPlay then
+		-- If player taps silhouette kipcha, start game
+		if event.target.name == silKipcha.name then
+					
+			trackPlayer = true
+			trackInvisibleBoat = false
+					
+			silKipcha:removeEventListener("tap", tapOnce)
+			Runtime:removeEventListener("enterFrame", setCameratoPlayer)
+			dPad:removeEventListener("touch", tapOnce)
+			
+			--	Clean up on-screen items
+			levelGUI:removeSelf()
+			
+			for p=1, #kCircle do
+				display.remove(kCircle[p])
+				display.remove(levels[p])
+				display.remove(lockedLevels[p])
+				kCircle[p]:removeEventListener("tap", tapOnce)
+			end
+			
+			-- Send data to start game
+			gameData.gameStart = true
+		end
 	end
 		
-	-- Cancel touch event
-	function dPad:cancelTouch()
-		display.getCurrentStage():setFocus(nil)
-		self.isFocus = false
-		self.result = "n"
-		return true
-	end
-
-	-- Clean
-	function dPad:clean()
-		self:cancelTouch()
-		self:removeEventListener("touch")
-		self.l.alpha = 1; self.r.alpha = 1; self.u.alpha = 1; self.d.alpha = 1
-	end
-			
-	dPad:addEventListener("touch")
+	return true
 end
 
+
 selectLevel.selectLoop = selectLoop
-selectLevel.levelCamera = levelCamera
 
 return selectLevel
