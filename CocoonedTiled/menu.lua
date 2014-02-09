@@ -131,20 +131,21 @@ function Options(event)
 	backtoMain.anchorY = 0.5
 	backtoMain:scale(2.5, 2.5)
 
-	-- Sound options location
+	--[[ Sound options location
 	soundOptions.x = 1000
 	soundOptions.y = 650
 	soundOptions.anchorX = 0.5
 	soundOptions.anchorY = 0.5
 	soundOptions:scale(2.5, 2.5)
+	--]]
 	
 	optionsGroup:insert(optionsBG)
 	optionsGroup:insert(backtoMain)
-	optionsGroup:insert(soundOptions)
+	--optionsGroup:insert(soundOptions)
 	optionsGroup:insert(optionText)
 	
 	backtoMain:addEventListener("tap", buttonPressed)
-	soundOptions:addEventListener("tap", buttonPressed)
+	--soundOptions:addEventListener("tap", buttonPressed)
 end
 
 --------------------------------------------------------------------------------
@@ -275,7 +276,7 @@ function buttonPressed(event)
 		if optionsGroup then
 			optionsGroup:remove(optionsBG)
 			optionsGroup:remove(backtoMain)
-			optionsGroup:remove(soundOptions)
+			--optionsGroup:remove(soundOptions)
 			optionsGroup:remove(optionText)
 		end
 		
@@ -283,6 +284,7 @@ function buttonPressed(event)
 
 		-------------------------------------
 	--[[ Sound button pressed ]]--
+	--[[
 	elseif event.target.name == "soundOptions" then
 		
 		-- Play Sound
@@ -299,7 +301,7 @@ function buttonPressed(event)
 		end
 		
 		gameData.menuOn = true
-		
+	]]--	
 	----------------------------------------
 	--[[ In game options button pressed ]]--	
 	elseif event.target.name == "inGameOptionsBTN" then
