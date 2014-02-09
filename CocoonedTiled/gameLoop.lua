@@ -77,7 +77,7 @@ local player2 = player.create()
 --------------------------------------------------------------------------------
 function loadMap()
 
-	system.setAccelerometerInterval(50)
+	system.setAccelerometerInterval(60)
 	-- Create player sprite sheet
 	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
@@ -91,7 +91,7 @@ function loadMap()
 	
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
-	ball.linearDamping = 3
+	ball.linearDamping = 4
 
 	-- Load in map
 	gui, miniMap = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
@@ -253,7 +253,7 @@ local function gameLoop(event)
 		elseif speed >75 then
 			ball:play()
 			ball.timeScale = 1
-		elseif speed > 0 then
+		elseif speed > 20 then
 			ball:play()
 			ball.timeScale = .25
 		--elseif speed > 0 then
