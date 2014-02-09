@@ -7,6 +7,7 @@
 
 local dusk = require("Dusk.Dusk")
 local miniMap = require("miniMap")
+local objects = require("objects")
 
 --------------------------------------------------------------------------------
 -- Load level on startup
@@ -48,6 +49,7 @@ function createLevel(mapData, ball, player, moveObj)
 	gui.back:insert(1, map)
 	map:insert(ball)
 	map.layer["tiles"]:insert(ball)
+	objects.objMain(mapData, map)
 
 	return gui, miniMapDisplay
 end
@@ -90,8 +92,6 @@ function changePane(mapData, player, moveObj)
 			map.layer["tiles"][check].yScale = 1
 		end
 	end
-
-
 
 	-- return new pane
 	return map

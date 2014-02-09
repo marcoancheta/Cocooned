@@ -21,6 +21,8 @@ local gameData = require("gameData")
 local selectLevel = require("selectLevel")
 -- Load level function (loadLevel.lua)
 local loadLevel = require("loadLevel")
+-- Load object file (objects.lua)
+local objects = require("objects")
 -- Animation variables/data (animation.lua)
 local animation = require("animation")
 -- Menu variables/objects (menu.lua)
@@ -153,6 +155,7 @@ local function swipeMechanics(event)
 	-- if touch ended then change map if pane is switched
 	if "ended" == event.phase and mapData.pane ~= tempPane then
 
+		--objects.destroy()
 		-- delete everything on map
 		gui.back:remove(1)
 		-- Pause physics
@@ -168,6 +171,8 @@ local function swipeMechanics(event)
 		-- insert objects onto map layer
 		gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
+		
+		objects.objMain(mapData, map)
 		
 		-- Reassign game mechanic listeners
 		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1])
@@ -234,7 +239,7 @@ local function gameLoop(event)
 	end
 
 	if gameData.gameEnd then
-
+	
 		gui.back:removeEventListener("touch", swipeMechanics)
 		gui.back:removeEventListener("tap", tapMechanic)
 		Runtime:removeEventListener("accelerometer", controlMovement)
@@ -247,7 +252,6 @@ local function gameLoop(event)
 
 		gameData.gameEnd = false
 
-		--selectLevel.setupLevelSelector(event)
 		gameData.inLevelSelector = false
 		gameData.selectLevel = true
 
@@ -383,7 +387,7 @@ collectgarbage()
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		print( "MemUsage: " .. memCount)
+		--print( "MemUsage: " .. memCount)
 		prevMemCount = memCount
 	end
 	
@@ -391,14 +395,14 @@ local memCount = collectgarbage("count")
 	
 	if (prevTextMem ~= textMem) then
 		prevTextMem = textMem
-		print( "TexMem: " .. textMem )
+		--print( "TexMem: " .. textMem )
 	end
 	
 	-- Display fps
 	--print(display.fps)
 end
 
-Runtime:addEventListener( "enterFrame", monitorMem )
+--Runtime:addEventListener( "enterFrame", monitorMem )
 --------------------------------------------------------------------------------
 -- END MEMORY CHECKER
 --------------------------------------------------------------------------------

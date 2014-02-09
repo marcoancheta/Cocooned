@@ -179,25 +179,10 @@ local function selectLoop(event)
 		levels[i]:setFillColor(0, 0, 0)
 		map.layer["tiles"]:insert(kCircle[i])
 		map.layer["tiles"]:insert(levels[i])
-<<<<<<< HEAD
 		
 		-- Unlock && lock levels
-		if i~=1 and i~=2 and i~=3 and 
-		   i~=4 and i~=5 and i~=6 and 
-		   i~=8 and i~=16 then
-=======
-	end
-					
-	kCircle[1].isAwake = true
-	selectLevel.levelNum = kCircle[1].name
-	kCircle[1]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
-	
-	
-	lockedLevels = {}
-	
-	for i=1, #lvlNumber do
-		if i~= 1 and i~=2 and i~=3 and i~=4 and i~=5 then
->>>>>>> 1abbd96ff95a20c424f7632db1f3132acad15f90
+		if i~=1 and i~=2 and i~=3 and i~=4 and 
+		   i~=5 and i~=6 and i~=8 and i~=16 then
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x
 			lockedLevels[i].y = kCircle[i].y
@@ -318,7 +303,6 @@ function tapOnce(event)
 		elseif dPad.result == "n" then cameraTRK:setLinearVelocity(0, 0)
 		end
 		
-		print(cameraTRK.speed)
 	end
 	
 	-- Kipcha Play button detection
@@ -350,7 +334,6 @@ function tapOnce(event)
 		
 	return true
 end
-
 
 selectLevel.selectLoop = selectLoop
 
