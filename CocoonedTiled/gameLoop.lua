@@ -231,6 +231,12 @@ local function gameLoop(event)
 		gameData.allowPaneSwitch = true
 		gameData.showMiniMap = true
 		gameData.gameStart = false
+
+		local now1 = os.time()
+		local now = now1 + 1
+		if ( now > now1 ) then
+		  print(now)
+		end
 	end
 
 	if gameData.gameEnd then

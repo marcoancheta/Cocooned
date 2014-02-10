@@ -54,7 +54,13 @@ function playerInstance:changeColor (color)
 end
 
 -- repels the player if they hit a totem pole
-function playerInstance:repel ()
+function playerInstance:totemRepel ()
+		self.imageObject:applyLinearImpulse(5, 5, self.imageObject.x, self.imageObject.y)
+		self.imageObject.angularVelocity = 0
+end
+
+-- repels the player if there is wind
+function playerInstance:windRepel ()
 		self.imageObject:applyLinearImpulse(2, 2, self.imageObject.x, self.imageObject.y)
 		self.imageObject.angularVelocity = 0
 end

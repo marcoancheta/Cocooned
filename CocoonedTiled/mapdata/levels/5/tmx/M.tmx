@@ -342,6 +342,19 @@
  <tileset firstgid="30" name="switchWall" tilewidth="36" tileheight="36">
   <image source="../../../art/blueWall.png" width="72" height="72"/>
  </tileset>
+ <tileset firstgid="34" name="windWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/bounceWall.png" width="72" height="37"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="windWallCollision"/>
+    <property name="name" value="windWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -349,7 +362,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlr0KwDAIhF1NM/Xn/V+1zVAo4kkgmBrwgyCcQ47D4ZiIyvNYzAJ0j8nGfiOdCnQPkIemM9gVJy8ayEPTX++72P2V3yH0FfJrrypzFuj/Sth7BL73FxHr/iKQ+Y2R+Y2R+Y1h9ZcIRM9vlftD3XUW6P/sz3309OdT7P7K7xL6Cvmh7qrpHtPq8DdTcgb2
+   eJztlksKwCAMRLPVuurnAr3/IVsXBQmZILTRSH0QAhPQMGQxgYjiXYH1CHSLHpT5QjIJ6BagHbIewCwa7SKBdsj6s/vKZr3825g+gn+5ktBbgf5PhHf3QHl/HtHuzwPTv3f8yb/zo3dK/uSfBVp+8YB3/0a5P5RdW4H+n/m5jpr8vLNZL/8Opo/gH8qukm7RtQx/AUjxBxg=
   </data>
  </layer>
 </map>
