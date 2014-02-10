@@ -243,15 +243,9 @@ local function gameLoop(event)
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--
-<<<<<<< HEAD
 	-- If ingame has started do:
 	--if gameData.ingame then
 		--print(display.fps)	
-=======
-	-- If in-game has started do:
-	--if gameData.ingame then
-		--print(display.fps)
->>>>>>> b96f93dfb8a0bf88f91c597b1271b8a01648a7b3
 	--end
 end
 
