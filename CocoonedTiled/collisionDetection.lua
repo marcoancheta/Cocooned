@@ -43,7 +43,6 @@ function createCollisionDetection(imageObject, player, mapData, map)
       end
       
     elseif ( event.phase == "ended" ) then
-
       --debug pring once collision ended
       --print( "ended: ")
    

@@ -57,12 +57,24 @@ function playerInstance:changeColor (color)
     	self.imageObject:setFillColor(c[1],c[2],c[3])
 end
 
+-- repels the player if they hit a totem pole
+function playerInstance:repel ()
+		self.imageObject:applyLinearImpulse(2, 2, self.imageObject.x, self.imageObject.y)
+		self.imageObject.angularVelocity = 0
+end
+
+-- attracts the player if they are near a totem pole
+function playerInstance:attract (goTo)
+		--self.imageObject:applyLinearImpulse(-1, -1, self.imageObject.x, self.imageObject.y)
+		self.imageObject:setLinearVelocity(goTo, goTo, goTo, goTo)
+		self.imageObject.angularVelocity = 0
+end
+
 function playerInstance:rotate (x,y)
 		transition.cancel('rotation')
 		angle = (floor(atan2(y, x) * ( 180 / pi))) 
 		self.imageObject.rotation = angle +90
 end
-
 
 function playerInstance:addInventory(item) 
 	self.inventory:addItem(item)

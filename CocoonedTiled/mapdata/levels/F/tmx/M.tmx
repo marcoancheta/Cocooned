@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
+  <property name="itemGoal" value="1"/>
   <property name="itemSize" value="1"/>
+  <property name="moveObj" value="0"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 4, &quot;y&quot;:3 }"/>
   <property name="tutorial" value="false"/>
  </properties>
@@ -275,6 +277,58 @@
  <tileset firstgid="28" name="kiphca" tilewidth="162" tileheight="201">
   <image source="../../../art/kiphca.png" width="162" height="201"/>
  </tileset>
+ <tileset firstgid="29" name="totem" tilewidth="162" tileheight="162">
+  <image source="../../../art/totem.png" width="162" height="162"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="totemRepelCollision"/>
+    <property name="name" value="totem"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="30" name="redAura" tilewidth="72" tileheight="72">
+  <image source="../../../art/redaura.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="redAuraCollision"/>
+    <property name="name" value="redAura"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="31" name="switch" tilewidth="72" tileheight="72">
+  <image source="../../../art/switch.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="switchCollision"/>
+    <property name="name" value="switch"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="32" name="switchWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blueWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="switchWallCollision"/>
+    <property name="name" value="switchWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztzkENAAAIBCBNYf+mhrg5P5CAKlLzHQDgXH8HAIDYAlLDABk=
@@ -282,7 +336,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlmEKgCAMhf1reYO6/zkrMIhh720qqeQHMcGx4dtyeufccn4e2ED2PdkvsavjLGRfxgiKmBquuF7hx/LJGOw8Wq64U798RtEvxDWyiNb6MVr3H6MH/dg9muuLsOiHziHrafFFWPV7I6Wf1hdh1e/t35bzuVZ9rfqxN8I9z0vuqie1+k9q0lv/yZzI13KfWfVL1SrVU7XqW2t+yJxzftj4cv7uGXFG0W+L9m/9p3mfIquZGbn2ABDACnk=
+   eJztkkEKACAIBL1a/f+95T0KmiCDHZA9CLIMupmVMb7Ittn7Zk+yWl6im78usSC6ZfeXud8P/vR/58gfQ/4Y8seQP4b8MeSPIX+MX/w1mPXSnVl2kR0FAw==
   </data>
  </layer>
 </map>

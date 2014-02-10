@@ -10,7 +10,7 @@ local function onMagnetism( event)
 	-- send both ball position values to distance function
 	distance(imageObject.x, collideObject.x, imageObject.y, collideObject.y)
 
-	if distanceFrom(imageObject, collideObject) < 100 then
+	if distanceFrom(imageObject, collideObject) < 150 then
 		imageObject:applyLinearImpulse(.5, .5, imageObject.x)
 	end
 end

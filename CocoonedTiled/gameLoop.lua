@@ -4,7 +4,6 @@
 -- gameLoop.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 --------------------------------------------------------------------------------
 -- Localize (Load in files) - [System Files]
 --------------------------------------------------------------------------------
@@ -115,11 +114,7 @@ local function controlMovement(event)
 		player1.xGrav = physicsParam.xGrav
 		player1.yGrav = physicsParam.yGrav
 		--update player(rotation and animation)
-		--move to animation.lua or player.lua?
-		
-
-		--apply force instead of changing gravity
-		
+		--move to animation.lua or player.lua?		
 		physics.setGravity(0,0)
 	end
 	
@@ -165,8 +160,10 @@ end
 
 -- swipe mechanic
 local function tapMechanic(event)
-	-- mechanic to show or hide minimap
-	touch.tapScreen(event, miniMap, physics)
+	if gameData.allowMiniMap then
+		-- mechanic to show or hide minimap
+		touch.tapScreen(event, miniMap, physics)
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -177,8 +174,8 @@ local function gameLoop(event)
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
-		sound.playEventSound(event, sound.selectMapSound)
-		selectLevel.setupLevelSelector(event)	
+		sound.playEventSound(event, sound.selectMapSound)	
+		selectLevel.selectLoop(event)	
 		gameData.inLevelSelector = true
 		gameData.selectLevel = false
 	end
@@ -187,16 +184,17 @@ local function gameLoop(event)
 		mapData.levelNum = selectLevel.levelNum
 		mapData.pane = selectLevel.pane
 		mapData.version = selectLevel.version
+		--Runtime:removeEventListener("enterFrame", selectLevel.setCameratoPlayer)
 		gameData.inLevelSelector = false
 	end
-	
+
 	-----------------------------
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
 	if gameData.gameStart then
 	
 		-- Stop BGM
-		sound.stopBGM(event)
+		sound.stopBGM(event, sound.mainmenuSound)
 		-- Start physics
 		physics.start()
 		-- Load Map
@@ -218,6 +216,7 @@ local function gameLoop(event)
 		gameData.BGM = false
 		gameData.ingame = true
 		gameData.allowPaneSwitch = true
+		gameData.allowMiniMap = true
 		gameData.showMiniMap = true
 		gameData.gameStart = false
 	end
@@ -226,7 +225,7 @@ local function gameLoop(event)
 
 		gui.back:removeEventListener("touch", swipeMechanics)
 		gui.back:removeEventListener("tap", tapMechanic)
-		ball:removeEventListener("accelerometer", controlMovement)
+		Runtime:removeEventListener("accelerometer", controlMovement)
 
 		ball:removeSelf()
 		gui:removeSelf()
@@ -236,17 +235,23 @@ local function gameLoop(event)
 
 		gameData.gameEnd = false
 
-		selectLevel.setupLevelSelector(event)
-		gameData.inLevelSelector = true
-		gameData.selectLevel = false
+		--selectLevel.setupLevelSelector(event)
+		gameData.inLevelSelector = false
+		gameData.selectLevel = true
 
 	end
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--
+<<<<<<< HEAD
 	-- If ingame has started do:
 	--if gameData.ingame then
 		--print(display.fps)	
+=======
+	-- If in-game has started do:
+	--if gameData.ingame then
+		--print(display.fps)
+>>>>>>> b96f93dfb8a0bf88f91c597b1271b8a01648a7b3
 	--end
 end
 
@@ -302,10 +307,11 @@ local function menuLoop(event)
 		gui.back:removeEventListener("touch", swipeMechanics)
 		gui.back:removeEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
-		ball:removeEventListener("accelerometer", controlMovement)
-		
+		Runtime:removeEventListener("accelerometer", controlMovement)
+
 		-- Re-evaluate gameData booleans
 		gameData.ingame = false
+		gameData.allowMiniMap = false
 		gameData.showMiniMap = false
 		gameData.isShowingMiniMap = false
 		gameData.inGameOptions = false
@@ -317,7 +323,7 @@ local function menuLoop(event)
 		
 		-- Re-add in game options button
 		menu.ingameOptionsbutton(event)
-		
+
 		-- Add object listeners
 		gui.back:addEventListener("touch", swipeMechanics)
 		gui.back:removeEventListener("tap", tapMechanic)
@@ -326,6 +332,7 @@ local function menuLoop(event)
 		
 		-- Re-evaluate gameData booleans
 		gameData.inGameOptions = false
+		gameData.allowMiniMap = true
 		gameData.showMiniMap = true
 		gameData.resumeGame = false
 	end
@@ -372,13 +379,15 @@ collectgarbage()
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		--print( "MemUsage: " .. memCount)
+		print( "MemUsage: " .. memCount)
 		prevMemCount = memCount
 	end
+	
 	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
+	
 	if (prevTextMem ~= textMem) then
 		prevTextMem = textMem
-		--print( "TexMem: " .. textMem )
+		print( "TexMem: " .. textMem )
 	end
 	
 	-- Display fps

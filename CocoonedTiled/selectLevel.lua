@@ -3,28 +3,16 @@
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
 -- selectLvl.lua
 --------------------------------------------------------------------------------
--- Notes:
---		- Select Map sound byte derived from:
---		http://themushroomkingdom.net/sounds/wav/mk64/mk64_announcer05-jp.wav
---		This sound byte is a temporary place holder. 
 --------------------------------------------------------------------------------
 
-display.setStatusBar(display.HiddenStatusBar);
-
 --------------------------------------------------------------------------------
--- Load in Global Variables
+-- Load in files
 --------------------------------------------------------------------------------
+local math_abs = math.abs
+local physics = require("physics") 
+local animation = require("animation")
+local dusk = require("Dusk.Dusk")
 local gameData = require("gameData")
-local sound = require("sound")
-local physics = require("physics")
-physics.start()
-
---------------------------------------------------------------------------------
--- Initialize Local Variables
---------------------------------------------------------------------------------
-local goTo
-local levelNumber
-local tapTime = 0
 
 local selectLevel = {
 	levelNum = 0,
@@ -32,160 +20,237 @@ local selectLevel = {
 	version = 0,
 }
 
-function setupLevelSelector(event)
+-- Local Variables
+local levelGUI
+local dPad
+local map
+local player
+local playerSheet
+local cameraTRK
 
-	local phase = event.phase
+-- Local Booleans
+local trackPlayer = true
+local trackInvisibleBoat = false
+local allowPlay = true
+
+-- Start physics
+physics.start()
+physics.setGravity(0, 0)
+
+local function stopAnimation(event)
+	player:setSequence("still")
+	player:play()
+	allowPlay = true
+end
+
+-- Quick function to make all buttons uniform
+local function newButton(parent) 
+	local butt = display.newRoundedRect(parent, 0, 0, 60, 60, 10) 
+	      butt:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862) 
+		  butt:setStrokeColor(1, 1, 1)
+		  butt.strokeWidth = 3
+   return butt 
+end
+
+-- Point in rect, using Corona objects rather than a list of coordinates
+local function pointInRect(point, rect) 
+	return (point.x <= rect.contentBounds.xMax) and 
+		   (point.x >= rect.contentBounds.xMin) and 
+		   (point.y <= rect.contentBounds.yMax) and 
+		   (point.y >= rect.contentBounds.yMin) 
+end
+
+local function setCameratoPlayer(event)
+	if trackPlayer then
+		trackInvisibleBoat = false
+		-- Set up map camera
+		map.setCameraFocus(player)
+		map.setTrackingLevel(0.1)
+		
+		cameraTRK.x = player.x
+		cameraTRK.y = player.y
+	elseif trackInvisibleBoat then
+		trackPlayer = false
+		map.setCameraFocus(cameraTRK)
+		map.setTrackingLevel(0.1)
+	end
+end
+
+-- Select Level Loop
+local function selectLoop(event)
+	--------------------------------------------------------------------------------
+	-- Initialize local variables
+	--------------------------------------------------------------------------------
+	levelGUI = display.newGroup()
+	levelGUI.front = display.newGroup()
+	levelGUI.back = display.newGroup()
+	dPad = display.newGroup()
 	
-	-- Load in map level background
-	levelsMap = display.newImage("graphics/levelSelector.png", 0, 0, true)
-	levelsMap.x = 700
-	levelsMap.y = 455
-	levelsMap:scale(1.5, 1.3)
-	
-	-- Create onScreen text object
-	selLevelText = display.newText("Select Level:", 265, 125, native.systemFontBold, 100)
-	selLevelText:setFillColor(0, 0, 0)
-	
+	-- Create Arrays
+	kCircle = {} -- Color Circle Array
+	levels = {}  -- Level Indicator Array
+	lockedLevels = {} -- Locked Levels Array
+		
+	-- Load Map
+	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
+	-- Load image sheet
+	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
+				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
+						   
+	-- Create player
+	player = display.newSprite(playerSheet, spriteOptions.player)
+	player.speed = 250
+	player.title = "player"
+	player:scale(0.8, 0.8)
+
+	-- Create play button
 	silKipcha = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
-	silKipcha.x = 1250
-	silKipcha.y = 650
+	silKipcha.x = 1300
+	silKipcha.y = 725
 	silKipcha:scale(1.5, 1.5)
 	silKipcha.name = "sillykipchatrixareforkids"
-					
+
+	-- Create invisible camera tracker
+	cameraTRK = display.newImage("mapdata/art/invisibleBoat.png", 0, 0, true)
+	cameraTRK.speed = 500
+	
+	-- Create dPad
+	dPad.result = "n"
+	dPad.prevResult = "n"
+	
+	-- Create dPad buttons and position them
+	dPad.l = newButton(dPad); dPad.l.x, dPad.l.y = -60, 0 
+	dPad.r = newButton(dPad); dPad.r.x, dPad.r.y = 60, 0
+	dPad.u = newButton(dPad); dPad.u.x, dPad.u.y = 0, -60 
+	dPad.d = newButton(dPad); dPad.d.x, dPad.d.y = 0, 60
+	
+	-- Assign names to dPad
+	dPad.l.name = "l"
+	dPad.r.name = "r"
+	dPad.u.name = "u"
+	dPad.d.name = "d"
+	
+	-- Position dPad buttons
+	dPad.x = display.screenOriginX + dPad.contentWidth * 0.5 + 40
+	dPad.y = display.contentHeight - dPad.contentHeight * 0.5 - 40
+		
+	-- Create level numbers
 	lvlNumber = {	
 		[1] = "T", [2] = "1", [3] = "2",
 		[4] = "3", [5] = "4", [6] = "5",
 		[7] = "6", [8] = "7", [9] = "8",
-		[10] = "F"
+		[10] = "9", [11] = "10", [12] = "11",
+		[13] = "12", [14] = "13", [15] = "14",
+		[16] = "15", [17] = "F"
 	}
 	
+	-- Level numbers' position
 	textPos = {
 		--      X,         Y,
-		[1] = 700, [2] = 129,  -- T
-		[3] = 700, [4] = 300,  -- 1
-		[5] = 470, [6] = 300,  -- 2
-		[7] = 930, [8] = 300,  -- 3
-		[9] = 550, [10] = 475, -- 4
-		[11] = 850,[12] = 475, -- 5
-		[13] = 700,[14] = 600, -- 6
-		[15] = 470,[16] = 700, -- 7
-		[17] = 930,[18] = 700, -- 8
-		[19] = 700,[20] = 785  -- F
+		[1] = 150,   [2] = 105,  -- T
+		[3] = 420,  [4] = 105,  -- 1
+		[5] = 690,  [6] = 105,  -- 2
+		[7] = 960,  [8] = 105,  -- 3
+		[9] = 1225, [10] = 105, -- 4
+		[11] = 420, [12] = 320, -- 5
+		[13] = 690, [14] = 320, -- 6
+		[15] = 960, [16] = 320, -- 7
+		[17] = 1225, [18] = 320, -- 8
+		[19] = 420, [20] = 535,  -- 9
+		[21] = 690, [22] = 535, -- 10
+		[23] = 960, [24] = 535,  -- 11
+		[25] = 1225, [26] = 535,  -- 12
+		[27] = 420, [28] = 750,  -- 13
+		[29] = 690, [30] = 750,  -- 14
+		[31] = 960, [32] = 750,  -- 15
+		[33] = 1225, [34] = 750,  -- 16
 	}
-
-	-- Create Color Circle Array
-	kCircle = {}
-	-- Create Level Indicator Array
-	levels = {}
-
-	for i=1, 10 do
-		-- Make & assign attributes to the 10 circles (kCircle[array])
-		kCircle[i] = display.newCircle(textPos[2*i-1], textPos[2*i], 75)
-		kCircle[i].name = lvlNumber[i]
-		kCircle[i]:setFillColor(105/255, 210/255, 231/255)
-		kCircle[i]:setStrokeColor(0, 0, 0)
-		kCircle[i].strokeWidth = 5
 		
+	for i=1, #lvlNumber do
+		-- Make & assign attributes to the 10 circles (kCircle[array])
+		kCircle[i] = display.newCircle(textPos[2*i-1], textPos[2*i], 35)
+		kCircle[i].name = lvlNumber[i]
+		kCircle[i]:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862)
+		kCircle[i]:setStrokeColor(1, 1, 1)
+		kCircle[i].strokeWidth = 5
+
 		-- Along with its text indicator (levels[array])
-		levels[i] = display.newText(lvlNumber[i], textPos[2*i-1], textPos[2*i], native.Systemfont, 69)
+		levels[i] = display.newText(lvlNumber[i], textPos[2*i-1], textPos[2*i], native.Systemfont, 35)
 		levels[i]:setFillColor(0, 0, 0)
-	end
-					
-	kCircle[1].isAwake = true
-	selectLevel.levelNum = kCircle[1].name
-	kCircle[1]:setFillColor(167/255, 219/255, 216/255)
-					
-	kipcha = display.newImage("graphics/Kipcha135px.png")
-	kipcha.x = kCircle[1].x
-	kipcha.y = kCircle[1].y
-	
-	for p=1, #kCircle do
-		kCircle[p]:addEventListener("touch", runLevelSelector)
-		silKipcha:addEventListener("touch", runLevelSelector)
-	end
-	
-	lockedLevels = {}
-	
-	for i=1, 10 do
-		if i~= 1 and i~=2 and i~=3 and i~=4 then
+		map.layer["tiles"]:insert(kCircle[i])
+		map.layer["tiles"]:insert(levels[i])
+		
+		-- Unlock && lock levels
+		if i~=1 and i~=2 and i~=3 and 
+		   i~=4 and i~=5 and i~=6 and 
+		   i~=8 and i~=16 then
+		   
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x
 			lockedLevels[i].y = kCircle[i].y
-			lockedLevels[i]:scale(0.5, 0.5)
+			lockedLevels[i]:scale(0.2, 0.2)
+			map.layer["tiles"]:insert(lockedLevels[i])
 			kCircle[i].isAwake = false
 		else
 			kCircle[i].isAwake = true
 		end
 	end
 	
-end
-
--- When player tap's levels twice:
---[[
-local function tapTwice(event)
+	-- Add physics
+	physics.addBody(player, "static", {radius = 0.1}) -- to player
+	physics.addBody(cameraTRK, "dynamic", {radius = 0.1}) -- to invisible camera
+	
+	-- Turn off collision for invisible camera
+	cameraTRK.isSensor = true
+	cameraTRK.isAwake = true
+	
+	-- Set player start position
+	player.x = textPos[1]
+	player.y = textPos[2]
+	
+	-- Insert objects/groups to their proper display group
+	levelGUI:insert(levelGUI.back)
+	levelGUI:insert(levelGUI.front)
+	levelGUI.back:insert(map)
+	levelGUI.front:insert(silKipcha)
+	levelGUI.front:insert(dPad)
+	
+	selectLevel.levelNum = kCircle[1].name
+	kCircle[1].isAwake = true
+	kCircle[1]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
+	
+	-- Insert objects into map layer "tiles"
+	map.layer["tiles"]:insert(player)
+	map.layer["tiles"]:insert(cameraTRK)
+	
 	for i=1, #kCircle do
-		if event.target.name == kCircle[i].name then
-			if event.numTaps >= 2 and kCircle[i].isAwake then	
-				--	Clean up on-screen items	
-				display.remove(lvlNumber)
-				display.remove(textPos)
-				display.remove(kipcha)
-				display.remove(levelsMap)
-						
-				for p=1, #kCircle do
-					display.remove(kCircle[p])
-					display.remove(levels[p])
-					display.remove(lockedLevels[p])
-					kCircle[p]:removeEventListener("touch", runLevelSelector)
-				end
-				
-				-- Send data to start game
-				gameData.gameStart = true
-			end
-		end
+		kCircle[i]:addEventListener("tap", tapOnce)
 	end
+	
+	silKipcha:addEventListener("tap", tapOnce)
+	dPad:addEventListener("touch", tapOnce)
+	Runtime:addEventListener("enterFrame", setCameratoPlayer)
 end
-]]--
-
--- When player tap's silKipcha twice:
---[[
-local function tapTwice(event)
-	-- Double tap silhouette to play game
-	if event.numTaps >= 2 then	
-		if event.target.name == "sillykipchatrixareforkids" then
-			--	Clean up on-screen items	
-			display.remove(lvlNumber)
-			display.remove(textPos)
-			display.remove(kipcha)
-			display.remove(levelsMap)
-						
-			for p=1, #kCircle do
-				display.remove(kCircle[p])
-				display.remove(levels[p])
-				display.remove(lockedLevels[p])
-				kCircle[p]:removeEventListener("touch", runLevelSelector)
-			end
-			
-			-- Send data to start game
-			gameData.gameStart = true
-		end
-	end
-end
---]]
+	
 
 -- When player tap's levels once:
-local function tapOnce(event)
+function tapOnce(event)
+
+	-- kCircles button detection
 	for i=1, #kCircle do
 		if event.target.name == kCircle[i].name then
+			trackPlayer = true
 			if event.numTaps == 1 and kCircle[i].isAwake then
-				print("kCircle[", i, "]", kCircle[i], kCircle[i].isAwake)
+			
+				selectLevel.levelNum = kCircle[i].name
+				allowPlay = false
 				-- Move kipcha to the selected circle
-				print("i =", i)
-				kipcha.x = kCircle[i].x
-				kipcha.y = kCircle[i].y
-				goTo = kCircle[i].name
-				selectLevel.levelNum = goTo
-				kCircle[i]:setFillColor(167/255, 219/255, 216/255)
+				transition.to(player, {time = 1000, x = kCircle[i].x, y = kCircle[i].y, onComplete=stopAnimation})
+				player.rotation = 90
+				player:setSequence("move")
+				player:play()
+			
+				kCircle[i]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 					
 				-- Send signal to refresh sent mapData
 				gameData.inLevelSelector = true
@@ -193,57 +258,87 @@ local function tapOnce(event)
 		else
 			for j=1, #kCircle do
 				if kCircle[j].name ~= event.target.name then
-					kCircle[j]:setFillColor(105/255, 210/255, 231/255)
+					kCircle[j]:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862)
 				end
 			end
 		end
 	end
-	
-	-- If player taps silhouette kipcha, start game
-	if event.numTaps == 1 and event.target.name == silKipcha.name then
-		--	Clean up on-screen items	
-		display.remove(lvlNumber)
-		display.remove(textPos)
-		display.remove(kipcha)
-		display.remove(levelsMap)
-		display.remove(silKipcha)
-		display.remove(selLevelText)
-						
-		for p=1, #kCircle do
-			display.remove(kCircle[p])
-			display.remove(levels[p])
-			display.remove(lockedLevels[p])
-			kCircle[p]:removeEventListener("touch", runLevelSelector)
-			silKipcha:removeEventListener("touch", runLevelSelector)
+		
+	-- dPad Button detection
+	if event.target.name == dPad.l.name or dPad.r.name or dPad.u.name or dPad.d.name then
+		if event.target.isFocus or "began" == event.phase then
+			dPad.prevResult = dPad.result
+			-- Set result according to where touch is
+					if pointInRect(event, dPad.l) then dPad.result = "l"
+				elseif pointInRect(event, dPad.r) then dPad.result = "r"
+				elseif pointInRect(event, dPad.u) then dPad.result = "u"
+				elseif pointInRect(event, dPad.d) then dPad.result = "d"
+			end
 		end
-			
-		-- Send data to start game
-		gameData.gameStart = true
-	end
-end
 
+		-- Just a generic touch listener
+		if "began" == event.phase then	
+			display.getCurrentStage():setFocus(event.target)
+			event.target.isFocus = true
+			trackPlayer = false
+			trackInvisibleBoat = true	
+		elseif event.target.isFocus then
+			if "ended" == event.phase or "cancelled" == event.phase then
+				display.getCurrentStage():setFocus(nil)
+				event.target.isFocus = false
+				dPad.result = "n"
+				dPad.l.alpha = 1; dPad.r.alpha = 1; 
+				dPad.u.alpha = 1; dPad.d.alpha = 1
+			end
+		end
 
-function runLevelSelector(event)
-
-	local phase = event.phase
-
-	for i=1, #kCircle do
-		silKipcha:addEventListener("tap", tapOnce)
-		kCircle[i]:addEventListener("tap", tapOnce)
-		--kCircle[i]:addEventListener("tap", tapTwice)
+		-- Did the direction change?
+		if dPad.prevResult ~= dPad.result then 
+			dPad.changed = true 
+		end
+		
+			-- Set player velocity according to movement result
+			if dPad.result == "l" then cameraTRK:setLinearVelocity(-cameraTRK.speed, 0)
+		elseif dPad.result == "r" then cameraTRK:setLinearVelocity(cameraTRK.speed, 0)
+		elseif dPad.result == "u" then cameraTRK:setLinearVelocity(0, -cameraTRK.speed)
+		elseif dPad.result == "d" then cameraTRK:setLinearVelocity(0, cameraTRK.speed)
+		elseif dPad.result == "n" then cameraTRK:setLinearVelocity(0, 0)
+		end
+		
+		print(cameraTRK.speed)
 	end
 	
-	if gameData.gameStart then
-		for i=1, #kCircle do
-			kCircle[i]:removeEventListener("tap", tapOnce)
+	-- Kipcha Play button detection
+	if allowPlay then
+		-- If player taps silhouette kipcha, start game
+		if event.target.name == silKipcha.name then
+					
+			trackPlayer = true
+			trackInvisibleBoat = false
+					
 			silKipcha:removeEventListener("tap", tapOnce)
-			--kCircle[i]:removeEventListener("tap", tapTwice)
+			Runtime:removeEventListener("enterFrame", setCameratoPlayer)
+			dPad:removeEventListener("touch", tapOnce)
+			
+			--	Clean up on-screen items
+			levelGUI:removeSelf()
+			
+			for p=1, #kCircle do
+				display.remove(kCircle[p])
+				display.remove(levels[p])
+				display.remove(lockedLevels[p])
+				kCircle[p]:removeEventListener("tap", tapOnce)
+			end
+			
+			-- Send data to start game
+			gameData.gameStart = true
 		end
 	end
+		
+	return true
 end
 
--- Add selectLevel functions to global array
-selectLevel.setupLevelSelector = setupLevelSelector
-selectLevel.runLevelSelector = runLevelSelector
+
+selectLevel.selectLoop = selectLoop
 
 return selectLevel

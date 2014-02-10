@@ -2,8 +2,8 @@
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
   <property name="itemGoal" value="4"/>
-  <property name="itemSize" value="1"/>
-  <property name="moveObj" value="0"/>
+  <property name="itemSize" value="0"/>
+  <property name="moveObj" value="4"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
@@ -339,6 +339,84 @@
  <tileset firstgid="29" name="blackWall" tilewidth="72" tileheight="72">
   <image source="../../../art/blackWall.png" width="72" height="72"/>
  </tileset>
+ <tileset firstgid="30" name="switchWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blueWall2.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="switchWallCollision"/>
+    <property name="name" value="switchWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="34" name="switch" tilewidth="72" tileheight="72">
+  <image source="../../../art/switch.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="switchCollision"/>
+    <property name="name" value="switch"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="35" name="leftWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="leftWallCollision"/>
+    <property name="name" value="leftWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="39" name="rightWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="rightWallCollision"/>
+    <property name="name" value="rightWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="43" name="upWal" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="upWallCollision"/>
+    <property name="name" value="upWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="47" name="downWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="downWallCollision"/>
+    <property name="name" value="downWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -346,7 +424,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztVkEKwzAMC6OXrCk77NT/f3TbITSERJXcEUxbQQnGsg2qEzuGEJ7fLzo956AhGnm9OJRvFuqVMRZeLw7li0K9MsbCy/Yq5Lu6fnWvq/mSUC/Dqh/ioTs8qv8svJH9Z+F50G8BPg/6vYDvDPr9/PmeK/PQot+7UXsvT+33pl9qxDB4kDzUf8z/KueAcp8mknf0/WPnaA1Wv6PvH7vH1VD0Q7spo185I0fqx/Yfsnu4+2/jILsH7/r9c39Jjs8PD+kJLw==
+   eJztls0KhDAMhIM/h2pZPXvw4B72sId9/7fTshREMrHSVgP6QQlMMB2GCDVE1CzHXFiN0G+Jpwd6DkagO28G9F6ZvHAgf87bk98+e/l19M9rW8/CebBMtYTz04C0fxqQ9k8DKfL7MNovcqbnDvnlJGV+Q6I5a+6Q35fR3pEzPdL7RQPP/xuHzw+9Xc8C3S/tnw2cXSynZOoRkAdp/0LzqxitDvzWgzxI+3ckvy0a85tWWur80NuV03PUVujPLdgIJQ==
   </data>
  </layer>
 </map>

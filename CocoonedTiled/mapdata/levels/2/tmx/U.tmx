@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="itemGoal" value="0"/>
+  <property name="itemGoal" value="4"/>
   <property name="itemSize" value="0"/>
-  <property name="moveObj" value="0"/>
+  <property name="moveObj" value="1"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
@@ -339,8 +339,32 @@
  <tileset firstgid="29" name="blackWall" tilewidth="72" tileheight="72">
   <image source="../../../art/blackWall.png" width="72" height="72"/>
  </tileset>
- <tileset firstgid="30" name="kiphca" tilewidth="162" tileheight="201">
-  <image source="../../../art/kiphca.png" width="162" height="201"/>
+ <tileset firstgid="30" name="whiteWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/whiteWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="whiteWallCollision"/>
+    <property name="name" value="whiteWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="34" name="downWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/blackWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="downWallCollision"/>
+    <property name="moveable" value="true"/>
+    <property name="name" value="downWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
@@ -349,7 +373,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt1rEOABAQA9Cuh2/w/5+JwUhCg4v0JXJr03RgAEJ95vRG+NWy2esQEy2b+tvnvb8E9cfQ/jjqj7PaXz4VZOC3/m7T/4Wj/XG0P472x+n9Jce3AFlwBSI=
+   eJztlt0KwCAIhb21ut/93v8hty5iY3jMfgwGHQjByuRLSiaicA/+2AD8HpaV+UiyEvCPCMVEOWQ/g7kwno45Jsoh+ze/eswavzySYGcLxWRwfiKcu4da70SrPw+13olWfx76I79TWd/Lz/o3fLWKn2WPtGZV/Vn2SGtq/A4hxub3qLX+tP5Fk5Xf6J/kyW+GPOtvhgo/6/tVNJsfOr+3f17NT9JKfto5m1+/Cj/Uu0r++BpovtVqeVxi6QiS
   </data>
  </layer>
 </map>

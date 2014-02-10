@@ -5,7 +5,6 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
-
 local dusk = require("Dusk.Dusk")
 local miniMap = require("miniMap")
 
@@ -83,6 +82,16 @@ function changePane(mapData, player, moveObj)
 			end
 		end
 	end
+
+	for check = 1, map.layer["tiles"].numChildren do
+		if map.layer["tiles"][check].name == "greenTotem" then
+			map.layer["tiles"][check]:scale(2.0,2.0)
+			map.layer["tiles"][check].xScale = 1
+			map.layer["tiles"][check].yScale = 1
+		end
+	end
+
+
 
 	-- return new pane
 	return map

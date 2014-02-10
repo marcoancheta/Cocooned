@@ -36,7 +36,8 @@ end
 --------------------------------------------------------------------------------
 -- Stop Sounds
 --------------------------------------------------------------------------------
-function stopBGM(event)
+function stopBGM(event, name)
+	audio.dispose(name)
 	audio.stop()
 end
 
@@ -58,7 +59,7 @@ local sound = {
 	-- Load Sounds here:
 	clickSound = audio.loadSound("sounds/menu_tone.wav"),
 	mainmenuSound = audio.loadSound("sounds/cocoonedmusic.wav"),
-	selectMapSound = audio.loadSound('sounds/selectMap.wav')
+	--selectMapSound = audio.loadSound('sounds/selectMap.wav')
 }
 
 return sound

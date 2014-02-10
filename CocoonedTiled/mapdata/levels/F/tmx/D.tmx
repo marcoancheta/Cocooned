@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
+  <property name="itemGoal" value="4"/>
+  <property name="itemSize" value="1"/>
+  <property name="moveObj" value="0"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
@@ -255,6 +258,19 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="23" name="totem" tilewidth="162" tileheight="162">
+  <image source="../../../art/totem.png" width="162" height="162"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="totemAttractCollision"/>
+    <property name="name" value="totem"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -262,7 +278,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlsEKgDAMQ3vt7P9/r+4gXqaCSaBgHoyeVsojlGZEjONl07oFziD0WDFnS0If1XxzNvv7Tnd/FfaH8Jf8FaHHCvvDsD+M7v7O+6UIVQHLnwpW/lQg/t7uXgbI/fz0j5VH1N8dLH9I/uzv8sfYf6q6AwolBvo=
+   eJztlkEKgDAMBHNNzd3//1QLgpdYaXeDlWag5NIuYYgSFZFyHp20boJTCBketTcl5ET1V3tLf+PM7s8k/SGsMn9GyPBIfxh/87cP5qzqr3d/seu+VyNg+YuC9f1Ggfh723sZIPtz6x1rHlF/T7D8IfOX/m5/rf/a1/UAKgsGng==
   </data>
  </layer>
 </map>
