@@ -176,8 +176,10 @@ end
 
 -- swipe mechanic
 local function tapMechanic(event)
-	-- mechanic to show or hide minimap
-	touch.tapScreen(event, miniMap, physics)
+	if gameData.allowMiniMap then
+		-- mechanic to show or hide minimap
+		touch.tapScreen(event, miniMap, physics)
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -229,6 +231,7 @@ local function gameLoop(event)
 		gameData.BGM = false
 		gameData.ingame = true
 		gameData.allowPaneSwitch = true
+		gameData.allowMiniMap = true
 		gameData.showMiniMap = true
 		gameData.gameStart = false
 	end
@@ -317,6 +320,7 @@ local function menuLoop(event)
 
 		-- Re-evaluate gameData booleans
 		gameData.ingame = false
+		gameData.allowMiniMap = false
 		gameData.showMiniMap = false
 		gameData.isShowingMiniMap = false
 		gameData.inGameOptions = false
@@ -337,6 +341,7 @@ local function menuLoop(event)
 		
 		-- Re-evaluate gameData booleans
 		gameData.inGameOptions = false
+		gameData.allowMiniMap = true
 		gameData.showMiniMap = true
 		gameData.resumeGame = false
 	end
