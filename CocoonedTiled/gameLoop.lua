@@ -37,6 +37,8 @@ local save = require("GGData")
 local touch = require("touchMechanic")
 -- Accelerometer mechanic (Accelerometer.lua)
 local movementMechanic = require("Accelerometer")
+-- Movement based on Accelerometer readings
+local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
 -- Magnetism mechanics (magnetism.lua)
@@ -76,7 +78,7 @@ local player2 = player.create()
 --------------------------------------------------------------------------------
 function loadMap()
 
-	system.setAccelerometerInterval(50)
+	system.setAccelerometerInterval(60)
 	-- Create player sprite sheet
 	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
@@ -90,7 +92,7 @@ function loadMap()
 	
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
-	ball.linearDamping = 3
+	ball.linearDamping = 4
 
 	-- Load in map
 	gui, miniMap = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
@@ -106,38 +108,20 @@ end
 
 -- control mechanic
 local function controlMovement(event) 
-	print("controlMovement(event)")
 	-- call accelerometer to get data
 	if gameData.isShowingMiniMap == false then
 		physicsParam = movementMechanic.onAccelerate(event)
+		player1.xGrav = physicsParam.xGrav
+		player1.yGrav = physicsParam.yGrav
 		--update player(rotation and animation)
-		--move to animation.lua or player.lua?
-		ball:pause()
-		if(physicsParam.xGrav ~= 0 or physicsParam.yGrav ~= 0) then
-			player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
-			ball:play()
-		end
-		local vx, vy = ball:getLinearVelocity()
-		local speed = math.sqrt((vy*vy)+(vx*vx))
-		
-		if speed > 300 then
-			ball.timeScale = 2.5
-		elseif speed > 150 then
-			ball.timeScale = 2
-		elseif speed >75 then
-			ball.timeScale = 1
-		elseif speed > 0 then
-			ball.timeScale = .25
-		--elseif speed > 0 then
-		--	ball.timeScale = .15
-		else
-			ball:pause()
-		end
-		--apply force instead of changing gravity
-		ball:applyForce(physicsParam.xGrav, physicsParam.yGrav, ball.x, ball.y)
+		--move to animation.lua or player.lua?		
 		physics.setGravity(0,0)
 	end
 	
+end
+
+local function speedUp(event)
+	movement.moveAndAnimate(player1)
 end
 
 -- swipe mechanic
@@ -176,8 +160,10 @@ end
 
 -- swipe mechanic
 local function tapMechanic(event)
-	-- mechanic to show or hide minimap
-	touch.tapScreen(event, miniMap, physics)
+	if gameData.allowMiniMap then
+		-- mechanic to show or hide minimap
+		touch.tapScreen(event, miniMap, physics)
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -218,6 +204,7 @@ local function gameLoop(event)
 	
 		-- Start mechanics
 		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1])
+		Runtime:addEventListener("enterFrame", speedUp)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		gui.back:addEventListener("touch", swipeMechanics)
 		gui.back:addEventListener("tap", tapMechanic)
@@ -229,6 +216,7 @@ local function gameLoop(event)
 		gameData.BGM = false
 		gameData.ingame = true
 		gameData.allowPaneSwitch = true
+		gameData.allowMiniMap = true
 		gameData.showMiniMap = true
 		gameData.gameStart = false
 
@@ -261,9 +249,9 @@ local function gameLoop(event)
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--
-	-- If in-game has started do:
+	-- If ingame has started do:
 	--if gameData.ingame then
-		--print(display.fps)
+		--print(display.fps)	
 	--end
 end
 
@@ -323,6 +311,7 @@ local function menuLoop(event)
 
 		-- Re-evaluate gameData booleans
 		gameData.ingame = false
+		gameData.allowMiniMap = false
 		gameData.showMiniMap = false
 		gameData.isShowingMiniMap = false
 		gameData.inGameOptions = false
@@ -343,6 +332,7 @@ local function menuLoop(event)
 		
 		-- Re-evaluate gameData booleans
 		gameData.inGameOptions = false
+		gameData.allowMiniMap = true
 		gameData.showMiniMap = true
 		gameData.resumeGame = false
 	end

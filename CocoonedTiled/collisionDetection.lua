@@ -35,7 +35,7 @@ function createCollisionDetection(imageObject, player, mapData, map)
     local collideObject = event.other
     if ( event.phase == "began" ) then
       -- debug print once collision began           
-      print( "began: " .. collideObject.name)
+      --print( "began: " .. collideObject.name)
 
       if collideObject.collType == "solid" then
         local col = require("Objects." .. collideObject.func)
@@ -44,7 +44,7 @@ function createCollisionDetection(imageObject, player, mapData, map)
       
     elseif ( event.phase == "ended" ) then
       --debug pring once collision ended
-      print( "ended: ")
+      --print( "ended: ")
    
     end
   end
