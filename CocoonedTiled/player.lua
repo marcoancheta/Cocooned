@@ -23,6 +23,10 @@ local playerInstance = {
 	hasItem={},
 	tapPosition=0,
 	inventory = inventoryMechanic.createInventory(),
+	xGrav = 0,
+	yGrav = 0,
+	sOffsetX = 0,
+	sOffsetY=0,
 
 } 
 

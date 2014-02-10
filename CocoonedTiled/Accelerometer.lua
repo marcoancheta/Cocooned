@@ -18,27 +18,30 @@ local physicsParam = {
 
 -- acceleromter call
 local function onAccelerate( event)
-	print("accel")
+	--print("accel")
 	local xGrav=1
 	local yGrav=1
-
 	-- X gravity change
-	if event.yInstant > 0.3 then
+	if event.yInstant > 0.1 then
+		--print("POSyinstant=", event.yInstant)
 		xGrav = -event.yInstant
-	elseif event.yInstant < -0.3 then
+	elseif event.yInstant < -0.1 then
+		--print("NEGyinstant=", event.yInstant)
 		xGrav = -event.yInstant
 	elseif event.yGravity > 0.1 then
+		--print("POSGRAV", event.yGravity)
 		xGrav = -event.yGravity
 	elseif event.yGravity < -0.1 then
+		--print("NEGGRAV=", event.yGravity)
 		xGrav = -event.yGravity
 		else
 			xGrav = 0
 	end
 
 	-- Y gravity change
-	if event.xInstant > 0.3 then
+	if event.xInstant > 0.1 then
 		yGrav = -event.xInstant
-	elseif event.xInstant < -0.3 then
+	elseif event.xInstant < -0.1 then
 		yGrav = -event.xInstant
 	elseif event.xGravity > 0.1 then
 		yGrav = -event.xGravity
@@ -51,8 +54,8 @@ local function onAccelerate( event)
 	-- print('onAccelerate called')
 
 	-- offset the gravity to return
-	physicsParam.xGrav=12*xGrav
-	physicsParam.yGrav=12*yGrav
+	physicsParam.xGrav=3*xGrav
+	physicsParam.yGrav=3*yGrav
 
 	--return physics parameters
 	return physicsParam

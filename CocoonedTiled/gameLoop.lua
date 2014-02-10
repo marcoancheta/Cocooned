@@ -38,6 +38,8 @@ local save = require("GGData")
 local touch = require("touchMechanic")
 -- Accelerometer mechanic (Accelerometer.lua)
 local movementMechanic = require("Accelerometer")
+-- Movement based on Accelerometer readings
+local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
 -- Magnetism mechanics (magnetism.lua)
@@ -107,21 +109,24 @@ end
 
 -- control mechanic
 local function controlMovement(event) 
-	print("controlMovement(event)")
 	-- call accelerometer to get data
 	if gameData.isShowingMiniMap == false then
 		physicsParam = movementMechanic.onAccelerate(event)
+		player1.xGrav = physicsParam.xGrav
+		player1.yGrav = physicsParam.yGrav
 		--update player(rotation and animation)
 		--move to animation.lua or player.lua?
-		if(physicsParam.xGrav ~= 0 or physicsParam.yGrav ~= 0) then
-			player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
-		end
+		
 
 		--apply force instead of changing gravity
-		ball:applyForce(physicsParam.xGrav, physicsParam.yGrav, ball.x, ball.y)
+		
 		physics.setGravity(0,0)
 	end
 	
+end
+
+local function speedUp(event)
+	movement.moveAndAnimate(player1)
 end
 
 -- swipe mechanic
@@ -201,6 +206,7 @@ local function gameLoop(event)
 	
 		-- Start mechanics
 		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1])
+		Runtime:addEventListener("enterFrame", speedUp)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		gui.back:addEventListener("touch", swipeMechanics)
 		gui.back:addEventListener("tap", tapMechanic)
@@ -239,29 +245,9 @@ local function gameLoop(event)
 	----------------------
 	--[[ IN-GAME LOOP ]]--
 	-- If ingame has started do:
-	if gameData.ingame then
-		--print(display.fps)
-		local vx, vy = ball:getLinearVelocity()
-		local speed = math.sqrt((vy*vy)+(vx*vx))
-		
-		if speed > 300 then
-			ball:play()
-			ball.timeScale = 2.5
-		elseif speed > 150 then
-			ball:play()
-			ball.timeScale = 2
-		elseif speed >75 then
-			ball:play()
-			ball.timeScale = 1
-		elseif speed > 20 then
-			ball:play()
-			ball.timeScale = .25
-		--elseif speed > 0 then
-		--	ball.timeScale = .15
-		else
-			ball:pause()
-		end
-	end
+	--if gameData.ingame then
+		--print(display.fps)	
+	--end
 end
 
 --------------------------------------------------------------------------------
