@@ -30,7 +30,7 @@ local function moveAndAnimate(player)
 	local speed = math.sqrt((vy*vy)+(vx*vx))
 	if speed > highestSpeed then
 		highestSpeed=speed
-		print('highestSPEED=', speed)
+		--print('highestSPEED=', speed)
 	end
 	if speed > 1125 then
 		player.imageObject:play()

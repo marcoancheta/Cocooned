@@ -41,6 +41,14 @@ function create(o)
 	return playerInstance:new(o)
 end
 
+function playerInstance:destroy()
+	self.imageObject:removeSelf()
+	self.imageObject = nil
+	self.inventory:destroy()
+	self.inventory = nil
+
+end
+
 --returns a player instance
 function playerInstance:new (o) 
       	setmetatable(o, self)

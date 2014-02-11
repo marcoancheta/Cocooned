@@ -242,7 +242,7 @@ function core.buildMap(filename, base)
 	------------------------------------------------------------------------------
 	function map.destroy()
 		tprint.clear()
-
+		print("DESTROYING!!!!")
 		update.destroy()
 
 		for i = 1, #map.layer do
