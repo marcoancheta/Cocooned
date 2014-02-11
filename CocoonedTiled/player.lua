@@ -27,8 +27,8 @@ local playerInstance = {
 	yGrav = 0,
 	sOffsetX = 0,
 	sOffsetY=0,
-
-} 
+}
+print(activateWind) 
 
 
 local function rotateTransition(imageObject, rotationDelta, timeDelta)

@@ -355,6 +355,15 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="36" name="iceCorner" tilewidth="72" tileheight="72">
+  <image source="../../../art/iceCorner.png" width="144" height="144"/>
+ </tileset>
+ <tileset firstgid="40" name="iceWall" tilewidth="72" tileheight="72">
+  <image source="../../../art/iceWall.png" width="216" height="72"/>
+ </tileset>
+ <tileset firstgid="43" name="iceWall2" tilewidth="72" tileheight="72">
+  <image source="../../../art/iceWall2.png" width="72" height="144"/>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -362,7 +371,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlksKwCAMRLPVuurnAr3/IVsXBQmZILTRSH0QAhPQMGQxgYjiXYH1CHSLHpT5QjIJ6BagHbIewCwa7SKBdsj6s/vKZr3825g+gn+5ktBbgf5PhHf3QHl/HtHuzwPTv3f8yb/zo3dK/uSfBVp+8YB3/0a5P5RdW4H+n/m5jpr8vLNZL/8Opo/gH8qukm7RtQx/AUjxBxg=
+   eJztlr0KwDAIhF1NM/Xn/V+1zVAo4kkgmBrwgyCcQ47D4ZiIyvNYzAJ0j8nGfiOdCnQPkIemM9gVJy8ayEPTX++72P2V3yH0FfJrrypzFuj/Sth7BL73FxHr/iKQ+Y2R+Y2R+Y1h9ZcIRM9vlftD3XUW6P/sz3309OdT7P7K7xL6Cvmh7qrpHtPq8DdTcgb2
   </data>
  </layer>
 </map>

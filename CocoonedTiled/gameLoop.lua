@@ -53,6 +53,9 @@ local moveObjMechanic = require("moveableObjects")
 local ball
 local mapPanes
 local t = 1
+local timeCheck = 1
+_G.activateWind = false
+local timeCount = 0
 
 -- Initialize map data
 local mapData = {
@@ -192,7 +195,6 @@ local function gameLoop(event)
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
 	if gameData.gameStart then
-	
 		-- Stop BGM
 		sound.stopBGM(event, sound.mainmenuSound)
 		-- Start physics
@@ -219,12 +221,6 @@ local function gameLoop(event)
 		gameData.allowMiniMap = true
 		gameData.showMiniMap = true
 		gameData.gameStart = false
-
-		local now1 = os.time()
-		local now = now1 + 1
-		if ( now > now1 ) then
-		  print(now)
-		end
 	end
 
 	if gameData.gameEnd then
@@ -250,9 +246,21 @@ local function gameLoop(event)
 	----------------------
 	--[[ IN-GAME LOOP ]]--
 	-- If ingame has started do:
-	--if gameData.ingame then
-		--print(display.fps)	
-	--end
+	if gameData.ingame then
+		local time = os.time() 
+		if ( time ~= timeCheck ) then
+  			print("Time:", time)
+  			timeCount = timeCount + 1
+  			timeCheck = time
+  			if timeCount % 30 == 1 then 
+  				activateWind = true
+  				print(activateWind)
+  			elseif timeCount % 30 ~= 1 then
+  				activateWind = false
+  			end
+		end
+	end
+
 end
 
 --------------------------------------------------------------------------------
@@ -367,6 +375,8 @@ end
 --------------------------------------------------------------------------------
 Runtime:addEventListener("enterFrame", gameLoop)
 Runtime:addEventListener("enterFrame", menuLoop)
+
+
 --Runtime:addEventListener("enterFrame", soundLoop)
 
 --------------------------------------------------------------------------------
