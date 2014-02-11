@@ -39,7 +39,6 @@ local trackInvisibleBoat = false
 local allowPlay = true
 
 
-
 local function stopAnimation(event)
 	print("4")
 	player:setSequence("still")
@@ -50,10 +49,11 @@ end
 -- Quick function to make all buttons uniform
 local function newButton(parent) 
 	print("3")
-	local butt = display.newRoundedRect(parent, 0, 0, 60, 60, 10) 
+	local butt = display.newRoundedRect(parent, 0, 0, 40, 40, 5) 
 	      butt:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862) 
 		  butt:setStrokeColor(1, 1, 1)
 		  butt.strokeWidth = 3
+		  butt:scale(0.8, 0.8)
    return butt 
 end
 
@@ -77,8 +77,8 @@ local function setCameratoPlayer(event)
 		movex = cameraTRK.x - player.x
 		movey = cameraTRK.y - player.y
 
-		bg.x = bg.x + movex
-		bg.y = bg.y + movey
+		--bg.x = bg.x + movex
+		--bg.y = bg.y + movey
 		
 		cameraTRK.x = player.x
 		cameraTRK.y = player.y
@@ -121,10 +121,12 @@ local function selectLoop(event)
 		
 	-- Load Map
 	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
+	map:scale(0.5, 0.5)
 
-	bg = display.newImage("mapdata/art/bgLS.png", 0, 0, true)
-	bg.x = 1930
-	bg.y = 1150
+	bg = display.newImage("mapdata/art/bg.png", 0, 0, true)
+	bg.x = 280
+	bg.y = 150
+	bg:scale(0.4, 0.4)
 	--
 	-- Load image sheet
 	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
@@ -138,9 +140,9 @@ local function selectLoop(event)
 
 	-- Create play button
 	silKipcha = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
-	silKipcha.x = 1300
-	silKipcha.y = 725
-	silKipcha:scale(1.5, 1.5)
+	silKipcha.x = 490
+	silKipcha.y = 260
+	silKipcha:scale(0.8, 0.8)
 	silKipcha.name = "sillykipchatrixareforkids"
 
 	-- Create invisible camera tracker
@@ -152,10 +154,10 @@ local function selectLoop(event)
 	dPad.prevResult = "n"
 	
 	-- Create dPad buttons and position them
-	dPad.l = newButton(dPad); dPad.l.x, dPad.l.y = -60, 0 
-	dPad.r = newButton(dPad); dPad.r.x, dPad.r.y = 60, 0
-	dPad.u = newButton(dPad); dPad.u.x, dPad.u.y = 0, -60 
-	dPad.d = newButton(dPad); dPad.d.x, dPad.d.y = 0, 60
+	dPad.l = newButton(dPad); dPad.l.x, dPad.l.y = -32, 0 
+	dPad.r = newButton(dPad); dPad.r.x, dPad.r.y = 32, 0
+	dPad.u = newButton(dPad); dPad.u.x, dPad.u.y = 0, -32
+	dPad.d = newButton(dPad); dPad.d.x, dPad.d.y = 0, 32
 	
 	-- Assign names to dPad
 	dPad.l.name = "l"
@@ -164,8 +166,8 @@ local function selectLoop(event)
 	dPad.d.name = "d"
 	
 	-- Position dPad buttons
-	dPad.x = display.screenOriginX + dPad.contentWidth * 0.5 + 40
-	dPad.y = display.contentHeight - dPad.contentHeight * 0.5 - 40
+	dPad.x = display.screenOriginX + dPad.contentWidth * 0.5 + 10
+	dPad.y = display.contentHeight - dPad.contentHeight * 0.5 - 10
 		
 	-- Create level numbers
 	lvlNumber = {	
@@ -179,24 +181,24 @@ local function selectLoop(event)
 	
 	-- Level numbers' position
 	textPos = {
-		--      X,         Y,
-		[1] = 150,   [2] = 105,  -- T
-		[3] = 420,  [4] = 105,  -- 1
-		[5] = 690,  [6] = 105,  -- 2
-		[7] = 960,  [8] = 105,  -- 3
-		[9] = 1225, [10] = 105, -- 4
-		[11] = 420, [12] = 320, -- 5
-		[13] = 690, [14] = 320, -- 6
-		[15] = 960, [16] = 320, -- 7
-		[17] = 1225, [18] = 320, -- 8
-		[19] = 420, [20] = 535,  -- 9
-		[21] = 690, [22] = 535, -- 10
-		[23] = 960, [24] = 535,  -- 11
-		[25] = 1225, [26] = 535,  -- 12
-		[27] = 420, [28] = 750,  -- 13
-		[29] = 690, [30] = 750,  -- 14
-		[31] = 960, [32] = 750,  -- 15
-		[33] = 1225, [34] = 750,  -- 16
+		--      X (T=150),       Y,(T = 105)
+		[1] = 70,   [2] = 115,  -- T
+		[3] = 340,  [4] = 115,  -- 1
+		[5] = 610,  [6] = 115,  -- 2
+		[7] = 880,  [8] = 115,  -- 3
+		[9] = 1145, [10] = 115, -- 4
+		[11] = 340, [12] = 330, -- 5
+		[13] = 610, [14] = 330, -- 6
+		[15] = 880, [16] = 330, -- 7
+		[17] = 1145, [18] = 330, -- 8
+		[19] = 340, [20] = 545,  -- 9
+		[21] = 610, [22] = 545, -- 10
+		[23] = 880, [24] = 545,  -- 11
+		[25] = 1145, [26] = 545,  -- 12
+		[27] = 340, [28] = 760,  -- 13
+		[29] = 610, [30] = 760,  -- 14
+		[31] = 880, [32] = 760,  -- 15
+		[33] = 1145, [34] = 760,  -- 16
 	}
 		
 	for i=1, #lvlNumber do
@@ -240,7 +242,7 @@ local function selectLoop(event)
 	
 	-- Set player start position
 	player.x = textPos[1] + 500
-	player.y = textPos[1] + 175
+	player.y = textPos[1] + 255
 	
 	-- Insert objects/groups to their proper display group
 	levelGUI:insert(levelGUI.back)

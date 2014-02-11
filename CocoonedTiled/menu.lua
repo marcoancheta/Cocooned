@@ -60,7 +60,10 @@ function MainMenu(event)
 	main = display.newImage("graphics/cocooned.png", 700, 400, true)
 		
 	-- Scale background image
-	main:scale(0.5, 0.5)
+	main.x = 290
+	main.y = 150
+	
+	main:scale(0.2, 0.2)
 
 	-- Add Play button
 	play = display.newImage("graphics/play.png", 0, 0, true)
@@ -70,21 +73,21 @@ function MainMenu(event)
 	play.name = "playButton"
 	
 	-- Play button fixed location and scaled
-	play.x = 350
-	play.y = 580
+	play.x = 150
+	play.y = 220
 	play.anchorX = 0.5
 	play.anchorY = 0.5
-	play:scale(2.5, 2.5)
+	play:scale(1, 1)
 
 	-- Option buttons: See play button details
 	options = display.newImage("graphics/options.png", 0, 0, true)
 	options:setFillColor(0.5,0.5,0.5)
 	options.name = "optionButton"
-	options.x = 350
-	options.y = 750
+	options.x = 150
+	options.y = 285
 	options.anchorX = 0.5
 	options.anchorY = 0.5
-	options:scale(2.5, 2.5)
+	options:scale(1, 1)
 	
 	-- Insert all images/buttons into group
 	menuGroup:insert(main)
@@ -104,13 +107,13 @@ function Options(event)
 	optionsBG = display.newImage("graphics/cocooned_menu.png", 0, 0, true)
 	
 	-- Create onScreen text objects
-	optionText = display.newText("OPTIONS", 200, 150, native.Systemfont, 72)
+	optionText = display.newText("OPTIONS:", 100, 150, native.Systemfont, 32)
 	optionText:setFillColor(0, 0, 0)
 	
 	-- Scale background image
-	optionsBG.x = 700
-	optionsBG.y = 400
-	optionsBG:scale(0.5, 0.5)
+	optionsBG.x = 290
+	optionsBG.y = 150
+	optionsBG:scale(0.2, 0.2)
 	
 	-- Add Main Menu button
 	backtoMain = display.newImage("graphics/main.png", 0, 0, true)
@@ -125,11 +128,11 @@ function Options(event)
 	--soundOptions.name = "soundOptions"
 	
 	-- Main menu button fixed location and scaled
-	backtoMain.x = 350
-	backtoMain.y = 650
+	backtoMain.x = 100
+	backtoMain.y = 250
 	backtoMain.anchorX = 0.5
 	backtoMain.anchorY = 0.5
-	backtoMain:scale(2.5, 2.5)
+	backtoMain:scale(1, 1)
 
 	--[[ Sound options location
 	soundOptions.x = 1000
