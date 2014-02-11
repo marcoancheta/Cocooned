@@ -37,10 +37,10 @@ local save = require("GGData")
 local touch = require("touchMechanic")
 -- Accelerometer mechanic (Accelerometer.lua)
 local movementMechanic = require("Accelerometer")
+-- Movement based on Accelerometer readings
+local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
--- Magnetism mechanics (magnetism.lua)
---local magnetismMechanic = require("magnetism")
 -- Object movementMechanics (moveableObjects.lua)
 local moveObjMechanic = require("moveableObjects")
 
@@ -59,34 +59,23 @@ local mapData = {
 	version = 0
 }
 
+-- create player variables
 local player1, player2
-local playerSheet
 
-
--- Player print testing
---[[
-	print("player1 name =", player1.name)
-	print("player1 color =", player1.color)
-	print("player2 name =", player1.name)
-	print("player2 color =", player1.color)
-]]--
-
-function createPlayers() 
-	
-end
 
 --------------------------------------------------------------------------------
 -- Load Map
 --------------------------------------------------------------------------------
 function loadMap()
 
+
 	-- Initialize player(s)
 	player1 = player.create()
 	--player2 = player.create()
+	system.setAccelerometerInterval(60)
 
-	system.setAccelerometerInterval(50)
 	-- Create player sprite sheet
-	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
+	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
 	
 	-- Create player/ball object to map
@@ -98,7 +87,7 @@ function loadMap()
 	
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
-	ball.linearDamping = 3
+	ball.linearDamping = 4
 
 	-- Load in map
 	gui, miniMap = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
@@ -110,48 +99,31 @@ end
 ------- controlMovement
 ------- swipeMechanics
 ------- tapMechanics
+------- speedUp
 --------------------------------------------------------------------------------
 
 -- control mechanics
 local function controlMovement(event) 
-	print("controlMovement(event)")
 	-- call accelerometer to get data
 	if gameData.isShowingMiniMap == false then
 		physicsParam = movementMechanic.onAccelerate(event)
+		player1.xGrav = physicsParam.xGrav
+		player1.yGrav = physicsParam.yGrav
 		--update player(rotation and animation)
-		--move to animation.lua or player.lua?
-		ball:pause()
-		if(physicsParam.xGrav ~= 0 or physicsParam.yGrav ~= 0) then
-			player1:rotate(physicsParam.xGrav, physicsParam.yGrav)
-			ball:play()
-		end
-		local vx, vy = ball:getLinearVelocity()
-		local speed = math.sqrt((vy*vy)+(vx*vx))
-		
-		if speed > 300 then
-			ball.timeScale = 2.5
-		elseif speed > 150 then
-			ball.timeScale = 2
-		elseif speed >75 then
-			ball.timeScale = 1
-		elseif speed > 0 then
-			ball.timeScale = .25
-		--elseif speed > 0 then
-		--	ball.timeScale = .15
-		else
-			ball:pause()
-		end
-		--apply force instead of changing gravity
-		ball:applyForce(physicsParam.xGrav, physicsParam.yGrav, ball.x, ball.y)
+		--move to animation.lua or player.lua?		
 		physics.setGravity(0,0)
 	end
 	
 end
 
+local function speedUp(event)
+	movement.moveAndAnimate(player1)
+end
+
 -- swipe mechanic
 local function swipeMechanics(event)
-	--print("swipeMechanics(event)")
 	
+	-- save temp pane for later check
 	local tempPane = mapData.pane
 
 	-- call swipe mechanic and get new Pane
@@ -162,12 +134,13 @@ local function swipeMechanics(event)
 	if "ended" == event.phase and mapData.pane ~= tempPane then
 
 		-- delete everything on map
-		gui.back[1].destroy()
+		map:removeSelf()
 		-- Pause physics
 		physics.pause()
 		---------------------------------------------------
 		-- Play "character" teleportation animation here --
 		---------------------------------------------------
+	
 		-- Resume physics
 		physics.start()
 		
@@ -182,7 +155,7 @@ local function swipeMechanics(event)
 	end
 end
 
--- swipe mechanic
+-- tap mechanic
 local function tapMechanic(event)
 	if gameData.allowMiniMap then
 		-- mechanic to show or hide minimap
@@ -217,7 +190,7 @@ local function gameLoop(event)
 	-- If game has started do:
 	if gameData.gameStart then	
 		-- Stop BGM
-		sound.stopBGM(event, sound.mainmenuSound)
+		--sound.stopBGM(event, sound.mainmenuSound)
 		-- Start physics
 		physics.start()
 		-- Load Map
@@ -227,6 +200,7 @@ local function gameLoop(event)
 	
 		-- Start mechanics
 		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1])
+		Runtime:addEventListener("enterFrame", speedUp)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		gui.back:addEventListener("touch", swipeMechanics)
 		gui.back:addEventListener("tap", tapMechanic)
@@ -243,16 +217,21 @@ local function gameLoop(event)
 		gameData.gameStart = false
 	end
 
+	-----------------------------
+	--[[ END GAMEPLAY LOOP ]]--
+	-- If game has ended do:
 	if gameData.gameEnd then
 
+		-- remove all eventListeners
 		gui.back:removeEventListener("touch", swipeMechanics)
 		gui.back:removeEventListener("tap", tapMechanic)
 		Runtime:removeEventListener("accelerometer", controlMovement)
+		Runtime:removeEventListener("enterFrame", speedUp)
 		collisionDetection.destroyCollision(ball)
 
+		-- destroy and remove all data
 		map.destroy()
 		map = nil
-
 		ball:removeSelf()
 		ball = nil
 		display.remove(gui)
@@ -260,28 +239,26 @@ local function gameLoop(event)
 		miniMap:removeSelf()
 		miniMap = nil
 
+		-- destroy player instance
 		player1:destroy()
 		player1 = nil
 		playerSheet = nil
 
+		-- stop physics
 		physics.stop()
 		
-		
-
+		-- set boolean variables
 		gameData.gameEnd = false
-
-		--selectLevel.setupLevelSelector(event)
-		gameData.inLevelSelector = false
-		gameData.selectLevel = false
-
-		gameData.menuOn = true
+		if gameData.menuOn ~= true then
+			gameData.selectLevel = true
+		end
 	end
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--
-	-- If in-game has started do:
+	-- If ingame has started do:
 	--if gameData.ingame then
-		--print(display.fps)
+		--print(display.fps)	
 	--end
 end
 

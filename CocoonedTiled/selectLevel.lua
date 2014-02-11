@@ -351,10 +351,15 @@ function tapOnce(event)
 	if allowPlay then
 		-- If player taps silhouette kipcha, start game
 		if event.target.name == silKipcha.name then
+
+--------------------------------------------------------------------------------
+-- remove all objects
+--------------------------------------------------------------------------------
 					
 			trackPlayer = true
 			trackInvisibleBoat = false
-					
+
+			-- remove eventListeners		
 			silKipcha:removeEventListener("tap", tapOnce)
 			Runtime:removeEventListener("enterFrame", setCameratoPlayer)
 			dPad:removeEventListener("touch", tapOnce)
@@ -371,6 +376,7 @@ function tapOnce(event)
 			silKipcha:removeSelf()
 			silKipcha = nil
 			
+			-- remove and destroy all circles
 			for p=1, #kCircle do
 				display.remove(kCircle[p])
 				display.remove(levels[p])
@@ -380,18 +386,8 @@ function tapOnce(event)
 				map.layer["tiles"]:remove(levels[p])
 			end
 			kCircle = nil
-			for i = 1, #map.layer["tiles"] do
-				map.layer["tiles"][i]:removeSelf()
-				map.layer["tiles"][i] = nil
-			end
-			print("bg pic", #map.layer["bg"])
-			for i = 1, #map.layer["bg"] do
-				map.layer["bg"][i]:removeSelf()
-				map.layer["bg"][i] = nil
-			end
 
-			display.remove(map)
-
+			-- destroy map object
 			map.destroy()
 			map:removeSelf()
 			map = nil

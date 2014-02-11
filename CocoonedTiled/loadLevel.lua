@@ -67,10 +67,12 @@ function changePane(mapData, player, moveObj)
 	-- if an item was previously taken, remove it from map
 	if tonumber(map.itemSize) > 0 and #player.inventory.items > 0 then
 		-- check for N number of items on map if they were taken
+		print("remove items")
 		for count = 1, #player.inventory.items do
 			local itemName = player.inventory.items[count]
 			local removeItem = 0
 			-- check map display group for picked up item then remove it
+
 			for check = 1, map.layer["tiles"].numChildren do
 				if map.layer["tiles"][check].name == itemName then
 					removeItem = check

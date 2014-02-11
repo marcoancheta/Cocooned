@@ -119,10 +119,10 @@ function Options(event)
 	backtoMain.name = "BacktoMain"
 
 	-- Add Sound button
-	soundOptions = display.newImage("graphics/sound.png", 0, 0, true)
+	--soundOptions = display.newImage("graphics/sound.png", 0, 0, true)
 
 	-- Assign name for runtime functions
-	soundOptions.name = "soundOptions"
+	--soundOptions.name = "soundOptions"
 	
 	-- Main menu button fixed location and scaled
 	backtoMain.x = 350
@@ -281,7 +281,6 @@ function buttonPressed(event)
 			--optionsGroup:remove(soundOptions)
 			optionsGroup:remove(optionText)
 		end
-		gameData.gameEnd = true
 		gameData.menuOn = true
 
 		-------------------------------------
@@ -327,11 +326,8 @@ function buttonPressed(event)
 				
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)
-		
-		gui.front:removeSelf()
-		gui.back:removeSelf()
-		physics.stop()
 
+		gameData.gameEnd = true
 		gameData.menuOn = true
 
 	---------------------------------------

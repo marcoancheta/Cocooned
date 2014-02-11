@@ -11,8 +11,8 @@ local inventoryInstance = {
 }
 
 function inventoryInstance:addItem(item)
-	self.items[1] = item
-	print(#self.items)
+	self.items[self.size] = item.name
+	print("add inventory", #self.items, item.name)
 	self.size = self.size + 1
 end
 
