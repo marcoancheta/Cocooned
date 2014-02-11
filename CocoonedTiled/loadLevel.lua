@@ -27,7 +27,7 @@ function createLevel(mapData, ball, player, moveObj)
 	print("loadMap", mapData.pane)
 
 	-- Load in map
-	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
+	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
 
 	moveObj.createMoveableObjects(map)
 

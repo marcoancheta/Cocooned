@@ -243,6 +243,8 @@ function buttonPressed(event)
 		gameData.selectLevel = true
 		--gameData.gameStart = true
 		gameData.inGameOptions = false
+
+		
 	
 	--------------------------------
 	--[[ Options button pressed ]]--
@@ -279,7 +281,7 @@ function buttonPressed(event)
 			--optionsGroup:remove(soundOptions)
 			optionsGroup:remove(optionText)
 		end
-		
+		gameData.gameEnd = true
 		gameData.menuOn = true
 
 		-------------------------------------
