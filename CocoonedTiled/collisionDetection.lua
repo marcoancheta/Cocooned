@@ -6,18 +6,42 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+-- Particle Emitter
+--------------------------------------------------------------------------------
+local emitter = require("particleEmitter")
+
+--Base emitter props
+local radiusRange = 100
+
+local duration = 1200 --800
+local startAlpha = 1
+local endAlpha = 0
+local pImage = nil
+local pImageWidth = nil
+local pImageHeight = nil
+local emitterDensity = 5
+
+--Mortar props
+local particleSpeed = 200
+local particleEmitterDensity = 5
+local particleRadiusRange = 100
+local particleThickness = 4
+local particleEmitter = emitterLib:createEmitter(radiusRange, particleThickness, duration, startAlpha, endAlpha, pImage, pImageWidth, pImageHeight)
+
 
 
 --------------------------------------------------------------------------------
 -- Collision Detection Mechanic
 --------------------------------------------------------------------------------
-function createCollisionDetection(imageObject, player, mapData, map) 
+function createCollisionDetection(imageObject, player, mapData, map, gui, physics) 
 
 
   -- function for pre collision detection
   function imageObject:preCollision( event )
  
    local collideObject = event.other
+   local targetObject = event.target
    if collideObject.collType == "passThru" then
       local col = require("Objects." .. collideObject.func)
       col.collide(collideObject, player, event, mapData, map)
@@ -33,6 +57,7 @@ function createCollisionDetection(imageObject, player, mapData, map)
   --function for collision detection
   function onLocalCollision( self, event )
     local collideObject = event.other
+    local targetObject = event.target
     if ( event.phase == "began" ) then
       -- debug print once collision began           
       --print( "began: " .. collideObject.name)
@@ -41,11 +66,18 @@ function createCollisionDetection(imageObject, player, mapData, map)
         local col = require("Objects." .. collideObject.func)
         col.collide(collideObject, player, event, mapData)
       end
+
+
       
+      -- create particle effect
+      if collideObject.collType == "wall" then
+        timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
+      end
+
     elseif ( event.phase == "ended" ) then
       --debug pring once collision ended
       --print( "ended: ")
-   
+        
     end
   end
 
@@ -56,11 +88,19 @@ function createCollisionDetection(imageObject, player, mapData, map)
 
 end
 
-function changeCollision(imageObject, player, mapData, map) 
+function emitParticles(collideObject, targetObject, gui, physics)
+  local midX = ( targetObject.x + collideObject.x ) * 0.5
+  local midY = ( targetObject.y + collideObject.y ) * 0.5
+   for i=1,particleEmitterDensity do
+    particleEmitter:emit(gui, midX-20, midY, physics)
+  end
+end
+
+function changeCollision(imageObject, player, mapData, map, gui, physics) 
   imageObject:removeEventListener("collision" , imageObject)
   imageObject:removeEventListener("preCollision")
 
-  createCollisionDetection(imageObject, player, mapData, map)
+  createCollisionDetection(imageObject, player, mapData, map, gui, physics)
 end
 
 function destroyCollision(imageObject)

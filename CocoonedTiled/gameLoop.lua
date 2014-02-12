@@ -90,7 +90,7 @@ function loadMap()
 	ball.linearDamping = 4
 
 	-- Load in map
-	gui, miniMap = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
+	gui = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
 	
 end
 
@@ -151,7 +151,7 @@ local function swipeMechanics(event)
 		map.layer["tiles"]:insert(ball)
 		
 		-- Reassign game mechanic listeners
-		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1])
+		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1], gui.front, physics)
 	end
 end
 
@@ -199,7 +199,7 @@ local function gameLoop(event)
 		print("Game Start!")
 	
 		-- Start mechanics
-		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1])
+		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1], gui.front, physics)
 		Runtime:addEventListener("enterFrame", speedUp)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		gui.back:addEventListener("touch", swipeMechanics)
@@ -236,8 +236,12 @@ local function gameLoop(event)
 		ball = nil
 		display.remove(gui)
 		gui = nil
-		miniMap:removeSelf()
-		miniMap = nil
+
+		--for i=1, 7 do
+		--display.remove(miniMap[i])
+		--end
+		--miniMap:removeSelf()
+		--miniMap = nil
 
 		-- destroy player instance
 		player1:destroy()
@@ -384,7 +388,7 @@ Runtime:addEventListener("enterFrame", menuLoop)
 local prevTextMem = 0
 local prevMemCount = 0
 local monitorMem = function()
-collectgarbage()
+collectgarbage("collect")
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then

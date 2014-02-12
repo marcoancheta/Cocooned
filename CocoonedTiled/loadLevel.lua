@@ -41,15 +41,17 @@ function createLevel(mapData, ball, player, moveObj)
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 
 	-- create miniMap for level
-	local miniMapDisplay = miniMap.createMiniMap(mapData, player)
+	local miniMapDisplay = miniMap.createMiniMap(mapData, player, map)
 	miniMapDisplay.name = "miniMapName"
+
+	miniMapDisplay:removeSelf()
 
 	-- Add objects to its proper groups
 	gui.back:insert(1, map)
 	map:insert(ball)
 	map.layer["tiles"]:insert(ball)
 
-	return gui, miniMapDisplay
+	return gui --, miniMapDisplay
 end
 
 
