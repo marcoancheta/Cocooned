@@ -13,6 +13,8 @@ local physics = require("physics")
 local animation = require("animation")
 local dusk = require("Dusk.Dusk")
 local gameData = require("gameData")
+local objects = require("objects")
+local goals = require("goals")
 
 local selectLevel = {
 	levelNum = 0,
@@ -39,9 +41,7 @@ local trackInvisibleBoat = false
 local allowPlay = true
 
 
-
 local function stopAnimation(event)
-	print("4")
 	player:setSequence("still")
 	player:play()
 	allowPlay = true
@@ -49,7 +49,6 @@ end
 
 -- Quick function to make all buttons uniform
 local function newButton(parent) 
-	print("3")
 	local butt = display.newRoundedRect(parent, 0, 0, 60, 60, 10) 
 	      butt:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862) 
 		  butt:setStrokeColor(1, 1, 1)
@@ -59,7 +58,6 @@ end
 
 -- Point in rect, using Corona objects rather than a list of coordinates
 local function pointInRect(point, rect) 
-	print("2")
 	return (point.x <= rect.contentBounds.xMax) and 
 		   (point.x >= rect.contentBounds.xMin) and 
 		   (point.y <= rect.contentBounds.yMax) and 
@@ -101,7 +99,6 @@ end
 
 -- Select Level Loop
 local function selectLoop(event)
-	print("hello")
 
 	-- Start physics
 	physics.start()
@@ -180,23 +177,23 @@ local function selectLoop(event)
 	-- Level numbers' position
 	textPos = {
 		--      X,         Y,
-		[1] = 150,   [2] = 105,  -- T
-		[3] = 420,  [4] = 105,  -- 1
-		[5] = 690,  [6] = 105,  -- 2
-		[7] = 960,  [8] = 105,  -- 3
-		[9] = 1225, [10] = 105, -- 4
-		[11] = 420, [12] = 320, -- 5
-		[13] = 690, [14] = 320, -- 6
-		[15] = 960, [16] = 320, -- 7
-		[17] = 1225, [18] = 320, -- 8
-		[19] = 420, [20] = 535,  -- 9
-		[21] = 690, [22] = 535, -- 10
-		[23] = 960, [24] = 535,  -- 11
-		[25] = 1225, [26] = 535,  -- 12
-		[27] = 420, [28] = 750,  -- 13
-		[29] = 690, [30] = 750,  -- 14
-		[31] = 960, [32] = 750,  -- 15
-		[33] = 1225, [34] = 750,  -- 16
+		[1] = 150,   [2] = 205,  -- T
+		[3] = 420,  [4] = 205,  -- 1
+		[5] = 690,  [6] = 205,  -- 2
+		[7] = 960,  [8] = 205,  -- 3
+		[9] = 1225, [10] = 205, -- 4
+		[11] = 420, [12] = 420, -- 5
+		[13] = 690, [14] = 420, -- 6
+		[15] = 960, [16] = 420, -- 7
+		[17] = 1225, [18] = 420, -- 8
+		[19] = 420, [20] = 635,  -- 9
+		[21] = 690, [22] = 635, -- 10
+		[23] = 960, [24] = 635,  -- 11
+		[25] = 1225, [26] = 635,  -- 12
+		[27] = 420, [28] = 850,  -- 13
+		[29] = 690, [30] = 850,  -- 14
+		[31] = 960, [32] = 850,  -- 15
+		[33] = 1225, [34] = 850,  -- 16
 	}
 		
 	for i=1, #lvlNumber do
@@ -231,7 +228,6 @@ local function selectLoop(event)
 	
 	-- Add physics
 	physics.addBody(player, "static", {radius = 0.1}) -- to player
-	print("Added cameraTRK to physics")
 	physics.addBody(cameraTRK, "dynamic", {radius = 0.1}) -- to invisible camera
 	
 	-- Turn off collision for invisible camera
@@ -272,14 +268,13 @@ end
 
 -- When player tap's levels once:
 function tapOnce(event)
-	print("5")
 
 	-- kCircles button detection
 	for i=1, #kCircle do
 		if event.target.name == kCircle[i].name then
 			trackPlayer = true
 			if event.numTaps == 1 and kCircle[i].isAwake then
-			
+								
 				selectLevel.levelNum = kCircle[i].name
 				allowPlay = false
 				-- Move kipcha to the selected circle
@@ -289,6 +284,8 @@ function tapOnce(event)
 				player:play()
 			
 				kCircle[i]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
+					
+				objects.transfer(selectLevel, lvlNumber)
 					
 				-- Send signal to refresh sent mapData
 				gameData.inLevelSelector = true
@@ -305,6 +302,7 @@ function tapOnce(event)
 	-- dPad Button detection
 	if event.target.name == dPad.l.name or dPad.r.name or dPad.u.name or dPad.d.name then
 		if event.target.isFocus or "began" == event.phase then
+			goals.destroyGoals()
 			dPad.prevResult = dPad.result
 			-- Set result according to where touch is
 					if pointInRect(event, dPad.l) then dPad.result = "l"
@@ -315,7 +313,7 @@ function tapOnce(event)
 		end
 
 		-- Just a generic touch listener
-		if "began" == event.phase then	
+		if "began" == event.phase then
 			display.getCurrentStage():setFocus(event.target)
 			event.target.isFocus = true
 			trackPlayer = false
@@ -351,10 +349,9 @@ function tapOnce(event)
 		-- If player taps silhouette kipcha, start game
 		if event.target.name == silKipcha.name then
 
---------------------------------------------------------------------------------
--- remove all objects
---------------------------------------------------------------------------------
-					
+			------------------------------------------------------------
+			-- remove all objects
+			------------------------------------------------------------
 			trackPlayer = true
 			trackInvisibleBoat = false
 
@@ -395,6 +392,8 @@ function tapOnce(event)
 			
 			-- Send data to start game
 			gameData.gameStart = true
+			
+			goals.destroyGoals()
 		end
 	end
 		

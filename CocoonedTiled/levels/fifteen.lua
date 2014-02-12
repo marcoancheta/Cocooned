@@ -9,9 +9,10 @@
 local gameData = require("gameData")
 
 local fifteen = { }
+local count = 0
 
 local function coinMachine(coins, rune)
-	-- Do the same for coins
+	-- Position coins
 	for i=1, #coins do
 		coins[i].x, coins[i].y = map.tilesToPixels(i*3, 7)
 		map.layer["tiles"]:insert(coins[i])
@@ -58,6 +59,10 @@ local function load(pane, map, rune, coins)
 		end
 		
 	end
+end
+
+local function store(rune, coins)
+	
 end
 
 fifteen.load = load
