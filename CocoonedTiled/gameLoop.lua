@@ -65,19 +65,12 @@ local mapData = {
 local player1 = player.create()
 local player2 = player.create()
 
--- Player print testing
---[[
-	print("player1 name =", player1.name)
-	print("player1 color =", player1.color)
-	print("player2 name =", player1.name)
-	print("player2 color =", player1.color)
-]]--
 
 --------------------------------------------------------------------------------
 -- Load Map
 --------------------------------------------------------------------------------
 function loadMap()
-
+	physics.setScale(45)
 	system.setAccelerometerInterval(60)
 	-- Create player sprite sheet
 	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
@@ -88,11 +81,12 @@ function loadMap()
 	ball = player1.imageObject
 	ball.name = "player"
 	ball:setSequence("move")
-	--ball:play()
 	
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
-	ball.linearDamping = 4
+	physics.setGravity(0,0)
+	ball.linearDamping = 1
+	ball.density = 1
 
 	-- Load in map
 	gui, miniMap = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
@@ -113,9 +107,6 @@ local function controlMovement(event)
 		physicsParam = movementMechanic.onAccelerate(event)
 		player1.xGrav = physicsParam.xGrav
 		player1.yGrav = physicsParam.yGrav
-		--update player(rotation and animation)
-		--move to animation.lua or player.lua?		
-		physics.setGravity(0,0)
 	end
 	
 end
@@ -373,7 +364,6 @@ collectgarbage()
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		print( "MemUsage: " .. memCount)
 		prevMemCount = memCount
 	end
 	
@@ -381,7 +371,6 @@ local memCount = collectgarbage("count")
 	
 	if (prevTextMem ~= textMem) then
 		prevTextMem = textMem
-		print( "TexMem: " .. textMem )
 	end
 	
 	-- Display fps
