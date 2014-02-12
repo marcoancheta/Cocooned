@@ -62,29 +62,24 @@ function objects:init()
 	rune[5].name = "yellowRune"
 	
 	-- Load Coins
-	coinSheet = graphics.newImageSheet("mapdata/art/coins.png", 
+	local coinSheet = graphics.newImageSheet("mapdata/art/coins.png", 
 				 {width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
 	
 	coins = { }
 			
-	for i=1, 20 do	
+	for i=1, 5 do	
 	   coins[i] = display.newSprite(coinSheet, spriteOptions.coin)
 	   coins[i].speed = 50
 	   coins[i].isVisible = false
 	   coins[i].isBodyActive = true
 	   coins[i].name = "coin" .. i
-	   if gameData.gameStart then
-			coins[i].collision = onLocalCollision
-	   end
+	   coins[i].collision = onLocalCollision
 	end
 	
 	-- Attach collision event to object
 	-- Disable visibility
 	for i=1, #rune do
-		if gameData.gameStart then
-			print("PIMP2")
-			rune[i].collision = onLocalCollision
-		end
+		rune[i].collision = onLocalCollision
 		rune[i].isVisible = false
 		rune[i].isBodyActive = true
 	end
@@ -141,10 +136,29 @@ local function main(mapData, map)
 	end
 end
 
+
+--------------------------------------------------------------------------------
+-- Object Clean Up
+--------------------------------------------------------------------------------
+local function destroy()
+	for i=0, #rune do
+		display.remove(rune[i])
+		rune[i] = nil
+	end
+	
+	for i=0, #coins do
+		display.remove(coins[i])
+		coins[i] = nil
+	end
+	
+end
+
 --------------------------------------------------------------------------------
 -- Object Main - for levelSelector
 --------------------------------------------------------------------------------
+--[[
 local function transfer(mapData, lvlNumber)
+	destroy()
 	objects.init()
 	
 	-- Check levelNum then redirect
@@ -154,27 +168,10 @@ local function transfer(mapData, lvlNumber)
 		end
 	end
 end
-
-
---------------------------------------------------------------------------------
--- Object Clean Up
---------------------------------------------------------------------------------
-local function destroy()
-	if gameData.gameEnd or gameData.gameStart then
-		for i=0, #rune do
-			display.remove(rune[i])
-			rune[i] = nil
-		end
-		
-		for i=0, #coins do
-			display.remove(coins[i])
-			coins[i] = nil
-		end
-	end
-end
+]]--
 
 objects.main = main
-objects.transfer = transfer
+--objects.transfer = transfer
 objects.destroy = destroy
 
 return objects

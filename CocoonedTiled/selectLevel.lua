@@ -268,7 +268,8 @@ end
 
 -- When player tap's levels once:
 function tapOnce(event)
-
+	goals.refresh()
+	
 	-- kCircles button detection
 	for i=1, #kCircle do
 		if event.target.name == kCircle[i].name then
@@ -285,7 +286,7 @@ function tapOnce(event)
 			
 				kCircle[i]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 					
-				objects.transfer(selectLevel, lvlNumber)
+				goals.findGoals(selectLevel)
 					
 				-- Send signal to refresh sent mapData
 				gameData.inLevelSelector = true
@@ -302,7 +303,6 @@ function tapOnce(event)
 	-- dPad Button detection
 	if event.target.name == dPad.l.name or dPad.r.name or dPad.u.name or dPad.d.name then
 		if event.target.isFocus or "began" == event.phase then
-			goals.destroyGoals()
 			dPad.prevResult = dPad.result
 			-- Set result according to where touch is
 					if pointInRect(event, dPad.l) then dPad.result = "l"
@@ -352,6 +352,9 @@ function tapOnce(event)
 			------------------------------------------------------------
 			-- remove all objects
 			------------------------------------------------------------
+			-- Destroy goals map
+			goals.destroyGoals()
+			
 			trackPlayer = true
 			trackInvisibleBoat = false
 
@@ -392,8 +395,6 @@ function tapOnce(event)
 			
 			-- Send data to start game
 			gameData.gameStart = true
-			
-			goals.destroyGoals()
 		end
 	end
 		

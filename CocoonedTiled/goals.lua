@@ -12,7 +12,7 @@ local goals = {}
 -- Local variables
 ---------------------
 local gNum = 1
-local goalBox, textBox, box, coin, goalie
+local goalBox, textBox, box, coin
 local textObject = {}
 local bSet
 
@@ -65,16 +65,40 @@ local function drawGoals(text, rune, coins)
 		goalie:insert(rune[i])
 		rune[i].isSensor = true
 	end
-	goalie:insert(coins[1])
+	goalie:insert(coins)
 	goalie:insert(coin)
 	goalie:toFront()
 end
 
-local function findGoals(mapData, rune, coins)
+local function findGoals(mapData)
 	
 	local xCoord = 220
 	local temp = mapData.levelNum
+		
+	-- Load runes
+	local rune = {
+		[1] = display.newImage("mapdata/Items/blueRune.png"),
+		[2] = display.newImage("mapdata/Items/greenRune.png"),
+		[3] = display.newImage("mapdata/Items/pinkRune.png"),
+		[4] = display.newImage("mapdata/Items/purpleRune.png"),
+		[5] = display.newImage("mapdata/Items/yellowRune.png")
+	}
+	
 	local runeAMT = #rune
+	
+	-- Disable visibility
+	for i=1, #rune do
+		rune[i].isVisible = false
+		rune[i].isBodyActive = true
+	end
+	
+	-- Load Coins
+	local coinSheet = graphics.newImageSheet("mapdata/art/coins.png", 
+				 {width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
+	
+	coins = display.newSprite(coinSheet, spriteOptions.coin)
+	coins.speed = 50
+	coins.isVisible = false
 	
 	local text = {
 		[1] = {
@@ -102,51 +126,46 @@ local function findGoals(mapData, rune, coins)
 
 	-- Position and draw
 	for i=1, runeAMT do
-		if i == 1 then
-			coins[1].x = 220
-			coins[1].y = 350
-			coins[1].isVisible = true
-			coins[1].isSensor = true
-			coins[1]:setSequence("move")
-			coins[1]:play()
-			coin = display.newText("x" .. runeAMT*5, coins[1].x + 70, coins[1].y, nativeSystemfont, 50)
-			coin:setFillColor(0,0,0)
-		end
-		
 		rune[i].x = xCoord
 		rune[i].y = 220
 		rune[i]:scale(0.8, 0.8)
 		rune[i].isVisible = true
-		rune[i].isSensor = false
+		rune[i].isSensor = true
 		xCoord = xCoord + 50
 	end
+	
+	coins.x = 220
+	coins.y = 350
+	coins.isVisible = true
+	coins.isSensor = true
+	coins:setSequence("move")
+	coins:play()
+	coin = display.newText("x" .. runeAMT*5, coins.x + 70, coins.y, nativeSystemfont, 50)
+	coin:setFillColor(0,0,0)
 					
 	drawGoals(text, rune, coins)
 end
 
-local function destroyGoals()
-	
-	if goalie then	
-		goalie:removeSelf()
-		goalie = display.newGroup()
-	end
-
-	if gameData.gameStart then
-		print("Destroyed goalie")
+local function refresh()
+	if goalie then
 		goalie:removeSelf()
 		goalie = nil
-		display.remove(coin)
-		goalBox, textBox, box, coin = nil
-		display.remove(textObject)
-		textObject = nil
-		display.remove(rune)
-		rune = nil
-		display.remove(coins)
-		coins = nil
+		goalie = display.newGroup()
 	end
 end
 
+local function destroyGoals()
+	print("Destroyed goalie")
+	goalBox, textBox, box, coin = nil
+	textObject = nil
+	rune = nil
+	coins = nil
+	goalie:removeSelf()
+	goalie = nil
+end
+
 goals.findGoals = findGoals
+goals.refresh = refresh
 goals.destroyGoals = destroyGoals
 
 return goals
