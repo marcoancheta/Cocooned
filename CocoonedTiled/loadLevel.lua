@@ -7,6 +7,7 @@
 
 local dusk = require("Dusk.Dusk")
 local miniMap = require("miniMap")
+local objects = require("objects")
 
 --------------------------------------------------------------------------------
 -- Load level on startup
@@ -48,7 +49,8 @@ function createLevel(mapData, ball, player, moveObj)
 	gui.back:insert(1, map)
 	map:insert(ball)
 	map.layer["tiles"]:insert(ball)
-
+	objects.main(mapData, map)
+	
 	return gui, miniMapDisplay
 end
 

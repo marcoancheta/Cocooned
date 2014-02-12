@@ -29,6 +29,8 @@ local menu = require("menu")
 local sound = require("sound")
 -- Player variables/files (player.lua)
 local player = require("player")
+-- Object variables/files (objects.lua)
+local objects = require("objects")
 -- Save/Load Game Data Functions
 local save = require("GGData")
 
@@ -152,6 +154,7 @@ local function swipeMechanics(event)
 		-- insert objects onto map layer
 		gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
+		objects.main(mapData, map)
 		
 		-- Reassign game mechanic listeners
 		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1])
@@ -246,6 +249,9 @@ local function gameLoop(event)
 		player1:destroy()
 		player1 = nil
 		playerSheet = nil
+		
+		-- call objects-destroy
+		objects.destroy()
 
 		-- stop physics
 		physics.stop()
