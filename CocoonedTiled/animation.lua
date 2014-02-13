@@ -13,6 +13,10 @@ spriteOptions = { -- Sprite options for player and finish star
 		coin = {
 			{frames = {4,3,2,1}, name = "move", time = 500},
 			{frames = {1}, name = "still", time = 250}
+		},
+		paneSwitch = {
+			{frames = {6,5,4,3,2,1}, name = "move", time = 500},
+			{frames = {1}, name = "still", time = 250}
 		}
 		--TODO: add option for wolf
 }

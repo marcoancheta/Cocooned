@@ -28,29 +28,23 @@ function createLevel(mapData, ball, player, moveObj)
 	gui:insert(gui.back)
 	gui:insert(gui.front)
 
-<<<<<<< HEAD
-	print("loadMap", mapData.pane)
-=======
 	print("loadMap", mapData.levelNum)
 
->>>>>>> 900144df3125bf939058395c6e9f5634e0db5572
 	-- Load in map
 	timer.performWithDelay(300, myClosure)-- gui groups and subgroups added
 	
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
 	
 
-<<<<<<< HEAD
 	timer.performWithDelay(400, myClosure) --map built
 	
-=======
 	for i=1, map.layer["tiles"].numChildren do
 		if map.layer["tiles"][i].name == "water" then
 			print("has water: ", i)
 		end
 	end
 
->>>>>>> 900144df3125bf939058395c6e9f5634e0db5572
+
 	moveObj.createMoveableObjects(map)
 	timer.performWithDelay(500, myClosure) --objects moved
 	
@@ -61,10 +55,8 @@ function createLevel(mapData, ball, player, moveObj)
 	end
 	-- set players location
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
-<<<<<<< HEAD
 	timer.performWithDelay(600, myClosure)--players location set
 	
-=======
 
 	print("loading", map.layer["tiles"].numChildren)
 
@@ -72,29 +64,22 @@ function createLevel(mapData, ball, player, moveObj)
 
 	print("loading done", map.layer["tiles"].numChildren)
 
->>>>>>> 900144df3125bf939058395c6e9f5634e0db5572
 	-- create miniMap for level
 	local miniMapDisplay = miniMap.createMiniMap(mapData, player, map)
 	miniMapDisplay.name = "miniMapName"
-<<<<<<< HEAD
 	timer.performWithDelay(700, myClosure) --minimap created
 	
-=======
 
 	--miniMapDisplay:removeSelf()
 
->>>>>>> 900144df3125bf939058395c6e9f5634e0db5572
 	-- Add objects to its proper groups
 	gui.back:insert(1, map)
 	map:insert(ball)
 	map.layer["tiles"]:insert(ball)
-<<<<<<< HEAD
 	objects.main(mapData, map)
 	timer.performWithDelay(800, myClosure)--added groups
 	timer.performWithDelay(1800, loading.deleteLoading)
-=======
 
->>>>>>> 900144df3125bf939058395c6e9f5634e0db5572
 	return gui, miniMapDisplay
 
 end

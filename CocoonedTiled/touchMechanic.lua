@@ -46,6 +46,17 @@ function swipeScreen(event, mapData, player, miniMap)
 
 	local swipeDirection
 
+	-- Load Ball shrinking animation
+	local switchPanesSheet = graphics.newImageSheet("mapdata/art/switchPanesSheet.png", 
+				 {width = 72, height = 72, sheetContentWidth = 792, sheetContentHeight = 72, numFrames = 6})
+		
+	paneSwitch = display.newSprite(switchPanesSheet, spriteOptions.paneSwitch)
+	paneSwitch.speed = 5
+	paneSwitch.isVisible = false
+	paneSwitch.isBodyActive = true
+    --coins[i].name = "coin" .. i
+    paneSwitch.collision = onLocalCollision
+
 	--miniMapMechanic.updateMiniMap(mapData, miniMap, swipeX, swipeY)
 
 	-- if event touch is ended, check which way was swiped 
@@ -54,66 +65,84 @@ function swipeScreen(event, mapData, player, miniMap)
 
 		if mapData.pane == "M" then
 			if event.xStart > event.x and swipeLength > swipeLengthY and swipeLength > 150 then
+				paneSwitch:play()
 				mapData.pane = "L"
 				swipeDirection = "L"
 			elseif event.xStart < event.x and swipeLength > swipeLengthY and swipeLength > 150 then
+				paneSwitch:play()
 				mapData.pane = "R"
 				swipeDirection = "R"
 			elseif event.yStart > event.y and swipeLength < swipeLengthY and swipeLengthY > 150 then
+				paneSwitch:play()
 				mapData.pane = "D"
 				swipeDirection = "D"
 			elseif event.yStart < event.y and swipeLength < swipeLengthY and swipeLengthY > 150 then
+				paneSwitch:play()
 				mapData.pane = "U"
 				swipeDirection = "U"
 			end
 		elseif mapData.pane == "L" then
 			if event.xStart < event.x and swipeLength > swipeLengthY and swipeLengthY < 150 then
+				paneSwitch:play()
 				mapData.pane = "M"
 				swipeDirection = "R"
 			elseif swipeLength > 150 and swipeLengthY > 150 and swipeX > 0 then
 				if event.yStart > event.y then
+					paneSwitch:play()
 					mapData.pane = "D"
 					swipeDirection = "DR"
 				elseif event.yStart < event.y then
+					paneSwitch:play()
 					mapData.pane = "U"
 					swipeDirection = "UR"
 				end
 			end
 		elseif mapData.pane == "R" then
 			if event.xStart > event.x and swipeLength > swipeLengthY and swipeLengthY < 150 then
+				paneSwitch:play()
 				mapData.pane = "M"
 				swipeDirection = "L"
 			elseif swipeLength > 150 and swipeLengthY > 150 and swipeX < 0 then
+				paneSwitch:play()
 				if event.yStart > event.y then
+					paneSwitch:play()
 					mapData.pane = "D"
 					swipeDirection = "DL"
 				elseif event.yStart < event.y then
+					paneSwitch:play()
 					mapData.pane = "U"
 					swipeDirection = "UL"
 				end
 			end
 		elseif mapData.pane == "U" then
 			if event.yStart > event.y and swipeLength < swipeLengthY and swipeLength < 150 then
+				paneSwitch:play()
 				mapData.pane = "M"
 				swipeDirection = "D"
 			elseif swipeLengthY > 150 and swipeLength > 150 and swipeY < 0 then
+				paneSwitch:play()
 				if event.xStart < event.x then
+					paneSwitch:play()
 					mapData.pane = "R"
 					swipeDirection = "DR"
 				elseif event.xStart > event.x then
+					paneSwitch:play()
 					mapData.pane = "L"
 					swipeDirection = "DL"
 				end
 			end
 		elseif mapData.pane == "D" then
 			if event.yStart < event.y and swipeLength < swipeLengthY and swipeLength < 150 then
+				paneSwitch:play()
 				mapData.pane = "M"
 				swipeDirection = "U"
 			elseif swipeLengthY > 150 and swipeLength > 150 and swipeY > 0 then
 				if event.xStart < event.x then
+					paneSwitch:play()
 					mapData.pane = "R"
 					swipeDirection = "UR"
 				elseif event.xStart > event.x then
+					paneSwitch:play()
 					mapData.pane = "L"
 					swipeDirection = "UL"
 				end
