@@ -4,7 +4,7 @@ local loadBar = nil
 local loadText = nil
 
 function loadingInit(loadGroup)
-	loadingBG = display.newImage('mapdata/art/bg2.jpg',0,0,true )
+	loadingBG = display.newImage('mapdata/art/bg2.jpg', 10, 20,true )
 	--add text
 
 	--add 6 icewalls right next to each other then hide all

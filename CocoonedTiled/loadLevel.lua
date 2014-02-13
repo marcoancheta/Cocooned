@@ -34,7 +34,7 @@ function createLevel(mapData, ball, player, moveObj)
 	timer.performWithDelay(300, myClosure)-- gui groups and subgroups added
 	
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
-	
+	objects.main(mapData, map)
 
 	timer.performWithDelay(400, myClosure) --map built
 	
@@ -43,7 +43,6 @@ function createLevel(mapData, ball, player, moveObj)
 			print("has water: ", i)
 		end
 	end
-
 
 	moveObj.createMoveableObjects(map)
 	timer.performWithDelay(500, myClosure) --objects moved
@@ -55,18 +54,13 @@ function createLevel(mapData, ball, player, moveObj)
 	end
 	-- set players location
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
+
 	timer.performWithDelay(600, myClosure)--players location set
-	
-
-	print("loading", map.layer["tiles"].numChildren)
-
-	objects.main(mapData, map)
-
-	print("loading done", map.layer["tiles"].numChildren)
 
 	-- create miniMap for level
 	local miniMapDisplay = miniMap.createMiniMap(mapData, player, map)
 	miniMapDisplay.name = "miniMapName"
+
 	timer.performWithDelay(700, myClosure) --minimap created
 	
 
@@ -77,6 +71,7 @@ function createLevel(mapData, ball, player, moveObj)
 	map:insert(ball)
 	map.layer["tiles"]:insert(ball)
 	objects.main(mapData, map)
+
 	timer.performWithDelay(800, myClosure)--added groups
 	timer.performWithDelay(1800, loading.deleteLoading)
 
@@ -91,12 +86,13 @@ function changePane(mapData, player, moveObj)
 
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
+	objects.main(mapData, map)
 
 	-- load 
-	moveObj.createMoveableObjects(map)
+	--moveObj.createMoveableObjects(map)
 
 	-- if an item was previously taken, remove it from map
-	if tonumber(map.itemSize) > 0 and #player.inventory.items > 0 then
+	if #player.inventory.items > 0 then
 		-- check for N number of items on map if they were taken
 		print("remove items")
 		for count = 1, #player.inventory.items do
@@ -111,21 +107,11 @@ function changePane(mapData, player, moveObj)
 			end
 			if removeItem > 0 then
 				-- remove that item
+				print("removed: ", map.layer["tiles"][removeItem].name)
 				map.layer["tiles"]:remove(removeItem)
 			end
 		end
 	end
-
-	for check = 1, map.layer["tiles"].numChildren do
-		if map.layer["tiles"][check].name == "greenTotem" then
-			map.layer["tiles"][check]:scale(2.0,2.0)
-			map.layer["tiles"][check].xScale = 1
-			map.layer["tiles"][check].yScale = 1
-		end
-	end
-
-
-
 	-- return new pane
 	return map
 end
