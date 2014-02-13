@@ -27,6 +27,7 @@ local function generateEnergy(energy, map, startIndex, endIndex)
 		map.layer["tiles"]:insert(energy[i])
 		energy[i]:setSequence("move")
 		energy[i]:play()
+		physics.addBody(energy[i], "static", {bounce=0})
 		count = count + 1
 	end
 end
@@ -45,6 +46,7 @@ local function load(pane, map, rune, objectList, sheetList)
 	
 	-- Check which pane
 	if pane == "M" then
+		print("createRune")
 		-- Assign rune coordinates
 		rune[1].x, rune[1].y = map.tilesToPixels(20, 9)			
 		-- Insert blueRune to map
@@ -56,7 +58,7 @@ local function load(pane, map, rune, objectList, sheetList)
 			print("create pane M")
 	   		energy[i] = display.newSprite(sheetList[1], spriteOptions.energy)
 	   		energy[i].x, energy[i].y = map.tilesToPixels(i*3, 7)
-	   		physics.addBody(energy[i], "static", {bounce=0})
+	   		
 		end
 		generateEnergy(energy, map, 1, 10)
 	

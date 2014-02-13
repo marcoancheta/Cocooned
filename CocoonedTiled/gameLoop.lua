@@ -264,7 +264,42 @@ local function gameLoop(event)
 		if gameData.menuOn ~= true then
 			gameData.selectLevel = true
 		end
-	end
+		elseif gameData.levelRestart == true then
+			-- remove all eventListeners
+			gui.back:removeEventListener("touch", swipeMechanics)
+			gui.back:removeEventListener("tap", tapMechanic)
+			Runtime:removeEventListener("accelerometer", controlMovement)
+			Runtime:removeEventListener("enterFrame", speedUp)
+			collisionDetection.destroyCollision(ball)
+
+			-- destroy and remove all data
+			map.destroy()
+			map = nil
+			ball:removeSelf()
+			ball = nil
+			display.remove(gui)
+			gui = nil
+
+			--for i=1, 7 do
+			--display.remove(miniMap[i])
+			--end
+			miniMap:removeSelf()
+			miniMap = nil
+
+			-- destroy player instance
+			player1:destroy()
+			player1 = nil
+			playerSheet = nil
+			
+			-- call objects-destroy
+			objects.destroy()		
+
+			-- stop physics
+			physics.stop()
+			gameData.levelRestart = false
+			gameData.gameStart = true
+			mapData.pane = 'M'
+		end
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--

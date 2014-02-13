@@ -8,48 +8,53 @@
 local dusk = require("Dusk.Dusk")
 local miniMap = require("miniMap")
 local objects = require("objects")
+local loading = require("loadingScreen")
+local loaded = 0
 
 --------------------------------------------------------------------------------
 -- Load level on startup
 --------------------------------------------------------------------------------
+
+local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 function createLevel(mapData, ball, player, moveObj)
 
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
-	
 	-- Create GUI subgroups
 	gui.front = display.newGroup()
 	gui.back = display.newGroup()
-		
+	loading.loadingInit()
 	-- Add subgroups into main GUI group
 	gui:insert(gui.back)
 	gui:insert(gui.front)
 
-	print("loadMap", mapData.pane)
-
 	-- Load in map
+	timer.performWithDelay(300, myClosure)-- gui groups and subgroups added
+	
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
+	objects.main(mapData, map)
+
+	timer.performWithDelay(400, myClosure) --map built
 
 	moveObj.createMoveableObjects(map)
-
+	timer.performWithDelay(500, myClosure) --objects moved
+	
 	if map.tutorial == true then
 		require("tutorial")
 		resetTutorial()
 		printTutorial()
 	end
-
 	-- set players location
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 
-	print("loading", map.layer["tiles"].numChildren)
-
-	objects.main(mapData, map)
-
-	print("loading done", map.layer["tiles"].numChildren)
+	timer.performWithDelay(600, myClosure)--players location set
 
 	-- create miniMap for level
 	local miniMapDisplay = miniMap.createMiniMap(mapData, player, map)
 	miniMapDisplay.name = "miniMapName"
+
+	timer.performWithDelay(700, myClosure) --minimap created
+	
 
 	--miniMapDisplay:removeSelf()
 
@@ -58,10 +63,12 @@ function createLevel(mapData, ball, player, moveObj)
 	map:insert(ball)
 	map.layer["tiles"]:insert(ball)
 
+	timer.performWithDelay(800, myClosure)--added groups
+	timer.performWithDelay(1800, loading.deleteLoading)
+
 	return gui, miniMapDisplay
 
 end
-
 
 --------------------------------------------------------------------------------
 -- update pane for level
