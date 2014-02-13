@@ -8,52 +8,61 @@
 local dusk = require("Dusk.Dusk")
 local miniMap = require("miniMap")
 local objects = require("objects")
+local loading = require("loadingScreen")
+local loaded = 0
 
 --------------------------------------------------------------------------------
 -- Load level on startup
 --------------------------------------------------------------------------------
+
+local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 function createLevel(mapData, ball, player, moveObj)
 
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
-	
 	-- Create GUI subgroups
 	gui.front = display.newGroup()
 	gui.back = display.newGroup()
-		
+	loading.loadingInit()
 	-- Add subgroups into main GUI group
 	gui:insert(gui.back)
 	gui:insert(gui.front)
 
 	print("loadMap", mapData.pane)
-
 	-- Load in map
+	timer.performWithDelay(300, myClosure)-- gui groups and subgroups added
+	
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
+	
 
+	timer.performWithDelay(400, myClosure) --map built
+	
 	moveObj.createMoveableObjects(map)
-
+	timer.performWithDelay(500, myClosure) --objects moved
+	
 	if map.tutorial == true then
 		require("tutorial")
 		resetTutorial()
 		printTutorial()
 	end
-
 	-- set players location
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
-
+	timer.performWithDelay(600, myClosure)--players location set
+	
 	-- create miniMap for level
 	local miniMapDisplay = miniMap.createMiniMap(mapData, player)
 	miniMapDisplay.name = "miniMapName"
-
+	timer.performWithDelay(700, myClosure) --minimap created
+	
 	-- Add objects to its proper groups
 	gui.back:insert(1, map)
 	map:insert(ball)
 	map.layer["tiles"]:insert(ball)
 	objects.main(mapData, map)
-	
+	timer.performWithDelay(800, myClosure)--added groups
+	timer.performWithDelay(1800, loading.deleteLoading)
 	return gui, miniMapDisplay
 end
-
 
 --------------------------------------------------------------------------------
 -- update pane for level

@@ -15,6 +15,8 @@ local dusk = require("Dusk.Dusk")
 local gameData = require("gameData")
 local objects = require("objects")
 local goals = require("goals")
+local loading = require("loadingScreen")
+local loaded = 0
 
 local selectLevel = {
 	levelNum = 0,
@@ -40,6 +42,7 @@ local trackPlayer = true
 local trackInvisibleBoat = false
 local allowPlay = true
 
+local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 
 local function stopAnimation(event)
 	player:setSequence("still")
@@ -110,23 +113,24 @@ local function selectLoop(event)
 	levelGUI.front = display.newGroup()
 	levelGUI.back = display.newGroup()
 	dPad = display.newGroup()
+	loading.loadingInit()
 	
 	-- Create Arrays
 	kCircle = {} -- Color Circle Array
 	levels = {}  -- Level Indicator Array
 	lockedLevels = {} -- Locked Levels Array
-		
+	
 	-- Load Map
 	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
 
 	bg = display.newImage("mapdata/art/bgLS.png", 0, 0, true)
 	bg.x = 1930
 	bg.y = 1150
-	--
+	
 	-- Load image sheet
 	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-						   
+	timer.performWithDelay(300, myClosure)					   
 	-- Create player
 	player = display.newSprite(playerSheet, spriteOptions.player)
 	player.speed = 250
@@ -163,7 +167,7 @@ local function selectLoop(event)
 	-- Position dPad buttons
 	dPad.x = display.screenOriginX + dPad.contentWidth * 0.5 + 40
 	dPad.y = display.contentHeight - dPad.contentHeight * 0.5 - 40
-		
+	timer.performWithDelay(400, myClosure)
 	-- Create level numbers
 	lvlNumber = {	
 		[1] = "T", [2] = "1", [3] = "2",
@@ -225,7 +229,7 @@ local function selectLoop(event)
 			kCircle[i].isAwake = true
 		end
 	end
-	
+	timer.performWithDelay(500, myClosure)
 	-- Add physics
 	physics.addBody(player, "static", {radius = 0.1}) -- to player
 	physics.addBody(cameraTRK, "dynamic", {radius = 0.1}) -- to invisible camera
@@ -247,11 +251,11 @@ local function selectLoop(event)
 	levelGUI.front:insert(dPad)
 
 	bg:toBack()
-	
+	timer.performWithDelay(600, myClosure)
 	selectLevel.levelNum = kCircle[1].name
 	kCircle[1].isAwake = true
 	kCircle[1]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
-	
+	timer.performWithDelay(700, myClosure)
 	-- Insert objects into map layer "tiles"
 	map.layer["tiles"]:insert(player)
 	map.layer["tiles"]:insert(cameraTRK)
@@ -263,6 +267,8 @@ local function selectLoop(event)
 	silKipcha:addEventListener("tap", tapOnce)
 	dPad:addEventListener("touch", tapOnce)
 	Runtime:addEventListener("enterFrame", setCameratoPlayer)
+	timer.performWithDelay(800, myClosure)
+	timer.performWithDelay(1800, loading.deleteLoading)
 end
 	
 
