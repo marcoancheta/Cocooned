@@ -89,7 +89,6 @@ function printTutorial()
 
 	textBox = display.newRect( tBox.boxX, tBox.boxY + text[tNum][#text[tNum]], tBox.boxW, boxH)
 	textBox.alpha = tBox.boxA
-
 	
 	-- create text objects
 	textObject = { }

@@ -10,6 +10,7 @@
 -- Particle Emitter
 --------------------------------------------------------------------------------
 local emitter = require("particleEmitter")
+local miniMapMechanic = require("miniMap")
 
 --Base emitter props
 local radiusRange = 100
@@ -34,7 +35,7 @@ local particleEmitter = emitterLib:createEmitter(radiusRange, particleThickness,
 --------------------------------------------------------------------------------
 -- Collision Detection Mechanic
 --------------------------------------------------------------------------------
-function createCollisionDetection(imageObject, player, mapData, map, gui, physics) 
+function createCollisionDetection(imageObject, player, mapData, map, gui, physics, miniMap) 
 
 
   -- function for pre collision detection
@@ -45,6 +46,7 @@ function createCollisionDetection(imageObject, player, mapData, map, gui, physic
    if collideObject.collType == "passThru" then
       local col = require("Objects." .. collideObject.func)
       col.collide(collideObject, player, event, mapData, map)
+      miniMapMechanic.updateMiniMap(mapData, miniMap, map)
    end
 
    if collideObject.collType == "solid" then
@@ -96,11 +98,11 @@ function emitParticles(collideObject, targetObject, gui, physics)
   end
 end
 
-function changeCollision(imageObject, player, mapData, map, gui, physics) 
+function changeCollision(imageObject, player, mapData, map, gui, physics, miniMap) 
   imageObject:removeEventListener("collision" , imageObject)
   imageObject:removeEventListener("preCollision")
 
-  createCollisionDetection(imageObject, player, mapData, map, gui, physics)
+  createCollisionDetection(imageObject, player, mapData, map, gui, physics, miniMap)
 end
 
 function destroyCollision(imageObject)

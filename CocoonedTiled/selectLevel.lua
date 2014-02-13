@@ -87,7 +87,7 @@ local function setCameratoPlayer(event)
 		map.setCameraFocus(cameraTRK)
 		map.setTrackingLevel(0.1)
 	end
-	--[[
+	
 	local vx, vy = cameraTRK:getLinearVelocity()
 
 	--movement of bg
@@ -96,7 +96,7 @@ local function setCameratoPlayer(event)
 	elseif vy < 0 then bg.y = bg.y + 8.25
 	elseif vy > 0 then bg.y = bg.y - 8.25
 	end
-	]]
+	
 end
 
 -- Select Level Loop
@@ -172,9 +172,9 @@ local function selectLoop(event)
 		[1] = "T", [2] = "1", [3] = "2",
 		[4] = "3", [5] = "4", [6] = "5",
 		[7] = "6", [8] = "7", [9] = "8",
-		--[10] = "9", [11] = "10", [12] = "11",
-		--[13] = "12", [14] = "13", [15] = "14",
-		--[16] = "15", [17] = "F"
+		[10] = "9", [11] = "10", [12] = "11",
+		[13] = "12", [14] = "13", [15] = "14",
+		[16] = "15", [17] = "F"
 	}
 	
 	-- Level numbers' position
@@ -343,7 +343,6 @@ function tapOnce(event)
 		elseif dPad.result == "n" then cameraTRK:setLinearVelocity(0, 0)
 		end
 		
-		print(cameraTRK.speed)
 	end
 	
 	

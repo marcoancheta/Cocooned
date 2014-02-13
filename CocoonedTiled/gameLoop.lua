@@ -29,6 +29,8 @@ local menu = require("menu")
 local sound = require("sound")
 -- Player variables/files (player.lua)
 local player = require("player")
+-- Object variables/files (objects.lua)
+local objects = require("objects")
 -- Save/Load Game Data Functions
 local save = require("GGData")
 
@@ -51,6 +53,9 @@ local moveObjMechanic = require("moveableObjects")
 local ball
 local mapPanes
 local t = 1
+local timeCheck = 1
+_G.activateWind = false
+local timeCount = 0
 
 -- Initialize map data
 local mapData = {
@@ -58,6 +63,8 @@ local mapData = {
 	pane = "M",
 	version = 0
 }
+
+local miniMap
 
 -- create player variables
 local player1, player2
@@ -90,7 +97,7 @@ function loadMap()
 	ball.linearDamping = 4
 
 	-- Load in map
-	gui = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
+	gui, miniMap= loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
 	
 end
 
@@ -135,6 +142,7 @@ local function swipeMechanics(event)
 
 		-- delete everything on map
 		map:removeSelf()
+		
 		-- Pause physics
 		physics.pause()
 		---------------------------------------------------
@@ -149,9 +157,10 @@ local function swipeMechanics(event)
 		-- insert objects onto map layer
 		gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
+		objects.main(mapData, map)
 		
 		-- Reassign game mechanic listeners
-		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1], gui.front, physics)
+		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1], gui.front, physics, miniMap)
 	end
 end
 
@@ -199,7 +208,7 @@ local function gameLoop(event)
 		print("Game Start!")
 	
 		-- Start mechanics
-		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1], gui.front, physics)
+		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1], gui.front, physics, miniMap)
 		Runtime:addEventListener("enterFrame", speedUp)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		gui.back:addEventListener("touch", swipeMechanics)
@@ -240,13 +249,16 @@ local function gameLoop(event)
 		--for i=1, 7 do
 		--display.remove(miniMap[i])
 		--end
-		--miniMap:removeSelf()
-		--miniMap = nil
+		miniMap:removeSelf()
+		miniMap = nil
 
 		-- destroy player instance
 		player1:destroy()
 		player1 = nil
 		playerSheet = nil
+		
+		-- call objects-destroy
+		objects.destroy()
 
 		-- stop physics
 		physics.stop()
@@ -261,9 +273,21 @@ local function gameLoop(event)
 	----------------------
 	--[[ IN-GAME LOOP ]]--
 	-- If ingame has started do:
-	--if gameData.ingame then
-		--print(display.fps)	
-	--end
+	if gameData.ingame then
+		local time = os.time() 
+		if ( time ~= timeCheck ) then
+  			print("Time:", time)
+  			timeCount = timeCount + 1
+  			timeCheck = time
+  			if timeCount % 30 == 1 then 
+  				activateWind = true
+  				print(activateWind)
+  			elseif timeCount % 30 ~= 1 then
+  				activateWind = false
+  			end
+		end
+	end
+
 end
 
 --------------------------------------------------------------------------------
@@ -380,7 +404,12 @@ end
 --------------------------------------------------------------------------------
 Runtime:addEventListener("enterFrame", gameLoop)
 Runtime:addEventListener("enterFrame", menuLoop)
+
+
 --Runtime:addEventListener("enterFrame", soundLoop)
+
+local textObject = display.newText("test", 200, 100, native.systemFont, 32)
+textObject:setFillColor(1,1,1)
 
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)
@@ -393,6 +422,8 @@ collectgarbage("collect")
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
 		print( "MemUsage: " .. memCount)
+		textObject.text = memCount
+		textObject:toFront()
 		prevMemCount = memCount
 	end
 	

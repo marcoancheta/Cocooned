@@ -13,9 +13,10 @@ local prevInventory
 --------------------------------------------------------------------------------
 -- create miniMap
 --------------------------------------------------------------------------------
-function createMiniMap(mapData, player)
+function createMiniMap(mapData, player, map)
 		
 	local miniMap = display.newGroup()
+	
 	
 	local mPane = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
 	local dPane = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/D.json")
@@ -23,7 +24,8 @@ function createMiniMap(mapData, player)
 	local lPane = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/L.json")
 	local rPane = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/R.json")
 
-	local Mpane = display.capture(mPane)
+	
+	local Mpane = display.capture(map)
 	local Dpane = display.capture(dPane)
 	local Upane = display.capture(uPane)
 	local Lpane = display.capture(lPane)
@@ -48,15 +50,15 @@ function createMiniMap(mapData, player)
 	local bg = display.newRect(720, 432, 1540, 864)
 	bg:setFillColor(0.5,0.5,0.5)
 	
-	local currentPane = display.newRect(720, 432, 380, 236)
+	local currentPane = display.newRect(720, 432, 400, 226)
 	currentPane:setFillColor(1,1,1)
 
 	-- add images to group
 	miniMap:insert(1,bg)
 	miniMap:insert(2,currentPane)
 	miniMap:insert(3,Mpane)
-	miniMap:insert(4,Upane)
-	miniMap:insert(5,Dpane)
+	miniMap:insert(4,Dpane)
+	miniMap:insert(5,Upane)
 	miniMap:insert(6,Lpane)
 	miniMap:insert(7,Rpane)
 
@@ -73,6 +75,7 @@ function createMiniMap(mapData, player)
 		end
 		miniMap[m].name = m
 	end
+	
 
 	mPane.destroy()
 	dPane.destroy()
@@ -92,16 +95,12 @@ function createMiniMap(mapData, player)
 	lPane = nil
 	rPane = nil
 
-	Mpane:removeSelf()
-	Dpane:removeSelf()
-	Upane:removeSelf()
-	Lpane:removeSelf()
-	Rpane:removeSelf()
-	bg:removeSelf()
-	currentPane:removeSelf()
-	
-	miniMap.alpha = 0.5
+	print("deleted:",mPane)
 
+	miniMap.alpha = 0.75
+	
+	miniMap.isVisible = false
+	
 	--[[
 	gameData.allowPaneSwitch = false
 
@@ -173,8 +172,56 @@ local miniMapMovement = 0
 --------------------------------------------------------------------------------
 -- update miniMap
 --------------------------------------------------------------------------------
-function updateMiniMap(mapData, miniMap, swipeX, swipeY)
+function updateMiniMap(mapData, miniMap, map)
 
+	map.layer["tiles"][map.layer["tiles"].numChildren].isVisible = false
+	local pane = display.capture(map)
+	if mapData.pane == "M" then
+		
+		miniMap:remove(3)
+
+		pane:scale(0.25, 0.25)
+		pane.x, pane.y = 720, 432
+
+		miniMap:insert(3, pane)
+		
+	elseif mapData.pane == "D" then
+
+		miniMap:remove(4)
+
+		pane:scale(0.25, 0.25)
+		pane.x, pane.y = 720, 672
+
+		miniMap:insert(4, pane)
+
+	elseif mapData.pane == "U" then
+
+		miniMap:remove(5)
+
+		pane:scale(0.25, 0.25)
+		pane.x, pane.y = 720, 192
+
+		miniMap:insert(5, pane)
+	elseif mapData.pane == "L" then
+
+		miniMap:remove(6)
+
+		pane:scale(0.25, 0.25)
+		pane.x, pane.y = 320, 432
+
+		miniMap:insert(6, pane)
+
+	elseif mapData.pane == "R" then
+
+		miniMap:remove(7)
+
+		pane:scale(0.25, 0.25)
+		pane.x, pane.y = 1120, 432
+
+		miniMap:insert(7, pane)
+	end
+	
+	map.layer["tiles"][map.layer["tiles"].numChildren].isVisible = true
 
 	--[[
 	for m = 3, 7 do

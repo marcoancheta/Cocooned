@@ -5,15 +5,18 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
+
+
 local inventoryInstance = {
 	items = {},
 	size = 1
 }
 
-function inventoryInstance:addItem(item)
+function inventoryInstance:addItem(item, map)
 	self.items[self.size] = item.name
 	print("add inventory", #self.items, item.name)
 	self.size = self.size + 1
+
 end
 
 function inventoryInstance:new (o)

@@ -342,6 +342,28 @@
  <tileset firstgid="30" name="switchWall" tilewidth="36" tileheight="36">
   <image source="../../../art/blueWall.png" width="72" height="72"/>
  </tileset>
+ <tileset firstgid="34" name="windWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/bounceWall.png" width="72" height="37"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="windWallCollision"/>
+    <property name="name" value="windWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="36" name="iceCorner" tilewidth="72" tileheight="72">
+  <image source="../../../art/iceCorner.png" width="144" height="144"/>
+ </tileset>
+ <tileset firstgid="40" name="iceWall" tilewidth="72" tileheight="72">
+  <image source="../../../art/iceWall.png" width="216" height="72"/>
+ </tileset>
+ <tileset firstgid="43" name="iceWall2" tilewidth="72" tileheight="72">
+  <image source="../../../art/iceWall2.png" width="72" height="144"/>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC

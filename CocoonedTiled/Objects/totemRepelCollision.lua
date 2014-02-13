@@ -1,6 +1,5 @@
 function collide(collideObject, player, event, mapData, map)
-	
-	player:repel()
+	player:totemRepel()
 end
 
 local totemRepelCollision = {
