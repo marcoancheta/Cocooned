@@ -129,7 +129,9 @@ local function main(mapData, map)
 	objects.init()
 	
 	-- Check levelNum then redirect
-	if mapData.levelNum == "15" then
+	if mapData.levelNum == "14" then
+		fourteen.load(mapData.pane, map, rune, coins)
+	elseif mapData.levelNum == "15" then
 		fifteen.load(mapData.pane, map, rune, coins)
 	else
 		print("OBJECTS FOR LVL:", mapData.levelNum, "NOT MADE")
