@@ -25,10 +25,16 @@ function createLevel(mapData, ball, player, moveObj)
 	gui:insert(gui.back)
 	gui:insert(gui.front)
 
-	print("loadMap", mapData.pane)
+	print("loadMap", mapData.levelNum)
 
 	-- Load in map
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
+
+	for i=1, map.layer["tiles"].numChildren do
+		if map.layer["tiles"][i].name == "water" then
+			print("has water: ", i)
+		end
+	end
 
 	moveObj.createMoveableObjects(map)
 
