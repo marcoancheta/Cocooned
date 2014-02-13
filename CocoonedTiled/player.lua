@@ -27,8 +27,8 @@ local playerInstance = {
 	yGrav = 0,
 	sOffsetX = 0,
 	sOffsetY=0,
-
-} 
+}
+print(activateWind) 
 
 
 local function rotateTransition(imageObject, rotationDelta, timeDelta)
@@ -39,6 +39,14 @@ end
 function create(o)
 	o = o or {} -- create object if user does not provide one
 	return playerInstance:new(o)
+end
+
+function playerInstance:destroy()
+	self.imageObject:removeSelf()
+	self.imageObject = nil
+	self.inventory:destroy()
+	self.inventory = nil
+
 end
 
 --returns a player instance
@@ -58,7 +66,13 @@ function playerInstance:changeColor (color)
 end
 
 -- repels the player if they hit a totem pole
-function playerInstance:repel ()
+function playerInstance:totemRepel ()
+		self.imageObject:applyLinearImpulse(5, 5, self.imageObject.x, self.imageObject.y)
+		self.imageObject.angularVelocity = 0
+end
+
+-- repels the player if there is wind
+function playerInstance:windRepel ()
 		self.imageObject:applyLinearImpulse(2, 2, self.imageObject.x, self.imageObject.y)
 		self.imageObject.angularVelocity = 0
 end

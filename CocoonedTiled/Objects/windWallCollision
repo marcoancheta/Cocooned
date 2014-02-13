@@ -1,9 +1,9 @@
 function collide(collideObject, player, event, mapData, map)
-	player:totemRepel()
+	player:repel()
 end
 
-local totemRepelCollision = {
+local windWallCollision = {
 	collide = collide
 }
 
-return totemRepelCollision
+return windWallCollision

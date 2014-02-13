@@ -23,6 +23,7 @@ local canSwipe = true
 --------------------------------------------------------------------------------
 function swipeScreen(event, mapData, player, miniMap)
 
+
 	-- phase name
 	local phase = event.phase
 	local tempPane = mapData.pane
@@ -119,7 +120,7 @@ function swipeScreen(event, mapData, player, miniMap)
 			end
 		end
 		--miniMapMechanic.resetMiniMap(miniMap, mapData, player)
-		print(swipeDirection)
+		print("swipe", mapData.pane)
 		
 	end
 

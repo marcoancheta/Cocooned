@@ -1,99 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="82" height="50" tilewidth="36" tileheight="36">
+<map version="1.0" orientation="orthogonal" width="66" height="40" tilewidth="36" tileheight="36">
  <properties>
   <property name="itemGoal" value="0"/>
   <property name="itemSize" value="0"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
- <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
-  <tileoffset x="-720" y="432"/>
-  <image source="../../art/bg.png" width="1440" height="864"/>
- </tileset>
- <tileset firstgid="2" name="redWall" tilewidth="36" tileheight="36">
-  <image source="../../art/redWall.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="6" name="aura" tilewidth="72" tileheight="72">
-  <image source="../../art/aura.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="blueAuraCollision"/>
-    <property name="name" value="blueAura"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="7" name="rune" tilewidth="72" tileheight="72">
-  <image source="../../art/rune.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="rune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="8" name="key" tilewidth="72" tileheight="72">
-  <image source="../../art/antler.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="collectible" value="true"/>
-    <property name="func" value="keyCollision"/>
-    <property name="name" value="key"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="9" name="blueWall" tilewidth="36" tileheight="36">
+ <tileset firstgid="1" name="blueWall" tilewidth="36" tileheight="36">
   <image source="../../art/blueWall.png" width="72" height="72"/>
   <tile id="0">
    <properties>
@@ -136,26 +49,14 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="13" name="blackWall" tilewidth="36" tileheight="36">
-  <image source="../../art/blackWall.png" width="72" height="72"/>
- </tileset>
- <tileset firstgid="17" name="aura" tilewidth="36" tileheight="36">
-  <image source="../../art/aura.png" width="72" height="72"/>
- </tileset>
- <tileset firstgid="21" name="whiteWall" tilewidth="36" tileheight="36">
-  <image source="../../art/whiteWall.png" width="72" height="72"/>
- </tileset>
- <tileset firstgid="25" name="bg" tilewidth="36" tileheight="36">
-  <image source="../../art/bg.png" width="1440" height="864"/>
- </tileset>
- <layer name="bg" width="82" height="50">
+ <layer name="bg" width="66" height="40">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
- <layer name="tiles" width="82" height="50">
+ <layer name="tiles" width="66" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt2zEKhDAUANG0Zr3/eXdT2C84oIT3QNJ+PmMa8RhjzN9zvPB8wwz/zvYZ3HXtk3vOoceCHht6bOixoceGHht6bOixoceGHht6bOixoceGHht6bOixoceGHht6bOixsXqcTw+xgbXD8+khNqDHhh4bemzosaHHhh4bemzosaHHhh4bemzosaHHhh4bemzosaHHhh4bvhc25vBeF9yPDfdjQ48NPTbWDt/wT/gO5xfUTgof
+   eJzt2jEKhDAARcG47v3P7Moj7doICpmBYCfyeVVwG2N8fmd74fPud/47+2ButTo9RA/RQ/QQPUQP0UP0ED1ED9FD9BA9RA/RQ/QQPUQP0UP0kHlnvbpzg+/TH/ECeogeoofoIXqIHWKH2CF2iB1ih9ghdogdcvUv3UrnAEwbAYk=
   </data>
  </layer>
 </map>

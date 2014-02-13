@@ -63,6 +63,11 @@ function changeCollision(imageObject, player, mapData, map)
   createCollisionDetection(imageObject, player, mapData, map)
 end
 
+function destroyCollision(imageObject)
+  imageObject:removeEventListener("collision", imageObject)
+  imageObject:removeEventListener("preCollision")
+end
+
 
 
 --------------------------------------------------------------------------------
@@ -70,7 +75,8 @@ end
 --------------------------------------------------------------------------------
 local collisionDetection = {
   createCollisionDetection = createCollisionDetection,
-  changeCollision = changeCollision
+  changeCollision = changeCollision,
+  destroyCollision = destroyCollision
 }
 
 return collisionDetection

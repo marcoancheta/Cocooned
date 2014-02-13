@@ -342,6 +342,28 @@
  <tileset firstgid="30" name="switchWall" tilewidth="36" tileheight="36">
   <image source="../../../art/blueWall.png" width="72" height="72"/>
  </tileset>
+ <tileset firstgid="34" name="windWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/bounceWall.png" width="72" height="37"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="windWallCollision"/>
+    <property name="name" value="windWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="36" name="SnowCorner4" tilewidth="144" tileheight="144">
+  <image source="../../../art/SnowCorner4.png" width="144" height="144"/>
+ </tileset>
+ <tileset firstgid="37" name="snowWall4" tilewidth="144" tileheight="216">
+  <image source="../../../art/snowWall4.png" width="144" height="216"/>
+ </tileset>
+ <tileset firstgid="38" name="SnowWall5" tilewidth="216" tileheight="144">
+  <image source="../../../art/SnowWall5.png" width="216" height="144"/>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -349,7 +371,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlr0KwDAIhF1NM/Xn/V+1zVAo4kkgmBrwgyCcQ47D4ZiIyvNYzAJ0j8nGfiOdCnQPkIemM9gVJy8ayEPTX++72P2V3yH0FfJrrypzFuj/Sth7BL73FxHr/iKQ+Y2R+Y2R+Y1h9ZcIRM9vlftD3XUW6P/sz3309OdT7P7K7xL6Cvmh7qrpHtPq8DdTcgb2
+   eJztlksKwCAMRLPVuurnBm3vf8TWhVBCRoQ2GrEPJHRSNAxZjCMifx/Hqge6RnWZ/kQyAegaoBmi7kDPK80igWaIepp9Zr1W/i1M78G/eIJQa4HeD4Rnt8Bz/yyS2z8LjOLf8cEdEqP4p8Uo/u3s+wT/IR2Ryy8W+PfvHck/lF1rgd7/83MZJfl5Zb1W/m1M78E/lF0lXaPmMvwFI4oHiw==
   </data>
  </layer>
 </map>

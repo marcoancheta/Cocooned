@@ -29,6 +29,8 @@ local menu = require("menu")
 local sound = require("sound")
 -- Player variables/files (player.lua)
 local player = require("player")
+-- Object variables/files (objects.lua)
+local objects = require("objects")
 -- Save/Load Game Data Functions
 local save = require("GGData")
 
@@ -41,8 +43,6 @@ local movementMechanic = require("Accelerometer")
 local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
--- Magnetism mechanics (magnetism.lua)
---local magnetismMechanic = require("magnetism")
 -- Object movementMechanics (moveableObjects.lua)
 local moveObjMechanic = require("moveableObjects")
 
@@ -53,17 +53,19 @@ local moveObjMechanic = require("moveableObjects")
 local ball
 local mapPanes
 local t = 1
+local timeCheck = 1
+_G.activateWind = false
+local timeCount = 0
 
 -- Initialize map data
 local mapData = {
-	levelNum = 0,
+	levelNum = 1,
 	pane = "M",
 	version = 0
 }
 
--- Initialize player(s)
-local player1 = player.create()
-local player2 = player.create()
+-- create player variables
+local player1, player2
 
 
 --------------------------------------------------------------------------------
@@ -71,7 +73,11 @@ local player2 = player.create()
 --------------------------------------------------------------------------------
 function loadMap()
 	physics.setScale(45)
-	system.setAccelerometerInterval(60)
+	-- Initialize player(s)
+	player1 = player.create()
+	--player2 = player.create()
+	system.setAccelerometerInterval(30)
+
 	-- Create player sprite sheet
 	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
@@ -81,12 +87,11 @@ function loadMap()
 	ball = player1.imageObject
 	ball.name = "player"
 	ball:setSequence("move")
-	
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
 	physics.setGravity(0,0)
 	ball.linearDamping = 1
-	ball.density = 1
+	ball.density = .3
 
 	-- Load in map
 	gui, miniMap = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
@@ -98,9 +103,10 @@ end
 ------- controlMovement
 ------- swipeMechanics
 ------- tapMechanics
+------- speedUp
 --------------------------------------------------------------------------------
 
--- control mechanic
+-- control mechanics
 local function controlMovement(event) 
 	-- call accelerometer to get data
 	if gameData.isShowingMiniMap == false then
@@ -117,8 +123,8 @@ end
 
 -- swipe mechanic
 local function swipeMechanics(event)
-	--print("swipeMechanics(event)")
 	
+	-- save temp pane for later check
 	local tempPane = mapData.pane
 
 	-- call swipe mechanic and get new Pane
@@ -129,12 +135,13 @@ local function swipeMechanics(event)
 	if "ended" == event.phase and mapData.pane ~= tempPane then
 
 		-- delete everything on map
-		gui.back:remove(1)
+		map:removeSelf()
 		-- Pause physics
 		physics.pause()
 		---------------------------------------------------
 		-- Play "character" teleportation animation here --
 		---------------------------------------------------
+	
 		-- Resume physics
 		physics.start()
 		
@@ -143,13 +150,14 @@ local function swipeMechanics(event)
 		-- insert objects onto map layer
 		gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
+		objects.main(mapData, map)
 		
 		-- Reassign game mechanic listeners
 		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1])
 	end
 end
 
--- swipe mechanic
+-- tap mechanic
 local function tapMechanic(event)
 	if gameData.allowMiniMap then
 		-- mechanic to show or hide minimap
@@ -175,17 +183,16 @@ local function gameLoop(event)
 		mapData.levelNum = selectLevel.levelNum
 		mapData.pane = selectLevel.pane
 		mapData.version = selectLevel.version
-		--Runtime:removeEventListener("enterFrame", selectLevel.setCameratoPlayer)
+		Runtime:removeEventListener("enterFrame", selectLevel.setCameratoPlayer)
 		gameData.inLevelSelector = false
 	end
 
 	-----------------------------
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
-	if gameData.gameStart then
-	
+	if gameData.gameStart then	
 		-- Stop BGM
-		sound.stopBGM(event, sound.mainmenuSound)
+		--sound.stopBGM(event, sound.mainmenuSound)
 		-- Start physics
 		physics.start()
 		-- Load Map
@@ -212,32 +219,64 @@ local function gameLoop(event)
 		gameData.gameStart = false
 	end
 
+	-----------------------------
+	--[[ END GAMEPLAY LOOP ]]--
+	-- If game has ended do:
 	if gameData.gameEnd then
 
+		-- remove all eventListeners
 		gui.back:removeEventListener("touch", swipeMechanics)
 		gui.back:removeEventListener("tap", tapMechanic)
 		Runtime:removeEventListener("accelerometer", controlMovement)
+		Runtime:removeEventListener("enterFrame", speedUp)
+		collisionDetection.destroyCollision(ball)
 
+		-- destroy and remove all data
+		map.destroy()
+		map = nil
 		ball:removeSelf()
-		gui:removeSelf()
+		ball = nil
+		display.remove(gui)
+		gui = nil
 		miniMap:removeSelf()
+		miniMap = nil
+
+		-- destroy player instance
+		player1:destroy()
+		player1 = nil
+		playerSheet = nil
 		
-		player1.inventory.items = {}
+		-- call objects-destroy
+		objects.destroy()
 
+		-- stop physics
+		physics.stop()
+		
+		-- set boolean variables
 		gameData.gameEnd = false
-
-		--selectLevel.setupLevelSelector(event)
-		gameData.inLevelSelector = false
-		gameData.selectLevel = true
-
+		if gameData.menuOn ~= true then
+			gameData.selectLevel = true
+		end
 	end
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--
 	-- If ingame has started do:
-	--if gameData.ingame then
-		--print(display.fps)	
-	--end
+	if gameData.ingame then
+		local time = os.time() 
+		if ( time ~= timeCheck ) then
+  			print("Time:", time)
+  			timeCount = timeCount + 1
+  			timeCheck = time
+  			if timeCount % 30 == 1 then 
+  				activateWind = true
+  				print(activateWind)
+  			elseif timeCount % 30 ~= 1 then
+  				activateWind = false
+  			end
+		end
+	end
+
 end
 
 --------------------------------------------------------------------------------
@@ -254,7 +293,7 @@ local function menuLoop(event)
 		
 		if not sound.isChannel2Active then
 			-- Start BGM
-			sound.playBGM(event, sound.mainmenuSound)
+			--sound.playBGM(event, sound.mainmenuSound)
 		end
 		
 		-- reset mapData variables
@@ -266,6 +305,8 @@ local function menuLoop(event)
 		gameData.ingame = false
 		gameData.showMiniMap = false
 		gameData.menuOn = false
+
+
 	
 	----------------------
 	--[[ OPTIONS MENU ]]--	
@@ -352,6 +393,8 @@ end
 --------------------------------------------------------------------------------
 Runtime:addEventListener("enterFrame", gameLoop)
 Runtime:addEventListener("enterFrame", menuLoop)
+
+
 --Runtime:addEventListener("enterFrame", soundLoop)
 
 --------------------------------------------------------------------------------

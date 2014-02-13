@@ -25,30 +25,26 @@ local function onAccelerate( event)
 	local xGrav=1
 	local yGrav=1
 	-- X gravity change
-	if event.yInstant > 0.05 then
-		--print("POSyinstant=", event.yInstant)
+	if event.yInstant > 0.1 then
 		xGrav = -event.yInstant
-	elseif event.yInstant < -0.05 then
-		--print("NEGyinstant=", event.yInstant)
+	elseif event.yInstant < -0.1 then
 		xGrav = -event.yInstant
-	elseif event.yGravity > 0.05 then
-		--print("POSGRAV", event.yGravity)
+	elseif event.yGravity > 0.1 then
 		xGrav = -event.yGravity
-	elseif event.yGravity < -0.05 then
-		--print("NEGGRAV=", event.yGravity)
+	elseif event.yGravity < -0.1 then
 		xGrav = -event.yGravity
 		else
 			xGrav = 0
 	end
 
 	-- Y gravity change
-	if event.xInstant > 0.05 then
+	if event.xInstant > 0.1 then
 		yGrav = -event.xInstant
-	elseif event.xInstant < -0.05 then
+	elseif event.xInstant < -0.1 then
 		yGrav = -event.xInstant
-	elseif event.xGravity > 0.05 then
+	elseif event.xGravity > 0.1 then
 		yGrav = -event.xGravity
-	elseif event.xGravity < -0.05 then
+	elseif event.xGravity < -0.1 then
 		yGrav = -event.xGravity
 		else
 			yGrav = 0
@@ -59,15 +55,9 @@ local function onAccelerate( event)
 	if xGrav < highestxgrav then
 		highestxgrav=xGrav
 	end
-	print('highestygrav=', highestygrav)
-	print('highestxgrav=', highestxgrav)
-	
-	-- print('onAccelerate called')
-
 	-- offset the gravity to return
 	physicsParam.xGrav=10*xGrav
 	physicsParam.yGrav=10*yGrav
-
 	--return physics parameters
 	return physicsParam
 end

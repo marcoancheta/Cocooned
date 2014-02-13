@@ -13,6 +13,8 @@ local physics = require("physics")
 local animation = require("animation")
 local dusk = require("Dusk.Dusk")
 local gameData = require("gameData")
+local objects = require("objects")
+local goals = require("goals")
 
 local selectLevel = {
 	levelNum = 0,
@@ -23,19 +25,21 @@ local selectLevel = {
 -- Local Variables
 local levelGUI
 local dPad
-local map
+local map, bg
 local player
+local silKipcha
 local playerSheet
 local cameraTRK
+
+local kCircle = {} -- Color Circle Array
+local levels = {}  -- Level Indicator Array
+local lockedLevels = {}
 
 -- Local Booleans
 local trackPlayer = true
 local trackInvisibleBoat = false
 local allowPlay = true
 
--- Start physics
-physics.start()
-physics.setGravity(0, 0)
 
 local function stopAnimation(event)
 	player:setSequence("still")
@@ -61,11 +65,18 @@ local function pointInRect(point, rect)
 end
 
 local function setCameratoPlayer(event)
+	map.updateView()
 	if trackPlayer then
 		trackInvisibleBoat = false
 		-- Set up map camera
 		map.setCameraFocus(player)
 		map.setTrackingLevel(0.1)
+
+		movex = cameraTRK.x - player.x
+		movey = cameraTRK.y - player.y
+
+		bg.x = bg.x + movex
+		bg.y = bg.y + movey
 		
 		cameraTRK.x = player.x
 		cameraTRK.y = player.y
@@ -74,10 +85,24 @@ local function setCameratoPlayer(event)
 		map.setCameraFocus(cameraTRK)
 		map.setTrackingLevel(0.1)
 	end
+	--[[
+	local vx, vy = cameraTRK:getLinearVelocity()
+
+	--movement of bg
+	if vx < 0 then	bg.x = bg.x + 8.25
+	elseif vx > 0 then bg.x = bg.x - 8.25
+	elseif vy < 0 then bg.y = bg.y + 8.25
+	elseif vy > 0 then bg.y = bg.y - 8.25
+	end
+	]]
 end
 
 -- Select Level Loop
 local function selectLoop(event)
+
+	-- Start physics
+	physics.start()
+	physics.setGravity(0, 0)
 	--------------------------------------------------------------------------------
 	-- Initialize local variables
 	--------------------------------------------------------------------------------
@@ -93,6 +118,11 @@ local function selectLoop(event)
 		
 	-- Load Map
 	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
+
+	bg = display.newImage("mapdata/art/bgLS.png", 0, 0, true)
+	bg.x = 1930
+	bg.y = 1150
+	--
 	-- Load image sheet
 	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
@@ -147,35 +177,35 @@ local function selectLoop(event)
 	-- Level numbers' position
 	textPos = {
 		--      X,         Y,
-		[1] = 150,   [2] = 105,  -- T
-		[3] = 420,  [4] = 105,  -- 1
-		[5] = 690,  [6] = 105,  -- 2
-		[7] = 960,  [8] = 105,  -- 3
-		[9] = 1225, [10] = 105, -- 4
-		[11] = 420, [12] = 320, -- 5
-		[13] = 690, [14] = 320, -- 6
-		[15] = 960, [16] = 320, -- 7
-		[17] = 1225, [18] = 320, -- 8
-		[19] = 420, [20] = 535,  -- 9
-		[21] = 690, [22] = 535, -- 10
-		[23] = 960, [24] = 535,  -- 11
-		[25] = 1225, [26] = 535,  -- 12
-		[27] = 420, [28] = 750,  -- 13
-		[29] = 690, [30] = 750,  -- 14
-		[31] = 960, [32] = 750,  -- 15
-		[33] = 1225, [34] = 750,  -- 16
+		[1] = 150,   [2] = 205,  -- T
+		[3] = 420,  [4] = 205,  -- 1
+		[5] = 690,  [6] = 205,  -- 2
+		[7] = 960,  [8] = 205,  -- 3
+		[9] = 1225, [10] = 205, -- 4
+		[11] = 420, [12] = 420, -- 5
+		[13] = 690, [14] = 420, -- 6
+		[15] = 960, [16] = 420, -- 7
+		[17] = 1225, [18] = 420, -- 8
+		[19] = 420, [20] = 635,  -- 9
+		[21] = 690, [22] = 635, -- 10
+		[23] = 960, [24] = 635,  -- 11
+		[25] = 1225, [26] = 635,  -- 12
+		[27] = 420, [28] = 850,  -- 13
+		[29] = 690, [30] = 850,  -- 14
+		[31] = 960, [32] = 850,  -- 15
+		[33] = 1225, [34] = 850,  -- 16
 	}
 		
 	for i=1, #lvlNumber do
 		-- Make & assign attributes to the 10 circles (kCircle[array])
-		kCircle[i] = display.newCircle(textPos[2*i-1], textPos[2*i], 35)
+		kCircle[i] = display.newCircle(textPos[2*i-1] + 500, textPos[2*i], 35)
 		kCircle[i].name = lvlNumber[i]
 		kCircle[i]:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862)
 		kCircle[i]:setStrokeColor(1, 1, 1)
 		kCircle[i].strokeWidth = 5
 
 		-- Along with its text indicator (levels[array])
-		levels[i] = display.newText(lvlNumber[i], textPos[2*i-1], textPos[2*i], native.Systemfont, 35)
+		levels[i] = display.newText(lvlNumber[i], textPos[2*i-1]+ 500, textPos[2*i], native.Systemfont, 35)
 		levels[i]:setFillColor(0, 0, 0)
 		map.layer["tiles"]:insert(kCircle[i])
 		map.layer["tiles"]:insert(levels[i])
@@ -205,15 +235,18 @@ local function selectLoop(event)
 	cameraTRK.isAwake = true
 	
 	-- Set player start position
-	player.x = textPos[1]
-	player.y = textPos[2]
+	player.x = textPos[1] + 500
+	player.y = textPos[1] + 175
 	
 	-- Insert objects/groups to their proper display group
 	levelGUI:insert(levelGUI.back)
 	levelGUI:insert(levelGUI.front)
 	levelGUI.back:insert(map)
+	levelGUI.back:insert(bg)
 	levelGUI.front:insert(silKipcha)
 	levelGUI.front:insert(dPad)
+
+	bg:toBack()
 	
 	selectLevel.levelNum = kCircle[1].name
 	kCircle[1].isAwake = true
@@ -235,13 +268,14 @@ end
 
 -- When player tap's levels once:
 function tapOnce(event)
-
+	goals.refresh()
+	
 	-- kCircles button detection
 	for i=1, #kCircle do
 		if event.target.name == kCircle[i].name then
 			trackPlayer = true
 			if event.numTaps == 1 and kCircle[i].isAwake then
-			
+								
 				selectLevel.levelNum = kCircle[i].name
 				allowPlay = false
 				-- Move kipcha to the selected circle
@@ -251,6 +285,8 @@ function tapOnce(event)
 				player:play()
 			
 				kCircle[i]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
+					
+				goals.findGoals(selectLevel)
 					
 				-- Send signal to refresh sent mapData
 				gameData.inLevelSelector = true
@@ -263,7 +299,7 @@ function tapOnce(event)
 			end
 		end
 	end
-		
+	
 	-- dPad Button detection
 	if event.target.name == dPad.l.name or dPad.r.name or dPad.u.name or dPad.d.name then
 		if event.target.isFocus or "began" == event.phase then
@@ -277,7 +313,7 @@ function tapOnce(event)
 		end
 
 		-- Just a generic touch listener
-		if "began" == event.phase then	
+		if "began" == event.phase then
 			display.getCurrentStage():setFocus(event.target)
 			event.target.isFocus = true
 			trackPlayer = false
@@ -297,38 +333,65 @@ function tapOnce(event)
 			dPad.changed = true 
 		end
 		
-			-- Set player velocity according to movement result
-			if dPad.result == "l" then cameraTRK:setLinearVelocity(-cameraTRK.speed, 0)
+		-- Set player velocity according to movement result
+		if dPad.result == "l" then cameraTRK:setLinearVelocity(-cameraTRK.speed, 0)
 		elseif dPad.result == "r" then cameraTRK:setLinearVelocity(cameraTRK.speed, 0)
 		elseif dPad.result == "u" then cameraTRK:setLinearVelocity(0, -cameraTRK.speed)
 		elseif dPad.result == "d" then cameraTRK:setLinearVelocity(0, cameraTRK.speed)
 		elseif dPad.result == "n" then cameraTRK:setLinearVelocity(0, 0)
 		end
 		
-		print(cameraTRK.speed)
 	end
+	
 	
 	-- Kipcha Play button detection
 	if allowPlay then
 		-- If player taps silhouette kipcha, start game
 		if event.target.name == silKipcha.name then
-					
+
+			------------------------------------------------------------
+			-- remove all objects
+			------------------------------------------------------------
+			-- Destroy goals map
+			goals.destroyGoals()
+			
 			trackPlayer = true
 			trackInvisibleBoat = false
-					
+
+			-- remove eventListeners		
 			silKipcha:removeEventListener("tap", tapOnce)
 			Runtime:removeEventListener("enterFrame", setCameratoPlayer)
 			dPad:removeEventListener("touch", tapOnce)
 			
 			--	Clean up on-screen items
 			levelGUI:removeSelf()
+			levelGUI = nil
+			dPad:removeSelf()
+			dPad = nil
+			player:removeSelf()
+			player = nil
+			cameraTRK:removeSelf()
+			cameraTRK = nil
+			silKipcha:removeSelf()
+			silKipcha = nil
 			
+			-- remove and destroy all circles
 			for p=1, #kCircle do
 				display.remove(kCircle[p])
 				display.remove(levels[p])
 				display.remove(lockedLevels[p])
 				kCircle[p]:removeEventListener("tap", tapOnce)
+				map.layer["tiles"]:remove(kCircle[p])
+				map.layer["tiles"]:remove(levels[p])
 			end
+			kCircle = nil
+
+			-- destroy map object
+			map.destroy()
+			map:removeSelf()
+			map = nil
+
+			physics.stop()
 			
 			-- Send data to start game
 			gameData.gameStart = true
