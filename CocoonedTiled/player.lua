@@ -9,6 +9,7 @@ local atan2 = math.atan2
 local pi = math.pi
 
 local inventoryMechanic = require("inventoryMechanic")
+local gameData = require("gameData")
 --default player prototype
 local playerInstance = {
 	x=0,
@@ -77,6 +78,11 @@ function playerInstance:windRepel ()
 		self.imageObject.angularVelocity = 0
 end
 
+function playerInstance:water ()
+		gameData.levelRestart = true
+		--gameData.gameEnd = true
+end
+
 -- attracts the player if they are near a totem pole
 function playerInstance:attract (goTo)
 		--self.imageObject:applyLinearImpulse(-1, -1, self.imageObject.x, self.imageObject.y)
@@ -90,8 +96,8 @@ function playerInstance:rotate (x,y)
 		self.imageObject.rotation = angle +90
 end
 
-function playerInstance:addInventory(item) 
-	self.inventory:addItem(item)
+function playerInstance:addInventory(item, map) 
+	self.inventory:addItem(item, map)
 end
 
 local player  = {

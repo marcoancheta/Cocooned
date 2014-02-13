@@ -776,6 +776,33 @@
                 }
             },
          "tilewidth":36
+        }, 
+        {
+         "firstgid":39,
+         "image":"..\/..\/art\/water.png",
+         "imageheight":72,
+         "imagewidth":72,
+         "margin":0,
+         "name":"water",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":72,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":72
         }],
  "tilewidth":36,
  "version":1,

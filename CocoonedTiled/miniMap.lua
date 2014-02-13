@@ -4,18 +4,104 @@
 -- miniMap.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 local gameData = require("gameData")
 
--- variables for panes
-local Mpane, Upane, Dpane, Lpane, Rpane
+local dusk = require("Dusk.Dusk")
+
 local prevInventory
 
 --------------------------------------------------------------------------------
 -- create miniMap
 --------------------------------------------------------------------------------
-function createMiniMap(mapData, player)
+function createMiniMap(mapData, player, map)
+		
+	local miniMap = display.newGroup()
+	
+	
+	local mPane = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
+	local dPane = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/D.json")
+	local uPane = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/U.json")
+	local lPane = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/L.json")
+	local rPane = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/R.json")
 
+	
+	local Mpane = display.capture(map)
+	local Dpane = display.capture(dPane)
+	local Upane = display.capture(uPane)
+	local Lpane = display.capture(lPane)
+	local Rpane = display.capture(rPane)
+	
+	Mpane:scale(0.25,0.25)
+	Mpane.x , Mpane.y = 720, 432
+
+	Dpane:scale(0.25,0.25)
+	Dpane.x , Dpane.y = 720, 672
+
+	Upane:scale(0.25,0.25)
+	Upane.x , Upane.y = 720, 192
+
+	Lpane:scale(0.25,0.25)
+	Lpane.x , Lpane.y = 320, 432
+
+	Rpane:scale(0.25,0.25)
+	Rpane.x , Rpane.y = 1120, 432
+
+	-- create background image
+	local bg = display.newRect(720, 432, 1540, 864)
+	bg:setFillColor(0.5,0.5,0.5)
+	
+	local currentPane = display.newRect(720, 432, 400, 226)
+	currentPane:setFillColor(1,1,1)
+
+	-- add images to group
+	miniMap:insert(1,bg)
+	miniMap:insert(2,currentPane)
+	miniMap:insert(3,Mpane)
+	miniMap:insert(4,Dpane)
+	miniMap:insert(5,Upane)
+	miniMap:insert(6,Lpane)
+	miniMap:insert(7,Rpane)
+
+	-- create highlight for current pane
+	for m = 3, 7 do
+		if mapData.pane == "U" then
+			miniMap[m].y = miniMap[m].y + 240
+		elseif mapData.pane == "D" then
+			miniMap[m].y = miniMap[m].y - 240
+		elseif mapData.pane == "L" then
+			miniMap[m].x = miniMap[m].x - 400
+		elseif mapData.pane == "R" then
+			miniMap[m].x = miniMap[m].x + 400
+		end
+		miniMap[m].name = m
+	end
+	
+
+	mPane.destroy()
+	dPane.destroy()
+	uPane.destroy()
+	lPane.destroy()
+	rPane.destroy()
+
+	mPane:removeSelf()
+	dPane:removeSelf()
+	uPane:removeSelf()
+	lPane:removeSelf()
+	rPane:removeSelf()
+
+	mPane = nil
+	dPane = nil
+	uPane = nil
+	lPane = nil
+	rPane = nil
+
+	print("deleted:",mPane)
+
+	miniMap.alpha = 0.75
+	
+	miniMap.isVisible = false
+	
+	--[[
 	gameData.allowPaneSwitch = false
 
 	-- create new display group
@@ -76,7 +162,7 @@ function createMiniMap(mapData, player)
 
 	-- set inventory count for miniMap display
 	prevInventory = 0
-
+	]]
 	return miniMap
 end
 
@@ -86,8 +172,56 @@ local miniMapMovement = 0
 --------------------------------------------------------------------------------
 -- update miniMap
 --------------------------------------------------------------------------------
-function updateMiniMap(mapData, miniMap, swipeX, swipeY)
+function updateMiniMap(mapData, miniMap, map)
 
+	map.layer["tiles"][map.layer["tiles"].numChildren].isVisible = false
+	local pane = display.capture(map)
+	if mapData.pane == "M" then
+		
+		miniMap:remove(3)
+
+		pane:scale(0.25, 0.25)
+		pane.x, pane.y = 720, 432
+
+		miniMap:insert(3, pane)
+		
+	elseif mapData.pane == "D" then
+
+		miniMap:remove(4)
+
+		pane:scale(0.25, 0.25)
+		pane.x, pane.y = 720, 672
+
+		miniMap:insert(4, pane)
+
+	elseif mapData.pane == "U" then
+
+		miniMap:remove(5)
+
+		pane:scale(0.25, 0.25)
+		pane.x, pane.y = 720, 192
+
+		miniMap:insert(5, pane)
+	elseif mapData.pane == "L" then
+
+		miniMap:remove(6)
+
+		pane:scale(0.25, 0.25)
+		pane.x, pane.y = 320, 432
+
+		miniMap:insert(6, pane)
+
+	elseif mapData.pane == "R" then
+
+		miniMap:remove(7)
+
+		pane:scale(0.25, 0.25)
+		pane.x, pane.y = 1120, 432
+
+		miniMap:insert(7, pane)
+	end
+	
+	map.layer["tiles"][map.layer["tiles"].numChildren].isVisible = true
 
 	--[[
 	for m = 3, 7 do
@@ -111,7 +245,7 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 		end
 
 	end
-	]]
+	
 	-- if swiping to right of left, move miniMap for feedback
 	
 	if math.abs(swipeX) > math.abs(swipeY) and math.abs(swipeX) > 40 then
@@ -128,7 +262,7 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 				end
 				miniMapMovement = miniMapMovement + 20
 			end
-			--[[
+			--
 			if mapData.pane ~= "M" then
 				if swipeY > 40 and miniMapMovement < 400 then
 					for m = 3, 7 do
@@ -140,7 +274,7 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 					end
 				end
 			end
-			]]
+			
 		end
 
 	-- if swiping up or down, move miniMap for feedback
@@ -158,7 +292,7 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 				end
 				miniMapMovement = miniMapMovement + 20
 			end
-			--[[
+			--
 			if mapData.pane ~= "M" then
 				if swipeX > 40 and miniMapMovement < 400 then
 					for m = 3, 7 do
@@ -170,10 +304,10 @@ function updateMiniMap(mapData, miniMap, swipeX, swipeY)
 					end
 				end
 			end
-			]]
+			
 		end
 	end
-	
+	]]
 
 	--[[
 		local mmCheck = miniMap[7]
@@ -242,7 +376,7 @@ end
 -- reset miniMap
 --------------------------------------------------------------------------------
 function resetMiniMap(miniMap, mapData, player)
-
+	--[[
 	-- set image locations
 	Mpane.x, Mpane.y = 720, 432
 	Dpane.x, Dpane.y = 720, 672
@@ -262,7 +396,7 @@ function resetMiniMap(miniMap, mapData, player)
 			miniMap[m].x = miniMap[m].x + 400
 		end
 	end
-
+	]]
 	-- reset miniMap movement
 	miniMapMovement = 0
 
@@ -308,5 +442,6 @@ local miniMap = {
 	resetMiniMap = resetMiniMap,
 	checkInventory = checkInventory
 }
+
 
 return miniMap

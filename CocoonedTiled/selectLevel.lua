@@ -88,7 +88,7 @@ local function setCameratoPlayer(event)
 		map.setCameraFocus(cameraTRK)
 		map.setTrackingLevel(0.1)
 	end
-	--[[
+	
 	local vx, vy = cameraTRK:getLinearVelocity()
 
 	--movement of bg
@@ -97,7 +97,7 @@ local function setCameratoPlayer(event)
 	elseif vy < 0 then bg.y = bg.y + 8.25
 	elseif vy > 0 then bg.y = bg.y - 8.25
 	end
-	]]
+	
 end
 
 -- Select Level Loop

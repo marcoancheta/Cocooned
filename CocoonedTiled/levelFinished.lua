@@ -6,6 +6,5 @@ function checkWin(player, map)
 	if #player.inventory.items == tonumber(map.itemGoal) then
 		print("endGame")
 		gameData.gameEnd = true
-
 	end
 end

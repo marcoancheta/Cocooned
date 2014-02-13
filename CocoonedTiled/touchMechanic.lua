@@ -46,7 +46,7 @@ function swipeScreen(event, mapData, player, miniMap)
 
 	local swipeDirection
 
-	miniMapMechanic.updateMiniMap(mapData, miniMap, swipeX, swipeY)
+	--miniMapMechanic.updateMiniMap(mapData, miniMap, swipeX, swipeY)
 
 	-- if event touch is ended, check which way was swiped 
 	-- change pane is possible
@@ -143,15 +143,15 @@ function tapScreen(event, miniMap, physics)
 	-- if tapped twice, show miniMap or if showing, hide it
 	if event.numTaps >= 2 then
 		-- show miniMap 
-		if miniMap.alpha == 0 then
+		if miniMap.isVisible == false then
 			physics.pause()
 			gameData.isShowingMiniMap = true
-			miniMap.alpha = 0.75
+			miniMap.isVisible = true
 		else
 		--hide miniMap
 			physics.start()
 			gameData.isShowingMiniMap = false
-			miniMap.alpha = 0
+			miniMap.isVisible = false
 		end
 	end
 end

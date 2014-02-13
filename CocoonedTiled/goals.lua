@@ -16,7 +16,9 @@ local goalBox, textBox, box, coin
 local textObject = {}
 local bSet
 
+-- Draw/Insert Objects
 local function drawGoals(text, rune, coins)
+	-- boxSettings
 	bSet = {
 		font = nativeSystemfont,
 		fontSizeSM = 45,
@@ -38,11 +40,13 @@ local function drawGoals(text, rune, coins)
 		
 	local boxH = bSet.boxH*#text[gNum]
 	
+	-- create outer text box rectangle
 	textBox = display.newRect(bSet.x, bSet.boxY, bSet.boxW, boxH)
 	textBox:setStrokeColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 	textBox.strokeWidth = 15
 	textBox.alpha = bSet.boxA
 	
+	-- Draw the textObjects
 	textObject = {}
 	
 	for i=1, #text[gNum]-1 do
@@ -56,7 +60,7 @@ local function drawGoals(text, rune, coins)
 	end
 		
 		
-	-- insert text objects to display group
+	-- insert objects to display group: goalie
 	goalie:insert(textBox)
 	for i=1, #textObject do
 		goalie:insert(textObject[i])
@@ -70,6 +74,7 @@ local function drawGoals(text, rune, coins)
 	goalie:toFront()
 end
 
+-- findGoals: set and adjust goals via their respected level
 local function findGoals(mapData)
 	
 	local xCoord = 220
@@ -84,22 +89,25 @@ local function findGoals(mapData)
 		[5] = display.newImage("mapdata/Items/yellowRune.png")
 	}
 	
+	-- temp max Rune Amounts
 	local runeAMT = #rune
 	
-	-- Disable visibility
+	-- Disable rune visibility
 	for i=1, #rune do
 		rune[i].isVisible = false
-		rune[i].isBodyActive = true
+		--rune[i].isBodyActive = true
 	end
 	
-	-- Load Coins
+	-- Load Coins (coinSheet = animation sheet)
 	local coinSheet = graphics.newImageSheet("mapdata/art/coins.png", 
 				 {width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
 	
+	-- Draw animated coin
 	coins = display.newSprite(coinSheet, spriteOptions.coin)
 	coins.speed = 50
 	coins.isVisible = false
 	
+	-- Goal text displayer
 	local text = {
 		[1] = {
 			[1] = "-Level Goals-",
@@ -112,7 +120,7 @@ local function findGoals(mapData)
 		}
 	}
 	
-	-- Set amount of runes (runeAMT) per level
+	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if temp == "T" then
 		runeAMT = 1
 	elseif temp == "1" then
@@ -124,7 +132,7 @@ local function findGoals(mapData)
 	else runeAMT = #rune
 	end
 
-	-- Position and draw
+	-- Position and draw in goal displayer
 	for i=1, runeAMT do
 		rune[i].x = xCoord
 		rune[i].y = 220
@@ -134,18 +142,23 @@ local function findGoals(mapData)
 		xCoord = xCoord + 50
 	end
 	
+	-- Position coins in goal displayer
 	coins.x = 220
 	coins.y = 350
 	coins.isVisible = true
 	coins.isSensor = true
 	coins:setSequence("move")
 	coins:play()
+	
+	-- Draw amount of coins in level text
 	coin = display.newText("x" .. runeAMT*5, coins.x + 70, coins.y, nativeSystemfont, 50)
 	coin:setFillColor(0,0,0)
 					
+	-- Call function to draw and insert objects
 	drawGoals(text, rune, coins)
 end
 
+-- Refresh goal displayer: deletes old goals displayed and creates a new one
 local function refresh()
 	if goalie then
 		goalie:removeSelf()
@@ -154,6 +167,7 @@ local function refresh()
 	end
 end
 
+-- Destroy it all!
 local function destroyGoals()
 	print("Destroyed goalie")
 	goalBox, textBox, box, coin = nil
@@ -164,6 +178,7 @@ local function destroyGoals()
 	goalie = nil
 end
 
+-- Pass into globals
 goals.findGoals = findGoals
 goals.refresh = refresh
 goals.destroyGoals = destroyGoals

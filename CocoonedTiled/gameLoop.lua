@@ -64,6 +64,8 @@ local mapData = {
 	version = 0
 }
 
+local miniMap
+
 -- create player variables
 local player1, player2
 
@@ -94,7 +96,7 @@ function loadMap()
 	ball.density = .3
 
 	-- Load in map
-	gui, miniMap = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
+	gui, miniMap= loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
 	
 end
 
@@ -136,6 +138,7 @@ local function swipeMechanics(event)
 
 		-- delete everything on map
 		map:removeSelf()
+		
 		-- Pause physics
 		physics.pause()
 		---------------------------------------------------
@@ -153,7 +156,7 @@ local function swipeMechanics(event)
 		objects.main(mapData, map)
 		
 		-- Reassign game mechanic listeners
-		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1])
+		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1], gui.front, physics, miniMap)
 	end
 end
 
@@ -201,7 +204,7 @@ local function gameLoop(event)
 		print("Game Start!")
 	
 		-- Start mechanics
-		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1])
+		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1], gui.front, physics, miniMap)
 		Runtime:addEventListener("enterFrame", speedUp)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		gui.back:addEventListener("touch", swipeMechanics)
@@ -238,6 +241,10 @@ local function gameLoop(event)
 		ball = nil
 		display.remove(gui)
 		gui = nil
+
+		--for i=1, 7 do
+		--display.remove(miniMap[i])
+		--end
 		miniMap:removeSelf()
 		miniMap = nil
 
@@ -257,7 +264,42 @@ local function gameLoop(event)
 		if gameData.menuOn ~= true then
 			gameData.selectLevel = true
 		end
-	end
+		elseif gameData.levelRestart == true then
+			-- remove all eventListeners
+			gui.back:removeEventListener("touch", swipeMechanics)
+			gui.back:removeEventListener("tap", tapMechanic)
+			Runtime:removeEventListener("accelerometer", controlMovement)
+			Runtime:removeEventListener("enterFrame", speedUp)
+			collisionDetection.destroyCollision(ball)
+
+			-- destroy and remove all data
+			map.destroy()
+			map = nil
+			ball:removeSelf()
+			ball = nil
+			display.remove(gui)
+			gui = nil
+
+			--for i=1, 7 do
+			--display.remove(miniMap[i])
+			--end
+			miniMap:removeSelf()
+			miniMap = nil
+
+			-- destroy player instance
+			player1:destroy()
+			player1 = nil
+			playerSheet = nil
+			
+			-- call objects-destroy
+			objects.destroy()		
+
+			-- stop physics
+			physics.stop()
+			gameData.levelRestart = false
+			gameData.gameStart = true
+			mapData.pane = 'M'
+		end
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--
@@ -397,16 +439,22 @@ Runtime:addEventListener("enterFrame", menuLoop)
 
 --Runtime:addEventListener("enterFrame", soundLoop)
 
+local textObject = display.newText("test", 200, 100, native.systemFont, 32)
+textObject:setFillColor(1,1,1)
+
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)
 --------------------------------------------------------------------------------
 local prevTextMem = 0
 local prevMemCount = 0
 local monitorMem = function()
-collectgarbage()
+collectgarbage("collect")
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
+		print( "MemUsage: " .. memCount)
+		textObject.text = memCount
+		textObject:toFront()
 		prevMemCount = memCount
 	end
 	
