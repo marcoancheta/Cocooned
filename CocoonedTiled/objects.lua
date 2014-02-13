@@ -39,6 +39,8 @@ local function onLocalCollision(self, event)
 	end
 end
 
+
+
 --------------------------------------------------------------------------------
 -- Object - Load all objects
 --------------------------------------------------------------------------------
@@ -61,33 +63,21 @@ function objects:init()
 	rune[4].name = "purpleRune"
 	rune[5].name = "yellowRune"
 	
-	-- Load Coins
-	local coinSheet = graphics.newImageSheet("mapdata/art/coins.png", 
+	-- load object sprites
+		
+	sheetList = {}
+
+	sheetList[1] = graphics.newImageSheet("mapdata/art/coins.png", 
 				 {width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
-	
-	coins = { }
-			
-	for i=1, 5 do	
-	   coins[i] = display.newSprite(coinSheet, spriteOptions.coin)
-	   coins[i].speed = 50
-	   coins[i].isVisible = false
-	   coins[i].isBodyActive = true
-	   coins[i].name = "coin" .. i
-	   coins[i].collision = onLocalCollision
-	end
 	
 	-- Attach collision event to object
 	-- Disable visibility
 	for i=1, #rune do
+		physics.addBody(rune[i], "dynamic", {bounce=0})
 		rune[i].isVisible = false
-		rune[i].isBodyActive = true
 		rune[i].collectable = true
+		rune[i].func = "runeCollision"
 	end
-
-	
-	-- Call other object functions
-	objects.physics()
-	objects.events()
 	
 	return true
 end
@@ -130,7 +120,7 @@ local function main(mapData, map)
 	
 	-- Check levelNum then redirect
 	if mapData.levelNum == "15" then
-		fifteen.load(mapData.pane, map, rune, coins)
+		fifteen.load(mapData.pane, map, rune, objectList, sheetList)
 	else
 		print("OBJECTS FOR LVL:", mapData.levelNum, "NOT MADE")
 	end
@@ -145,12 +135,8 @@ local function destroy()
 		display.remove(rune[i])
 		rune[i] = nil
 	end
-	
-	for i=0, #coins do
-		display.remove(coins[i])
-		coins[i] = nil
-	end
-	
+	print("DESTROY ALL OBJECTS!!!!!!!!")
+	fifteen.destroyAll()
 end
 
 --------------------------------------------------------------------------------

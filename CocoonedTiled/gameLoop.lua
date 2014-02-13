@@ -96,7 +96,7 @@ function loadMap()
 	ball.density = .3
 
 	-- Load in map
-	gui, miniMap= loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
+	gui, miniMap = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
 	
 end
 
@@ -138,6 +138,7 @@ local function swipeMechanics(event)
 
 		-- delete everything on map
 		map:removeSelf()
+		objects.destroy()
 		
 		-- Pause physics
 		physics.pause()
@@ -153,7 +154,6 @@ local function swipeMechanics(event)
 		-- insert objects onto map layer
 		gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
-		objects.main(mapData, map)
 		
 		-- Reassign game mechanic listeners
 		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1], gui.front, physics, miniMap)
@@ -269,6 +269,7 @@ local function gameLoop(event)
 	----------------------
 	--[[ IN-GAME LOOP ]]--
 	-- If ingame has started do:
+	--[[
 	if gameData.ingame then
 		local time = os.time() 
 		if ( time ~= timeCheck ) then
@@ -283,7 +284,7 @@ local function gameLoop(event)
   			end
 		end
 	end
-
+	]]
 end
 
 --------------------------------------------------------------------------------
@@ -417,7 +418,7 @@ collectgarbage("collect")
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		print( "MemUsage: " .. memCount)
+		--print( "MemUsage: " .. memCount)
 		textObject.text = memCount
 		textObject:toFront()
 		prevMemCount = memCount

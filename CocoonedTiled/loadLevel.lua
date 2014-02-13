@@ -70,12 +70,13 @@ function changePane(mapData, player, moveObj)
 
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
+	objects.main(mapData, map)
 
 	-- load 
-	moveObj.createMoveableObjects(map)
+	--moveObj.createMoveableObjects(map)
 
 	-- if an item was previously taken, remove it from map
-	if tonumber(map.itemSize) > 0 and #player.inventory.items > 0 then
+	if #player.inventory.items > 0 then
 		-- check for N number of items on map if they were taken
 		print("remove items")
 		for count = 1, #player.inventory.items do
@@ -90,21 +91,11 @@ function changePane(mapData, player, moveObj)
 			end
 			if removeItem > 0 then
 				-- remove that item
+				print("removed: ", map.layer["tiles"][removeItem].name)
 				map.layer["tiles"]:remove(removeItem)
 			end
 		end
 	end
-
-	for check = 1, map.layer["tiles"].numChildren do
-		if map.layer["tiles"][check].name == "greenTotem" then
-			map.layer["tiles"][check]:scale(2.0,2.0)
-			map.layer["tiles"][check].xScale = 1
-			map.layer["tiles"][check].yScale = 1
-		end
-	end
-
-
-
 	-- return new pane
 	return map
 end

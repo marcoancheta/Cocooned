@@ -96,7 +96,7 @@ local function findGoals(mapData)
 	local coinSheet = graphics.newImageSheet("mapdata/art/coins.png", 
 				 {width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
 	
-	coins = display.newSprite(coinSheet, spriteOptions.coin)
+	coins = display.newSprite(coinSheet, spriteOptions.energy)
 	coins.speed = 50
 	coins.isVisible = false
 	
