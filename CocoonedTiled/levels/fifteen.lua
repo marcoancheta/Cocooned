@@ -8,12 +8,13 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("gameData")
 
+
 local fifteen = { 
 	energyCount = 30
 }
 
-local function coinMachine(coins, map)
-	-- Do the same for coins
+local function coinMachine(coins, rune)
+	-- Position coins
 	for i=1, #coins do
 		coins[i].x, coins[i].y = map.tilesToPixels(i*3, 7)
 		map.layer["tiles"]:insert(coins[i])
@@ -61,7 +62,6 @@ local function load(pane, map, rune, coins)
 end
 
 local function destroyObjects() 
-
 end
 
 fifteen.load = load

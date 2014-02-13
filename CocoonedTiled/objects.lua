@@ -7,6 +7,7 @@
 
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("gameData")
+local goals = require("goals")
 local fifteen = require("levels.fifteen")
 
 local objects = { }
@@ -34,6 +35,7 @@ local function onLocalCollision(self, event)
 				display.remove(self)
 			end
 		end
+		
 	end
 end
 
@@ -60,29 +62,19 @@ function objects:init()
 	rune[5].name = "yellowRune"
 	
 	-- Load Coins
-	coinSheet = graphics.newImageSheet("mapdata/art/coins.png", 
+	local coinSheet = graphics.newImageSheet("mapdata/art/coins.png", 
 				 {width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
 	
 	coins = { }
 			
-	for i=1, 10 do	
+	for i=1, 5 do	
 	   coins[i] = display.newSprite(coinSheet, spriteOptions.coin)
 	   coins[i].speed = 50
-	   coins[i].collision = onLocalCollision
 	   coins[i].isVisible = false
 	   coins[i].isBodyActive = true
+	   coins[i].name = "coin" .. i
+	   coins[i].collision = onLocalCollision
 	end
-	
-	coins[1].name = "coin1"
-	coins[2].name = "coin2"
-	coins[3].name = "coin3"
-	coins[4].name = "coin4"
-	coins[5].name = "coin5"
-	coins[6].name = "coin6"
-	coins[7].name = "coin7"
-	coins[8].name = "coin8"
-	coins[9].name = "coin9"
-
 	
 	-- Attach collision event to object
 	-- Disable visibility
@@ -144,24 +136,42 @@ local function main(mapData, map)
 	end
 end
 
+
 --------------------------------------------------------------------------------
 -- Object Clean Up
 --------------------------------------------------------------------------------
 local function destroy()
-	if gameData.gameEnd then
-		for i=0, #rune do
-			display.remove(rune[i])
-			rune[i] = nil
-		end
-		
-		for i=0, #coins do
-			display.remove(coins[i])
-			coins[i] = nil
+	for i=0, #rune do
+		display.remove(rune[i])
+		rune[i] = nil
+	end
+	
+	for i=0, #coins do
+		display.remove(coins[i])
+		coins[i] = nil
+	end
+	
+end
+
+--------------------------------------------------------------------------------
+-- Object Main - for levelSelector
+--------------------------------------------------------------------------------
+--[[
+local function transfer(mapData, lvlNumber)
+	destroy()
+	objects.init()
+	
+	-- Check levelNum then redirect
+	for i=1, #lvlNumber do
+		if mapData.levelNum == lvlNumber[i] then
+			goals.findGoals(mapData, rune, coins)
 		end
 	end
 end
+]]--
 
 objects.main = main
+--objects.transfer = transfer
 objects.destroy = destroy
 
 return objects
