@@ -41,10 +41,14 @@ local function load(pane, map, sheetList)
 		end
 
 		generateEnergy(energy, map, 1, 10)
-				
 	
-	elseif pane == "U" or pane == "D" or pane == "L" or pane == "R"then
-		bonusGame.main()	
+	elseif pane == "U" or pane == "D" or pane == "L" or pane == "R" then
+		for i=1, 2 do	
+	   		energy[i] = display.newSprite(sheetList[1], spriteOptions.energy)
+			energy[i].isVisible = false
+		end
+		
+		bonusGame.main(pane, map, energy, sheetList[1])	
 	end
 end
 
