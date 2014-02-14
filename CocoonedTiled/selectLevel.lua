@@ -167,7 +167,12 @@ local function selectLoop(event)
 	-- Position dPad buttons
 	dPad.x = display.screenOriginX + dPad.contentWidth * 0.5 + 40
 	dPad.y = display.contentHeight - dPad.contentHeight * 0.5 - 40
+<<<<<<< HEAD
 	timer.performWithDelay(1000, myClosure)
+=======
+	timer.performWithDelay(400, myClosure)
+	
+>>>>>>> Added temporary bonus level to level Selector.
 	-- Create level numbers
 	lvlNumber = {	
 		[1] = "T", [2] = "1", [3] = "2",
@@ -175,7 +180,7 @@ local function selectLoop(event)
 		[7] = "6", [8] = "7", [9] = "8",
 		[10] = "9", [11] = "10", [12] = "11",
 		[13] = "12", [14] = "13", [15] = "14",
-		[16] = "15", [17] = "F"
+		[16] = "15", [17] = "F", [18] = "bonus"
 	}
 	
 	-- Level numbers' position
@@ -197,7 +202,8 @@ local function selectLoop(event)
 		[27] = 420, [28] = 850,  -- 13
 		[29] = 690, [30] = 850,  -- 14
 		[31] = 960, [32] = 850,  -- 15
-		[33] = 1225, [34] = 850,  -- 16
+		[33] = 1225, [34] = 850,  -- F
+		[35] = 150, [36] = 420   -- Bonus
 	}
 		
 	for i=1, #lvlNumber do
@@ -217,7 +223,7 @@ local function selectLoop(event)
 		-- Unlock && lock levels
 		if i~=1 and i~=2 and i~=3 and 
 		   i~=4 and i~=5 and i~=6 and 
-		   i~=8 and i~=15 and i~=16 then
+		   i~=8 and i~=16 and i~=18 then
 		   
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x

@@ -8,6 +8,8 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("gameData")
 local goals = require("goals")
+local bonus = require("levels.bonus")
+local fourteen = require("levels.fourteen")
 local fifteen = require("levels.fifteen")
 
 local objects = { }
@@ -60,11 +62,7 @@ function objects:physics()
 	for i=1, #rune do
 		physics.addBody(rune[i], "dynamic", {bounce=0})
 	end
-	
-	for j=1, #coins do
-		physics.addBody(coins[j], "dynamic", {bounce=0})
-	end
-	
+		
 	return true
 end
 
@@ -77,9 +75,6 @@ function objects:events()
 		rune[i]:addEventListener("collision", rune[i])
 	end
 	
-	for i=1, #coins do
-		coins[i]:addEventListener("collision", coins[i])
-	end
 	return true
 end
 
@@ -90,8 +85,10 @@ local function main(mapData, map)
 	objects.init()
 	
 	-- Check levelNum then redirect
-	if mapData.levelNum == "14" then
-		fourteen.load(mapData.pane, map, rune, coins)
+	if mapData.levelNum == "bonus" then
+		bonus.load(mapData.pane, map, sheetList)
+	elseif mapData.levelNum == "14" then
+		fourteen.load(mapData.pane, map, rune, objects, sheetList)
 	elseif mapData.levelNum == "15" then
 		fifteen.load(mapData.pane, map, rune, objects, sheetList)
 	else
