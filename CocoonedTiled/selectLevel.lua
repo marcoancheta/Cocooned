@@ -102,7 +102,7 @@ end
 
 -- Select Level Loop
 local function selectLoop(event)
-
+	loaded = 0 --current loading checkpoint, max is 6
 	-- Start physics
 	physics.start()
 	physics.setGravity(0, 0)
@@ -113,7 +113,7 @@ local function selectLoop(event)
 	levelGUI.front = display.newGroup()
 	levelGUI.back = display.newGroup()
 	dPad = display.newGroup()
-	loading.loadingInit()
+	loading.loadingInit() -- initializes loading screen assets and displays them on top
 	
 	-- Create Arrays
 	kCircle = {} -- Color Circle Array
@@ -130,7 +130,7 @@ local function selectLoop(event)
 	-- Load image sheet
 	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-	timer.performWithDelay(300, myClosure)					   
+	timer.performWithDelay(500, myClosure) -- first loading checkpoint					   
 	-- Create player
 	player = display.newSprite(playerSheet, spriteOptions.player)
 	player.speed = 250
@@ -167,7 +167,7 @@ local function selectLoop(event)
 	-- Position dPad buttons
 	dPad.x = display.screenOriginX + dPad.contentWidth * 0.5 + 40
 	dPad.y = display.contentHeight - dPad.contentHeight * 0.5 - 40
-	timer.performWithDelay(400, myClosure)
+	timer.performWithDelay(1000, myClosure)
 	-- Create level numbers
 	lvlNumber = {	
 		[1] = "T", [2] = "1", [3] = "2",
@@ -229,7 +229,7 @@ local function selectLoop(event)
 			kCircle[i].isAwake = true
 		end
 	end
-	timer.performWithDelay(500, myClosure)
+	timer.performWithDelay(1500, myClosure)
 	-- Add physics
 	physics.addBody(player, "static", {radius = 0.1}) -- to player
 	physics.addBody(cameraTRK, "dynamic", {radius = 0.1}) -- to invisible camera
@@ -251,11 +251,11 @@ local function selectLoop(event)
 	levelGUI.front:insert(dPad)
 
 	bg:toBack()
-	timer.performWithDelay(600, myClosure)
+	timer.performWithDelay(2000, myClosure)
 	selectLevel.levelNum = kCircle[1].name
 	kCircle[1].isAwake = true
 	kCircle[1]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
-	timer.performWithDelay(700, myClosure)
+	timer.performWithDelay(2500, myClosure)
 	-- Insert objects into map layer "tiles"
 	map.layer["tiles"]:insert(player)
 	map.layer["tiles"]:insert(cameraTRK)
@@ -267,8 +267,8 @@ local function selectLoop(event)
 	silKipcha:addEventListener("tap", tapOnce)
 	dPad:addEventListener("touch", tapOnce)
 	Runtime:addEventListener("enterFrame", setCameratoPlayer)
-	timer.performWithDelay(800, myClosure)
-	timer.performWithDelay(1800, loading.deleteLoading)
+	timer.performWithDelay(3000, myClosure)
+	timer.performWithDelay(4000, loading.deleteLoading)
 end
 	
 
