@@ -44,6 +44,7 @@ function createCollisionDetection(imageObject, player, mapData, map, gui, physic
    local collideObject = event.other
    local targetObject = event.target
    if collideObject.collType == "passThru" then
+      print(collideObject.func)
       local col = require("Objects." .. collideObject.func)
       col.collide(collideObject, player, event, mapData, map)
    end

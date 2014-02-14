@@ -46,6 +46,8 @@ local function init()
 				 {width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
 	sheetList["redAura"] = graphics.newImageSheet("mapdata/art/redAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
+	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/greenAuraSheet.png", 
+				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
 
 	
 	-- Attach collision event to object
@@ -74,7 +76,7 @@ function createSprites(count, name, objectList)
 	for i = 1, count do
 		print("creating:", count, name, i)
 		objectList[name .. i] = display.newImage("mapdata/art/" .. name .. ".png")
-		objectList[name .. i].name = name
+		objectList[name .. i].name = name .. i
 	end
 	return true
 end
@@ -90,7 +92,7 @@ local function createObjects(objectNumbers, pane)
 	for i = 1, 3 do
 		createAnimations(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
-	for i = 4, 8 do
+	for i = 4, 9 do
 		createSprites(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
 	return objects, energy
@@ -132,7 +134,7 @@ local function destroy()
 		rune[i] = nil
 	end
 	print("DESTROY ALL OBJECTS!!!!!!!!")
-	--fifteen.destroyAll()
+	one.destroyAll()
 end
 
 objects.main = main

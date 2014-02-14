@@ -43,8 +43,6 @@ local movementMechanic = require("Accelerometer")
 local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
--- Object movementMechanics (moveableObjects.lua)
-local moveObjMechanic = require("moveableObjects")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -95,7 +93,7 @@ function loadMap()
 	ball.density = .3
 
 	-- Load in map
-	gui, miniMap = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
+	gui, miniMap = loadLevel.createLevel(mapData, ball, player1)
 	
 end
 
@@ -149,7 +147,7 @@ local function swipeMechanics(event)
 		physics.start()
 		
 		-- load map
-		map = loadLevel.changePane(mapData, player1, moveObjMechanic)
+		map = loadLevel.changePane(mapData, player1)
 		-- insert objects onto map layer
 		gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
