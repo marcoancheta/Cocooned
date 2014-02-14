@@ -17,13 +17,13 @@ local loaded = 0
 
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 function createLevel(mapData, ball, player, moveObj)
-
+	loaded = 0 -- current loading checkpoint, max is 6
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
 	-- Create GUI subgroups
 	gui.front = display.newGroup()
 	gui.back = display.newGroup()
-	loading.loadingInit()
+	loading.loadingInit() --initializes loading screen assets and displays them on top
 	-- Add subgroups into main GUI group
 	gui:insert(gui.back)
 	gui:insert(gui.front)
@@ -31,15 +31,21 @@ function createLevel(mapData, ball, player, moveObj)
 	print("loadMap", mapData.levelNum)
 
 	-- Load in map
-	timer.performWithDelay(300, myClosure)-- gui groups and subgroups added
+	timer.performWithDelay(500, myClosure)-- first loading check point gui groups and subgroups added
 	
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
 	objects.main(mapData, map)
 
-	timer.performWithDelay(400, myClosure) --map built
+	timer.performWithDelay(1000, myClosure) --map built
+	
+	for i=1, map.layer["tiles"].numChildren do
+		if map.layer["tiles"][i].name == "water" then
+			print("has water: ", i)
+		end
+	end
 
 	moveObj.createMoveableObjects(map)
-	timer.performWithDelay(500, myClosure) --objects moved
+	timer.performWithDelay(1500, myClosure) --objects moved
 	
 	if map.tutorial == true then
 		require("tutorial")
@@ -49,14 +55,13 @@ function createLevel(mapData, ball, player, moveObj)
 	-- set players location
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 
-	timer.performWithDelay(600, myClosure)--players location set
+	timer.performWithDelay(2000, myClosure)--players location set
 
 	-- create miniMap for level
 	local miniMapDisplay = miniMap.createMiniMap(mapData, player, map)
 	miniMapDisplay.name = "miniMapName"
 
-	timer.performWithDelay(700, myClosure) --minimap created
-	
+	timer.performWithDelay(2500, myClosure) --minimap created
 
 	--miniMapDisplay:removeSelf()
 
@@ -64,8 +69,8 @@ function createLevel(mapData, ball, player, moveObj)
 	gui.back:insert(1, map)
 	map.layer["tiles"]:insert(ball)
 
-	timer.performWithDelay(800, myClosure)--added groups
-	timer.performWithDelay(1800, loading.deleteLoading)
+	timer.performWithDelay(3000, myClosure)--added groups
+	timer.performWithDelay(4000, loading.deleteLoading)
 
 	return gui, miniMapDisplay
 

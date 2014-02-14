@@ -8,6 +8,8 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("gameData")
 local goals = require("goals")
+local bonus = require("levels.bonus")
+local fourteen = require("levels.fourteen")
 local fifteen = require("levels.fifteen")
 local one = require("levels.one")
 
@@ -105,6 +107,10 @@ local function main(mapData, map)
 		print("loading level 1")
 		objects, energy = createObjects(one, mapData.pane)
 		one.load(mapData.pane, map, rune, objects, energy)
+	elseif mapData.levelNum == "bonus" then
+		bonus.load(mapData.pane, map, sheetList)
+	elseif mapData.levelNum == "14" then
+		fourteen.load(mapData.pane, map, rune, objects, sheetList)
 	elseif mapData.levelNum == "15" then
 		--objects.createObjects(fifteen.getObjects())
 		print("loading level 15")
@@ -126,7 +132,7 @@ local function destroy()
 		rune[i] = nil
 	end
 	print("DESTROY ALL OBJECTS!!!!!!!!")
-	fifteen.destroyAll()
+	--fifteen.destroyAll()
 end
 
 objects.main = main

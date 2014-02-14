@@ -1,67 +1,65 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- bonus.lua
+-- bonusPane.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+-- GameData variables/booleans (gameData.lua)
+local gameData = require("gameData")
+local bonusGame = require("levels.bonusGame")
 
-local bonus = {}
-local trees = {}
+local bonusPane = {}
+local energy = {} 
+local objects = {}
 
-local W = display.contentWidth + 77
-local H = display.contentHeight - 15
+local function generateEnergy(energy, map, startIndex, endIndex)
+	-- Position coins
+	local count = 1
+	for i=startIndex, endIndex do
+		--print("Create energy at: ", energy[i].name)
+		energy[i].speed = 50
+	   	energy[i].isVisible = true
+	   	energy[i].func = "energyCollision"
+	   	energy[i].collectable = true
+	   	energy[i].name = "energy" .. i
+		map.layer["tiles"]:insert(energy[i])
+		energy[i]:setSequence("move")
+		energy[i]:play()
+		physics.addBody(energy[i], "static", {bounce=0})
+		count = count + 1
+	end
+end
 
-local bGroup = display.newGroup()
+local function load(pane, map, sheetList)
+	
+	-- Check which pane
+	if pane == "M" then
+		for i=1, 10 do	
+			print("create pane M")
+	   		energy[i] = display.newSprite(sheetList.energy, spriteOptions.energy)
+	   		energy[i].x, energy[i].y = map.tilesToPixels(i*3, 15)
+		end
 
-function bonus:init()
+		generateEnergy(energy, map, 1, 10)
+	
+	elseif pane == "U" or pane == "D" or pane == "L" or pane == "R" then
+		for i=1, 2 do	
+	   		energy[i] = display.newSprite(sheetList.energy, spriteOptions.energy)
+			energy[i].isVisible = false
+		end
 		
-	local background = display.newRect(720, 430, W, H)
-	
-	trees = {
-		[1] = {
-			imgPath = "mapdata/art/tree.png",
-			speed = 5000
-		},
-		[2] = {
-			imgPath = "mapdata/art/tree2.png",
-			speed = 5000
-		},
-		[3] = {
-			imgPath = "mapdata/art/tree3.png",
-			speed = 5000
-		}
-	}		  
-
+		bonusGame.main(pane, map, energy, sheetList.energy)	
+	end
 end
 
-function bonus:getRand()
-
-	local temp = trees[math.random(1, #trees)]
-	local randTree = display.newImage(temp.imgPath)
-	
-	print("getRand")
-	
-	--physics.addBody(randTree, "static", {bounce=0})
-	randTree.name = "tree"
-	randTree.speed = temp.speed
-	randTree.x = W + 50
-	randTree.y = math.random(0, H)
-	randTree:rotate(-90)
-	
-	moveTree = transition.to(randTree, {time=randTree.speed, x=-500,
-							 onComplete=function(self) self.parent:remove(self); self=nil; end})
-
+local function destroyAll() 
+	for i=1, #energy do
+		display.remove(energy[i])
+		energy[i] = nil
+	end
 end
 
-function bonus:start()	
-	treeTimer = timer.performWithDelay(1000, bonus.getRand, 0)
-end
+bonusPane.load = load
+bonusPane.destroyAll = destroyAll
 
-local function main()
-	bonus:init()
-	bonus:start()
-end
-
-bonus.main = main
-
-return bonus
+return bonusPane

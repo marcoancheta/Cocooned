@@ -54,7 +54,6 @@ local ball
 local mapPanes
 local t = 1
 local timeCheck = 1
-_G.activateWind = false
 local timeCount = 0
 
 -- Initialize map data

@@ -18,6 +18,10 @@ spriteOptions = { -- Sprite options for player and finish star
 		{frames = {6,5,4,3,2,1}, name = "move", time = 500},
 		{frames = {1}, name = "still", time = 250}
 	},
+	loadWolf = {
+			{frames = {8,7,6,5,4,3,2,1}, name = "move", time = 500},
+			{frames = {1}, name = "still", time = 250}
+		},
 	["redAura"] = {
 		{frames = {20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1}, name = "move", time = 1000},
 		{frames = {1}, name = "still", time = 250}	
@@ -34,6 +38,7 @@ objectNames = {
 	[7] = "greenTotem",
 	[8] = "switch",
 	[9] = "switchWall"
+
 }
 
 
