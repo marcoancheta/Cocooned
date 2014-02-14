@@ -62,7 +62,6 @@ function createLevel(mapData, ball, player, moveObj)
 	miniMapDisplay.name = "miniMapName"
 
 	timer.performWithDelay(2500, myClosure) --minimap created
-	
 
 	--miniMapDisplay:removeSelf()
 

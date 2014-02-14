@@ -2,6 +2,7 @@ local loadingBG = nil
 local loadWolf = nil
 local loadBar = nil
 local loadText = nil
+local wolfSheet = nil
 
 function loadingInit(loadGroup)
 	loadingBG = display.newImage('mapdata/art/bg2.jpg', 10, 20,true )
@@ -34,6 +35,7 @@ end
 function updateLoading(int)
 	loadBar[int].isVisible=true
 	loadBar[int]:toFront()
+	--loadWolf:play()
 	return true
 end
 
@@ -43,8 +45,9 @@ function deleteLoading()
 	end
 	loadingBG:removeSelf()
 	loadText:removeSelf()
+	--loadWolf:removeSelf()
 	loadingBG = nil
-	loadWolf = nil
+	--loadWolf = nil
 	loadBar = nil
 	loadText = nil
 end
