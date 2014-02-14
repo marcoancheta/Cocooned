@@ -16,16 +16,18 @@ local bGroup = display.newGroup()
 
 local background
 local timeIT
+local loser = false
 
 -- Initialize base variables
 function bonus:init()
-		
+
+	loser = false		
 	timeIT = 10000
 		
-	-- Create our icey background
+	-- Create icy background
 	background = display.newRect(720, 430, 2100, 1000)
 	
-	-- Create our tree table
+	-- Create tree table
 	trees = {
 		[1] = {
 			imgPath = "mapdata/art/tree.png",
@@ -40,6 +42,12 @@ function bonus:init()
 			speed = 100
 		}
 	}
+	
+	-- Create avalanche
+	avalanche = display.newImage("mapdata/art/snowFall.png")
+	avalanche:scale(4, 4)
+	avalanche.isVisible = false
+	
 end
 
 -- Algorithm for random generation
@@ -54,11 +62,15 @@ local function getRand(event)
 	-- Create private collision
 	local function onLocalCollision(self, event)
 		if(event.phase == "began") then
-			-- Collision with runes
-			self.isVisible = false
-			--self.isBodyActive = false
-			self.isSensor = true
-			self:removeEventListener("collision", self)
+			if self.name == avalanche.name then
+				loser = true
+			else
+				-- Collision with runes
+				self.isVisible = false
+				--self.isBodyActive = false
+				self.isSensor = true
+				self:removeEventListener("collision", self)
+			end
 		end
 	end	
 	
@@ -98,10 +110,18 @@ local function getRand(event)
 	randNrgy.speed = temp[2].speed
 	randNrgy.isVisible = true
 	randNrgy.collision = onLocalCollision
-	physics.addBody(randNrgy, "static", {bounce=0})
+	physics.addBody(randNrgy, "static", {bounce=-1})
 	randNrgy:rotate(-90)
 	randNrgy:setSequence("move")
 	randNrgy:play()	
+	
+	-- Add collision detection for avalanche
+	avalanche.name = "avalanche"
+	avalanche.x, avalanche.y = map.tilesToPixels(3, 12.5)
+	physics.addBody(avalanche, "static", {bounce=0})
+	avalanche.collision = onLocalCollision
+	avalanche.speed = temp[2].speed
+	avalanche.isVisible = true
 
 	-- Position coins based on tree location
 	if randTree.y < 400 then
@@ -116,27 +136,48 @@ local function getRand(event)
 	params.param1.layer["tiles"]:insert(randTree)
 	params.param1.layer["tiles"]:insert(randNrgy)
 	params.param1.layer["tiles"]:insert(treeBoundingBox)
+	params.param1.layer["tiles"]:insert(avalanche)
 	
 	-- Add event listener to energy coins
 	randNrgy:addEventListener("collision", randNrgy)
+	avalanche:addEventListener("collision", avalanche)
 	
 	-- Decrement timeIT by 50 every second
 	timeIT = timeIT - 50
 	
+	local function destroy()
+		transition.cancel(moveAval);
+		transition.cancel(moveTree);
+		transition.cancel(moveTBB);
+		transition.cancel(moveNrgy);
+		timer.cancel(event.source);
+		randNrgy:removeEventListener("collision", randNrgy);
+		avalanche:removeEventListener("collision", avalanche);
+		randTree:removeSelf();
+		randNrgy:removeSelf();
+		avalanche:removeSelf()
+		randTree = nil;
+		randNrgy = nil;
+		avalanche = nil;
+		gameData.gameEnd = true;
+	end
+	
+	
 	-- End Transitions if timeIT in for 44 seconds
 	-- timeIT = 10,000. Level ends at 5,600. Therefore 4,400 = 44 seconds.
-	if timeIT < 5600 then --5600 then
-		transition.cancel(moveTree)
-		transition.cancel(moveTBB)
-		transition.cancel(moveNrgy)
-		timer.cancel(event.source)
-		randNrgy:removeEventListener("collision", randNrgy)
-		randTree:removeSelf()
-		randNrgy:removeSelf()
-		randTree = nil
-		randNrgy = nil
-		gameData.gameEnd = true
-	else
+	if timeIT < 5600 or loser then	--5600 then
+		avalanche:removeSelf()
+		avalanche = nil
+		avalanche = display.newImage("mapdata/art/snowFall2.png")
+		avalanche:scale(8, 4)
+		avalanche.x, avalanche.y = map.tilesToPixels(3, 12.5)
+		params.param1.layer["tiles"]:insert(avalanche)
+		
+		local moveAval = transition.to(avalanche, {time=2000, iterations=0, x=2000,
+			onComplete=destroy})
+			
+		loser = false
+	elseif timeIT > 5600 then
 		-- Begin transitions
 		local moveTree = transition.to(randTree, {time=timeIT, x=-5,
 			onComplete=function(self) self.parent:remove(self); self=nil; end})

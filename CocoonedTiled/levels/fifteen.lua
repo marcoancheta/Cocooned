@@ -131,7 +131,7 @@ local function load(pane, map, rune, objects, energy)
 		-- Assign rune coordinates
 		rune[1].x, rune[1].y = map.tilesToPixels(20, 9)	
 		rune[1].isVisible = true		
-
+		
 		objects["switch1"].x, objects["switch1"].y = map.tilesToPixels(12,5)
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(12,12)
 
