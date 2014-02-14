@@ -2,6 +2,7 @@ local loadingBG = nil
 local loadWolf = nil
 local loadBar = nil
 local loadText = nil
+local wolfSheet = nil
 
 function loadingInit(loadGroup)
 	loadingBG = display.newImage('mapdata/art/bg2.jpg', 10, 20,true )
@@ -22,21 +23,27 @@ function loadingInit(loadGroup)
 	loadBar[4].isVisible=false
 	loadBar[5].isVisible=false
 	loadBar[6].isVisible=false
+
 	loadText = display.newText("Loading",800, 200, native.systemFontBold, 280, "center")
-	--add image sheet and framereference
-	--[[
-	wolfSheet = graphics.newImageSheet("mapdata/graphics/wolfSheet.png", 
-				   --change later {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-	loadWolf= display.newImage(wolfSheet, spriteOptions.wolf)
-	loadWolf.x = middle
-	loadWolf.y = middle
-	loadWolf.toFront()
-	loadWolf.play()
-	]]
+
+	--[[add wolf image sheet and frame reference
+	wolfSheet = graphics.newImageSheet( "mapdata/graphics/wolfSheet.png", {width = 1000, height = 491, sheetContentWidth = 8000, sheetContentHeight = 491, numFrames = 8} )
+	loadWolf = display.newSprite( wolfSheet, spriteOptions.loadWolf )
+	loadWolf.x = display.contentWidth/1.9  --center the sprite horizontally
+	loadWolf.y = display.contentHeight/1.4  --center the sprite vertically	
+	loadWolf = display.newSprite(wolfSheet, spriteOptions.loadWolf)
+	loadWolf.speed = 50
+	loadWolf.isVisible = false
+	loadWolf.isBodyActive = true
+    loadWolf.collision = onLocalCollision
+    loadWolf:setSequence( "move" )
+    --]]
+
 end
 function updateLoading(int)
 	loadBar[int].isVisible=true
 	loadBar[int]:toFront()
+	--loadWolf:play()
 	return true
 end
 
@@ -49,8 +56,9 @@ function deleteLoading()
 	loadBar[6]:removeSelf()
 	loadingBG:removeSelf()
 	loadText:removeSelf()
+	--loadWolf:removeSelf()
 	loadingBG = nil
-	loadWolf = nil
+	--loadWolf = nil
 	loadBar = nil
 	loadText = nil
 end

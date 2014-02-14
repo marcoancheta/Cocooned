@@ -24,6 +24,7 @@ function createLevel(mapData, ball, player, moveObj)
 	gui.front = display.newGroup()
 	gui.back = display.newGroup()
 	loading.loadingInit()
+
 	-- Add subgroups into main GUI group
 	gui:insert(gui.back)
 	gui:insert(gui.front)
@@ -62,7 +63,6 @@ function createLevel(mapData, ball, player, moveObj)
 	miniMapDisplay.name = "miniMapName"
 
 	timer.performWithDelay(700, myClosure) --minimap created
-	
 
 	--miniMapDisplay:removeSelf()
 

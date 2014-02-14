@@ -15,10 +15,12 @@ spriteOptions = { -- Sprite options for player and finish star
 			{frames = {1}, name = "still", time = 250}
 		},
 		paneSwitch = {
-			{frames = {6,5,4,3,2,1}, name = "move", time = 500},
+			{frames = {6,5,4,3,2,1}, name = "move", time = 1000},
+			{frames = {1}, name = "still", time = 250}
+		},
+		loadWolf = {
+			{frames = {8,7,6,5,4,3,2,1}, name = "move", time = 500},
 			{frames = {1}, name = "still", time = 250}
 		}
-
-		--TODO: add option for wolf
 
 }
