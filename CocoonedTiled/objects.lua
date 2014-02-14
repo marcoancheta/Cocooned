@@ -12,35 +12,6 @@ local fifteen = require("levels.fifteen")
 
 local objects = { }
 
-local function onLocalCollision(self, event)
-	if(event.phase == "began") then
-		-- Collision with runes
-		for i=1, #rune do
-			if(self.name == rune[i].name) then
-				-- Collision with runes
-				self.isVisible = false
-				self.isBodyActive = false
-				self:removeEventListener("collision", self)
-				display.remove(self)
-			end
-		end
-		
-		-- Collision with coins
-		for i=1, #coins do
-			if(self.name == coins[i].name) then
-				-- Collision with runes
-				self.isVisible = false
-				self.isBodyActive = false
-				self:removeEventListener("collision", self)
-				display.remove(self)
-			end
-		end
-		
-	end
-end
-
-
-
 --------------------------------------------------------------------------------
 -- Object - Load all objects
 --------------------------------------------------------------------------------
@@ -141,25 +112,7 @@ local function destroy()
 	fifteen.destroyAll()
 end
 
---------------------------------------------------------------------------------
--- Object Main - for levelSelector
---------------------------------------------------------------------------------
---[[
-local function transfer(mapData, lvlNumber)
-	destroy()
-	objects.init()
-	
-	-- Check levelNum then redirect
-	for i=1, #lvlNumber do
-		if mapData.levelNum == lvlNumber[i] then
-			goals.findGoals(mapData, rune, coins)
-		end
-	end
-end
-]]--
-
 objects.main = main
---objects.transfer = transfer
 objects.destroy = destroy
 
 return objects
