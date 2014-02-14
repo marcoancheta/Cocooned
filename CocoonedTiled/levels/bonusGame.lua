@@ -15,10 +15,12 @@ local H = 24
 local bGroup = display.newGroup()
 
 local background
-local timeIT = 10000
+local timeIT
 
 -- Initialize base variables
 function bonus:init()
+		
+	timeIT = 10000
 		
 	-- Create our icey background
 	background = display.newRect(720, 430, 2100, 1000)
