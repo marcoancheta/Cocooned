@@ -37,12 +37,6 @@ function createLevel(mapData, ball, player, moveObj)
 	objects.main(mapData, map)
 
 	timer.performWithDelay(400, myClosure) --map built
-	
-	for i=1, map.layer["tiles"].numChildren do
-		if map.layer["tiles"][i].name == "water" then
-			print("has water: ", i)
-		end
-	end
 
 	moveObj.createMoveableObjects(map)
 	timer.performWithDelay(500, myClosure) --objects moved
@@ -68,9 +62,7 @@ function createLevel(mapData, ball, player, moveObj)
 
 	-- Add objects to its proper groups
 	gui.back:insert(1, map)
-	map:insert(ball)
 	map.layer["tiles"]:insert(ball)
-	objects.main(mapData, map)
 
 	timer.performWithDelay(800, myClosure)--added groups
 	timer.performWithDelay(1800, loading.deleteLoading)

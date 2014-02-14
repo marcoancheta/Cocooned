@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- fifteen.lua
+-- one.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -9,17 +9,17 @@
 local gameData = require("gameData")
 
 
-local fifteen = { 
+local one = { 
 	energyCount = 30,
 	["M"] = {
 		["blueAura"] = 0,
-		["redAura"] = 1,
+		["redAura"] = 0,
 		["greenAura"] = 0,
 		["moveWall"] = 0,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
-		["switch"] = 1,
+		["switch"] = 0,
 		["switchWall"] = 0
 	},
 	["D"] = {
@@ -86,7 +86,7 @@ end
 local function generateObjects(objects, map, pane, runes)
 	for i = 1, #objectNames do
 		local name = objectNames[i]
-		for j = 1, fifteen[pane][name] do
+		for j = 1, one[pane][name] do
 			map.layer["tiles"]:insert(objects[name .. j])
 			objects[name .. j].func = name .. "Collision"
 			physics.addBody(objects[name ..j], "static", {bounce = 0})
@@ -113,7 +113,7 @@ local function destroyObjects(rune, energy, objectList)
 	end
 
 	-- deleted extra energies
-	for i = 1, fifteen.energyCount do
+	for i = 1, one.energyCount do
 		print("energyCount:", i)
 		if energy[i].isVisible == false then
 			energy[i]:removeSelf()
@@ -129,18 +129,20 @@ local function load(pane, map, rune, objects, energy)
 	if pane == "M" then
 		print("createRune")
 		-- Assign rune coordinates
-		rune[1].x, rune[1].y = map.tilesToPixels(20, 9)	
-		rune[1].isVisible = true		
-
-		objects["switch1"].x, objects["switch1"].y = map.tilesToPixels(12,5)
-		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(12,12)
+		rune[1].x, rune[1].y = map.tilesToPixels(3.5 , 3.5)	
+		rune[1].isVisible = true
+		rune[2].x, rune[2].y = map.tilesToPixels(37.5, 3.5)	
+		rune[2].isVisible = true
+		rune[3].x, rune[3].y = map.tilesToPixels(3.5, 21.5)	
+		rune[3].isVisible = true	
+		rune[4].x, rune[4].y = map.tilesToPixels(37.5, 21.5)	
+		rune[4].isVisible = true			
 
 		generateObjects(objects, map, pane, rune)
 	
 	elseif pane == "U" then
 		-- Assign rune coordinates
-		rune[2].x, rune[2].y = map.tilesToPixels(20, 9)	
-		rune[2].isVisible = true
+		
 
 		generateObjects(objects, map, pane, rune)	
 	
@@ -158,7 +160,7 @@ local function destroyAll()
 	end
 end
 
-fifteen.load = load
-fifteen.destroyAll = destroyAll
+one.load = load
+one.destroyAll = destroyAll
 
-return fifteen
+return one

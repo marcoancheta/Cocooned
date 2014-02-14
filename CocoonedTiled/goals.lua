@@ -15,6 +15,7 @@ local gNum = 1
 local goalBox, textBox, box, coin
 local textObject = {}
 local bSet
+local goalie
 
 -- Draw/Insert Objects
 local function drawGoals(text, rune, coins)

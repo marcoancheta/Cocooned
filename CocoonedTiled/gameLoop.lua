@@ -440,8 +440,8 @@ Runtime:addEventListener("enterFrame", menuLoop)
 
 --Runtime:addEventListener("enterFrame", soundLoop)
 
-local textObject = display.newText("test", 200, 100, native.systemFont, 32)
-textObject:setFillColor(1,1,1)
+local textObject = display.newText("test", 1200, 100, native.systemFont, 32)
+textObject:setFillColor(0,1,0)
 
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)

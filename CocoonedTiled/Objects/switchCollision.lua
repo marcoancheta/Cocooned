@@ -1,4 +1,5 @@
 function collide(collideObject, player, event, mapData, map)
+	print("Collided with SWITCH")
 	event.contact.isEnabled = false
 	--print(map.layer["tiles"][183])
 	for check = 1, map.layer["tiles"].numChildren do

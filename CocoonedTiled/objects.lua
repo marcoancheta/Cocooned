@@ -9,13 +9,16 @@
 local gameData = require("gameData")
 local goals = require("goals")
 local fifteen = require("levels.fifteen")
+local one = require("levels.one")
 
-local objects = { }
+local objects = {}
+
+
 
 --------------------------------------------------------------------------------
 -- Object - Load all objects
 --------------------------------------------------------------------------------
-function objects:init()
+local function init()
 	physics.setGravity(0,0)
 	
 	-- Load runes
@@ -35,11 +38,13 @@ function objects:init()
 	rune[5].name = "yellowRune"
 	
 	-- load object sprites
-		
 	sheetList = {}
 
-	sheetList[1] = graphics.newImageSheet("mapdata/art/coins.png", 
+	sheetList.energy = graphics.newImageSheet("mapdata/art/coins.png", 
 				 {width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
+	sheetList["redAura"] = graphics.newImageSheet("mapdata/art/redAuraSheet.png", 
+				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
+
 	
 	-- Attach collision event to object
 	-- Disable visibility
@@ -52,48 +57,60 @@ function objects:init()
 	
 	return true
 end
---------------------------------------------------------------------------------
--- Object - Physics
--- 		Add physics to objects
---------------------------------------------------------------------------------
-function objects:physics()
-	for i=1, #rune do
-		physics.addBody(rune[i], "dynamic", {bounce=0})
+
+function createAnimations(count, name, objectList)
+	for i = 1, count do
+		objectList[name .. i] = display.newSprite(sheetList[name], spriteOptions[name])
+		objectList[name .. i].name = name
+		objectList[name .. i]:setSequence("move")
+		objectList[name .. i]:play()
 	end
-	
-	for j=1, #coins do
-		physics.addBody(coins[j], "dynamic", {bounce=0})
-	end
-	
 	return true
 end
 
---------------------------------------------------------------------------------
--- Object - Events
--- 		Add event listeners to objects
---------------------------------------------------------------------------------
-function objects:events()
-	for i=1, #rune do
-		rune[i]:addEventListener("collision", rune[i])
-	end
-	
-	for i=1, #coins do
-		coins[i]:addEventListener("collision", coins[i])
+function createSprites(count, name, objectList)
+	for i = 1, count do
+		print("creating:", count, name, i)
+		objectList[name .. i] = display.newImage("mapdata/art/" .. name .. ".png")
+		objectList[name .. i].name = name
 	end
 	return true
+end
+
+local function createObjects(objectNumbers, pane)
+	local energy = {}
+	local objects = {}
+	for i=1, tonumber(objectNumbers.energyCount) do
+		energy[i] = display.newSprite(sheetList.energy, spriteOptions.energy)
+		energy[i].isVisible = false
+		energy[i].x, energy[i].y = 100, 100
+	end	
+	for i = 1, 3 do
+		createAnimations(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
+	end
+	for i = 4, 8 do
+		createSprites(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
+	end
+	return objects, energy
 end
 
 --------------------------------------------------------------------------------
 -- Object Main
 --------------------------------------------------------------------------------
 local function main(mapData, map)
-	objects.init()
+	init()
 	
 	-- Check levelNum then redirect
-	if mapData.levelNum == "14" then
-		fourteen.load(mapData.pane, map, rune, coins)
+	if mapData.levelNum == "1" then
+		print("loading level 1")
+		objects, energy = createObjects(one, mapData.pane)
+		one.load(mapData.pane, map, rune, objects, energy)
 	elseif mapData.levelNum == "15" then
-		fifteen.load(mapData.pane, map, rune, objects, sheetList)
+		--objects.createObjects(fifteen.getObjects())
+		print("loading level 15")
+		objects, energy = createObjects(fifteen, mapData.pane)
+		fifteen.load(mapData.pane, map, rune, objects, energy)
+
 	else
 		print("OBJECTS FOR LVL:", mapData.levelNum, "NOT MADE")
 	end
