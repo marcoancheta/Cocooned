@@ -167,12 +167,9 @@ local function selectLoop(event)
 	-- Position dPad buttons
 	dPad.x = display.screenOriginX + dPad.contentWidth * 0.5 + 40
 	dPad.y = display.contentHeight - dPad.contentHeight * 0.5 - 40
-<<<<<<< HEAD
-	timer.performWithDelay(1000, myClosure)
-=======
+
 	timer.performWithDelay(400, myClosure)
 	
->>>>>>> Added temporary bonus level to level Selector.
 	-- Create level numbers
 	lvlNumber = {	
 		[1] = "T", [2] = "1", [3] = "2",
