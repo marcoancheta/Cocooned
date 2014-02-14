@@ -124,7 +124,7 @@ local function findGoals(mapData)
 	if temp == "T" then
 		runeAMT = 1
 	elseif temp == "1" then
-		runeAMT = 2
+		runeAMT = 4
 	elseif temp == "2" then
 		runeAMT = 3
 	elseif temp == "3" then

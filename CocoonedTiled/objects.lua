@@ -118,7 +118,6 @@ local function main(mapData, map)
 		print("loading level 15")
 		objects, energy = createObjects(fifteen, mapData.pane)
 		fifteen.load(mapData.pane, map, rune, objects, energy)
-
 	else
 		print("OBJECTS FOR LVL:", mapData.levelNum, "NOT MADE")
 	end
@@ -128,13 +127,15 @@ end
 --------------------------------------------------------------------------------
 -- Object Clean Up
 --------------------------------------------------------------------------------
-local function destroy()
+local function destroy(mapData)
 	for i=0, #rune do
 		display.remove(rune[i])
 		rune[i] = nil
 	end
 	print("DESTROY ALL OBJECTS!!!!!!!!")
-	one.destroyAll()
+	if mapData.levelNum == "1" then
+		one.destroyAll()
+	end
 end
 
 objects.main = main

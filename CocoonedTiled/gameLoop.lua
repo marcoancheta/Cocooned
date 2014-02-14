@@ -135,7 +135,7 @@ local function swipeMechanics(event)
 
 		-- delete everything on map
 		map:removeSelf()
-		objects.destroy()
+		objects.destroy(mapData)
 		
 		-- Pause physics
 		physics.pause()
@@ -439,6 +439,7 @@ Runtime:addEventListener("enterFrame", menuLoop)
 
 local textObject = display.newText("test", 1200, 100, native.systemFont, 32)
 textObject:setFillColor(0,1,0)
+textObject.alpha= 0
 
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)

@@ -32,7 +32,8 @@ local one = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 1,
-		["switchWall"] = 5
+		["switchWall"] = 5,
+		wallDown = false
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -43,7 +44,8 @@ local one = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 1,
-		["switchWall"] = 5
+		["switchWall"] = 5,
+		wallDown = false
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -65,9 +67,14 @@ local one = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 1,
-		["switchWall"] = 13
+		["switchWall"] = 13,
+		wallDown = false
 	}
 }
+
+function takeWallsDown(pane)
+	one[pane].wallDown = true
+end
 
 local objectList
 
@@ -89,6 +96,7 @@ end
 local function generateObjects(objects, map, pane, runes)
 	for i = 1, #objectNames do
 		local name = objectNames[i]
+		print("generating:", one[pane][name])
 		for j = 1, one[pane][name] do
 			map.layer["tiles"]:insert(objects[name .. j])
 			objects[name .. j].func = name .. "Collision"
@@ -144,7 +152,24 @@ local function destroyObjects(rune, energy, objects)
 			energy[i] = nil
 		end
 	end
-
+	--[[
+	if one["L"].wallDown == true then
+		for i = 1, one[pane]["switchWall"] do
+			objects["switchWall" .. i]:removeSelf()
+			objects["switchWall" .. i] = nil
+		end
+	elseif one["D"].wallDown == true then
+		for i = 1, one[pane]["switchWall"] do
+			objects["switchWall" .. i]:removeSelf()
+			objects["switchWall" .. i] = nil
+		end
+	elseif one["U"].wallDown == true then
+		for i = 1, one[pane]["switchWall"] do
+			objects["switchWall" .. i]:removeSelf()
+			objects["switchWall" .. i] = nil
+		end
+	end
+	]]
 end
 
 local function load(pane, map, rune, objects, energy)
@@ -238,10 +263,11 @@ local function load(pane, map, rune, objects, energy)
 		objects["moveWall6"].eX, objects["moveWall6"].eY = map.tilesToPixels(23.5, 8)
 		objects["moveWall6"].time = 600
 
-		for i = 1, 5 do
-			objects["switchWall" .. i].x, objects["switchWall" .. i].y = map.tilesToPixels(35, 1 + i*1)
+		if one[pane].wallDown == false then
+			for i = 1, 5 do
+				objects["switchWall" .. i].x, objects["switchWall" .. i].y = map.tilesToPixels(35, 1 + i*1)
+			end
 		end
-		
 
 		generateObjects(objects, map, pane, rune)
 		generateMoveableObjects(objects, map, pane)	
@@ -293,10 +319,11 @@ local function load(pane, map, rune, objects, energy)
 		objects["moveWall10"].eX, objects["moveWall10"].eY = map.tilesToPixels(31, 17)
 		objects["moveWall10"].time = 600
 
-		for i = 1, 5 do
-			objects["switchWall" .. i].x, objects["switchWall" .. i].y = map.tilesToPixels(0.75 + i*1, 6)
+		if one[pane].wallDown == false then
+			for i = 1, 5 do
+				objects["switchWall" .. i].x, objects["switchWall" .. i].y = map.tilesToPixels(0.75 + i*1, 6)
+			end
 		end
-
 		generateObjects(objects, map, pane, rune)
 		generateMoveableObjects(objects, map, pane)	
 	elseif pane == "R" then
@@ -350,19 +377,19 @@ local function load(pane, map, rune, objects, energy)
 	elseif pane == "L" then
 		objects["switch1"].x, objects["switch1"].y = map.tilesToPixels(18, 12)
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(3.5, 12)
+		if one[pane].wallDown == false then
+			for i = 1, 4 do
+				objects["switchWall" .. i].x, objects["switchWall" .. i].y = map.tilesToPixels(16, 9.5 + 1*i)
+			end
 
-		for i = 1, 4 do
-			objects["switchWall" .. i].x, objects["switchWall" .. i].y = map.tilesToPixels(16, 9.5 + 1*i)
+			for i = 5, 8 do
+				objects["switchWall" .. i].x, objects["switchWall" .. i].y = map.tilesToPixels(12.5, 9.5 + 1*i-4)
+			end
+
+			for i = 9, 13 do
+				objects["switchWall" .. i].x, objects["switchWall" .. i].y = map.tilesToPixels(6, 18 + 1*(i-8))
+			end
 		end
-
-		for i = 5, 8 do
-			objects["switchWall" .. i].x, objects["switchWall" .. i].y = map.tilesToPixels(12.5, 9.5 + 1*i-4)
-		end
-
-		for i = 9, 13 do
-			objects["switchWall" .. i].x, objects["switchWall" .. i].y = map.tilesToPixels(6, 18 + 1*(i-8))
-		end
-
 
 		generateObjects(objects, map, pane, rune)
 	end
@@ -383,5 +410,6 @@ end
 
 one.load = load
 one.destroyAll = destroyAll
+one.takeWallsDown = takeWallsDown
 
 return one
