@@ -49,7 +49,7 @@ local function getRand(event)
 	local params = event.source.params
 
 	-- Set gravity to pull slightly on the Positive X-Axis
-	physics.setGravity(0.1, 0)
+	physics.setGravity(-5, 0)
 	
 	-- Create private collision
 	local function onLocalCollision(self, event)
@@ -123,13 +123,18 @@ local function getRand(event)
 	-- Decrement timeIT by 50 every second
 	timeIT = timeIT - 50
 	
-	-- End Transitions if timeIT < 5600
+	-- End Transitions if timeIT in for 44 seconds
+	-- timeIT = 10,000. Level ends at 5,600. Therefore 4,400 = 44 seconds.
 	if timeIT < 5600 then --5600 then
 		transition.cancel(moveTree)
 		transition.cancel(moveTBB)
 		transition.cancel(moveNrgy)
 		timer.cancel(event.source)
 		randNrgy:removeEventListener("collision", randNrgy)
+		randTree:removeSelf()
+		randNrgy:removeSelf()
+		randTree = nil
+		randNrgy = nil
 		gameData.gameEnd = true
 	else
 		-- Begin transitions
