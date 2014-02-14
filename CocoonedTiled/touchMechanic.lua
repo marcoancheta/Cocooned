@@ -122,17 +122,17 @@ function tapScreen(event, miniMap, physics)
 	-- if tapped twice, show miniMap or if showing, hide it
 	if event.numTaps >= 2 then
 		-- show miniMap 
-		if miniMap.isVisible == false then
-			--print("show")
+		if gameData.isShowingMiniMap == false then
+			print("show")
 			physics.pause()
 			gameData.isShowingMiniMap = true
-			miniMap.isVisible = true
+			miniMap.alpha = 0.75
 		else
 		--hide miniMap
-			--print("hide")
+			print("hide")
 			physics.start()
 			gameData.isShowingMiniMap = false
-			miniMap.isVisible = false
+			miniMap.alpha = 0
 		end
 
 	end
