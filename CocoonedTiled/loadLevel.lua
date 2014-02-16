@@ -16,7 +16,7 @@ local loaded = 0
 --------------------------------------------------------------------------------
 
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
-function createLevel(mapData, ball, player, moveObj)
+function createLevel(mapData, ball, player)
 	loaded = 0 -- current loading checkpoint, max is 6
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
@@ -44,7 +44,6 @@ function createLevel(mapData, ball, player, moveObj)
 		end
 	end
 
-	moveObj.createMoveableObjects(map)
 	timer.performWithDelay(1500, myClosure) --objects moved
 	
 	if map.tutorial == true then
@@ -67,9 +66,7 @@ function createLevel(mapData, ball, player, moveObj)
 
 	-- Add objects to its proper groups
 	gui.back:insert(1, map)
-	map:insert(ball)
 	map.layer["tiles"]:insert(ball)
-	objects.main(mapData, map)
 
 	timer.performWithDelay(3000, myClosure)--added groups
 	timer.performWithDelay(4000, loading.deleteLoading)
@@ -81,14 +78,13 @@ end
 --------------------------------------------------------------------------------
 -- update pane for level
 --------------------------------------------------------------------------------
-function changePane(mapData, player, moveObj)
+function changePane(mapData, player)
 
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
 	objects.main(mapData, map)
 
 	-- load 
-	--moveObj.createMoveableObjects(map)
 
 	-- if an item was previously taken, remove it from map
 	if #player.inventory.items > 0 then

@@ -25,8 +25,8 @@ local emitterDensity = 5
 
 --Mortar props
 local particleSpeed = 200
-local particleEmitterDensity = 5
-local particleRadiusRange = 100
+local particleEmitterDensity = 2
+local particleRadiusRange = 200
 local particleThickness = 4
 local particleEmitter = emitterLib:createEmitter(radiusRange, particleThickness, duration, startAlpha, endAlpha, pImage, pImageWidth, pImageHeight)
 
@@ -44,6 +44,7 @@ function createCollisionDetection(imageObject, player, mapData, map, gui, physic
    local collideObject = event.other
    local targetObject = event.target
    if collideObject.collType == "passThru" then
+      print(collideObject.func)
       local col = require("Objects." .. collideObject.func)
       col.collide(collideObject, player, event, mapData, map)
    end
@@ -79,7 +80,7 @@ function createCollisionDetection(imageObject, player, mapData, map, gui, physic
       
       -- create particle effect
       if collideObject.collType == "wall" then
-        --timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
+        timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
       end
 
     elseif ( event.phase == "ended" ) then

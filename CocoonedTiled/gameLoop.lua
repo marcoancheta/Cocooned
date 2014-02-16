@@ -43,8 +43,6 @@ local movementMechanic = require("Accelerometer")
 local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
--- Object movementMechanics (moveableObjects.lua)
-local moveObjMechanic = require("moveableObjects")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -95,7 +93,7 @@ function loadMap()
 	ball.density = .3
 
 	-- Load in map
-	gui, miniMap = loadLevel.createLevel(mapData, ball, player1, moveObjMechanic)
+	gui, miniMap = loadLevel.createLevel(mapData, ball, player1)
 	
 end
 
@@ -137,7 +135,7 @@ local function swipeMechanics(event)
 
 		-- delete everything on map
 		map:removeSelf()
-		objects.destroy()
+		objects.destroy(mapData)
 		
 		-- Pause physics
 		physics.pause()
@@ -149,7 +147,7 @@ local function swipeMechanics(event)
 		physics.start()
 		
 		-- load map
-		map = loadLevel.changePane(mapData, player1, moveObjMechanic)
+		map = loadLevel.changePane(mapData, player1)
 		-- insert objects onto map layer
 		gui.back:insert(map)
 		map.layer["tiles"]:insert(ball)
@@ -439,8 +437,9 @@ Runtime:addEventListener("enterFrame", menuLoop)
 
 --Runtime:addEventListener("enterFrame", soundLoop)
 
-local textObject = display.newText("test", 200, 100, native.systemFont, 32)
-textObject:setFillColor(1,1,1)
+local textObject = display.newText("test", 1200, 100, native.systemFont, 32)
+textObject:setFillColor(0,1,0)
+textObject.alpha= 0
 
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)

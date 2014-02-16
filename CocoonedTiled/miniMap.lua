@@ -64,9 +64,7 @@ function createMiniMap(mapData, player, map)
 
 	print("deleted:",mPane)
 
-	miniMap.alpha = 0.75
-	
-	miniMap.isVisible = false
+	miniMap.alpha = 0
 	
 	return miniMap
 end
