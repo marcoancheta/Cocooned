@@ -140,9 +140,73 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="14" name="water" tilewidth="72" tileheight="72">
-  <image source="../../../art/water.png" width="72" height="72"/>
+ <tileset firstgid="14" name="water" tilewidth="36" tileheight="36">
+  <image source="../../../art/wateTileSet.png" width="108" height="108"/>
   <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="passThru"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="8">
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
@@ -159,7 +223,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlkEKwDAIBD2Zeun/n9sGWijJemiluAEHgiAJLIMBVUTaeZS0bjLTQC+Dnk1B30BvH+obvr7t2Vb0h/Jl+lOZ5zKDMYMJ9seCN38sePPHQvmLUf5ilL8Y3v7CAru/VeavV7tqllO0o9yZRlDv7/3Ky4FcZflDPZQb3WXyl/FnPE/Pv8FYD8SYBUs=
+   eJztljEOgCAMRTuhLIqi3v+olsGlMdJIoR36kh8WEn5emtAAABMmGD1nsEvpFrRLfFC6ub//WPcXgedvwazCSVB3w/W3YXbhZKi74c7fgTmFc4Gcv15I+euF+2vD/bVRc6O9v0j58//jnccf9ZMG9ePOH30/D+rH9afVjzt/1v3R/eQi97T3l2j4vAGYCBVC
   </data>
  </layer>
 </map>

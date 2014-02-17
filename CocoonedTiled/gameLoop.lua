@@ -161,7 +161,7 @@ end
 local function tapMechanic(event)
 	if gameData.allowMiniMap then
 		-- mechanic to show or hide minimap
-		touch.tapScreen(event, miniMap, physics)
+		touch.tapScreen(event, miniMap, physics, player1)
 	end
 end
 
@@ -251,7 +251,7 @@ local function gameLoop(event)
 		playerSheet = nil
 		
 		-- call objects-destroy
-		objects.destroy()
+		objects.destroy(mapData)
 
 		-- stop physics
 		physics.stop()
@@ -289,7 +289,7 @@ local function gameLoop(event)
 			playerSheet = nil
 			
 			-- call objects-destroy
-			objects.destroy()		
+			objects.destroy(mapData)		
 
 			-- stop physics
 			physics.stop()
@@ -437,9 +437,8 @@ Runtime:addEventListener("enterFrame", menuLoop)
 
 --Runtime:addEventListener("enterFrame", soundLoop)
 
-local textObject = display.newText("test", 1200, 100, native.systemFont, 32)
+local textObject = display.newText("test", 1200, 100, native.systemFont, 48)
 textObject:setFillColor(0,1,0)
-textObject.alpha= 0
 
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)

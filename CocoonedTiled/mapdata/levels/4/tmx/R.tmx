@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
  <properties>
-  <property name="itemGoal" value="4"/>
-  <property name="itemSize" value="1"/>
+  <property name="itemGoal" value="0"/>
+  <property name="itemSize" value="0"/>
   <property name="moveObj" value="0"/>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 4, &quot;y&quot;: 12}"/>
+  <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
  <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
@@ -54,47 +54,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="6" name="aura" tilewidth="72" tileheight="72">
-  <image source="../../../art/aura.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="blueAuraCollision"/>
-    <property name="name" value="blueAura"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="7" name="rune" tilewidth="72" tileheight="72">
-  <image source="../../../art/rune.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="rune"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="8" name="key" tilewidth="72" tileheight="72">
-  <image source="../../../art/antler.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="collectible" value="true"/>
-    <property name="func" value="keyCollision"/>
-    <property name="name" value="key"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="9" name="blueWall" tilewidth="36" tileheight="36">
+ <tileset firstgid="6" name="blueWall" tilewidth="36" tileheight="36">
   <image source="../../../art/blueWall.png" width="72" height="72"/>
   <tile id="0">
    <properties>
@@ -137,7 +97,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="13" name="greenWall" tilewidth="36" tileheight="36">
+ <tileset firstgid="10" name="greenWall" tilewidth="36" tileheight="36">
   <image source="../../../art/greenWall.png" width="72" height="72"/>
   <tile id="0">
    <properties>
@@ -180,164 +140,81 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="17" name="lockedDoor" tilewidth="72" tileheight="72">
-  <image source="../../../art/lockeddoor.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="lockedDoorCollision"/>
-    <property name="name" value="lockedDoor"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="18" name="runeblue" tilewidth="72" tileheight="72">
-  <image source="../../../art/runeblue.png" width="72" height="72"/>
+ <tileset firstgid="14" name="water" tilewidth="36" tileheight="36">
+  <image source="../../../art/wateTileSet.png" width="108" height="108"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="blueRune"/>
-    <property name="physics:bounce" value="0"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
     <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
- </tileset>
- <tileset firstgid="19" name="runegreen" tilewidth="72" tileheight="72">
-  <image source="../../../art/runegreen.png" width="72" height="72"/>
-  <tile id="0">
+  <tile id="2">
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="greenRune"/>
-    <property name="physics:bounce" value="0"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
     <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
- </tileset>
- <tileset firstgid="20" name="runepink" tilewidth="72" tileheight="72">
-  <image source="../../../art/runepink.png" width="72" height="72"/>
-  <tile id="0">
+  <tile id="3">
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="pinkRune"/>
-    <property name="physics:bounce" value="0"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
     <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
- </tileset>
- <tileset firstgid="21" name="runepurple" tilewidth="72" tileheight="72">
-  <image source="../../../art/runepurple.png" width="72" height="72"/>
-  <tile id="0">
+  <tile id="4">
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="purpleRune"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
     <property name="physics:bounce" value="0"/>
     <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
- </tileset>
- <tileset firstgid="22" name="runeyellow" tilewidth="72" tileheight="72">
-  <image source="../../../art/runeyellow.png" width="72" height="72"/>
-  <tile id="0">
+  <tile id="5">
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
-    <property name="func" value="runeCollision"/>
-    <property name="name" value="yellowRune"/>
-    <property name="physics:bounce" value="0"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
     <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
- </tileset>
- <tileset firstgid="23" name="greenAura1" tilewidth="72" tileheight="72">
-  <image source="../../../art/greenaura1.png" width="72" height="72"/>
-  <tile id="0">
+  <tile id="6">
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
-    <property name="func" value="greenAuraCollision"/>
-    <property name="name" value="greenAura"/>
-    <property name="physics:bounce" value="0"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
     <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
- </tileset>
- <tileset firstgid="24" name="greenAura2" tilewidth="72" tileheight="72">
-  <image source="../../../art/greenaura2.png" width="72" height="72"/>
-  <tile id="0">
+  <tile id="7">
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
-    <property name="func" value="greenAuraCollision"/>
-    <property name="name" value="greenAura"/>
-    <property name="physics:bounce" value="0"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
     <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
- </tileset>
- <tileset firstgid="25" name="whiteAura" tilewidth="72" tileheight="72">
-  <image source="../../../art/whiteaura.png" width="72" height="72"/>
-  <tile id="0">
+  <tile id="8">
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="passThru"/>
-    <property name="func" value="whiteAuraCollision"/>
-    <property name="name" value="whiteAura"/>
-    <property name="physics:bounce" value="0"/>
+    <property name="func" value="waterCollision"/>
+    <property name="name" value="water"/>
     <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
- </tileset>
- <tileset firstgid="26" name="redAura" tilewidth="72" tileheight="72">
-  <image source="../../../art/redaura.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="redAuraCollision"/>
-    <property name="name" value="redAura"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="27" name="redAura1" tilewidth="72" tileheight="72">
-  <image source="../../../art/redaura1.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="redAuraCollision"/>
-    <property name="name" value="redAura"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="28" name="redAura2" tilewidth="72" tileheight="72">
-  <image source="../../../art/redaura2.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="redAuraCollision"/>
-    <property name="name" value="redAura"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="29" name="blackWall" tilewidth="72" tileheight="72">
-  <image source="../../../art/blackWall.png" width="72" height="72"/>
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
@@ -346,7 +223,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztVl0LwzAIlO7JtqMPe2n3/3/oFphUOvtxKmsoOxCF5og1egkTUfs2rtR3hIHB9RFe5+Ch/xPhsYP3r9+M2uvXO3mTYU9ly28FclZ7M6vhqR8Kya/52E35tVi8p/8i+Vk5WF7iX9aPaftcJdbwzq/Vf1smPBS1z+8Z+vcAOFesX4G3/9D58LxfUCD6crb+IRpYm/5Z91um/o3KsvQv4/08mau+87uD+xRk6N9afksM4D4FGfp3NL8r168PeA7y9/wLg8IOLw==
+   eJztlrEOgCAMRG9CWRRF/f9PtYQwUoZiiqSXvHRhuLw0DQ7AQrhB5wq9bMReISB3c2rtgIM4K0Tkbpr+Wv3MH59WPw/zx2WW/ePukJQg6Ff8ce+kxA7+Ru1n/vr4u4j7Ix5BP+3/yyz3Tyt/92f7x8f2Txbu7qa7Wfz5gecLnxcaEA==
   </data>
  </layer>
 </map>

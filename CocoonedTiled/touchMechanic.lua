@@ -65,83 +65,87 @@ function swipeScreen(event, mapData, player, miniMap)
 
 	--miniMapMechanic.updateMiniMap(mapData, miniMap, swipeX, swipeY)
 
+	if gameData.isShowingMiniMap ~= true then
+		-- if event touch is ended, check which way was swiped 
+		-- change pane is possible
+		if "ended" == phase or "cancelled" == phase then
 
-	-- if event touch is ended, check which way was swiped 
-	-- change pane is possible
-	if "ended" == phase or "cancelled" == phase then
-
-		if mapData.pane == "M" then
-			if event.xStart > event.x and swipeLength > swipeLengthY and swipeLength > 150 then
-				--paneSwitch:play()
-				mapData.pane = "L"
-			elseif event.xStart < event.x and swipeLength > swipeLengthY and swipeLength > 150 then
-				--paneSwitch:play()
-				mapData.pane = "R"
-			elseif event.yStart > event.y and swipeLength < swipeLengthY and swipeLengthY > 150 then
-				--paneSwitch:play()
-				mapData.pane = "D"
-			elseif event.yStart < event.y and swipeLength < swipeLengthY and swipeLengthY > 150 then
-				--paneSwitch:play()
-				mapData.pane = "U"
-			end
-		elseif mapData.pane == "L" then
-			if event.xStart < event.x and swipeLength > swipeLengthY and swipeLengthY < 150 then
-				--paneSwitch:play()
-				mapData.pane = "M"
-			elseif swipeLength > 150 and swipeLengthY > 150 and swipeX > 0 then
-				if event.yStart > event.y then
+			if mapData.pane == "M" then
+				if event.xStart > event.x and swipeLength > swipeLengthY and swipeLength > 150 then
+					--paneSwitch:play()
+					mapData.pane = "L"
+				elseif event.xStart < event.x and swipeLength > swipeLengthY and swipeLength > 150 then
+					--paneSwitch:play()
+					mapData.pane = "R"
+				elseif event.yStart > event.y and swipeLength < swipeLengthY and swipeLengthY > 150 then
 					--paneSwitch:play()
 					mapData.pane = "D"
-				elseif event.yStart < event.y then
+				elseif event.yStart < event.y and swipeLength < swipeLengthY and swipeLengthY > 150 then
 					--paneSwitch:play()
 					mapData.pane = "U"
 				end
-			end
-		elseif mapData.pane == "R" then
-			if event.xStart > event.x and swipeLength > swipeLengthY and swipeLengthY < 150 then
-				--paneSwitch:play()
-				mapData.pane = "M"
-			elseif swipeLength > 150 and swipeLengthY > 150 and swipeX < 0 then
-				--paneSwitch:play()
-				if event.yStart > event.y then
+			elseif mapData.pane == "L" then
+				if event.xStart < event.x and swipeLength > swipeLengthY and swipeLengthY < 150 then
 					--paneSwitch:play()
-					mapData.pane = "D"
-				elseif event.yStart < event.y then
+					mapData.pane = "M"
+				elseif swipeLength > 150 and swipeLengthY > 150 and swipeX > 0 then
+					if event.yStart > event.y then
+						--paneSwitch:play()
+						mapData.pane = "D"
+					elseif event.yStart < event.y then
+						--paneSwitch:play()
+						mapData.pane = "U"
+					end
+				end
+			elseif mapData.pane == "R" then
+				if event.xStart > event.x and swipeLength > swipeLengthY and swipeLengthY < 150 then
 					--paneSwitch:play()
-					mapData.pane = "U"
+					mapData.pane = "M"
+				elseif swipeLength > 150 and swipeLengthY > 150 and swipeX < 0 then
+					--paneSwitch:play()
+					if event.yStart > event.y then
+						--paneSwitch:play()
+						mapData.pane = "D"
+					elseif event.yStart < event.y then
+						--paneSwitch:play()
+						mapData.pane = "U"
+					end
+				end
+			elseif mapData.pane == "U" then
+				if event.yStart > event.y and swipeLength < swipeLengthY and swipeLength < 150 then
+					--paneSwitch:play()
+					mapData.pane = "M"
+				elseif swipeLengthY > 150 and swipeLength > 150 and swipeY < 0 then
+					--paneSwitch:play()
+					if event.xStart < event.x then
+						--paneSwitch:play()
+						mapData.pane = "R"
+					elseif event.xStart > event.x then
+						--paneSwitch:play()
+						mapData.pane = "L"
+					end
+				end
+			elseif mapData.pane == "D" then
+				if event.yStart < event.y and swipeLength < swipeLengthY and swipeLength < 150 then
+					--paneSwitch:play()
+					mapData.pane = "M"
+				elseif swipeLengthY > 150 and swipeLength > 150 and swipeY > 0 then
+					if event.xStart < event.x then
+						--paneSwitch:play()
+						mapData.pane = "R"
+					elseif event.xStart > event.x then
+						--paneSwitch:play()
+						mapData.pane = "L"
+					end
 				end
 			end
-		elseif mapData.pane == "U" then
-			if event.yStart > event.y and swipeLength < swipeLengthY and swipeLength < 150 then
-				--paneSwitch:play()
-				mapData.pane = "M"
-			elseif swipeLengthY > 150 and swipeLength > 150 and swipeY < 0 then
-				--paneSwitch:play()
-				if event.xStart < event.x then
-					--paneSwitch:play()
-					mapData.pane = "R"
-				elseif event.xStart > event.x then
-					--paneSwitch:play()
-					mapData.pane = "L"
-				end
-			end
-		elseif mapData.pane == "D" then
-			if event.yStart < event.y and swipeLength < swipeLengthY and swipeLength < 150 then
-				--paneSwitch:play()
-				mapData.pane = "M"
-			elseif swipeLengthY > 150 and swipeLength > 150 and swipeY > 0 then
-				if event.xStart < event.x then
-					--paneSwitch:play()
-					mapData.pane = "R"
-				elseif event.xStart > event.x then
-					--paneSwitch:play()
-					mapData.pane = "L"
-				end
-			end
+			--miniMapMechanic.resetMiniMap(miniMap, mapData, player)
+			print("swipe", mapData.pane)
+			
 		end
-		--miniMapMechanic.resetMiniMap(miniMap, mapData, player)
-		print("swipe", mapData.pane)
-		
+	elseif gameData.isShowingMiniMap == true then
+		miniMapMechanic.moveMiniMap(miniMap, mapData, swipeX, swipeY)
+
 	end
 
 	-- if switching panes, move miniMap cursor to that pane and set alpha to 0
@@ -159,11 +163,13 @@ end
 --------------------------------------------------------------------------------
 -- tap mechanic
 --------------------------------------------------------------------------------
-function tapScreen(event, miniMap, physics) 
+function tapScreen(event, miniMap, physics, player) 
 	-- if tapped twice, show miniMap or if showing, hide it
 	if event.numTaps >= 2 then
 		-- show miniMap 
 		if gameData.isShowingMiniMap == false then
+			player.xGrav = 0
+			player.yGrav = 0
 			print("show")
 			physics.pause()
 			gameData.isShowingMiniMap = true
@@ -175,7 +181,10 @@ function tapScreen(event, miniMap, physics)
 			gameData.isShowingMiniMap = false
 			miniMap.alpha = 0
 		end
+	end
 
+	if gameData.isShowingMiniMap then
+		print("touched", event.target.name)
 	end
 end
 
