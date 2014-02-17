@@ -42,7 +42,11 @@ local trackPlayer = true
 local trackInvisibleBoat = false
 local allowPlay = true
 
+
+-- loading screen functions
+local levelNumber = -1 -- -1 for level select (used for cutscenes)
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
+local deleteClosure = function() return loading.deleteLoading(levelNumber) end
 
 local function stopAnimation(event)
 	player:setSequence("still")
@@ -269,7 +273,7 @@ local function selectLoop(event)
 	dPad:addEventListener("touch", tapOnce)
 	Runtime:addEventListener("enterFrame", setCameratoPlayer)
 	timer.performWithDelay(3000, myClosure)
-	timer.performWithDelay(4000, loading.deleteLoading)
+	timer.performWithDelay(4000, deleteClosure)
 end
 	
 

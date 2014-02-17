@@ -10,14 +10,17 @@ local miniMap = require("miniMap")
 local objects = require("objects")
 local loading = require("loadingScreen")
 local loaded = 0
+local level = 0 
 
 --------------------------------------------------------------------------------
 -- Load level on startup
 --------------------------------------------------------------------------------
 
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
+local deleteClosure = function() return loading.deleteLoading(level) end
 function createLevel(mapData, ball, player)
 	loaded = 0 -- current loading checkpoint, max is 6
+	level =  mapData.levelNum
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
 	-- Create GUI subgroups
@@ -69,7 +72,7 @@ function createLevel(mapData, ball, player)
 	map.layer["tiles"]:insert(ball)
 
 	timer.performWithDelay(3000, myClosure)--added groups
-	timer.performWithDelay(4000, loading.deleteLoading)
+	timer.performWithDelay(4000, deleteClosure)
 
 	return gui, miniMapDisplay
 
