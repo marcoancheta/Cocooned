@@ -8,6 +8,7 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("gameData")
 local moveableObject = require("moveableObject")
+local ghosts = require("ghosts")
 
 
 local four = { 
@@ -152,15 +153,22 @@ local function load(pane, map, rune, objects, energy)
 	
 	-- Check which pane
 	if pane == "M" then
-	
+
 	elseif pane == "U" then
 	
 	elseif pane == "D" then
 
 	elseif pane == "R" then
-
-	elseif pane == "L" then
+		rune[1].x, rune[1].y = map.tilesToPixels(15, 10)
+		rune[1].isVisible = true
+		--rune[1]:toFront()
 		
+		if gameData.blueG then
+			--Runtime:addEventListener("enterFrame", ghosts.blue)
+		end
+		
+		print("rune should trigger")
+	elseif pane == "L" then
 	end
 end
 
