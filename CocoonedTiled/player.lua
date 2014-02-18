@@ -11,7 +11,7 @@ local pi = math.pi
 local inventoryMechanic = require("inventoryMechanic")
 local gameData = require("gameData")
 --default player prototype
-local playerInstance = {
+playerInstance = {
 	x=0,
 	y=0,
 	magnetized='nuetral', -- {negative, nuetral, positive}

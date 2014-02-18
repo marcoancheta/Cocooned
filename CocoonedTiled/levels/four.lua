@@ -14,7 +14,7 @@ local four = {
 	energyCount = 30,
 	["M"] = {
 		["blueAura"] = 0,
-		["redAura"] = 0,
+		["redAura"] = 1,
 		["greenAura"] = 0,
 		["moveWall"] = 0,
 		["blueTotem"] = 0,
@@ -149,10 +149,14 @@ end
 
 local function load(pane, map, rune, objects, energy)
 	objectList = objects
+
+	local redAuraSheet = graphics.newImageSheet( "mapdata/art/redAuraSheet.png", spriteOptions.redAura )
 	
 	-- Check which pane
 	if pane == "M" then
-	
+		--local redAura = display.newSprite(redAuraSheet, spriteOptions.redAura)
+		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(11, 3)
+		generateObjects(objects, map, pane, runes)
 	elseif pane == "U" then
 	
 	elseif pane == "D" then
