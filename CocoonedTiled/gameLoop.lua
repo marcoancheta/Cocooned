@@ -132,7 +132,7 @@ local function swipeMechanics(event)
 	touch.swipeScreen(event, mapData, player1, miniMap)
 	-- if touch ended then change map if pane is switched
 	if "ended" == event.phase and mapData.pane ~= tempPane then
-		movePanes(tempPane, mapData.pane)
+		timer.performWithDelay(1200, movePanes(tempPane, mapData.pane))
 	end
 end
 
@@ -144,7 +144,7 @@ local function tapMechanic(event)
 		tempPane = touch.tapScreen(event, miniMap, mapData, physics, player1)
 		print(mapData.pane, tempPane)
 		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
-			movePanes(tempPane, mapData.pane)
+			timer.performWithDelay(1200, movePanes(tempPane, mapData.pane))
 		end
 	end
 end
