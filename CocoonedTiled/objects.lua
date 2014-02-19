@@ -110,9 +110,6 @@ end
 --------------------------------------------------------------------------------
 local function main(mapData, map)
 	init()
-
-
-
 	level = require("levels." .. levelNames[mapData.levelNum])
 	objects, energy = createObjects(level, mapData.pane)
 	level.load(mapData.pane, map, rune, objects, energy)
@@ -146,9 +143,6 @@ local function destroy(mapData)
 		display.remove(rune[i])
 		rune[i] = nil
 	end
-
-	print("DESTROY ALL OBJECTS!!!!!!!!")
-
 	level.destroyAll()
 end
 
