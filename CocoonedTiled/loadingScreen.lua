@@ -33,8 +33,10 @@ function loadingInit(loadGroup)
 	]]
 end
 function updateLoading(int)
-	loadBar[int].isVisible=true
-	loadBar[int]:toFront()
+	if loadBar then
+		loadBar[int].isVisible=true
+		loadBar[int]:toFront()
+	end
 	--loadWolf:play()
 	return true
 end

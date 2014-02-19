@@ -11,7 +11,7 @@ local pi = math.pi
 local inventoryMechanic = require("inventoryMechanic")
 local gameData = require("gameData")
 --default player prototype
-local playerInstance = {
+playerInstance = {
 	x=0,
 	y=0,
 	magnetized='nuetral', -- {negative, nuetral, positive}
@@ -67,8 +67,9 @@ function playerInstance:changeColor (color)
 end
 
 -- repels the player if they hit a totem pole
-function playerInstance:totemRepel ()
-		self.imageObject:applyLinearImpulse(5, 5, self.imageObject.x, self.imageObject.y)
+function playerInstance:totemRepel (collideObject)
+		print((self.imageObject.x - collideObject.x)/1000)
+		self.imageObject:applyLinearImpulse((self.imageObject.x - collideObject.x)/175, (self.imageObject.y - collideObject.y)/175, self.imageObject.x, self.imageObject.y) 
 		self.imageObject.angularVelocity = 0
 end
 

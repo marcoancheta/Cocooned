@@ -319,15 +319,16 @@ local function gameLoop(event)
   			print("Time:", time)
   			timeCount = timeCount + 1
   			timeCheck = time
-  			if timeCount % 30 == 1 then 
+  			if timeCount % 5 == 1 then 
   				activateWind = true
+				--player:changeColor('white')
   				print(activateWind)
-  			elseif timeCount % 30 ~= 1 then
+  			elseif timeCount % 5 ~= 1 then
   				activateWind = false
   			end
 		end
 	end
-	]]
+	--]]
 end
 
 --------------------------------------------------------------------------------
