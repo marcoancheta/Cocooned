@@ -43,8 +43,13 @@ local movementMechanic = require("Accelerometer")
 local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
+<<<<<<< HEAD
 -- Ghosts mechanics (ghosts.lua)
 local ghosts = require("ghosts")
+=======
+-- Pane Transitions (paneTransition.lua)
+local paneTransition = require("paneTransition")
+>>>>>>> origin/master
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -130,32 +135,9 @@ local function swipeMechanics(event)
 
 	-- call swipe mechanic and get new Pane
 	touch.swipeScreen(event, mapData, player1, miniMap)
-
-	
 	-- if touch ended then change map if pane is switched
 	if "ended" == event.phase and mapData.pane ~= tempPane then
-
-		-- delete everything on map
-		map:removeSelf()
-		objects.destroy(mapData)
-		
-		-- Pause physics
-		physics.pause()
-		---------------------------------------------------
-		-- Play "character" teleportation animation here --
-		---------------------------------------------------
-	
-		-- Resume physics
-		physics.start()
-		
-		-- load map
-		map = loadLevel.changePane(mapData, player1)
-		-- insert objects onto map layer
-		gui.back:insert(map)
-		map.layer["tiles"]:insert(ball)
-		
-		-- Reassign game mechanic listeners
-		collisionDetection.changeCollision(ball, player1, mapData, gui.back[1], gui.front, physics, miniMap)
+		movePanes(tempPane, mapData.pane)
 	end
 end
 
@@ -163,9 +145,41 @@ end
 local function tapMechanic(event)
 	if gameData.allowMiniMap then
 		-- mechanic to show or hide minimap
-		touch.tapScreen(event, miniMap, physics, player1)
+		local tempPane = mapData.pane
+		tempPane = touch.tapScreen(event, miniMap, mapData, physics, player1)
+		print(mapData.pane, tempPane)
+		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
+			movePanes(tempPane, mapData.pane)
+		end
 	end
 end
+
+function movePanes(temp, pane)
+	paneTransition.playTransition(temp, pane)
+	print("moved to: ", pane)
+
+	-- delete everything on map
+	map:removeSelf()
+	objects.destroy(mapData)
+		
+	-- Pause physics
+	physics.pause()
+	---------------------------------------------------
+	-- Play "character" teleportation animation here --
+	---------------------------------------------------
+		
+	-- Resume physics
+	physics.start()
+			
+	-- load map
+	map = loadLevel.changePane(mapData, player1)
+	-- insert objects onto map layer
+	gui.back:insert(map)
+	map.layer["tiles"]:insert(ball)
+	-- Reassign game mechanic listeners
+	collisionDetection.changeCollision(ball, player1, mapData, gui.back[1], gui.front, physics, miniMap)
+end
+
 
 --------------------------------------------------------------------------------
 -- Core Game Loop
@@ -266,7 +280,7 @@ local function gameLoop(event)
 		elseif gameData.levelRestart == true then
 			-- remove all eventListeners
 			gui.back:removeEventListener("touch", swipeMechanics)
-			gui.back:removeEventListener("tap", tapMechanic)
+			miniMap:removeEventListener("tap", tapMechanic)
 			Runtime:removeEventListener("accelerometer", controlMovement)
 			Runtime:removeEventListener("enterFrame", speedUp)
 			collisionDetection.destroyCollision(ball)
@@ -310,13 +324,15 @@ local function gameLoop(event)
   			print("Time:", time)
   			timeCount = timeCount + 1
   			timeCheck = time
-  			if timeCount % 30 == 1 then 
+  			if timeCount % 5 == 1 then 
   				activateWind = true
+				--player:changeColor('white')
   				print(activateWind)
-  			elseif timeCount % 30 ~= 1 then
+  			elseif timeCount % 5 ~= 1 then
   				activateWind = false
   			end
 		end
+<<<<<<< HEAD
 	]]
 	if gameData.blueG then
 		local temp = "blueRune"
@@ -326,6 +342,10 @@ local function gameLoop(event)
 		gameData.blueG = false
 	end
 	
+=======
+	end
+	--]]
+>>>>>>> origin/master
 end
 
 --------------------------------------------------------------------------------
