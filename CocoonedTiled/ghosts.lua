@@ -1,78 +1,91 @@
 local gameData = require("gameData")
+local movement = require("movement")
+
+local floor = math.floor
+local atan2 = math.atan2
+local pi = math.pi
 
 local rGhosts = {}
+local playerCoord = {}
+local ghostSprites = {}
 
-local ghostSprites = {
-	[1] = graphics.newImageSheet("mapdata/art/temp/ghosts.png", 
-				 {width = 50, height = 72, sheetContentWidth = 876, sheetContentHeight = 72, numFrames = 8})
+-- Initialize Ghosts
+function rGhosts:init()	
+	ghostSprites = {
+		[1] = graphics.newImageSheet("mapdata/art/temp/ghosts.png", 
+					 {width = 55, height = 72, sheetContentWidth = 876, sheetContentHeight = 72, numFrames = 8})
+	}
 
-}
-
-local function blue(event)
-
-	local params = event.source.params
-
-	print(params.param2)
-	print(params.param3)
+	local bGhost, gGhost, pGhost
 	
-	local spriteB = ghostSprites[1]
-	local bGhost = display.newSprite(ghostSprites[1], spriteOptions.blueGhost)
-		  bGhost.x = params.param2
-		  bGhost.y = params.param3		  
-		  
-		  bGhost.isVisible = true
-		  gameData.blueG = true
-		  
-		  bGhost:addEventListener("enterFrame", blue)
-	print("Blue Success")
 end
 
-local function green(map, player)
-	print("Green Success")
+local function companion(ghost, map, player)
+	  	
+	local function update(event)				
+		ghost.x = player.x
+		ghost.y = player.y 		
+			
+		--if not gameData.blueG then
+		--	bGhost.isVisible = false
+		--	Runtime:removeEventListener("enterFrame", update)
+		--end
+	end
+	
+	Runtime:addEventListener("enterFrame", update)
 end
-
-local function pink(map, player)
-	print("Pink Success")
-end
-
-local function purple(map, player)
-	print("Purple Success")
-end
-
-local function yellow(map, player)
-	print("Yellow Success")
-end
-
 
 local function release(rune, map, player)
 	-- Blue(map, player)
-	if rune.name == "blueRune" then
-		--blue(map, player)
-		print(player.imageObject.x, player.imageObject.y)
-		test = timer.performWithDelay(1, blue)
-		test.params = {param1 = map, param2 = player.imageObject.x, param3 = player.imageObject.y}
+	if rune == "blueRune" then
+		rGhosts:init()
+		
+		bGhost = display.newSprite(ghostSprites[1], spriteOptions.blueGhost)
+		physics.addBody(bGhost, {bounce=0})
+		
+		bGhost.name = "blueGhost"
+		bGhost.isVisible = true
+		bGhost.isSensor = true
+		bGhost:setSequence("move")
+		bGhost:play()
+		
+		companion(bGhost, map, player)
+		
+		player.isSensor = true
+		player.alpha = 0.5
+		
 		print("Go blue")
 	-- Green
-	elseif rune.name == "greenRune" then
-		green(map, player)
+	elseif rune == "greenRune" then
+		rGhosts:init()
+		
+		gGhost = display.newSprite(ghostSprites[1], spriteOptions.blueGhost)
+		physics.addBody(gGhost, {bounce=0})
+		
+		gGhost.isVisible = true
+		gGhost.isSensor = true
+		gGhost:setSequence("move")
+		gGhost:play()
+		
+		companion(gGhost, map, player)
 		print("Go green")
 	-- Pink
-	elseif rune.name == pinkRune then
-		pink(map, player)	
+	elseif rune == "pinkRune" then
+		rGhosts:init()
+		
+		pGhost = display.newSprite(ghostSprites[1], spriteOptions.blueGhost)
+		physics.addBody(pGhost, {bounce=0})
+		
+		pGhost.isVisible = true
+		pGhost.isSensor = true
+		pGhost:setSequence("move")
+		pGhost:play()
+		
+		companion(pGhost, map, player)	
 		print("Go pink")
-	-- Purple
-	elseif rune.name == "purpleRune" then
-		purple(map, player)
-		print("Go purple")
-	-- Yellow
-	elseif rune.name == "yellowRune" then
-		yellow(map, player)
-		print("Go yellow")
 	end
 end
 
 rGhosts.release = release
-rGhosts.blue = blue
-rGhosts.ghostUpdate = ghostUpdate
 
 return rGhosts

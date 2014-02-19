@@ -43,6 +43,8 @@ local movementMechanic = require("Accelerometer")
 local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
+-- Ghosts mechanics (ghosts.lua)
+local ghosts = require("ghosts")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -296,7 +298,7 @@ local function gameLoop(event)
 			gameData.levelRestart = false
 			gameData.gameStart = true
 			mapData.pane = 'M'
-		end
+	end
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--
@@ -315,8 +317,15 @@ local function gameLoop(event)
   				activateWind = false
   			end
 		end
-	end
 	]]
+	if gameData.blueG then
+		local temp = "blueRune"
+		-- Release ghosts
+		ghosts.release(temp, map, ball)
+		print("send to blue")
+		gameData.blueG = false
+	end
+	
 end
 
 --------------------------------------------------------------------------------

@@ -31,7 +31,7 @@ spriteOptions = { -- Sprite options for player and finish star
 		{frames = {1}, name = "still", time = 250}	
 	},
 	blueGhost = {
-		{frames = {8,7,6,5,4,3,2,1}, name = "move", time = 500},
+		{frames = {8,7,6,5}, name = "move", time = 500},
 		{frames = {1}, name = "still", time = 250}
 	}
 }

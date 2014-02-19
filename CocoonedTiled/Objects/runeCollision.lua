@@ -1,17 +1,12 @@
 require("levelFinished")
-local ghosts = require("ghosts")
+local gameData = require("gameData")
 
 function collide(collideObject, player, event, mapData, map)
-	event.contact.isEnabled = false
-	
+	event.contact.isEnabled = false	
 	-- Add object to player inventory
 	player:addInventory(collideObject)
-	
-	-- Release ghosts
-	ghosts.release(collideObject, map, player)
-	
+	gameData.blueG = true
 	-- Remove object from display
-	collideObject.isVisible = false
  	collideObject:removeSelf()
 
  	checkWin(player, map)
@@ -20,6 +15,7 @@ function collide(collideObject, player, event, mapData, map)
  		require("tutorial")
  		printTutorial()
  	end
+	
 end
 
 function removeObject(map, index, player)

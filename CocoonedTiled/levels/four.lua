@@ -148,9 +148,9 @@ local function destroyObjects(rune, energy, objects)
 	end
 end
 
-local function load(pane, map, rune, objects, energy)
+local function load(pane, map, rune, objects, energy, player)
 	objectList = objects
-	
+		
 	-- Check which pane
 	if pane == "M" then
 
@@ -162,11 +162,7 @@ local function load(pane, map, rune, objects, energy)
 		rune[1].x, rune[1].y = map.tilesToPixels(15, 10)
 		rune[1].isVisible = true
 		--rune[1]:toFront()
-		
-		if gameData.blueG then
-			--Runtime:addEventListener("enterFrame", ghosts.blue)
-		end
-		
+					
 		print("rune should trigger")
 	elseif pane == "L" then
 	end
