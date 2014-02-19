@@ -121,6 +121,7 @@ local function generateMoveableObjects(objects, map, pane)
 		mObjects[i].object.startX, mObjects[i].object.startY = startX, startY
 		mObjects[i].object.endX, mObjects[i].object.endY = endX, endY
 		mObjects[i].object.time = time
+		mObjects[i].object.moveable = true
 		mObjects[i]:startTransition(mObjects[i].object)
 	end
 	
