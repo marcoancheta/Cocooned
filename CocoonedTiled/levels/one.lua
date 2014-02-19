@@ -16,7 +16,7 @@ local one = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
-		["moveWall"] = 0,
+		["moveWall"] = 1,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -125,6 +125,7 @@ local function generateMoveableObjects(objects, map, pane)
 		mObjects[i].object.startX, mObjects[i].object.startY = startX, startY
 		mObjects[i].object.endX, mObjects[i].object.endY = endX, endY
 		mObjects[i].object.time = time
+		mObjects[i].object.moveable = true
 		mObjects[i]:startTransition(mObjects[i].object)
 	end
 	

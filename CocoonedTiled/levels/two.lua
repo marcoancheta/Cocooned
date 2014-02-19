@@ -153,6 +153,7 @@ local function load(pane, map, rune, objects, energy)
 	
 	-- Check which pane
 	if pane == "M" then
+		
 	
 	elseif pane == "U" then
 	
