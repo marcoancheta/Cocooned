@@ -25,11 +25,6 @@ local function companion(ghost, map, player)
 	local function update(event)				
 		ghost.x = player.x
 		ghost.y = player.y 		
-			
-		--if not gameData.blueG then
-		--	bGhost.isVisible = false
-		--	Runtime:removeEventListener("enterFrame", update)
-		--end
 	end
 	
 	Runtime:addEventListener("enterFrame", update)

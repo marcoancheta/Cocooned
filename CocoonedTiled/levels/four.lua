@@ -150,27 +150,19 @@ end
 
 local function load(pane, map, rune, objects, energy, player)
 	objectList = objects
-<<<<<<< HEAD
-		
-	-- Check which pane
-	if pane == "M" then
-
-=======
-
-	local redAuraSheet = graphics.newImageSheet( "mapdata/art/redAuraSheet.png", spriteOptions.redAura )
 	
 	-- Check which pane
 	if pane == "M" then
+		local redAuraSheet = graphics.newImageSheet( "mapdata/art/redAuraSheet.png", spriteOptions.redAura )
 		--local redAura = display.newSprite(redAuraSheet, spriteOptions.redAura)
 		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(13, 11)
 		generateObjects(objects, map, pane, runes)
->>>>>>> origin/master
 	elseif pane == "U" then
 	
 	elseif pane == "D" then
 
 	elseif pane == "R" then
-		rune[1].x, rune[1].y = map.tilesToPixels(15, 10)
+		rune[1].x, rune[1].y = map.tilesToPixels(15, 9)
 		rune[1].isVisible = true
 		--rune[1]:toFront()
 					

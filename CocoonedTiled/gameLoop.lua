@@ -43,13 +43,10 @@ local movementMechanic = require("Accelerometer")
 local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
-<<<<<<< HEAD
 -- Ghosts mechanics (ghosts.lua)
 local ghosts = require("ghosts")
-=======
 -- Pane Transitions (paneTransition.lua)
 local paneTransition = require("paneTransition")
->>>>>>> origin/master
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -332,8 +329,9 @@ local function gameLoop(event)
   				activateWind = false
   			end
 		end
-<<<<<<< HEAD
+	end
 	]]
+	
 	if gameData.blueG then
 		local temp = "blueRune"
 		-- Release ghosts
@@ -341,11 +339,6 @@ local function gameLoop(event)
 		print("send to blue")
 		gameData.blueG = false
 	end
-	
-=======
-	end
-	--]]
->>>>>>> origin/master
 end
 
 --------------------------------------------------------------------------------
