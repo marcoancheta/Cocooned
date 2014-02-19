@@ -4,11 +4,19 @@ local gameData = require("gameData")
 function collide(collideObject, player, event, mapData, map)
 	event.contact.isEnabled = false	
 	-- Add object to player inventory
-	player:addInventory(collideObject)
-	gameData.blueG = true
+	player:addInventory(collideObject)	
 	-- Remove object from display
  	collideObject:removeSelf()
 
+	
+	if collideObject.name == "blueRune" then
+		gameData.blueG = true
+	elseif collideObject.name == "pinkRune" then
+		gameData.pinkG = true
+	elseif collideObject.name == "greenRune" then
+		gameData.greenG = true
+	end
+	
  	checkWin(player, map)
 
  	if map.tutorial == true then

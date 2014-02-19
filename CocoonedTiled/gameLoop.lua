@@ -43,8 +43,8 @@ local movementMechanic = require("Accelerometer")
 local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
--- Ghosts mechanics (ghosts.lua)
-local ghosts = require("ghosts")
+-- Spirits mechanics (spirits.lua)
+local spirits = require("spirits")
 -- Pane Transitions (paneTransition.lua)
 local paneTransition = require("paneTransition")
 
@@ -332,13 +332,6 @@ local function gameLoop(event)
 	end
 	]]
 	
-	if gameData.blueG then
-		local temp = "blueRune"
-		-- Release ghosts
-		ghosts.release(temp, map, ball)
-		print("send to blue")
-		gameData.blueG = false
-	end
 end
 
 --------------------------------------------------------------------------------
