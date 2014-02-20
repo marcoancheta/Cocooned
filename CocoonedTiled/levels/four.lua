@@ -17,7 +17,7 @@ local four = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
-		["moveWall"] = 1,
+		["moveWall"] = 0,
 		["blueTotem"] = 0,
 		["redTotem"] = 1,
 		["greenTotem"] = 0,
@@ -158,15 +158,6 @@ local function load(pane, map, rune, objects, energy, player)
 		
 		-- Red Totem
 		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(13, 11)
-<<<<<<< HEAD
-		objects["moveWall1"].x, objects["moveWall1"].y = map.tilesToPixels(25, 11)
-		objects["moveWall1"].eX, objects["moveWall1"].eY = map.tilesToPixels(25, 13)
-		objects["moveWall1"].time = 300
-		generateObjects(objects, map, pane, runes)
-=======
-		
-		print("M")
->>>>>>> origin/Ghosts
 	elseif pane == "U" then
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)
