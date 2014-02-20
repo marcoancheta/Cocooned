@@ -1,17 +1,15 @@
 require("levelFinished")
 local gameData = require("gameData")
+local sound = require("sound")
 
 function collide(collideObject, player, event, mapData, map)
-<<<<<<< HEAD
-	audio.play(runePickupSound)
+	sound.playSound(event, sound.runePickupSound)
 	event.contact.isEnabled = false
 	player:addInventory(collideObject)
-=======
 	event.contact.isEnabled = false	
 	-- Add object to player inventory
 	player:addInventory(collideObject)	
 	-- Remove object from display
->>>>>>> 0549e3cd618370897dbfe9f0acce10d8771a5b8f
  	collideObject:removeSelf()
 
 	

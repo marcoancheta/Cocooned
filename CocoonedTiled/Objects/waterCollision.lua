@@ -1,5 +1,7 @@
+local sound = require("sound")
+
 function collide(collideObject, player, event, mapData, map)
-	audio.play(splashSound)
+	sound.playSound(event, sound.splashSound)
 	player:water()
 end
 
