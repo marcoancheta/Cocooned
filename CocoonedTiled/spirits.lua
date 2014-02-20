@@ -14,10 +14,13 @@ local temp = {}
 local function run(event)
 	if gameData.blueG then
 		
-		for i=5, 18 do
-			temp[i].bodyType = "dynamic"
+		-- Moveable walls
+		for check = 1, map.layer["tiles"].numChildren do
+			if map.layer["tiles"][check].name == "orangeWall" then
+				map.layer["tiles"][check].bodyType = "dynamic"
+			end
 		end
-		
+			
 		print("blue spirit")
 		Runtime:removeEventListener("enterFrame", run)
 		gameData.blueG = false
@@ -37,16 +40,12 @@ local function run(event)
 	end
 end
 
-local function processSpirits(objects, rune, map, breakWall)
+local function processSpirits(objects, rune, map)
 
 	temp[1] = objects["moveWall1"]
 	temp[2] = objects["moveWall2"]
 	temp[3] = objects["moveWall3"]
 	temp[4] = objects["moveWall4"]
-	
-	for i=5, #breakWall do
-		temp[i] = breakWall[i-4]
-	end
 	
 	Runtime:addEventListener("enterFrame", run)
 end

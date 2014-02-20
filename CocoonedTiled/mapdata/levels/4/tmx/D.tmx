@@ -266,7 +266,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlt0KgCAMRndldtP/j/T+D9qCBFmTNE0UHHwIA+fhsAsFADQYkekpMR2mNzLAs3am51OK6dF3KYO8OUfMZGR2nO9TB9Oj71IGcTO68HHz/+ZL6Y+7X7q/Ftz9XfO/OlSWuzH9aUYfTs1lcx9z/yincsjbTsT2F7v+8peKr/oL46v+wvj0/yVXvtz91f0L46v7F8ZXyv4tmNXIloiPvksZtL824/MElWcaqQ==
+   eJzllt0KgzAMRnPV6c3+N7u9/4MugoGQpZq0VTsW+CgU2x6OwRoA4IAJjY4d5og5sZzhuwZlzlNRmZPnSoZu4rxgriw34/6eeitz8lzJECZGC5+2/9p8W/rT1v+6vx7s/sb9cx3GxNqa/ojRw0lcKfc1+09yRkOWeqK2v9q1lr+t+Dz+xvvjBb7+W1rzT/724GvdH/2/tMqX64/3vfzG8fm9vn+e+6OEr+T+sFSpv9z+4174u6ZRey6HL8ffAD5/c4y1+49ceWqO0ervjnmwPBP7edk4o1byXMlA/vqGxw9i1B5B
   </data>
  </layer>
 </map>

@@ -22,8 +22,6 @@ local level
 
 local objects = {}
 
-
-
 --------------------------------------------------------------------------------
 -- Object - Load all objects
 --------------------------------------------------------------------------------
@@ -90,23 +88,19 @@ end
 local function createObjects(objectNumbers, pane)
 	local energy = {}
 	local objects = {}
-	local breakWall = {}
+
 	for i=1, tonumber(objectNumbers.energyCount) do
 		energy[i] = display.newSprite(sheetList.energy, spriteOptions.energy)
 		energy[i].isVisible = false
 		energy[i].x, energy[i].y = 100, 100
 	end	
-	for i=1, tonumber(objectNumbers.breakWallCount) do
-		breakWall[i] = display.newImage("mapdata/art/orangeWall.png")
-		breakWall[i].isVisible = false
-	end
 	for i = 1, 3 do
 		createAnimations(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
 	for i = 4, 9 do
 		createSprites(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
-	return objects, energy, breakWall
+	return objects, energy
 end
 
 --------------------------------------------------------------------------------
@@ -115,7 +109,7 @@ end
 local function main(mapData, map, player)
 	init()
 	level = require("levels." .. levelNames[mapData.levelNum])
-	objects, energy, breakWall = createObjects(level, mapData.pane)
+	objects, energy = createObjects(level, mapData.pane)
 	level.load(mapData.pane, map, rune, objects, energy, breakWall, player)
 	--[[
 	-- Check levelNum then redirect

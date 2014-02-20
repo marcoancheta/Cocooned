@@ -148,7 +148,7 @@ local function destroyObjects(rune, energy, objects)
 	end
 end
 
-local function load(pane, map, rune, objects, energy, breakWall, player)
+local function load(pane, map, rune, objects, energy, player)
 	objectList = objects
 	
 	-- Check which pane
@@ -188,26 +188,9 @@ local function load(pane, map, rune, objects, energy, breakWall, player)
 		local num = 12
 		
 		-- Blue rune
-		--rune[1].x, rune[1].y = map.tilesToPixels(19.5, 20)
-		rune[1].x, rune[1].y = map.tilesToPixels(18, 12)			
+		rune[1].x, rune[1].y = map.tilesToPixels(19.5, 20)			
 		rune[1].isVisible = true
-		
-		
-		-- Moveable walls
-		for i=1, #breakWall do
-			if i<7 then
-				breakWall[i].x, breakWall[i].y = map.tilesToPixels(12+(i*1.92), 17)
-			elseif i>=7 and i<10 then
-				breakWall[i].x, breakWall[i].y = map.tilesToPixels(12, 4.5+(i*2))
-			elseif i>=10 and i<13 then
-				breakWall[i].x, breakWall[i].y = map.tilesToPixels(25.5, -1.5+(i*2))
-			end
-			
-			breakWall[i].isVisible = true
-			breakWall[i].isBodyActive = true
-			physics.addBody(breakWall[i], "static", {bounce=1})
-		end
-		
+				
 		print("D")
 	elseif pane == "R" then
 		-- Green rune
