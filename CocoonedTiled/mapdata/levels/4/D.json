@@ -316,7 +316,7 @@
              "0":
                 {
                  "bodyType":"static",
-                 "collType":"wall",
+                 "collType":"solid",
                  "func":"orangeWallCollision",
                  "name":"orangeWall",
                  "physics:bounce":"0",
@@ -325,7 +325,7 @@
              "1":
                 {
                  "bodyType":"static",
-                 "collType":"wall",
+                 "collType":"solid",
                  "func":"orangeWallCollision",
                  "name":"orangeWall",
                  "physics:bounce":"0",
@@ -334,7 +334,7 @@
              "2":
                 {
                  "bodyType":"static",
-                 "collType":"wall",
+                 "collType":"solid",
                  "func":"orangeWallCollision",
                  "name":"orangeWall",
                  "physics:bounce":"0",
@@ -343,7 +343,7 @@
              "3":
                 {
                  "bodyType":"static",
-                 "collType":"wall",
+                 "collType":"solid",
                  "func":"orangeWallCollision",
                  "name":"orangeWall",
                  "physics:bounce":"0",

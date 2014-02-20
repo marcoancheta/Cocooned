@@ -85,7 +85,6 @@ function changePane(mapData, player)
 	objects.main(mapData, map, player)
 
 	-- load 
-
 	-- if an item was previously taken, remove it from map
 	if #player.inventory.items > 0 then
 		-- check for N number of items on map if they were taken
@@ -102,11 +101,17 @@ function changePane(mapData, player)
 			end
 			if removeItem > 0 then
 				-- remove that item
+				if map.layer["tiles"][removeItem].name == "pinkRune" then
+					player:slowTime(map)
+				elseif map.layer["tiles"][removeItem].name == "blueRune" then
+					playerInstance:breakWalls(map)
+				end
 				print("removed: ", map.layer["tiles"][removeItem].name)
 				map.layer["tiles"]:remove(removeItem)
 			end
 		end
 	end
+		
 	-- return new pane
 	return map
 end

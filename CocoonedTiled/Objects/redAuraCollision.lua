@@ -1,8 +1,9 @@
 local colorChange = false 
 local player = nil
+local sound = require("sound")
 
 function collide(collideObject, player, event, mapData, map)
-	audio.play(auraPickupSound)
+	sound.playSound(event, sound.auraPickupSound)
 	player = player
 	event.contact.isEnabled = false
 	player:changeColor('red')
