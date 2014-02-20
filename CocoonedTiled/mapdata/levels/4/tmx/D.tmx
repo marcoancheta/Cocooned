@@ -266,7 +266,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzllt0KgzAMRnPV6c3+N7u9/4MugoGQpZq0VTsW+CgU2x6OwRoA4IAJjY4d5og5sZzhuwZlzlNRmZPnSoZu4rxgriw34/6eeitz8lzJECZGC5+2/9p8W/rT1v+6vx7s/sb9cx3GxNqa/ojRw0lcKfc1+09yRkOWeqK2v9q1lr+t+Dz+xvvjBb7+W1rzT/724GvdH/2/tMqX64/3vfzG8fm9vn+e+6OEr+T+sFSpv9z+4174u6ZRey6HL8ffAD5/c4y1+49ceWqO0ervjnmwPBP7edk4o1byXMlA/vqGxw9i1B5B
+   eJzllt0KwyAMRnPl2ptt3a/d+z9oI1QIWWwTta1jgQ9BUA+HVOsA4IRxjY4d5oy5kFzhu97CnKW8MMfP5QzdzDlgbiR35f6W+ghz/FzO4GZGDZ+0/9Z8e/qT1v+6vx70/sL+uQ59Ym1Nf5HRwhm5Uu5r9h/n9Iqs9URtf7VrK3978Vn8hfdjBFv/ra35J39H8LXuL/6/tMqX64/2Pb/j6PxR95/l/SjhK3k/NFXqL7f/WvYXes/ib4mxdv/F78JSS4xafw/Mk+SV2M/KRhml4udyhuivb3icAP9WHcQ=
   </data>
  </layer>
 </map>
