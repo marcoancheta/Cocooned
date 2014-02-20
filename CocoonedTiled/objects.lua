@@ -113,25 +113,6 @@ local function main(mapData, map)
 	level = require("levels." .. levelNames[mapData.levelNum])
 	objects, energy = createObjects(level, mapData.pane)
 	level.load(mapData.pane, map, rune, objects, energy)
-	--[[
-	-- Check levelNum then redirect
-	if mapData.levelNum == "1" then
-		print("loading level 1")
-		objects, energy = createObjects(one, mapData.pane)
-		one.load(mapData.pane, map, rune, objects, energy)
-	elseif mapData.levelNum == "bonus" then
-		bonus.load(mapData.pane, map, sheetList)
-	elseif mapData.levelNum == "14" then
-		fourteen.load(mapData.pane, map, rune, objects, sheetList)
-	elseif mapData.levelNum == "15" then
-		--objects.createObjects(fifteen.getObjects())
-		print("loading level 15")
-		objects, energy = createObjects(fifteen, mapData.pane)
-		fifteen.load(mapData.pane, map, rune, objects, energy)
-	else
-		print("OBJECTS FOR LVL:", mapData.levelNum, "NOT MADE")
-	end
-	]]
 end
 
 

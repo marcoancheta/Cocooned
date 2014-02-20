@@ -4,21 +4,20 @@
 -- paneTransition.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-local paneSheet = graphics.newImageSheet("mapdata/art/paneSwitch.png", 
-				 {width = 1440, height = 891, sheetContentWidth = 4320, sheetContentHeight = 8019, numFrames = 27})
+local paneSheet = graphics.newImageSheet("mapdata/art/snowAnimation.png", 
+				 {width = 1440, height = 891, sheetContentWidth = 7200, sheetContentHeight = 4081, numFrames = 20})
 
+local transPic, tempPic
 
-function startTransition()
-
-end
-
-function playTransition(temp, pane)
+function playTransition(temp, pane, map, player)
+	tempPic = display.capture(map)
+	tempPic.x, tempPic.y = 720, 432
 	transPic = display.newSprite(paneSheet, spriteOptions.paneSwitch)
 	transPic:scale(1.25, 1.25)
 	transPic.x, transPic.y = 720, 432
 	transPic:setSequence("move")
 	transPic:play()
-	transPic:toFront()
+	tempPic:toFront()
 	transPic:toFront()
 	local direction = "None"
 	if temp == "M" then
@@ -50,38 +49,41 @@ function playTransition(temp, pane)
 	end
 	
 	if direction == "right" then
-		trans(transPic, 0, 432, 2440, 432, 300)
+		transPic:scale(2,2)
+		transPic.rotation = -90
 	elseif direction == "left" then
-		trans(transPic, 1840, 432, -720, 432, 300)
+		transPic:scale(2,2)
+		transPic.rotation = 90
 	elseif direction == "up" then
-		trans(transPic, 720, 864, 720, -864, 300)
 		transPic.rotation = 180
 	elseif direction == "down" then
-		trans(transPic, 720, -232, 720, 1864, 800)
+		-- do not change anything for down transition
 	elseif direction == "rightdown" then
-		trans(transPic, 1840, -432, -720, 864, 300)
+		transPic:scale(1.5,1.5)
+		transPic.rotation = 45
 	elseif direction == "rightup" then
-		trans(transPic, 1840, 864, -720, -864, 300)
+		transPic:scale(1.5,1.5)
+		transPic.rotation = 135
 	elseif direction == "leftdown" then
-		trans(transPic, 0, -432, 2440, 864, 300)
+		transPic:scale(1.5,1.5)
+		transPic.rotation = -45
 	elseif direction == "leftup" then
-		trans(transPic, 0, 864, 2440, -864, 300)
+		transPic:scale(1.5,1.5)
+		transPic.rotation = -135
 	end
-	
-	--transPic:setSequence("stop")
-	--transPic:toBack()
-	--transPic:stop()
-	timer.performWithDelay(800, endTransition)
+	timer.performWithDelay(450, deleteTemp)
+	timer.performWithDelay(900, endTransition)
+end
+
+function deleteTemp()
+	tempPic:removeSelf()
 end
 
 function endTransition()
 	transPic:setSequence("stop")
 	transPic:toBack()
-end
-
-function trans(object, sX, sY, moveX, moveY, moveTime)
-	--object.x, object.y = sX, sY
-	--transition.to(object, {x = moveX, y = moveY, time = moveTime})
+	transPic:removeSelf()
+	
 end
 
 local paneTransition = {

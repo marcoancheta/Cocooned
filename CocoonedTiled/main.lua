@@ -9,7 +9,6 @@
 --   Splash Screen Detail - http://developer.coronalabs.com/code/android-friendly-splash-screen-logic
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 -- Hide status bar
 display.setStatusBar(display.HiddenStatusBar);
 

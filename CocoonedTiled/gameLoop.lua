@@ -122,17 +122,21 @@ local function speedUp(event)
 	movement.moveAndAnimate(player1)
 end
 
+local tempPane
+
 -- swipe mechanic
 local function swipeMechanics(event)
 	
 	-- save temp pane for later check
-	local tempPane = mapData.pane
+	tempPane = mapData.pane
 
 	-- call swipe mechanic and get new Pane
 	touch.swipeScreen(event, mapData, player1, miniMap)
 	-- if touch ended then change map if pane is switched
 	if "ended" == event.phase and mapData.pane ~= tempPane then
-		timer.performWithDelay(1200, movePanes(tempPane, mapData.pane))
+		paneTransition.playTransition(tempPane, mapData.pane, gui.back[1], player1)
+		--timer.performWithDelay(450, movePanes)
+		movePanes()
 	end
 end
 
@@ -141,17 +145,18 @@ local function tapMechanic(event)
 	if gameData.allowMiniMap then
 		-- mechanic to show or hide minimap
 		local tempPane = mapData.pane
-		tempPane = touch.tapScreen(event, miniMap, mapData, physics, player1)
-		print(mapData.pane, tempPane)
+		tempPane = touch.tapScreen(event, miniMap, mapData, physics, gui.back[1], player1)
 		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
-			timer.performWithDelay(1200, movePanes(tempPane, mapData.pane))
+			paneTransition.playTransition(tempPane, mapData.pane, gui.back[1], player1)
+			--timer.performWithDelay(450, movePanes)
+			movePanes()
 		end
 	end
 end
 
-function movePanes(temp, pane)
-	paneTransition.playTransition(temp, pane)
-	print("moved to: ", pane)
+function movePanes()
+	
+	print("moved to: ", mapData.pane)
 
 	-- delete everything on map
 	map:removeSelf()
@@ -167,7 +172,7 @@ function movePanes(temp, pane)
 	physics.start()
 			
 	-- load map
-	map = loadLevel.changePane(mapData, player1)
+	map = loadLevel.changePane(mapData, player1, miniMap)
 	-- insert objects onto map layer
 	gui.back:insert(map)
 	map.layer["tiles"]:insert(ball)

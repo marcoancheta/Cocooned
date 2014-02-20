@@ -23,7 +23,11 @@ spriteOptions = { -- Sprite options for player and finish star
 			{frames = {1}, name = "still", time = 250}
 		},
 	paneSwitch = {
-		{frames = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27}, name = "move", time = 1200},
+		{frames = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}, name = "move", time = 900},
+		{frames = {1}, name = "stop", time = 250}
+	},
+	runeAnimation = {	
+		{frames = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}, name = "move", time = 1000, loopCount = 1},
 		{frames = {1}, name = "stop", time = 250}
 	},
 	["redAura"] = {
@@ -35,6 +39,13 @@ spriteOptions = { -- Sprite options for player and finish star
 		{frames = {1}, name = "still", time = 250}	
 	}
 }
+
+sheetOptions = {
+	runeSheet = graphics.newImageSheet("mapdata/art/runeAnimation.png", 
+				 {width = 72, height = 72, sheetContentWidth = 432, sheetContentHeight = 216, numFrames = 18})
+
+}
+
 
 objectNames = {
 	[1] = "blueAura",

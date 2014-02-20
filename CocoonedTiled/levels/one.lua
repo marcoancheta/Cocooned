@@ -11,12 +11,12 @@ local moveableObject = require("moveableObject")
 
 
 local one = { 
-	energyCount = 30,
+	energyCount = 0,
 	["M"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
-		["moveWall"] = 1,
+		["moveWall"] = 0,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -157,16 +157,19 @@ local function load(pane, map, rune, objects, energy)
 	
 	-- Check which pane
 	if pane == "M" then
-	
+		
 	elseif pane == "U" then
-	
+		rune[3].x, rune[3].y = map.tilesToPixels(12, 10)
+		rune[3].isVisible = true
 	elseif pane == "D" then
 
 	elseif pane == "R" then
-
+		rune[4].x, rune[4].y = map.tilesToPixels(3, 3)
+		rune[4].isVisible = true
 	elseif pane == "L" then
 		
 	end
+	generateObjects(objects, map, pane, rune)
 end
 
 local function destroyAll() 

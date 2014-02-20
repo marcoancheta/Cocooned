@@ -6,10 +6,14 @@
 --------------------------------------------------------------------------------
 
 local dusk = require("Dusk.Dusk")
-local miniMap = require("miniMap")
+local miniMapMechanic = require("miniMap")
 local objects = require("objects")
 local loading = require("loadingScreen")
 local loaded = 0
+
+local glowTileSheet = graphics.newImageSheet("mapdata/art/tileGlow.png", 
+				 {width = 36, height = 36, sheetContentWidth = 216, sheetContentHeight = 36, numFrames = 6})
+
 
 --------------------------------------------------------------------------------
 -- Load level on startup
@@ -38,26 +42,27 @@ function createLevel(mapData, ball, player)
 
 	timer.performWithDelay(1, myClosure) --map built
 	
+	-- animate glowing tiles
 	for i=1, map.layer["tiles"].numChildren do
-		if map.layer["tiles"][i].name == "water" then
-			print("has water: ", i)
+		if map.layer["tiles"][i].name == "glowTile" then
+			local tx, ty = map.layer["tiles"][i].x, map.layer["tiles"][i].y
+			map.layer["tiles"][i] = display.newSprite(glowTileSheet, spriteOptions.glowTile)
+			map.layer["tiles"][i].x, map.layer["tiles"][i].y = tx, ty
+			map.layer["tiles"][i].timeScale = 0.5
+			map.layer["tiles"][i]:setSequence("move")
+			map.layer["tiles"][i]:play()
 		end
 	end
 
 	timer.performWithDelay(1, myClosure) --objects moved
-	
-	if map.tutorial == true then
-		require("tutorial")
-		resetTutorial()
-		printTutorial()
-	end
+
 	-- set players location
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 
 	timer.performWithDelay(1, myClosure)--players location set
 
 	-- create miniMap for level
-	local miniMapDisplay = miniMap.createMiniMap(mapData, player, map)
+	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, player, map)
 	miniMapDisplay.name = "miniMapName"
 
 	timer.performWithDelay(1, myClosure) --minimap created
@@ -78,14 +83,16 @@ end
 --------------------------------------------------------------------------------
 -- update pane for level
 --------------------------------------------------------------------------------
-function changePane(mapData, player)
+function changePane(mapData, player, miniMap)
 
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
 	objects.main(mapData, map)
 
-	-- load 
+	miniMapMechanic.updateMiniMap(mapData, miniMap, map, player)
 
+	-- load 
+	
 	-- if an item was previously taken, remove it from map
 	if #player.inventory.items > 0 then
 		-- check for N number of items on map if they were taken
@@ -107,6 +114,7 @@ function changePane(mapData, player)
 			end
 		end
 	end
+	
 	-- return new pane
 	return map
 end

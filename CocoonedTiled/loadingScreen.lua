@@ -8,7 +8,7 @@ function loadingInit(loadGroup)
 	loadingBG = display.newImage('mapdata/art/bg2.jpg', 10, 20,true )
 	loadText = display.newText("Loading",800, 200, native.systemFontBold, 280, "center")
 	loadBar = {
-		display.newImage('mapdata/art/iceWall3.png',200,500,true), 
+		display.newImage('mapdata/art/iceWall.png',200,500,true), 
 		display.newImage('mapdata/art/iceWall.png',416,500,true), 
 		display.newImage('mapdata/art/iceWall.png',632,500,true), 
 		display.newImage('mapdata/art/iceWall.png',848,500,true), 

@@ -157,9 +157,10 @@ local function load(pane, map, rune, objects, energy)
 		--local redAura = display.newSprite(redAuraSheet, spriteOptions.redAura)
 		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(13, 11)
 		objects["moveWall1"].x, objects["moveWall1"].y = map.tilesToPixels(25, 11)
-		objects["moveWall1"].eX, objects["moveWall1"].eY = map.tilesToPixels(25, 13)
+		objects["moveWall1"].eX, objects["moveWall1"].eY = map.tilesToPixels(25, 17)
 		objects["moveWall1"].time = 300
 		generateObjects(objects, map, pane, runes)
+		generateMoveableObjects(objects, map, pane, runes)
 	elseif pane == "U" then
 	
 	elseif pane == "D" then

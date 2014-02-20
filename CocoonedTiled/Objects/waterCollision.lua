@@ -1,5 +1,6 @@
 function collide(collideObject, player, event, mapData, map)
-	player:water()
+	event.contact.isEnabled = false
+	--player:water()
 end
 
 local waterCollision = {

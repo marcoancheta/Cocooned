@@ -159,11 +159,12 @@ local tempPane2
 --------------------------------------------------------------------------------
 -- tap mechanic
 --------------------------------------------------------------------------------
-function tapScreen(event, miniMap, mapData, physics, player) 
+function tapScreen(event, miniMap, mapData, physics, map, player) 
 	-- if tapped twice, show miniMap or if showing, hide it
 	if event.numTaps >= 2 then
 		-- show miniMap 
 		if gameData.isShowingMiniMap == false then
+			miniMapMechanic.updateMiniMap(mapData, miniMap, map, player)
 			tempPane2 = mapData.pane
 			player.xGrav = 0
 			player.yGrav = 0
