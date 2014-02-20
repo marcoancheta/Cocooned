@@ -58,7 +58,7 @@ function createCollisionDetection(imageObject, player, mapData, map, gui, physic
    if collideObject.collectable == true then
       local col = require("Objects." .. collideObject.func)
       col.collide(collideObject, player, event, mapData, map)
-      miniMapMechanic.updateMiniMap(mapData, miniMap, map, event.target)
+      --miniMapMechanic.updateMiniMap(mapData, miniMap, map, event.target)
    end
    
    

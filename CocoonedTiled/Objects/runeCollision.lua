@@ -2,20 +2,20 @@ require("levelFinished")
 local gameData = require("gameData")
 local sound = require("sound")
 
-function collide(collideObject, player, event, mapData, map)
-<<<<<<< HEAD
-	audio.play(runePickupSound)
+function dissolve(event)
+	local params = event.source.params
+	display.remove(params.param1)
+end
 
-=======
+function collide(collideObject, player, event, mapData, map)
+
 	sound.playSound(event, sound.runePickupSound)
-	event.contact.isEnabled = false
-	player:addInventory(collideObject)
->>>>>>> a98ea78ce0f5cfdbd355c79b6c8ae747bfabcf8a
 	event.contact.isEnabled = false	
 	-- Add object to player inventory
 	player:addInventory(collideObject)	
 	-- Remove object from display
- 	collideObject:removeSelf()
+ 	local timeIT = timer.performWithDelay(10, dissolve)
+	timeIT.params = {param1 = collideObject}
 
 	
 	if collideObject.name == "blueRune" then
