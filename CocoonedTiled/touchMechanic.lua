@@ -33,8 +33,6 @@ function swipeScreen(event, mapData, player, miniMap)
 -- swipe mechanic
 --------------------------------------------------------------------------------
 
-
-
 	--get swipe length for x and y
 	local swipeLength = math.abs(event.x - event.xStart)
 	local swipeLengthY = math.abs(event.y - event.yStart)
@@ -185,7 +183,7 @@ function tapScreen(event, miniMap, mapData, physics, player)
 			miniMapMechanic.moveMiniMap(miniMap, mapData, event)
 		end
 	end
-<<<<<<< HEAD
+
 	--[[
 	if player.movement == "inWater" then
 		if player.numOfTaps == 0 then
@@ -208,14 +206,13 @@ function tapScreen(event, miniMap, mapData, physics, player)
 			accelTimer = timer.performWithDelay(500, function() player.movement = "accel" player.imageObject.linearDamping = 1 end)
 			speedTmer= timer.performWithDelay(5000, function() player.speedConst = 10 end)
 		end
-	end]]
+	end
 
 	if gameData.isShowingMiniMap then
 		print("touched", event.target.name)
-	end
-=======
+	end]]
+
 	return mapData.pane
->>>>>>> 20d0284685c42258ad2c30e3bb4fe7c9b26a52f2
 end
 
 
