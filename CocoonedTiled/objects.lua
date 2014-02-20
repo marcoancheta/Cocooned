@@ -22,8 +22,6 @@ local level
 
 local objects = {}
 
-
-
 --------------------------------------------------------------------------------
 -- Object - Load all objects
 --------------------------------------------------------------------------------
@@ -55,7 +53,6 @@ local function init()
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
 	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/greenAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
-
 	
 	-- Attach collision event to object
 	-- Disable visibility
@@ -91,6 +88,7 @@ end
 local function createObjects(objectNumbers, pane)
 	local energy = {}
 	local objects = {}
+
 	for i=1, tonumber(objectNumbers.energyCount) do
 		energy[i] = display.newSprite(sheetList.energy, spriteOptions.energy)
 		energy[i].isVisible = false
@@ -108,11 +106,11 @@ end
 --------------------------------------------------------------------------------
 -- Object Main
 --------------------------------------------------------------------------------
-local function main(mapData, map)
+local function main(mapData, map, player)
 	init()
 	level = require("levels." .. levelNames[mapData.levelNum])
 	objects, energy = createObjects(level, mapData.pane)
-	level.load(mapData.pane, map, rune, objects, energy)
+	level.load(mapData.pane, map, rune, objects, energy, breakWall, player)
 	--[[
 	-- Check levelNum then redirect
 	if mapData.levelNum == "1" then

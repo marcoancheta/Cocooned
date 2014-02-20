@@ -216,6 +216,49 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="23" name="orangeWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/orangeWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="orangeWallCollision"/>
+    <property name="name" value="orangeWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="orangeWallCollision"/>
+    <property name="name" value="orangeWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="orangeWallCollision"/>
+    <property name="name" value="orangeWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="func" value="orangeWallCollision"/>
+    <property name="name" value="orangeWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
@@ -223,7 +266,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt1r0KwDAIBGAnmyz9b9//UeuQgLgeiIULHI5+HA5REVksWnQ2y2rZXHbJeXFvNLThPCyny5Xki3ujQYexqo/9Yb4u7A/x8f4wH/vDfOwP81Xvb/5fqvqq98f7w3y8P8z3l/u7LY/Lm+SLe6Nh9tcLzw+rMBes
+   eJzllt0KgzAMRnPV6c3+N7u9/4MugoGQpZq0VTsW+CgU2x6OwRoA4IAJjY4d5og5sZzhuwZlzlNRmZPnSoZu4rxgriw34/6eeitz8lzJECZGC5+2/9p8W/rT1v+6vx7s/sb9cx3GxNqa/ojRw0lcKfc1+09yRkOWeqK2v9q1lr+t+Dz+xvvjBb7+W1rzT/724GvdH/2/tMqX64/3vfzG8fm9vn+e+6OEr+T+sFSpv9z+4174u6ZRey6HL8ffAD5/c4y1+49ceWqO0ervjnmwPBP7edk4o1byXMlA/vqGxw9i1B5B
   </data>
  </layer>
 </map>

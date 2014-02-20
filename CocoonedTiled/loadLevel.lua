@@ -34,7 +34,7 @@ function createLevel(mapData, ball, player)
 	timer.performWithDelay(1, myClosure)-- first loading check point gui groups and subgroups added
 	
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
-	objects.main(mapData, map)
+	objects.main(mapData, map, player)
 
 	timer.performWithDelay(1, myClosure) --map built
 	
@@ -82,7 +82,7 @@ function changePane(mapData, player)
 
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
-	objects.main(mapData, map)
+	objects.main(mapData, map, player)
 
 	-- load 
 

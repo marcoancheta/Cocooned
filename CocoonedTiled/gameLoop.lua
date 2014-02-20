@@ -43,6 +43,8 @@ local movementMechanic = require("Accelerometer")
 local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
+-- Spirits mechanics (spirits.lua)
+local spirits = require("spirits")
 -- Pane Transitions (paneTransition.lua)
 local paneTransition = require("paneTransition")
 
@@ -307,7 +309,7 @@ local function gameLoop(event)
 			gameData.levelRestart = false
 			gameData.gameStart = true
 			mapData.pane = 'M'
-		end
+	end
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--
@@ -328,7 +330,8 @@ local function gameLoop(event)
   			end
 		end
 	end
-	--]]
+	]]
+	
 end
 
 --------------------------------------------------------------------------------
