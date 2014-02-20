@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- one.lua
+-- three.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -10,13 +10,13 @@ local gameData = require("gameData")
 local moveableObject = require("moveableObject")
 
 
-local one = { 
+local three = { 
 	energyCount = 30,
 	["M"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
-		["moveWall"] = 0,
+		["moveWall"] = 1,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -69,10 +69,6 @@ local one = {
 	}
 }
 
-function takeWallsDown(pane)
-	one[pane].wallDown = true
-end
-
 local objectList
 
 local function generateEnergy(energy, map, startIndex, endIndex)
@@ -93,8 +89,8 @@ end
 local function generateObjects(objects, map, pane, runes)
 	for i = 1, #objectNames do
 		local name = objectNames[i]
-		print("generating:", one[pane][name])
-		for j = 1, one[pane][name] do
+		print("generating:", three[pane][name])
+		for j = 1, three[pane][name] do
 			map.layer["tiles"]:insert(objects[name .. j])
 			objects[name .. j].func = name .. "Collision"
 			physics.addBody(objects[name ..j], "static", {bounce = 0})
@@ -113,7 +109,7 @@ local mObjects = {}
 
 local function generateMoveableObjects(objects, map, pane)
 	mObjects = {}
-	for i = 1, one[pane]["moveWall"] do
+	for i = 1, three[pane]["moveWall"] do
 		mObjects[i] = moveableObject.create()
 		mObjects[i].object = objects["moveWall" .. i]
 
@@ -142,7 +138,7 @@ local function destroyObjects(rune, energy, objects)
 	end
 
 	-- deleted extra energies
-	for i = 1, one.energyCount do
+	for i = 1, three.energyCount do
 		--print("energyCount:", i)
 		if energy[i].isVisible == false then
 			energy[i]:removeSelf()
@@ -156,7 +152,11 @@ local function load(pane, map, rune, objects, energy)
 	
 	-- Check which pane
 	if pane == "M" then
-	
+		objects["moveWall1"].x, objects["moveWall1"].y  = map.tilesToPixels(25, 18.5)
+		objects["moveWall1"].eX, objects["moveWall1"].eY = map.tilesToPixels(25, 6)
+		objects["moveWall1"].time = 500
+		generateObjects(objects, map, pane, rune)
+		generateMoveableObjects(objects, map, pane)
 	elseif pane == "U" then
 	
 	elseif pane == "D" then
@@ -166,6 +166,7 @@ local function load(pane, map, rune, objects, energy)
 	elseif pane == "L" then
 		
 	end
+
 end
 
 local function destroyAll() 
@@ -179,8 +180,8 @@ local function destroyAll()
 	end
 end
 
-one.load = load
-one.destroyAll = destroyAll
-one.takeWallsDown = takeWallsDown
+three.load = load
+three.destroyAll = destroyAll
+three.takeWallsDown = takeWallsDown
 
-return one
+return three

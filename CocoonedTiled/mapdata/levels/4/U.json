@@ -12,7 +12,7 @@
          "y":0
         }, 
         {
-         "data":[9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 9, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 9, 9, 10, 9, 9, 0, 0, 21, 0, 0, 0, 0, 9, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 12, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 9, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 14, 13, 14, 13, 13, 14, 14, 11, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 9, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 10, 9, 10, 9, 10, 0, 0, 0, 0, 26, 26, 0, 11, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 9, 0, 0, 0, 0, 26, 26, 0, 9, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 11, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 9, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 10, 9, 9, 10, 9, 0, 0, 0, 0, 0, 0, 0, 11, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 26, 26, 26, 26, 0, 0, 0, 10, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 26, 26, 26, 26, 0, 0, 0, 11, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 15, 0, 0, 0, 26, 0, 0, 0, 9, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 26, 0, 0, 0, 11, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 13, 0, 0, 0, 26, 0, 0, 0, 10, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 26, 0, 0, 0, 11, 9, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 11, 12, 11, 12, 11, 0, 0, 0, 26, 0, 0, 0, 9, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12, 11, 12],
+         "data":[6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 6, 0, 0, 0, 0, 0, 0, 0, 0, 14, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 8, 0, 0, 0, 0, 0, 0, 0, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 6, 0, 0, 0, 0, 0, 0, 0, 8, 6, 0, 0, 0, 0, 0, 0, 0, 0, 20, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 22, 8, 0, 0, 0, 0, 0, 0, 0, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 8, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 8, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 8, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 8, 6, 0, 0, 0, 0, 0, 0, 0, 0, 14, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 8, 0, 0, 0, 0, 0, 0, 0, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 6, 0, 0, 0, 0, 0, 0, 0, 8, 6, 14, 15, 15, 15, 16, 0, 0, 0, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 8, 0, 0, 0, 0, 0, 0, 0, 7, 8, 17, 18, 18, 18, 19, 0, 0, 0, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 6, 0, 0, 0, 0, 0, 0, 0, 8, 6, 17, 18, 18, 18, 19, 0, 0, 0, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 8, 0, 0, 0, 0, 0, 0, 0, 6, 8, 17, 18, 18, 18, 19, 0, 0, 0, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 6, 0, 0, 0, 0, 0, 0, 0, 8, 6, 20, 21, 21, 21, 22, 0, 0, 0, 20, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 22, 8, 0, 0, 0, 0, 0, 0, 0, 6, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9, 8, 9],
          "height":24,
          "name":"tiles",
          "opacity":1,
@@ -25,10 +25,10 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "itemGoal":"4",
-     "itemSize":"1",
+     "itemGoal":"0",
+     "itemSize":"0",
      "moveObj":"0",
-     "playerLocation":"!json! {\"x\": 4, \"y\": 12}",
+     "playerLocation":"!json! {\"x\": 20, \"y\":12 }",
      "tutorial":"false"
     },
  "tileheight":36,
@@ -109,88 +109,6 @@
         }, 
         {
          "firstgid":6,
-         "image":"..\/..\/art\/aura.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"aura",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"blueAuraCollision",
-                 "name":"blueAura",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":7,
-         "image":"..\/..\/art\/rune.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"rune",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"runeCollision",
-                 "name":"rune",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":8,
-         "image":"..\/..\/art\/antler.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"key",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "collectible":"true",
-                 "func":"keyCollision",
-                 "name":"key",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":9,
          "image":"..\/..\/art\/blueWall.png",
          "imageheight":72,
          "imagewidth":72,
@@ -244,7 +162,7 @@
          "tilewidth":36
         }, 
         {
-         "firstgid":13,
+         "firstgid":10,
          "image":"..\/..\/art\/greenWall.png",
          "imageheight":72,
          "imagewidth":72,
@@ -298,343 +216,87 @@
          "tilewidth":36
         }, 
         {
-         "firstgid":17,
-         "image":"..\/..\/art\/lockeddoor.png",
-         "imageheight":72,
-         "imagewidth":72,
+         "firstgid":14,
+         "image":"..\/..\/art\/wateTileSet.png",
+         "imageheight":108,
+         "imagewidth":108,
          "margin":0,
-         "name":"lockedDoor",
+         "name":"water",
          "properties":
             {
 
             },
          "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"solid",
-                 "func":"lockedDoorCollision",
-                 "name":"lockedDoor",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":18,
-         "image":"..\/..\/art\/runeblue.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"runeblue",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
+         "tileheight":36,
          "tileproperties":
             {
              "0":
                 {
                  "bodyType":"static",
                  "collType":"passThru",
-                 "func":"runeCollision",
-                 "name":"blueRune",
-                 "physics:bounce":"0",
+                 "func":"waterCollision",
+                 "name":"water",
                  "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":19,
-         "image":"..\/..\/art\/runegreen.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"runegreen",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
+                },
+             "2":
                 {
                  "bodyType":"static",
                  "collType":"passThru",
-                 "func":"runeCollision",
-                 "name":"greenRune",
-                 "physics:bounce":"0",
+                 "func":"waterCollision",
+                 "name":"water",
                  "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":20,
-         "image":"..\/..\/art\/runepink.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"runepink",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
+                },
+             "3":
                 {
                  "bodyType":"static",
                  "collType":"passThru",
-                 "func":"runeCollision",
-                 "name":"pinkRune",
-                 "physics:bounce":"0",
+                 "func":"waterCollision",
+                 "name":"water",
                  "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":21,
-         "image":"..\/..\/art\/runepurple.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"runepurple",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
+                },
+             "4":
                 {
                  "bodyType":"static",
                  "collType":"passThru",
-                 "func":"runeCollision",
-                 "name":"purpleRune",
+                 "func":"waterCollision",
+                 "name":"water",
                  "physics:bounce":"0",
                  "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":22,
-         "image":"..\/..\/art\/runeyellow.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"runeyellow",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
+                },
+             "5":
                 {
                  "bodyType":"static",
                  "collType":"passThru",
-                 "func":"runeCollision",
-                 "name":"yellowRune",
-                 "physics:bounce":"0",
+                 "func":"waterCollision",
+                 "name":"water",
                  "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":23,
-         "image":"..\/..\/art\/greenaura1.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"greenAura1",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
+                },
+             "6":
                 {
                  "bodyType":"static",
                  "collType":"passThru",
-                 "func":"greenAuraCollision",
-                 "name":"greenAura",
-                 "physics:bounce":"0",
+                 "func":"waterCollision",
+                 "name":"water",
                  "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":24,
-         "image":"..\/..\/art\/greenaura2.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"greenAura2",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
+                },
+             "7":
                 {
                  "bodyType":"static",
                  "collType":"passThru",
-                 "func":"greenAuraCollision",
-                 "name":"greenAura",
-                 "physics:bounce":"0",
+                 "func":"waterCollision",
+                 "name":"water",
                  "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":25,
-         "image":"..\/..\/art\/whiteaura.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"whiteAura",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
+                },
+             "8":
                 {
                  "bodyType":"static",
                  "collType":"passThru",
-                 "func":"whiteAuraCollision",
-                 "name":"whiteAura",
-                 "physics:bounce":"0",
+                 "func":"waterCollision",
+                 "name":"water",
                  "physics:enabled":"true"
                 }
             },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":26,
-         "image":"..\/..\/art\/redaura.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"redAura",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"redAuraCollision",
-                 "name":"redAura",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":27,
-         "image":"..\/..\/art\/redaura1.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"redAura1",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"redAuraCollision",
-                 "name":"redAura",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":28,
-         "image":"..\/..\/art\/redaura2.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"redAura2",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"redAuraCollision",
-                 "name":"redAura",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":72
-        }, 
-        {
-         "firstgid":29,
-         "image":"..\/..\/art\/blackWall.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"blackWall",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":72,
-         "tilewidth":72
+         "tilewidth":36
         }],
  "tilewidth":36,
  "version":1,

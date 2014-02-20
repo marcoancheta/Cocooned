@@ -34,8 +34,8 @@ function loadingInit(loadGroup)
 	]]
 end
 function updateLoading(int)
-	loadBar[int].isVisible=true
-	loadBar[int]:toFront()
+	--loadBar[int].isVisible=true
+	--loadBar[int]:toFront()
 	--loadWolf:play()
 	return true
 end
@@ -43,7 +43,7 @@ end
 function deleteLoading(level)
 	l = tonumber(level)
 	if  l > 0 then
-		cSS.cutScene(l)
+		--cSS.cutScene(l)
 	end
 	for i=1, 6 do
 		loadBar[i]:removeSelf()
@@ -55,6 +55,7 @@ function deleteLoading(level)
 	--loadWolf = nil
 	loadBar = nil
 	loadText = nil
+	--while cSS.cutSceneDone == false
 end
 
 local loadingScreen = {

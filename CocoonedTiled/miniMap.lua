@@ -46,7 +46,9 @@ function createMiniMap(mapData, player, map)
 		end
 		miniMapTable[i].x, miniMapTable[i].y = mapX, mapY
 		miniMapTable[i]:scale(0.25,0.25)
+		miniMapTable.name = "miniMapBlah"
 		miniMap:insert(i+2, miniMapTable[i])
+
 	end
 
 	-- create highlight for current pane
@@ -123,9 +125,7 @@ function updateMiniMap(mapData, miniMap, map, player)
 
 		miniMap:insert(7, pane)
 	end
-	
 	player.isVisible = true
-	
 end
 
 function hideMiniMap() 
@@ -136,6 +136,32 @@ end
 -- reset miniMap
 --------------------------------------------------------------------------------
 function resetMiniMap(miniMap, mapData, player)
+
+end
+
+function turnOn(miniMap)
+	
+end
+
+function moveMiniMap(miniMap, mapData, swipeX, swipeY)
+	local tempPane = mapData.pane
+
+	local aSwipeX, aSwipeY = math.abs(swipeX), math.abs(swipeY)
+	local swipeDirection = "N"
+	local moveX, moveY = 0, 0
+
+	if mapData.pane == "M" then
+		if aSwipeX > aSwipeY and swipeX < 0 then
+			moveX = -10
+		elseif aSwipeX > aSwipeY and swipeX > 0 then
+			moveX = 10
+		end
+	end
+
+	for m = 3, 7 do
+		miniMap[m].x = miniMap[m].x + moveX
+		miniMap[m].y = miniMap[m].y + moveY
+	end
 
 end
 
@@ -174,6 +200,8 @@ end
 local miniMap = {
 	createMiniMap = createMiniMap,
 	updateMiniMap = updateMiniMap,
+	moveMiniMap = moveMiniMap,
+	turnOn = turnOn,
 	resetMiniMap = resetMiniMap,
 	checkInventory = checkInventory
 }

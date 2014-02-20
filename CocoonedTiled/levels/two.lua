@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- one.lua
+-- two.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ local gameData = require("gameData")
 local moveableObject = require("moveableObject")
 
 
-local one = { 
+local two = { 
 	energyCount = 30,
 	["M"] = {
 		["blueAura"] = 0,
@@ -69,10 +69,6 @@ local one = {
 	}
 }
 
-function takeWallsDown(pane)
-	one[pane].wallDown = true
-end
-
 local objectList
 
 local function generateEnergy(energy, map, startIndex, endIndex)
@@ -93,8 +89,8 @@ end
 local function generateObjects(objects, map, pane, runes)
 	for i = 1, #objectNames do
 		local name = objectNames[i]
-		print("generating:", one[pane][name])
-		for j = 1, one[pane][name] do
+		print("generating:", two[pane][name])
+		for j = 1, two[pane][name] do
 			map.layer["tiles"]:insert(objects[name .. j])
 			objects[name .. j].func = name .. "Collision"
 			physics.addBody(objects[name ..j], "static", {bounce = 0})
@@ -113,7 +109,7 @@ local mObjects = {}
 
 local function generateMoveableObjects(objects, map, pane)
 	mObjects = {}
-	for i = 1, one[pane]["moveWall"] do
+	for i = 1, two[pane]["moveWall"] do
 		mObjects[i] = moveableObject.create()
 		mObjects[i].object = objects["moveWall" .. i]
 
@@ -142,7 +138,7 @@ local function destroyObjects(rune, energy, objects)
 	end
 
 	-- deleted extra energies
-	for i = 1, one.energyCount do
+	for i = 1, two.energyCount do
 		--print("energyCount:", i)
 		if energy[i].isVisible == false then
 			energy[i]:removeSelf()
@@ -179,8 +175,8 @@ local function destroyAll()
 	end
 end
 
-one.load = load
-one.destroyAll = destroyAll
-one.takeWallsDown = takeWallsDown
+two.load = load
+two.destroyAll = destroyAll
+two.takeWallsDown = takeWallsDown
 
-return one
+return two

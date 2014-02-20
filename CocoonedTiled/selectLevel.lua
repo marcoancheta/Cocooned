@@ -134,7 +134,7 @@ local function selectLoop(event)
 	-- Load image sheet
 	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-	timer.performWithDelay(500, myClosure) -- first loading checkpoint					   
+	timer.performWithDelay(1, myClosure) -- first loading checkpoint					   
 	-- Create player
 	player = display.newSprite(playerSheet, spriteOptions.player)
 	player.speed = 250
@@ -172,7 +172,7 @@ local function selectLoop(event)
 	dPad.x = display.screenOriginX + dPad.contentWidth * 0.5 + 40
 	dPad.y = display.contentHeight - dPad.contentHeight * 0.5 - 40
 
-	timer.performWithDelay(400, myClosure)
+	timer.performWithDelay(1, myClosure)
 	
 	-- Create level numbers
 	lvlNumber = {	
@@ -222,7 +222,7 @@ local function selectLoop(event)
 		map.layer["tiles"]:insert(levels[i])
 		
 		-- Unlock && lock levels
-		if i~=2 and i~=18 then
+		if i~=2 and i~=3 and i~=4 and i~=5 and i~=18 then
 		   
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x
@@ -234,7 +234,7 @@ local function selectLoop(event)
 			kCircle[i].isAwake = true
 		end
 	end
-	timer.performWithDelay(1500, myClosure)
+	timer.performWithDelay(1, myClosure)
 	-- Add physics
 	physics.addBody(player, "static", {radius = 0.1}) -- to player
 	physics.addBody(cameraTRK, "dynamic", {radius = 0.1}) -- to invisible camera
@@ -256,11 +256,11 @@ local function selectLoop(event)
 	levelGUI.front:insert(dPad)
 
 	bg:toBack()
-	timer.performWithDelay(2000, myClosure)
+	timer.performWithDelay(1, myClosure)
 	selectLevel.levelNum = kCircle[1].name
 	kCircle[1].isAwake = true
 	kCircle[1]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
-	timer.performWithDelay(2500, myClosure)
+	timer.performWithDelay(1, myClosure)
 	-- Insert objects into map layer "tiles"
 	map.layer["tiles"]:insert(player)
 	map.layer["tiles"]:insert(cameraTRK)
@@ -272,8 +272,9 @@ local function selectLoop(event)
 	silKipcha:addEventListener("tap", tapOnce)
 	dPad:addEventListener("touch", tapOnce)
 	Runtime:addEventListener("enterFrame", setCameratoPlayer)
-	timer.performWithDelay(3000, myClosure)
-	timer.performWithDelay(4000, deleteClosure)
+
+	timer.performWithDelay(1, myClosure)
+	timer.performWithDelay(1, deleteClosure)
 end
 	
 

@@ -9,9 +9,16 @@
 local gameData = require("gameData")
 local goals = require("goals")
 local bonus = require("levels.bonus")
-local fourteen = require("levels.fourteen")
-local fifteen = require("levels.fifteen")
-local one = require("levels.one")
+
+
+local levelNames = {
+	["1"] = "one",
+	["2"] = "two",
+	["3"] = "three",
+	["4"] = "four",
+	["15"] = "fifteen"
+}
+local level
 
 local objects = {}
 
@@ -103,7 +110,13 @@ end
 --------------------------------------------------------------------------------
 local function main(mapData, map)
 	init()
-	
+
+
+
+	level = require("levels." .. levelNames[mapData.levelNum])
+	objects, energy = createObjects(level, mapData.pane)
+	level.load(mapData.pane, map, rune, objects, energy)
+	--[[
 	-- Check levelNum then redirect
 	if mapData.levelNum == "1" then
 		print("loading level 1")
@@ -121,6 +134,7 @@ local function main(mapData, map)
 	else
 		print("OBJECTS FOR LVL:", mapData.levelNum, "NOT MADE")
 	end
+	]]
 end
 
 
@@ -132,10 +146,10 @@ local function destroy(mapData)
 		display.remove(rune[i])
 		rune[i] = nil
 	end
+
 	print("DESTROY ALL OBJECTS!!!!!!!!")
-	if mapData.levelNum == "1" then
-		one.destroyAll()
-	end
+
+	level.destroyAll()
 end
 
 objects.main = main

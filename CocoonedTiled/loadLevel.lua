@@ -34,12 +34,12 @@ function createLevel(mapData, ball, player)
 	print("loadMap", mapData.levelNum)
 
 	-- Load in map
-	timer.performWithDelay(500, myClosure)-- first loading check point gui groups and subgroups added
+	timer.performWithDelay(1, myClosure)-- first loading check point gui groups and subgroups added
 	
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
 	objects.main(mapData, map)
 
-	timer.performWithDelay(1000, myClosure) --map built
+	timer.performWithDelay(1, myClosure) --map built
 	
 	for i=1, map.layer["tiles"].numChildren do
 		if map.layer["tiles"][i].name == "water" then
@@ -47,7 +47,7 @@ function createLevel(mapData, ball, player)
 		end
 	end
 
-	timer.performWithDelay(1500, myClosure) --objects moved
+	timer.performWithDelay(1, myClosure) --objects moved
 	
 	if map.tutorial == true then
 		require("tutorial")
@@ -57,13 +57,13 @@ function createLevel(mapData, ball, player)
 	-- set players location
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 
-	timer.performWithDelay(2000, myClosure)--players location set
+	timer.performWithDelay(1, myClosure)--players location set
 
 	-- create miniMap for level
 	local miniMapDisplay = miniMap.createMiniMap(mapData, player, map)
 	miniMapDisplay.name = "miniMapName"
 
-	timer.performWithDelay(2500, myClosure) --minimap created
+	timer.performWithDelay(1, myClosure) --minimap created
 
 	--miniMapDisplay:removeSelf()
 
@@ -71,8 +71,8 @@ function createLevel(mapData, ball, player)
 	gui.back:insert(1, map)
 	map.layer["tiles"]:insert(ball)
 
-	timer.performWithDelay(3000, myClosure)--added groups
-	timer.performWithDelay(4000, deleteClosure)
+	timer.performWithDelay(1, myClosure)--added groups
+	timer.performWithDelay(1, deleteClosure)
 
 	return gui, miniMapDisplay
 

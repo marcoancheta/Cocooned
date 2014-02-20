@@ -20,7 +20,39 @@ local highestygrav = 0
 
 
 -- acceleromter call
-local function onAccelerate( event)
+local function onAccelerate( event, player)
+	local ball = player.imageObject
+	print(player.escape)
+	if event.isShake and player.movement == "inWater" then
+		local xDirection = 0
+		local yDirection = 0
+		if player.escape == "up" then
+			yDirection = -1
+		elseif player.escape == "upLeft" then
+			yDirection = -1
+			xDirection = -1
+		elseif player.escape == "upRight" then
+			yDirection = -1
+			xDirection = 1
+		elseif player.escape == "left" then
+			xDirection = -1
+		elseif player.escape == "right" then
+			xDirection = 1
+		elseif player.escape == "downRight" then
+			xDirection = 1
+			yDirection = 1
+		elseif player.escape == "down" then
+			yDirection = 1
+		elseif player.escape == "downLeft" then
+			yDirection = 1
+			xDirection = -1
+		end
+
+		ball:applyLinearImpulse(.25*xDirection,.25*yDirection,ball.x, ball.y )
+		accelTimer = timer.performWithDelay(500, function() player.movement = "accel" player.imageObject.linearDamping = 1 player.speedConst = 5 end)
+		speedTmer= timer.performWithDelay(5000, function() player.speedConst = 10 end)
+	end
+
 	--print("accel")
 	local xGrav=1
 	local yGrav=1
@@ -56,8 +88,8 @@ local function onAccelerate( event)
 		highestxgrav=xGrav
 	end
 	-- offset the gravity to return
-	physicsParam.xGrav=10*xGrav
-	physicsParam.yGrav=10*yGrav
+	physicsParam.xGrav=xGrav
+	physicsParam.yGrav=yGrav
 	--return physics parameters
 	return physicsParam
 end
