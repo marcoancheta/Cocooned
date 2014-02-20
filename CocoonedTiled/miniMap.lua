@@ -128,41 +128,65 @@ function updateMiniMap(mapData, miniMap, map, player)
 	player.isVisible = true
 end
 
-function hideMiniMap() 
-	miniMap.alpha = 0
-end
-
 --------------------------------------------------------------------------------
 -- reset miniMap
 --------------------------------------------------------------------------------
-function resetMiniMap(miniMap, mapData, player)
-
+function setMiniMap(miniMap, pane)
+	miniMap[2].x, miniMap[2].y = 720, 432
+	if pane == "U" then
+		miniMap[2].y = miniMap[2].y + 240
+	elseif pane == "D" then
+		miniMap[2].y = miniMap[2].y - 240
+	elseif pane == "L" then
+		miniMap[2].x = miniMap[2].x + 400
+	elseif pane == "R" then
+		miniMap[2].x = miniMap[2].x - 400
+	end
 end
 
 function turnOn(miniMap)
 	
 end
 
-function moveMiniMap(miniMap, mapData, swipeX, swipeY)
+function moveMiniMap(miniMap, mapData, event)
 	local tempPane = mapData.pane
 
-	local aSwipeX, aSwipeY = math.abs(swipeX), math.abs(swipeY)
-	local swipeDirection = "N"
-	local moveX, moveY = 0, 0
-
-	if mapData.pane == "M" then
-		if aSwipeX > aSwipeY and swipeX < 0 then
-			moveX = -10
-		elseif aSwipeX > aSwipeY and swipeX > 0 then
-			moveX = 10
+	--720, 432
+	if event.y > 312 and event.y < 552 then
+		if event.x > 920  then
+			miniMap[2].x = 1120
+		elseif event.x < 520 then
+			miniMap[2].x = 320
+		elseif event.x < 920 and event.x > 520 then
+			miniMap[2].x = 720
 		end
+		miniMap[2].y = 432
+	elseif event.x < 920 and event.x > 520 then
+		if event.y > 552  then
+			miniMap[2].y = 672
+		elseif event.y < 312 then
+			miniMap[2].y = 192
+		elseif event.y < 552 and event.y > 312 then
+			miniMap[2].y = 432
+		end	
+		miniMap[2].x = 720
 	end
 
-	for m = 3, 7 do
-		miniMap[m].x = miniMap[m].x + moveX
-		miniMap[m].y = miniMap[m].y + moveY
+	local check = miniMap[2]
+
+	if check.x == miniMap[3].x and check.y == miniMap[3].y then
+		mapData.pane = "M"
+	elseif check.x == miniMap[4].x and check.y == miniMap[4].y then
+		mapData.pane = "U"
+	elseif check.x == miniMap[5].x and check.y == miniMap[5].y then
+		mapData.pane = "D"
+	elseif check.x == miniMap[6].x and check.y == miniMap[6].y then
+		mapData.pane = "R"
+	elseif check.x == miniMap[7].x and check.y == miniMap[7].y then
+		mapData.pane = "L"
 	end
 
+	return tempPane
 end
 
 function checkMiniMap(miniMap, index)
@@ -202,7 +226,7 @@ local miniMap = {
 	updateMiniMap = updateMiniMap,
 	moveMiniMap = moveMiniMap,
 	turnOn = turnOn,
-	resetMiniMap = resetMiniMap,
+	setMiniMap = setMiniMap,
 	checkInventory = checkInventory
 }
 

@@ -72,9 +72,8 @@ local function moveAndAnimate(player)
 	end
 end
 
-
 local movement = {
-	 moveAndAnimate = moveAndAnimate
+	 moveAndAnimate = moveAndAnimate,
 }
 
 return movement

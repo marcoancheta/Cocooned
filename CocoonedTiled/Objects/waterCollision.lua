@@ -1,5 +1,7 @@
-local speedTmer = nil
+
+local sound = require("sound")
 function collide(collideObject, player, event, mapData, map)
+	sound.playSound(event, sound.splashSound)
 	event.contact.isEnabled = false
 	player.movement ="inWater"
 	player.escape = collideObject.escape
@@ -27,7 +29,8 @@ function collide(collideObject, player, event, mapData, map)
 		--accelTimer = timer.performWithDelay(100, function() player.movement = "accel" player.imageObject.linearDamping = 1 player.speedConst = 5 end)
 		--speedTmer= timer.performWithDelay(5000, function() player.speedConst = 10 end)
 		]]
-	
+
+
 end
 
 local waterCollision = {

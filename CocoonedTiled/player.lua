@@ -11,7 +11,7 @@ local pi = math.pi
 local inventoryMechanic = require("inventoryMechanic")
 local gameData = require("gameData")
 --default player prototype
-local playerInstance = {
+playerInstance = {
 	x=0,
 	y=0,
 	magnetized='nuetral', -- {negative, nuetral, positive}
@@ -71,8 +71,9 @@ function playerInstance:changeColor (color)
 end
 
 -- repels the player if they hit a totem pole
-function playerInstance:totemRepel ()
-		self.imageObject:applyLinearImpulse(5, 5, self.imageObject.x, self.imageObject.y)
+function playerInstance:totemRepel (collideObject)
+		print((self.imageObject.x - collideObject.x)/1000)
+		self.imageObject:applyLinearImpulse((self.imageObject.x - collideObject.x)/175, (self.imageObject.y - collideObject.y)/175, self.imageObject.x, self.imageObject.y) 
 		self.imageObject.angularVelocity = 0
 end
 
@@ -87,6 +88,29 @@ function playerInstance:attract (goTo)
 		--self.imageObject:applyLinearImpulse(-1, -1, self.imageObject.x, self.imageObject.y)
 		self.imageObject:setLinearVelocity(goTo, goTo, goTo, goTo)
 		self.imageObject.angularVelocity = 0
+end
+
+function playerInstance:slowTime(map)
+	for check = 1, map.layer["tiles"].numChildren do
+		if map.layer["tiles"][check].moveable == true then
+			map.layer["tiles"][check].time = 20000
+		end
+	end
+end
+
+function playerInstance:breakWalls(map)
+	local timer = timer.performWithDelay(10, changeType)
+		  timer.params = {param1 = map}
+end
+
+function changeType(event)
+	local params = event.source.params
+	
+	for check = 1, params.param1.layer["tiles"].numChildren do
+		if params.param1.layer["tiles"][check].name == "orangeWall" then
+			params.param1.layer["tiles"][check].bodyType = "dynamic"
+		end
+	end
 end
 
 function playerInstance:rotate (x,y)

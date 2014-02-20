@@ -59,6 +59,15 @@ local sound = {
 	-- Load Sounds here:
 	clickSound = audio.loadSound("sounds/menu_tone.wav"),
 	mainmenuSound = audio.loadSound("sounds/cocoonedmusic.wav"),
+	auraPickupSound = audio.loadSound("sounds/auraPickup.wav"), 
+	gameSound = audio.loadSound("sounds/music.wav"), 
+	orbPickupSound = audio.loadSound("sounds/orbPickup.wav"),
+	portalOpeningSound = audio.loadSound("sounds/portalOpening.wav"),
+	rollSnowSound = audio.loadSound("sounds/rollSnow.wav"),
+	runePickupSound = audio.loadSound("sounds/runePickup.wav"),
+	wallHitSound = audio.loadSound("sounds/wallHit.wav"),
+	splashSound = audio.loadSound("sounds/splash.wav"),
+	totemSound = audio.loadSound("sounds/totem.wav")
 	--selectMapSound = audio.loadSound('sounds/selectMap.wav')
 }
 
