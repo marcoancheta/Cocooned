@@ -37,6 +37,10 @@ spriteOptions = { -- Sprite options for player and finish star
 	blueGhost = {
 		{frames = {8,7,6,5}, name = "move", time = 500},
 		{frames = {1}, name = "still", time = 250}
+	},
+	["exitPortal"] = {
+		{frames = {5, 4, 3, 2}, name = "move", time = 500}, 
+		{frames = {1}, name = "still", time = 250}
 	}
 }
 
@@ -44,12 +48,13 @@ objectNames = {
 	[1] = "blueAura",
 	[2] = "redAura",
 	[3] = "greenAura",
-	[4] = "moveWall",
-	[5] = "blueTotem",
-	[6] = "redTotem",
-	[7] = "greenTotem",
-	[8] = "switch",
-	[9] = "switchWall"
+	[4] = "exitPortal",
+	[5] = "moveWall",
+	[6] = "blueTotem",
+	[7] = "redTotem",
+	[8] = "greenTotem",
+	[9] = "switch",
+	[10] = "switchWall"
 
 }
 

@@ -9,6 +9,7 @@ local dusk = require("Dusk.Dusk")
 local miniMap = require("miniMap")
 local objects = require("objects")
 local loading = require("loadingScreen")
+require("levelFinished")
 local loaded = 0
 
 --------------------------------------------------------------------------------
@@ -107,6 +108,9 @@ function changePane(mapData, player)
 			end
 		end
 	end
+
+	checkWin(player, map, mapData)
+
 	-- return new pane
 	return map
 end

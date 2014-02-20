@@ -66,7 +66,8 @@ local sound = {
 	rollSnowSound = audio.loadSound("sounds/rollSnow.wav"),
 	runePickupSound = audio.loadSound("sounds/runePickup.wav"),
 	wallHitSound = audio.loadSound("sounds/wallHit.wav"),
-	splashSound = audio.loadSound("sounds/splash.wav")
+	splashSound = audio.loadSound("sounds/splash.wav"),
+	totemSound = audio.loadSound("sounds/totem.wav")
 	--selectMapSound = audio.loadSound('sounds/selectMap.wav')
 }
 

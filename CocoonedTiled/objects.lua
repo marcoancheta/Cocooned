@@ -53,6 +53,8 @@ local function init()
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
 	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/greenAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
+	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/exitPortalSheet.png", 
+				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
 	
 	-- Attach collision event to object
 	-- Disable visibility
@@ -69,7 +71,7 @@ end
 function createAnimations(count, name, objectList)
 	for i = 1, count do
 		objectList[name .. i] = display.newSprite(sheetList[name], spriteOptions[name])
-		objectList[name .. i].name = name
+		objectList[name .. i].name = name .. i
 		objectList[name .. i]:setSequence("move")
 		objectList[name .. i]:play()
 	end
@@ -94,10 +96,10 @@ local function createObjects(objectNumbers, pane)
 		energy[i].isVisible = false
 		energy[i].x, energy[i].y = 100, 100
 	end	
-	for i = 1, 3 do
+	for i = 1, 4 do
 		createAnimations(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
-	for i = 4, 9 do
+	for i = 5, 10 do
 		createSprites(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
 	return objects, energy

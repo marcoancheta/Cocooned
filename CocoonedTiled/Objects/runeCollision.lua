@@ -21,7 +21,7 @@ function collide(collideObject, player, event, mapData, map)
 		gameData.greenG = true
 	end
 	
- 	checkWin(player, map)
+ 	checkWin(player, map, mapData)
 
  	if map.tutorial == true then
  		require("tutorial")

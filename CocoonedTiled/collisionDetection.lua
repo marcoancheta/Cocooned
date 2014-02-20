@@ -81,7 +81,7 @@ function createCollisionDetection(imageObject, player, mapData, map, gui, physic
       
       -- create particle effect
       if collideObject.collType == "wall" then
-        timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
+        --timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
       end
 
     elseif ( event.phase == "ended" ) then

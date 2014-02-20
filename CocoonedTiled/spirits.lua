@@ -25,10 +25,10 @@ local function run(event)
 		Runtime:removeEventListener("enterFrame", run)
 		gameData.blueG = false
 	elseif gameData.pinkG then
-		temp[1].time = 20000
-		temp[2].time = 20000
-		temp[3].time = 20000
-		temp[4].time = 20000
+		--temp[1].time = 20000
+		--temp[2].time = 20000
+		--temp[3].time = 20000
+		--temp[4].time = 20000
 		
 		print("pink spirit")
 		Runtime:removeEventListener("enterFrame", run)
@@ -47,7 +47,7 @@ local function processSpirits(objects, rune, map)
 	temp[3] = objects["moveWall3"]
 	temp[4] = objects["moveWall4"]
 	
-	Runtime:addEventListener("enterFrame", run)
+	--Runtime:addEventListener("enterFrame", run)
 end
 
 rSpirits.processSpirits = processSpirits

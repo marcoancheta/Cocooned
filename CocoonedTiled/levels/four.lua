@@ -15,14 +15,15 @@ local four = {
 	breakWallCount = 30,
 	["M"] = {
 		["blueAura"] = 0,
-		["redAura"] = 1,
-		["greenAura"] = 1,
+		["redAura"] = 0,
+		["greenAura"] = 0,
 		["moveWall"] = 0,
 		["blueTotem"] = 0,
-		["redTotem"] = 1,
+		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 1
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -33,7 +34,8 @@ local four = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -44,7 +46,8 @@ local four = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -55,7 +58,8 @@ local four = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -66,7 +70,8 @@ local four = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	}
 }
 
@@ -153,15 +158,12 @@ local function load(pane, map, rune, objects, energy, player)
 	
 	-- Check which pane
 	if pane == "M" then
-		--local redAuraSheet = graphics.newImageSheet( "mapdata/art/redAuraSheet.png", spriteOptions.redAura )
-		--local redAura = display.newSprite(redAuraSheet, spriteOptions.redAura)
-		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(13, 11)
-		rune[1].x, rune[1].y = map.tilesToPixels(15, 15)
-		rune[1].isVisible = true
+		local exitPortalSheet = graphics.newImageSheet( "mapdata/art/exitPortalSheet.png", spriteOptions.exitPortal )
+		local exitPortal = display.newSprite(exitPortalSheet, spriteOptions.exitPortal)
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(13, 11)
 		generateObjects(objects, map, pane, rune)
-		
-		-- Red Totem
-		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(13, 11)
+
 		elseif pane == "U" then
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)
@@ -196,7 +198,7 @@ local function load(pane, map, rune, objects, energy, player)
 		print("D")
 	elseif pane == "R" then
 		-- Green rune
-		rune[2].x, rune[2].y = map.tilesToPixels(3.5, 5)
+		rune[2].x, rune[2].y = map.tilesToPixels(3.5, 3.5)
 		rune[2].isVisible = true
 					
 		print("R")
