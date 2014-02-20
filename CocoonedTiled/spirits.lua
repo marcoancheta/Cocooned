@@ -17,6 +17,7 @@ local function run(event)
 		-- Moveable walls
 		for check = 1, map.layer["tiles"].numChildren do
 			if map.layer["tiles"][check].name == "orangeWall" then
+				
 				map.layer["tiles"][check].bodyType = "dynamic"
 			end
 		end

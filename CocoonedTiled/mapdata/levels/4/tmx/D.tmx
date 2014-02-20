@@ -221,7 +221,7 @@
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
+    <property name="collType" value="solid"/>
     <property name="func" value="orangeWallCollision"/>
     <property name="name" value="orangeWall"/>
     <property name="physics:bounce" value="0"/>
@@ -231,7 +231,7 @@
   <tile id="1">
    <properties>
     <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
+    <property name="collType" value="solid"/>
     <property name="func" value="orangeWallCollision"/>
     <property name="name" value="orangeWall"/>
     <property name="physics:bounce" value="0"/>
@@ -241,7 +241,7 @@
   <tile id="2">
    <properties>
     <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
+    <property name="collType" value="solid"/>
     <property name="func" value="orangeWallCollision"/>
     <property name="name" value="orangeWall"/>
     <property name="physics:bounce" value="0"/>
@@ -251,7 +251,7 @@
   <tile id="3">
    <properties>
     <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
+    <property name="collType" value="solid"/>
     <property name="func" value="orangeWallCollision"/>
     <property name="name" value="orangeWall"/>
     <property name="physics:bounce" value="0"/>
