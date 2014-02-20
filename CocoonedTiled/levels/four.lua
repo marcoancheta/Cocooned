@@ -162,12 +162,7 @@ local function load(pane, map, rune, objects, energy, player)
 		local exitPortal = display.newSprite(exitPortalSheet, spriteOptions.exitPortal)
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(13, 11)
-		generateObjects(objects, map, pane, rune)
 
-		elseif pane == "U" then
-		
-		-- Red Totem
-		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(13, 11)
 	elseif pane == "U" then
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)
