@@ -2,6 +2,7 @@ require("levelFinished")
 
 
 function collide(collideObject, player, event, mapData, map)
+	audio.play(runePickupSound)
 	event.contact.isEnabled = false
 	player:addInventory(collideObject)
  	collideObject:removeSelf()

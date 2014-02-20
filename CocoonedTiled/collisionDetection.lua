@@ -52,6 +52,7 @@ function createCollisionDetection(imageObject, player, mapData, map, gui, physic
    if collideObject.collType == "solid" then
       local col = require("Objects." .. collideObject.func)
       col.collide(collideObject, player, event, mapData, map)
+      audio.play(wallHitSound)
    end
 
   if collideObject.collectable == true then

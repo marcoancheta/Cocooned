@@ -14,11 +14,11 @@ local four = {
 	energyCount = 30,
 	["M"] = {
 		["blueAura"] = 0,
-		["redAura"] = 0,
-		["greenAura"] = 0,
-		["moveWall"] = 1,
+		["redAura"] = 1,
+		["greenAura"] = 1,
+		["moveWall"] = 0,
 		["blueTotem"] = 0,
-		["redTotem"] = 1,
+		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0
@@ -155,11 +155,10 @@ local function load(pane, map, rune, objects, energy)
 	-- Check which pane
 	if pane == "M" then
 		--local redAura = display.newSprite(redAuraSheet, spriteOptions.redAura)
-		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(13, 11)
-		objects["moveWall1"].x, objects["moveWall1"].y = map.tilesToPixels(25, 11)
-		objects["moveWall1"].eX, objects["moveWall1"].eY = map.tilesToPixels(25, 13)
-		objects["moveWall1"].time = 300
-		generateObjects(objects, map, pane, runes)
+		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(13, 11)
+		rune[1].x, rune[1].y = map.tilesToPixels(15, 15)
+		rune[1].isVisible = true
+		generateObjects(objects, map, pane, rune)
 	elseif pane == "U" then
 	
 	elseif pane == "D" then

@@ -2,6 +2,7 @@ local colorChange = false
 local player = nil
 
 function collide(collideObject, player, event, mapData, map)
+	audio.play(auraPickupSound)
 	player = player
 	event.contact.isEnabled = false
 	player:changeColor('green')
