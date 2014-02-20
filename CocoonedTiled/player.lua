@@ -91,6 +91,29 @@ function playerInstance:attract (goTo)
 		self.imageObject.angularVelocity = 0
 end
 
+function playerInstance:slowTime(map)
+	for check = 1, map.layer["tiles"].numChildren do
+		if map.layer["tiles"][check].moveable == true then
+			map.layer["tiles"][check].time = 20000
+		end
+	end
+end
+
+function playerInstance:breakWalls(map)
+	local timer = timer.performWithDelay(10, changeType)
+		  timer.params = {param1 = map}
+end
+
+function changeType(event)
+	local params = event.source.params
+	
+	for check = 1, params.param1.layer["tiles"].numChildren do
+		if params.param1.layer["tiles"][check].name == "orangeWall" then
+			params.param1.layer["tiles"][check].bodyType = "dynamic"
+		end
+	end
+end
+
 function playerInstance:rotate (x,y)
 		transition.cancel('rotation')
 		angle = (floor(atan2(y, x) * ( 180 / pi))) 

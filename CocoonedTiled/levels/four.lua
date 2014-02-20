@@ -8,7 +8,6 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("gameData")
 local moveableObject = require("moveableObject")
-local spirits = require("spirits")
 
 local four = { 
 	energyCount = 30,
@@ -122,6 +121,7 @@ local function generateMoveableObjects(objects, map, pane)
 		mObjects[i].object.startX, mObjects[i].object.startY = startX, startY
 		mObjects[i].object.endX, mObjects[i].object.endY = endX, endY
 		mObjects[i].object.time = time
+		mObjects[i].object.moveable = true
 		mObjects[i]:startTransition(mObjects[i].object)
 	end
 	
@@ -155,14 +155,13 @@ local function load(pane, map, rune, objects, energy, player)
 	if pane == "M" then
 		--local redAuraSheet = graphics.newImageSheet( "mapdata/art/redAuraSheet.png", spriteOptions.redAura )
 		--local redAura = display.newSprite(redAuraSheet, spriteOptions.redAura)
-		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(13, 11)
+		--objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(13, 11)
 		rune[1].x, rune[1].y = map.tilesToPixels(15, 15)
 		rune[1].isVisible = true
-		generateObjects(objects, map, pane, rune)
 		
 		-- Red Totem
-		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(13, 11)
-		elseif pane == "U" then
+		-- objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(13, 11)
+	elseif pane == "U" then
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)
 	
@@ -182,7 +181,7 @@ local function load(pane, map, rune, objects, energy, player)
 		objects["moveWall4"].time = 375
 		
 		-- Pink rune	
-		rune[3].x, rune[3].y = map.tilesToPixels(3.5, 13)
+		rune[3].x, rune[3].y = map.tilesToPixels(3.5, 3)
 		rune[3].isVisible = true
 		
 		print("U")
@@ -190,7 +189,7 @@ local function load(pane, map, rune, objects, energy, player)
 		local num = 12
 		
 		-- Blue rune
-		rune[1].x, rune[1].y = map.tilesToPixels(19.5, 20)			
+		rune[1].x, rune[1].y = map.tilesToPixels(19.5, 12)			
 		rune[1].isVisible = true
 				
 		print("D")
@@ -206,7 +205,6 @@ local function load(pane, map, rune, objects, energy, player)
 	
 	generateObjects(objects, map, pane, runes)
 	generateMoveableObjects(objects, map, pane, runes)
-	spirits.processSpirits(objects, rune, map, breakWall)	
 end
 
 

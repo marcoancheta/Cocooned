@@ -55,7 +55,7 @@ function createCollisionDetection(imageObject, player, mapData, map, gui, physic
       audio.play(wallHitSound)
    end
 
-  if collideObject.collectable == true then
+   if collideObject.collectable == true then
       local col = require("Objects." .. collideObject.func)
       col.collide(collideObject, player, event, mapData, map)
       miniMapMechanic.updateMiniMap(mapData, miniMap, map, event.target)
@@ -81,7 +81,7 @@ function createCollisionDetection(imageObject, player, mapData, map, gui, physic
       
       -- create particle effect
       if collideObject.collType == "wall" then
-        timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
+       -- timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
       end
 
     elseif ( event.phase == "ended" ) then
