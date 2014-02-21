@@ -28,8 +28,9 @@ playerInstance = {
 	yGrav = 0,
 	speedConst = 10,
 	movement="accel",
-	--justHitWater=false,
-	--numOfTaps = 0,
+	deathTimer = nil,
+	slowDownTimer = nil,
+	speedUpTimer = nil,
 	curse = 1,
 	escape = "center",
 }
@@ -87,6 +88,10 @@ function playerInstance:attract (goTo)
 		--self.imageObject:applyLinearImpulse(-1, -1, self.imageObject.x, self.imageObject.y)
 		self.imageObject:setLinearVelocity(goTo, goTo, goTo, goTo)
 		self.imageObject.angularVelocity = 0
+end
+
+function playerInstance:shrink()
+	self.imageObject:scale(0.6, 0.6)
 end
 
 function playerInstance:slowTime(map)

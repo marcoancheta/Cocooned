@@ -147,7 +147,7 @@ local function swipeMechanics(event)
 	if player1.movement == "accel" then
 		-- save temp pane for later check
 		local tempPane = mapData.pane
---[[
+
 		-- call swipe mechanic and get new Pane
 		touch.swipeScreen(event, mapData, player1, miniMap)
 
@@ -177,8 +177,6 @@ local function swipeMechanics(event)
 			-- Reassign game mechanic listeners
 			collisionDetection.changeCollision(player1.imageObject, player1, mapData, gui.back[1], gui.front, physics, miniMap)
 		end
-	]]
-
 	end
 end
 

@@ -33,6 +33,7 @@ function createCollisionDetection(imageObject, player, mapData, map)
       col.collide(collideObject, player, event, mapData, map)
       audio.play(wallHitSound)
    end
+
    
   end
 

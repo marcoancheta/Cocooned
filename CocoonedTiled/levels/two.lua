@@ -57,7 +57,7 @@ local four = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 1,
+		["switchWall"] = 0,
 		["exitPortal"] = 0
 	},	
 	["L"] = {
@@ -97,10 +97,16 @@ local function generateObjects(objects, map, pane, runes)
 		print("generating:", four[pane][name])
 		for j = 1, four[pane][name] do
 			map.layer["tiles"]:insert(objects[name .. j])
-			objects[name .. j].func = name .. "Collision"
-			physics.addBody(objects[name ..j], "static", {bounce = 0})
-			objects[name ..j].collType = "passThru"
-		end
+			objects[name .. j].func = name .. "Collision"			
+			if name == "redTotem" then
+				print(name)
+				physics.addBody(objects[name ..j], "static", {bounce=0, radius=80})
+				objects[name ..j].collType = "passThru"
+			else
+				physics.addBody(objects[name ..j], "static", {bounce = 0})
+				objects[name ..j].collType = "passThru"
+			end
+		end	
 	end
 
 	for i = 1, #rune do
@@ -163,7 +169,6 @@ local function load(pane, map, rune, objects, energy, player)
 		local exitPortal = display.newSprite(exitPortalSheet, spriteOptions.exitPortal)
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(4, 12.5)
-		generateObjects(objects, map, pane, rune)
 
 		-- Red Totem
 		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(8, 10)
@@ -231,12 +236,12 @@ local function load(pane, map, rune, objects, energy, player)
 		print("D")
 	elseif pane == "R" then
 		-- Switch Wall
-		objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(32, 12.5)
-		objects["switchWall1"]:scale(0.5, 8)
+		--objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(32, 12.5)
+		--objects["switchWall1"]:scale(0.5, 8)
 	
 		-- Green rune
-		rune[2].x, rune[2].y = map.tilesToPixels(3.5, 3.5)
-		rune[2].isVisible = true
+		rune[5].x, rune[5].y = map.tilesToPixels(3.5, 3.5)
+		rune[5].isVisible = true
 		
 		energy[5].x, energy[5].y = map.tilesToPixels(8.5, 4)
 		energy[6].x, energy[6].y = map.tilesToPixels(11.5, 4)
@@ -246,10 +251,11 @@ local function load(pane, map, rune, objects, energy, player)
 		
 		startIndex = 5
 		endIndex = 9
+	
 		
 		print("R")
 	elseif pane == "L" then
-			
+		
 		energy[23].x, energy[23].y = map.tilesToPixels(8, 5.5)
 		energy[24].x, energy[24].y = map.tilesToPixels(13, 5.5)
 		energy[25].x, energy[25].y = map.tilesToPixels(18, 5.5)
@@ -259,7 +265,8 @@ local function load(pane, map, rune, objects, energy, player)
 		energy[29].x, energy[29].y = map.tilesToPixels(18, 19)
 		
 		startIndex = 23
-		endIndex = 29	
+		endIndex = 29
+
 		print("L")
 	end
 	
