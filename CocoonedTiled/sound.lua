@@ -16,10 +16,8 @@ local name
 -- Play Sounds
 --------------------------------------------------------------------------------
 function playSound(event, name)
-	audio.stop()
-	local availableChannel = audio.findFreeChannel()
-	audio.setVolume(0.1, {channel = availableChannel} )
-	local temp = audio.play(name, {channel=availableChannel, loops=0})
+	audio.setVolume(0.1, {channel = 4} )
+	local temp = audio.play(name, {channel=4, loops=0})
 	print("play sound:", name)
 end
 
@@ -30,9 +28,8 @@ function pauseSound(event, name)
 end
 
 function playEventSound(event, name)
-	local availableChannel = audio.findFreeChannel()
-	audio.setVolume(0.4, {channel = availableChannel} )
-	local temp = audio.play(name, {channel=availableChannel, loops=0})
+	audio.setVolume(0.4, {channel = 3} )
+	local temp = audio.play(name, {channel=3, loops=0})
 	print("play event sound:", name)
 end
 
