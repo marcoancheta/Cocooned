@@ -3,6 +3,7 @@ local player = nil
 local sound = require("sound")
 
 function collide(collideObject, player, event, mapData, map)
+	audio.stop()
 	sound.playSound(event, sound.auraPickupSound)
 	player = player
 	event.contact.isEnabled = false

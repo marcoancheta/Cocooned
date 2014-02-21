@@ -190,8 +190,8 @@ local function load(pane, map, rune, objects, energy)
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(4, 12.5)
 
 		-- Red Totem
-		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(8, 10)
-		objects["redTotem2"].x, objects["redTotem2"].y = map.tilesToPixels(8, 15)
+		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(6, 10)
+		objects["redTotem2"].x, objects["redTotem2"].y = map.tilesToPixels(6, 15)
 		
 		energy[1].x, energy[1].y = map.tilesToPixels(19, 7)
 		energy[2].x, energy[2].y = map.tilesToPixels(19, 17)
