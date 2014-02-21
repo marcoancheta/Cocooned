@@ -55,7 +55,7 @@ sheetOptions = {
 	runeSheet = graphics.newImageSheet("mapdata/art/runeAnimation.png", 
 				 {width = 72, height = 72, sheetContentWidth = 432, sheetContentHeight = 216, numFrames = 18}),
 	deathSheet = graphics.newImageSheet("mapdata/art/screenCrack.png", 
-				 {width = 1440, height = 864, sheetContentWidth =2886, sheetContentHeight =1734, numFrames = 4})
+				 {width = 1552, height = 864, sheetContentWidth =3108, sheetContentHeight =1728, numFrames = 4})
 
 }
 
