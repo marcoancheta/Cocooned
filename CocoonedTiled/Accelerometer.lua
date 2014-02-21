@@ -19,6 +19,7 @@ local accelPlayer=nil
 
 local function cancelDeathTimer() 
 	if accelPlayer.movement == "accel" and accelPlayer.deathTimer ~= nil then 
+		print("TIMERCANCELED")
 		timer.cancel(accelPlayer.deathTimer) 
 		accelPlayer.deathTimer=nil  
 		accelPlayer.imageObject.linearDamping = 1 
@@ -31,6 +32,7 @@ end
 local function onAccelerate( event, player)
 	accelPlayer = player
 	local ball = player.imageObject
+	print(player.escape)
 	if event.isShake and player.movement == "inWater" then
 		local xDirection = 0
 		local yDirection = 0

@@ -25,7 +25,6 @@ function collide(collideObject, player, event, mapData, map)
 		player:slowTime(map)		
 	elseif collideObject.name == "greenRune" then
 		gameData.greenG = true
-		player:moveWalls(map)
 	elseif collideObject.name == "yellowRune" then
 		player:shrink()
 	end
