@@ -103,8 +103,8 @@ function playerInstance:slowTime(map)
 end
 
 function playerInstance:breakWalls(map)
-	--local timer = timer.performWithDelay(10, changeType)
-		  --timer.params = {param1 = map}
+	local timer = timer.performWithDelay(10, changeType)
+		  timer.params = {param1 = map}
 end
 
 function changeType(event)
