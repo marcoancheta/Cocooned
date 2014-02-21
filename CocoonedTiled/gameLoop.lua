@@ -123,7 +123,7 @@ end
 
 local function speedUp(event)
 	if gameData.isShowingMiniMap == false then
-		for check = 1, map.layer["tiles"].numChildren do
+		--[[for check = 1, map.layer["tiles"].numChildren do
 			currObject = map.layer["tiles"][check]
 			if currObject.accel == true and gameData.greenG == true then
 				local vel = 40
@@ -136,7 +136,7 @@ local function speedUp(event)
 					currObject:setLinearVelocity(0, vel)
 				end
 			end
-		end
+		end]]
 		player1.xGrav = player1.xGrav*player1.curse
 		player1.yGrav = player1.yGrav*player1.curse
 		movement.moveAndAnimate(player1)

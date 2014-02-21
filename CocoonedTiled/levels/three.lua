@@ -158,14 +158,14 @@ local function load(pane, map, rune, objects, energy)
 	
 	-- Check which pane
 	if pane == "M" then
-		rune[2].x, rune[2].y = map.tilesToPixels(15 , 3.5)
+		--[[rune[2].x, rune[2].y = map.tilesToPixels(15 , 3.5)
 		rune[2].isVisible = true
 		rune[2].accel = false
 		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(15, 13)
 		objects["redTotem1"].accel = true
 		objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(30, 12.5)
 		objects["switchWall1"].accel = true
-		objects["switchWall1"]:scale(0.5, 8)
+		objects["switchWall1"]:scale(0.5, 8)]]
 		generateObjects(objects, map, pane, rune)
 		generateMoveableObjects(objects, map, pane)
 	elseif pane == "U" then
