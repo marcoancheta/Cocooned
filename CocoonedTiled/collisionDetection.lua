@@ -17,17 +17,23 @@ function createCollisionDetection(imageObject, player, mapData, map)
   -- function for pre collision detection
   function imageObject:preCollision( event )
  
-   local collideObject = event.other
-   if collideObject.collType == "passThru" then
-      local col = require("Objects." .. collideObject.func)
-      col.collide(collideObject, player, event, mapData, map)
-   end
+	   local collideObject = event.other
+	   if collideObject.collType == "passThru" then
+		  local col = require("Objects." .. collideObject.func)
+		  col.collide(collideObject, player, event, mapData, map)
+	   end
 
-   if collideObject.collType == "solid" then
-      local col = require("Objects." .. collideObject.func)
-      col.collide(collideObject, player, event, mapData, map)
-      audio.play(wallHitSound)
-   end
+	   if collideObject.collType == "solid" then
+		  local col = require("Objects." .. collideObject.func)
+		  col.collide(collideObject, player, event, mapData, map)
+		  audio.play(wallHitSound)
+	   end
+	   
+	   if collideObject.collectable then
+		  local col = require("Objects." .. collideObject.func)
+		  col.collide(collideObject, player, event, mapData, map)
+		  audio.play(wallHitSound)
+	   end
    
   end
 

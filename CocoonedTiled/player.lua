@@ -91,6 +91,10 @@ function playerInstance:attract (goTo)
 		self.imageObject.angularVelocity = 0
 end
 
+function playerInstance:shrink()
+	self.imageObject:scale(0.7, 0.7)
+end
+
 function playerInstance:slowTime(map)
 	for check = 1, map.layer["tiles"].numChildren do
 		if map.layer["tiles"][check].moveable == true then
