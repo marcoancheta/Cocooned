@@ -133,50 +133,20 @@ local tempPane
 local function swipeMechanics(event)
 
 	
-	-- save temp pane for later check
-	tempPane = mapData.pane
-
-	-- call swipe mechanic and get new Pane
-	touch.swipeScreen(event, mapData, player1, miniMap)
-	-- if touch ended then change map if pane is switched
-	if "ended" == event.phase and mapData.pane ~= tempPane then
-		paneTransition.playTransition(tempPane, mapData.pane, gui.back[1], player1)
-		--timer.performWithDelay(450, movePanes)
-		movePanes()
-	end
+	
 	if player1.movement == "accel" then
 		-- save temp pane for later check
-		local tempPane = mapData.pane
+		tempPane = mapData.pane
 
 		-- call swipe mechanic and get new Pane
 		touch.swipeScreen(event, mapData, player1, miniMap)
-
-		
 		-- if touch ended then change map if pane is switched
 		if "ended" == event.phase and mapData.pane ~= tempPane then
-
-			-- delete everything on map
-			map:removeSelf()
-			objects.destroy(mapData)
-			
-			-- Pause physics
-			physics.pause()
-			---------------------------------------------------
-			-- Play "character" teleportation animation here --
-			---------------------------------------------------
-		
-			-- Resume physics
-			physics.start()
-			
-			-- load map
-			map = loadLevel.changePane(mapData, player1)
-			-- insert objects onto map layer
-			gui.back:insert(map)
-			map.layer["tiles"]:insert(ball)
-			
-			-- Reassign game mechanic listeners
-			collisionDetection.changeCollision(player1.imageObject, player1, mapData, gui.back[1], gui.front, physics, miniMap)
+			paneTransition.playTransition(tempPane, mapData.pane, gui.back[1], player1)
+			--timer.performWithDelay(450, movePanes)
+			movePanes()
 		end
+
 	end
 end
 
