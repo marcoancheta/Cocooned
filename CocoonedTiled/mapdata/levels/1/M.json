@@ -1,7 +1,7 @@
 { "height":24,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 77, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":24,
          "name":"bg",
          "opacity":1,
@@ -12,7 +12,7 @@
          "y":0
         }, 
         {
-         "data":[25, 26, 33, 34, 35, 33, 34, 35, 33, 34, 35, 33, 34, 35, 51, 52, 53, 54, 55, 56, 54, 55, 56, 57, 58, 59, 33, 34, 35, 33, 36, 37, 38, 34, 35, 33, 34, 35, 69, 70, 27, 13, 14, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 72, 22, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 22, 23, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 23, 24, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 22, 22, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 23, 23, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 24, 63, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 63, 64, 19, 20, 20, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 64, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 65, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 60, 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 61, 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 62, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 66, 67, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 67, 68, 13, 14, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 68, 22, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 22, 23, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 23, 24, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 24, 24, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 22, 22, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 23, 23, 16, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 24, 24, 19, 20, 20, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 74, 31, 32, 48, 49, 50, 48, 49, 50, 48, 49, 50, 48, 49, 50, 51, 52, 53, 54, 55, 56, 54, 55, 56, 57, 58, 59, 35, 33, 34, 35, 45, 46, 47, 33, 34, 35, 49, 50, 75, 76],
+         "data":[40, 41, 58, 59, 60, 58, 59, 60, 58, 59, 60, 58, 59, 60, 1, 2, 3, 16, 17, 18, 16, 17, 18, 4, 5, 6, 58, 59, 60, 58, 19, 20, 21, 59, 60, 58, 59, 60, 46, 47, 43, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 50, 61, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 61, 64, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 64, 67, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 67, 61, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 61, 64, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 64, 67, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 67, 7, 216, 216, 216, 216, 217, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 7, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 10, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 13, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 9, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 12, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 15, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 8, 11, 210, 210, 210, 210, 211, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 11, 14, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 14, 61, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 61, 64, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 64, 67, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 209, 210, 210, 210, 210, 210, 210, 210, 211, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 67, 61, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 212, 213, 213, 213, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 61, 64, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 212, 213, 213, 213, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 64, 67, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 212, 213, 213, 213, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 67, 37, 38, 58, 59, 60, 58, 59, 60, 58, 59, 60, 58, 59, 60, 1, 2, 3, 16, 17, 18, 16, 17, 18, 4, 5, 6, 58, 59, 60, 58, 59, 60, 58, 59, 60, 58, 59, 60, 55, 56],
          "height":24,
          "name":"tiles",
          "opacity":1,
@@ -25,7 +25,7 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "itemGoal":"0",
+     "itemGoal":"3",
      "itemSize":"0",
      "moveObj":"0",
      "playerLocation":"!json! {\"x\": 20, \"y\":12 }",
@@ -35,256 +35,11 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"..\/..\/art\/redWall.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"redWall",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"solid",
-                 "func":"redWallCollision",
-                 "name":"redWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "1":
-                {
-                 "bodyType":"static",
-                 "collType":"solid",
-                 "func":"redWallCollision",
-                 "name":"redWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"solid",
-                 "func":"redWallCollision",
-                 "name":"redWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "3":
-                {
-                 "bodyType":"static",
-                 "collType":"solid",
-                 "func":"redWallCollision",
-                 "name":"redWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":5,
-         "image":"..\/..\/art\/blueWall.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"blueWall",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "func":"blueWallCollision",
-                 "name":"blueWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "1":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "func":"blueWallCollision",
-                 "name":"blueWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "func":"blueWallCollision",
-                 "name":"blueWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "3":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "func":"blueWallCollision",
-                 "name":"blueWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":9,
-         "image":"..\/..\/art\/greenWall.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"greenWall",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"solid",
-                 "func":"greenWallCollision",
-                 "name":"greenWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"static"
-                },
-             "1":
-                {
-                 "bodyType":"static",
-                 "collType":"solid",
-                 "func":"greenWallCollision",
-                 "name":"greenWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"solid",
-                 "func":"greenWallCollision",
-                 "name":"greenWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "3":
-                {
-                 "bodyType":"static",
-                 "collType":"solid",
-                 "func":"greenWallCollision",
-                 "name":"greenWall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":13,
-         "image":"..\/..\/art\/wateTileSet.png",
-         "imageheight":108,
+         "image":"..\/..\/art\/wallTileSet.png",
+         "imageheight":828,
          "imagewidth":108,
          "margin":0,
-         "name":"water",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"waterCollision",
-                 "name":"water",
-                 "physics:enabled":"true"
-                },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"waterCollision",
-                 "name":"water",
-                 "physics:enabled":"true"
-                },
-             "3":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"waterCollision",
-                 "name":"water",
-                 "physics:enabled":"true"
-                },
-             "4":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"waterCollision",
-                 "name":"water",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "5":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"waterCollision",
-                 "name":"water",
-                 "physics:enabled":"true"
-                },
-             "6":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"waterCollision",
-                 "name":"water",
-                 "physics:enabled":"true"
-                },
-             "7":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"waterCollision",
-                 "name":"water",
-                 "physics:enabled":"true"
-                },
-             "8":
-                {
-                 "bodyType":"static",
-                 "collType":"passThru",
-                 "func":"waterCollision",
-                 "name":"water",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":22,
-         "image":"..\/..\/art\/WallArt\/snowWall1.png",
-         "imageheight":108,
-         "imagewidth":36,
-         "margin":0,
-         "name":"snowWall1",
+         "name":"wallTileSet",
          "properties":
             {
 
@@ -309,33 +64,7 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":25,
-         "image":"..\/..\/art\/WallArt\/snowWallCorner2.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"snowWallCorner2",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
+             "10":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -343,7 +72,71 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "1":
+             "11":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "12":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "13":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "14":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "15":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "16":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "17":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "18":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "19":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -358,31 +151,8 @@
                  "name":"wall",
                  "physics:bounce":"0",
                  "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":29,
-         "image":"..\/..\/art\/WallArt\/snowWallCorner1.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"snowWallCorner1",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileoffset":
-            {
-             "x":2,
-             "y":0
-            },
-         "tileproperties":
-            {
-             "0":
+                },
+             "20":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -390,7 +160,39 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "2":
+             "22":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "25":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "27":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "28":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "29":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -403,33 +205,10 @@
                  "bodyType":"",
                  "collType":"",
                  "name":"",
-                 "physics:enabled":"",
-                 "physics:true":""
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":33,
-         "image":"..\/..\/art\/WallArt\/snowWall2.png",
-         "imageheight":36,
-         "imagewidth":108,
-         "margin":0,
-         "name":"snowWall2",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileoffset":
-            {
-             "x":0,
-             "y":-1
-            },
-         "tileproperties":
-            {
-             "0":
+                 "physics:bounce":"",
+                 "physics:enabled":""
+                },
+             "31":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -437,7 +216,7 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "1":
+             "33":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -445,33 +224,7 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":36,
-         "image":"..\/..\/art\/WallArt\/snowWall3way.png",
-         "imageheight":72,
-         "imagewidth":108,
-         "margin":0,
-         "name":"snowWall3way",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
+             "36":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -479,7 +232,7 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "1":
+             "37":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -487,7 +240,7 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "2":
+             "39":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -502,26 +255,8 @@
                  "name":"wall",
                  "physics:bounce":"0",
                  "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":42,
-         "image":"..\/..\/art\/WallArt\/snowWall3way2.png",
-         "imageheight":72,
-         "imagewidth":108,
-         "margin":0,
-         "name":"snowWall3way2",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "1":
+                },
+             "40":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -529,7 +264,7 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "3":
+             "42":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -537,7 +272,23 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "4":
+             "45":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "46":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "49":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -552,26 +303,8 @@
                  "name":"wall",
                  "physics:bounce":"0",
                  "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":48,
-         "image":"..\/..\/art\/WallArt\/snowWall2Bottom.png",
-         "imageheight":36,
-         "imagewidth":108,
-         "margin":0,
-         "name":"snowWall2Bottom",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
+                },
+             "52":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -579,7 +312,7 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "1":
+             "54":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -587,33 +320,7 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":51,
-         "image":"..\/..\/art\/WallArt\/SnowRockTransition.png",
-         "imageheight":36,
-         "imagewidth":108,
-         "margin":0,
-         "name":"SnowRockTransition",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
+             "55":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -621,7 +328,7 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "1":
+             "57":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -629,33 +336,7 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":54,
-         "image":"..\/..\/art\/WallArt\/rockWall2.png",
-         "imageheight":36,
-         "imagewidth":108,
-         "margin":0,
-         "name":"rockWall2",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
+             "58":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -663,7 +344,7 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "1":
+             "59":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -671,7 +352,55 @@
                  "physics:bounce":"0",
                  "physics:enabled":"true"
                 },
-             "2":
+             "6":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "60":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "63":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "66":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "7":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "8":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "9":
                 {
                  "bodyType":"static",
                  "collType":"wall",
@@ -683,264 +412,12 @@
          "tilewidth":36
         }, 
         {
-         "firstgid":57,
-         "image":"..\/..\/art\/WallArt\/SnowRockTransition3.png",
-         "imageheight":36,
-         "imagewidth":108,
-         "margin":0,
-         "name":"SnowRockTransition3",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "1":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":60,
-         "image":"..\/..\/art\/WallArt\/rockWall1.png",
-         "imageheight":108,
-         "imagewidth":36,
-         "margin":0,
-         "name":"rockWall1",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "1":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":63,
-         "image":"..\/..\/art\/WallArt\/SnowRockTransition4.png",
-         "imageheight":108,
-         "imagewidth":36,
-         "margin":0,
-         "name":"SnowRockTransition4",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "1":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":66,
-         "image":"..\/..\/art\/WallArt\/SnowRockTransition2.png",
-         "imageheight":108,
-         "imagewidth":36,
-         "margin":0,
-         "name":"SnowRockTransition2",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "1":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":69,
-         "image":"..\/..\/art\/WallArt\/snowWallCorner3.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"snowWallCorner3",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "0":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "1":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "3":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":73,
-         "image":"..\/..\/art\/WallArt\/snowWallCorner4.png",
-         "imageheight":72,
-         "imagewidth":72,
-         "margin":0,
-         "name":"snowWallCorner4",
-         "properties":
-            {
-
-            },
-         "spacing":0,
-         "tileheight":36,
-         "tileproperties":
-            {
-             "1":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "2":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                },
-             "3":
-                {
-                 "bodyType":"static",
-                 "collType":"wall",
-                 "name":"wall",
-                 "physics:bounce":"0",
-                 "physics:enabled":"true"
-                }
-            },
-         "tilewidth":36
-        }, 
-        {
-         "firstgid":77,
-         "image":"..\/..\/art\/iceBg.png",
+         "firstgid":70,
+         "image":"..\/..\/art\/paneBG.png",
          "imageheight":864,
          "imagewidth":1440,
          "margin":0,
-         "name":"iceBg",
+         "name":"paneBG",
          "properties":
             {
 
@@ -953,6 +430,285 @@
              "y":432
             },
          "tilewidth":1440
+        }, 
+        {
+         "firstgid":71,
+         "image":"..\/..\/art\/wallTileSetGreen.png",
+         "imageheight":828,
+         "imagewidth":108,
+         "margin":0,
+         "name":"wallTileSetGreen",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tileproperties":
+            {
+             "45":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "46":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "49":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "52":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "54":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "55":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollsion",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "57":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "58":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "59":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "60":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "63":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "66":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":36
+        }, 
+        {
+         "firstgid":140,
+         "image":"..\/..\/art\/wallTileSetRed.png",
+         "imageheight":828,
+         "imagewidth":108,
+         "margin":0,
+         "name":"wallTileSetRed",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tileproperties":
+            {
+             "57":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"redWallCollision",
+                 "name":"redWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "58":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"redWallCollision",
+                 "name":"redWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "59":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"redWallCollision",
+                 "name":"redWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":36
+        }, 
+        {
+         "firstgid":209,
+         "image":"..\/..\/art\/wateTileSet.png",
+         "imageheight":108,
+         "imagewidth":108,
+         "margin":0,
+         "name":"wateTileSet",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"upLeft",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "1":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"up",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "2":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"upRight",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "3":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"left",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "4":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"right",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "5":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"right",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "6":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"downRight",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "7":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"down",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "8":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"downRight",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":36
         }],
  "tilewidth":36,
  "version":1,
