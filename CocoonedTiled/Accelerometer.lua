@@ -25,6 +25,9 @@ local function cancelDeathTimer()
 		accelPlayer.imageObject.linearDamping = 1 
 		accelPlayer.speedConst = 5 
 		accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
+		accelPlayer.deathScreen:pause()
+		accelPlayer.deathScreen:removeSelf()
+		accelPlayer.deathScreen = nil
 	end
 end
 

@@ -88,12 +88,13 @@ function loadMap()
 	-- Create player/ball object to map
 	player1.imageObject = display.newSprite(playerSheet, spriteOptions.player)
 	ball = player1.imageObject
+
 	ball.name = "player"
 	ball:setSequence("move")
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
 	physics.setGravity(0,0)
-	ball.linearDamping = 1
+	ball.linearDamping = 3
 	ball.density = .3
 
 	-- Load in map
@@ -171,13 +172,13 @@ function movePanes()
 	objects.destroy(mapData)
 		
 	-- Pause physics
-	physics.pause()
+	--physics.pause()
 	---------------------------------------------------
 	-- Play "character" teleportation animation here --
 	---------------------------------------------------
 		
 	-- Resume physics
-	physics.start()
+	--physics.start()
 			
 	-- load map
 	map = loadLevel.changePane(mapData, player1, miniMap)
@@ -400,6 +401,7 @@ local function menuLoop(event)
 		gui.back:removeEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
 		Runtime:removeEventListener("accelerometer", controlMovement)
+		Runtime:removeEventListener("enterFrame", speedUp)
 
 		-- Re-evaluate gameData booleans
 		gameData.ingame = false
@@ -421,6 +423,7 @@ local function menuLoop(event)
 		gui.back:removeEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
 		Runtime:addEventListener("accelerometer", controlMovement)
+		Runtime:removeEventListener("enterFrame", speedUp)
 		
 		-- Re-evaluate gameData booleans
 		gameData.inGameOptions = false

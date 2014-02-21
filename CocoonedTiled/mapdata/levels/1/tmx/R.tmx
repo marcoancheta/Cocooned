@@ -693,7 +693,7 @@
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztl9kKwjAQRe8PuGut+uDum+uzdVdE/f/v8YYghEKd+GAnghcOpJ3QGeZCMm0BaJM+GZBhTusRGZNJxp4zuZAO9BQL8SuJ8igkQ1JuE2/mUUiGpNwmLvX4m5JyR9D116d/mv5K/TPxkPu39dijqR1sDwuk6FBSrMnVHtbfMqk4VDWLcrSG9TfU+hJYf0Otb4Ow/T3A+lsjdYeGZlGOjtC93ySdoHs++9y/muez1Bvt+UXqTYz/fCXlfyft+erX/b2RLumRBVmSlef603/K9POUzMg89f71/Tt5kCej/RU1
+   eJzNl8cOwjAQROcH6BDagc6NeqY3IeD/v4eJrKAoUrTm4OyO9CQntuL1rFu6AHpkRMZkUlB5SmZkntPmTh6kDz11hPoniYoIJEdS33F9u4hAciT1HddLHoeU1HcE3fz6+KeZX8m/uN6yf0ePNiEleXOC87BEyikqYcP6SfLmDDeGKqmlqAeOK5E0/3ZwY9CKT9IebgxW4ztAN7/S+rjA5bdBmilageNKJK2PK2yfbzfo7s8+56/l/Vn7/iJ504Ht+ad9v/LJr+X7s/X8vsiADMmabMjWs/zvP2X2eUGWZJV5n3z/TT7kC5UBFb8=
   </data>
  </layer>
 </map>

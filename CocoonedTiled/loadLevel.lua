@@ -94,7 +94,9 @@ function changePane(mapData, player, miniMap)
 	objects.main(mapData, map, player)
 
 	miniMapMechanic.updateMiniMap(mapData, miniMap, map, player)
-
+	if player.small == true then
+		player:unshrink()
+	end
 	-- load 
 	
 	-- if an item was previously taken, remove it from map
@@ -116,7 +118,9 @@ function changePane(mapData, player, miniMap)
 				if map.layer["tiles"][removeItem].name == "pinkRune" then
 					player:slowTime(map)
 				elseif map.layer["tiles"][removeItem].name == "blueRune" then
-					playerInstance:breakWalls(map)
+					player:breakWalls(map)
+				elseif	map.layer["tiles"][removeItem].name == "purpleRune" then
+					player:shrink()
 				end
 				print("removed: ", map.layer["tiles"][removeItem].name)
 				map.layer["tiles"]:remove(removeItem)

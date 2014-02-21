@@ -3,14 +3,13 @@ local gameData = require("gameData")
 local sound = require("sound")
 
 local function endAnimation( event )
- 
   if ( event.phase == "ended" ) then
     local thisSprite = event.target  --"event.target" references the sprite
     thisSprite:removeSelf()  --play the new sequence; it won't play automatically!
   end
 end
 
-function collide(collideObject, player, event, mapData, map)
+function collide(collideObject, player, event, mapData, map, physics)
 	event.contact.isEnabled = false
 	player:addInventory(collideObject)
 	local runeCollide = display.newSprite(sheetOptions.runeSheet, spriteOptions.runeAnimation)
@@ -25,7 +24,7 @@ function collide(collideObject, player, event, mapData, map)
 		player:slowTime(map)		
 	elseif collideObject.name == "greenRune" then
 		gameData.greenG = true
-	elseif collideObject.name == "yellowRune" then
+	elseif collideObject.name == "purpleRune" then
 		player:shrink()
 	end
 	

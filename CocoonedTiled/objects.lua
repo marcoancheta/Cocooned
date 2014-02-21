@@ -92,14 +92,14 @@ local function createObjects(objectNumbers, pane)
 	local objects = {}
 
 	for i=1, tonumber(objectNumbers.energyCount) do
-		energy[i] = display.newSprite(sheetList.energy, spriteOptions.energy)
+		energy[i] = display.newImage("mapdata/art/wisp.png")
 		energy[i].isVisible = false
 		energy[i].x, energy[i].y = 100, 100
 	end	
 	for i = 1, 4 do
 		createAnimations(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
-	for i = 5, 10 do
+	for i = 5, 11 do
 		createSprites(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
 	return objects, energy

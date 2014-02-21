@@ -4,8 +4,8 @@ local function moveAndAnimate(player)
 	if player.movement == "accel" then
 		local yForce = 0
 		local xForce = 0
-		player.xGrav = player.xGrav * player.speedConst
-		player.yGrav = player.yGrav * player.speedConst
+		player.xGrav = player.xGrav * (player.speedConst-5)
+		player.yGrav = player.yGrav * (player.speedConst-5)
 		if player.xGrav <= 6 then
 			if player.xGrav>= -6 then
 				xForce = player.xGrav/6
