@@ -18,10 +18,10 @@ local three = {
 		["greenAura"] = 0,
 		["moveWall"] = 1,
 		["blueTotem"] = 0,
-		["redTotem"] = 0,
+		["redTotem"] = 1,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0,
+		["switchWall"] = 1,
 		["exitPortal"] = 0
 	},
 	["D"] = {
@@ -98,6 +98,7 @@ local function generateObjects(objects, map, pane, runes)
 		for j = 1, three[pane][name] do
 			map.layer["tiles"]:insert(objects[name .. j])
 			objects[name .. j].func = name .. "Collision"
+
 			physics.addBody(objects[name ..j], "static", {bounce = 0})
 			objects[name ..j].collType = "passThru"
 		end
@@ -157,9 +158,14 @@ local function load(pane, map, rune, objects, energy)
 	
 	-- Check which pane
 	if pane == "M" then
-		objects["moveWall1"].x, objects["moveWall1"].y  = map.tilesToPixels(25, 18.5)
-		objects["moveWall1"].eX, objects["moveWall1"].eY = map.tilesToPixels(25, 6)
-		objects["moveWall1"].time = 500
+		rune[2].x, rune[2].y = map.tilesToPixels(15 , 3.5)
+		rune[2].isVisible = true
+		rune[2].accel = false
+		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(15, 13)
+		objects["redTotem1"].accel = true
+		objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(30, 12.5)
+		objects["switchWall1"].accel = true
+		objects["switchWall1"]:scale(0.5, 8)
 		generateObjects(objects, map, pane, rune)
 		generateMoveableObjects(objects, map, pane)
 	elseif pane == "U" then
