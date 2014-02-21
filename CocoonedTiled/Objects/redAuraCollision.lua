@@ -9,7 +9,7 @@ function collide(collideObject, player, event, mapData, map)
 	event.contact.isEnabled = false
 	player:changeColor('red')
 	local closure = function() return player:changeColor('white') end
-	timer1 = timer.performWithDelay( 5000, closure, 1)
+	timer1 = timer.performWithDelay( 10000, closure, 1)
 end
 
 local redAuraCollision = {
