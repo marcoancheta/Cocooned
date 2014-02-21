@@ -157,22 +157,7 @@ local function load(pane, map, rune, objects, energy)
 	
 	-- Check which pane
 	if pane == "M" then
-<<<<<<< HEAD
-		objects["moveWall1"].x, objects["moveWall1"].y  = map.tilesToPixels(25, 18.5)
-		objects["moveWall1"].eX, objects["moveWall1"].eY = map.tilesToPixels(25, 6)
-		objects["moveWall1"].time = 500
-=======
-		rune[2].x, rune[2].y = map.tilesToPixels(15 , 3.5)
-		rune[2].isVisible = true
-		rune[2].accel = false
-		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(15, 13)
-		objects["redTotem1"].accel = true
-		objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(30, 12.5)
-		objects["switchWall1"].accel = true
-		objects["switchWall1"]:scale(0.5, 8)
->>>>>>> parent of b1a8887... commented out salvaged code
-		generateObjects(objects, map, pane, rune)
-		generateMoveableObjects(objects, map, pane)
+
 	elseif pane == "U" then
 	
 	elseif pane == "D" then
