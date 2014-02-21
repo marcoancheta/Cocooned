@@ -92,7 +92,7 @@ function playerInstance:attract (goTo)
 end
 
 function playerInstance:shrink()
-	self.imageObject:scale(0.7, 0.7)
+	self.imageObject:scale(0.6, 0.6)
 end
 
 function playerInstance:slowTime(map)

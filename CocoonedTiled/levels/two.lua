@@ -169,7 +169,6 @@ local function load(pane, map, rune, objects, energy, player)
 		local exitPortal = display.newSprite(exitPortalSheet, spriteOptions.exitPortal)
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(4, 12.5)
-		generateObjects(objects, map, pane, rune)
 
 		-- Red Totem
 		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(8, 10)
