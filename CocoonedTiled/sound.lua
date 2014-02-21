@@ -62,6 +62,7 @@ local sound = {
 	-- channels:
 	isChannel1Active = audio.isChannelActive(1),
 	isChannel2Active = audio.isChannelActive(2),
+	isChannel3Active = audio.isChannelActive(3),
 	
 	-- Load Sounds here:
 	clickSound = audio.loadSound("sounds/menu_tone.wav"),

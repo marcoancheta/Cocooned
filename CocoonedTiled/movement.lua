@@ -1,8 +1,14 @@
 local sound = require("sound")
 
 local highestSpeed = 0
+local count = 0
+
 local function moveAndAnimate(player)
 	local vx, vy = player.imageObject:getLinearVelocity()
+	if count == 0 then
+		sound.playSound(event, sound.rollSnowSound)
+		count = count + 1
+	end
 	if player.movement == "accel" then
 		local yForce = 0
 		local xForce = 0
@@ -34,7 +40,6 @@ local function moveAndAnimate(player)
 		if yForce * vy < 0 and vx < 30 then
 			yForce = 1.5 * yForce
 		end
-		sound.playSound(event, sound.rollSnowSound)
 		player.imageObject:applyForce(xForce, yForce,player.imageObject.x,player.imageObject.y)
 		--if vy == 0 or vx == 0 then
 		--	sound.pauseSound(event, sound.rollSnowSound)
