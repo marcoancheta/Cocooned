@@ -157,11 +157,7 @@ local function load(pane, map, rune, objects, energy)
 	
 	-- Check which pane
 	if pane == "M" then
-		objects["moveWall1"].x, objects["moveWall1"].y  = map.tilesToPixels(25, 18.5)
-		objects["moveWall1"].eX, objects["moveWall1"].eY = map.tilesToPixels(25, 6)
-		objects["moveWall1"].time = 500
-		generateObjects(objects, map, pane, rune)
-		generateMoveableObjects(objects, map, pane)
+
 	elseif pane == "U" then
 	
 	elseif pane == "D" then

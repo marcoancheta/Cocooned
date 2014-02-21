@@ -27,7 +27,7 @@ spriteOptions = { -- Sprite options for player and finish star
 		{frames = {1}, name = "stop", time = 250}
 	},
 	runeAnimation = {	
-		{frames = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}, name = "move", time = 1000, loopCount = 1},
+		{frames = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}, name = "move", time = 1500, loopCount = 1},
 		{frames = {1}, name = "stop", time = 250}
 	},
 	deathAnimation = {

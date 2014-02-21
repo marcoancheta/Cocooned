@@ -21,6 +21,12 @@ function playSound(event, name)
 	print("play sound:", name)
 end
 
+function pauseSound(event, name)
+	audio.setVolume(0.1, {channel = 4} )
+	local temp = audio.pause(name, {channel=4, loops=0})
+	print("pause sound:", name)
+end
+
 function playEventSound(event, name)
 	audio.setVolume(0.4, {channel = 3} )
 	local temp = audio.play(name, {channel=3, loops=0})
@@ -48,6 +54,7 @@ local sound = {
 	soundOptions = soundOptions,
 	BGMOptions = BGMOptions,
 	playSound = playSound,
+	pauseSound = pauseSound,
 	playEventSound = playEventSound,
 	playBGM = playBGM,
 	stopBGM = stopBGM,
