@@ -1,4 +1,6 @@
 require("levelFinished")
+local gameData = require("gameData")
+local sound = require("sound")
 
 local function endAnimation( event )
  
@@ -11,24 +13,27 @@ end
 function collide(collideObject, player, event, mapData, map)
 	event.contact.isEnabled = false
 	player:addInventory(collideObject)
-	--[[local runeCollide = display.newSprite(sheetOptions.runeSheet, spriteOptions.runeAnimation)
+	local runeCollide = display.newSprite(sheetOptions.runeSheet, spriteOptions.runeAnimation)
 	runeCollide.x, runeCollide.y = collideObject.x - 45, collideObject.y
 	runeCollide:setSequence("move")
 	runeCollide:play()
-	]]
+
+	if collideObject.name == "blueRune" then
+		gameData.blueG = true
+		player:breakWalls(map)
+	elseif collideObject.name == "pinkRune" then
+		player:slowTime(map)		
+	elseif collideObject.name == "greenRune" then
+		gameData.greenG = true
+	end
+	
  	collideObject:removeSelf()
 
  	--runeCollide:addEventListener( "sprite", endAnimation )
 
- 	checkWin(player, map)
+ 	checkWin(player, map, mapData)
 
- 	if map.tutorial == true then
- 		require("tutorial")
- 		printTutorial()
- 	end
 end
-
-
 
 
 

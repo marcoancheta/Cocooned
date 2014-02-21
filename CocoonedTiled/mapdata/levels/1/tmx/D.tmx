@@ -7,11 +7,7 @@
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
- <tileset firstgid="1" name="bg" tilewidth="1440" tileheight="864">
-  <tileoffset x="-720" y="432"/>
-  <image source="../../../art/bg.png" width="1440" height="864"/>
- </tileset>
- <tileset firstgid="2" name="redWall" tilewidth="36" tileheight="36">
+ <tileset firstgid="1" name="redWall" tilewidth="36" tileheight="36">
   <image source="../../../art/redWall.png" width="72" height="72"/>
   <tile id="0">
    <properties>
@@ -54,7 +50,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="6" name="blueWall" tilewidth="36" tileheight="36">
+ <tileset firstgid="5" name="blueWall" tilewidth="36" tileheight="36">
   <image source="../../../art/blueWall.png" width="72" height="72"/>
   <tile id="0">
    <properties>
@@ -97,7 +93,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="10" name="greenWall" tilewidth="36" tileheight="36">
+ <tileset firstgid="9" name="greenWall" tilewidth="36" tileheight="36">
   <image source="../../../art/greenWall.png" width="72" height="72"/>
   <tile id="0">
    <properties>
@@ -140,7 +136,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="14" name="water" tilewidth="36" tileheight="36">
+ <tileset firstgid="13" name="water" tilewidth="36" tileheight="36">
   <image source="../../../art/wateTileSet.png" width="108" height="108"/>
   <tile id="0">
    <properties>
@@ -216,7 +212,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="23" name="snowWall1" tilewidth="36" tileheight="36">
+ <tileset firstgid="22" name="snowWall1" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/snowWall1.png" width="36" height="108"/>
   <tile id="0">
    <properties>
@@ -246,7 +242,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="26" name="snowWallCorner2" tilewidth="36" tileheight="36">
+ <tileset firstgid="25" name="snowWallCorner2" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/snowWallCorner2.png" width="72" height="72"/>
   <tile id="0">
    <properties>
@@ -276,7 +272,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="30" name="snowWallCorner1" tilewidth="36" tileheight="36">
+ <tileset firstgid="29" name="snowWallCorner1" tilewidth="36" tileheight="36">
   <tileoffset x="2" y="0"/>
   <image source="../../../art/WallArt/snowWallCorner1.png" width="72" height="72"/>
   <tile id="0">
@@ -307,7 +303,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="34" name="snowWall2" tilewidth="36" tileheight="36">
+ <tileset firstgid="33" name="snowWall2" tilewidth="36" tileheight="36">
   <tileoffset x="0" y="-1"/>
   <image source="../../../art/WallArt/snowWall2.png" width="108" height="36"/>
   <tile id="0">
@@ -338,7 +334,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="37" name="snowWall3way" tilewidth="36" tileheight="36">
+ <tileset firstgid="36" name="snowWall3way" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/snowWall3way.png" width="108" height="72"/>
   <tile id="0">
    <properties>
@@ -377,7 +373,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="43" name="snowWall3way2" tilewidth="36" tileheight="36">
+ <tileset firstgid="42" name="snowWall3way2" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/snowWall3way2.png" width="108" height="72"/>
   <tile id="1">
    <properties>
@@ -416,7 +412,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="49" name="snowWall2Bottom" tilewidth="36" tileheight="36">
+ <tileset firstgid="48" name="snowWall2Bottom" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/snowWall2Bottom.png" width="108" height="36"/>
   <tile id="0">
    <properties>
@@ -446,7 +442,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="52" name="SnowRockTransition" tilewidth="36" tileheight="36">
+ <tileset firstgid="51" name="SnowRockTransition" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/SnowRockTransition.png" width="108" height="36"/>
   <tile id="0">
    <properties>
@@ -476,7 +472,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="55" name="rockWall2" tilewidth="36" tileheight="36">
+ <tileset firstgid="54" name="rockWall2" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/rockWall2.png" width="108" height="36"/>
   <tile id="0">
    <properties>
@@ -506,7 +502,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="58" name="SnowRockTransition3" tilewidth="36" tileheight="36">
+ <tileset firstgid="57" name="SnowRockTransition3" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/SnowRockTransition3.png" width="108" height="36"/>
   <tile id="0">
    <properties>
@@ -536,7 +532,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="61" name="rockWall1" tilewidth="36" tileheight="36">
+ <tileset firstgid="60" name="rockWall1" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/rockWall1.png" width="36" height="108"/>
   <tile id="0">
    <properties>
@@ -566,7 +562,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="64" name="SnowRockTransition4" tilewidth="36" tileheight="36">
+ <tileset firstgid="63" name="SnowRockTransition4" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/SnowRockTransition4.png" width="36" height="108"/>
   <tile id="0">
    <properties>
@@ -596,7 +592,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="67" name="SnowRockTransition2" tilewidth="36" tileheight="36">
+ <tileset firstgid="66" name="SnowRockTransition2" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/SnowRockTransition2.png" width="36" height="108"/>
   <tile id="0">
    <properties>
@@ -626,7 +622,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="70" name="snowWallCorner3" tilewidth="36" tileheight="36">
+ <tileset firstgid="69" name="snowWallCorner3" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/snowWallCorner3.png" width="72" height="72"/>
   <tile id="0">
    <properties>
@@ -656,7 +652,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="74" name="snowWallCorner4" tilewidth="36" tileheight="36">
+ <tileset firstgid="73" name="snowWallCorner4" tilewidth="36" tileheight="36">
   <image source="../../../art/WallArt/snowWallCorner4.png" width="72" height="72"/>
   <tile id="1">
    <properties>
@@ -686,14 +682,31 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="77" name="iceBg" tilewidth="1440" tileheight="864">
+  <tileoffset x="-720" y="432"/>
+  <image source="../../../art/iceBg.png" width="1440" height="864"/>
+ </tileset>
+ <tileset firstgid="78" name="orangeWall" tilewidth="36" tileheight="36">
+  <image source="../../../art/orangeWall.png" width="72" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="solid"/>
+    <property name="func" value="orangeWallCollision"/>
+    <property name="name" value="orangeWall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
+   eJztziEBAAAIA7AXpH8dIlwgMFuCJQBAM98BAOBsAWiuAE4=
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt10kKAjEQRuE6gbN2OyycLuA8tGtF1Ptfx5dFQyhcNBSECCV8EEHMwx9BJyIyxRIrrBOd4+e/XnPHAzO00I50JM1D36sbnijQRS/ST9Sn79UNoa3MuC+0jTPuKyTvfUvJe9+wbc6fn38/bH2+r63P97X1+b62Pt/X1vcP++bc57+vbH31vgMMI6NEffpe3fDCHAtssMWu4XmPA4444YyLOl9R4SbN/3vW7//GB1/FWSXo
+   eJzll0kOwjAMRX0BZmgLLJguwDyuQQgQ9z8OvwukyHSw2zREYOlJaZXUT3VqpX0iGoAJmIKZo7F5nTTnDC5gCGqgbtCgz3gm3NNE0nqelztcQQCaoGXQduTH83KH2C302C92izz2C8jv+oakq29Rx7S1eX5xbaXvz8wj9cybb/P7SMubR1bY/D6qCNv1de2n7X9l9l/V/a+K+Kf6fsPvV+ubte9t9r8y/VkS3+rPrvwiz/005yszp7Y/F/XTnK+0bpI10vp2QNegl5GrSKSt43m5ww2MwBjMwQIsheMVWIMN2IId2LPxARzBieT/nu/n38EDvAAC4jeA
   </data>
  </layer>
 </map>

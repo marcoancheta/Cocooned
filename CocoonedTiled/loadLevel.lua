@@ -9,7 +9,9 @@ local dusk = require("Dusk.Dusk")
 local miniMapMechanic = require("miniMap")
 local objects = require("objects")
 local loading = require("loadingScreen")
+require("levelFinished")
 local loaded = 0
+local level = 0 
 
 local glowTileSheet = graphics.newImageSheet("mapdata/art/tileGlow.png", 
 				 {width = 36, height = 36, sheetContentWidth = 216, sheetContentHeight = 36, numFrames = 6})
@@ -20,8 +22,10 @@ local glowTileSheet = graphics.newImageSheet("mapdata/art/tileGlow.png",
 --------------------------------------------------------------------------------
 
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
+local deleteClosure = function() return loading.deleteLoading(level) end
 function createLevel(mapData, ball, player)
 	loaded = 0 -- current loading checkpoint, max is 6
+	level =  mapData.levelNum
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
 	-- Create GUI subgroups
@@ -38,7 +42,7 @@ function createLevel(mapData, ball, player)
 	timer.performWithDelay(1, myClosure)-- first loading check point gui groups and subgroups added
 	
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
-	objects.main(mapData, map)
+	objects.main(mapData, map, player)
 
 	timer.performWithDelay(1, myClosure) --map built
 	
@@ -74,7 +78,7 @@ function createLevel(mapData, ball, player)
 	map.layer["tiles"]:insert(ball)
 
 	timer.performWithDelay(1, myClosure)--added groups
-	timer.performWithDelay(1, loading.deleteLoading)
+	timer.performWithDelay(1, deleteClosure)
 
 	return gui, miniMapDisplay
 
@@ -87,7 +91,7 @@ function changePane(mapData, player, miniMap)
 
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
-	objects.main(mapData, map)
+	objects.main(mapData, map, player)
 
 	miniMapMechanic.updateMiniMap(mapData, miniMap, map, player)
 
@@ -109,12 +113,18 @@ function changePane(mapData, player, miniMap)
 			end
 			if removeItem > 0 then
 				-- remove that item
+				if map.layer["tiles"][removeItem].name == "pinkRune" then
+					player:slowTime(map)
+				elseif map.layer["tiles"][removeItem].name == "blueRune" then
+					playerInstance:breakWalls(map)
+				end
 				print("removed: ", map.layer["tiles"][removeItem].name)
 				map.layer["tiles"]:remove(removeItem)
 			end
 		end
 	end
-	
+
+	checkWin(player, map, mapData)
 	-- return new pane
 	return map
 end

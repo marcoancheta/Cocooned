@@ -22,8 +22,6 @@ local level
 
 local objects = {}
 
-
-
 --------------------------------------------------------------------------------
 -- Object - Load all objects
 --------------------------------------------------------------------------------
@@ -55,7 +53,8 @@ local function init()
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
 	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/greenAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
-
+	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/exitPortalSheet.png", 
+				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
 	
 	-- Attach collision event to object
 	-- Disable visibility
@@ -72,7 +71,7 @@ end
 function createAnimations(count, name, objectList)
 	for i = 1, count do
 		objectList[name .. i] = display.newSprite(sheetList[name], spriteOptions[name])
-		objectList[name .. i].name = name
+		objectList[name .. i].name = name .. i
 		objectList[name .. i]:setSequence("move")
 		objectList[name .. i]:play()
 	end
@@ -91,15 +90,16 @@ end
 local function createObjects(objectNumbers, pane)
 	local energy = {}
 	local objects = {}
+
 	for i=1, tonumber(objectNumbers.energyCount) do
 		energy[i] = display.newSprite(sheetList.energy, spriteOptions.energy)
 		energy[i].isVisible = false
 		energy[i].x, energy[i].y = 100, 100
 	end	
-	for i = 1, 3 do
+	for i = 1, 4 do
 		createAnimations(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
-	for i = 4, 9 do
+	for i = 5, 10 do
 		createSprites(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
 	return objects, energy
@@ -108,11 +108,31 @@ end
 --------------------------------------------------------------------------------
 -- Object Main
 --------------------------------------------------------------------------------
-local function main(mapData, map)
+local function main(mapData, map, player)
 	init()
 	level = require("levels." .. levelNames[mapData.levelNum])
 	objects, energy = createObjects(level, mapData.pane)
 	level.load(mapData.pane, map, rune, objects, energy)
+
+	--[[
+	-- Check levelNum then redirect
+	if mapData.levelNum == "1" then
+		print("loading level 1")
+		objects, energy = createObjects(one, mapData.pane)
+		one.load(mapData.pane, map, rune, objects, energy)
+	elseif mapData.levelNum == "bonus" then
+		bonus.load(mapData.pane, map, sheetList)
+	elseif mapData.levelNum == "14" then
+		fourteen.load(mapData.pane, map, rune, objects, sheetList)
+	elseif mapData.levelNum == "15" then
+		--objects.createObjects(fifteen.getObjects())
+		print("loading level 15")
+		objects, energy = createObjects(fifteen, mapData.pane)
+		fifteen.load(mapData.pane, map, rune, objects, energy)
+	else
+		print("OBJECTS FOR LVL:", mapData.levelNum, "NOT MADE")
+	end
+	]]
 end
 
 

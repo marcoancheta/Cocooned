@@ -21,7 +21,8 @@ local one = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -32,7 +33,8 @@ local one = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -43,7 +45,8 @@ local one = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -54,7 +57,8 @@ local one = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -65,7 +69,8 @@ local one = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	}
 }
 

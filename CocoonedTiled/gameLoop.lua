@@ -43,6 +43,8 @@ local movementMechanic = require("Accelerometer")
 local movement = require("movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
+-- Spirits mechanics (spirits.lua)
+local spirits = require("spirits")
 -- Pane Transitions (paneTransition.lua)
 local paneTransition = require("paneTransition")
 
@@ -111,21 +113,25 @@ end
 local function controlMovement(event) 
 	-- call accelerometer to get data
 	if gameData.isShowingMiniMap == false then
-		physicsParam = movementMechanic.onAccelerate(event)
-		player1.xGrav = physicsParam.xGrav
-		player1.yGrav = physicsParam.yGrav
+		physicsParam = movementMechanic.onAccelerate(event, player1)
+		player1.xGrav = physicsParam.xGrav*player1.curse
+		player1.yGrav = physicsParam.yGrav*player1.curse
 	end
+	
 	
 end
 
 local function speedUp(event)
-	movement.moveAndAnimate(player1)
+	if gameData.isShowingMiniMap == false then
+		movement.moveAndAnimate(player1)
+	end
 end
 
 local tempPane
 
 -- swipe mechanic
 local function swipeMechanics(event)
+
 	
 	-- save temp pane for later check
 	tempPane = mapData.pane
@@ -137,6 +143,42 @@ local function swipeMechanics(event)
 		paneTransition.playTransition(tempPane, mapData.pane, gui.back[1], player1)
 		--timer.performWithDelay(450, movePanes)
 		movePanes()
+	end
+	if player1.movement == "accel" then
+		-- save temp pane for later check
+		local tempPane = mapData.pane
+--[[
+		-- call swipe mechanic and get new Pane
+		touch.swipeScreen(event, mapData, player1, miniMap)
+
+		
+		-- if touch ended then change map if pane is switched
+		if "ended" == event.phase and mapData.pane ~= tempPane then
+
+			-- delete everything on map
+			map:removeSelf()
+			objects.destroy(mapData)
+			
+			-- Pause physics
+			physics.pause()
+			---------------------------------------------------
+			-- Play "character" teleportation animation here --
+			---------------------------------------------------
+		
+			-- Resume physics
+			physics.start()
+			
+			-- load map
+			map = loadLevel.changePane(mapData, player1)
+			-- insert objects onto map layer
+			gui.back:insert(map)
+			map.layer["tiles"]:insert(ball)
+			
+			-- Reassign game mechanic listeners
+			collisionDetection.changeCollision(player1.imageObject, player1, mapData, gui.back[1], gui.front, physics, miniMap)
+		end
+	]]
+
 	end
 end
 
@@ -155,8 +197,6 @@ local function tapMechanic(event)
 end
 
 function movePanes()
-	
-	print("moved to: ", mapData.pane)
 
 	-- delete everything on map
 	map:removeSelf()
@@ -217,7 +257,7 @@ local function gameLoop(event)
 		print("Game Start!")
 	
 		-- Start mechanics
-		collisionDetection.createCollisionDetection(ball, player1, mapData, gui.back[1], gui.front, physics, miniMap)
+		collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui.back[1], gui.front, physics, miniMap)
 		Runtime:addEventListener("enterFrame", speedUp)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		gui.back:addEventListener("touch", swipeMechanics)
@@ -245,7 +285,7 @@ local function gameLoop(event)
 		gui.back:removeEventListener("tap", tapMechanic)
 		Runtime:removeEventListener("accelerometer", controlMovement)
 		Runtime:removeEventListener("enterFrame", speedUp)
-		collisionDetection.destroyCollision(ball)
+		collisionDetection.destroyCollision(player1.imageObject)
 
 		-- destroy and remove all data
 		map.destroy()
@@ -283,7 +323,7 @@ local function gameLoop(event)
 			miniMap:removeEventListener("tap", tapMechanic)
 			Runtime:removeEventListener("accelerometer", controlMovement)
 			Runtime:removeEventListener("enterFrame", speedUp)
-			collisionDetection.destroyCollision(ball)
+			collisionDetection.destroyCollision(player1.imageObject)
 
 			-- destroy and remove all data
 			map.destroy()
@@ -312,7 +352,7 @@ local function gameLoop(event)
 			gameData.levelRestart = false
 			gameData.gameStart = true
 			mapData.pane = 'M'
-		end
+	end
 	
 	----------------------
 	--[[ IN-GAME LOOP ]]--
@@ -333,7 +373,8 @@ local function gameLoop(event)
   			end
 		end
 	end
-	--]]
+	]]
+	
 end
 
 --------------------------------------------------------------------------------

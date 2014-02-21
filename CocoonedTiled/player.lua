@@ -26,8 +26,12 @@ playerInstance = {
 	inventory = inventoryMechanic.createInventory(),
 	xGrav = 0,
 	yGrav = 0,
-	sOffsetX = 0,
-	sOffsetY=0,
+	speedConst = 10,
+	movement="accel",
+	--justHitWater=false,
+	--numOfTaps = 0,
+	curse = 1,
+	escape = "center",
 }
 
 
@@ -78,16 +82,34 @@ function playerInstance:windRepel ()
 		self.imageObject.angularVelocity = 0
 end
 
-function playerInstance:water ()
-		gameData.levelRestart = true
-		--gameData.gameEnd = true
-end
-
 -- attracts the player if they are near a totem pole
 function playerInstance:attract (goTo)
 		--self.imageObject:applyLinearImpulse(-1, -1, self.imageObject.x, self.imageObject.y)
 		self.imageObject:setLinearVelocity(goTo, goTo, goTo, goTo)
 		self.imageObject.angularVelocity = 0
+end
+
+function playerInstance:slowTime(map)
+	for check = 1, map.layer["tiles"].numChildren do
+		if map.layer["tiles"][check].moveable == true then
+			map.layer["tiles"][check].time = 20000
+		end
+	end
+end
+
+function playerInstance:breakWalls(map)
+	local timer = timer.performWithDelay(10, changeType)
+		  timer.params = {param1 = map}
+end
+
+function changeType(event)
+	local params = event.source.params
+	
+	for check = 1, params.param1.layer["tiles"].numChildren do
+		if params.param1.layer["tiles"][check].name == "orangeWall" then
+			params.param1.layer["tiles"][check].bodyType = "dynamic"
+		end
+	end
 end
 
 function playerInstance:rotate (x,y)
@@ -106,20 +128,7 @@ local player  = {
 
 return player
 
---[[if gamehasstarted then
-		local velX = player1.imageObject.x
-		local velY = player1.imageObject.y
-		local deltaX = velX-player1.x
-		local  deltaY = velY - player1.y
-		if deltaX == 0 and deltaY ==0 then
-			ball:pause()
-		else
-			ball:play()
-		end
-		player1.x = player1.imageObject.x
-		player1.y = player1.imageObject.y
-		player1.imageObject.isAwake = true
-	end]]
+
 
 
 

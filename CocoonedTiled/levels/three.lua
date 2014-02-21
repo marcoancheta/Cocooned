@@ -16,12 +16,13 @@ local three = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
-		["moveWall"] = 0,
+		["moveWall"] = 1,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -32,7 +33,8 @@ local three = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -43,7 +45,8 @@ local three = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -54,7 +57,8 @@ local three = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -65,7 +69,8 @@ local three = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	}
 }
 
@@ -152,7 +157,11 @@ local function load(pane, map, rune, objects, energy)
 	
 	-- Check which pane
 	if pane == "M" then
-	
+		objects["moveWall1"].x, objects["moveWall1"].y  = map.tilesToPixels(25, 18.5)
+		objects["moveWall1"].eX, objects["moveWall1"].eY = map.tilesToPixels(25, 6)
+		objects["moveWall1"].time = 500
+		generateObjects(objects, map, pane, rune)
+		generateMoveableObjects(objects, map, pane)
 	elseif pane == "U" then
 	
 	elseif pane == "D" then
@@ -162,6 +171,7 @@ local function load(pane, map, rune, objects, energy)
 	elseif pane == "L" then
 		
 	end
+
 end
 
 local function destroyAll() 

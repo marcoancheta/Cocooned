@@ -3,6 +3,7 @@ local loadWolf = nil
 local loadBar = nil
 local loadText = nil
 local wolfSheet = nil
+local cSS = require("cutSceneSystem")
 
 function loadingInit(loadGroup)
 	loadingBG = display.newImage('mapdata/art/bg2.jpg', 10, 20,true )
@@ -33,15 +34,17 @@ function loadingInit(loadGroup)
 	]]
 end
 function updateLoading(int)
-	if loadBar then
-		loadBar[int].isVisible=true
-		loadBar[int]:toFront()
-	end
+	--loadBar[int].isVisible=true
+	--loadBar[int]:toFront()
 	--loadWolf:play()
 	return true
 end
 
-function deleteLoading()
+function deleteLoading(level)
+	l = tonumber(level)
+	if  l > 0 then
+		--cSS.cutScene(l)
+	end
 	for i=1, 6 do
 		loadBar[i]:removeSelf()
 	end
@@ -52,6 +55,7 @@ function deleteLoading()
 	--loadWolf = nil
 	loadBar = nil
 	loadText = nil
+	--while cSS.cutSceneDone == false
 end
 
 local loadingScreen = {

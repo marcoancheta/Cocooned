@@ -9,19 +9,20 @@
 local gameData = require("gameData")
 local moveableObject = require("moveableObject")
 
-
 local four = { 
 	energyCount = 30,
+	breakWallCount = 30,
 	["M"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
-		["moveWall"] = 1,
+		["moveWall"] = 0,
 		["blueTotem"] = 0,
-		["redTotem"] = 1,
+		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 1
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -32,18 +33,20 @@ local four = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
-		["redAura"] = 0,
+		["redAura"] = 1,
 		["greenAura"] = 0,
-		["moveWall"] = 0,
+		["moveWall"] = 4,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -54,7 +57,8 @@ local four = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -65,7 +69,8 @@ local four = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0
+		["switchWall"] = 0,
+		["exitPortal"] = 0
 	}
 }
 
@@ -121,6 +126,7 @@ local function generateMoveableObjects(objects, map, pane)
 		mObjects[i].object.startX, mObjects[i].object.startY = startX, startY
 		mObjects[i].object.endX, mObjects[i].object.endY = endX, endY
 		mObjects[i].object.time = time
+		mObjects[i].object.moveable = true
 		mObjects[i]:startTransition(mObjects[i].object)
 	end
 	
@@ -147,30 +153,62 @@ local function destroyObjects(rune, energy, objects)
 	end
 end
 
-local function load(pane, map, rune, objects, energy)
+local function load(pane, map, rune, objects, energy, player)
 	objectList = objects
-
-	local redAuraSheet = graphics.newImageSheet( "mapdata/art/redAuraSheet.png", spriteOptions.redAura )
 	
 	-- Check which pane
 	if pane == "M" then
-		--local redAura = display.newSprite(redAuraSheet, spriteOptions.redAura)
-		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(13, 11)
-		objects["moveWall1"].x, objects["moveWall1"].y = map.tilesToPixels(25, 11)
-		objects["moveWall1"].eX, objects["moveWall1"].eY = map.tilesToPixels(25, 17)
-		objects["moveWall1"].time = 300
-		generateObjects(objects, map, pane, runes)
-		generateMoveableObjects(objects, map, pane, runes)
+
+		local exitPortalSheet = graphics.newImageSheet( "mapdata/art/exitPortalSheet.png", spriteOptions.exitPortal )
+		local exitPortal = display.newSprite(exitPortalSheet, spriteOptions.exitPortal)
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(13, 11)
 	elseif pane == "U" then
+		-- Red Aura
+		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)
 	
-	elseif pane == "D" then
-
-	elseif pane == "R" then
-
-	elseif pane == "L" then
+		-- Swimming fishes
+		objects["moveWall1"].x, objects["moveWall1"].y = map.tilesToPixels(12, 8)
+		objects["moveWall1"].eX, objects["moveWall1"].eY = map.tilesToPixels(12, 19)
+		objects["moveWall2"].eX, objects["moveWall2"].eY = map.tilesToPixels(16, 8)
+		objects["moveWall2"].x, objects["moveWall2"].y = map.tilesToPixels(16, 19)
+		objects["moveWall3"].x, objects["moveWall3"].y = map.tilesToPixels(20, 8)
+		objects["moveWall3"].eX, objects["moveWall3"].eY = map.tilesToPixels(20, 19)
+		objects["moveWall4"].eX, objects["moveWall4"].eY = map.tilesToPixels(24, 8)
+		objects["moveWall4"].x, objects["moveWall4"].y = map.tilesToPixels(24, 19)
 		
+		objects["moveWall1"].time = 375
+		objects["moveWall2"].time = 375
+		objects["moveWall3"].time = 375
+		objects["moveWall4"].time = 375
+		
+		-- Pink rune	
+		rune[3].x, rune[3].y = map.tilesToPixels(3.5, 13)
+		rune[3].isVisible = true
+		
+		print("U")
+	elseif pane == "D" then
+		local num = 12
+		
+		-- Blue rune
+		rune[1].x, rune[1].y = map.tilesToPixels(19.5, 12)			
+		rune[1].isVisible = true
+				
+		print("D")
+	elseif pane == "R" then
+		-- Green rune
+		rune[2].x, rune[2].y = map.tilesToPixels(3.5, 3.5)
+		rune[2].isVisible = true
+					
+		print("R")
+	elseif pane == "L" then
+		print("L")
 	end
+	
+	generateObjects(objects, map, pane, runes)
+	generateMoveableObjects(objects, map, pane, runes)
 end
+
 
 local function destroyAll() 
 

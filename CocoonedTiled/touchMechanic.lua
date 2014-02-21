@@ -33,8 +33,6 @@ function swipeScreen(event, mapData, player, miniMap)
 -- swipe mechanic
 --------------------------------------------------------------------------------
 
-
-
 	--get swipe length for x and y
 	local swipeLength = math.abs(event.x - event.xStart)
 	local swipeLengthY = math.abs(event.y - event.yStart)
@@ -149,11 +147,6 @@ function swipeScreen(event, mapData, player, miniMap)
 	elseif gameData.isShowingMiniMap == true then
 		
 	end
-	-- if switching panes, move miniMap cursor to that pane and set alpha to 0
-	if tempPane ~= mapData.pane then
-		--print("direction:", direction)
-		miniMapMechanic.setMiniMap(miniMap, mapData.pane)
-	end
 end
 local tempPane2
 --------------------------------------------------------------------------------
@@ -161,7 +154,7 @@ local tempPane2
 --------------------------------------------------------------------------------
 function tapScreen(event, miniMap, mapData, physics, map, player) 
 	-- if tapped twice, show miniMap or if showing, hide it
-	if event.numTaps >= 2 then
+	if event.numTaps >= 2 and player.movement == "accel" then
 		-- show miniMap 
 		if gameData.isShowingMiniMap == false then
 			miniMapMechanic.updateMiniMap(mapData, miniMap, map, player)
@@ -186,6 +179,35 @@ function tapScreen(event, miniMap, mapData, physics, map, player)
 			miniMapMechanic.moveMiniMap(miniMap, mapData, event)
 		end
 	end
+
+	--[[
+	if player.movement == "inWater" then
+		if player.numOfTaps == 0 then
+			timer.performWithDelay(500, function() player.numOfTaps=0 end)
+		end
+		player.numOfTaps = player.numOfTaps + event.numTaps
+		if player.numOfTaps >= 5 then
+			local xDirection = .5
+			local yDirection = .5
+			if event.x - player.imageObject.x < 0 then
+				xDirection = -.5 
+			end
+			if event.y - player.imageObject.y < 0 then
+				yDirection = -.5
+			end
+			player.imageObject:applyLinearImpulse(xDirection*player.curse,yDirection*player.curse,player.imageObject.x,player.imageObject.y)
+			player.speedConst = 5
+			player.imageObject.linearDamping = 1
+			player:changeColor("white")
+			accelTimer = timer.performWithDelay(500, function() player.movement = "accel" player.imageObject.linearDamping = 1 end)
+			speedTmer= timer.performWithDelay(5000, function() player.speedConst = 10 end)
+		end
+	end
+
+	if gameData.isShowingMiniMap then
+		print("touched", event.target.name)
+	end]]
+
 	return mapData.pane
 end
 
