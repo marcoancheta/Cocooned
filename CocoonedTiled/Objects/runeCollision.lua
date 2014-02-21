@@ -11,6 +11,8 @@ local function endAnimation( event )
 end
 
 function collide(collideObject, player, event, mapData, map)
+	audio.stop()
+	sound.playSound(event, sound.runePickupSound)
 	event.contact.isEnabled = false
 	player:addInventory(collideObject)
 	local runeCollide = display.newSprite(sheetOptions.runeSheet, spriteOptions.runeAnimation)

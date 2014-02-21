@@ -10,6 +10,7 @@ function collide(collideObject, player, event, mapData, map)
 	player.cursed = 1
 	player.imageObject.linearDamping = 6
 	if player.deathTimer == nil then
+		audio.stop()
 		sound.playSound(event, sound.splashSound)
 		player.deathTimer = timer.performWithDelay(5000, function() gameData.gameEnd = true end)
 	end

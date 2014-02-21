@@ -1,6 +1,7 @@
 local sound = require("sound")
 
 function collide(collideObject, player, event, mapData, map)
+	audio.stop()
 	sound.playSound(event, sound.orbPickupSound)
 	event.contact.isEnabled = false
 	player:addInventory(collideObject)
