@@ -57,10 +57,10 @@ end
 function MainMenu(event)
 
 	-- Add main menu background image
-	main = display.newImage("graphics/cocooned.png", 700, 400, true)
+	main = display.newImage("mapdata/art/TitleScreen.png", 720, 425, true)
 		
 	-- Scale background image
-	main:scale(0.5, 0.5)
+	main:scale(1.1, 1.1)
 
 	-- Add Play button
 	play = display.newImage("graphics/play.png", 0, 0, true)
@@ -70,7 +70,7 @@ function MainMenu(event)
 	play.name = "playButton"
 	
 	-- Play button fixed location and scaled
-	play.x = 350
+	play.x = 750
 	play.y = 580
 	play.anchorX = 0.5
 	play.anchorY = 0.5
@@ -80,7 +80,7 @@ function MainMenu(event)
 	options = display.newImage("graphics/options.png", 0, 0, true)
 	options:setFillColor(0.5,0.5,0.5)
 	options.name = "optionButton"
-	options.x = 350
+	options.x = 750
 	options.y = 750
 	options.anchorX = 0.5
 	options.anchorY = 0.5

@@ -274,7 +274,7 @@ local function selectLoop(event)
 	Runtime:addEventListener("enterFrame", setCameratoPlayer)
 
 	timer.performWithDelay(1, myClosure)
-	timer.performWithDelay(1, deleteClosure)
+	timer.performWithDelay(3000, deleteClosure)
 end
 	
 
