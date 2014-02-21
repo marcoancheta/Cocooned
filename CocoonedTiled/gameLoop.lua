@@ -123,8 +123,7 @@ end
 
 local function speedUp(event)
 	if gameData.isShowingMiniMap == false then
-<<<<<<< HEAD
-=======
+	--[[
 		for check = 1, map.layer["tiles"].numChildren do
 			currObject = map.layer["tiles"][check]
 			if currObject.accel == true and gameData.greenG == true then
@@ -139,9 +138,11 @@ local function speedUp(event)
 				end
 			end
 		end
+	]]--
+		
 		player1.xGrav = player1.xGrav*player1.curse
 		player1.yGrav = player1.yGrav*player1.curse
->>>>>>> parent of b1a8887... commented out salvaged code
+
 		movement.moveAndAnimate(player1)
 	end
 end
