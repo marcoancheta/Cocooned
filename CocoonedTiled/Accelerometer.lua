@@ -23,8 +23,8 @@ local function cancelDeathTimer()
 		timer.cancel(accelPlayer.deathTimer) 
 		accelPlayer.deathTimer=nil  
 		accelPlayer.imageObject.linearDamping = 1 
-		accelPlayer.speedConst = 5 
-		accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
+		accelPlayer.speedConst = 10
+		--accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
 		accelPlayer.deathScreen:pause()
 		accelPlayer.deathScreen:removeSelf()
 		accelPlayer.deathScreen = nil
@@ -61,7 +61,7 @@ local function onAccelerate( event, player)
 			xDirection = -1
 		end
 
-		ball:applyLinearImpulse(.25*xDirection,.25*yDirection,ball.x, ball.y )
+		ball:applyLinearImpulse(.15*xDirection,.15*yDirection,ball.x, ball.y )
 		player.movement = "accel"
 		timer.performWithDelay(100, cancelDeathTimer)
 	end

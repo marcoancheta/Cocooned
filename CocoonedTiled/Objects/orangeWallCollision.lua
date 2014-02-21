@@ -9,7 +9,7 @@ function collide(collideObject, player, event, mapData, map)
 	print("got to orange wall collision")
 	--event.contact.isEnabled = false
 	
-	if gameData.blueG then
+	if player.breakable then
 		local timeIT = timer.performWithDelay(1000, dissolve)
 		timeIT.params = {param1 = collideObject}
 	end

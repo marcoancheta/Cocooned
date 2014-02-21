@@ -1,6 +1,7 @@
 local sound = require("sound")
 
 function collide(collideObject, player, event, mapData, map)
+	event.contact.isEnabled = false
 	audio.stop()
 	sound.playSound(event, sound.portalOpeningSound)
 	if collideObject.sequence == "move" then
