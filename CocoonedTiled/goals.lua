@@ -29,7 +29,7 @@ local function drawGoals(text, rune, coins)
 		x = 720,
 		y = 50,
 		boxX = 10,
-		boxY = 125, 
+		boxY = 88, 
 		boxW = 1500,
 		boxH = 50,
 		boxA = 1
@@ -52,9 +52,9 @@ local function drawGoals(text, rune, coins)
 	
 	for i=1, #text[gNum]-1 do
 		if i==1 then
-			textObject[i] = display.newText(text[gNum][i], bSet.x-400, bSet.y + 68 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
+			textObject[i] = display.newText(text[gNum][i], bSet.x-400, bSet.y + 35 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
 		elseif i>=2 then
-			textObject[i] = display.newText(text[gNum][i], bSet.x-125, bSet.y + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
+			textObject[i] = display.newText(text[gNum][i], bSet.x-125, bSet.y - 35 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
 		end
 		textObject[i]:setFillColor(0,0,0)
 		textObject[i].align = "left"
@@ -135,7 +135,7 @@ local function findGoals(mapData)
 	-- Position and draw in goal displayer
 	for i=1, runeAMT do
 		rune[i].x = xCoord
-		rune[i].y = 125
+		rune[i].y = 125-35
 		rune[i]:scale(0.8, 0.8)
 		rune[i].isVisible = true
 		rune[i].isSensor = true
