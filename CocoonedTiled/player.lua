@@ -92,8 +92,8 @@ function playerInstance:attract (goTo)
 end
 
 function playerInstance:shrink()
-	self.imageObject:scale(0.6, 0.6)
-	self.imageObject.radius = 1
+	self.imageObject:scale(0.6)
+	self.imageObject.radius = .1
 end
 
 function playerInstance:slowTime(map)
