@@ -37,6 +37,11 @@ function inventoryInstance:destroy()
 			self.items[i] = nil
 	end
 	self.size = nil
+
+	for i = 1, #self.runes do
+			self.runes[i] = nil
+	end
+	self.runeSize = nil
 end
 
 --call this to create a new player, but make sure to change parameters

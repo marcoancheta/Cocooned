@@ -1,12 +1,13 @@
 local sound = require("sound")
+local gameData = require("gameData")
 
 function collide(collideObject, player, event, mapData, map)
 	event.contact.isEnabled = false
 	
-	if collideObject.sequence == "move" then
+	if collideObject.sequence == "move" and player.deathTimer == nil then
 		audio.stop()
 		sound.playSound(event, sound.portalOpeningSound)
-		timer.performWithDelay(1000, function() gameData.gameEnd = true end)
+		player.deathTimer = timer.performWithDelay(2000, function() gameData.gameEnd = true end)
 	end
 end
 
