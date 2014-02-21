@@ -235,11 +235,27 @@ local function load(pane, map, rune, objects, energy, player)
 		endIndex = 22
 		print("D")
 	elseif pane == "R" then
+		-- Switch Wall
+		--objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(32, 12.5)
+		--objects["switchWall1"]:scale(0.5, 8)
 	
-		-- Yellow rune
-		rune[5].x, rune[5].y = map.tilesToPixels(15, 20)
+		-- Green rune
+		rune[5].x, rune[5].y = map.tilesToPixels(3.5, 3.5)
 		rune[5].isVisible = true
+		
+		energy[5].x, energy[5].y = map.tilesToPixels(8.5, 4)
+		energy[6].x, energy[6].y = map.tilesToPixels(11.5, 4)
+		energy[7].x, energy[7].y = map.tilesToPixels(36, 17)
+		energy[8].x, energy[8].y = map.tilesToPixels(36, 11)
+		energy[9].x, energy[9].y = map.tilesToPixels(36, 14)
+		
+		startIndex = 5
+		endIndex = 9
 	
+		
+		print("R")
+	elseif pane == "L" then
+		
 		energy[23].x, energy[23].y = map.tilesToPixels(8, 5.5)
 		energy[24].x, energy[24].y = map.tilesToPixels(13, 5.5)
 		energy[25].x, energy[25].y = map.tilesToPixels(18, 5.5)
@@ -250,24 +266,7 @@ local function load(pane, map, rune, objects, energy, player)
 		
 		startIndex = 23
 		endIndex = 29
-		print("R")
-	elseif pane == "L" then
-		-- Switch Wall
-		--objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(32, 12.5)
-		--objects["switchWall1"]:scale(0.5, 8)
-	
-		-- Green rune
-		rune[5].x, rune[5].y = map.tilesToPixels(3.5, 3.5)
-		rune[5].isVisible = true
-		
-		--energy[5].x, energy[5].y = map.tilesToPixels(8.5, 4)
-		--energy[6].x, energy[6].y = map.tilesToPixels(11.5, 4)
-		energy[7].x, energy[7].y = map.tilesToPixels(36, 17)
-		energy[8].x, energy[8].y = map.tilesToPixels(36, 11)
-		energy[9].x, energy[9].y = map.tilesToPixels(36, 14)
-		
-		startIndex = 7
-		endIndex = 9		
+
 		print("L")
 	end
 	

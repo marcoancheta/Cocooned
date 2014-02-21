@@ -147,21 +147,17 @@ function swipeScreen(event, mapData, player, miniMap)
 	elseif gameData.isShowingMiniMap == true then
 		
 	end
-	-- if switching panes, move miniMap cursor to that pane and set alpha to 0
-	if tempPane ~= mapData.pane then
-		--print("direction:", direction)
-		miniMapMechanic.setMiniMap(miniMap, mapData.pane)
-	end
 end
 local tempPane2
 --------------------------------------------------------------------------------
 -- tap mechanic
 --------------------------------------------------------------------------------
-function tapScreen(event, miniMap, mapData, physics, player) 
+function tapScreen(event, miniMap, mapData, physics, map, player) 
 	-- if tapped twice, show miniMap or if showing, hide it
 	if event.numTaps >= 2 and player.movement == "accel" then
 		-- show miniMap 
 		if gameData.isShowingMiniMap == false then
+			miniMapMechanic.updateMiniMap(mapData, miniMap, map, player)
 			tempPane2 = mapData.pane
 			player.xGrav = 0
 			player.yGrav = 0

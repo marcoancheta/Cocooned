@@ -2,22 +2,22 @@ require("levelFinished")
 local gameData = require("gameData")
 local sound = require("sound")
 
-function dissolve(event)
-	local params = event.source.params
-	display.remove(params.param1)
+local function endAnimation( event )
+ 
+  if ( event.phase == "ended" ) then
+    local thisSprite = event.target  --"event.target" references the sprite
+    thisSprite:removeSelf()  --play the new sequence; it won't play automatically!
+  end
 end
 
 function collide(collideObject, player, event, mapData, map)
+	event.contact.isEnabled = false
+	player:addInventory(collideObject)
+	local runeCollide = display.newSprite(sheetOptions.runeSheet, spriteOptions.runeAnimation)
+	runeCollide.x, runeCollide.y = collideObject.x - 45, collideObject.y
+	runeCollide:setSequence("move")
+	runeCollide:play()
 
-	sound.playSound(event, sound.runePickupSound)
-	event.contact.isEnabled = false	
-	-- Add object to player inventory
-	player:addInventory(collideObject)	
-	-- Remove object from display
- 	local timeIT = timer.performWithDelay(10, dissolve)
-	timeIT.params = {param1 = collideObject}
-
-	
 	if collideObject.name == "blueRune" then
 		gameData.blueG = true
 		player:breakWalls(map)
@@ -29,14 +29,15 @@ function collide(collideObject, player, event, mapData, map)
 		player:shrink()
 	end
 	
+ 	collideObject:removeSelf()
+
+ 	--runeCollide:addEventListener( "sprite", endAnimation )
+
  	checkWin(player, map, mapData)
 
- 	if map.tutorial == true then
- 		require("tutorial")
- 		printTutorial()
- 	end
-	
 end
+
+
 
 function removeObject(map, index, player)
 

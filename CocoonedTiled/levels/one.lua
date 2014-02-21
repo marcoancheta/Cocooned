@@ -11,7 +11,7 @@ local moveableObject = require("moveableObject")
 
 
 local one = { 
-	energyCount = 30,
+	energyCount = 0,
 	["M"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
@@ -22,7 +22,8 @@ local one = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0
+		["exitPortal"] = 0,
+		["enemy"] = 0
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -34,7 +35,8 @@ local one = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0
+		["exitPortal"] = 0, 
+		["enemy"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -46,7 +48,8 @@ local one = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0
+		["exitPortal"] = 0, 
+		["enemy"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -58,7 +61,8 @@ local one = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0
+		["exitPortal"] = 0, 
+		["enemy"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -70,7 +74,8 @@ local one = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0
+		["exitPortal"] = 0, 
+		["enemy"] = 0
 	}
 }
 
@@ -162,16 +167,19 @@ local function load(pane, map, rune, objects, energy)
 	
 	-- Check which pane
 	if pane == "M" then
-	
+		
 	elseif pane == "U" then
-	
+		rune[3].x, rune[3].y = map.tilesToPixels(12, 10)
+		rune[3].isVisible = true
 	elseif pane == "D" then
 
 	elseif pane == "R" then
-
+		rune[4].x, rune[4].y = map.tilesToPixels(3, 3)
+		rune[4].isVisible = true
 	elseif pane == "L" then
 		
 	end
+	generateObjects(objects, map, pane, rune)
 end
 
 local function destroyAll() 

@@ -34,7 +34,6 @@ playerInstance = {
 	curse = 1,
 	escape = "center",
 }
-print(activateWind) 
 
 
 local function rotateTransition(imageObject, rotationDelta, timeDelta)

@@ -1,7 +1,8 @@
 local gameData = require("gameData")
 local sound = require("sound")
 function collide(collideObject, player, event, mapData, map)
-	
+
+
 	event.contact.isEnabled = false
 	player.movement ="inWater"
 	player.escape = collideObject.escape
@@ -13,7 +14,6 @@ function collide(collideObject, player, event, mapData, map)
 		player.deathTimer = timer.performWithDelay(5000, function() gameData.gameEnd = true end)
 	end
 	
-
 
 end
 

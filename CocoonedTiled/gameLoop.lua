@@ -127,48 +127,26 @@ local function speedUp(event)
 	end
 end
 
+local tempPane
+
 -- swipe mechanic
 local function swipeMechanics(event)
+
+	
+	
 	if player1.movement == "accel" then
 		-- save temp pane for later check
-		local tempPane = mapData.pane
-
-		-- call swipe mechanic and get new Pane
-		touch.swipeScreen(event, mapData, player1, miniMap)
-
-		
-		-- if touch ended then change map if pane is switched
-		if "ended" == event.phase and mapData.pane ~= tempPane then
-
-			-- delete everything on map
-			map:removeSelf()
-			objects.destroy(mapData)
-			
-			-- Pause physics
-			physics.pause()
-			---------------------------------------------------
-			-- Play "character" teleportation animation here --
-			---------------------------------------------------
-		
-			-- Resume physics
-			physics.start()
-			
-			-- load map
-			map = loadLevel.changePane(mapData, player1)
-			-- insert objects onto map layer
-			gui.back:insert(map)
-			map.layer["tiles"]:insert(ball)
-			
-			-- Reassign game mechanic listeners
-			collisionDetection.changeCollision(player1.imageObject, player1, mapData, gui.back[1], gui.front, physics, miniMap)
-		end
+		tempPane = mapData.pane
 
 		-- call swipe mechanic and get new Pane
 		touch.swipeScreen(event, mapData, player1, miniMap)
 		-- if touch ended then change map if pane is switched
 		if "ended" == event.phase and mapData.pane ~= tempPane then
-			timer.performWithDelay(1200, movePanes(tempPane, mapData.pane))
+			paneTransition.playTransition(tempPane, mapData.pane, gui.back[1], player1)
+			--timer.performWithDelay(450, movePanes)
+			movePanes()
 		end
+
 	end
 end
 
@@ -177,17 +155,16 @@ local function tapMechanic(event)
 	if gameData.allowMiniMap then
 		-- mechanic to show or hide minimap
 		local tempPane = mapData.pane
-		tempPane = touch.tapScreen(event, miniMap, mapData, physics, player1)
-		print(mapData.pane, tempPane)
+		tempPane = touch.tapScreen(event, miniMap, mapData, physics, gui.back[1], player1)
 		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
-			timer.performWithDelay(1200, movePanes(tempPane, mapData.pane))
+			paneTransition.playTransition(tempPane, mapData.pane, gui.back[1], player1)
+			--timer.performWithDelay(450, movePanes)
+			movePanes()
 		end
 	end
 end
 
-function movePanes(temp, pane)
-	paneTransition.playTransition(temp, pane)
-	print("moved to: ", pane)
+function movePanes()
 
 	-- delete everything on map
 	map:removeSelf()
@@ -203,7 +180,7 @@ function movePanes(temp, pane)
 	physics.start()
 			
 	-- load map
-	map = loadLevel.changePane(mapData, player1)
+	map = loadLevel.changePane(mapData, player1, miniMap)
 	-- insert objects onto map layer
 	gui.back:insert(map)
 	map.layer["tiles"]:insert(ball)
@@ -499,7 +476,7 @@ collectgarbage("collect")
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		--print( "MemUsage: " .. memCount)
+		print( "MemUsage: " .. memCount)
 		textObject.text = memCount
 		textObject:toFront()
 		prevMemCount = memCount

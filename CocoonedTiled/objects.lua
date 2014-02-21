@@ -112,7 +112,8 @@ local function main(mapData, map, player)
 	init()
 	level = require("levels." .. levelNames[mapData.levelNum])
 	objects, energy = createObjects(level, mapData.pane)
-	level.load(mapData.pane, map, rune, objects, energy, breakWall, player)
+	level.load(mapData.pane, map, rune, objects, energy)
+
 	--[[
 	-- Check levelNum then redirect
 	if mapData.levelNum == "1" then
