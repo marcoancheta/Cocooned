@@ -31,8 +31,10 @@ playerInstance = {
 	deathTimer = nil,
 	slowDownTimer = nil,
 	speedUpTimer = nil,
+	deathScreen = nil,
 	curse = 1,
 	escape = "center",
+	small = false
 }
 
 
@@ -47,6 +49,11 @@ function create(o)
 end
 
 function playerInstance:destroy()
+	if self.deathScreen ~= nil then
+		self.deathScreen:pause()
+		self.deathScreen:removeSelf()
+		self.deathScreen = nil
+	end
 	self.imageObject:removeSelf()
 	self.imageObject = nil
 	self.inventory:destroy()
@@ -90,9 +97,31 @@ function playerInstance:attract (goTo)
 		self.imageObject.angularVelocity = 0
 end
 
+function changeBack(player)
+	physics.removeBody(player)
+	player:scale(2,2)
+	physics.addBody(player, {radius = 36, bounce = .25})
+	physics.setGravity(0,0)
+	player.linearDamping = 3
+	player.density = .3
+end
+
+function playerInstance:unshrink()
+	self.small = false
+	local delayShrink = function() return changeBack( self.imageObject ) end
+	timer.performWithDelay(20, delayShrink)
+end
+
+function changeSize(player)
+	physics.removeBody(player)
+	player:scale(0.5,0.5)
+	physics.addBody(player, {radius = 10, bounce = .25, density = 0.7})
+end
+
 function playerInstance:shrink()
-	self.imageObject:scale(0.6)
-	self.imageObject.radius = .1
+	self.small = true
+	local delayShrink = function() return changeSize( self.imageObject ) end
+	timer.performWithDelay(20, delayShrink)
 end
 
 function playerInstance:slowTime(map)

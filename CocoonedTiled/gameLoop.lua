@@ -88,12 +88,13 @@ function loadMap()
 	-- Create player/ball object to map
 	player1.imageObject = display.newSprite(playerSheet, spriteOptions.player)
 	ball = player1.imageObject
+
 	ball.name = "player"
 	ball:setSequence("move")
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
 	physics.setGravity(0,0)
-	ball.linearDamping = 1
+	ball.linearDamping = 3
 	ball.density = .3
 
 	-- Load in map
@@ -123,6 +124,26 @@ end
 
 local function speedUp(event)
 	if gameData.isShowingMiniMap == false then
+	--[[
+		for check = 1, map.layer["tiles"].numChildren do
+			currObject = map.layer["tiles"][check]
+			if currObject.accel == true and gameData.greenG == true then
+				local vel = 40
+				if player1.yGrav<0 then
+					vel = -40
+				elseif player1.yGrav == 0 then
+					vel = 0
+				end
+				if string.sub(currObject.name,1,10) == "switchWall"then
+					currObject:setLinearVelocity(0, vel)
+				end
+			end
+		end
+	]]--
+		
+		player1.xGrav = player1.xGrav*player1.curse
+		player1.yGrav = player1.yGrav*player1.curse
+
 		movement.moveAndAnimate(player1)
 	end
 end
@@ -171,13 +192,13 @@ function movePanes()
 	objects.destroy(mapData)
 		
 	-- Pause physics
-	physics.pause()
+	--physics.pause()
 	---------------------------------------------------
 	-- Play "character" teleportation animation here --
 	---------------------------------------------------
 		
 	-- Resume physics
-	physics.start()
+	--physics.start()
 			
 	-- load map
 	map = loadLevel.changePane(mapData, player1, miniMap)
@@ -400,6 +421,7 @@ local function menuLoop(event)
 		gui.back:removeEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
 		Runtime:removeEventListener("accelerometer", controlMovement)
+		Runtime:removeEventListener("enterFrame", speedUp)
 
 		-- Re-evaluate gameData booleans
 		gameData.ingame = false
@@ -421,6 +443,7 @@ local function menuLoop(event)
 		gui.back:removeEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
 		Runtime:addEventListener("accelerometer", controlMovement)
+		Runtime:removeEventListener("enterFrame", speedUp)
 		
 		-- Re-evaluate gameData booleans
 		gameData.inGameOptions = false

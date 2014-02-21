@@ -38,11 +38,13 @@ end
 local foward, back
 
 function moveFoward(obj)
+	obj:rotate(180)
 	--print("moveF:", obj.name)
 	foward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
 end
 
 function moveBackward(obj)
+	obj:rotate(180)
 	--print("moveB:", obj.name)
 	back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveFoward})
 end

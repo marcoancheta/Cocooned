@@ -25,14 +25,14 @@ local function drawGoals(text, rune, coins)
 		fontSizeSM = 45,
 		fontSizeLG = 55,
 		offset = 50,
-		offsetLG = 60,
-		x = 250,
-		y = 100,
+		offsetLG = 70,
+		x = 720,
+		y = 50,
 		boxX = 10,
-		boxY = 300, 
-		boxW = 450,
-		boxH = 70,
-		boxA = 0.95
+		boxY = 88, 
+		boxW = 1500,
+		boxH = 50,
+		boxA = 1
 	}
 
 	-- create new display group for goals
@@ -52,9 +52,9 @@ local function drawGoals(text, rune, coins)
 	
 	for i=1, #text[gNum]-1 do
 		if i==1 then
-			textObject[i] = display.newText(text[gNum][i], bSet.x-60, bSet.y + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
+			textObject[i] = display.newText(text[gNum][i], bSet.x-400, bSet.y + 35 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
 		elseif i>=2 then
-			textObject[i] = display.newText(text[gNum][i], bSet.x-125, bSet.y + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
+			textObject[i] = display.newText(text[gNum][i], bSet.x-125, bSet.y - 35 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
 		end
 		textObject[i]:setFillColor(0,0,0)
 		textObject[i].align = "left"
@@ -70,15 +70,15 @@ local function drawGoals(text, rune, coins)
 		goalie:insert(rune[i])
 		rune[i].isSensor = true
 	end
-	goalie:insert(coins)
-	goalie:insert(coin)
+	--goalie:insert(coins)
+	--goalie:insert(coin)
 	goalie:toFront()
 end
 
 -- findGoals: set and adjust goals via their respected level
 local function findGoals(mapData)
 	
-	local xCoord = 220
+	local xCoord = 720
 	local temp = mapData.levelNum
 		
 	-- Load runes
@@ -100,12 +100,12 @@ local function findGoals(mapData)
 	end
 	
 	-- Load Coins (coinSheet = animation sheet)
-	local coinSheet = graphics.newImageSheet("mapdata/art/coins.png", 
-				 {width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
+	--local coinSheet = graphics.newImageSheet("mapdata/art/coins.png", 
+				 --{width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
 	
-	coins = display.newSprite(coinSheet, spriteOptions.energy)
-	coins.speed = 50
-	coins.isVisible = false
+	--coins = display.newSprite(coinSheet, spriteOptions.energy)
+	--coins.speed = 50
+	--coins.isVisible = false
 	
 	-- Goal text displayer
 	local text = {
@@ -113,10 +113,10 @@ local function findGoals(mapData)
 			[1] = "-Level Goals-",
 			[2] = "Rune:",
 			[3] = "",
-			[4] = "Coins:",
-			[5] = "",
-			[6] = "Key:",
-			[7] = -50
+			--[4] = "Coins:",
+			--[5] = "",
+			--[6] = "Key:",
+			--[7] = -50
 		}
 	}
 	
@@ -135,7 +135,7 @@ local function findGoals(mapData)
 	-- Position and draw in goal displayer
 	for i=1, runeAMT do
 		rune[i].x = xCoord
-		rune[i].y = 220
+		rune[i].y = 125-35
 		rune[i]:scale(0.8, 0.8)
 		rune[i].isVisible = true
 		rune[i].isSensor = true
@@ -143,19 +143,19 @@ local function findGoals(mapData)
 	end
 	
 	-- Position coins in goal displayer
-	coins.x = 220
+	--[[coins.x = 220
 	coins.y = 350
 	coins.isVisible = true
 	coins.isSensor = true
 	coins:setSequence("move")
-	coins:play()
+	coins:play()]]
 	
 	-- Draw amount of coins in level text
-	coin = display.newText("x" .. runeAMT*5, coins.x + 70, coins.y, nativeSystemfont, 50)
-	coin:setFillColor(0,0,0)
+	--coin = display.newText("x" .. runeAMT*5, coins.x + 70, coins.y, nativeSystemfont, 50)
+	--coin:setFillColor(0,0,0)
 					
 	-- Call function to draw and insert objects
-	drawGoals(text, rune, coins)
+	drawGoals(text, rune)
 end
 
 -- Refresh goal displayer: deletes old goals displayed and creates a new one
@@ -173,7 +173,7 @@ local function destroyGoals()
 	goalBox, textBox, box, coin = nil
 	textObject = nil
 	rune = nil
-	coins = nil
+	--coins = nil
 	goalie:removeSelf()
 	goalie = nil
 end

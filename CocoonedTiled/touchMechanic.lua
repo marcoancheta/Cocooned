@@ -162,14 +162,14 @@ function tapScreen(event, miniMap, mapData, physics, map, player)
 			player.xGrav = 0
 			player.yGrav = 0
 			print("show", tempPane2)
-			physics.pause()
+			--physics.pause()
 			gameData.isShowingMiniMap = true
 			miniMap.alpha = 0.75
 		else
 		--hide miniMap
 			
 			print("hide", tempPane2)
-			physics.start()
+			--physics.start()
 			gameData.isShowingMiniMap = false
 			miniMap.alpha = 0
 			return tempPane2

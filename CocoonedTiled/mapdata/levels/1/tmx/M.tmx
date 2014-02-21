@@ -7,213 +7,8 @@
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
- <tileset firstgid="1" name="redWall" tilewidth="36" tileheight="36">
-  <image source="../../../art/redWall.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="5" name="blueWall" tilewidth="36" tileheight="36">
-  <image source="../../../art/blueWall.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="func" value="blueWallCollision"/>
-    <property name="name" value="blueWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="func" value="blueWallCollision"/>
-    <property name="name" value="blueWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="func" value="blueWallCollision"/>
-    <property name="name" value="blueWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="func" value="blueWallCollision"/>
-    <property name="name" value="blueWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="9" name="greenWall" tilewidth="36" tileheight="36">
-  <image source="../../../art/greenWall.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="static"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="solid"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="13" name="water" tilewidth="36" tileheight="36">
-  <image source="../../../art/wateTileSet.png" width="108" height="108"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="4">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="5">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="6">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="7">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="8">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="22" name="snowWall1" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/snowWall1.png" width="36" height="108"/>
+ <tileset firstgid="1" name="wallTileSet" tilewidth="36" tileheight="36">
+  <image source="../../../art/wallTileSet.png" width="108" height="828"/>
   <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
@@ -224,58 +19,6 @@
    </properties>
   </tile>
   <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="25" name="snowWallCorner2" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/snowWallCorner2.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="29" name="snowWallCorner1" tilewidth="36" tileheight="36">
-  <tileoffset x="2" y="0"/>
-  <image source="../../../art/WallArt/snowWallCorner1.png" width="72" height="72"/>
-  <tile id="0">
    <properties>
     <property name="bodyType" value="static"/>
     <property name="collType" value="wall"/>
@@ -298,99 +41,8 @@
     <property name="bodyType" value=""/>
     <property name="collType" value=""/>
     <property name="name" value=""/>
+    <property name="physics:bounce" value=""/>
     <property name="physics:enabled" value=""/>
-    <property name="physics:true" value=""/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="33" name="snowWall2" tilewidth="36" tileheight="36">
-  <tileoffset x="0" y="-1"/>
-  <image source="../../../art/WallArt/snowWall2.png" width="108" height="36"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="36" name="snowWall3way" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/snowWall3way.png" width="108" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="4">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="42" name="snowWall3way2" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/snowWall3way2.png" width="108" height="72"/>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="4">
@@ -411,289 +63,373 @@
     <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
+  <tile id="6">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="54">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="55">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="57">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="58">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="59">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="63">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
+  <tile id="66">
+   <properties>
+    <property name="bodyType" value="static"/>
+    <property name="collType" value="wall"/>
+    <property name="name" value="wall"/>
+    <property name="physics:bounce" value="0"/>
+    <property name="physics:enabled" value="true"/>
+   </properties>
+  </tile>
  </tileset>
- <tileset firstgid="48" name="snowWall2Bottom" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/snowWall2Bottom.png" width="108" height="36"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="51" name="SnowRockTransition" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/SnowRockTransition.png" width="108" height="36"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="54" name="rockWall2" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/rockWall2.png" width="108" height="36"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="57" name="SnowRockTransition3" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/SnowRockTransition3.png" width="108" height="36"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="60" name="rockWall1" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/rockWall1.png" width="36" height="108"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="63" name="SnowRockTransition4" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/SnowRockTransition4.png" width="36" height="108"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="66" name="SnowRockTransition2" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/SnowRockTransition2.png" width="36" height="108"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="69" name="snowWallCorner3" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/snowWallCorner3.png" width="72" height="72"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="73" name="snowWallCorner4" tilewidth="36" tileheight="36">
-  <image source="../../../art/WallArt/snowWallCorner4.png" width="72" height="72"/>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="77" name="iceBg" tilewidth="1440" tileheight="864">
+ <tileset firstgid="70" name="paneBG" tilewidth="1440" tileheight="864">
   <tileoffset x="-720" y="432"/>
-  <image source="../../../art/iceBg.png" width="1440" height="864"/>
+  <image source="../../../art/paneBG.png" width="1440" height="864"/>
+ </tileset>
+ <tileset firstgid="71" name="wallTileSetGreen" tilewidth="36" tileheight="36">
+  <image source="../../../art/wallTileSetGreen.png" width="108" height="828"/>
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztziEBAAAIA7AXpH8dIlwgMFuCJQBAM98BAOBsAWiuAE4=
+   eJztziEBAAAIA7Cno38kIlwgMFuCJQBAM98BAOBsATH+AEc=
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztl8kKwjAURd8POGvrsHB25zzPdUTU//8e74MKUkxfXJhU8MKB0EB66F3ktUBERVAFNVDXXA/BCIzBBEzBLLCegwVYvjmnAZqgpTj/BM6gBGIg7pMgc8kL+xfggCRI+aS/LfUSR2PfJXt+rsY+f2NbflK/DkW7X5ei3S9/3y1Ft19280AGZH1yX3Z6jdSvB3YGPFSR+mW3lQkRRaR+2W1tQkQRqV9225gQUUTql932JkQUkfplt4MJEUWkftntSPbmF6lfdrN5v+ncvzbvN5371+b8onP//uer8PeH5RfmK8bW/CL1ewVlUAE90AcDzfWn/5fB/8c26IBu4Pnz/Bu4gweYJBuW
+   eJztlzkKAkAQBMf7Pv+gKIKCieIBA/7/T3anBo1s0htsQcFES8EEwx4i4ggf8Alff84d2IU9uIYbuP2Z+3AAhwXvn+EFnqJervDtjhCwLd0RgoQfd4SAbW2/5WTUv9+RO0LAtqk7QsC2hTtCwLaJO0LAtrk7QsC2lTtCwLaxO0LAtpk7QsC2pTtCwLZ2f8vJqP/+tv2Wk1H/fndwH/X9L2/wDr8cqhSS
   </data>
  </layer>
 </map>
