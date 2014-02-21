@@ -32,7 +32,7 @@ local function drawGoals(text, rune, coins)
 		boxY = 125, 
 		boxW = 1500,
 		boxH = 50,
-		boxA = 0.65
+		boxA = 1
 	}
 
 	-- create new display group for goals
