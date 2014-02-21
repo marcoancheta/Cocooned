@@ -25,6 +25,10 @@ function collide(collideObject, player, event, mapData, map)
 		player:slowTime(map)		
 	elseif collideObject.name == "greenRune" then
 		gameData.greenG = true
+<<<<<<< HEAD
+=======
+		player:moveWalls(map)
+>>>>>>> parent of b1a8887... commented out salvaged code
 	elseif collideObject.name == "yellowRune" then
 		player:shrink()
 	end

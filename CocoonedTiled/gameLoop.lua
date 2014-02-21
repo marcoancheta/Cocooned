@@ -123,6 +123,25 @@ end
 
 local function speedUp(event)
 	if gameData.isShowingMiniMap == false then
+<<<<<<< HEAD
+=======
+		for check = 1, map.layer["tiles"].numChildren do
+			currObject = map.layer["tiles"][check]
+			if currObject.accel == true and gameData.greenG == true then
+				local vel = 40
+				if player1.yGrav<0 then
+					vel = -40
+				elseif player1.yGrav == 0 then
+					vel = 0
+				end
+				if string.sub(currObject.name,1,10) == "switchWall"then
+					currObject:setLinearVelocity(0, vel)
+				end
+			end
+		end
+		player1.xGrav = player1.xGrav*player1.curse
+		player1.yGrav = player1.yGrav*player1.curse
+>>>>>>> parent of b1a8887... commented out salvaged code
 		movement.moveAndAnimate(player1)
 	end
 end
