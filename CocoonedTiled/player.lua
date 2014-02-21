@@ -28,8 +28,9 @@ playerInstance = {
 	yGrav = 0,
 	speedConst = 10,
 	movement="accel",
-	--justHitWater=false,
-	--numOfTaps = 0,
+	deathTimer = nil,
+	slowDownTimer = nil,
+	speedUpTimer = nil,
 	curse = 1,
 	escape = "center",
 }

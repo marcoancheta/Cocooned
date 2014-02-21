@@ -5,10 +5,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
-
--- accelerometer movement
---TODO: change class parameters to take in object and intensity? -negative if backwards?
---to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
+--NOTE: to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
 
 -- data for acceleromter to return
 local physicsParam = {
@@ -17,10 +14,23 @@ local physicsParam = {
 }
 local highestxgrav = 0
 local highestygrav = 0
+local accelPlayer=nil
 
+
+local function cancelDeathTimer() 
+	if accelPlayer.movement == "accel" and accelPlayer.deathTimer ~= nil then 
+		print("TIMERCANCELED")
+		timer.cancel(accelPlayer.deathTimer) 
+		accelPlayer.deathTimer=nil  
+		accelPlayer.imageObject.linearDamping = 1 
+		accelPlayer.speedConst = 5 
+		accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
+	end
+end
 
 -- acceleromter call
 local function onAccelerate( event, player)
+	accelPlayer = player
 	local ball = player.imageObject
 	print(player.escape)
 	if event.isShake and player.movement == "inWater" then
@@ -49,8 +59,8 @@ local function onAccelerate( event, player)
 		end
 
 		ball:applyLinearImpulse(.25*xDirection,.25*yDirection,ball.x, ball.y )
-		accelTimer = timer.performWithDelay(500, function() player.movement = "accel" player.imageObject.linearDamping = 1 player.speedConst = 5 end)
-		speedTmer= timer.performWithDelay(5000, function() player.speedConst = 10 end)
+		player.movement = "accel"
+		timer.performWithDelay(100, cancelDeathTimer)
 	end
 
 	--print("accel")
