@@ -34,7 +34,8 @@ playerInstance = {
 	deathScreen = nil,
 	curse = 1,
 	escape = "center",
-	small = false
+	small = false,
+	breakable = false
 }
 
 
@@ -133,6 +134,7 @@ function playerInstance:slowTime(map)
 end
 
 function playerInstance:breakWalls(map)
+	self.breakable = true
 	local timer = timer.performWithDelay(10, changeType)
 		  timer.params = {param1 = map}
 end
@@ -155,6 +157,10 @@ end
 
 function playerInstance:addInventory(item, map) 
 	self.inventory:addItem(item, map)
+end
+
+function playerInstance:addRune(item, map)
+	self.inventory:addRune(item, map)
 end
 
 local player  = {

@@ -14,13 +14,13 @@ function collide(collideObject, player, event, mapData, map, physics)
 	sound.playSound(event, sound.runePickupSound)
 	event.contact.isEnabled = false
 	player:addInventory(collideObject)
+	player:addRune(collideObject)
 	local runeCollide = display.newSprite(sheetOptions.runeSheet, spriteOptions.runeAnimation)
 	runeCollide.x, runeCollide.y = collideObject.x - 45, collideObject.y
 	runeCollide:setSequence("move")
 	runeCollide:play()
 
 	if collideObject.name == "blueRune" then
-		gameData.blueG = true
 		player:breakWalls(map)
 	elseif collideObject.name == "pinkRune" then
 		player:slowTime(map)		

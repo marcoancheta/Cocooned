@@ -499,9 +499,9 @@ collectgarbage("collect")
 
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
-		print( "MemUsage: " .. memCount)
-		textObject.text = memCount
-		textObject:toFront()
+		--print( "MemUsage: " .. memCount)
+		--textObject.text = memCount
+		--textObject:toFront()
 		prevMemCount = memCount
 	end
 	

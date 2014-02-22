@@ -1,9 +1,9 @@
 local gameData = require("gameData")
 
 function checkWin(player, map, mapData)
-	print("checking win", #player.inventory.items-1, map.itemGoal)
+	print("checking win", player.inventory.runeSize-1, map.itemGoal, mapData.pane)
 
-	if tonumber(#player.inventory.items)-1 == tonumber(map.itemGoal) then
+	if tonumber(player.inventory.runeSize)-1 == tonumber(map.itemGoal) then
 		if mapData.pane == "M" then
 			print("inside")
 			for check = 1, map.layer["tiles"].numChildren do

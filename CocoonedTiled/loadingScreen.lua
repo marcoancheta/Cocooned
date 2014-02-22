@@ -1,13 +1,27 @@
 local loadingBG = nil
+local levelCompleteBG = nil
+local gameOverBG = nil 
 local loadWolf = nil
 local wolfSheet = nil
 local cSS = require("cutSceneSystem")
 
 function loadingInit(loadGroup)
-	loadingBG = display.newImage('mapdata/art/LoadingScreen2.png', 724, 450, true )
-	loadingBG:scale(1.095, 1.095)
+	if levelComplete == true then 
+		levelCompleteBG = display.newImage('mapdata/art/levelComplete.png', 724, 450, true )
+		levelCompleteBG:scale(1.095, 1.095)
 
-	loadingBG:toFront()
+		levelCompleteBG:toFront()
+	elseif gameOver == true then
+		gameOverBG = display.newImage('mapdata/art/gameOver.png', 724, 450, true)
+		gameOverBG:scale(1.095, 1.095)
+		gameOverBG:toFront()
+
+	else
+		loadingBG = display.newImage('mapdata/art/LoadingScreen2.png', 724, 450, true )
+		loadingBG:scale(1.095, 1.095)
+
+		loadingBG:toFront()
+	end
 
 	--add image sheet and framereference
 	--[[
@@ -32,10 +46,19 @@ function deleteLoading(level)
 	if  l > 0 then
 		--cSS.cutScene(l)
 	end
-
-	loadingBG:removeSelf()
+	if loadingBG ~= nil then 
+		loadingBG:removeSelf()
+		loadingBG = nil
+	end
+	if levelCompleteBG ~= nil then 
+		levelCompleteBG:removeSelf()
+		levelCompleteBG = nil
+	end
+	if gameOverBG ~= nil then 
+		gameOverBG:removeSelf()
+		gameOverBG = nil
+	end
 	--loadWolf:removeSelf()
-	loadingBG = nil
 	--loadWolf = nil
 	--while cSS.cutSceneDone == false
 end

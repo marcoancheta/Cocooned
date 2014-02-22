@@ -1,6 +1,6 @@
 local gameData = require("gameData")
 local sound = require("sound")
-
+gameOver = false
 
 
 function collide(collideObject, player, event, mapData, map)
@@ -15,7 +15,7 @@ function collide(collideObject, player, event, mapData, map)
 	if player.deathTimer == nil then
 		audio.stop()
 		sound.playSound(event, sound.splashSound)
-		player.deathTimer = timer.performWithDelay(5000, function() gameData.gameEnd = true end)
+		player.deathTimer = timer.performWithDelay(5000, function() gameOver = true gameData.gameEnd = true end)
 		player.deathScreen = display.newSprite(sheetOptions.deathSheet, spriteOptions.deathAnimation)
 		player.deathScreen.x, player.deathScreen.y = 720, 432
 		player.deathScreen:setSequence("move")
