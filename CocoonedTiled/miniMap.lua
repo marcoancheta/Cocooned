@@ -66,9 +66,9 @@ function createMiniMap(mapData, player, map)
 	local inventoryDisplay = display.newGroup()
 	inventoryDisplay.size = 0
 
-	local inventoryText = display.newText("Inventory:", 280, 180, native.systemFont, 48)
-	inventoryText:setFillColor(0,0,0)
-	inventoryDisplay:insert(inventoryText)
+	--local inventoryText = display.newText("Inventory:", 280, 180, native.systemFont, 48)
+	--inventoryText:setFillColor(0,0,0)
+	--inventoryDisplay:insert(inventoryText)
 
 	miniMap:insert(8, inventoryDisplay)
 
