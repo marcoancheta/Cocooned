@@ -5,45 +5,58 @@
 -- collisionDetection.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
+-- collision detection lua operates the collision detection for all objects
+-- when an object collides or before it collides, the objects collide function is
+-- called and does their own functions upon collision
+-- for example, before a red aura collides with player, its collision is turned 
+-- off and the player's color is changed
 
 
 --------------------------------------------------------------------------------
 -- Collision Detection Mechanic
 --------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+-- creates the collision detection for that pane
 function createCollisionDetection(imageObject, player, mapData, map) 
 
-
-  -- function for pre collision detection
+  -- function for pre collision 
+  -- before the object collides, call its own collide function
   function imageObject:preCollision( event )
  
+  -- if the object is a passThru, calls it's collide function
    local collideObject = event.other
    if collideObject.collType == "passThru" then
       local col = require("Objects." .. collideObject.func)
       col.collide(collideObject, player, event, mapData, map)
    end
 
+   -- if the object is a solid, call it's collide function
    if collideObject.collType == "solid" then
       local col = require("Objects." .. collideObject.func)
       col.collide(collideObject, player, event, mapData, map)
    end
 
+  -- if the object is a collectable, call it's collide function
   if collideObject.collectable == true then
       local col = require("Objects." .. collideObject.func)
       col.collide(collideObject, player, event, mapData, map)
       audio.play(wallHitSound)
    end
 
-   
   end
 
   --function for collision detection
+  -- when an object collides, call its own collide function
   function onLocalCollision( self, event )
-    local collideObject = event.other
-    if ( event.phase == "began" ) then
-      -- debug print once collision began           
-      --print( "began: " .. collideObject.name)
 
+    -- save the collide object
+    local collideObject = event.other
+
+    -- when collision began, do this
+    if ( event.phase == "began" ) then
+
+      -- if the object is a solid, call it's function
       if collideObject.collType == "solid" then
         local col = require("Objects." .. collideObject.func)
         col.collide(collideObject, player, event, mapData)
@@ -53,9 +66,9 @@ function createCollisionDetection(imageObject, player, mapData, map)
       if collideObject.collType == "wall" then
         --timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
       end
+
+    -- when collision ends, do this
     elseif ( event.phase == "ended" ) then
-      --debug pring once collision ended
-      --print( "ended: ")
    
     end
   end
@@ -67,22 +80,36 @@ function createCollisionDetection(imageObject, player, mapData, map)
 
 end
 
+--------------------------------------------------------------------------------
+-- Collisison Detection - change the collision detection
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+-- changes the collision detection for all objects in new pane
 function changeCollision(imageObject, player, mapData, map) 
+
+  -- remove old collision detection event listeners
   imageObject:removeEventListener("collision" , imageObject)
   imageObject:removeEventListener("preCollision")
 
+  -- create new collision detection event listeners
   createCollisionDetection(imageObject, player, mapData, map)
 end
 
+--------------------------------------------------------------------------------
+-- Collision Detection - remove all collision detection event listeners
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 function destroyCollision(imageObject)
   imageObject:removeEventListener("collision" , imageObject)
   imageObject:removeEventListener("preCollision")
 end
 
-
-
 --------------------------------------------------------------------------------
 -- Finish up
+--------------------------------------------------------------------------------
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 local collisionDetection = {
   createCollisionDetection = createCollisionDetection,
@@ -91,3 +118,5 @@ local collisionDetection = {
 }
 
 return collisionDetection
+
+-- end of collisionDetection.lua

@@ -1,3 +1,16 @@
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- blueWallCollision.lua
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+-- Collide Function - function for blue wall collision
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 function collide(collideObject, player, event, mapData, map)
 	print("got to blue wall collision")
 	if player.color == 'blue' then
@@ -5,8 +18,15 @@ function collide(collideObject, player, event, mapData, map)
 	end
 end
 
+--------------------------------------------------------------------------------
+-- FInish Up
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 local blueWallCollision = {
 	collide = collide
 }
 
 return blueWallCollision
+
+-- end of blueWallCollision.lua

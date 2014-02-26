@@ -1,5 +1,17 @@
-emitterLib = {}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- particleEmitter.lua
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- lua class that holds functionality for particle emission
 
+--------------------------------------------------------------------------------
+-- Variables
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+emitterLib = {}
 require("physics")
 math.randomseed(os.time())
  
@@ -9,6 +21,12 @@ local Rad = math.rad
 local Sin = math.sin
 local Cos = math.cos
 
+
+--------------------------------------------------------------------------------
+-- Create Emitter - function that creates particle emitter
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 function emitterLib:createEmitter(radiusRange, thickness, particleDuration, initAlpha, endAlpha, inParticleImage, inParticleImageWidth, inParticleImageHeight)
   local customEmitter = {}
   customEmitter.radiusRange = radiusRange
@@ -25,6 +43,11 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
   customEmitter.isactive = true
   customEmitter.particale = nil
   
+  --------------------------------------------------------------------------------
+  -- VecFromAngleFixed - function that gets angle and velcity of particle
+  --------------------------------------------------------------------------------
+  -- Updated by: Marco
+  --------------------------------------------------------------------------------
   function customEmitter:VecFromAngleFixed(inAngle, inVelocity)
     local vx = Cos(Rad(inAngle+90))
     local vy = Sin(Rad(inAngle+90))
@@ -36,20 +59,40 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
     return vx,vy
   end
 
+  --------------------------------------------------------------------------------
+  -- Activate - function that starts emitter
+  --------------------------------------------------------------------------------
+  -- Updated by: Marco
+  --------------------------------------------------------------------------------
   function customEmitter:Activate()
     self.isactive = true
   end
   
+  --------------------------------------------------------------------------------
+  -- Deactivate - function that stops emitter from emitting particles
+  --------------------------------------------------------------------------------
+  -- Updated by: Marco
+  --------------------------------------------------------------------------------
   function customEmitter:Deactivate()
     self.isactive = false
   end
   
+  --------------------------------------------------------------------------------
+  -- Set Color - function that sets color of particle
+  --------------------------------------------------------------------------------
+  -- Updated by: Marco
+  --------------------------------------------------------------------------------
   function customEmitter:setColor(red, green, blue)  
     customEmitter.colorR = red or -1
     customEmitter.colorG = green or -1
     customEmitter.colorB = blue  or -1
   end
-   
+  
+  --------------------------------------------------------------------------------
+  -- Emit - function that emits particles
+  --------------------------------------------------------------------------------
+  -- Updated by: Marco
+  --------------------------------------------------------------------------------
   function customEmitter:emit(inGFXGroup, ex, ey, physics)
     if (self.isactive and ex) then
       local radrange = self.radiusRange
@@ -62,6 +105,7 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
       
       local particle = nil
       
+      -- set particle image and set properties
       if(self.particleImage) then
         particle = display.newImage("mapdata/art/particle.png")        
         particle.x = ex
@@ -69,10 +113,11 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
         particle.rotation = na
         particle:setFillColor(self.colorR, self.colorG, self.colorB)
       else
+        -- set particle image
         particle = display.newImage("mapdata/art/particle.png") 
-        --particle:scale(0.5,0.5)
+        -- particle:scale(0.5,0.5)
         physics.addBody(particle)
-        --particle:applyTorque( 50 )
+        -- particle:applyTorque( 50 )
         particle.x = ex
         particle.y = ey
         particle.alpha = self.initAlpha
@@ -85,6 +130,7 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
         end
       end
       
+      -- move particle and destroy it once finish point is reached
       local eTrans = transition.to(particle, {time = self.particleDuration, x = nvx, y = nvy, alpha = self.endAlpha, transition = easing.outQuad, onComplete=function()
         nv = nil
         ex = nil
@@ -96,6 +142,11 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
     end
   end 
   
+  --------------------------------------------------------------------------------
+  -- Destroy - destroys particle emitter
+  --------------------------------------------------------------------------------
+  -- Updated by: Marco
+  --------------------------------------------------------------------------------
   function customEmitter:Destroy()
     self:Deactivate()
     self = nil
@@ -103,3 +154,5 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
   
   return customEmitter
 end
+
+-- end of particleEmitter.lua

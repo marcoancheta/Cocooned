@@ -4,8 +4,15 @@
 -- animation.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+-- this lua file holds all sprite animation properties
 
-spriteOptions = { -- Sprite options for player and finish star
+
+--------------------------------------------------------------------------------
+-- spriteOptions -holds the sequences for each objects (frames and sequence name)
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+spriteOptions = { 
 	player = {
 		{frames = {9,8,7,6,5,4,3,2,1}, name = "move", time = 500},
 		{frames = {1}, name = "still", time = 250}
@@ -51,6 +58,11 @@ spriteOptions = { -- Sprite options for player and finish star
 	}
 }
 
+--------------------------------------------------------------------------------
+-- sheetOptions - holds the sprite sheets for all objects
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 sheetOptions = {
 	runeSheet = graphics.newImageSheet("mapdata/art/runeAnimation.png", 
 				 {width = 72, height = 72, sheetContentWidth = 432, sheetContentHeight = 216, numFrames = 18}),
@@ -59,7 +71,11 @@ sheetOptions = {
 
 }
 
-
+--------------------------------------------------------------------------------
+-- objectNames - holds the name of all objects
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 objectNames = {
 	[1] = "blueAura",
 	[2] = "redAura",
@@ -75,5 +91,3 @@ objectNames = {
 
 }
 
-
-		--TODO: add option for wolf

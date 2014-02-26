@@ -1,3 +1,16 @@
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- loadingScreen.lua
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- lua class that creates loading screen in between gameplay and menu systems
+
+--------------------------------------------------------------------------------
+-- Variables - variables for loading screens
+--------------------------------------------------------------------------------
+-- Updated by: 
+--------------------------------------------------------------------------------
 local loadingBG = nil
 local levelCompleteBG = nil
 local gameOverBG = nil 
@@ -5,6 +18,11 @@ local loadWolf = nil
 local wolfSheet = nil
 local cSS = require("cutSceneSystem")
 
+--------------------------------------------------------------------------------
+-- Loading Init - function that initialzies loading screen
+--------------------------------------------------------------------------------
+-- Updated by: 
+--------------------------------------------------------------------------------
 function loadingInit(loadGroup)
 	if levelComplete == true then 
 		levelCompleteBG = display.newImage('mapdata/art/levelComplete.png', 724, 450, true )
@@ -34,6 +52,12 @@ function loadingInit(loadGroup)
 	loadWolf.play()
 	]]
 end
+
+--------------------------------------------------------------------------------
+-- Update Loading - function that updates loading screen
+--------------------------------------------------------------------------------
+-- Updated by: 
+--------------------------------------------------------------------------------
 function updateLoading(int)
 	--loadBar[int].isVisible=true
 	--loadBar[int]:toFront()
@@ -41,6 +65,11 @@ function updateLoading(int)
 	return true
 end
 
+--------------------------------------------------------------------------------
+-- Delete Loading - function that destroys lodaing screen when loading is finished
+--------------------------------------------------------------------------------
+-- Updated by: 
+--------------------------------------------------------------------------------
 function deleteLoading(level)
 	l = tonumber(level)
 	if  l > 0 then
@@ -63,10 +92,17 @@ function deleteLoading(level)
 	--while cSS.cutSceneDone == false
 end
 
+
+--------------------------------------------------------------------------------
+-- Finish Up
+--------------------------------------------------------------------------------
+-- Updated by: 
+--------------------------------------------------------------------------------
 local loadingScreen = {
 	loadingInit = loadingInit,
 	updateLoading = updateLoading,
 	deleteLoading=deleteLoading
 }
 
+-- return loadingScreen.lua
 return loadingScreen

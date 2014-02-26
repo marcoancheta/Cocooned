@@ -1,7 +1,24 @@
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- runeCollision.lua
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+-- Variables
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 require("levelFinished")
 local gameData = require("gameData")
 local sound = require("sound")
 
+--------------------------------------------------------------------------------
+-- End Animation -- function that ends animation for collecting rune
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 local function endAnimation( event )
   if ( event.phase == "ended" ) then
     local thisSprite = event.target  --"event.target" references the sprite
@@ -9,17 +26,31 @@ local function endAnimation( event )
   end
 end
 
+--------------------------------------------------------------------------------
+-- Collide Function - function for rune collision
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 function collide(collideObject, player, event, mapData, map, physics)
+
+	-- stop audio and play audio sound
 	audio.stop()
 	sound.playSound(event, sound.runePickupSound)
+
+	-- set collision to false
 	event.contact.isEnabled = false
+
+	-- add rune to inventory
 	player:addInventory(collideObject)
 	player:addRune(collideObject)
+
+	-- create rune animation collection sprite and play it
 	local runeCollide = display.newSprite(sheetOptions.runeSheet, spriteOptions.runeAnimation)
 	runeCollide.x, runeCollide.y = collideObject.x - 45, collideObject.y
 	runeCollide:setSequence("move")
 	runeCollide:play()
 
+	-- check which rune was collected and activate ability
 	if collideObject.name == "blueRune" then
 		player:breakWalls(map)
 	elseif collideObject.name == "pinkRune" then
@@ -32,22 +63,23 @@ function collide(collideObject, player, event, mapData, map, physics)
 		player:shrink()
 	end
 	
+	-- remove rune
  	collideObject:removeSelf()
 
- 	--runeCollide:addEventListener( "sprite", endAnimation )
 
+ 	-- check if player has reached level goal
  	checkWin(player, map, mapData)
-
 end
 
-
-
-function removeObject(map, index, player)
-
-end
-
+--------------------------------------------------------------------------------
+--Finish Up
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 local runeCollision = {
 	collide = collide
 }
 
 return runeCollision
+
+-- end of runeCollision.lua

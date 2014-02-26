@@ -4,88 +4,82 @@
 -- loadLevel.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+-- lua class that loads pane for level
 
-local dusk = require("Dusk.Dusk")
-local miniMapMechanic = require("miniMap")
-local objects = require("objects")
-local loading = require("loadingScreen")
+
+--------------------------------------------------------------------------------
+-- Variables - variables for loading panes
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+-- level finished function (levelFinished.lua)
 require("levelFinished")
+-- Dusk Engine (Dusk.lua)
+local dusk = require("Dusk.Dusk")
+-- miniMap function (miniMap.lua)
+local miniMapMechanic = require("miniMap")
+-- objects function (object.lua)
+local objects = require("objects")
+-- loading screen function (loadingScreen.lua)
+local loading = require("loadingScreen")
+-- set variables for loading screen
+local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
+local deleteClosure = function() return loading.deleteLoading(level) end
+
 local loaded = 0
 local level = 0 
 
-local glowTileSheet = graphics.newImageSheet("mapdata/art/tileGlow.png", 
-				 {width = 36, height = 36, sheetContentWidth = 216, sheetContentHeight = 36, numFrames = 6})
-
-
 --------------------------------------------------------------------------------
--- Load level on startup
+-- Create Level - function that creates starting pane of level
 --------------------------------------------------------------------------------
-
-local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
-local deleteClosure = function() return loading.deleteLoading(level) end
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 function createLevel(mapData, ball, player)
+
 	loaded = 0 -- current loading checkpoint, max is 6
 	level =  mapData.levelNum
+
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
+
 	-- Create GUI subgroups
 	gui.front = display.newGroup()
 	gui.back = display.newGroup()
+
 	loading.loadingInit() --initializes loading screen assets and displays them on top
+
 	-- Add subgroups into main GUI group
 	gui:insert(gui.back)
 	gui:insert(gui.front)
 
 	print("loadMap", mapData.levelNum)
 
-	-- Load in map
-	timer.performWithDelay(300, myClosure)-- first loading check point gui groups and subgroups added
-	
+	-- Load in map	
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
 	objects.main(mapData, map, player)
 
-	timer.performWithDelay(600, myClosure) --map built
-	
-	-- animate glowing tiles
-	for i=1, map.layer["tiles"].numChildren do
-		if map.layer["tiles"][i].name == "glowTile" then
-			local tx, ty = map.layer["tiles"][i].x, map.layer["tiles"][i].y
-			map.layer["tiles"][i] = display.newSprite(glowTileSheet, spriteOptions.glowTile)
-			map.layer["tiles"][i].x, map.layer["tiles"][i].y = tx, ty
-			map.layer["tiles"][i].timeScale = 0.5
-			map.layer["tiles"][i]:setSequence("move")
-			map.layer["tiles"][i]:play()
-		end
-	end
-
-	timer.performWithDelay(900, myClosure) --objects moved
-
 	-- set players location
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
-
-	timer.performWithDelay(1200, myClosure)--players location set
 
 	-- create miniMap for level
 	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, player, map)
 	miniMapDisplay.name = "miniMapName"
 
-	timer.performWithDelay(1500, myClosure) --minimap created
-
-	--miniMapDisplay:removeSelf()
-
 	-- Add objects to its proper groups
 	gui.back:insert(1, map)
 	map.layer["tiles"]:insert(ball)
 
-	timer.performWithDelay(1800, myClosure)--added groups
+	-- destroy loading screen
 	timer.performWithDelay(3000, deleteClosure)
 
+	-- reutrn gui and miniMap
 	return gui, miniMapDisplay
-
 end
 
 --------------------------------------------------------------------------------
--- update pane for level
+-- Change Pane - function that changes panes of level
+--------------------------------------------------------------------------------
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 function changePane(mapData, player, miniMap)
 
@@ -93,28 +87,28 @@ function changePane(mapData, player, miniMap)
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
 	objects.main(mapData, map, player)
 
-	miniMapMechanic.updateMiniMap(mapData, miniMap, map, player)
+	-- if player is small, set player size back to normal
 	if player.small == true then
 		player:unshrink()
 	end
-	-- load 
 	
 	-- if an item was previously taken, remove it from map
 	if #player.inventory.items > 0 then
 		-- check for N number of items on map if they were taken
-		print("remove items")
 		for count = 1, #player.inventory.items do
 			local itemName = player.inventory.items[count]
 			local removeItem = 0
 			-- check map display group for picked up item then remove it
-
 			for check = 1, map.layer["tiles"].numChildren do
 				if map.layer["tiles"][check].name == itemName then
+					-- save index of item that was removed
 					removeItem = check
 				end
 			end
+
+			-- if index if grearter than 0, then item needs to be removed
 			if removeItem > 0 then
-				-- remove that item
+				-- if rune, start ability
 				if map.layer["tiles"][removeItem].name == "pinkRune" then
 					player:slowTime(map)
 				elseif map.layer["tiles"][removeItem].name == "blueRune" then
@@ -122,19 +116,28 @@ function changePane(mapData, player, miniMap)
 				elseif	map.layer["tiles"][removeItem].name == "purpleRune" then
 					player:shrink()
 				end
+
+				-- debug for which item was removed
 				print("removed: ", map.layer["tiles"][removeItem].name)
+
+				-- remove item from map display
 				map.layer["tiles"]:remove(removeItem)
 			end
 		end
 	end
 
+	-- check if player has finished level
 	checkWin(player, map, mapData)
 	-- return new pane
 	return map
 end
 
 
-
+--------------------------------------------------------------------------------
+-- Finish Up
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 local loadLevel = {
 	createLevel = createLevel,
 	changePane = changePane

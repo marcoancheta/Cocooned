@@ -4,6 +4,7 @@
 -- gameData.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+-- gameData holds all global variables that will be used across all lua files
 
 --------------------------------------------------------------------------------
 -- Global Variables
@@ -31,13 +32,6 @@ local gameData = {
 	allowMiniMap = false,
 	showMiniMap = false,
 	isShowingMiniMap = false,
-
-	-- Ghost Booleans
-	blueG = false,
-	greenG = false,
-	pinkG = false,
-	yellowG = false,
-	
 	
 	locked = false,
 	

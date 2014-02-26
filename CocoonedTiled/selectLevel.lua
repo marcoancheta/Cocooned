@@ -4,9 +4,12 @@
 -- selectLvl.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+-- lua file that holds functionailty for level select system
 
 --------------------------------------------------------------------------------
--- Load in files
+-- Variables
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 local math_abs = math.abs
 local physics = require("physics") 
@@ -48,13 +51,22 @@ local levelNumber = -1 -- -1 for level select (used for cutscenes)
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading(levelNumber) end
 
+--------------------------------------------------------------------------------
+-- Stop Animation - function that stops animation of player
+--------------------------------------------------------------------------------
+-- Updated by: 
+--------------------------------------------------------------------------------
 local function stopAnimation(event)
 	player:setSequence("still")
 	player:play()
 	allowPlay = true
 end
 
--- Quick function to make all buttons uniform
+--------------------------------------------------------------------------------
+-- New Button - function that creates new button
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function newButton(parent) 
 	local butt = display.newRoundedRect(parent, 0, 0, 60, 60, 10) 
 	      butt:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862) 
@@ -63,7 +75,11 @@ local function newButton(parent)
    return butt 
 end
 
--- Point in rect, using Corona objects rather than a list of coordinates
+--------------------------------------------------------------------------------
+-- Point in Rect - function that checks if point is in rect
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function pointInRect(point, rect) 
 	return (point.x <= rect.contentBounds.xMax) and 
 		   (point.x >= rect.contentBounds.xMin) and 
@@ -71,6 +87,11 @@ local function pointInRect(point, rect)
 		   (point.y >= rect.contentBounds.yMin) 
 end
 
+--------------------------------------------------------------------------------
+-- Set Camera to Player - function that makes camera follow player object
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function setCameratoPlayer(event)
 	map.updateView()
 	if trackPlayer then
@@ -104,7 +125,11 @@ local function setCameratoPlayer(event)
 	
 end
 
--- Select Level Loop
+--------------------------------------------------------------------------------
+-- Select Loop - Select Level Loop
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function selectLoop(event)
 	loaded = 0 --current loading checkpoint, max is 6
 	-- Start physics
@@ -220,7 +245,7 @@ local function selectLoop(event)
 		map.layer["tiles"]:insert(levels[i])
 		
 		-- Unlock && lock levels
-		if i~=2 and i~=3 and i~=4 and i~=5 and i~=18 then
+		if i~=2 then
 		   
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x
@@ -273,7 +298,11 @@ local function selectLoop(event)
 end
 	
 
--- When player tap's levels once:
+--------------------------------------------------------------------------------
+-- Tap Once - function is called when player taps screen
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 function tapOnce(event)
 	goals.refresh()
 	
@@ -408,7 +437,13 @@ function tapOnce(event)
 	return true
 end
 
-
+--------------------------------------------------------------------------------
+-- Finish Up
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 selectLevel.selectLoop = selectLoop
 
 return selectLevel
+
+-- end of selectLevel.lua

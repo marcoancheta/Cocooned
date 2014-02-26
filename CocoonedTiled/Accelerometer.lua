@@ -7,7 +7,11 @@
 
 --NOTE: to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
 
--- data for acceleromter to return
+--------------------------------------------------------------------------------
+-- Variables
+--------------------------------------------------------------------------------
+-- Updated by: Andrew
+--------------------------------------------------------------------------------
 local physicsParam = {
 	xGrav = 0,
 	yGrav = 0
@@ -16,7 +20,11 @@ local highestxgrav = 0
 local highestygrav = 0
 local accelPlayer=nil
 
-
+--------------------------------------------------------------------------------
+-- Cancel Death Timer - function that cancels end game from being changed
+--------------------------------------------------------------------------------
+-- Updated by: Andrew
+--------------------------------------------------------------------------------
 local function cancelDeathTimer() 
 	if accelPlayer.movement == "accel" and accelPlayer.deathTimer ~= nil then 
 		print("TIMERCANCELED")
@@ -30,8 +38,11 @@ local function cancelDeathTimer()
 		accelPlayer.deathScreen = nil
 	end
 end
-
--- acceleromter call
+--------------------------------------------------------------------------------
+-- On Accelerate - function that gathers accelerometer data
+--------------------------------------------------------------------------------
+-- Updated by: Andrew
+--------------------------------------------------------------------------------
 local function onAccelerate( event, player)
 	accelPlayer = player
 	local ball = player.imageObject
@@ -107,9 +118,15 @@ local function onAccelerate( event, player)
 	return physicsParam
 end
 
-
+--------------------------------------------------------------------------------
+-- Finish Up
+--------------------------------------------------------------------------------
+-- Updated by: Andrew
+--------------------------------------------------------------------------------
 local accelerometer = {
 	onAccelerate = onAccelerate
 }
 
 return accelerometer
+
+-- end of accelerometer.lua

@@ -18,6 +18,11 @@ system.setIdleTimer(false)
 -- Global Variables
 local sCounter = 0
 
+--------------------------------------------------------------------------------
+-- Main
+--------------------------------------------------------------------------------
+-- Updated by: Marco -- removed sprite loading screen
+--------------------------------------------------------------------------------
 function main(event)
 	--[[
    sCounter = sCounter + 1
@@ -34,7 +39,7 @@ function main(event)
            splashScreen = nil
       end
        
-   end]]
+   end
 	  -- Remove Splash Screen Listener
       --Runtime:removeEventListener("enterFrame", main)
 
@@ -42,22 +47,35 @@ function main(event)
 	   
 	  -- Begin game details
 	  --display.setStatusBar(display.HiddenStatusBar)
+	]]
 
-	  local textureFilter = "nearest"
-	  display.setDefault("minTextureFilter", textureFilter)
-	  display.setDefault("magTextureFilter", textureFilter)
+	local textureFilter = "nearest"
+	display.setDefault("minTextureFilter", textureFilter)
+	display.setDefault("magTextureFilter", textureFilter)
 
-	  local function loadGame()
-			require("gameLoop")
-	  end
+--------------------------------------------------------------------------------
+-- Load Game - function that loads game
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+	local function loadGame()
+		-- start core game loop
+		require("gameLoop")
+	end
 
-	  loadGame()
+	-- start game
+	loadGame()
 
-	  --for rCorona
-	  if system.getInfo("environment") == "simulator" then
-			local rcorona = require("rcorona")
-			rcorona.startServer(8181)
-	  end
+	--for rCorona
+	if system.getInfo("environment") == "simulator" then
+		local rcorona = require("rcorona")
+		rcorona.startServer(8181)
+	end
 end
  
+--------------------------------------------------------------------------------
+-- Finish Up - event listener that starts game
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 Runtime:addEventListener( "enterFrame", main )

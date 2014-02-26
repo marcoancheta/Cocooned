@@ -5,12 +5,17 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+-- Variables
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("gameData")
-local goals = require("goals")
+-- Bonus level variable (bonus.lua)
 local bonus = require("levels.bonus")
 
-
+-- holds the level name for loading
 local levelNames = {
 	["1"] = "one",
 	["2"] = "two",
@@ -18,12 +23,16 @@ local levelNames = {
 	["4"] = "four",
 	["15"] = "fifteen"
 }
+-- local variable for that holds "level".lua
 local level
 
+-- variable that holds all objects in level for later use
 local objects = {}
 
 --------------------------------------------------------------------------------
--- Object - Load all objects
+-- Object - initialize runes and sprite sheets
+--------------------------------------------------------------------------------
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 local function init()
 	physics.setGravity(0,0)
@@ -43,8 +52,16 @@ local function init()
 	rune[3].name = "pinkRune"
 	rune[4].name = "purpleRune"
 	rune[5].name = "yellowRune"
+
+	-- Set properties and add physics to runes
+	for i=1, #rune do
+		physics.addBody(rune[i], "dynamic", {bounce=0})
+		rune[i].isVisible = false
+		rune[i].collectable = true
+		rune[i].func = "runeCollision"
+	end
 	
-	-- load object sprites
+	-- load object sprite sheets
 	sheetList = {}
 
 	sheetList.energy = graphics.newImageSheet("mapdata/art/coins.png", 
@@ -56,18 +73,14 @@ local function init()
 	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/exitPortalSheet.png", 
 				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
 	
-	-- Attach collision event to object
-	-- Disable visibility
-	for i=1, #rune do
-		physics.addBody(rune[i], "dynamic", {bounce=0})
-		rune[i].isVisible = false
-		rune[i].collectable = true
-		rune[i].func = "runeCollision"
-	end
-	
 	return true
 end
 
+--------------------------------------------------------------------------------
+-- Object - animate animated objects
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 function createAnimations(count, name, objectList)
 	for i = 1, count do
 		objectList[name .. i] = display.newSprite(sheetList[name], spriteOptions[name])
@@ -78,6 +91,11 @@ function createAnimations(count, name, objectList)
 	return true
 end
 
+--------------------------------------------------------------------------------
+-- Object - initialize rest of objects
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 function createSprites(count, name, objectList)
 	for i = 1, count do
 		print("creating:", count, name, i)
@@ -87,67 +105,76 @@ function createSprites(count, name, objectList)
 	return true
 end
 
+--------------------------------------------------------------------------------
+-- Object - function that creates all objects
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 local function createObjects(objectNumbers, pane)
-	local energy = {}
+	-- declare wisp and object list
+	local wisp = {}
 	local objects = {}
 
-	for i=1, tonumber(objectNumbers.energyCount) do
-		energy[i] = display.newImage("mapdata/art/wisp.png")
-		energy[i].isVisible = false
-		energy[i].x, energy[i].y = 100, 100
+	-- create all wisps in level
+	for i=1, tonumber(objectNumbers.wispCount) do
+		wisp[i] = display.newImage("mapdata/art/wisp.png")
+		wisp[i].isVisible = false
+		wisp[i].x, wisp[i].y = 100, 100
 	end	
+	-- call function to animate objects
 	for i = 1, 4 do
 		createAnimations(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
+	-- call function that creates sprites
 	for i = 5, 11 do
 		createSprites(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
-	return objects, energy
+
+	-- return object and wisp list
+	return objects, wisp
 end
 
 --------------------------------------------------------------------------------
--- Object Main
+-- Object - Main
+--------------------------------------------------------------------------------
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 local function main(mapData, map, player)
+	-- call initialize function to initialize all objects and sprite sheets
 	init()
+	-- get which level lua, player is in
 	level = require("levels." .. levelNames[mapData.levelNum])
-	objects, energy = createObjects(level, mapData.pane)
-	level.load(mapData.pane, map, rune, objects, energy)
-
-	--[[
-	-- Check levelNum then redirect
-	if mapData.levelNum == "1" then
-		print("loading level 1")
-		objects, energy = createObjects(one, mapData.pane)
-		one.load(mapData.pane, map, rune, objects, energy)
-	elseif mapData.levelNum == "bonus" then
-		bonus.load(mapData.pane, map, sheetList)
-	elseif mapData.levelNum == "14" then
-		fourteen.load(mapData.pane, map, rune, objects, sheetList)
-	elseif mapData.levelNum == "15" then
-		--objects.createObjects(fifteen.getObjects())
-		print("loading level 15")
-		objects, energy = createObjects(fifteen, mapData.pane)
-		fifteen.load(mapData.pane, map, rune, objects, energy)
-	else
-		print("OBJECTS FOR LVL:", mapData.levelNum, "NOT MADE")
-	end
-	]]
+	-- get objects and wisps list and create them
+	objects, wisp = createObjects(level, mapData.pane)
+	-- load in which pane player is in
+	level.load(mapData.pane, map, rune, objects, wisp)
 end
 
 
 --------------------------------------------------------------------------------
--- Object Clean Up
+-- Object - Clean Up
+--------------------------------------------------------------------------------
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 local function destroy(mapData)
+	-- remove all runes to clear memory usage
 	for i=0, #rune do
 		display.remove(rune[i])
 		rune[i] = nil
 	end
+	-- destroy all objects in level pan
 	level.destroyAll()
 end
 
+--------------------------------------------------------------------------------
+-- Finish Up
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 objects.main = main
 objects.destroy = destroy
 
+
 return objects
+
+-- end of objects.lua

@@ -52,7 +52,9 @@ end
 ]]--
 
 --------------------------------------------------------------------------------
--- Create Main Menu System
+-- Main Menu - function that creates menu System
+--------------------------------------------------------------------------------
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 function MainMenu(event)
 
@@ -91,12 +93,15 @@ function MainMenu(event)
 	menuGroup:insert(play)
 	menuGroup:insert(options)
 		
+	-- add event listeners for buttons
 	play:addEventListener("tap", buttonPressed)
 	options:addEventListener("tap", buttonPressed)
 end
 
 --------------------------------------------------------------------------------
--- Create Options System
+-- Options - function that creates options menu system
+--------------------------------------------------------------------------------
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 function Options(event)
 	
@@ -149,7 +154,9 @@ function Options(event)
 end
 
 --------------------------------------------------------------------------------
--- Create In-Game Options System
+-- n-Game Options - function that creates inGame options button
+--------------------------------------------------------------------------------
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 function ingameOptionsbutton(event)
 	
@@ -169,7 +176,9 @@ function ingameOptionsbutton(event)
 end
 
 --------------------------------------------------------------------------------
--- In-Game Options Menu
+-- In-Game Options Menu - function that creates inGame Options Menu
+--------------------------------------------------------------------------------
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 function ingameMenu(event)
 	
@@ -202,6 +211,7 @@ function ingameMenu(event)
 	gameMainM.anchorY = 0.5
 	gameMainM:scale(2.5, 2.5)
 	
+	-- Resume button fixed location and scaled
 	gameResume.x = 1050
 	gameResume.y = 550
 	gameResume.anchorX = 0.5
@@ -213,12 +223,15 @@ function ingameMenu(event)
 	gui.front:insert(gameResume)
 	gui.front:insert(ingameOptionText)
 	
+	-- add event listeners to buttons
 	gameMainM:addEventListener("tap", buttonPressed)
 	gameResume:addEventListener("tap", buttonPressed)
 end
 
 --------------------------------------------------------------------------------
--- Button events
+-- Button events - function that holds button functionality
+--------------------------------------------------------------------------------
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 function buttonPressed(event)
 	-----------------------------
@@ -244,8 +257,6 @@ function buttonPressed(event)
 		--gameData.gameStart = true
 		gameData.inGameOptions = false
 
-		
-	
 	--------------------------------
 	--[[ Options button pressed ]]--
 	elseif event.target.name == "optionButton" then
@@ -352,6 +363,8 @@ end
 --------------------------------------------------------------------------------
 -- Finish up
 --------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 local menu = {
 	--soundOptions = soundOptions,
 	MainMenu = MainMenu,
@@ -362,3 +375,5 @@ local menu = {
 }
 
 return menu
+
+-- end of menu.lua
