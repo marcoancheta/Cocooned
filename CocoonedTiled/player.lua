@@ -103,7 +103,7 @@ function changeBack(player)
 	player:scale(2,2)
 	physics.addBody(player, {radius = 36, bounce = .25})
 	physics.setGravity(0,0)
-	player.linearDamping = 3
+	player.linearDamping = 1.5
 	player.density = .3
 end
 

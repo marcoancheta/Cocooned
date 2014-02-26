@@ -22,7 +22,7 @@ local function cancelDeathTimer()
 		print("TIMERCANCELED")
 		timer.cancel(accelPlayer.deathTimer) 
 		accelPlayer.deathTimer=nil  
-		accelPlayer.imageObject.linearDamping = 1 
+		accelPlayer.imageObject.linearDamping = 1.5 
 		accelPlayer.speedConst = 10
 		--accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
 		accelPlayer.deathScreen:pause()

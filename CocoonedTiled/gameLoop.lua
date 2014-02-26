@@ -94,7 +94,7 @@ function loadMap()
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
 	physics.setGravity(0,0)
-	ball.linearDamping = 3
+	ball.linearDamping = 1.5
 	ball.density = .3
 
 	-- Load in map
