@@ -155,6 +155,7 @@ local function selectLoop(event)
 	bg = display.newImage("mapdata/art/bgLS.png", 0, 0, true)
 	bg.x = 1930
 	bg.y = 1150
+	bg:scale(1, 2)
 	
 	-- Load image sheet
 	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
@@ -210,9 +211,9 @@ local function selectLoop(event)
 	-- Level numbers' position
 	textPos = {
 		--      X,         Y,
-		[1] = 150,   [2] = 205,  -- T
-		[3] = 420,  [4] = 205,  -- 1
-		[5] = 690,  [6] = 205,  -- 2
+		[1] = -250,   [2] = 305,  -- T
+		[3] = -65,  [4] = 175,  -- 1
+		[5] = 720,  [6] = 150,  -- 2
 		[7] = 960,  [8] = 205,  -- 3
 		[9] = 1225, [10] = 205, -- 4
 		[11] = 420, [12] = 420, -- 5
@@ -245,7 +246,7 @@ local function selectLoop(event)
 		map.layer["tiles"]:insert(levels[i])
 		
 		-- Unlock && lock levels
-		if i~=2 then
+		--[[if i~=2 then
 		   
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x
@@ -254,8 +255,9 @@ local function selectLoop(event)
 			map.layer["tiles"]:insert(lockedLevels[i])
 			kCircle[i].isAwake = false
 		else
+		]]
 			kCircle[i].isAwake = true
-		end
+		--end
 	end
 	timer.performWithDelay(1, myClosure)
 	-- Add physics
@@ -267,8 +269,8 @@ local function selectLoop(event)
 	cameraTRK.isAwake = true
 	
 	-- Set player start position
-	player.x = textPos[1] + 500
-	player.y = textPos[1] + 175
+	player.x = 1250
+	player.y = 950
 	
 	-- Insert objects/groups to their proper display group
 	levelGUI:insert(levelGUI.back)
