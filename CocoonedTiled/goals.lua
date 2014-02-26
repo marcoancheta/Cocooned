@@ -174,8 +174,10 @@ local function destroyGoals()
 	textObject = nil
 	rune = nil
 	--coins = nil
-	goalie:removeSelf()
-	goalie = nil
+	if goalie then
+		goalie:removeSelf()
+		goalie = nil
+	end
 end
 
 -- Pass into globals

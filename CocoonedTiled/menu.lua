@@ -65,7 +65,7 @@ function MainMenu(event)
 	main:scale(1.1, 1.1)
 
 	-- Add Play button
-	play = display.newImage("graphics/play.png", 0, 0, true)
+	play = display.newImage("graphics/newgame.png", 0, 0, true)
 	play:setFillColor(0.5,0.5,0.5)
 	
 	-- Assign name for runtime functions

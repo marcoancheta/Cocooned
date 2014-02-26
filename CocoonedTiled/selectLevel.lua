@@ -151,11 +151,20 @@ local function selectLoop(event)
 	
 	-- Load Map
 	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
+	
+	for check=1, map.layer["tiles"].numChildren do
+		if map.layer["tiles"][check].name == "wall" then
+			physics.addBody(map.layer["tiles"][check], "static",
+							{bounce=0})
+			map.layer["tiles"][check].collType = wall
+			map.layer["tiles"][check].isEnabled = true
+		end
+	end
 
-	bg = display.newImage("mapdata/art/bgLS.png", 0, 0, true)
+	bg = display.newImage("mapdata/art/iceBg.png", 0, 0, true)
 	bg.x = 1930
-	bg.y = 1150
-	bg:scale(1, 2)
+	bg.y = 1300
+	bg:scale(2, 2.5)
 	
 	-- Load image sheet
 	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
@@ -168,9 +177,9 @@ local function selectLoop(event)
 
 	-- Create play button
 	silKipcha = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
-	silKipcha.x = 1300
-	silKipcha.y = 725
-	silKipcha:scale(1.5, 1.5)
+	silKipcha.x = 1290
+	silKipcha.y = 720
+	silKipcha:scale(2, 2)
 	silKipcha.name = "sillykipchatrixareforkids"
 
 	-- Create invisible camera tracker
@@ -211,24 +220,24 @@ local function selectLoop(event)
 	-- Level numbers' position
 	textPos = {
 		--      X,         Y,
-		[1] = -250,   [2] = 305,  -- T
-		[3] = -65,  [4] = 175,  -- 1
-		[5] = 720,  [6] = 150,  -- 2
-		[7] = 960,  [8] = 205,  -- 3
-		[9] = 1225, [10] = 205, -- 4
-		[11] = 420, [12] = 420, -- 5
-		[13] = 690, [14] = 420, -- 6
-		[15] = 960, [16] = 420, -- 7
-		[17] = 1225, [18] = 420, -- 8
-		[19] = 420, [20] = 635,  -- 9
-		[21] = 690, [22] = 635, -- 10
-		[23] = 960, [24] = 635,  -- 11
-		[25] = 1225, [26] = 635,  -- 12
-		[27] = 420, [28] = 850,  -- 13
-		[29] = 690, [30] = 850,  -- 14
-		[31] = 960, [32] = 850,  -- 15
-		[33] = 1225, [34] = 850,  -- F
-		[35] = 150, [36] = 420   -- Bonus
+		[1] = 750,   [2] = 800,  -- T
+		[3] = -250,  [4] = 305,  -- 1
+		[5] = -65,  [6] = 175,  -- 2
+		[7] = 720,  [8] = 150,  -- 3
+		[9] = 1500, [10] = 190, -- 4
+		[11] = 1700, [12] = 320, -- 5
+		[13] = 1625, [14] = 700, -- 6
+		[15] = 1800, [16] = 900, -- 7
+		[17] = 1625, [18] = 1100, -- 8
+		[19] = 1700, [20] = 1500,  -- 9
+		[21] = 1500, [22] = 1650, -- 10
+		[23] = 720, [24] = 1700,  -- 11
+		[25] = -65, [26] = 1650,  -- 12
+		[27] = -250, [28] = 1500,  -- 13
+		[29] = -210, [30] = 1100,  -- 14
+		[31] = -380, [32] = 900,  -- 15
+		[33] = 750, [34] = 1100,  -- F
+		[35] = -210, [36] = 700  -- Bonus
 	}
 		
 	for i=1, #lvlNumber do
@@ -246,7 +255,7 @@ local function selectLoop(event)
 		map.layer["tiles"]:insert(levels[i])
 		
 		-- Unlock && lock levels
-		--[[if i~=2 then
+		if i~=2 then
 		   
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x
@@ -255,9 +264,9 @@ local function selectLoop(event)
 			map.layer["tiles"]:insert(lockedLevels[i])
 			kCircle[i].isAwake = false
 		else
-		]]
+		
 			kCircle[i].isAwake = true
-		--end
+		end
 	end
 	timer.performWithDelay(1, myClosure)
 	-- Add physics

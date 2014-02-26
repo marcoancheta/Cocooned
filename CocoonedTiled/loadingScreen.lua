@@ -25,17 +25,17 @@ local cSS = require("cutSceneSystem")
 --------------------------------------------------------------------------------
 function loadingInit(loadGroup)
 	if levelComplete == true then 
-		levelCompleteBG = display.newImage('mapdata/art/levelComplete.png', 724, 450, true )
+		levelCompleteBG = display.newImage('mapdata/art/levelComplete.png', 720, 450, true )
 		levelCompleteBG:scale(1.095, 1.095)
 
 		levelCompleteBG:toFront()
 	elseif gameOver == true then
-		gameOverBG = display.newImage('mapdata/art/gameOver.png', 724, 450, true)
+		gameOverBG = display.newImage('mapdata/art/gameOver.png', 720, 450, true)
 		gameOverBG:scale(1.095, 1.095)
 		gameOverBG:toFront()
 
 	else
-		loadingBG = display.newImage('mapdata/art/LoadingScreen2.png', 724, 450, true )
+		loadingBG = display.newImage('mapdata/art/LoadingScreen2.png', 720, 450, true )
 		loadingBG:scale(1.095, 1.095)
 
 		loadingBG:toFront()
