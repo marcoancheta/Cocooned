@@ -19,7 +19,6 @@ local gameData = require("gameData")
 local objects = require("objects")
 local loading = require("loadingScreen")
 local goals = require("goals")
-local playerL = require("player")
 
 local loaded = 0
 
@@ -161,9 +160,9 @@ local function selectLoop(event)
 	-- Load image sheet
 	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
+	
 	-- Create player
-	player = playerL.create()
-	player.imageObject = display.newSprite(playerSheet, spriteOptions.player)
+	player = display.newSprite(playerSheet, spriteOptions.player)
 	player.speed = 250
 	player.title = "player"
 	player:scale(0.8, 0.8)
