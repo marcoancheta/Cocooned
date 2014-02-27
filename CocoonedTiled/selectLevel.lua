@@ -297,9 +297,9 @@ local function selectLoop(event)
 	map.layer["tiles"]:insert(player)
 	map.layer["tiles"]:insert(cameraTRK)
 	
-	for i=1, #kCircle do
-		kCircle[i]:addEventListener("tap", tapOnce)
-	end
+	--for i=1, #kCircle do
+	--	kCircle[i]:addEventListener("tap", tapOnce)
+	--end
 	
 	silKipcha:addEventListener("tap", tapOnce)
 	dPad:addEventListener("touch", tapOnce)
@@ -317,6 +317,7 @@ end
 function tapOnce(event)
 	goals.refresh()
 	
+	--[[
 	-- kCircles button detection
 	for i=1, #kCircle do
 		if event.target.name == kCircle[i].name then
@@ -346,7 +347,9 @@ function tapOnce(event)
 			end
 		end
 	end
-	
+	]]--
+
+
 	-- dPad Button detection
 	if event.target.name == dPad.l.name or dPad.r.name or dPad.u.name or dPad.d.name then
 		if event.target.isFocus or "began" == event.phase then
@@ -427,7 +430,7 @@ function tapOnce(event)
 				display.remove(kCircle[p])
 				display.remove(levels[p])
 				display.remove(lockedLevels[p])
-				kCircle[p]:removeEventListener("tap", tapOnce)
+				--kCircle[p]:removeEventListener("tap", tapOnce)
 				map.layer["tiles"]:remove(kCircle[p])
 				map.layer["tiles"]:remove(levels[p])
 			end
