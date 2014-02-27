@@ -17,8 +17,10 @@ local animation = require("animation")
 local dusk = require("Dusk.Dusk")
 local gameData = require("gameData")
 local objects = require("objects")
-local goals = require("goals")
 local loading = require("loadingScreen")
+local goals = require("goals")
+local playerL = require("player")
+
 local loaded = 0
 
 local selectLevel = {
@@ -160,7 +162,8 @@ local function selectLoop(event)
 	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
 				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
 	-- Create player
-	player = display.newSprite(playerSheet, spriteOptions.player)
+	player = playerL.create()
+	player.imageObject = display.newSprite(playerSheet, spriteOptions.player)
 	player.speed = 250
 	player.title = "player"
 	player:scale(0.8, 0.8)
