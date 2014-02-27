@@ -296,6 +296,7 @@ local function gameLoop(event)
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
 	if gameData.gameStart then	
+		
 		-- Stop BGM
 		--sound.stopBGM(event, sound.mainmenuSound)
 		-- Start physics
@@ -556,8 +557,10 @@ Runtime:addEventListener("enterFrame", menuLoop)
 --------------------------------------------------------------------------------
 
 -- debug text object
-local textObject = display.newText("test", 1200, 100, native.systemFont, 48)
+local textObject = display.newText("test", 220, 750, native.systemFont, 48)
+local fpsText = display.newText("fps", 100, 800, native.systemFont, 48)
 textObject:setFillColor(0,1,0)
+fpsText:setFillColor(0,1,0)
 
 local prevTextMem = 0
 local prevMemCount = 0
@@ -567,7 +570,9 @@ collectgarbage("collect")
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
 		--print( "MemUsage: " .. memCount)
-		textObject.text = memCount
+		textObject.text = "Mem:" .. " " .. memCount
+		fpsText.text = "FPS:" .. " " .. display.fps
+		fpsText:toFront()
 		textObject:toFront()
 		prevMemCount = memCount
 	end
@@ -577,7 +582,7 @@ local memCount = collectgarbage("count")
 	if (prevTextMem ~= textMem) then
 		prevTextMem = textMem
 	end
-	
+
 	-- Display fps
 	--print(display.fps)
 end
