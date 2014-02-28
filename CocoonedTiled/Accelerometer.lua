@@ -47,7 +47,7 @@ end
 
 function moveShadows(map, x, y)
 
-	if x > 0.1  and map.layer["bg"].y < map.layer["hWalls"].sy + 6 then
+	if x > 0.1 and map.layer["bg"].y < map.layer["hWalls"].sy + 6 then
 		map.layer["tiles"].y = map.layer["tiles"].y - 2
 		--map.layer["hWalls"].y = map.layer["hWalls"].y + 2
 		--map.layer["vWalls"].y = map.layer["vWalls"].y + 1

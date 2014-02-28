@@ -400,9 +400,22 @@
  <tileset firstgid="74" name="shadow1" tilewidth="36" tileheight="36">
   <image source="../../art/shadow1.png" trans="000000" width="72" height="72"/>
  </tileset>
+ <tileset firstgid="78" name="shadowCenter" tilewidth="36" tileheight="36">
+  <image source="../../art/shadowCenter.png" trans="000000" width="72" height="144"/>
+ </tileset>
  <layer name="bg" width="64" height="52">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20ND6AAAAAAAAAAAAAAAACAVwM0AAAB
+  </data>
+ </layer>
+ <layer name="vWalls" width="64" height="52">
+  <data encoding="base64" compression="zlib">
+   eJztWkEOwyAM2xun/f8tO1XqEJA4jglr60ulQoKdltAGXq+1eIP3q9HjxXD9gPc9yOZ4Ro8Xw1WhP5uj0vdV9Hver14fRL93jCz9KF+LH/sMLPuR9pFtNl8rBkr9M+0Rf572kc0oBir9Ee0zf972mZ137iDr/8ie4cm0W7aefMXkf0a7ZwxPvrHsozmGyXVHu4Ws+WjlvEhOZHId+16gYPJ+RP9O2g9457sSVdoPVMagWvuBihiotbd6MvJ+FjzaUf4tWv+eWK+Igfe5R/hn2CtjgLzzVfqPvtkxQOd7pf5I/2x/CH/Pf8cV9b8nbXfAp7neDY/+3+vd8Oj/vZ7Bfj9mAx3fwx/5377i+rfSnkU1f8Re8W+KflNX6Vf+lyMxqNC/oh7D1thVWFmL2qHueEZFHW6XGFTWIKtjsEP9tSoGzF5U5PwTs9+EILq+tD4U+z9Z5wyU5xU8cyK6/5n1nKP7bBaitWlk7IwYKPSPtCvOP7ExyNaPnkFCMPMbjQGq38rLqvlk2VsxyDqTNOrP5Dp27HO76uzVzA+T69jzT70+UVsPen4Y34pckc1R6fvf9GdDtVb8C+6u/8Fe+ALtImmD
+  </data>
+ </layer>
+ <layer name="hWalls" width="64" height="52">
+  <data encoding="base64" compression="zlib">
+   eJztmVESwiAMRHtGvf9dquPwU4tuKEmWdN+Mox9KthgSWLYtlsfr9Ty8t8+MnOll07qCRlEHNL8seTmawzNzfURvJh7zOSu+Nwzz/yZDB8uzN3p6PNY/27M3InRFxhjZn3nq+zd2L39m1j9kLjLqbPSauPpfzPoNosULhjqUrUH9v2b/b+OjdTNyDix6Ir2FKv3/Cpn9n4Vq56zqIPuNs3rouc9ENaJ7dfmDQgjxjaX+j9ZfL42q/4KNO+9/q5x/2Lxfa4zo8z+b/xFJRf8L5c7+Z3b8TA1V7z9++RyoH5x5/5XhzVh0so49g2p91kJP14z1j8bKolL/X+XuGYnt7U0w5CFr/z9+z7r+2c5dd2YF72wFjeJDlGcsBMIObJ+Eww==
   </data>
  </layer>
  <layer name="tiles" width="64" height="52">

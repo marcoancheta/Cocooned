@@ -75,12 +75,8 @@ function deleteLoading(level)
 	--if  l > 0 then
 		--cSS.cutScene(l)
 	--end
-<<<<<<< HEAD
-		
+
 	if loadingBG ~= nil then 
-=======
-	if loadingBG ~= nil then
->>>>>>> origin/master
 		loadingBG:removeSelf()
 		loadingBG = nil
 	end

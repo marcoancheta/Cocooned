@@ -18,15 +18,12 @@ local dusk = require("Dusk.Dusk")
 local gameData = require("gameData")
 local objects = require("objects")
 local loading = require("loadingScreen")
-<<<<<<< HEAD
 local player = require("player")
 local movementMechanic = require("Accelerometer")
 local movement = require("movement")
-=======
 local goals = require("goals")
 
 local loaded = 0
->>>>>>> origin/master
 
 --------------------------------------------------------------------------------
 -- Local Variables
@@ -151,9 +148,24 @@ end
 ---------------------------------------------------	-----------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-<<<<<<< HEAD
 local function createLevelPlay()
-=======
+	-- Create play button
+	play = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
+	play.x = 1280
+	play.y =150
+	play:scale(2, 2)
+	play.name = "playButton"
+	play.isVisible = false
+	
+	play:addEventListener("tap", tapOnce)
+	print("done3")
+end
+
+--------------------------------------------------------------------------------
+-- Select Level Core Loop
+---------------------------------------------------	-----------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function selectLoop(event)
 	loaded = 0 --current loading checkpoint, max is 6
 	-- Start physics
@@ -189,18 +201,6 @@ local function selectLoop(event)
 	player.speed = 250
 	player.title = "player"
 	player:scale(0.8, 0.8)
-
->>>>>>> origin/master
-	-- Create play button
-	play = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
-	play.x = 1280
-	play.y =150
-	play:scale(2, 2)
-	play.name = "playButton"
-	play.isVisible = false
-	
-	play:addEventListener("tap", tapOnce)
-	print("done3")
 end
 
 
