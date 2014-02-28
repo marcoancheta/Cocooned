@@ -48,24 +48,24 @@ end
 function moveShadows(map, x, y)
 
 	if x > 0.1  and map.layer["bg"].y < map.layer["hWalls"].sy + 6 then
-		map.layer["tiles"].y = map.layer["tiles"].y - 3
+		map.layer["tiles"].y = map.layer["tiles"].y - 2
 		--map.layer["hWalls"].y = map.layer["hWalls"].y + 2
 		--map.layer["vWalls"].y = map.layer["vWalls"].y + 1
 		map.layer["bg"].y = map.layer["bg"].y + 1
 	elseif x < -0.1 and map.layer["bg"].y > map.layer["hWalls"].sy - 6 then
-		map.layer["tiles"].y = map.layer["tiles"].y + 3
+		map.layer["tiles"].y = map.layer["tiles"].y + 2
 		--map.layer["hWalls"].y = map.layer["hWalls"].y - 2
 		--map.layer["vWalls"].y = map.layer["vWalls"].y - 1
 		map.layer["bg"].y = map.layer["bg"].y - 1
 	end
 
 	if y > 0.1 and map.layer["bg"].x < (map.layer["vWalls"].sx + 6) then
-		map.layer["tiles"].x = map.layer["tiles"].x - 3
+		map.layer["tiles"].x = map.layer["tiles"].x - 2
 		--map.layer["vWalls"].x = map.layer["vWalls"].x + 2
 		--map.layer["hWalls"].x = map.layer["hWalls"].x + 1
 		map.layer["bg"].x = map.layer["bg"].x + 1
 	elseif y < -0.1 and map.layer["bg"].x > (map.layer["vWalls"].sx - 6) then
-		map.layer["tiles"].x = map.layer["tiles"].x + 3
+		map.layer["tiles"].x = map.layer["tiles"].x + 2
 		--map.layer["vWalls"].x = map.layer["vWalls"].x - 2
 		--map.layer["hWalls"].x = map.layer["hWalls"].x - 1
 		map.layer["bg"].x = map.layer["bg"].x - 1

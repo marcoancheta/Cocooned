@@ -22,10 +22,11 @@ local moveableObject = require("moveableObject")
 --------------------------------------------------------------------------------
 local one = { 
 	-- boolean for which pane is being used
-	-- { Middle, Down, Up, Right, Left }
-	panes = {true,false,false,true,false},
+	--   { Middle, Down, Up, Right, Left }
+	panes = {true,true,true,true,true},
 	-- number of wisps in the level
 	wispCount = 30,
+	waterCount = 10,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -41,7 +42,7 @@ local one = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0,
-		["enemy"] = 0
+		["enemy"] = 0,
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -55,7 +56,7 @@ local one = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0
+		["enemy"] = 0,
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -69,7 +70,7 @@ local one = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0
+		["enemy"] = 0,
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -83,7 +84,7 @@ local one = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0
+		["enemy"] = 0,
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -97,7 +98,7 @@ local one = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0
+		["enemy"] = 0,
 	}
 }
 
@@ -125,6 +126,31 @@ local function generateWisps(wisp, map, startIndex, endIndex)
 
 		-- add physics body for wisp for collision
 		physics.addBody(wisp[i], "static", {bounce=0})
+
+	end
+end
+
+--------------------------------------------------------------------------------
+-- geneate water functions
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+-- takes in a start and end index and creates those wisps only
+local function generateWater(water, map, startIndex, endIndex)
+	for i=startIndex, endIndex do
+
+	   	-- insertwater into map display group
+		map.layer["water"]:insert(water[i])
+
+		-- add physics body for wisp for collision
+		physics.addBody(water[i], "static", {bounce=0})
+		
+		-- set properties of wisps
+	   	water[i].isVisible = true
+	    water[i].func = "waterCollision"
+	   	water[i].collType = "passThru"
+		water[i].escape = "downRight"
+	    water[i].name = "water"
 
 	end
 end
@@ -234,7 +260,7 @@ end
 --------------------------------------------------------------------------------
 -- call this function after setting all objects in pane so it will destroy unused object
 -- to decrease memory usage
-local function destroyObjects(rune, wisp, objects) 
+local function destroyObjects(rune, wisp, water, objects) 
 
 	-- deleted extra runes
 	for i = 1, #rune do
@@ -244,12 +270,21 @@ local function destroyObjects(rune, wisp, objects)
 		end
 	end
 
-	-- deleted extra energies
+	-- deleted extra wisps
 	for i = 1, one.wispCount do
 		--print("energyCount:", i)
 		if wisp[i].isVisible == false then
 			wisp[i]:removeSelf()
 			wisp[i] = nil
+		end
+	end
+	
+	-- deleted extra waters
+	for i = 1, one.waterCount do
+		--print("energyCount:", i)
+		if water[i].isVisible == false then
+			water[i]:removeSelf()
+			water[i] = nil
 		end
 	end
 end
@@ -261,7 +296,7 @@ end
 --------------------------------------------------------------------------------
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
-local function load(pane, map, rune, objects, wisp)
+local function load(pane, map, rune, objects, wisp, water)
 	objectList = objects
 	
 	-- Check which pane
@@ -280,6 +315,12 @@ local function load(pane, map, rune, objects, wisp)
 		wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
 		]]
 		--generateWisps(wisp, map, 1, 4)
+		
+		water[1].x, water[1].y = map.tilesToPixels(20, 22)
+		water[2].x, water[2].y = map.tilesToPixels(20, 3)
+		
+		water[2]:scale(1, -1)
+		generateWater(water, map, 1, 2)
 	elseif pane == "U" then
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)		
@@ -356,7 +397,7 @@ local function load(pane, map, rune, objects, wisp)
 	-- generate all moveable objects in pane when locations are set
 	generateMoveableObjects(objects, map, pane)
 	-- destroy the unused objects
-	destroyObjects(rune, wisp, objects)
+	destroyObjects(rune, wisp, water, objects)
 
 	-- set which panes are avaiable for player
 	map.panes = one.panes
@@ -375,6 +416,11 @@ local function destroyAll()
 	for i=1, #wisp do
 		display.remove(wisp[i])
 		wisp[i] = nil
+	end
+	
+	for i=1, #water do
+		display.remove(water[i])
+		water[i] = nil
 	end
 
 	-- destroy all moveable objects and stop moving them

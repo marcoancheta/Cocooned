@@ -538,6 +538,11 @@ function soundLoop(event)
 end
 ]]--
 
+local function touch(event)
+	print(event.x, event.y)
+end
+Runtime:addEventListener("touch", touch)
+
 --------------------------------------------------------------------------------
 -- Call gameLoop && menuLoop every 30 fps
 --------------------------------------------------------------------------------
@@ -556,8 +561,8 @@ Runtime:addEventListener("enterFrame", menuLoop)
 --------------------------------------------------------------------------------
 
 -- debug text object
---local textObject = display.newText("test", 1200, 100, native.systemFont, 48)
---textObject:setFillColor(0,1,0)
+local textObject = display.newText("test", 1200, 100, native.systemFont, 48)
+textObject:setFillColor(0,1,0)
 
 local prevTextMem = 0
 local prevMemCount = 0
@@ -567,8 +572,8 @@ collectgarbage("collect")
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
 		--print( "MemUsage: " .. memCount)
-		--textObject.text = memCount
-		--textObject:toFront()
+		textObject.text = memCount
+		textObject:toFront()
 		prevMemCount = memCount
 	end
 	
