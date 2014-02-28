@@ -43,22 +43,21 @@ local lockedLevels = {}
 
 -- Local Variables
 local levelGUI
-local dPad
 local map, bg
 local player1, ball
-local silKipcha
 local player1Sheet
 local loaded = 0
-
--- Local Booleans
-local trackplayer1 = true
-local allowPlay = true
 
 -- loading screen functions
 local levelNumber = -1 -- -1 for level select (used for cutscenes)
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading(levelNumber) end
 
+--------------------------------------------------------------------------------
+-- Ball Camera
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function camera(event)
 	-- Set Camera to Ball
 	map.setCameraFocus(ball)
@@ -74,12 +73,14 @@ local function onLocalCollision(self, event)
 	for i=1, #lvlNumber do
 		if event.other.x == kCircle[i].x and event.other.y == kCircle[i].y then
 			event.other.isSensor = true
-			ball:setSequence("still")
-			ball:play()
+			self:setSequence("still")
 
-			local trans = transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() physics.pause(); 
-									timer.performWithDelay(1000, function() physics.start(); ball:setSequence("move"); ball:play(); event.other.isBodyActive = false; 
-									timer.performWithDelay(5000, function() event.other.isBodyActive = true; end) end); end})
+			local pause = function() physics.start(); event.other.isBodyActive = false; end
+			local begin = function() event.other.isBodyActive = true; end
+			
+			local trans = transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() physics.pause(); timer.performWithDelay(100, pause); 
+																														timer.performWithDelay(5000, begin); 
+												end})
 			
 			selectLevel.levelNum = kCircle[i].name
 	
@@ -112,6 +113,7 @@ local function tapOnce(event)
 		-- remove all objects
 		------------------------------------------------------------
 		transition.cancel()
+		--timer.cancel(ball)
 		
 		-- Destroy goals map
 		goals.destroyGoals()
@@ -314,9 +316,7 @@ local function selectLoop(event)
 		
 	levelGUI.back:insert(bg)
 	levelGUI.back:insert(map)
-	
-
-			
+				
 	-- Loading Screen delay
 	timer.performWithDelay(2000, deleteClosure)
 	
@@ -329,6 +329,9 @@ end
 -- Updated by: Marco - moved to end of script so it can see everything for removal
 --------------------------------------------------------------------------------
 local function clean()
+	transition.cancel()
+	--timer.cancel(ball)
+
 	-- Disable event listeners
 	Runtime:removeEventListener("accelerometer", controlMovement)
 	ball:removeEventListener("collision", ball)
@@ -343,6 +346,12 @@ local function clean()
 
 	player1:destroy()
 	player1 = nil
+		
+	play:removeSelf()
+	play = nil
+	
+	bg:removeSelf()
+	bg = nil
 		
 	-- Remove and destroy all circles
 	for p=1, #kCircle do
@@ -366,10 +375,10 @@ local function clean()
 	map.destroy()
 	map:removeSelf()
 	map = nil
-	
+				
 	-- Stop physics
 	physics.stop()
-	
+		
 	print("CLEANED")
 end
 
