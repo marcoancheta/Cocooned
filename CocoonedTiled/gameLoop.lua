@@ -271,7 +271,7 @@ end
 --------------------------------------------------------------------------------
 -- Core Game Loop
 --------------------------------------------------------------------------------
--- Updated by: Derrick 
+-- Updated by: Marco - added selectLevel.clean in gameStart if statement 
 --------------------------------------------------------------------------------
 local function gameLoop(event)
 	---------------------------------
@@ -296,6 +296,10 @@ local function gameLoop(event)
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
 	if gameData.gameStart then	
+
+		-- full deletes select level screen and event listeners
+		selectLevel.clean()
+		
 		-- Stop BGM
 		--sound.stopBGM(event, sound.mainmenuSound)
 		-- Start physics

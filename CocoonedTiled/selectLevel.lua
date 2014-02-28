@@ -59,46 +59,6 @@ local levelNumber = -1 -- -1 for level select (used for cutscenes)
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading(levelNumber) end
 
---------------------------------------------------------------------------------
--- Clean Up - Delete 
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-local function clean()
-	-- Disable event listeners
-	Runtime:removeEventListener("accelerometer", controlMovement)
-	
-	-- Disable on-screen items
-	levelGUI:removeSelf()
-	levelGUI = nil
-	
-	ball:removeSelf()
-	ball = nil
-		
-	-- Remove and destroy all circles
-	for p=1, #kCircle do
-		display.remove(kCircle[p])
-		display.remove(levels[p])
-		display.remove(lockedLevels[p])
-		map.layer["tiles"]:remove(kCircle[p])
-		map.layer["tiles"]:remove(levels[p])
-	end
-		
-	kCircle = nil
-	levels = nil
-	lockedLevels = nil
-	
-	-- Destroy map object
-	map.destroy()
-	map:removeSelf()
-	map = nil
-	
-	-- Stop physics
-	physics.stop()
-	
-	print("CLEANED")
-end
-
 local function camera(event)
 	-- Set Camera to Ball
 	map.setCameraFocus(ball)
@@ -157,7 +117,6 @@ local function tapOnce(event)
 		goals.destroyGoals()
 				
 		gameData.gameStart = true
-		clean()
 		print("done5")
 	end		
 end
@@ -364,6 +323,56 @@ local function selectLoop(event)
 	print("Loop1")
 end
 
+--------------------------------------------------------------------------------
+-- Clean Up - Delete 
+--------------------------------------------------------------------------------
+-- Updated by: Marco - moved to end of script so it can see everything for removal
+--------------------------------------------------------------------------------
+local function clean()
+	-- Disable event listeners
+	Runtime:removeEventListener("accelerometer", controlMovement)
+	ball:removeEventListener("collision", ball)
+	Runtime:removeEventListener("enterFrame", camera)
+	
+	-- Disable on-screen items
+	levelGUI:removeSelf()
+	levelGUI = nil
+	
+	ball:removeSelf()
+	ball = nil
+
+	player1:destroy()
+	player1 = nil
+		
+	-- Remove and destroy all circles
+	for p=1, #kCircle do
+		display.remove(kCircle[p])
+		display.remove(levels[p])
+		display.remove(lockedLevels[p])
+		map.layer["tiles"]:remove(kCircle[p])
+		map.layer["tiles"]:remove(levels[p])
+	end
+		
+	kCircle = nil
+	levels = nil
+	lockedLevels = nil
+
+	-- re-inialitze local variables to empty tables
+	kCircle = {}
+	levels = {} 
+	lockedLevels = {}
+	
+	-- Destroy map object
+	map.destroy()
+	map:removeSelf()
+	map = nil
+	
+	-- Stop physics
+	physics.stop()
+	
+	print("CLEANED")
+end
+
 
 --------------------------------------------------------------------------------
 -- Finish Up
@@ -372,6 +381,7 @@ end
 --------------------------------------------------------------------------------
 selectLevel.selectLoop = selectLoop
 selectLevel.camera = camera
+selectLevel.clean = clean
 
 return selectLevel
 
