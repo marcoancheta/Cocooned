@@ -677,14 +677,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="218" name="sideHorizontal" tilewidth="36" tileheight="36">
-  <image source="../../../art/sideHorizontal.png" width="36" height="36"/>
- </tileset>
- <tileset firstgid="219" name="sideVertical" tilewidth="36" tileheight="36">
-  <image source="../../../art/sideVertical.png" width="36" height="36"/>
- </tileset>
- <tileset firstgid="220" name="center" tilewidth="36" tileheight="36">
-  <image source="../../../art/center.png" width="36" height="36"/>
+ <tileset firstgid="218" name="shadowCenter" tilewidth="36" tileheight="36">
+  <image source="../../../art/shadowCenter.png" width="72" height="144"/>
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
@@ -693,12 +687,12 @@
  </layer>
  <layer name="hWalls" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt18EJACAMBMErS9T+6zIfP1YQYQYWLiUkSWa1qt1wAwAA8IcOP+S77z2qAw3ZEjE=
+   eJztwwEJAAAMA6D1T7kor7GDgk3S4QAAAPzQ8Qe5w0YB
   </data>
  </layer>
  <layer name="vWalls" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztkTEKgDAUQz2Eq6Pg5upSCPT+d7KCa38CkhbhP/jTC6Q0xzKPlfizHQa8owfrru/NgnUXIeOkEA8h4wTEVyHjJPf9BojPfXl/BISMExCf+/L+CAgZJyA+9+X9ERAyTkB87sv7IyBknID4P+w78/+UfeF/Rtgf8fzvPuAdPTbir3Y3gFsRaQ==
+   eJzFjUENACAAhOyfkijOBPC5yRc2OP8geGuW2JvQLLE3oVlib0KzxN6EZom9Cc0SexOaJfYmNEvsTWiW2JvQLLE3oVlib0KzxN6EZom9Cc0SexOaJfYmNEvsTWiW2JvQLLE3oVlib0KzxN6EZom9Cc0SexOaJfZ+/gJiez8B
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">

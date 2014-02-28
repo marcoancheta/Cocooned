@@ -94,6 +94,10 @@ function changePane(mapData, player, miniMap)
 
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
+
+	map.layer["vWalls"].sx = map.layer["vWalls"].x
+	map.layer["hWalls"].sy = map.layer["hWalls"].y
+	
 	objects.main(mapData, map, player)
 
 	-- if player is small, set player size back to normal

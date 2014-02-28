@@ -677,9 +677,22 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="218" name="shadowCenter" tilewidth="36" tileheight="36">
+  <image source="../../../art/shadowCenter.png" width="72" height="144"/>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7Cno38kIlwgMFuCJQBAM98BAOBsATH+AEc=
+  </data>
+ </layer>
+ <layer name="hWalls" width="40" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAIA7D3T/koYguFDZYkPRoAAIBfevQacT1CgQ==
+  </data>
+ </layer>
+ <layer name="vWalls" width="40" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztjjEOgEAQhPz/K3mKFvZMQ85CkqmWhOX6Lrw72be7OSXWZnBKrM3glFibwSmxNoNTYm0Gp8TaDE6JtRmcEmszOCfh+v+zvt3NKbE2g1NibQanxNoMTom1GZwSazM4JdZmcEqszeCUWJvBKbE2g1NibQbnJDy7AaLmO4E=
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">
