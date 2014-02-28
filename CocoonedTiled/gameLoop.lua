@@ -138,7 +138,7 @@ local function controlMovement(event)
 	-- if miniMap isn't showing, move player
 	if gameData.isShowingMiniMap == false then
 		-- call accelerometer to get data
-		physicsParam = movementMechanic.onAccelerate(event, player1)
+		physicsParam = movementMechanic.onAccelerate(event, player1, gui.back[1])
 
 		-- set player's X and Y gravity times the player's curse
 		player1.xGrav = physicsParam.xGrav*player1.curse
@@ -556,8 +556,8 @@ Runtime:addEventListener("enterFrame", menuLoop)
 --------------------------------------------------------------------------------
 
 -- debug text object
-local textObject = display.newText("test", 1200, 100, native.systemFont, 48)
-textObject:setFillColor(0,1,0)
+--local textObject = display.newText("test", 1200, 100, native.systemFont, 48)
+--textObject:setFillColor(0,1,0)
 
 local prevTextMem = 0
 local prevMemCount = 0
@@ -567,8 +567,8 @@ collectgarbage("collect")
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
 		--print( "MemUsage: " .. memCount)
-		textObject.text = memCount
-		textObject:toFront()
+		--textObject.text = memCount
+		--textObject:toFront()
 		prevMemCount = memCount
 	end
 	
