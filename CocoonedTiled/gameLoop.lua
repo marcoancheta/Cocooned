@@ -280,7 +280,6 @@ local function gameLoop(event)
 	if gameData.selectLevel then
 		sound.playEventSound(event, sound.selectMapSound)	
 		selectLevel.selectLoop(event)	
-		gameData.inLevelSelector = true
 		gameData.selectLevel = false
 	end
 
