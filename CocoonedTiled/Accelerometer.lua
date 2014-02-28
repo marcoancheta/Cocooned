@@ -30,7 +30,7 @@ local function cancelDeathTimer()
 		print("TIMERCANCELED")
 		timer.cancel(accelPlayer.deathTimer) 
 		accelPlayer.deathTimer=nil  
-		accelPlayer.imageObject.linearDamping = 1.5 
+		accelPlayer.imageObject.linearDamping = 1.25 
 		accelPlayer.speedConst = 10
 		--accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
 		accelPlayer.deathScreen:pause()
@@ -41,7 +41,7 @@ end
 --------------------------------------------------------------------------------
 -- On Accelerate - function that gathers accelerometer data
 --------------------------------------------------------------------------------
--- Updated by: Andrew
+-- Updated by: Andrew (changed line 76 to be player.shook)
 --------------------------------------------------------------------------------
 local function onAccelerate( event, player)
 	accelPlayer = player
@@ -73,7 +73,7 @@ local function onAccelerate( event, player)
 		end
 
 		ball:applyLinearImpulse(.15*xDirection,.15*yDirection,ball.x, ball.y )
-		player.movement = "accel"
+		player.shook = true
 		timer.performWithDelay(100, cancelDeathTimer)
 	end
 
