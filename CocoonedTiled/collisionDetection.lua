@@ -15,7 +15,7 @@
 --------------------------------------------------------------------------------
 -- Collision Detection Mechanic
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Andrew (moved water collision to be spread out across, precollision, begin collision, and post collision)
 --------------------------------------------------------------------------------
 -- creates the collision detection for that pane
 function createCollisionDetection(imageObject, player, mapData, map) 
@@ -26,7 +26,7 @@ function createCollisionDetection(imageObject, player, mapData, map)
  
   -- if the object is a passThru, calls it's collide function
    local collideObject = event.other
-   if collideObject.collType == "passThru" then
+   if collideObject.collType == "passThru" and collideObject.name ~= "water" then
       local col = require("Objects." .. collideObject.func)
       col.collide(collideObject, player, event, mapData, map)
    end
@@ -43,6 +43,13 @@ function createCollisionDetection(imageObject, player, mapData, map)
       col.collide(collideObject, player, event, mapData, map)
       audio.play(wallHitSound)
    end
+
+    --let the ball go through water
+    if collideObject.name == "water" then
+      -- disabled collision
+      event.contact.isEnabled = false
+    end
+   
 
   end
 
@@ -67,9 +74,20 @@ function createCollisionDetection(imageObject, player, mapData, map)
         --timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
       end
 
+      --when the player collides with water, make sure that shook is false and call the water collision function.
+      if collideObject.name == "water" then
+        player.shook = false
+        local col = require("Objects." .. collideObject.func)
+        col.collide(collideObject, player, event, mapData, map)
+      end
+
     -- when collision ends, do this
     elseif ( event.phase == "ended" ) then
-   
+      --if the player shook, and the collision with water ended
+      if collideObject.name == "water" and player.shook == true then
+        player.movement = "accel"
+        player.shook = false
+      end
     end
   end
 

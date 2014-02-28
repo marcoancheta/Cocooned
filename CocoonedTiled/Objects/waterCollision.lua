@@ -17,12 +17,12 @@ gameOver = false
 --------------------------------------------------------------------------------
 -- Collide Function - function for water collision
 --------------------------------------------------------------------------------
--- Updated by: Andrew
+-- Updated by: Andrew moved event.contact.isenabled to precollision
 --------------------------------------------------------------------------------
 function collide(collideObject, player, event, mapData, map)
 
-	-- disabled collision
-	event.contact.isEnabled = false
+	
+	--event.contact.isEnabled = false
 
 	-- set players movement to inWater
 	player.movement ="inWater"

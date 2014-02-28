@@ -110,7 +110,7 @@ function loadMap()
 	-- add physics to ball
 	physics.addBody(ball, {radius = 38, bounce = .25})
 	physics.setGravity(0,0)
-	ball.linearDamping = 1.5
+	ball.linearDamping = 1.25
 	ball.density = .3
 
 	-- Load in map
@@ -138,7 +138,7 @@ local function controlMovement(event)
 	-- if miniMap isn't showing, move player
 	if gameData.isShowingMiniMap == false then
 		-- call accelerometer to get data
-		physicsParam = movementMechanic.onAccelerate(event, player1)
+		physicsParam = movementMechanic.onAccelerate(event, player1, gui.back[1])
 
 		-- set player's X and Y gravity times the player's curse
 		player1.xGrav = physicsParam.xGrav*player1.curse
@@ -540,6 +540,11 @@ function soundLoop(event)
 	end 
 end
 ]]--
+
+local function touch(event)
+	print(event.x, event.y)
+end
+Runtime:addEventListener("touch", touch)
 
 --------------------------------------------------------------------------------
 -- Call gameLoop && menuLoop every 30 fps

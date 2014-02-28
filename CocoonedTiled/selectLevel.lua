@@ -17,11 +17,16 @@ local animation = require("animation")
 local dusk = require("Dusk.Dusk")
 local gameData = require("gameData")
 local objects = require("objects")
-local goals = require("goals")
 local loading = require("loadingScreen")
+<<<<<<< HEAD
 local player = require("player")
 local movementMechanic = require("Accelerometer")
 local movement = require("movement")
+=======
+local goals = require("goals")
+
+local loaded = 0
+>>>>>>> origin/master
 
 --------------------------------------------------------------------------------
 -- Local Variables
@@ -146,7 +151,46 @@ end
 ---------------------------------------------------	-----------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
+<<<<<<< HEAD
 local function createLevelPlay()
+=======
+local function selectLoop(event)
+	loaded = 0 --current loading checkpoint, max is 6
+	-- Start physics
+	physics.start()
+	physics.setGravity(0, 0)
+	--------------------------------------------------------------------------------
+	-- Initialize local variables
+	--------------------------------------------------------------------------------
+	levelGUI = display.newGroup()
+	levelGUI.front = display.newGroup()
+	levelGUI.back = display.newGroup()
+	dPad = display.newGroup()
+	loading.loadingInit() -- initializes loading screen assets and displays them on top
+	
+	-- Create Arrays
+	kCircle = {} -- Color Circle Array
+	levels = {}  -- Level Indicator Array
+	lockedLevels = {} -- Locked Levels Array
+	
+	-- Load Map
+	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
+
+	bg = display.newImage("mapdata/art/bgLS.png", 0, 0, true)
+	bg.x = 1930
+	bg.y = 1150
+	
+	-- Load image sheet
+	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
+				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
+	
+	-- Create player
+	player = display.newSprite(playerSheet, spriteOptions.player)
+	player.speed = 250
+	player.title = "player"
+	player:scale(0.8, 0.8)
+
+>>>>>>> origin/master
 	-- Create play button
 	play = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
 	play.x = 1280

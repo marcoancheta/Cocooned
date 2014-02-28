@@ -29,11 +29,11 @@ local function moveAndAnimate(player)
 	if player.movement == "accel" then
 		local yForce = 0
 		local xForce = 0
-		player.xGrav = player.xGrav * (player.speedConst-5)
-		player.yGrav = player.yGrav * (player.speedConst-5)
-		if player.xGrav <= 6 then
-			if player.xGrav>= -6 then
-				xForce = player.xGrav/6
+		player.xGrav = player.xGrav * (player.speedConst)
+		player.yGrav = player.yGrav * (player.speedConst)
+		if player.xGrav <= player.maxSpeed then
+			if player.xGrav>= player.maxSpeed*-1 then
+				xForce = player.xGrav/player.maxSpeed
 			else
 				xForce = -1
 			end
@@ -41,9 +41,9 @@ local function moveAndAnimate(player)
 			xForce = 1
 		end
 
-		if player.yGrav <= 6 then
-			if player.yGrav >= -6 then
-				yForce = player.yGrav/6
+		if player.yGrav <= player.maxSpeed then
+			if player.yGrav >= player.maxSpeed*-1 then
+				yForce = player.yGrav/player.maxSpeed
 			else
 				yForce = -1
 			end
@@ -63,12 +63,10 @@ local function moveAndAnimate(player)
 		--end
 	end
 
-	if (vx > 0 or vy > 0) and player.movement == "accel" then
+	if (vx ~= 0 or vy ~= 0) and player.movement == "accel" then
 		player:rotate(vx, vy)
-	else
-		if(player.xGrav ~= 0 or player.yGrav ~= 0) then
-			player:rotate(player.xGrav, player.yGrav)
-		end
+	elseif(player.xGrav ~= 0 or player.yGrav ~= 0) then
+		player:rotate(player.xGrav, player.yGrav)
 	end
 	
 	--change timescale of animation in relation to speed of ball

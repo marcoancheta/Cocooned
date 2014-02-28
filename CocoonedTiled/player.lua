@@ -23,7 +23,7 @@ local gameData = require("gameData")
 --------------------------------------------------------------------------------
 -- Player Instance - player instance table that holds all properties
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Andrew (added shook)
 --------------------------------------------------------------------------------
 playerInstance = {
 	x=0,
@@ -40,7 +40,8 @@ playerInstance = {
 	inventory = inventoryMechanic.createInventory(),
 	xGrav = 0,
 	yGrav = 0,
-	speedConst = 10,
+	speedConst = 5,
+	maxSpeed = 6,
 	movement="accel",
 	deathTimer = nil,
 	slowDownTimer = nil,
@@ -49,7 +50,8 @@ playerInstance = {
 	curse = 1,
 	escape = "center",
 	small = false,
-	breakable = false
+	breakable = false,
+	shook = false,
 }
 
 --------------------------------------------------------------------------------
@@ -162,7 +164,7 @@ function changeBack(player)
 	player:scale(2,2)
 	physics.addBody(player, {radius = 36, bounce = .25})
 	physics.setGravity(0,0)
-	player.linearDamping = 1.5
+	player.linearDamping = 1.25
 	player.density = .3
 end
 
