@@ -1,693 +1,716 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="36" tileheight="36">
- <properties>
-  <property name="itemGoal" value="3"/>
-  <property name="itemSize" value="0"/>
-  <property name="moveObj" value="0"/>
-  <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
-  <property name="tutorial" value="false"/>
- </properties>
- <tileset firstgid="1" name="wallTileSet" tilewidth="36" tileheight="36">
-  <image source="../../art/wallTileSet.png" width="108" height="828"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value=""/>
-    <property name="collType" value=""/>
-    <property name="name" value=""/>
-    <property name="physics:bounce" value=""/>
-    <property name="physics:enabled" value=""/>
-   </properties>
-  </tile>
-  <tile id="4">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="5">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="6">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="7">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="8">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="9">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="10">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="11">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="12">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="13">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="14">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="15">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="16">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="17">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="18">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="19">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="20">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="22">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="25">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="27">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="28">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="29">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="31">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="33">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="36">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="37">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="39">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="40">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="42">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="45">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="46">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="49">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="52">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="54">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="55">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="57">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="58">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="59">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="60">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="63">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="66">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="70" name="paneBG" tilewidth="1440" tileheight="864">
-  <tileoffset x="-720" y="432"/>
-  <image source="../../art/paneBG.png" width="1440" height="864"/>
- </tileset>
- <tileset firstgid="71" name="wallTileSetGreen" tilewidth="36" tileheight="36">
-  <image source="../../art/wallTileSetGreen.png" width="108" height="828"/>
-  <tile id="45">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="46">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="49">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="52">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="54">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="55">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollsion"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="57">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="58">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="59">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="60">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="63">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="66">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="greenWallCollision"/>
-    <property name="name" value="greenWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="140" name="wallTileSetRed" tilewidth="36" tileheight="36">
-  <image source="../../art/wallTileSetRed.png" width="108" height="828"/>
-  <tile id="57">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="58">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="59">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="func" value="redWallCollision"/>
-    <property name="name" value="redWall"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="209" name="wateTileSet" tilewidth="36" tileheight="36">
-  <image source="../../art/wateTileSet.png" width="108" height="108"/>
-  <tile id="0">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="escape" value="upLeft"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="escape" value="up"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="escape" value="upRight"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="escape" value="left"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="4">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="escape" value="right"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="5">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="escape" value="right"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="6">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="escape" value="downRight"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="7">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="escape" value="down"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
-  <tile id="8">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="passThru"/>
-    <property name="escape" value="downRight"/>
-    <property name="func" value="waterCollision"/>
-    <property name="name" value="water"/>
-    <property name="physics:bounce" value="0"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="218" name="shadow1" tilewidth="36" tileheight="36">
-  <image source="../../art/shadow1.png" trans="000000" width="72" height="72"/>
- </tileset>
- <layer name="bg" width="40" height="24">
-  <data encoding="base64" compression="zlib">
-   eJzt0LENACAMA0FPx/51WAaxACmCZBd/C/hlyavM+y8l+iaS2670vu0OaKT/B/y23AEAAGDsALKQB/I=
-  </data>
- </layer>
- <layer name="tiles" width="40" height="24">
-  <data encoding="base64" compression="zlib">
-   eJztl9kKwjAQReO+7/oJiiIo+KKohYD//+CK/o13oH2JTccSMu1DLxwITJoeMi1pl0qpFTiCEzj/OS6BMqiAIRiBsTGughqox6wzAVMws6y/AVuwBk+Dl5JJwNR34Zys/DRTD8I5WfldmLoO5+R1/8gty/5y+1f0Nznc+0tuDfA2+Hj2iqKZOrm1BTxs4fpLbj0JEUu4/pJbS0LEEs3Uya0r4GELt3/kNpAQsUQzdXJrCnjYwr0f5NYBN4O7Z68oXH/Jra/ye/6SW3H+Jt8/KVq5nb9X9fvspnmOuf1z/b56xFybZh3f/XX1891fVz/N1MltDhZK/v+SG+/BAXwB/pt6GQ==
-  </data>
- </layer>
-</map>
+{ "height":24,
+ "layers":[
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":24,
+         "name":"bg",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":40,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[40, 41, 58, 59, 60, 58, 59, 60, 58, 59, 60, 58, 59, 60, 1, 2, 3, 16, 17, 18, 16, 17, 18, 4, 5, 6, 58, 59, 60, 58, 19, 20, 21, 59, 60, 58, 59, 60, 46, 47, 43, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 50, 61, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 61, 64, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 64, 67, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 67, 61, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 61, 64, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 64, 67, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 67, 7, 216, 216, 216, 216, 217, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 7, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 10, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 13, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 9, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 12, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 15, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 8, 11, 210, 210, 210, 210, 211, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 11, 14, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 14, 61, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 61, 64, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 64, 67, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 209, 210, 210, 210, 210, 210, 210, 210, 211, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 67, 61, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 212, 213, 213, 213, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 61, 64, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 212, 213, 213, 213, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 64, 67, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 0, 0, 212, 213, 213, 213, 213, 213, 213, 213, 214, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 67, 37, 38, 58, 59, 60, 58, 59, 60, 58, 59, 60, 58, 59, 60, 1, 2, 3, 16, 17, 18, 16, 17, 18, 4, 5, 6, 58, 59, 60, 58, 59, 60, 58, 59, 60, 58, 59, 60, 55, 56],
+         "height":24,
+         "name":"tiles",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":40,
+         "x":0,
+         "y":0
+        }],
+ "orientation":"orthogonal",
+ "properties":
+    {
+     "itemGoal":"3",
+     "itemSize":"0",
+     "moveObj":"0",
+     "playerLocation":"!json! {\"x\": 20, \"y\":12 }",
+     "tutorial":"false"
+    },
+ "tileheight":36,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"..\/..\/art\/wallTileSet.png",
+         "imageheight":828,
+         "imagewidth":108,
+         "margin":0,
+         "name":"wallTileSet",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "1":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "10":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "11":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "12":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "13":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "14":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "15":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "16":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "17":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "18":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "19":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "2":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "20":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "22":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "25":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "27":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "28":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "29":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "3":
+                {
+                 "bodyType":"",
+                 "collType":"",
+                 "name":"",
+                 "physics:bounce":"",
+                 "physics:enabled":""
+                },
+             "31":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "33":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "36":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "37":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "39":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "4":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "40":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "42":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "45":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "46":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "49":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "5":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "52":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "54":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "55":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "57":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "58":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "59":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "6":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "60":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "63":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "66":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "7":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "8":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "9":
+                {
+                 "bodyType":"static",
+                 "collType":"wall",
+                 "name":"wall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":36
+        }, 
+        {
+         "firstgid":70,
+         "image":"..\/..\/art\/paneBG.png",
+         "imageheight":864,
+         "imagewidth":1440,
+         "margin":0,
+         "name":"paneBG",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":864,
+         "tileoffset":
+            {
+             "x":-720,
+             "y":432
+            },
+         "tilewidth":1440
+        }, 
+        {
+         "firstgid":71,
+         "image":"..\/..\/art\/wallTileSetGreen.png",
+         "imageheight":828,
+         "imagewidth":108,
+         "margin":0,
+         "name":"wallTileSetGreen",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tileproperties":
+            {
+             "45":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "46":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "49":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "52":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "54":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "55":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollsion",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "57":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "58":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "59":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "60":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "63":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "66":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"greenWallCollision",
+                 "name":"greenWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":36
+        }, 
+        {
+         "firstgid":140,
+         "image":"..\/..\/art\/wallTileSetRed.png",
+         "imageheight":828,
+         "imagewidth":108,
+         "margin":0,
+         "name":"wallTileSetRed",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tileproperties":
+            {
+             "57":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"redWallCollision",
+                 "name":"redWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "58":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"redWallCollision",
+                 "name":"redWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "59":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "func":"redWallCollision",
+                 "name":"redWall",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":36
+        }, 
+        {
+         "firstgid":209,
+         "image":"..\/..\/art\/wateTileSet.png",
+         "imageheight":108,
+         "imagewidth":108,
+         "margin":0,
+         "name":"wateTileSet",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":36,
+         "tileproperties":
+            {
+             "0":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"upLeft",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "1":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"up",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "2":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"upRight",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "3":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"left",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "4":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"right",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "5":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"right",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "6":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"downRight",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "7":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"down",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                },
+             "8":
+                {
+                 "bodyType":"static",
+                 "collType":"passThru",
+                 "escape":"downRight",
+                 "func":"waterCollision",
+                 "name":"water",
+                 "physics:bounce":"0",
+                 "physics:enabled":"true"
+                }
+            },
+         "tilewidth":36
+        }],
+ "tilewidth":36,
+ "version":1,
+ "width":40
+}

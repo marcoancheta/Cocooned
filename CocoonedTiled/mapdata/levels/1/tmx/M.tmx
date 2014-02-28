@@ -677,12 +677,9 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="218" name="shadow1" tilewidth="36" tileheight="36">
-  <image source="../../../art/shadow1.png" trans="000000" width="72" height="72"/>
- </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt0LENACAMA0FPx/51WAaxACmCZBd/C/hlyavM+y8l+iaS2670vu0OaKT/B/y23AEAAGDsALKQB/I=
+   eJztziEBAAAIA7Cno38kIlwgMFuCJQBAM98BAOBsATH+AEc=
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">

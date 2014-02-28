@@ -60,6 +60,84 @@ local myClosure = function() loaded = loaded + 1 return loading.updateLoading( l
 local deleteClosure = function() return loading.deleteLoading(levelNumber) end
 
 --------------------------------------------------------------------------------
+-- Clean Up - Delete 
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+local function clean()
+	-- Disable event listeners
+	Runtime:removeEventListener("accelerometer", controlMovement)
+	
+	-- Disable on-screen items
+	levelGUI:removeSelf()
+	levelGUI = nil
+	
+	ball:removeSelf()
+	ball = nil
+		
+	-- Remove and destroy all circles
+	for p=1, #kCircle do
+		display.remove(kCircle[p])
+		display.remove(levels[p])
+		display.remove(lockedLevels[p])
+		map.layer["tiles"]:remove(kCircle[p])
+		map.layer["tiles"]:remove(levels[p])
+	end
+		
+	kCircle = nil
+	levels = nil
+	lockedLevels = nil
+	
+	-- Destroy map object
+	map.destroy()
+	map:removeSelf()
+	map = nil
+	
+	-- Stop physics
+	physics.stop()
+	
+	print("CLEANED")
+end
+
+local function camera(event)
+	-- Set Camera to Ball
+	map.setCameraFocus(ball)
+	map.setTrackingLevel(0.1)
+end
+
+--------------------------------------------------------------------------------
+-- Local Collision Detection: Ball vs Portals
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+local function onLocalCollision(self, event)
+	for i=1, #lvlNumber do
+		if event.other.x == kCircle[i].x and event.other.y == kCircle[i].y then
+			event.other.isSensor = true
+			ball:setSequence("still")
+			ball:play()
+
+			local trans = transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() physics.pause(); 
+									timer.performWithDelay(1000, function() physics.start(); ball:setSequence("move"); ball:play(); event.other.isBodyActive = false; 
+									timer.performWithDelay(5000, function() event.other.isBodyActive = true; end) end); end})
+			
+			selectLevel.levelNum = kCircle[i].name
+	
+			goals.refresh()
+			goals.findGoals(selectLevel)
+					
+			-- Level unlocked? Then create play button, else do nothing.
+			if i == 2 then
+				play.isVisible = true
+				play:toFront()
+			end
+			
+			print("done6")
+		end
+	end
+end
+
+--------------------------------------------------------------------------------
 -- Tap Once - function is called when player1 taps screen
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
@@ -68,19 +146,39 @@ local function tapOnce(event)
 	-- Kipcha Play button detection
 	-- If player1 taps silhouette kipcha, start game
 	if event.target.name == play.name then
+		gameData.inLevelSelector = true
+	
 		------------------------------------------------------------
 		-- remove all objects
 		------------------------------------------------------------
+		transition.cancel()
+		
 		-- Destroy goals map
 		goals.destroyGoals()
 				
-		-- remove eventListeners		
-		play:removeEventListener("tap", tapOnce)
-		
-		-- Send data to start game
 		gameData.gameStart = true
+		clean()
+		print("done5")
 	end		
 end
+
+--------------------------------------------------------------------------------
+-- Control Mechanics - controls movement for player1
+--------------------------------------------------------------------------------
+-- Updated by: Derrick [Derived from Andrews's controlMovement() in gameLoop.lua]
+--------------------------------------------------------------------------------
+local function controlMovement(event) 
+	-- call accelerometer to get data
+	physicsParam = movementMechanic.onAccelerate(event, player1)
+
+	-- set player1's X and Y gravity times the player1's curse
+	player1.xGrav = physicsParam.xGrav*player1.curse
+	player1.yGrav = physicsParam.yGrav*player1.curse
+				
+	movement.moveAndAnimate(player1)
+	print("done4")
+end
+
 
 --------------------------------------------------------------------------------
 -- Create play button and level details
@@ -94,38 +192,12 @@ local function createLevelPlay()
 	play.y =150
 	play:scale(2, 2)
 	play.name = "playButton"
+	play.isVisible = false
 	
 	play:addEventListener("tap", tapOnce)
+	print("done3")
 end
 
---------------------------------------------------------------------------------
--- Local Collision Detection: Ball vs Portals
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-local function onLocalCollision(self, event)
-	for i=1, #lvlNumber do
-		if event.other.x == kCircle[i].x and event.other.y == kCircle[i].y then
-			event.other.isSensor = true
-			ball:setSequence("still")
-			transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() physics.pause(); 
-									timer.performWithDelay(1000, function() physics.start(); ball:setSequence("move"); event.other.isBodyActive = false; 
-									timer.performWithDelay(5000, function() event.other.isBodyActive = true; end) end); end})
-			
-			selectLevel.levelNum = kCircle[i].name
-	
-			goals.refresh()
-			goals.findGoals(selectLevel)
-					
-			-- Level unlocked? Then create play button, else do nothing.
-			if i == 2 then
-				createLevelPlay()
-			end
-			
-			gameData.inLevelSelector = true				
-		end
-	end
-end
 
 --------------------------------------------------------------------------------
 -- Create portals - Assign portals names and positions
@@ -203,9 +275,9 @@ end
 --------------------------------------------------------------------------------
 -- Load Map - loads start of level
 --------------------------------------------------------------------------------
--- Updated by: Derrick [Derived from Marco's loadMap() in gameLoop.lua]
+-- Updated by: Derrick [Derived from Marco's loadSelector() in gameLoop.lua]
 --------------------------------------------------------------------------------
-local function loadMap()
+local function loadSelector()
 
 	physics.setScale(45)
 	
@@ -243,43 +315,17 @@ local function loadMap()
 	-- Callers:
 	--		+ createPortals [create level portals]]
 	createPortals(map)
+	createLevelPlay()
 	
 	-- Insert ball to map last
 	map.layer["tiles"]:insert(ball)
 	
 	ball.collision = onLocalCollision
 	ball:addEventListener("collision", ball)
+	Runtime:addEventListener("accelerometer", controlMovement)
+	Runtime:addEventListener("enterFrame", camera)
 	
 	print("done")
-end
-
---------------------------------------------------------------------------------
--- Stop Animation - function that stops animation of player1
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-local function stopAnimation(event)
-	player1:setSequence("still")
-	player1:play()
-	allowPlay = true
-end
-
---------------------------------------------------------------------------------
--- Control Mechanics - controls movement for player1
---------------------------------------------------------------------------------
--- Updated by: Derrick [Derived from Andrews's controlMovement() in gameLoop.lua]
---------------------------------------------------------------------------------
-local function controlMovement(event) 
-	-- call accelerometer to get data
-	physicsParam = movementMechanic.onAccelerate(event, player1)
-
-	-- set player1's X and Y gravity times the player1's curse
-	player1.xGrav = physicsParam.xGrav*player1.curse
-	player1.yGrav = physicsParam.yGrav*player1.curse
-	
-	map.setCameraFocus(ball)
-	
-	movement.moveAndAnimate(player1)
 end
 
 
@@ -305,58 +351,19 @@ local function selectLoop(event)
 	physics.setGravity(0, 0)
 	
 	-- Callers
-	loadMap()
-	Runtime:addEventListener("accelerometer", controlMovement)
+	loadSelector()
 		
 	levelGUI.back:insert(bg)
 	levelGUI.back:insert(map)
 	
-	map.setTrackingLevel(0.1)
+
 			
 	-- Loading Screen delay
 	timer.performWithDelay(2000, deleteClosure)
+	
+	print("Loop1")
 end
 
-
---------------------------------------------------------------------------------
--- Clean Up - Delete 
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-local function clean()
-	if gameData.gameStart then
-		-- Disable event listeners
-		Runtime:removeEventListener("accelerometer", controlMovement)
-		
-		-- Disable on-screen items
-		levelGUI:removeSelf()
-		levelGUI = nil
-		
-		ball:removeSelf()
-		ball = nil
-			
-		-- Remove and destroy all circles
-		for p=1, #kCircle do
-			display.remove(kCircle[p])
-			display.remove(levels[p])
-				display.remove(lockedLevels[p])
-			map.layer["tiles"]:remove(kCircle[p])
-		map.layer["tiles"]:remove(levels[p])
-		end
-		
-		kCircle = nil
-		levels = nil
-		lockedLevels = nil
-		
-		-- Destroy map object
-		map.destroy()
-		map:removeSelf()
-		map = nil
-		
-		-- Stop physics
-		physics.stop()
-	end
-end
 
 --------------------------------------------------------------------------------
 -- Finish Up
@@ -364,7 +371,7 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 selectLevel.selectLoop = selectLoop
-selectLevel.clean = clean
+selectLevel.camera = camera
 
 return selectLevel
 

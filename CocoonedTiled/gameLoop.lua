@@ -271,7 +271,7 @@ end
 --------------------------------------------------------------------------------
 -- Core Game Loop
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick 
 --------------------------------------------------------------------------------
 local function gameLoop(event)
 	---------------------------------
@@ -288,7 +288,7 @@ local function gameLoop(event)
 		mapData.levelNum = selectLevel.levelNum
 		mapData.pane = selectLevel.pane
 		mapData.version = selectLevel.version
-		Runtime:removeEventListener("enterFrame", selectLevel.setCameratoPlayer)
+		Runtime:removeEventListener("enterFrame", selectLevel.camera)
 		gameData.inLevelSelector = false
 	end
 
@@ -296,7 +296,6 @@ local function gameLoop(event)
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
 	if gameData.gameStart then	
-		
 		-- Stop BGM
 		--sound.stopBGM(event, sound.mainmenuSound)
 		-- Start physics
@@ -429,7 +428,7 @@ end
 --------------------------------------------------------------------------------
 -- Core Menu Loop
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function menuLoop(event)
 	-------------------
@@ -542,7 +541,7 @@ end
 --------------------------------------------------------------------------------
 -- Call gameLoop && menuLoop every 30 fps
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 Runtime:addEventListener("enterFrame", gameLoop)
 Runtime:addEventListener("enterFrame", menuLoop)
@@ -553,7 +552,7 @@ Runtime:addEventListener("enterFrame", menuLoop)
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 
 -- debug text object
