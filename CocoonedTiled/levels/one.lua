@@ -36,11 +36,11 @@ local one = {
 		["fish1"] = 0,
 		["fish2"] = 0,
 		["blueTotem"] = 0,
-		["redTotem"] = 2,
+		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1,
+		["exitPortal"] = 0,
 		["enemy"] = 0
 	},
 	["D"] = {
@@ -266,6 +266,7 @@ local function load(pane, map, rune, objects, wisp)
 	
 	-- Check which pane
 	if pane == "M" then
+		--[[
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(4, 12.5)
 
@@ -277,7 +278,8 @@ local function load(pane, map, rune, objects, wisp)
 		wisp[2].x, wisp[2].y = map.tilesToPixels(19, 17)
 		wisp[3].x, wisp[3].y = map.tilesToPixels(14, 12)
 		wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
-		generateWisps(wisp, map, 1, 4)
+		]]
+		--generateWisps(wisp, map, 1, 4)
 	elseif pane == "U" then
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)		

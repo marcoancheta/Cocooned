@@ -23,11 +23,11 @@ local objects = require("objects")
 -- loading screen function (loadingScreen.lua)
 local loading = require("loadingScreen")
 -- set variables for loading screen
+local loaded = 0
+local level = 0 
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading(level) end
 
-local loaded = 0
-local level = 0 
 
 --------------------------------------------------------------------------------
 -- Create Level - function that creates starting pane of level
@@ -58,6 +58,13 @@ function createLevel(mapData, ball, player)
 	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
 	objects.main(mapData, map, player)
 
+	local shadowGroup = display.newGroup()
+
+	--map.layer["shadows"].sx = map.layer["shadows"].x
+	--map.layer["shadows"].sy = map.layer["shadows"].y
+	map.layer["vWalls"].sx = map.layer["vWalls"].x
+	map.layer["hWalls"].sy = map.layer["hWalls"].y
+
 	-- set players location
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 
@@ -68,6 +75,8 @@ function createLevel(mapData, ball, player)
 	-- Add objects to its proper groups
 	gui.back:insert(1, map)
 	map.layer["tiles"]:insert(ball)
+
+
 
 	-- destroy loading screen
 	timer.performWithDelay(3000, deleteClosure)
