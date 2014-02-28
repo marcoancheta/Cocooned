@@ -75,12 +75,11 @@ local function onLocalCollision(self, event)
 	for i=1, #lvlNumber do
 		if event.other.x == kCircle[i].x and event.other.y == kCircle[i].y then
 			event.other.isSensor = true
-			self:setSequence("still")
-
-			local pause = function() physics.start(); event.other.isBodyActive = false; end
+						
+			local pause = function() physics.start(); event.other.isBodyActive = false; self:setSequence("move"); end
 			local begin = function() event.other.isBodyActive = true; end
 			
-			local trans = transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() physics.pause(); timer.performWithDelay(100, pause); 
+			local trans = transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() self:setSequence("still"); physics.pause(); timer.performWithDelay(100, pause); 
 																														timer.performWithDelay(5000, begin); 
 												end})
 			
@@ -93,6 +92,8 @@ local function onLocalCollision(self, event)
 			if i == 2 then
 				play.isVisible = true
 				play:toFront()
+			else
+				play.isVisible = false
 			end
 			
 			print("done6")
@@ -130,7 +131,10 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick [Derived from Andrews's controlMovement() in gameLoop.lua]
 --------------------------------------------------------------------------------
-local function controlMovement(event) 
+local function controlMovement(event)
+ 	--ball:setSequence("move")
+	--ball:play()
+	
 	-- call accelerometer to get data
 	physicsParam = movementMechanic.onAccelerate(event, player1, map)
 
@@ -187,7 +191,7 @@ local function selectLoop(event)
 	
 	-- Load Map
 	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
-
+	
 	bg = display.newImage("mapdata/art/bgLS.png", 0, 0, true)
 	bg.x = 1930
 	bg.y = 1150
@@ -324,6 +328,8 @@ local function loadSelector()
 	
 	-- Insert ball to map last
 	map.layer["tiles"]:insert(ball)
+	map.layer["vWalls"].sx = map.layer["vWalls"].x
+	map.layer["hWalls"].sy = map.layer["hWalls"].y
 	
 	ball.collision = onLocalCollision
 	ball:addEventListener("collision", ball)
