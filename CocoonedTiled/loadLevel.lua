@@ -79,7 +79,7 @@ function createLevel(mapData, ball, player)
 
 
 	-- destroy loading screen
-	timer.performWithDelay(3000, deleteClosure)
+	timer.performWithDelay(1000, deleteClosure)
 
 	-- reutrn gui and miniMap
 	return gui, miniMapDisplay

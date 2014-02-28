@@ -71,10 +71,10 @@ end
 -- Updated by: 
 --------------------------------------------------------------------------------
 function deleteLoading(level)
-	l = tonumber(level)
-	if  l > 0 then
+	--l = tonumber(level)
+	--if  l > 0 then
 		--cSS.cutScene(l)
-	end
+	--end
 	if loadingBG ~= nil then 
 		loadingBG:removeSelf()
 		loadingBG = nil
