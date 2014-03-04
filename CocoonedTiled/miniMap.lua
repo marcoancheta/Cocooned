@@ -137,7 +137,7 @@ function updateMiniMap(mapPane, miniMap, map, player)
 		miniMap:insert(3, pane)
 		miniMap[2].x, miniMap[2]. y = 720, 432
 		
-	elseif map.panes[2] == true and mapPane == "D" then
+	elseif map.panes[3] == true and mapPane == "D" then
 
 		miniMap:remove(5)
 
@@ -147,7 +147,7 @@ function updateMiniMap(mapPane, miniMap, map, player)
 		miniMap:insert(5, pane)
 		miniMap[2].x, miniMap[2]. y = 720, 192
 
-	elseif map.panes[3] == true and mapPane == "U" then
+	elseif map.panes[2] == true and mapPane == "U" then
 
 		miniMap:remove(4)
 

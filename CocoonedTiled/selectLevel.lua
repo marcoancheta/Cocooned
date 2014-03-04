@@ -247,7 +247,7 @@ local function selectLoop(event)
 		map.layer["tiles"]:insert(levels[i])
 		
 		-- Unlock && lock levels
-		if i~=2 then
+		if i~=2 and i ~= 3 then
 		   
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x

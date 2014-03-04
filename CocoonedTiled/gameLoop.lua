@@ -243,8 +243,9 @@ function movePanes()
 	miniMapMechanic.updateMiniMap(tempPane, miniMap, gui.back[1], player1)
 
 	-- delete everything on map
-	map:removeSelf()
 	objects.destroy(mapData)
+	map:removeSelf()
+	
 		
 	-- Pause physics
 	physics.pause()

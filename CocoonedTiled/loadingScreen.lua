@@ -56,13 +56,10 @@ end
 --------------------------------------------------------------------------------
 -- Update Loading - function that updates loading screen
 --------------------------------------------------------------------------------
--- Updated by: 
+-- Updated by: Marco - constantly adding loading screen to front of screen
 --------------------------------------------------------------------------------
-function updateLoading(int)
-	--loadBar[int].isVisible=true
-	--loadBar[int]:toFront()
-	--loadWolf:play()
-	return true
+function updateLoading()
+	--loadingBG:toFront()
 end
 
 --------------------------------------------------------------------------------

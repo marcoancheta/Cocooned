@@ -138,8 +138,8 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:windRepel ()
-		self.imageObject:applyLinearImpulse(2, 2, self.imageObject.x, self.imageObject.y)
+function playerInstance:windRepel (rX, rY)
+		self.imageObject:applyLinearImpulse((self.imageObject.x - (self.imageObject.x+rX))/175, (self.imageObject.y - (self.imageObject.y+rY))/175, self.imageObject.x, self.imageObject.y)
 		self.imageObject.angularVelocity = 0
 end
 

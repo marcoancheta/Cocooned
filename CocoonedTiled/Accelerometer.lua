@@ -126,7 +126,7 @@ local function onAccelerate( event, player, map)
 	end
 
 	print("accel", event.yGravity*10, event.xGravity*10)
-	moveShadows(map, event.xInstant, event.yInstant)
+	--moveShadows(map, event.xInstant, event.yInstant)
 
 	--print("accel")
 	local xGrav=1

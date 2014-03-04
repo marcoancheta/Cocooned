@@ -72,6 +72,8 @@ local function init()
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
 	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/exitPortalSheet.png", 
 				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
+	sheetList["wolf"] = graphics.newImageSheet("mapdata/art/wolfSheet.png", 
+				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8})
 	
 	return true
 end
@@ -83,6 +85,7 @@ end
 --------------------------------------------------------------------------------
 function createAnimations(count, name, objectList)
 	for i = 1, count do
+		print(name)
 		objectList[name .. i] = display.newSprite(sheetList[name], spriteOptions[name])
 		objectList[name .. i].name = name .. i
 		objectList[name .. i]:setSequence("move")
@@ -122,11 +125,11 @@ local function createObjects(objectNumbers, pane)
 		wisp[i].x, wisp[i].y = 100, 100
 	end	
 	-- call function to animate objects
-	for i = 1, 4 do
+	for i = 1, 5 do
 		createAnimations(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
 	-- call function that creates sprites
-	for i = 5, 11 do
+	for i = 6, 12 do
 		createSprites(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
 	end
 

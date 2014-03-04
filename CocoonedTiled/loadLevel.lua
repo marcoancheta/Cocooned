@@ -62,8 +62,8 @@ function createLevel(mapData, ball, player)
 
 	--map.layer["shadows"].sx = map.layer["shadows"].x
 	--map.layer["shadows"].sy = map.layer["shadows"].y
-	map.layer["vWalls"].sx = map.layer["vWalls"].x
-	map.layer["hWalls"].sy = map.layer["hWalls"].y
+	--map.layer["vWalls"].sx = map.layer["vWalls"].x
+	--map.layer["hWalls"].sy = map.layer["hWalls"].y
 
 	-- set players location
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
@@ -75,8 +75,6 @@ function createLevel(mapData, ball, player)
 	-- Add objects to its proper groups
 	gui.back:insert(1, map)
 	map.layer["tiles"]:insert(ball)
-
-
 
 	-- destroy loading screen
 	timer.performWithDelay(1000, deleteClosure)
@@ -95,8 +93,8 @@ function changePane(mapData, player, miniMap)
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
 
-	map.layer["vWalls"].sx = map.layer["vWalls"].x
-	map.layer["hWalls"].sy = map.layer["hWalls"].y
+	--map.layer["vWalls"].sx = map.layer["vWalls"].x
+	--map.layer["hWalls"].sy = map.layer["hWalls"].y
 	
 	objects.main(mapData, map, player)
 

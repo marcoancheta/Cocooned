@@ -49,6 +49,11 @@ function createCollisionDetection(imageObject, player, mapData, map)
       -- disabled collision
       event.contact.isEnabled = false
     end
+
+    if collideObject.name == "wind" then
+      local col = require("Objects." .. collideObject.func)
+      col.collide(collideObject, player, event, mapData, map)
+    end
    
 
   end

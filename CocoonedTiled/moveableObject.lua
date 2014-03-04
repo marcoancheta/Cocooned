@@ -23,7 +23,8 @@ local moveObject = {
 	startY = 0,
 	endX = 0,
 	endY = 0,
-	time = 0
+	time = 0,
+	stop = false
 }
 
 --------------------------------------------------------------------------------
@@ -54,8 +55,12 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function moveObject:endTransition()
+	print("ended transition", self.object.name)
+
 	transition.cancel(foward)
 	transition.cancel(back)
+	self.object:removeSelf()
+	self.obj = nil
 end
 
 --------------------------------------------------------------------------------
@@ -73,9 +78,13 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function moveFoward(obj)
-	obj:rotate(180)
-	--print("moveF:", obj.name)
-	foward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
+	
+	print("moveF:", obj.name)
+	if obj.stop ~= true then
+		foward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
+		obj:rotate(180)
+	end
+	--
 end
 
 --------------------------------------------------------------------------------
@@ -84,9 +93,13 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function moveBackward(obj)
-	obj:rotate(180)
-	--print("moveB:", obj.name)
-	back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveFoward})
+
+	print("moveB:", obj.name)
+	if obj.stop ~= true then
+		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveFoward})
+		obj:rotate(180)
+	end
+	--obj:rotate(180)
 end
 
 

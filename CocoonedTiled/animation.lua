@@ -55,6 +55,10 @@ spriteOptions = {
 	["exitPortal"] = {
 		{frames = {5, 4, 3, 2}, name = "move", time = 500}, 
 		{frames = {1}, name = "still", time = 250}
+	},
+	["wolf"] = {
+		{frames = {1,2,3,4,5,6,7,8}, name = "move", time = 300},
+		{frames = {1}, name = "still", time = 250}
 	}
 }
 
@@ -67,7 +71,9 @@ sheetOptions = {
 	runeSheet = graphics.newImageSheet("mapdata/art/runeAnimation.png", 
 				 {width = 72, height = 72, sheetContentWidth = 432, sheetContentHeight = 216, numFrames = 18}),
 	deathSheet = graphics.newImageSheet("mapdata/art/screenCrack.png", 
-				 {width = 1552, height = 864, sheetContentWidth =3108, sheetContentHeight =1728, numFrames = 4})
+				 {width = 1552, height = 864, sheetContentWidth =3108, sheetContentHeight =1728, numFrames = 4}),
+	wolfSheet = graphics.newImageSheet("mapdata/art/woldSheet.png", 
+				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8}),
 
 }
 
@@ -80,14 +86,15 @@ objectNames = {
 	[1] = "blueAura",
 	[2] = "redAura",
 	[3] = "greenAura",
-	[4] = "exitPortal",
-	[5] = "fish1",
-	[6] = "fish2",
-	[7] = "blueTotem",
-	[8] = "redTotem",
-	[9] = "greenTotem",
-	[10] = "switch",
-	[11] = "switchWall"
+	[4] = "wolf",
+	[5] = "exitPortal",
+	[6] = "fish1",
+	[7] = "fish2",
+	[8] = "blueTotem",
+	[9] = "redTotem",
+	[10] = "greenTotem",
+	[11] = "switch",
+	[12] = "switchWall"
 
 }
 

@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- windWallCollision.lua
+-- wolfCollision.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -11,7 +11,8 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function collide(collideObject, player, event, mapData, map)
-	player:windRepel()
+	event.contact.isEnabled = false
+	
 end
 
 --------------------------------------------------------------------------------
@@ -19,10 +20,10 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local windWallCollision = {
+local wolfCollision = {
 	collide = collide
 }
 
-return windWallCollision
+return wolfCollision
 
--- end of windWallCollision.lua
+-- end of wolfCollision.lua
