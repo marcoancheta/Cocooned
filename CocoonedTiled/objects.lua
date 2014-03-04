@@ -117,7 +117,30 @@ local function createObjects(objectNumbers, pane)
 	-- declare wisp and object list
 	local wisp = {}
 	local objects = {}
-
+	local water = {}
+	
+	-- Water vertices (Applies for png: water4, water5
+	local vertices = {-115,-35,   
+					    0,-40,
+					   40, -50,
+					   75,-35,
+					   50, -15,
+					  180,5, 
+					  160,30,     
+					  145,50, 
+					 -200,50,   
+					 -190,20,
+				     -260,10,  
+					 -135,-25,}
+	
+	-- create all waters in level
+	for i=1, tonumber(objectNumbers.waterCount) do
+		water[i] = display.newPolygon(655, 100, vertices)
+		water[i].isVisible = false
+		water[i]:setFillColor(0, 0, 0, 0)
+		--water[i].strokeWidth = 5
+		--water[i]:setStrokeColor( 0, 1, 1 )
+	end
 	-- create all wisps in level
 	for i=1, tonumber(objectNumbers.wispCount) do
 		wisp[i] = display.newImage("mapdata/art/wisp.png")
@@ -134,7 +157,7 @@ local function createObjects(objectNumbers, pane)
 	end
 
 	-- return object and wisp list
-	return objects, wisp
+	return objects, wisp, water
 end
 
 --------------------------------------------------------------------------------
@@ -148,9 +171,9 @@ local function main(mapData, map, player)
 	-- get which level lua, player is in
 	level = require("levels." .. levelNames[mapData.levelNum])
 	-- get objects and wisps list and create them
-	objects, wisp = createObjects(level, mapData.pane)
+	objects, wisp, water = createObjects(level, mapData.pane)
 	-- load in which pane player is in
-	level.load(mapData.pane, map, rune, objects, wisp)
+	level.load(mapData.pane, map, rune, objects, wisp, water)
 end
 
 

@@ -187,6 +187,31 @@ local function gMObjects(level, objects, map, pane)
 end
 
 --------------------------------------------------------------------------------
+-- geneate water functions
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+-- takes in a start and end index and creates those wisps only
+local function gWater(water, map, startIndex, endIndex)
+	for i=startIndex, endIndex do
+
+	   	-- insertwater into map display group
+		map.layer["water"]:insert(water[i])
+
+		-- add physics body for wisp for collision
+		physics.addBody(water[i], "static", {bounce=0})
+		
+		-- set properties of wisps
+	   	water[i].isVisible = true
+	    water[i].func = "waterCollision"
+	   	water[i].collType = "passThru"
+		water[i].escape = "downRight"
+	    water[i].name = "water"
+
+	end
+end
+
+--------------------------------------------------------------------------------
 -- destroy unused objects function
 --------------------------------------------------------------------------------
 -- Updated by: Marco
@@ -222,6 +247,7 @@ generateObjects = {
 	gObjects = gObjects,
 	gWisps = gWisps,
 	gMObjects = gMObjects,
+	gWater = gWater,
 	destroyObjects = destroyObjects
 }
 

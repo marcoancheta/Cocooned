@@ -26,6 +26,7 @@ local one = {
 	panes = {true,true,false,true,false},
 	-- number of wisps in the level
 	wispCount = 30,
+	waterCount = 10,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -42,7 +43,7 @@ local one = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0,
-		["enemy"] = 0
+		["enemy"] = 0,
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -57,7 +58,7 @@ local one = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0
+		["enemy"] = 0,
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -72,7 +73,7 @@ local one = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0
+		["enemy"] = 0,
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -87,7 +88,7 @@ local one = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0
+		["enemy"] = 0,
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -102,13 +103,14 @@ local one = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0
+		["enemy"] = 0,
 	}
 }
 
 -- variable that holds objects of pane for later use
 local objectList
-local mObjects
+local mObjectslocal 
+
 
 --------------------------------------------------------------------------------
 -- load pane function
@@ -117,7 +119,7 @@ local mObjects
 --------------------------------------------------------------------------------
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
-local function load(pane, map, rune, objects, wisp)
+local function load(pane, map, rune, objects, wisp, water)
 	objectList = objects
 	
 	-- Check which pane
@@ -139,7 +141,15 @@ local function load(pane, map, rune, objects, wisp)
 		wisp[3].x, wisp[3].y = map.tilesToPixels(14, 12)
 		wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
 		]]
-		--generate.gWisps(wisp, map, 1, 4)
+
+		--generateWisps(wisp, map, 1, 4)
+		
+		water[1].x, water[1].y = map.tilesToPixels(20, 22)
+		water[2].x, water[2].y = map.tilesToPixels(20, 3)
+		
+		water[2]:scale(1, -1)
+		generate.gWater(water, map, 1, 2)
+
 	elseif pane == "U" then
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)		
@@ -235,6 +245,11 @@ local function destroyAll()
 	for i=1, #wisp do
 		display.remove(wisp[i])
 		wisp[i] = nil
+	end
+	
+	for i=1, #water do
+		display.remove(water[i])
+		water[i] = nil
 	end
 
 	print("destroying objects", #mObjects)
