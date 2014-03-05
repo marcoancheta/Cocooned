@@ -180,247 +180,163 @@
     <property name="name" value="wall"/>
    </properties>
   </tile>
-  <tile id="18">
-   <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
-    <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
-   </properties>
-  </tile>
   <tile id="19">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="20">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="22">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="25">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="27">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="28">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="29">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="31">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="33">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="36">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="37">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="39">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="40">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="42">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="45">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="46">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="49">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="52">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="54">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="55">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="57">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="58">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="59">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="60">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="63">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
   <tile id="66">
    <properties>
-    <property name="bodyType" value="static"/>
-    <property name="collType" value="wall"/>
     <property name="name" value="wall"/>
-    <property name="physics:enabled" value="true"/>
    </properties>
   </tile>
  </tileset>
  <tileset firstgid="74" name="shadow1" tilewidth="36" tileheight="36">
   <image source="../../art/shadow1.png" trans="000000" width="72" height="72"/>
  </tileset>
- <tileset firstgid="78" name="shadowCenter" tilewidth="36" tileheight="36">
-  <image source="../../art/shadowCenter.png" trans="000000" width="72" height="144"/>
- </tileset>
  <layer name="bg" width="64" height="52">
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20ND6AAAAAAAAAAAAAAAACAVwM0AAAB
+   eJztWVtOxDAM7CE41XL/+yA+qg3BcWbscVJoR4pWrWt3nPhFOY61eDnrilBz/db9MFbWZtV+WnyzXJn7qE0lx942ci9jr8LmFfxn4jITwyr/UQ4MLyvXLWRqwogju58oX+ZMM2BipUdkP0fyz4ntHf4jMcXyifJV5DT7rJKnwq7Fm4lBL/dUvR3xH10tmDyLnOks3qO8e1j7r6wjniyi08pR7gpk40ilg/JRg82HaP9n4n0lqmZtFNH+V4Ud/lfbZ/OvMh5X8+nji+0bFf4z8c7yt/S9a1Y/i938H/9/X3v5Ve0/+/7ZbIXY61efX6vrn1VzGP6vRjabN7LyLCr4tf7fEY//P3/vhsf/92+k/jNyBVc1v/MZ5PsG0u9Wzr/s+5Ee1z/vXSN/nyuRff/u+TGL3fzv6D9Tz3bXPzUfdp616osS7PeF6nm8x+oZYvfMUh3vf+H9O7+/XuH780zuLZUOygfFjAPDZ/R/DM9/Vmclb7YfsLKIzgmUc1UcMfsc9V9R7yr9t+JDkf+HYfuK/o/uo7nD1golz1aOnBdzphkwsYI8E6kjI9vImVb5H+UYmVNGtlFdRf5Xcqy0rej/1RwR26r+c9pj7qM2lRxbROYfDxX+qzlWIjqb/hdEZ+oHNfgC+O2zqg==
   </data>
  </layer>
- <layer name="vWalls" width="64" height="52">
+ <layer name="bg2" width="64" height="52">
   <data encoding="base64" compression="zlib">
-   eJztWkEOwyAM2xun/f8tO1XqEJA4jglr60ulQoKdltAGXq+1eIP3q9HjxXD9gPc9yOZ4Ro8Xw1WhP5uj0vdV9Hver14fRL93jCz9KF+LH/sMLPuR9pFtNl8rBkr9M+0Rf572kc0oBir9Ee0zf972mZ137iDr/8ie4cm0W7aefMXkf0a7ZwxPvrHsozmGyXVHu4Ws+WjlvEhOZHId+16gYPJ+RP9O2g9457sSVdoPVMagWvuBihiotbd6MvJ+FjzaUf4tWv+eWK+Igfe5R/hn2CtjgLzzVfqPvtkxQOd7pf5I/2x/CH/Pf8cV9b8nbXfAp7neDY/+3+vd8Oj/vZ7Bfj9mAx3fwx/5377i+rfSnkU1f8Re8W+KflNX6Vf+lyMxqNC/oh7D1thVWFmL2qHueEZFHW6XGFTWIKtjsEP9tSoGzF5U5PwTs9+EILq+tD4U+z9Z5wyU5xU8cyK6/5n1nKP7bBaitWlk7IwYKPSPtCvOP7ExyNaPnkFCMPMbjQGq38rLqvlk2VsxyDqTNOrP5Dp27HO76uzVzA+T69jzT70+UVsPen4Y34pckc1R6fvf9GdDtVb8C+6u/8Fe+ALtImmD
-  </data>
- </layer>
- <layer name="hWalls" width="64" height="52">
-  <data encoding="base64" compression="zlib">
-   eJztmVESwiAMRHtGvf9dquPwU4tuKEmWdN+Mox9KthgSWLYtlsfr9Ty8t8+MnOll07qCRlEHNL8seTmawzNzfURvJh7zOSu+Nwzz/yZDB8uzN3p6PNY/27M3InRFxhjZn3nq+zd2L39m1j9kLjLqbPSauPpfzPoNosULhjqUrUH9v2b/b+OjdTNyDix6Ir2FKv3/Cpn9n4Vq56zqIPuNs3rouc9ENaJ7dfmDQgjxjaX+j9ZfL42q/4KNO+9/q5x/2Lxfa4zo8z+b/xFJRf8L5c7+Z3b8TA1V7z9++RyoH5x5/5XhzVh0so49g2p91kJP14z1j8bKolL/X+XuGYnt7U0w5CFr/z9+z7r+2c5dd2YF72wFjeJDlGcsBMIObJ+Eww==
+   eJztmVuuwzAIRLuH7qp3//u5X5Fa5BAeM+CmIFlq1ABzHBvbyeNRa39KexZrsdjrpEW1Hv7SMvxojTK2jJPlX/lm+ZEambF/id8zLjM1AcVv1evhzzyDTJ5ITcg815Ufiz9a61D8Vj8mP1InK+5qnfM802/it47HCBNqbbfwW1u0H6P8Ft3a3lK2jO3IX7l3PtvDyv+9c5ox3hiGmo8IDcfvzrNTR//vdFbs0MPMF5l/L3GN1BfVE52f8v6sf9a69Q//8MtrbX6x+Vf5r+737K1X/tp7CfZ+4D1uJL/GuNtaWmXDP/wHv3aWuasN/ye/t37KWFX1P5Lfwijjfdv6f6V39n99/lnr1h/xR9bULv3WenZWX1CG0MN+XzLvv+6bb5W/cnztmH/Gn/6/1nb9/nGlAaFH489+/7tacyr7sZIfoSuTJ3O2sORG1Tsmv9XPO/+9fRXJzYybGbcd/JZn4NnvsvijGr16tNgWY/Bb7mPWzGzs7Pyv0MiMjZzTZ74Ve6KoMfhRa2SFofnvYL/OP9Zj/0Rvo6k=
   </data>
  </layer>
  <layer name="tiles" width="64" height="52">
   <data encoding="base64" compression="zlib">
-   eJztmutKA0EMhfs0QkURKgii4Pu/lQ0ysIRcTpLJztb2wPyp7my+s3PJXE6nffVyLa9Ced85DlQU74WVSqxvyu8fhTolT2f5KcX7VKjvU/m9wi/FWKnPq/ve+c8nrH1Ru3xm5Vv537Pwv+g7pDoz/FTXFytWvF58Wl9H5TFo7KSMn9F4PQ86+S32TH2kTLyWB138GXarvqFsvJoHkTaI9r0sO6mLn4SOiVoMyLsr7Na7h6TvFRk/EA+y/B77Ngfi7cgby1ERn5f/eR5k+BH2KltEHqPVjqz5KvPd9mYfQvt7p1axD630YDX70AoPutn5mnfGuD9LCDtfD0dj42Mxst7bwwP0u/M5JroWyvCTOj2ItPlV/KQOD6L9fSU/SdvjyCr6/gg/su7Y5jP09x+hzMwzuby83MuxrHVYdY16qxpt9MF/n3rw/+ne+ZE9qu0+tjb+U5lxPiSJ57Pe+C/Fz5+35ig+X0bn81lnD0Od8z/y/Gr+aB9dyd+xNo3m1Kv4O9flEQ+q/HxMRJj22I9BPcjEX9Gee1FH2HfcasU+3FE8WLkHudqDI+y/rvIAOY/hd4a83FB7xjt3m+mBdI/oIvxWOY/R5lIrx0HPmzTP0b3syr0eEtInMvykWd/ZymUq/Oh4kOUnzfCgg19jl/pT9b5O1YPZ/NZ3r/YnLW+teGDxj/N9dLzw2nwXP8nzQLtnG52zNQakv3fykywPZp1BSAzoWBdpT5G7h/wdUp2d/JU9Q61NVOqUnp3FL91LqeS9Hfxj7ug8g5qlDv5bknbP6ajf66H/rV+RE2YQ
+   eJztWttqwzAM7dcMNjYGHQxG9//ftZliSIVkHVmXpo0P+CVOZB1bNzs+nWrx/t8+mPZVrAeKpu+ZNI+un8Lzb4dMbk6j5pPT98Uh70d47uHP6eiRp8le/DE0u3wj7Vd495V5F7Vhbk5n+Dd9L6Rx+qL8JV9HgXLg+M/MJ6pvk43Ewyz+NN5JNoXK65jVV7KHLP5SDJmV1xHN32KDqO817I0/6g8jHUZjz9o7OnYHt15c0+LIKD7O8NfWm84PtSPNnqzQ5rGavzfOWOGxo1H+n123av6UX/XeJSoeRCGq1kQxG/+z8Gz86Z5Xs+9sf+j2jsYD6h9WfWg8se73ou3BGt/o+FZ9Fv9bWPlH+6d3/qP5a/Ehm7/m3xb+yL5jG9+k/ow6kxufq6Gs/dsYXV077QXdRhf/Y2Lxv+Lo/JEzqu059kXoj/o/xEHLd71/pP/2+9E+vIHmS5rPtXwXXf/R/K/lO2/9o/G3fu9Fdf23+N/Cyv/R63/Nvyiyz6Ms5+v9fYv+XlSfR+0tZx+N/73PX+99/rzOX8fg7gxpsWvmm44o/tw9ojPzzPM/Rpq70Tda/qv4b2lBNX8Unv+WI9AztJF9zPC35n8JWfwl3Tl/irj/NKtnNX+v3Ur6ZvGndibZGmrvWfwRf7DcpxmB44DWX1n8kXGiakSPbNSeGjzrtVf+qLwMmVH8uXspnno/g3+0jpnIuiv5KJDuOe11vRaeG38JiGZr
+  </data>
+ </layer>
+ <layer name="shadow" width="64" height="52">
+  <data encoding="base64" compression="zlib">
+   eJztm0uOwzAMQ32+6f3vMyi6aiHJokQqAWICWbSJLT7Lv6TpWkfT+jOOt16XOYrF9qrgV7anwqulu/Jb9Sj4O7LqvAO/1dctr9412bZitanlgz3WJ/irc0zFa1RvNy9e+Z3PDn/G09TaVeX3xODPCu3T2bES1bGTIk9ef7COtWIm63orhoLfa/9dDtHxUMlpZbyjc3mVH1Wl7K4Mg5+lbBt2y1wldDwo+K9sG/Z4YHk44gmdz9X9Ac1318/h/xa6bij4O9cffm68XV9Uz8nM+Lv1Nru3Uq1J3fjeuVdwPlN+54+lbvwM/xN1+D96Or+lJ7TJm9+bG6I5xtLk/q8S3+Ks8mfWHSV/Jb7HH8XzPmfWOgV/J353/4ryKPkr13efe13N3xXCX9nPTe7/1orrR8d6pvyT+Cu6W39XS5lvNPZa8+1/+Pfn0b3R5H7KE7rPQutZi8+P+K36RvnZv39GYvMzPDDvLZnzzBS/973HEOVrkp9dL4OfKXQe8cpk86LIV8fjNH9Xk/yoh0w5JHbHb9VjVQr+6HmUymOmDlY/2ql6j6b0+HR+tiKvd/3/A1Pee5G/7ztO6R+SoObt
+  </data>
+ </layer>
+ <layer name="shadow2" width="64" height="52">
+  <data encoding="base64" compression="zlib">
+   eJztmFEOgzAMQznfuP99+Jk0DQGtGzspYEtomho7eZ22wpZlHq3VAwD6fC+ml80fmbGVMxs/e0Zltvn7vUjdjPzRGSL8I3Wj8575zK/hZ8+pzo3URjMQn/I3o7Wm2kOGD81h82fNzcrJ5mdx9Srr/O/1ZPO7f23/at69ns7P/r5GheZH66v50bx1+X+eNL/5lfxH9U/iZ69H1crf859l9GQ9Veb/vZr/fTL/9VpkT6r3s2d+hB8979j8I/2P3u+v0byeeZli3L9l+5kyf+78jP5KqZ//UWWfobOd2eavncf7fx/+EW/1/w1ov6v1s7URD6qsfTQ/lz9Si/hUuezau/Cr7jszPifEk82vrmt5lP1YfZS/ZVnn/5v42ZnKe6LZ+JE+1criv5vezm/lawPQ6Hyl
   </data>
  </layer>
 </map>

@@ -41,7 +41,7 @@ local one = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0,
+		["switchWall"] = 1,
 		["exitPortal"] = 0,
 		["enemy"] = 0,
 	},
@@ -143,13 +143,7 @@ local function load(pane, map, rune, objects, wisp, water)
 		]]
 
 		--generateWisps(wisp, map, 1, 4)
-		
-		water[1].x, water[1].y = map.tilesToPixels(20, 22)
-		water[2].x, water[2].y = map.tilesToPixels(20, 3)
-		
-		water[2]:scale(1, -1)
 		generate.gWater(water, map, 1, 2)
-
 	elseif pane == "U" then
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)		

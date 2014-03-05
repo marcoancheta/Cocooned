@@ -272,7 +272,7 @@ end
 --------------------------------------------------------------------------------
 -- Core Game Loop
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Marco - added selectLevel.clean in gameStart if statement 
 --------------------------------------------------------------------------------
 local function gameLoop(event)
 	---------------------------------
@@ -281,7 +281,6 @@ local function gameLoop(event)
 	if gameData.selectLevel then
 		sound.playEventSound(event, sound.selectMapSound)	
 		selectLevel.selectLoop(event)	
-		gameData.inLevelSelector = true
 		gameData.selectLevel = false
 	end
 
@@ -289,7 +288,7 @@ local function gameLoop(event)
 		mapData.levelNum = selectLevel.levelNum
 		mapData.pane = selectLevel.pane
 		mapData.version = selectLevel.version
-		Runtime:removeEventListener("enterFrame", selectLevel.setCameratoPlayer)
+		Runtime:removeEventListener("enterFrame", selectLevel.camera)
 		gameData.inLevelSelector = false
 	end
 
@@ -297,6 +296,10 @@ local function gameLoop(event)
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
 	if gameData.gameStart then	
+
+		-- full deletes select level screen and event listeners
+		selectLevel.clean()
+		
 		-- Stop BGM
 		--sound.stopBGM(event, sound.mainmenuSound)
 		-- Start physics
@@ -312,7 +315,7 @@ local function gameLoop(event)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		gui.back:addEventListener("touch", swipeMechanics)
 		gui.back:addEventListener("tap", tapMechanic)
-		menu.ingameOptionsbutton(event)
+		menu.ingameOptionsbutton(event,player1)
 		
 		-- Re-evaluate gameData booleans
 		gameData.BGM = 2
@@ -429,7 +432,7 @@ end
 --------------------------------------------------------------------------------
 -- Core Menu Loop
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function menuLoop(event)
 	-------------------
@@ -476,7 +479,7 @@ local function menuLoop(event)
 		-- Clear on screen objects
 		--gui:removeSelf()
 		-- Go to in-game option menu
-		menu.ingameMenu(event)
+		menu.ingameMenu(event, player1)
 		
 		-- Remove object listeners
 		gui.back:removeEventListener("touch", swipeMechanics)
@@ -502,10 +505,10 @@ local function menuLoop(event)
 
 		-- Add object listeners
 		gui.back:addEventListener("touch", swipeMechanics)
-		gui.back:removeEventListener("tap", tapMechanic)
+		gui.back:addEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
 		Runtime:addEventListener("accelerometer", controlMovement)
-		Runtime:removeEventListener("enterFrame", speedUp)
+		Runtime:addEventListener("enterFrame", speedUp)
 		
 		-- Re-evaluate gameData booleans
 		gameData.inGameOptions = false
@@ -547,7 +550,7 @@ Runtime:addEventListener("touch", touch)
 --------------------------------------------------------------------------------
 -- Call gameLoop && menuLoop every 30 fps
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 Runtime:addEventListener("enterFrame", gameLoop)
 Runtime:addEventListener("enterFrame", menuLoop)
@@ -558,12 +561,14 @@ Runtime:addEventListener("enterFrame", menuLoop)
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 
 -- debug text object
-local textObject = display.newText("test", 1200, 100, native.systemFont, 48)
+local textObject = display.newText("test", 220, 750, native.systemFont, 48)
+local fpsText = display.newText("fps", 100, 800, native.systemFont, 48)
 textObject:setFillColor(0,1,0)
+fpsText:setFillColor(0,1,0)
 
 local prevTextMem = 0
 local prevMemCount = 0
@@ -573,7 +578,9 @@ collectgarbage("collect")
 local memCount = collectgarbage("count")
 	if (prevMemCount ~= memCount) then
 		--print( "MemUsage: " .. memCount)
-		textObject.text = memCount
+		textObject.text = "Mem:" .. " " .. memCount
+		fpsText.text = "FPS:" .. " " .. display.fps
+		fpsText:toFront()
 		textObject:toFront()
 		prevMemCount = memCount
 	end
@@ -583,7 +590,7 @@ local memCount = collectgarbage("count")
 	if (prevTextMem ~= textMem) then
 		prevTextMem = textMem
 	end
-	
+
 	-- Display fps
 	--print(display.fps)
 end

@@ -7,7 +7,7 @@
 -- lua file that holds functionailty for level select system
 
 --------------------------------------------------------------------------------
--- Variables
+-- Load in Classes [Go to gameLoop.lua for class details]
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
@@ -18,34 +18,37 @@ local dusk = require("Dusk.Dusk")
 local gameData = require("gameData")
 local objects = require("objects")
 local loading = require("loadingScreen")
+local player = require("player")
+local movementMechanic = require("Accelerometer")
+local movement = require("movement")
 local goals = require("goals")
 
 local loaded = 0
 
+--------------------------------------------------------------------------------
+-- Local Variables
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+
+-- Local mapData array clone
 local selectLevel = {
 	levelNum = 0,
 	pane = "M",
-	version = 0,
+	version = 0
 }
 
--- Local Variables
-local levelGUI
-local dPad
-local map, bg
-local player
-local silKipcha
-local playerSheet
-local cameraTRK
-
+-- Local Arrays
 local kCircle = {} -- Color Circle Array
 local levels = {}  -- Level Indicator Array
 local lockedLevels = {}
 
--- Local Booleans
-local trackPlayer = true
-local trackInvisibleBoat = false
-local allowPlay = true
-
+-- Local Variables
+local levelGUI
+local map, bg
+local player1, ball
+local player1Sheet
+local loaded = 0
 
 -- loading screen functions
 local levelNumber = -1 -- -1 for level select (used for cutscenes)
@@ -53,82 +56,118 @@ local myClosure = function() loaded = loaded + 1 return loading.updateLoading( l
 local deleteClosure = function() return loading.deleteLoading(levelNumber) end
 
 --------------------------------------------------------------------------------
--- Stop Animation - function that stops animation of player
---------------------------------------------------------------------------------
--- Updated by: 
---------------------------------------------------------------------------------
-local function stopAnimation(event)
-	player:setSequence("still")
-	player:play()
-	allowPlay = true
-end
-
---------------------------------------------------------------------------------
--- New Button - function that creates new button
+-- Ball Camera
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function newButton(parent) 
-	local butt = display.newRoundedRect(parent, 0, 0, 60, 60, 10) 
-	      butt:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862) 
-		  butt:setStrokeColor(1, 1, 1)
-		  butt.strokeWidth = 3
-   return butt 
+local function camera(event)
+	-- Set Camera to Ball
+	map.setCameraFocus(ball)
+	map.setTrackingLevel(0.1)
 end
 
 --------------------------------------------------------------------------------
--- Point in Rect - function that checks if point is in rect
+-- Local Collision Detection: Ball vs Portals
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function pointInRect(point, rect) 
-	return (point.x <= rect.contentBounds.xMax) and 
-		   (point.x >= rect.contentBounds.xMin) and 
-		   (point.y <= rect.contentBounds.yMax) and 
-		   (point.y >= rect.contentBounds.yMin) 
+local function onLocalCollision(self, event)
+	for i=1, #lvlNumber do
+		if event.other.x == kCircle[i].x and event.other.y == kCircle[i].y then
+			event.other.isSensor = true
+						
+			local pause = function() physics.start(); event.other.isBodyActive = false; self:setSequence("move"); end
+			local begin = function() event.other.isBodyActive = true; end
+			
+			local trans = transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() self:setSequence("still"); physics.pause(); timer.performWithDelay(100, pause); 
+																														timer.performWithDelay(5000, begin); 
+												end})
+			
+			selectLevel.levelNum = kCircle[i].name
+	
+			goals.refresh()
+			goals.findGoals(selectLevel)
+					
+			-- Level unlocked? Then create play button, else do nothing.
+			if i == 2 then
+				play.isVisible = true
+				play:toFront()
+			else
+				play.isVisible = false
+			end
+			
+			print("done6")
+		end
+	end
 end
 
 --------------------------------------------------------------------------------
--- Set Camera to Player - function that makes camera follow player object
+-- Tap Once - function is called when player1 taps screen
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function setCameratoPlayer(event)
-	map.updateView()
-	if trackPlayer then
-		trackInvisibleBoat = false
-		-- Set up map camera
-		map.setCameraFocus(player)
-		map.setTrackingLevel(0.1)
-
-		movex = cameraTRK.x - player.x
-		movey = cameraTRK.y - player.y
-
-		bg.x = bg.x + movex
-		bg.y = bg.y + movey
+local function tapOnce(event)
+	-- Kipcha Play button detection
+	-- If player1 taps silhouette kipcha, start game
+	if event.target.name == play.name then
+		gameData.inLevelSelector = true
+	
+		------------------------------------------------------------
+		-- remove all objects
+		------------------------------------------------------------
+		transition.cancel()
+		--timer.cancel(ball)
 		
-		cameraTRK.x = player.x
-		cameraTRK.y = player.y
-	elseif trackInvisibleBoat then
-		trackPlayer = false
-		map.setCameraFocus(cameraTRK)
-		map.setTrackingLevel(0.1)
-	end
-	
-	local vx, vy = cameraTRK:getLinearVelocity()
-
-	--movement of bg
-	if vx < 0 then	bg.x = bg.x + 8.25
-	elseif vx > 0 then bg.x = bg.x - 8.25
-	elseif vy < 0 then bg.y = bg.y + 8.25
-	elseif vy > 0 then bg.y = bg.y - 8.25
-	end
-	
+		-- Destroy goals map
+		goals.destroyGoals()
+				
+		gameData.gameStart = true
+		print("done5")
+	end		
 end
 
 --------------------------------------------------------------------------------
--- Select Loop - Select Level Loop
+-- Control Mechanics - controls movement for player1
 --------------------------------------------------------------------------------
+-- Updated by: Derrick [Derived from Andrews's controlMovement() in gameLoop.lua]
+--------------------------------------------------------------------------------
+local function controlMovement(event)
+ 	--ball:setSequence("move")
+	--ball:play()
+	
+	-- call accelerometer to get data
+	physicsParam = movementMechanic.onAccelerate(event, player1, map)
+
+	-- set player1's X and Y gravity times the player1's curse
+	player1.xGrav = physicsParam.xGrav
+	player1.yGrav = physicsParam.yGrav
+				
+	movement.moveAndAnimate(player1)
+	--print("done4")
+end
+
+
+--------------------------------------------------------------------------------
+-- Create play button and level details
+---------------------------------------------------	-----------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+local function createLevelPlay()
+	-- Create play button
+	play = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
+	play.x = 1280
+	play.y =150
+	play:scale(2, 2)
+	play.name = "playButton"
+	play.isVisible = false
+	
+	play:addEventListener("tap", tapOnce)
+	print("done3")
+end
+
+--------------------------------------------------------------------------------
+-- Select Level Core Loop
+---------------------------------------------------	-----------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function selectLoop(event)
@@ -152,7 +191,7 @@ local function selectLoop(event)
 	
 	-- Load Map
 	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
-
+	
 	bg = display.newImage("mapdata/art/bgLS.png", 0, 0, true)
 	bg.x = 1930
 	bg.y = 1150
@@ -166,39 +205,15 @@ local function selectLoop(event)
 	player.speed = 250
 	player.title = "player"
 	player:scale(0.8, 0.8)
+end
 
-	-- Create play button
-	silKipcha = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
-	silKipcha.x = 1300
-	silKipcha.y = 725
-	silKipcha:scale(1.5, 1.5)
-	silKipcha.name = "sillykipchatrixareforkids"
 
-	-- Create invisible camera tracker
-	cameraTRK = display.newImage("mapdata/art/invisibleBoat.png", 0, 0, true)
-	cameraTRK.speed = 500
-	
-	-- Create dPad
-	dPad.result = "n"
-	dPad.prevResult = "n"
-	
-	-- Create dPad buttons and position them
-	dPad.l = newButton(dPad); dPad.l.x, dPad.l.y = -60, 0 
-	dPad.r = newButton(dPad); dPad.r.x, dPad.r.y = 60, 0
-	dPad.u = newButton(dPad); dPad.u.x, dPad.u.y = 0, -60 
-	dPad.d = newButton(dPad); dPad.d.x, dPad.d.y = 0, 60
-	
-	-- Assign names to dPad
-	dPad.l.name = "l"
-	dPad.r.name = "r"
-	dPad.u.name = "u"
-	dPad.d.name = "d"
-	
-	-- Position dPad buttons
-	dPad.x = display.screenOriginX + dPad.contentWidth * 0.5 + 40
-	dPad.y = display.contentHeight - dPad.contentHeight * 0.5 - 40
-
-	
+--------------------------------------------------------------------------------
+-- Create portals - Assign portals names and positions
+---------------------------------------------------	-----------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+local function createPortals(map)
 	-- Create level numbers
 	lvlNumber = {	
 		[1] = "T", [2] = "1", [3] = "2",
@@ -212,24 +227,24 @@ local function selectLoop(event)
 	-- Level numbers' position
 	textPos = {
 		--      X,         Y,
-		[1] = 150,   [2] = 205,  -- T
-		[3] = 420,  [4] = 205,  -- 1
-		[5] = 690,  [6] = 205,  -- 2
-		[7] = 960,  [8] = 205,  -- 3
-		[9] = 1225, [10] = 205, -- 4
-		[11] = 420, [12] = 420, -- 5
-		[13] = 690, [14] = 420, -- 6
-		[15] = 960, [16] = 420, -- 7
-		[17] = 1225, [18] = 420, -- 8
-		[19] = 420, [20] = 635,  -- 9
-		[21] = 690, [22] = 635, -- 10
-		[23] = 960, [24] = 635,  -- 11
-		[25] = 1225, [26] = 635,  -- 12
-		[27] = 420, [28] = 850,  -- 13
-		[29] = 690, [30] = 850,  -- 14
-		[31] = 960, [32] = 850,  -- 15
-		[33] = 1225, [34] = 850,  -- F
-		[35] = 150, [36] = 420   -- Bonus
+		[1] = 750,   [2] = 800,  -- T
+		[3] = -75,  [4] = 150,  -- 1 [3] = -250,  [4] = 305,  -- 1
+		[5] = -250,  [6] = 305,  -- 2[ 5] = -75,  [6] = 150,  -- 2
+		[7] = 770,  [8] = 140,  -- 3
+		[9] = 1600, [10] = 170, -- 4
+		[11] = 1800, [12] = 300, -- 5
+		[13] = 1750, [14] = 650, -- 6
+		[15] = 1950, [16] = 900, -- 7
+		[17] = 1750, [18] = 1100, -- 8
+		[19] = 1850, [20] = 1500,  -- 9
+		[21] = 1600, [22] = 1650, -- 10
+		[23] = 770, [24] = 1700,  -- 11
+		[25] = -60, [26] = 1650,  -- 12
+		[27] = -250, [28] = 1500,  -- 13
+		[29] = -200, [30] = 1100,  -- 14
+		[31] = -380, [32] = 850,  -- 15
+		[33] = 750, [34] = 1100,  -- F
+		[35] = -200, [36] = 700  -- Bonus
 	}
 		
 	for i=1, #lvlNumber do
@@ -239,6 +254,7 @@ local function selectLoop(event)
 		kCircle[i]:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862)
 		kCircle[i]:setStrokeColor(1, 1, 1)
 		kCircle[i].strokeWidth = 5
+		physics.addBody(kCircle[i], "static", {bounce=0})
 
 		-- Along with its text indicator (levels[array])
 		levels[i] = display.newText(lvlNumber[i], textPos[2*i-1]+ 500, textPos[2*i], native.Systemfont, 35)
@@ -247,197 +263,176 @@ local function selectLoop(event)
 		map.layer["tiles"]:insert(levels[i])
 		
 		-- Unlock && lock levels
+
 		if i~=2 and i ~= 3 then
-		   
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x
 			lockedLevels[i].y = kCircle[i].y
 			lockedLevels[i]:scale(0.2, 0.2)
 			map.layer["tiles"]:insert(lockedLevels[i])
 			kCircle[i].isAwake = false
-		else
+		else		
 			kCircle[i].isAwake = true
 		end
 	end
+	
+	-- Loading Screen delay
 	timer.performWithDelay(1, myClosure)
-	-- Add physics
-	physics.addBody(player, "static", {radius = 0.1}) -- to player
-	physics.addBody(cameraTRK, "dynamic", {radius = 0.1}) -- to invisible camera
 	
-	-- Turn off collision for invisible camera
-	cameraTRK.isSensor = true
-	cameraTRK.isAwake = true
-	
-	-- Set player start position
-	player.x = textPos[1] + 500
-	player.y = textPos[1] + 175
-	
-	-- Insert objects/groups to their proper display group
-	levelGUI:insert(levelGUI.back)
-	levelGUI:insert(levelGUI.front)
-	levelGUI.back:insert(map)
-	levelGUI.back:insert(bg)
-	levelGUI.front:insert(silKipcha)
-	levelGUI.front:insert(dPad)
-
-	bg:toBack()
-	selectLevel.levelNum = kCircle[1].name
-	kCircle[1].isAwake = true
-	kCircle[1]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
-	-- Insert objects into map layer "tiles"
-	map.layer["tiles"]:insert(player)
-	map.layer["tiles"]:insert(cameraTRK)
-	
-	for i=1, #kCircle do
-		kCircle[i]:addEventListener("tap", tapOnce)
-	end
-	
-	silKipcha:addEventListener("tap", tapOnce)
-	dPad:addEventListener("touch", tapOnce)
-	Runtime:addEventListener("enterFrame", setCameratoPlayer)
-
-	timer.performWithDelay(2000, deleteClosure)
+	print("done 2")
 end
-	
 
 --------------------------------------------------------------------------------
--- Tap Once - function is called when player taps screen
+-- Load Map - loads start of level
+--------------------------------------------------------------------------------
+-- Updated by: Derrick [Derived from Marco's loadSelector() in gameLoop.lua]
+--------------------------------------------------------------------------------
+local function loadSelector()
+
+	physics.setScale(45)
+	
+	-- Initialize player(s)
+	player1 = player.create()
+	system.setAccelerometerInterval(30)
+
+	-- Create player sprite sheet
+	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
+			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
+	
+	-- Create player/ball object to map
+	player1.imageObject = display.newSprite(playerSheet, spriteOptions.player)
+	ball = player1.imageObject
+	ball.name = "player"
+	ball:setSequence("move")
+
+	-- add physics to ball
+	physics.addBody(ball, {radius = 38, bounce = .25})
+	physics.setGravity(0,0)
+	ball.linearDamping = 1.5
+	ball.density = .3
+	ball.x = 800
+	ball.y = 500
+
+	-- Create levelSelector Background
+	bg = display.newImage("mapdata/art/bgLS.png", 0, 0, true)
+	bg.x = 720
+	bg.y = 450
+	bg:scale(0.8, 0.8)
+	
+	-- Load in map
+	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
+	
+	-- Callers:
+	--		+ createPortals [create level portals]]
+	createPortals(map)
+	createLevelPlay()
+	
+	-- Insert ball to map last
+	map.layer["tiles"]:insert(ball)
+	map.layer["vWalls"].sx = map.layer["vWalls"].x
+	map.layer["hWalls"].sy = map.layer["hWalls"].y
+	
+	ball.collision = onLocalCollision
+	ball:addEventListener("collision", ball)
+	Runtime:addEventListener("accelerometer", controlMovement)
+	Runtime:addEventListener("enterFrame", camera)
+	
+	print("done")
+end
+
+
+--------------------------------------------------------------------------------
+-- Select Loop - Select Level Loop
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-function tapOnce(event)
-	goals.refresh()
-	
-	-- kCircles button detection
-	for i=1, #kCircle do
-		if event.target.name == kCircle[i].name then
-			trackPlayer = true
-			if event.numTaps == 1 and kCircle[i].isAwake then
-								
-				selectLevel.levelNum = kCircle[i].name
-				allowPlay = false
-				-- Move kipcha to the selected circle
-				transition.to(player, {time = 1000, x = kCircle[i].x, y = kCircle[i].y, onComplete=stopAnimation})
-				player.rotation = 90
-				player:setSequence("move")
-				player:play()
-			
-				kCircle[i]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
-					
-				goals.findGoals(selectLevel)
-					
-				-- Send signal to refresh sent mapData
-				gameData.inLevelSelector = true
-			end
-		else
-			for j=1, #kCircle do
-				if kCircle[j].name ~= event.target.name then
-					kCircle[j]:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862)
-				end
-			end
-		end
-	end
-	
-	-- dPad Button detection
-	if event.target.name == dPad.l.name or dPad.r.name or dPad.u.name or dPad.d.name then
-		if event.target.isFocus or "began" == event.phase then
-			dPad.prevResult = dPad.result
-			-- Set result according to where touch is
-					if pointInRect(event, dPad.l) then dPad.result = "l"
-				elseif pointInRect(event, dPad.r) then dPad.result = "r"
-				elseif pointInRect(event, dPad.u) then dPad.result = "u"
-				elseif pointInRect(event, dPad.d) then dPad.result = "d"
-			end
-		end
+local function selectLoop(event)
+	-- Create GUI display levels
+	levelGUI = display.newGroup()
+	levelGUI.front = display.newGroup()
+	levelGUI.back = display.newGroup()
+	levelGUI:insert(levelGUI.back)
+	levelGUI:insert(levelGUI.front)
 
-		-- Just a generic touch listener
-		if "began" == event.phase then
-			display.getCurrentStage():setFocus(event.target)
-			event.target.isFocus = true
-			trackPlayer = false
-			trackInvisibleBoat = true	
-		elseif event.target.isFocus then
-			if "ended" == event.phase or "cancelled" == event.phase then
-				display.getCurrentStage():setFocus(nil)
-				event.target.isFocus = false
-				dPad.result = "n"
-				dPad.l.alpha = 1; dPad.r.alpha = 1; 
-				dPad.u.alpha = 1; dPad.d.alpha = 1
-			end
-		end
-
-		-- Did the direction change?
-		if dPad.prevResult ~= dPad.result then 
-			dPad.changed = true 
-		end
+	-- Loading screen 
+	loaded = 0 --current loading checkpoint, max is 6
+	loading.loadingInit() -- initializes loading screen assets and displays them on top
+	
+	--start physics when everything is finished loading
+	physics.start()
+	physics.setGravity(0, 0)
+	
+	-- Callers
+	loadSelector()
 		
-		-- Set player velocity according to movement result
-		if dPad.result == "l" then cameraTRK:setLinearVelocity(-cameraTRK.speed, 0)
-		elseif dPad.result == "r" then cameraTRK:setLinearVelocity(cameraTRK.speed, 0)
-		elseif dPad.result == "u" then cameraTRK:setLinearVelocity(0, -cameraTRK.speed)
-		elseif dPad.result == "d" then cameraTRK:setLinearVelocity(0, cameraTRK.speed)
-		elseif dPad.result == "n" then cameraTRK:setLinearVelocity(0, 0)
-		end
-		
-	end
+	levelGUI.back:insert(bg)
+	levelGUI.back:insert(map)
+				
+	-- Loading Screen delay
+	timer.performWithDelay(2000, deleteClosure)
 	
-	
-	-- Kipcha Play button detection
-	if allowPlay then
-		-- If player taps silhouette kipcha, start game
-		if event.target.name == silKipcha.name then
-
-			------------------------------------------------------------
-			-- remove all objects
-			------------------------------------------------------------
-			-- Destroy goals map
-			goals.destroyGoals()
-			
-			trackPlayer = true
-			trackInvisibleBoat = false
-
-			-- remove eventListeners		
-			silKipcha:removeEventListener("tap", tapOnce)
-			Runtime:removeEventListener("enterFrame", setCameratoPlayer)
-			dPad:removeEventListener("touch", tapOnce)
-			
-			--	Clean up on-screen items
-			levelGUI:removeSelf()
-			levelGUI = nil
-			dPad:removeSelf()
-			dPad = nil
-			player:removeSelf()
-			player = nil
-			cameraTRK:removeSelf()
-			cameraTRK = nil
-			silKipcha:removeSelf()
-			silKipcha = nil
-			
-			-- remove and destroy all circles
-			for p=1, #kCircle do
-				display.remove(kCircle[p])
-				display.remove(levels[p])
-				display.remove(lockedLevels[p])
-				kCircle[p]:removeEventListener("tap", tapOnce)
-				map.layer["tiles"]:remove(kCircle[p])
-				map.layer["tiles"]:remove(levels[p])
-			end
-			kCircle = nil
-
-			-- destroy map object
-			map.destroy()
-			map:removeSelf()
-			map = nil
-
-			physics.stop()
-			
-			-- Send data to start game
-			gameData.gameStart = true
-		end
-	end
-		
-	return true
+	print("Loop1")
 end
+
+--------------------------------------------------------------------------------
+-- Clean Up - Delete 
+--------------------------------------------------------------------------------
+-- Updated by: Marco - moved to end of script so it can see everything for removal
+--------------------------------------------------------------------------------
+local function clean()
+	transition.cancel()
+	--timer.cancel(ball)
+
+	-- Disable event listeners
+	Runtime:removeEventListener("accelerometer", controlMovement)
+	ball:removeEventListener("collision", ball)
+	Runtime:removeEventListener("enterFrame", camera)
+	
+	-- Disable on-screen items
+	levelGUI:removeSelf()
+	levelGUI = nil
+	
+	ball:removeSelf()
+	ball = nil
+
+	player1:destroy()
+	player1 = nil
+		
+	play:removeSelf()
+	play = nil
+	
+	bg:removeSelf()
+	bg = nil
+		
+	-- Remove and destroy all circles
+	for p=1, #kCircle do
+		display.remove(kCircle[p])
+		display.remove(levels[p])
+		display.remove(lockedLevels[p])
+		map.layer["tiles"]:remove(kCircle[p])
+		map.layer["tiles"]:remove(levels[p])
+	end
+		
+	kCircle = nil
+	levels = nil
+	lockedLevels = nil
+
+	-- re-inialitze local variables to empty tables
+	kCircle = {}
+	levels = {} 
+	lockedLevels = {}
+	
+	-- Destroy map object
+	map.destroy()
+	map:removeSelf()
+	map = nil
+				
+	-- Stop physics
+	physics.stop()
+		
+	print("CLEANED")
+end
+
 
 --------------------------------------------------------------------------------
 -- Finish Up
@@ -445,6 +440,8 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 selectLevel.selectLoop = selectLoop
+selectLevel.camera = camera
+selectLevel.clean = clean
 
 return selectLevel
 
