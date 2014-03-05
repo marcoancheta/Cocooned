@@ -118,9 +118,10 @@ local function createObjects(objectNumbers, pane)
 	local wisp = {}
 	local objects = {}
 	local water = {}
+	local wall = {}
 	
-	-- Water vertices (Applies for png: water4, water5
-	local vertices = {-115,-35,   
+	-- Water vertices (Applies for png: water4, water5)
+	local waterVertices = {-115,-35,   
 					    0,-40,
 					   40, -50,
 					   75,-35,
@@ -132,21 +133,49 @@ local function createObjects(objectNumbers, pane)
 					 -190,20,
 				     -260,10,  
 					 -135,-25,}
-	
+					 
+	-- Wall vertices (Applies for png: level1_small.png)
+	--[[local wallVertices = {-115,-35,   
+					    0,-40,
+					   40, -50,
+					   75,-35,
+					   50, -15,
+					  180,5, 
+					  160,30,     
+					  145,50, 
+					 -200,50,   
+					 -190,20,
+				     -260,10,  
+					 -135,-25,}
+	]]
+		
 	-- create all waters in level
 	for i=1, tonumber(objectNumbers.waterCount) do
-		water[i] = display.newPolygon(655, 100, vertices)
+		water[i] = display.newPolygon(655, 100, waterVertices)
 		water[i].isVisible = false
 		water[i]:setFillColor(0, 0, 0, 0)
 		--water[i].strokeWidth = 5
 		--water[i]:setStrokeColor( 0, 1, 1 )
 	end
+	
+	--[[
+	-- create all walls in level
+	for i=1, tonumber(objectNumbers.wallCount) do
+		wall[i] = display.newPolygon(655, 100, wallVertices)
+		wall[i].isVisible = false
+		wall[i]:setFillColor(0, 0, 0, 0)
+		wall[i].strokeWidth = 5
+		wall[i]:setStrokeColor( 0, 1, 1 )
+	end
+	]]
+	
 	-- create all wisps in level
 	for i=1, tonumber(objectNumbers.wispCount) do
 		wisp[i] = display.newImage("mapdata/art/wisp.png")
 		wisp[i].isVisible = false
 		wisp[i].x, wisp[i].y = 100, 100
 	end	
+	
 	-- call function to animate objects
 	for i = 1, 5 do
 		createAnimations(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
@@ -157,7 +186,7 @@ local function createObjects(objectNumbers, pane)
 	end
 
 	-- return object and wisp list
-	return objects, wisp, water
+	return objects, wisp, water --, wall
 end
 
 --------------------------------------------------------------------------------

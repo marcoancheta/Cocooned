@@ -680,9 +680,13 @@
  <tileset firstgid="218" name="shadowCenter" tilewidth="36" tileheight="36">
   <image source="../../../art/shadowCenter.png" width="72" height="144"/>
  </tileset>
+ <tileset firstgid="226" name="level2_small" tilewidth="1475" tileheight="900">
+  <tileoffset x="-737" y="450"/>
+  <image source="../../../art/background/level2_small.png" trans="000000" width="1475" height="900"/>
+ </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztziEBAAAIA7Cno38kIlwgMFuCJQBAM98BAOBsATH+AEc=
+   eJztzgEJAAAMA6D1j/kkjzEGmsAEAFh37QAADHhnugDj
   </data>
  </layer>
  <layer name="hWalls" width="40" height="24">
@@ -692,12 +696,12 @@
  </layer>
  <layer name="vWalls" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztjjEOgEAQhPz/K3mKFvZMQ85CkqmWhOX6Lrw72be7OSXWZnBKrM3glFibwSmxNoNTYm0Gp8TaDE6JtRmcEmszOCfh+v+zvt3NKbE2g1NibQanxNoMTom1GZwSazM4JdZmcEqszeCUWJvBKbE2g1NibQbnJDy7AaLmO4E=
+   eJztzqENADAAhED2n5JRWtEN3lRwCR75l69fSX8L6W8h/S2kv4X0t5D+FtLfQvpbSH8L6W8h/S28HXV1KgE=
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztl80KwjAQhOfmvx7UR1AUQcGLohYWfP+LUtG3cUuKQsBOQLbbQwc+CMxCpp22oSsAa+WknJVLTeupMlPmP2a2yk7ZwE8Z8fcJM5YS4mcJM5a6El8SZiwlxC+yefbL7k3bb7VYd979CvE75cwt4m6a6ivWXb+cySMexrlSNULot6n5egj9euVjz/4Qvv0K8ScI1/CMeNnG+oi9H134fp9ZvwM0+/wdoz1/2f5VEvj2y/b2Pn/bfv+TEL/ItlCWqP//kq0PylF5AzgaOI4=
+   eJztl0sKgzAARGfnXxfSIyiKoOBGsS0Eev87dQJuTaEBM4s8eBDBxcBbhAwARnrQJ33ddG7P78fFPzNd6ARdVvoOPcKB3WZCj3Bg6Cf0CAd2W+z7Pwaxrw8JtPvm0O5bQbtvBu2+JbT7NtDum0K7bwHtvjW0+8b71w/1+zf29cNu62iP+9+Xv84b3ekXA4Iasw==
   </data>
  </layer>
 </map>

@@ -187,7 +187,7 @@ local function gMObjects(level, objects, map, pane)
 end
 
 --------------------------------------------------------------------------------
--- geneate water functions
+-- Generate water functions
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
@@ -195,7 +195,7 @@ end
 local function gWater(water, map, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
-	   	-- insertwater into map display group
+	   	-- insert water into map display group
 		map.layer["water"]:insert(water[i])
 
 		-- add physics body for wisp for collision
@@ -212,13 +212,38 @@ local function gWater(water, map, startIndex, endIndex)
 end
 
 --------------------------------------------------------------------------------
+-- Generate walls functions
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+-- takes in a start and end index and creates those wisps only
+--[[
+local function gWalls(wall, map, startIndex, endIndex)
+	for i=startIndex, endIndex do
+
+	   	-- insertwater into map display group
+		map.layer["wall"]:insert(wall[i])
+
+		-- add physics body for wisp for collision
+		physics.addBody(wall[i], "static", {bounce=0})
+		
+		-- set properties of wisps
+	   	wall[i].isVisible = true
+	   	wall[i].collType = "wall"
+	    wall[i].name = "wall"
+
+	end
+end
+]]
+
+--------------------------------------------------------------------------------
 -- destroy unused objects function
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- call this function after setting all objects in pane so it will destroy unused object
 -- to decrease memory usage
-local function destroyObjects(level, rune, wisp, objects) 
+local function destroyObjects(level, rune, wisp, water, objects) 
 
 	-- deleted extra runes
 	for i = 1, #rune do
@@ -236,6 +261,26 @@ local function destroyObjects(level, rune, wisp, objects)
 			wisp[i] = nil
 		end
 	end
+	
+	-- deleted extra water
+	for i = 1, level.waterCount do
+		--print("energyCount:", i)
+		if water[i].isVisible == false then
+			water[i]:removeSelf()
+			water[i] = nil
+		end
+	end
+	
+	-- deleted extra walls
+	--[[
+	for i = 1, level.wallCount do
+		--print("energyCount:", i)
+		if wall[i].isVisible == false then
+			wall[i]:removeSelf()
+			wall[i] = nil
+		end
+	end
+	]]--
 end
 
 --------------------------------------------------------------------------------
@@ -248,6 +293,7 @@ generateObjects = {
 	gWisps = gWisps,
 	gMObjects = gMObjects,
 	gWater = gWater,
+	--gWalls = gWalls,
 	destroyObjects = destroyObjects
 }
 

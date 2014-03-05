@@ -27,6 +27,7 @@ local one = {
 	-- number of wisps in the level
 	wispCount = 30,
 	waterCount = 10,
+	--wallCount = 10,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -34,15 +35,15 @@ local one = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
-		["wolf"] = 1,
+		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
 		["blueTotem"] = 0,
-		["redTotem"] = 0,
+		["redTotem"] = 2,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 1,
-		["exitPortal"] = 0,
+		["switchWall"] = 0,
+		["exitPortal"] = 1,
 		["enemy"] = 0,
 	},
 	["D"] = {
@@ -125,10 +126,11 @@ local function load(pane, map, rune, objects, wisp, water)
 	-- Check which pane
 	if pane == "M" then
 
-		objects["wolf1"].x , objects["wolf1"].y = map.tilesToPixels(4, 3)
-		objects["wolf1"].direction, objects["wolf1"].distance = "right", 800
-		objects["wolf1"].alpha = 0.75
-		--[[
+		--objects["wolf1"].x , objects["wolf1"].y = map.tilesToPixels(4, 3)
+		--objects["wolf1"].direction, objects["wolf1"].distance = "right", 500
+		--objects["wolf1"].alpha = 0.75
+		
+	
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(4, 12.5)
 
@@ -140,10 +142,10 @@ local function load(pane, map, rune, objects, wisp, water)
 		wisp[2].x, wisp[2].y = map.tilesToPixels(19, 17)
 		wisp[3].x, wisp[3].y = map.tilesToPixels(14, 12)
 		wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
-		]]
+		
 
-		--generateWisps(wisp, map, 1, 4)
-		generate.gWater(water, map, 1, 2)
+		generate.gWisps(wisp, map, 1, 4)
+		--generate.gWalls(wall, map, 1, 2)
 	elseif pane == "U" then
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)		
@@ -220,7 +222,7 @@ local function load(pane, map, rune, objects, wisp, water)
 	-- generate all moveable objects in pane when locations are set
 	mObjects = generate.gMObjects(one, objects, map, pane)
 	-- destroy the unused objects
-	generate.destroyObjects(one, rune, wisp, objects)
+	generate.destroyObjects(one, rune, wisp, water, objects)
 
 	-- set which panes are avaiable for player
 	map.panes = one.panes
