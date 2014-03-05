@@ -40,7 +40,7 @@ playerInstance = {
 	inventory = inventoryMechanic.createInventory(),
 	xGrav = 0,
 	yGrav = 0,
-	speedConst = 5,
+	speedConst = 10,
 	maxSpeed = 6,
 	movement="accel",
 	deathTimer = nil,
@@ -52,6 +52,7 @@ playerInstance = {
 	small = false,
 	breakable = false,
 	shook = false,
+	defaultSpeed = 10
 }
 
 --------------------------------------------------------------------------------
@@ -240,6 +241,34 @@ function changeType(event)
 		end
 	end
 end
+
+
+--------------------------------------------------------------------------------
+-- Move Walls - player function that calls delay timer for changeBodyType
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+function playerInstance:breakWalls(map)
+	self.breakable = true
+	local timer = timer.performWithDelay(10, changeBodyType)
+		  timer.params = {param1 = map}
+end
+
+--------------------------------------------------------------------------------
+-- Change Body Type - player function that changes properties of objects to moveable
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+function changeBodyType(event)
+	local params = event.source.params
+	
+	for check = 1, params.param1.layer["tiles"].numChildren do
+		if params.param1.layer["tiles"][check].name == "orangeWall" then
+			params.param1.layer["tiles"][check].bodyType = "dynamic"
+		end
+	end
+end
+
 
 --------------------------------------------------------------------------------
 -- Rotate - player function that rotates image object

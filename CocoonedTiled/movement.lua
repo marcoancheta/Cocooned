@@ -27,6 +27,7 @@ local function moveAndAnimate(player)
 		count = count + 1
 	end
 	if player.movement == "accel" then
+		print("moving")
 		local yForce = 0
 		local xForce = 0
 		player.xGrav = player.xGrav * (player.speedConst)

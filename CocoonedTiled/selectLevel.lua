@@ -139,11 +139,11 @@ local function controlMovement(event)
 	physicsParam = movementMechanic.onAccelerate(event, player1, map)
 
 	-- set player1's X and Y gravity times the player1's curse
-	player1.xGrav = physicsParam.xGrav*player1.curse
-	player1.yGrav = physicsParam.yGrav*player1.curse
+	player1.xGrav = physicsParam.xGrav
+	player1.yGrav = physicsParam.yGrav
 				
 	movement.moveAndAnimate(player1)
-	print("done4")
+	--print("done4")
 end
 
 

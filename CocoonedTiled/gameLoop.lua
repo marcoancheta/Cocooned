@@ -314,7 +314,7 @@ local function gameLoop(event)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		gui.back:addEventListener("touch", swipeMechanics)
 		gui.back:addEventListener("tap", tapMechanic)
-		menu.ingameOptionsbutton(event)
+		menu.ingameOptionsbutton(event,player1)
 		
 		-- Re-evaluate gameData booleans
 		gameData.BGM = 2
@@ -478,7 +478,7 @@ local function menuLoop(event)
 		-- Clear on screen objects
 		--gui:removeSelf()
 		-- Go to in-game option menu
-		menu.ingameMenu(event)
+		menu.ingameMenu(event, player1)
 		
 		-- Remove object listeners
 		gui.back:removeEventListener("touch", swipeMechanics)
@@ -504,10 +504,10 @@ local function menuLoop(event)
 
 		-- Add object listeners
 		gui.back:addEventListener("touch", swipeMechanics)
-		gui.back:removeEventListener("tap", tapMechanic)
+		gui.back:addEventListener("tap", tapMechanic)
 		gui.back:addEventListener("tap", tapMechanic)
 		Runtime:addEventListener("accelerometer", controlMovement)
-		Runtime:removeEventListener("enterFrame", speedUp)
+		Runtime:addEventListener("enterFrame", speedUp)
 		
 		-- Re-evaluate gameData booleans
 		gameData.inGameOptions = false

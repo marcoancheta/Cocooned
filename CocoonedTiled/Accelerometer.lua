@@ -31,7 +31,7 @@ local function cancelDeathTimer()
 		timer.cancel(accelPlayer.deathTimer) 
 		accelPlayer.deathTimer=nil  
 		accelPlayer.imageObject.linearDamping = 1.25 
-		accelPlayer.speedConst = 10
+		accelPlayer.speedConst = accelPlayer.defaultSpeed
 		--accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
 		accelPlayer.deathScreen:pause()
 		accelPlayer.deathScreen:removeSelf()
@@ -94,7 +94,7 @@ end
 local function onAccelerate( event, player, map)
 	accelPlayer = player
 	local ball = player.imageObject
-	print(player.escape)
+	--print(player.escape)
 	if event.isShake and player.movement == "inWater" then
 		local xDirection = 0
 		local yDirection = 0
@@ -122,10 +122,10 @@ local function onAccelerate( event, player, map)
 
 		ball:applyLinearImpulse(.15*xDirection,.15*yDirection,ball.x, ball.y )
 		player.shook = true
-		timer.performWithDelay(100, cancelDeathTimer)
+		timer.performWithDelay(200, cancelDeathTimer)
 	end
 
-	print("accel", event.yGravity*10, event.xGravity*10)
+	--print("accel", event.yGravity*10, event.xGravity*10)
 	moveShadows(map, event.xInstant, event.yInstant)
 
 	--print("accel")
