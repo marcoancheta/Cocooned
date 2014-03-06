@@ -29,7 +29,7 @@ end
 --------------------------------------------------------------------------------
 -- Collide Function - function for rune collision
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Andrew added lines 59 and 60 gameData.greenG = true and player:moveWalls(map)
 --------------------------------------------------------------------------------
 function collide(collideObject, player, event, mapData, map, physics)
 
@@ -57,8 +57,8 @@ function collide(collideObject, player, event, mapData, map, physics)
 		player:slowTime(map)		
 	elseif collideObject.name == "greenRune" then
 		gameData.greenG = true
+		player:moveWalls(map)
 	elseif collideObject.name == "yellowRune" then
-		--player:moveWalls(map)
 	elseif collideObject.name == "purpleRune" then
 		player:shrink()
 	end

@@ -18,7 +18,7 @@ local generate = require("generateObjects")
 --------------------------------------------------------------------------------
 -- Level One Variables
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Andrew Added a switch wall, changes here can be discarded
 --------------------------------------------------------------------------------
 local one = { 
 	-- boolean for which pane is being used
@@ -34,7 +34,7 @@ local one = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
-		["wolf"] = 1,
+		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
 		["blueTotem"] = 0,
@@ -125,9 +125,13 @@ local function load(pane, map, rune, objects, wisp, water)
 	-- Check which pane
 	if pane == "M" then
 
-		objects["wolf1"].x , objects["wolf1"].y = map.tilesToPixels(4, 3)
-		objects["wolf1"].direction, objects["wolf1"].distance = "right", 800
-		objects["wolf1"].alpha = 0.75
+		--objects["wolf1"].x , objects["wolf1"].y = map.tilesToPixels(4, 3)
+		--objects["wolf1"].direction, objects["wolf1"].distance = "right", 800
+		--objects["wolf1"].alpha = 0.75
+		--objects["wolf1"].accel = false
+		rune[2].x, rune[2].y = map.tilesToPixels(15 , 14)
+  		rune[2].isVisible = true
+  		rune[2].accel = false
 		--[[
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(4, 12.5)
@@ -141,7 +145,9 @@ local function load(pane, map, rune, objects, wisp, water)
 		wisp[3].x, wisp[3].y = map.tilesToPixels(14, 12)
 		wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
 		]]
-
+		objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(5,8)
+		objects["switchWall1"].accel = true
+		objects["switchWall1"].defX = objects["switchWall1"].x
 		--generateWisps(wisp, map, 1, 4)
 		generate.gWater(water, map, 1, 2)
 	elseif pane == "U" then

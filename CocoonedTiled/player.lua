@@ -23,7 +23,7 @@ local gameData = require("gameData")
 --------------------------------------------------------------------------------
 -- Player Instance - player instance table that holds all properties
 --------------------------------------------------------------------------------
--- Updated by: Andrew (added shook)
+-- Updated by: Andrew added xForce and yForce used in speedUp in gameloop
 --------------------------------------------------------------------------------
 playerInstance = {
 	x=0,
@@ -40,6 +40,8 @@ playerInstance = {
 	inventory = inventoryMechanic.createInventory(),
 	xGrav = 0,
 	yGrav = 0,
+	xForce = 0,
+	yForce = 0,
 	speedConst = 10,
 	maxSpeed = 6,
 	movement="accel",
@@ -248,7 +250,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:breakWalls(map)
+function playerInstance:moveWalls(map)
 	self.breakable = true
 	local timer = timer.performWithDelay(10, changeBodyType)
 		  timer.params = {param1 = map}
@@ -261,10 +263,11 @@ end
 --------------------------------------------------------------------------------
 function changeBodyType(event)
 	local params = event.source.params
-	
 	for check = 1, params.param1.layer["tiles"].numChildren do
-		if params.param1.layer["tiles"][check].name == "orangeWall" then
+		currName = string.sub(params.param1.layer["tiles"][check].name,1,10)
+		if  currName == "switchWall" then
 			params.param1.layer["tiles"][check].bodyType = "dynamic"
+ 			params.param1.layer["tiles"][check].isFixedRotation = true
 		end
 	end
 end

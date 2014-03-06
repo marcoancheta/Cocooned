@@ -18,7 +18,7 @@ local count = 0
 --------------------------------------------------------------------------------
 -- Move and Animate - function that moves player object and animates it
 --------------------------------------------------------------------------------
--- Updated by: Andrew
+-- Updated by: Andrew added the force put on a player for use with moveable walls
 --------------------------------------------------------------------------------
 local function moveAndAnimate(player)
 	local vx, vy = player.imageObject:getLinearVelocity()
@@ -27,7 +27,7 @@ local function moveAndAnimate(player)
 		count = count + 1
 	end
 	if player.movement == "accel" then
-		print("moving")
+		--print("moving")
 		local yForce = 0
 		local xForce = 0
 		player.xGrav = player.xGrav * (player.speedConst)
@@ -58,6 +58,8 @@ local function moveAndAnimate(player)
 		if yForce * vy < 0 and vx < 30 then
 			yForce = 1.5 * yForce
 		end
+		player.xForce = xForce
+		player.yForce = yForce
 		player.imageObject:applyForce(xForce, yForce,player.imageObject.x,player.imageObject.y)
 		--if vy == 0 or vx == 0 then
 		--	sound.pauseSound(event, sound.rollSnowSound)

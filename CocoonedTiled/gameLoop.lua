@@ -131,7 +131,7 @@ end
 --------------------------------------------------------------------------------
 -- Control Mechanics - controls movement for player
 --------------------------------------------------------------------------------
--- Updated by: Andrew
+-- Updated by: Andrew moved curse to speedUp so we can use the player's physics params
 --------------------------------------------------------------------------------
 local function controlMovement(event) 
 	
@@ -141,39 +141,42 @@ local function controlMovement(event)
 		physicsParam = movementMechanic.onAccelerate(event, player1, gui.back[1])
 
 		-- set player's X and Y gravity times the player's curse
-		player1.xGrav = physicsParam.xGrav*player1.curse
-		player1.yGrav = physicsParam.yGrav*player1.curse
+		player1.xGrav = physicsParam.xGrav
+		player1.yGrav = physicsParam.yGrav
 	end
 end
 
 --------------------------------------------------------------------------------
 -- Speed Up - gives momentum to player movement
 --------------------------------------------------------------------------------
--- Updated by: Andrew
+-- Updated by: Andrew uncommented move wall code
 --------------------------------------------------------------------------------
 local function speedUp(event)
 	if gameData.isShowingMiniMap == false then
-	--[[
-		for check = 1, map.layer["tiles"].numChildren do
+		if gameData.greenG == true then
+			for check = 1, map.layer["tiles"].numChildren do
 			currObject = map.layer["tiles"][check]
-			if currObject.accel == true and gameData.greenG == true then
-				local vel = 40
-				if player1.yGrav<0 then
-					vel = -40
-				elseif player1.yGrav == 0 then
-					vel = 0
-				end
-				if string.sub(currObject.name,1,10) == "switchWall"then
-					currObject:setLinearVelocity(0, vel)
+				if currObject.accel == true then
+					local vel = 40
+					if player1.yGrav<0 then
+						vel = -40
+					elseif player1.yGrav == 0 then
+						vel = 0
+					end
+					--print(string.sub(currObject.name,1,10))
+					if string.sub(currObject.name,1,10) == "switchWall"then
+						currObject.x = currObject.defX
+						currObject:setLinearVelocity(0, vel)
+					end
 				end
 			end
 		end
-	]]--
-		
+
 		player1.xGrav = player1.xGrav*player1.curse
 		player1.yGrav = player1.yGrav*player1.curse
-
+		newMap = map
 		movement.moveAndAnimate(player1)
+
 	end
 end
 
