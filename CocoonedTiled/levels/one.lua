@@ -41,7 +41,7 @@ local one = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 1,
+		["switchWall"] = 0,
 		["exitPortal"] = 0,
 		["enemy"] = 0,
 	},
