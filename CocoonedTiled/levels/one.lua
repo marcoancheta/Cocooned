@@ -139,12 +139,12 @@ local function load(pane, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(37, 7)
 		
-		wisp[1].x, wisp[1].y = map.tilesToPixels(19, 7)
-		wisp[2].x, wisp[2].y = map.tilesToPixels(19, 17)
-		wisp[3].x, wisp[3].y = map.tilesToPixels(14, 12)
-		wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
+		wisp[1].x, wisp[1].y = map.tilesToPixels(23, 6)
+		wisp[2].x, wisp[2].y = map.tilesToPixels(24, 8)
+		wisp[3].x, wisp[3].y = map.tilesToPixels(26, 9)
+		wisp[4].x, wisp[4].y = map.tilesToPixels(28, 9)
 		wisp[5].x, wisp[5].y = map.tilesToPixels(37, 10)
-		wisp[6].x, wisp[6].y = map.tilesToPixels(37, 15)
+		wisp[6].x, wisp[6].y = map.tilesToPixels(37, 13)
 			
 		wall[1].x, wall[1].y = map.tilesToPixels(4.5, 12)	--L
 		wall[2].x, wall[2].y = map.tilesToPixels(23.5, 7) --U

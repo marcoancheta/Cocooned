@@ -227,7 +227,7 @@ local function gWalls(wall, map, startIndex, endIndex)
 		
 		-- set properties of wisps
 	   	wall[i].isVisible = true
-		wall[i]:setFillColor(0, 0, 0, 1)
+		wall[i]:setFillColor(0, 0, 0, 0)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
 
@@ -253,7 +253,7 @@ local function gAuraWalls(auraWall, map, startIndex, endIndex)
 		
 		-- set properties of wisps
 	   	auraWall[i].isVisible = true
-		auraWall[i]:setFillColor(0, 0, 0, 1)
+		auraWall[i]:setFillColor(0, 0, 0, 0)
 	   	auraWall[i].collType = "passThru"
 		auraWall[i].func = "blueWallCollision"
 	    auraWall[i].name = "blueWall"
