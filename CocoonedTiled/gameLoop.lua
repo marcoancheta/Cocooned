@@ -542,11 +542,6 @@ function soundLoop(event)
 end
 ]]--
 
-local function touch(event)
-	print(event.x, event.y)
-end
-Runtime:addEventListener("touch", touch)
-
 --------------------------------------------------------------------------------
 -- Call gameLoop && menuLoop every 30 fps
 --------------------------------------------------------------------------------

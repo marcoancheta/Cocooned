@@ -27,7 +27,7 @@ local one = {
 	-- number of wisps in the level
 	wispCount = 30,
 	waterCount = 10,
-	--wallCount = 10,
+	wallCount = 2,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -39,7 +39,7 @@ local one = {
 		["fish1"] = 0,
 		["fish2"] = 0,
 		["blueTotem"] = 0,
-		["redTotem"] = 2,
+		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
@@ -120,7 +120,7 @@ local mObjectslocal
 --------------------------------------------------------------------------------
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
-local function load(pane, map, rune, objects, wisp, water)
+local function load(pane, map, rune, objects, wisp, water, wall)
 	objectList = objects
 	
 	-- Check which pane
@@ -130,25 +130,34 @@ local function load(pane, map, rune, objects, wisp, water)
 		--objects["wolf1"].direction, objects["wolf1"].distance = "right", 500
 		--objects["wolf1"].alpha = 0.75
 		
+		for check = 1, map.layer["bg"].numChildren do
+			if map.layer["bg"][check].name == "bg" then
+				map.layer["bg"][check].x = map.layer["bg"][check].x - 40
+				map.layer["bg"][check].y = map.layer["bg"][check].y + 40
+				print("bone")
+			end
+		end
 	
 		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(4, 12.5)
-
-		-- Red Totem
-		objects["redTotem1"].x, objects["redTotem1"].y = map.tilesToPixels(6, 10)
-		objects["redTotem2"].x, objects["redTotem2"].y = map.tilesToPixels(6, 15)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(37, 7)
 		
-		wisp[1].x, wisp[1].y = map.tilesToPixels(19, 7)
-		wisp[2].x, wisp[2].y = map.tilesToPixels(19, 17)
-		wisp[3].x, wisp[3].y = map.tilesToPixels(14, 12)
-		wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
+		--wisp[1].x, wisp[1].y = map.tilesToPixels(19, 7)
+		--wisp[2].x, wisp[2].y = map.tilesToPixels(19, 17)
+		--wisp[3].x, wisp[3].y = map.tilesToPixels(14, 12)
+		--wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
 		
-
-		generate.gWisps(wisp, map, 1, 4)
-		--generate.gWalls(wall, map, 1, 2)
+		--wall[1].x, wall[1].y = map.tilesToPixels(2.5, 12.5) --L
+		wall[2].x, wall[2].y = map.tilesToPixels(23.5, 6)   --U
+		--wall[3].x, wall[3].y = map.tilesToPixels(21, 20)	--B
+		--wall[4].x, wall[4].y = map.tilesToPixels(39, 12.5)	--R
+		--wall[5].x, wall[5].y = map.tilesToPixels(32, 9)	--Extra
+		wall[1].x, wall[1].y = map.tilesToPixels(4.5, 12)
+		
+		--generate.gWisps(wisp, map, 1, 4)
+		generate.gWalls(wall, map, 1, 2)
 	elseif pane == "U" then
 		-- Red Aura
-		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)		
+		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 11)		
 		-- Green Aura
 		objects["greenAura1"].x, objects["greenAura1"].y = map.tilesToPixels(36, 22)
 
@@ -222,7 +231,7 @@ local function load(pane, map, rune, objects, wisp, water)
 	-- generate all moveable objects in pane when locations are set
 	mObjects = generate.gMObjects(one, objects, map, pane)
 	-- destroy the unused objects
-	generate.destroyObjects(one, rune, wisp, water, objects)
+	generate.destroyObjects(one, rune, wisp, water, wall, objects)
 
 	-- set which panes are avaiable for player
 	map.panes = one.panes
@@ -246,6 +255,11 @@ local function destroyAll()
 	for i=1, #water do
 		display.remove(water[i])
 		water[i] = nil
+	end
+	
+	for i=1, #wall do
+		display.remove(wall[i])
+		wall[i] = nil
 	end
 
 	print("destroying objects", #mObjects)

@@ -134,20 +134,6 @@ local function createObjects(objectNumbers, pane)
 				     -260,10,  
 					 -135,-25,}
 					 
-	-- Wall vertices (Applies for png: level1_small.png)
-	--[[local wallVertices = {-115,-35,   
-					    0,-40,
-					   40, -50,
-					   75,-35,
-					   50, -15,
-					  180,5, 
-					  160,30,     
-					  145,50, 
-					 -200,50,   
-					 -190,20,
-				     -260,10,  
-					 -135,-25,}
-	]]
 		
 	-- create all waters in level
 	for i=1, tonumber(objectNumbers.waterCount) do
@@ -158,16 +144,18 @@ local function createObjects(objectNumbers, pane)
 		--water[i]:setStrokeColor( 0, 1, 1 )
 	end
 	
-	--[[
+		wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
+		--wall[1]:scale(1.08, 1)
+		wall[2] = display.newImage("mapdata/art/background/1-1BB/1-1U.png", true)
+		--wall[3] = display.newImage("mapdata/art/background/1-1BB/1-1B.png")
+		--wall[4] = display.newImage("mapdata/art/background/1-1BB/1-1R.png")
+		--wall[5] = display.newImage("mapdata/art/background/1-1BB/1-1Extra.png")
+		
 	-- create all walls in level
 	for i=1, tonumber(objectNumbers.wallCount) do
-		wall[i] = display.newPolygon(655, 100, wallVertices)
 		wall[i].isVisible = false
-		wall[i]:setFillColor(0, 0, 0, 0)
-		wall[i].strokeWidth = 5
-		wall[i]:setStrokeColor( 0, 1, 1 )
+		--wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
 	end
-	]]
 	
 	-- create all wisps in level
 	for i=1, tonumber(objectNumbers.wispCount) do
@@ -186,7 +174,7 @@ local function createObjects(objectNumbers, pane)
 	end
 
 	-- return object and wisp list
-	return objects, wisp, water --, wall
+	return objects, wisp, water, wall
 end
 
 --------------------------------------------------------------------------------
@@ -200,9 +188,9 @@ local function main(mapData, map, player)
 	-- get which level lua, player is in
 	level = require("levels." .. levelNames[mapData.levelNum])
 	-- get objects and wisps list and create them
-	objects, wisp, water = createObjects(level, mapData.pane)
+	objects, wisp, water, wall = createObjects(level, mapData.pane)
 	-- load in which pane player is in
-	level.load(mapData.pane, map, rune, objects, wisp, water)
+	level.load(mapData.pane, map, rune, objects, wisp, water, wall)
 end
 
 
@@ -216,6 +204,11 @@ local function destroy(mapData)
 	for i=0, #rune do
 		display.remove(rune[i])
 		rune[i] = nil
+	end
+	
+	for i=0, #wall do
+		display.remove(wall[i])
+		wall[i] = nil
 	end
 	-- destroy all objects in level pan
 	level.destroyAll()

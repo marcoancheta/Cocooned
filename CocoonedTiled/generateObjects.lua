@@ -15,6 +15,7 @@
 local moveableObject = require("moveableObject")
 -- wind emmiter object class (windEmitter.lua)
 local windEmitterMechanic = require("windEmitter")
+local physicsData = (require "levels.one_collision.walls2").physicsData(1.0)
 
 --------------------------------------------------------------------------------
 -- geneate wisps functions
@@ -217,24 +218,29 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
---[[
 local function gWalls(wall, map, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
 	   	-- insertwater into map display group
-		map.layer["wall"]:insert(wall[i])
+		map.layer["tiles"]:insert(wall[i])
 
-		-- add physics body for wisp for collision
-		physics.addBody(wall[i], "static", {bounce=0})
+
+		--physics.addBody(wall[4], "static", physicsData:get("1-1R") )
+		--physics.addBody(wall[5], "static", physicsData:get("1-1Extra") )
 		
 		-- set properties of wisps
 	   	wall[i].isVisible = true
+		wall[i]:setFillColor(1, 0, 0, 0.5)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
 
 	end
+	
+	-- add physics body for wisp for collision
+	physics.addBody(wall[1], "static", physicsData:get("1-1L") )
+	physics.addBody(wall[2], "static", physicsData:get("1-1U") )
+	--physics.addBody(wall[3], "static", physicsData:get("1-1B") )
 end
-]]
 
 --------------------------------------------------------------------------------
 -- destroy unused objects function
@@ -272,7 +278,6 @@ local function destroyObjects(level, rune, wisp, water, objects)
 	end
 	
 	-- deleted extra walls
-	--[[
 	for i = 1, level.wallCount do
 		--print("energyCount:", i)
 		if wall[i].isVisible == false then
@@ -280,7 +285,6 @@ local function destroyObjects(level, rune, wisp, water, objects)
 			wall[i] = nil
 		end
 	end
-	]]--
 end
 
 --------------------------------------------------------------------------------
@@ -293,7 +297,7 @@ generateObjects = {
 	gWisps = gWisps,
 	gMObjects = gMObjects,
 	gWater = gWater,
-	--gWalls = gWalls,
+	gWalls = gWalls,
 	destroyObjects = destroyObjects
 }
 
