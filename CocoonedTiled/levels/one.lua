@@ -126,10 +126,11 @@ local function load(pane, map, rune, objects, wisp, water, wall, auraWall)
 	
 	-- Check which pane
 	if pane == "M" then
+	
 		-- Blue Aura
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = map.tilesToPixels(32, 15)	
+		objects["blueAura1"].x, objects["blueAura1"].y = map.tilesToPixels(26, 6)	
 		
 		-- Pink rune
 		rune[4].x, rune[4].y = map.tilesToPixels(4.5, 4.5)			
@@ -146,8 +147,8 @@ local function load(pane, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[6].x, wisp[6].y = map.tilesToPixels(37, 15)
 			
 		wall[1].x, wall[1].y = map.tilesToPixels(4.5, 12)	--L
-		wall[2].x, wall[2].y = map.tilesToPixels(23.5, 6.6) --U
-		wall[3].x, wall[3].y = map.tilesToPixels(22, 16)	--B
+		wall[2].x, wall[2].y = map.tilesToPixels(23.5, 7) --U
+		wall[3].x, wall[3].y = map.tilesToPixels(22, 16.2)	--B
 		
 		auraWall[1].x, auraWall[1].y = map.tilesToPixels(6.5, 5) -- blueAuraWall
 		
