@@ -28,11 +28,12 @@ local one = {
 	wispCount = 30,
 	waterCount = 10,
 	wallCount = 3,
+	auraWallCount = 1,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
 	["M"] = {
-		["blueAura"] = 0,
+		["blueAura"] = 1,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -120,12 +121,16 @@ local mObjectslocal
 --------------------------------------------------------------------------------
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
-local function load(pane, map, rune, objects, wisp, water, wall)
+local function load(pane, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 	
 	-- Check which pane
 	if pane == "M" then
-
+		-- Blue Aura
+		objects["blueAura1"]:setSequence("move")
+		objects["blueAura1"]:play()
+		objects["blueAura1"].x, objects["blueAura1"].y = map.tilesToPixels(32, 15)	
+		
 		-- Pink rune
 		rune[4].x, rune[4].y = map.tilesToPixels(4.5, 4.5)			
 		rune[4].isVisible = true
@@ -144,6 +149,9 @@ local function load(pane, map, rune, objects, wisp, water, wall)
 		wall[2].x, wall[2].y = map.tilesToPixels(23.5, 6.6) --U
 		wall[3].x, wall[3].y = map.tilesToPixels(22, 16)	--B
 		
+		auraWall[1].x, auraWall[1].y = map.tilesToPixels(6.5, 5) -- blueAuraWall
+		
+		generate.gAuraWalls(auraWall, map, 1, 1)
 		generate.gWisps(wisp, map, 1, 6)
 		generate.gWalls(wall, map, 1, 3)
 	elseif pane == "U" then
