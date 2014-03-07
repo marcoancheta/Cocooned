@@ -147,8 +147,8 @@ local function load(pane, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[6].x, wisp[6].y = map.tilesToPixels(37, 13)
 			
 		wall[1].x, wall[1].y = map.tilesToPixels(4.5, 12)	--L
-		wall[2].x, wall[2].y = map.tilesToPixels(23.5, 7) --U
-		wall[3].x, wall[3].y = map.tilesToPixels(22, 16.2)	--B
+		wall[2].x, wall[2].y = map.tilesToPixels(23.6, 7) 	--U
+		wall[3].x, wall[3].y = map.tilesToPixels(22.2, 16.2)	--B
 		
 		auraWall[1].x, auraWall[1].y = map.tilesToPixels(6.5, 5) -- blueAuraWall
 		
