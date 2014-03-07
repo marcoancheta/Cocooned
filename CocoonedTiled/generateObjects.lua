@@ -239,7 +239,7 @@ local function gWalls(wall, map, startIndex, endIndex)
 	-- add physics body for wisp for collision
 	physics.addBody(wall[1], "static", physicsData:get("1-1L") )
 	physics.addBody(wall[2], "static", physicsData:get("1-1U") )
-	--physics.addBody(wall[3], "static", physicsData:get("1-1B") )
+	physics.addBody(wall[3], "static", physicsData:get("1-1B") )
 end
 
 --------------------------------------------------------------------------------

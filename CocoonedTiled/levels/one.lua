@@ -27,7 +27,7 @@ local one = {
 	-- number of wisps in the level
 	wispCount = 30,
 	waterCount = 10,
-	wallCount = 2,
+	wallCount = 3,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -129,14 +129,6 @@ local function load(pane, map, rune, objects, wisp, water, wall)
 		--objects["wolf1"].x , objects["wolf1"].y = map.tilesToPixels(4, 3)
 		--objects["wolf1"].direction, objects["wolf1"].distance = "right", 500
 		--objects["wolf1"].alpha = 0.75
-		
-		for check = 1, map.layer["bg"].numChildren do
-			if map.layer["bg"][check].name == "bg" then
-				map.layer["bg"][check].x = map.layer["bg"][check].x - 40
-				map.layer["bg"][check].y = map.layer["bg"][check].y + 40
-				print("bone")
-			end
-		end
 	
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(37, 7)
@@ -148,13 +140,13 @@ local function load(pane, map, rune, objects, wisp, water, wall)
 		
 		--wall[1].x, wall[1].y = map.tilesToPixels(2.5, 12.5) --L
 		wall[2].x, wall[2].y = map.tilesToPixels(23.5, 6)   --U
-		--wall[3].x, wall[3].y = map.tilesToPixels(21, 20)	--B
+		wall[3].x, wall[3].y = map.tilesToPixels(22, 17.5)	--B
 		--wall[4].x, wall[4].y = map.tilesToPixels(39, 12.5)	--R
 		--wall[5].x, wall[5].y = map.tilesToPixels(32, 9)	--Extra
 		wall[1].x, wall[1].y = map.tilesToPixels(4.5, 12)
 		
 		--generate.gWisps(wisp, map, 1, 4)
-		generate.gWalls(wall, map, 1, 2)
+		generate.gWalls(wall, map, 1, 3)
 	elseif pane == "U" then
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 11)		
