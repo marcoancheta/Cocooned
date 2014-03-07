@@ -47,7 +47,7 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "itemGoal":"3",
+     "itemGoal":"1",
      "itemSize":"0",
      "moveObj":"0",
      "playerLocation":"!json! {\"x\": 20, \"y\":12 }",

@@ -223,10 +223,6 @@ local function gWalls(wall, map, startIndex, endIndex)
 
 	   	-- insertwater into map display group
 		map.layer["tiles"]:insert(wall[i])
-
-
-		--physics.addBody(wall[4], "static", physicsData:get("1-1R") )
-		--physics.addBody(wall[5], "static", physicsData:get("1-1Extra") )
 		
 		-- set properties of wisps
 	   	wall[i].isVisible = true

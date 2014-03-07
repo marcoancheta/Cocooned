@@ -23,7 +23,7 @@ local generate = require("generateObjects")
 local one = { 
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
-	panes = {true,true,false,true,false},
+	panes = {true,false,false,false,false},
 	-- number of wisps in the level
 	wispCount = 30,
 	waterCount = 10,
@@ -126,28 +126,28 @@ local function load(pane, map, rune, objects, wisp, water, wall)
 	-- Check which pane
 	if pane == "M" then
 
-		--objects["wolf1"].x , objects["wolf1"].y = map.tilesToPixels(4, 3)
-		--objects["wolf1"].direction, objects["wolf1"].distance = "right", 500
-		--objects["wolf1"].alpha = 0.75
-	
+		-- Pink rune
+		rune[4].x, rune[4].y = map.tilesToPixels(4.5, 4.5)			
+		rune[4].isVisible = true
+			
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(37, 7)
 		
-		--wisp[1].x, wisp[1].y = map.tilesToPixels(19, 7)
-		--wisp[2].x, wisp[2].y = map.tilesToPixels(19, 17)
-		--wisp[3].x, wisp[3].y = map.tilesToPixels(14, 12)
-		--wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
+		wisp[1].x, wisp[1].y = map.tilesToPixels(19, 7)
+		wisp[2].x, wisp[2].y = map.tilesToPixels(19, 17)
+		wisp[3].x, wisp[3].y = map.tilesToPixels(14, 12)
+		wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
+		wisp[5].x, wisp[5].y = map.tilesToPixels(37, 10)
+		wisp[6].x, wisp[6].y = map.tilesToPixels(37, 15)
+			
+		wall[1].x, wall[1].y = map.tilesToPixels(4.5, 12)	--L
+		wall[2].x, wall[2].y = map.tilesToPixels(23.5, 6.6) --U
+		wall[3].x, wall[3].y = map.tilesToPixels(22, 16)	--B
 		
-		--wall[1].x, wall[1].y = map.tilesToPixels(2.5, 12.5) --L
-		wall[2].x, wall[2].y = map.tilesToPixels(23.5, 6)   --U
-		wall[3].x, wall[3].y = map.tilesToPixels(22, 17.5)	--B
-		--wall[4].x, wall[4].y = map.tilesToPixels(39, 12.5)	--R
-		--wall[5].x, wall[5].y = map.tilesToPixels(32, 9)	--Extra
-		wall[1].x, wall[1].y = map.tilesToPixels(4.5, 12)
-		
-		--generate.gWisps(wisp, map, 1, 4)
+		generate.gWisps(wisp, map, 1, 6)
 		generate.gWalls(wall, map, 1, 3)
 	elseif pane == "U" then
+		--[[
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 11)		
 		-- Green Aura
@@ -181,7 +181,9 @@ local function load(pane, map, rune, objects, wisp, water, wall)
 		wisp[16].x, wisp[16].y = map.tilesToPixels(36, 17)
 		
 		generate.gWisps(wisp, map, 10, 16)
+		]]--
 	elseif pane == "D" then
+		--[[
 		-- Blue rune
 		rune[1].x, rune[1].y = map.tilesToPixels(19, 21)			
 		rune[1].isVisible = true
@@ -194,19 +196,21 @@ local function load(pane, map, rune, objects, wisp, water, wall)
 		wisp[22].x, wisp[22].y = map.tilesToPixels(19, 14)
 
 		generate.gWisps(wisp, map, 17, 22)
+		]]--
 	elseif pane == "R" then
+		--[[
 		-- Green rune
 		rune[4].x, rune[4].y = map.tilesToPixels(3.5, 3.5)
 		rune[4].isVisible = true
 		
-		wisp[5].x, wisp[5].y = map.tilesToPixels(8.5, 4)
-		wisp[6].x, wisp[6].y = map.tilesToPixels(11.5, 4)
 		wisp[7].x, wisp[7].y = map.tilesToPixels(36, 17)
 		wisp[8].x, wisp[8].y = map.tilesToPixels(36, 11)
 		wisp[9].x, wisp[9].y = map.tilesToPixels(36, 14)
 
-		generate.gWisps(wisp, map, 5, 9)
+		generate.gWisps(wisp, map, 7, 9)
+		]]--
 	elseif pane == "L" then
+		--[[
 		wisp[23].x, wisp[23].y = map.tilesToPixels(8, 5.5)
 		wisp[24].x, wisp[24].y = map.tilesToPixels(13, 5.5)
 		wisp[25].x, wisp[25].y = map.tilesToPixels(18, 5.5)
@@ -216,6 +220,7 @@ local function load(pane, map, rune, objects, wisp, water, wall)
 		wisp[29].x, wisp[29].y = map.tilesToPixels(18, 19)
 
 		generate.gWisps(wisp, map, 23, 29)
+		]]--
 	end
 
 	-- generates all objects in pane when locations are set

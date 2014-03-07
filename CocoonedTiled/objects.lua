@@ -145,11 +145,8 @@ local function createObjects(objectNumbers, pane)
 	end
 	
 		wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
-		--wall[1]:scale(1.08, 1)
 		wall[2] = display.newImage("mapdata/art/background/1-1BB/1-1U.png", true)
 		wall[3] = display.newImage("mapdata/art/background/1-1BB/1-1B.png", true)
-		--wall[4] = display.newImage("mapdata/art/background/1-1BB/1-1R.png")
-		--wall[5] = display.newImage("mapdata/art/background/1-1BB/1-1Extra.png")
 		
 	-- create all walls in level
 	for i=1, tonumber(objectNumbers.wallCount) do
@@ -159,7 +156,7 @@ local function createObjects(objectNumbers, pane)
 	
 	-- create all wisps in level
 	for i=1, tonumber(objectNumbers.wispCount) do
-		wisp[i] = display.newImage("mapdata/art/wisp.png")
+		wisp[i] = display.newImage("mapdata/art/wisp2.png")
 		wisp[i].isVisible = false
 		wisp[i].x, wisp[i].y = 100, 100
 	end	
