@@ -15,6 +15,7 @@
 spriteOptions = { 
 	player = {
 		{frames = {9,8,7,6,5,4,3,2,1}, name = "move", time = 500},
+		--{frames = {20,19,18,17,16,15,14,13,12,11,10}, name = "shrink", time = 500},
 		{frames = {1}, name = "still", time = 250}
 	},
 	energy = {
@@ -35,6 +36,10 @@ spriteOptions = {
 	},
 	runeAnimation = {	
 		{frames = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}, name = "move", time = 1500, loopCount = 1},
+		{frames = {1}, name = "stop", time = 250}
+	},
+	shrinkAnimation = {
+		{frames = {1,2,3,4,5,6,7,8,9,10,11}, name = "move", time = 750, loopCount = 1},
 		{frames = {1}, name = "stop", time = 250}
 	},
 	deathAnimation = {
@@ -74,6 +79,8 @@ spriteOptions = {
 sheetOptions = {
 	runeSheet = graphics.newImageSheet("mapdata/art/runeAnimation.png", 
 				 {width = 72, height = 72, sheetContentWidth = 432, sheetContentHeight = 216, numFrames = 18}),
+	shrinkSheet = graphics.newImageSheet("mapdata/graphics/switchPanesSheet.png", 
+				 {width = 72, height = 72, sheetContentWidth = 792, sheetContentHeight = 72, numFrames = 11}),
 	deathSheet = graphics.newImageSheet("mapdata/art/screenCrack.png", 
 				 {width = 1552, height = 864, sheetContentWidth =3108, sheetContentHeight =1728, numFrames = 4}),
 	wolfSheet = graphics.newImageSheet("mapdata/art/woldSheet.png", 
