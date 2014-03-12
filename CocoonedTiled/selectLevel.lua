@@ -78,10 +78,10 @@ local function onLocalCollision(self, event)
 		if event.other.x == kCircle[i].x and event.other.y == kCircle[i].y then
 			event.other.isSensor = true
 						
-			local pause = function() physics.start(); event.other.isBodyActive = false; self:setSequence("move"); end
-			local begin = function() event.other.isBodyActive = true; end
+			local pause = function() physics.start(); event.other.isBodyActive = false; end
+			local begin = function() self:setSequence("move"); self:play(); event.other.isBodyActive = true; end
 			
-			local trans = transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() self:setSequence("still"); physics.pause(); timer.performWithDelay(100, pause); 
+			local trans = transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() self:setSequence("still"); self:play(); physics.pause(); timer.performWithDelay(1000, pause); 
 																														timer.performWithDelay(5000, begin); 
 												end})
 			

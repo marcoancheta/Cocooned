@@ -284,7 +284,6 @@ local function gameLoop(event)
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
-		sound.playEventSound(event, sound.selectMapSound)	
 		selectLevel.selectLoop(event)	
 		gameData.selectLevel = false
 	end
@@ -301,12 +300,12 @@ local function gameLoop(event)
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
 	if gameData.gameStart then	
-
+		audio.stop()
 		-- full deletes select level screen and event listeners
 		selectLevel.clean()
 		
 		-- Stop BGM
-		--sound.stopBGM(event, sound.mainmenuSound)
+		--sound.stop(event, sound.mainmenuSound)
 		-- Start physics
 		physics.start()
 		-- Load Map
@@ -444,7 +443,7 @@ local function menuLoop(event)
 	--[[ MAIN MENU ]]--
 	if gameData.menuOn then
 		-- If in main menu do:
-		print("In Main Menu")
+		--print("In Main Menu")
 		-- Go to main menu
 		menu.MainMenu(event)
 		
@@ -481,8 +480,6 @@ local function menuLoop(event)
 	--[[ IN-GAME OPTIONS ]]--
 	elseif gameData.inGameOptions then
 		-- If in game options do:
-		-- Clear on screen objects
-		--gui:removeSelf()
 		-- Go to in-game option menu
 		menu.ingameMenu(event, player1)
 		
@@ -539,7 +536,7 @@ function soundLoop(event)
 		
 		if gameData.BGM == 2 then
 			-- Stop BGM
-			sound.stopBGM(event)
+			sound.stop(event)
 		end
 		
 		gameData.BGM = 0
