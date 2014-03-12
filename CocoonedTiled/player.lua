@@ -199,7 +199,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:shrink()
+function playerInstance:shrink() 
 	self.small = true
 	local delayShrink = function() return changeSize( self.imageObject ) end
 	timer.performWithDelay(20, delayShrink)

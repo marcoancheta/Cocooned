@@ -15,7 +15,8 @@ local require = require
 local math_abs = math.abs
 local physics = require("physics")
 local dusk = require("Dusk.Dusk")
-
+local GA = require("plugin.gameanalytics")
+	  
 --------------------------------------------------------------------------------
 -- Load in files/variables from other .lua's
 --------------------------------------------------------------------------------
@@ -59,8 +60,9 @@ local paneTransition = require("paneTransition")
 --------------------------------------------------------------------------------
 -- Local/Global Variables
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
+
 -- Initialize ball
 local ball
 local mapPanes
@@ -278,7 +280,7 @@ end
 -- Updated by: Marco - added selectLevel.clean in gameStart if statement 
 --------------------------------------------------------------------------------
 local function gameLoop(event)
-	---------------------------------
+		---------------------------------
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
@@ -544,11 +546,6 @@ function soundLoop(event)
 	end 
 end
 ]]--
-
-local function touch(event)
-	print(event.x, event.y)
-end
-Runtime:addEventListener("touch", touch)
 
 --------------------------------------------------------------------------------
 -- Call gameLoop && menuLoop every 30 fps

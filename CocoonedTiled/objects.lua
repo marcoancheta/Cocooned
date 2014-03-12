@@ -69,7 +69,9 @@ local function init()
 	sheetList["redAura"] = graphics.newImageSheet("mapdata/art/redAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
 	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/greenAuraSheet.png", 
-				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
+				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})	
+	sheetList["blueAura"] = graphics.newImageSheet("mapdata/art/blueAuraSheet.png", 
+				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})				 
 	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/exitPortalSheet.png", 
 				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
 	sheetList["wolf"] = graphics.newImageSheet("mapdata/art/wolfSheet.png", 
@@ -119,6 +121,7 @@ local function createObjects(objectNumbers, pane)
 	local objects = {}
 	local water = {}
 	local wall = {}
+	local auraWall = {}
 	
 	-- Water vertices (Applies for png: water4, water5)
 	local waterVertices = {-115,-35,   
@@ -134,21 +137,6 @@ local function createObjects(objectNumbers, pane)
 				     -260,10,  
 					 -135,-25,}
 					 
-	-- Wall vertices (Applies for png: level1_small.png)
-	--[[local wallVertices = {-115,-35,   
-					    0,-40,
-					   40, -50,
-					   75,-35,
-					   50, -15,
-					  180,5, 
-					  160,30,     
-					  145,50, 
-					 -200,50,   
-					 -190,20,
-				     -260,10,  
-					 -135,-25,}
-	]]
-		
 	-- create all waters in level
 	for i=1, tonumber(objectNumbers.waterCount) do
 		water[i] = display.newPolygon(655, 100, waterVertices)
@@ -158,20 +146,26 @@ local function createObjects(objectNumbers, pane)
 		--water[i]:setStrokeColor( 0, 1, 1 )
 	end
 	
-	--[[
+		wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
+		wall[2] = display.newImage("mapdata/art/background/1-1BB/1-1U.png", true)
+		wall[3] = display.newImage("mapdata/art/background/1-1BB/1-1B.png", true)
+		
+		auraWall[1] = display.newImage("mapdata/art/auraWalls/blueAuraWall.png", true)
+		
 	-- create all walls in level
 	for i=1, tonumber(objectNumbers.wallCount) do
-		wall[i] = display.newPolygon(655, 100, wallVertices)
 		wall[i].isVisible = false
-		wall[i]:setFillColor(0, 0, 0, 0)
-		wall[i].strokeWidth = 5
-		wall[i]:setStrokeColor( 0, 1, 1 )
+		--wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
 	end
-	]]
+	
+	-- create all walls in level
+	for i=1, tonumber(objectNumbers.auraWallCount) do
+		auraWall[i].isVisible = false
+	end
 	
 	-- create all wisps in level
 	for i=1, tonumber(objectNumbers.wispCount) do
-		wisp[i] = display.newImage("mapdata/art/wisp.png")
+		wisp[i] = display.newImage("mapdata/art/wisp2.png")
 		wisp[i].isVisible = false
 		wisp[i].x, wisp[i].y = 100, 100
 	end	
@@ -186,7 +180,7 @@ local function createObjects(objectNumbers, pane)
 	end
 
 	-- return object and wisp list
-	return objects, wisp, water --, wall
+	return objects, wisp, water, wall, auraWall
 end
 
 --------------------------------------------------------------------------------
@@ -200,9 +194,9 @@ local function main(mapData, map, player)
 	-- get which level lua, player is in
 	level = require("levels." .. levelNames[mapData.levelNum])
 	-- get objects and wisps list and create them
-	objects, wisp, water = createObjects(level, mapData.pane)
+	objects, wisp, water, wall, auraWall = createObjects(level, mapData.pane)
 	-- load in which pane player is in
-	level.load(mapData.pane, map, rune, objects, wisp, water)
+	level.load(mapData.pane, map, rune, objects, wisp, water, wall, auraWall)
 end
 
 
@@ -217,6 +211,18 @@ local function destroy(mapData)
 		display.remove(rune[i])
 		rune[i] = nil
 	end
+	
+	for i=0, #wall do
+		display.remove(wall[i])
+		wall[i] = nil
+	end
+	
+	
+	for i=0, #auraWall do
+		display.remove(auraWall[i])
+		auraWall[i] = nil
+	end
+	
 	-- destroy all objects in level pan
 	level.destroyAll()
 end

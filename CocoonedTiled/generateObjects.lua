@@ -15,6 +15,8 @@
 local moveableObject = require("moveableObject")
 -- wind emmiter object class (windEmitter.lua)
 local windEmitterMechanic = require("windEmitter")
+local physicsData = (require "levels.one_collision.walls").physicsData(1.0)
+local physicsData2 = (require "levels.one_collision.blueWall").physicsData(1.0)
 
 --------------------------------------------------------------------------------
 -- geneate wisps functions
@@ -196,7 +198,11 @@ local function gWater(water, map, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
 	   	-- insert water into map display group
+<<<<<<< HEAD
 		map.layer["tiles"]:insert(water[i])
+=======
+		map.layer["water"]:insert(water[i])
+>>>>>>> origin/New-Backgrounds
 
 		-- add physics body for wisp for collision
 		physics.addBody(water[i], "static", {bounce=0})
@@ -217,11 +223,15 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
+<<<<<<< HEAD
 --[[
+=======
+>>>>>>> origin/New-Backgrounds
 local function gWalls(wall, map, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
 	   	-- insertwater into map display group
+<<<<<<< HEAD
 		map.layer["wall"]:insert(wall[i])
 
 		-- add physics body for wisp for collision
@@ -229,12 +239,53 @@ local function gWalls(wall, map, startIndex, endIndex)
 		
 		-- set properties of wisps
 	   	wall[i].isVisible = true
+=======
+		map.layer["tiles"]:insert(wall[i])
+		
+		-- set properties of wisps
+	   	wall[i].isVisible = true
+		wall[i]:setFillColor(0, 0, 0, 0)
+>>>>>>> origin/New-Backgrounds
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
 
 	end
+<<<<<<< HEAD
 end
 ]]
+=======
+	
+	-- add physics body for wisp for collision
+	physics.addBody(wall[1], "static", physicsData:get("1-1L") )
+	physics.addBody(wall[2], "static", physicsData:get("1-1U") )
+	physics.addBody(wall[3], "static", physicsData:get("1-1B") )
+end
+
+--------------------------------------------------------------------------------
+-- Generate walls functions
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+-- takes in a start and end index and creates those wisps only
+local function gAuraWalls(auraWall, map, startIndex, endIndex)
+	for i=startIndex, endIndex do
+
+	   	-- insertwater into map display group
+		map.layer["tiles"]:insert(auraWall[i])
+		
+		-- set properties of wisps
+	   	auraWall[i].isVisible = true
+		auraWall[i]:setFillColor(0, 0, 0, 0)
+	   	auraWall[i].collType = "passThru"
+		auraWall[i].func = "blueWallCollision"
+	    auraWall[i].name = "blueWall"
+
+	end
+	
+	-- add physics body for wisp for collision
+	physics.addBody(auraWall[1], "static", physicsData2:get("blueAuraWall") )
+end
+>>>>>>> origin/New-Backgrounds
 
 --------------------------------------------------------------------------------
 -- destroy unused objects function
@@ -272,7 +323,10 @@ local function destroyObjects(level, rune, wisp, water, objects)
 	end
 	
 	-- deleted extra walls
+<<<<<<< HEAD
 	--[[
+=======
+>>>>>>> origin/New-Backgrounds
 	for i = 1, level.wallCount do
 		--print("energyCount:", i)
 		if wall[i].isVisible == false then
@@ -280,7 +334,19 @@ local function destroyObjects(level, rune, wisp, water, objects)
 			wall[i] = nil
 		end
 	end
+<<<<<<< HEAD
 	]]--
+=======
+	
+	-- deleted extra walls
+	for i = 1, level.auraWallCount do
+		--print("energyCount:", i)
+		if auraWall[i].isVisible == false then
+			auraWall[i]:removeSelf()
+			auraWall[i] = nil
+		end
+	end
+>>>>>>> origin/New-Backgrounds
 end
 
 --------------------------------------------------------------------------------
@@ -293,7 +359,12 @@ generateObjects = {
 	gWisps = gWisps,
 	gMObjects = gMObjects,
 	gWater = gWater,
+<<<<<<< HEAD
 	--gWalls = gWalls,
+=======
+	gWalls = gWalls,
+	gAuraWalls = gAuraWalls,
+>>>>>>> origin/New-Backgrounds
 	destroyObjects = destroyObjects
 }
 
