@@ -83,7 +83,7 @@ sheetOptions = {
 				 {width = 72, height = 72, sheetContentWidth = 792, sheetContentHeight = 72, numFrames = 11}),
 	deathSheet = graphics.newImageSheet("mapdata/art/screenCrack.png", 
 				 {width = 1552, height = 864, sheetContentWidth =3108, sheetContentHeight =1728, numFrames = 4}),
-	wolfSheet = graphics.newImageSheet("mapdata/art/woldSheet.png", 
+	wolfSheet = graphics.newImageSheet("mapdata/art/wolfSheet.png", 
 				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8}),
 
 }

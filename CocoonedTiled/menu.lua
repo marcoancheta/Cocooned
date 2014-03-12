@@ -298,7 +298,7 @@ function buttonPressed(event)
 	-----------------------------
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then
-		print("play button pressed")
+		--print("play button pressed")
 		
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)
@@ -321,7 +321,7 @@ function buttonPressed(event)
 	--------------------------------
 	--[[ Options button pressed ]]--
 	elseif event.target.name == "optionButton" then
-		print("options button pressed")
+		--print("options button pressed")
 						
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)
@@ -339,7 +339,7 @@ function buttonPressed(event)
 	-------------------------------------
 	--[[ Back to Main button pressed ]]--
 	elseif event.target.name == "BacktoMain" then
-		print("Back to Main Menu")
+		--print("Back to Main Menu")
 		
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)
@@ -379,7 +379,7 @@ function buttonPressed(event)
 	--[[ In game options button pressed ]]--	
 	elseif event.target.name == "inGameOptionsBTN" then
 
-		print("In game options")
+		--print("In game options")
 		
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)
@@ -394,7 +394,7 @@ function buttonPressed(event)
 	--------------------------------------------------
 	--[[ Back to Main from In-Game button pressed ]]--
 	elseif event.target.name == "gotoMain" then
-		print("Back to Main Menu")
+		--print("Back to Main Menu")
 				
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)
@@ -405,7 +405,7 @@ function buttonPressed(event)
 	---------------------------------------
 	--[[ Resume In-Game button pressed ]]--
 	elseif event.target.name == "Resume" then
-		print("Resume game")
+		--print("Resume game")
 		
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)

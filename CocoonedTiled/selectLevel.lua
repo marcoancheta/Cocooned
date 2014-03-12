@@ -96,7 +96,6 @@ local function onLocalCollision(self, event)
 				play.isVisible = false
 			end
 			
-			print("done6")
 		end
 	end
 end
@@ -122,7 +121,6 @@ local function tapOnce(event)
 		goals.destroyGoals()
 				
 		gameData.gameStart = true
-		print("done5")
 	end		
 end
 
@@ -143,7 +141,6 @@ local function controlMovement(event)
 	player1.yGrav = physicsParam.yGrav
 				
 	movement.moveAndAnimate(player1)
-	--print("done4")
 end
 
 
@@ -162,7 +159,6 @@ local function createLevelPlay()
 	play.isVisible = false
 	
 	play:addEventListener("tap", tapOnce)
-	print("done3")
 end
 
 --------------------------------------------------------------------------------
@@ -279,7 +275,6 @@ local function createPortals(map)
 	-- Loading Screen delay
 	timer.performWithDelay(1, myClosure)
 	
-	print("done 2")
 end
 
 --------------------------------------------------------------------------------
@@ -336,8 +331,6 @@ local function loadSelector()
 	ball:addEventListener("collision", ball)
 	Runtime:addEventListener("accelerometer", controlMovement)
 	Runtime:addEventListener("enterFrame", camera)
-	
-	print("done")
 end
 
 
@@ -370,8 +363,6 @@ local function selectLoop(event)
 				
 	-- Loading Screen delay
 	timer.performWithDelay(2000, deleteClosure)
-	
-	print("Loop1")
 end
 
 --------------------------------------------------------------------------------
