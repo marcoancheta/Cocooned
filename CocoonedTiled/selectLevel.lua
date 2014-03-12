@@ -58,11 +58,11 @@ local deleteClosure = function() return loading.deleteLoading(levelNumber) end
 --------------------------------------------------------------------------------
 -- Ball Camera
 --------------------------------------------------------------------------------
--- Updated by: Andrew Moved move and animate into the camera event since the camera event runs every frame and i didnt think i should add another listener
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function camera(event)
-	--movement.moveAndAnimate needs to be in a enterframe listener while the Accelerometer needs to be in a accelerometer listener.
 	movement.moveAndAnimate(player1)
+
 	-- Set Camera to Ball
 	map.setCameraFocus(ball)
 	map.setTrackingLevel(0.1)
@@ -129,7 +129,7 @@ end
 --------------------------------------------------------------------------------
 -- Control Mechanics - controls movement for player1
 --------------------------------------------------------------------------------
--- Updated by: Andrew, this is only to get accelerometer readings, I moved the movement function call into the camera function.
+-- Updated by: Derrick [Derived from Andrews's controlMovement() in gameLoop.lua]
 --------------------------------------------------------------------------------
 local function controlMovement(event)
  	--ball:setSequence("move")
@@ -137,11 +137,11 @@ local function controlMovement(event)
 	
 	-- call accelerometer to get data
 	physicsParam = movementMechanic.onAccelerate(event, player1, map)
+
 	-- set player1's X and Y gravity times the player1's curse
 	player1.xGrav = physicsParam.xGrav
 	player1.yGrav = physicsParam.yGrav
 				
-	movement.moveAndAnimate(player1)
 end
 
 

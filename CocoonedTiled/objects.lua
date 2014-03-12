@@ -123,6 +123,7 @@ local function createObjects(objectNumbers, pane)
 	local wall = {}
 	local auraWall = {}
 	
+	
 	-- Water vertices (Applies for png: water4, water5)
 	local waterVertices = {-115,-35,   
 					    0,-40,
@@ -137,6 +138,7 @@ local function createObjects(objectNumbers, pane)
 				     -260,10,  
 					 -135,-25,}
 					 
+		
 	-- create all waters in level
 	for i=1, tonumber(objectNumbers.waterCount) do
 		water[i] = display.newPolygon(655, 100, waterVertices)
@@ -145,6 +147,7 @@ local function createObjects(objectNumbers, pane)
 		--water[i].strokeWidth = 5
 		--water[i]:setStrokeColor( 0, 1, 1 )
 	end
+	
 	
 		wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
 		wall[2] = display.newImage("mapdata/art/background/1-1BB/1-1U.png", true)

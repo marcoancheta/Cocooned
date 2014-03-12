@@ -18,7 +18,7 @@ local generate = require("generateObjects")
 --------------------------------------------------------------------------------
 -- Level One Variables
 --------------------------------------------------------------------------------
--- Updated by: Andrew Added a switch wall, changes here can be discarded
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 local one = { 
 	-- boolean for which pane is being used
@@ -27,12 +27,8 @@ local one = {
 	-- number of wisps in the level
 	wispCount = 30,
 	waterCount = 10,
-<<<<<<< HEAD
-	--wallCount = 10,
-=======
 	wallCount = 3,
 	auraWallCount = 1,
->>>>>>> origin/New-Backgrounds
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -44,14 +40,10 @@ local one = {
 		["fish1"] = 0,
 		["fish2"] = 0,
 		["blueTotem"] = 0,
-		["redTotem"] = 2,
+		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-<<<<<<< HEAD
-		["switchWall"] = 1,
-=======
 		["switchWall"] = 0,
->>>>>>> origin/New-Backgrounds
 		["exitPortal"] = 1,
 		["enemy"] = 0,
 	},
@@ -134,18 +126,6 @@ local function load(pane, map, rune, objects, wisp, water, wall, auraWall)
 	
 	-- Check which pane
 	if pane == "M" then
-<<<<<<< HEAD
-
-		--objects["wolf1"].x , objects["wolf1"].y = map.tilesToPixels(4, 3)
-		--objects["wolf1"].direction, objects["wolf1"].distance = "right", 800
-		--objects["wolf1"].alpha = 0.75
-		--objects["wolf1"].accel = false
-		
-		rune[2].x, rune[2].y = map.tilesToPixels(15 , 14)
-  		rune[2].isVisible = true
-  		rune[2].accel = false
-		--[[		
-=======
 	
 		-- Blue Aura
 		objects["blueAura1"]:setSequence("move")
@@ -156,25 +136,9 @@ local function load(pane, map, rune, objects, wisp, water, wall, auraWall)
 		rune[4].x, rune[4].y = map.tilesToPixels(4.5, 4.5)			
 		rune[4].isVisible = true
 			
->>>>>>> origin/New-Backgrounds
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(37, 7)
 		
-<<<<<<< HEAD
-		wisp[1].x, wisp[1].y = map.tilesToPixels(19, 7)
-		wisp[2].x, wisp[2].y = map.tilesToPixels(19, 17)
-		wisp[3].x, wisp[3].y = map.tilesToPixels(14, 12)
-		wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
-		]]
-		
-		objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(5,8)
-		objects["switchWall1"].accel = true
-		objects["switchWall1"].defX = objects["switchWall1"].x
-		
-		generate.gWater(water, map, 1, 2)	
-		generate.gWisps(wisp, map, 1, 4)
-		--generate.gWalls(wall, map, 1, 2)
-=======
 		wisp[1].x, wisp[1].y = map.tilesToPixels(23, 6)
 		wisp[2].x, wisp[2].y = map.tilesToPixels(24, 8)
 		wisp[3].x, wisp[3].y = map.tilesToPixels(26, 9)
@@ -191,7 +155,6 @@ local function load(pane, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gAuraWalls(auraWall, map, 1, 1)
 		generate.gWisps(wisp, map, 1, 6)
 		generate.gWalls(wall, map, 1, 3)
->>>>>>> origin/New-Backgrounds
 	elseif pane == "U" then
 		--[[
 		-- Red Aura
@@ -274,11 +237,7 @@ local function load(pane, map, rune, objects, wisp, water, wall, auraWall)
 	-- generate all moveable objects in pane when locations are set
 	mObjects = generate.gMObjects(one, objects, map, pane)
 	-- destroy the unused objects
-<<<<<<< HEAD
-	generate.destroyObjects(one, rune, wisp, water, objects)
-=======
 	generate.destroyObjects(one, rune, wisp, water, wall, objects)
->>>>>>> origin/New-Backgrounds
 
 	-- set which panes are avaiable for player
 	map.panes = one.panes

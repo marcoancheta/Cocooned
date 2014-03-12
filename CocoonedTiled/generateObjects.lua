@@ -198,11 +198,7 @@ local function gWater(water, map, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
 	   	-- insert water into map display group
-<<<<<<< HEAD
-		map.layer["tiles"]:insert(water[i])
-=======
 		map.layer["water"]:insert(water[i])
->>>>>>> origin/New-Backgrounds
 
 		-- add physics body for wisp for collision
 		physics.addBody(water[i], "static", {bounce=0})
@@ -223,37 +219,19 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-<<<<<<< HEAD
---[[
-=======
->>>>>>> origin/New-Backgrounds
 local function gWalls(wall, map, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
 	   	-- insertwater into map display group
-<<<<<<< HEAD
-		map.layer["wall"]:insert(wall[i])
-
-		-- add physics body for wisp for collision
-		physics.addBody(wall[i], "static", {bounce=0})
-		
-		-- set properties of wisps
-	   	wall[i].isVisible = true
-=======
 		map.layer["tiles"]:insert(wall[i])
 		
 		-- set properties of wisps
 	   	wall[i].isVisible = true
 		wall[i]:setFillColor(0, 0, 0, 0)
->>>>>>> origin/New-Backgrounds
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
 
 	end
-<<<<<<< HEAD
-end
-]]
-=======
 	
 	-- add physics body for wisp for collision
 	physics.addBody(wall[1], "static", physicsData:get("1-1L") )
@@ -285,7 +263,6 @@ local function gAuraWalls(auraWall, map, startIndex, endIndex)
 	-- add physics body for wisp for collision
 	physics.addBody(auraWall[1], "static", physicsData2:get("blueAuraWall") )
 end
->>>>>>> origin/New-Backgrounds
 
 --------------------------------------------------------------------------------
 -- destroy unused objects function
@@ -323,10 +300,6 @@ local function destroyObjects(level, rune, wisp, water, objects)
 	end
 	
 	-- deleted extra walls
-<<<<<<< HEAD
-	--[[
-=======
->>>>>>> origin/New-Backgrounds
 	for i = 1, level.wallCount do
 		--print("energyCount:", i)
 		if wall[i].isVisible == false then
@@ -334,9 +307,6 @@ local function destroyObjects(level, rune, wisp, water, objects)
 			wall[i] = nil
 		end
 	end
-<<<<<<< HEAD
-	]]--
-=======
 	
 	-- deleted extra walls
 	for i = 1, level.auraWallCount do
@@ -346,7 +316,6 @@ local function destroyObjects(level, rune, wisp, water, objects)
 			auraWall[i] = nil
 		end
 	end
->>>>>>> origin/New-Backgrounds
 end
 
 --------------------------------------------------------------------------------
@@ -359,12 +328,8 @@ generateObjects = {
 	gWisps = gWisps,
 	gMObjects = gMObjects,
 	gWater = gWater,
-<<<<<<< HEAD
-	--gWalls = gWalls,
-=======
 	gWalls = gWalls,
 	gAuraWalls = gAuraWalls,
->>>>>>> origin/New-Backgrounds
 	destroyObjects = destroyObjects
 }
 
