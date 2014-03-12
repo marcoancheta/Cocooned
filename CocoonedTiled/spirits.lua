@@ -22,7 +22,7 @@ local function run(event)
 			end
 		end
 			
-		print("blue spirit")
+		--print("blue spirit")
 		Runtime:removeEventListener("enterFrame", run)
 		gameData.blueG = false
 	elseif gameData.pinkG then
@@ -31,11 +31,11 @@ local function run(event)
 		--temp[3].time = 20000
 		--temp[4].time = 20000
 		
-		print("pink spirit")
+		--print("pink spirit")
 		Runtime:removeEventListener("enterFrame", run)
 		gameData.pinkG = false
 	elseif gameData.greenG then
-		print("green spirit")
+		--print("green spirit")
 		Runtime:removeEventListener("enterFrame", run)
 		gameData.greenG = false
 	end

@@ -19,25 +19,25 @@ local name
 --------------------------------------------------------------------------------
 -- Updated by: John
 --------------------------------------------------------------------------------
-function playSound(event, name)
+local function playSound(event, name)
 	audio.setVolume(0.1, {channel = 4} )
 	local temp = audio.play(name, {channel=4, loops=0})
 	print("play sound:", name)
 end
 
-function pauseSound(event, name)
+local function pauseSound(event, name)
 	audio.setVolume(0.1, {channel = 4} )
 	local temp = audio.pause(name, {channel=4, loops=0})
 	print("pause sound:", name)
 end
 
-function playEventSound(event, name)
+local function playEventSound(event, name)
 	audio.setVolume(0.4, {channel = 3} )
 	local temp = audio.play(name, {channel=3, loops=0})
 	print("play event sound:", name)
 end
 
-function playBGM(event, name)
+local function playBGM(event, name)
 	audio.setVolume(.75, {channel = 2} )
 	local temp = audio.play(name, {channel=2, loops=-1})
 	print("play BGM:", name)
@@ -48,7 +48,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: John
 --------------------------------------------------------------------------------
-function stopBGM(event, name)
+local function stopBGM(event, name)
 	audio.dispose(name)
 	audio.stop()
 end
@@ -83,7 +83,7 @@ local sound = {
 	runePickupSound = audio.loadSound("sounds/runePickup.wav"),
 	wallHitSound = audio.loadSound("sounds/wallHit.wav"),
 	splashSound = audio.loadSound("sounds/splash.wav"),
-	totemSound = audio.loadSound("sounds/totem.wav")
+	--totemSound = audio.loadSound("sounds/totem.wav")
 	--selectMapSound = audio.loadSound('sounds/selectMap.wav')
 }
 
