@@ -61,7 +61,7 @@ local deleteClosure = function() return loading.deleteLoading(levelNumber) end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function camera(event)
-	movement.moveAndAnimate(player1)
+	movement.moveAndAnimate(event, player1)
 
 	-- Set Camera to Ball
 	map.setCameraFocus(ball)
@@ -79,7 +79,7 @@ local function onLocalCollision(self, event)
 			event.other.isSensor = true
 						
 			local pause = function() physics.start(); event.other.isBodyActive = false; end
-			local begin = function() self:setSequence("move"); self:play(); event.other.isBodyActive = true; end
+			local begin = function() event.other.isBodyActive = true; end
 			
 			local trans = transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() self:setSequence("still"); self:play(); physics.pause(); timer.performWithDelay(1000, pause); 
 																														timer.performWithDelay(5000, begin); 

@@ -16,7 +16,7 @@ local name
 
 audio.setVolume(0.1, {channel = 4} )
 audio.setVolume(0.4, {channel = 3} )
-audio.setVolume(.75, {channel = 2} )
+audio.setVolume(0.1, {channel = 2} )
 
 --------------------------------------------------------------------------------
 -- Play Sounds
@@ -46,7 +46,7 @@ local function playEventSound(event, name)
 		audio.stop( 3 )
 		print("Stop 3")
 	end
-	local temp = audio.play(name, {channel = availableChannel, 
+	local temp = audio.play(name, {channel = 3, 
 								onComplete = function() audio.dispose(name)
 									end })
 	print("play event sound:", name)
@@ -62,7 +62,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: John
 --------------------------------------------------------------------------------
-local function stop(event, name, value)
+local function stop(event, name)
 	audio.dispose(name)
 	audio.stop()
 end

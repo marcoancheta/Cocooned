@@ -177,7 +177,7 @@ local function speedUp(event)
 		player1.xGrav = player1.xGrav*player1.curse
 		player1.yGrav = player1.yGrav*player1.curse
 		newMap = map
-		movement.moveAndAnimate(player1)
+		movement.moveAndAnimate(event, player1)
 
 	end
 end
@@ -280,7 +280,7 @@ end
 -- Updated by: Marco - added selectLevel.clean in gameStart if statement 
 --------------------------------------------------------------------------------
 local function gameLoop(event)
-		---------------------------------
+	---------------------------------
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
@@ -300,10 +300,10 @@ local function gameLoop(event)
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
 	if gameData.gameStart then	
-		audio.stop()
 		-- full deletes select level screen and event listeners
 		selectLevel.clean()
-		
+		sound.stop(event, sound.gameSound)
+	
 		-- Stop BGM
 		--sound.stop(event, sound.mainmenuSound)
 		-- Start physics
@@ -447,10 +447,8 @@ local function menuLoop(event)
 		-- Go to main menu
 		menu.MainMenu(event)
 		
-		if not sound.isChannel2Active then
-			-- Start BGM
-			--sound.playBGM(event, sound.mainmenuSound)
-		end
+		-- Start BGM
+		sound.playBGM(event, sound.gameSound)
 		
 		-- reset mapData variables
 		mapData.pane = "M"

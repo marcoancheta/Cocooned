@@ -20,11 +20,12 @@ local count = 0
 --------------------------------------------------------------------------------
 -- Updated by: Andrew added the force put on a player for use with moveable walls
 --------------------------------------------------------------------------------
-local function moveAndAnimate(player)
+local function moveAndAnimate(event, player)
 	local vx, vy = player.imageObject:getLinearVelocity()
 
 	if player.movement == "accel" then
 		--print("moving")
+				
 		local yForce = 0
 		local xForce = 0
 		player.xGrav = player.xGrav * (player.speedConst)
@@ -76,6 +77,8 @@ local function moveAndAnimate(player)
 			player.imageObject:play()
 			player.imageObject.timeScale = 2.5
 		elseif speed > 600 then
+			--local delay = timer.performWithDelay(4000, sound.playEventSound, 0)
+			--delay.params = {params1 = event, params2 = sound.rollSnowSound}
 			player.imageObject:play()
 			player.imageObject.timeScale = 2
 		elseif speed > 300 then
