@@ -10,11 +10,15 @@
 --------------------------------------------------------------------------------
 -- spriteOptions -holds the sequences for each objects (frames and sequence name)
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Andrew
 --------------------------------------------------------------------------------
 spriteOptions = { 
 	player = {
 		{frames = {9,8,7,6,5,4,3,2,1}, name = "move", time = 500},
+		{frames = {1}, name = "still", time = 250}
+	},
+	player2 = {
+		{frames = {1,2,3,4,5,6,7,8,9}, name = "move", time = 500},
 		{frames = {1}, name = "still", time = 250}
 	},
 	energy = {

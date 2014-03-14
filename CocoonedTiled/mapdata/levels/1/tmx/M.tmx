@@ -5,6 +5,7 @@
   <property name="itemSize" value="0"/>
   <property name="moveObj" value="0"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
+  <property name="secondPlayerLocation" value="!json! {&quot;x&quot;:20, &quot;y&quot;:19}"/>
   <property name="tutorial" value="false"/>
  </properties>
  <tileset firstgid="1" name="wallTileSet" tilewidth="36" tileheight="36">

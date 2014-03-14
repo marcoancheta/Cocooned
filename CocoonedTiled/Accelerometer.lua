@@ -19,6 +19,7 @@ local physicsParam = {
 local highestxgrav = 0
 local highestygrav = 0
 local accelPlayer=nil
+local accelPlayer2=nil
 
 --------------------------------------------------------------------------------
 -- Cancel Death Timer - function that cancels end game from being changed
@@ -27,7 +28,6 @@ local accelPlayer=nil
 --------------------------------------------------------------------------------
 local function cancelDeathTimer() 
 	if accelPlayer.movement == "accel" and accelPlayer.deathTimer ~= nil then 
-		print("TIMERCANCELED")
 		timer.cancel(accelPlayer.deathTimer) 
 		accelPlayer.deathTimer=nil  
 		accelPlayer.imageObject.linearDamping = 1.25 
@@ -36,6 +36,19 @@ local function cancelDeathTimer()
 		accelPlayer.deathScreen:pause()
 		accelPlayer.deathScreen:removeSelf()
 		accelPlayer.deathScreen = nil
+	end
+end
+
+local function cancelDeathTimer2() 
+	if accelPlayer2.movement == "accel" and accelPlayer2.deathTimer ~= nil then 
+		timer.cancel(accelPlayer2.deathTimer) 
+		accelPlayer2.deathTimer=nil  
+		accelPlayer2.imageObject.linearDamping = 1.25 
+		accelPlayer2.speedConst = accelPlayer2.defaultSpeed
+		--accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
+		accelPlayer2.deathScreen:pause()
+		accelPlayer2.deathScreen:removeSelf()
+		accelPlayer2.deathScreen = nil
 	end
 end
 
@@ -88,14 +101,15 @@ end
 --------------------------------------------------------------------------------
 -- On Accelerate - function that gathers accelerometer data
 --------------------------------------------------------------------------------
--- Updated by: Andrew (changed line 76 to be player.shook)
+-- Updated by: Andrew 
 --------------------------------------------------------------------------------
 
-local function onAccelerate( event, player, map)
-	accelPlayer = player
-	local ball = player.imageObject
+local function onAccelerate( event, player, player2, map)
+	
 	--print(player.escape)
 	if event.isShake and player.movement == "inWater" then
+		local ball = player.imageObject
+		accelPlayer = player
 		local xDirection = 0
 		local yDirection = 0
 		if player.escape == "up" then
@@ -123,6 +137,39 @@ local function onAccelerate( event, player, map)
 		ball:applyLinearImpulse(.15*xDirection,.15*yDirection,ball.x, ball.y )
 		player.shook = true
 		timer.performWithDelay(200, cancelDeathTimer)
+	end
+	if player2.isActive == true then
+		if event.isShake and player2.movement == "inWater" then
+			local ball = player2.imageObject
+			accelPlayer = player2
+			local xDirection = 0
+			local yDirection = 0
+			if player.escape == "up" then
+				yDirection = -1
+			elseif player.escape == "upLeft" then
+				yDirection = -1
+				xDirection = -1
+			elseif player.escape == "upRight" then
+				yDirection = -1
+				xDirection = 1
+			elseif player.escape == "left" then
+				xDirection = -1
+			elseif player.escape == "right" then
+				xDirection = 1
+			elseif player.escape == "downRight" then
+				xDirection = 1
+				yDirection = 1
+			elseif player.escape == "down" then
+				yDirection = 1
+			elseif player.escape == "downLeft" then
+				yDirection = 1
+				xDirection = -1
+			end
+
+			ball:applyLinearImpulse(.15*xDirection,.15*yDirection,ball.x, ball.y )
+			player2.shook = true
+			timer.performWithDelay(200, cancelDeathTimerPlayer2)
+		end
 	end
 
 	--print("accel", event.yGravity*10, event.xGravity*10)

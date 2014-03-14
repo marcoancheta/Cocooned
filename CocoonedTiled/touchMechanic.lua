@@ -135,18 +135,22 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function tapScreen(event, miniMap, mapData, physics, map, player) 
+function tapScreen(event, miniMap, mapData, physics, map, player, player2) 
 	-- if tapped twice, show miniMap or if showing, hide it
-	if event.numTaps >= 2 and player.movement == "accel" then
+	if event.numTaps >= 2 and player.movement == "accel" and player2.movement=="accel" then
 		-- show miniMap 
 		if gameData.isShowingMiniMap == false then
 			-- pause physics when miniMap is shown
 			physics.pause()
 			player.xGrav = 0
 			player.yGrav = 0
+			if player2.isActive == true then
+				player2.xGrav = 0
+				player2.yGrav =0
+			end
 
 			-- update minimap pane images
-			miniMapMechanic.updateMiniMap(mapData.pane, miniMap, map, player)
+			miniMapMechanic.updateMiniMap(mapData.pane, miniMap, map, player, player2)
 
 			-- save current pane for later check
 			tempPane2 = mapData.pane

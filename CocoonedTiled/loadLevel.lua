@@ -25,8 +25,15 @@ local loading = require("loadingScreen")
 -- set variables for loading screen
 local loaded = 0
 local level = 0 
+local player2Params={
+		isActive = false,
+		x=-1,
+		y=-1
+}
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading(level) end
+--create player 2 if player2 is in current level
+local player = require("player")
 
 
 --------------------------------------------------------------------------------
@@ -34,7 +41,7 @@ local deleteClosure = function() return loading.deleteLoading(level) end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function createLevel(mapData, ball, player)
+function createLevel(mapData, playerInstance, player2)
 
 	loaded = 0 -- current loading checkpoint, max is 6
 	level =  mapData.levelNum
@@ -66,8 +73,14 @@ function createLevel(mapData, ball, player)
 	--map.layer["hWalls"].sy = map.layer["hWalls"].y
 
 	-- set players location
+	ball = playerInstance.imageObject
 	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
-
+	if map.secondPlayerLocation.x > 0 and map.secondPlayerLocation.y > 0 then
+		player2Params.isActive=true
+		player2Params.x, player2Params.y= map.tilesToPixels(map.secondPlayerLocation.x + 0.5, map.secondPlayerLocation.y + 0.5)
+	else
+		player2Params.active = false
+	end
 	-- create miniMap for level
 	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, player, map)
 	miniMapDisplay.name = "miniMapName"
@@ -80,7 +93,7 @@ function createLevel(mapData, ball, player)
 	timer.performWithDelay(1000, deleteClosure)
 
 	-- reutrn gui and miniMap
-	return gui, miniMapDisplay
+	return gui, miniMapDisplay, player2Params
 end
 
 --------------------------------------------------------------------------------
@@ -88,7 +101,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function changePane(mapData, player, miniMap)
+function changePane(mapData, player, player2, miniMap)
 
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
@@ -102,7 +115,13 @@ function changePane(mapData, player, miniMap)
 	if player.small == true then
 		player:unshrink()
 	end
+	if player2.isActive == true then
+		if player2.small == true then
+			player:unshrink()
+		end
+	end
 	
+	--TODO: check player2 inventory
 	-- if an item was previously taken, remove it from map
 	if #player.inventory.items > 0 then
 		-- check for N number of items on map if they were taken
@@ -137,6 +156,7 @@ function changePane(mapData, player, miniMap)
 		end
 	end
 
+	--TODO: how does checkWin work?
 	-- check if player has finished level
 	checkWin(player, map, mapData)
 	-- return new pane

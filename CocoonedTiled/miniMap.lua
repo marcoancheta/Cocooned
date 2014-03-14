@@ -113,10 +113,13 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function updateMiniMap(mapPane, miniMap, map, player)
+function updateMiniMap(mapPane, miniMap, map, player, player2)
 	
 	-- set player image object to invisible for display capture
 	player.imageObject.isVisible = false
+	if player2.isActive == true then
+		player2.imageObject.isVisible = false
+	end
 
 	-- capture display group image for new miniMap display
 	local pane = display.capture(map)
@@ -181,6 +184,9 @@ function updateMiniMap(mapPane, miniMap, map, player)
 
 	-- set player image object to visible once update is done
 	player.imageObject.isVisible = true
+	if player2.isActive == true then
+		player2.imageObject.isVisible = true
+	end
 
 	--checkInventory(miniMap[8], player)
 end
@@ -245,6 +251,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function checkInventory(invDisplay, player)
+	--TODO: figure out if we need to check both inventories
 	-- add in inventory goal
 	if #player.inventory.items > invDisplay.size then
 		for count = invDisplay.size+1, #player.inventory.items do

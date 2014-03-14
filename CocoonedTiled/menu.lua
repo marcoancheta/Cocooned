@@ -12,6 +12,7 @@ local gameData = require("gameData")
 local sound = require("sound")
 local widget = require("widget")
 local player1 = nil
+local player2 = nil
 
 -- Create new menu display group
 menuGroup = display.newGroup()
@@ -159,9 +160,10 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function ingameOptionsbutton(event, player)
+function ingameOptionsbutton(event, player, playerTwo)
 	--get player and create a local reference to it for button press function
 	player1 = player
+	player2 = playerTwo
 
 	-- Add in-game options image (option_wheel.png)
 	ingameOptions = display.newImage("graphics/option_wheel.png", 0, 0, true)
@@ -183,8 +185,9 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function ingameMenu(event, player)
+function ingameMenu(event, player, playerTwo)
 	player1 = player
+	player2 = playerTwo
 	print("ingameMenu")
 	-- Add options background image
 	gameOptionsBG = display.newImage("graphics/cocooned_menu.png", 0, 0, true)
@@ -431,6 +434,10 @@ function buttonPressed(event)
 			ingameOptionTextSpeed:removeSelf()
 			player1.speedConst = player1.speedConst +1
 			player1.maxSpeed = player1.maxSpeed +1
+			if player2.isActive then
+				player2.speedConst = player2.speedConst +1
+				player2.maxSpeed = player2.maxSpeed +1
+			end
 			--player's current speed
 			ingameOptionTextSpeed = display.newText(player1.speedConst, 1150, 380, native.Systemfont, 69)
 			ingameOptionTextSpeed:setFillColor(0, 1, 0)
@@ -441,6 +448,10 @@ function buttonPressed(event)
 			ingameOptionTextSpeed:removeSelf()
 			player1.speedConst = player1.speedConst -1
 			player1.maxSpeed = player1.maxSpeed -1
+			if player2.isActive then
+				player2.speedConst = player2.speedConst -1
+				player2.maxSpeed = player2.maxSpeed -1
+			end
 			--player's current speed
 			ingameOptionTextSpeed = display.newText(player1.speedConst, 1150, 380, native.Systemfont, 69)
 			ingameOptionTextSpeed:setFillColor(0, 1, 0)
@@ -450,6 +461,9 @@ function buttonPressed(event)
 		if player1 ~= nil then
 			ingameOptionTextDamping:removeSelf()
 			player1.imageObject.linearDamping = player1.imageObject.linearDamping +.25
+			if player2.isActive then
+				player2.imageObject.linearDamping = player2.imageObject.linearDamping +.25
+			end
 			--player's linear damping
 			ingameOptionTextDamping = display.newText(player1.imageObject.linearDamping, 1150, 180, native.Systemfont, 69)
 			ingameOptionTextDamping:setFillColor(0, 1, 0)
@@ -459,6 +473,9 @@ function buttonPressed(event)
 		if player1 ~= nil then
 			ingameOptionTextDamping:removeSelf()
 			player1.imageObject.linearDamping = player1.imageObject.linearDamping -.25
+			if player2.isActive then
+				player2.imageObject.linearDamping = player2.imageObject.linearDamping -.25
+			end
 			--player's linear damping
 			ingameOptionTextDamping = display.newText(player1.imageObject.linearDamping, 1150, 180, native.Systemfont, 69)
 			ingameOptionTextDamping:setFillColor(0, 1, 0)

@@ -18,7 +18,7 @@ local generate = require("generateObjects")
 --------------------------------------------------------------------------------
 -- Level One Variables
 --------------------------------------------------------------------------------
--- Updated by: Andrew Added a switch wall, changes here can be discarded
+-- Updated by: 
 --------------------------------------------------------------------------------
 local one = { 
 	-- boolean for which pane is being used
@@ -145,11 +145,11 @@ local function load(pane, map, rune, objects, wisp, water)
 		wisp[3].x, wisp[3].y = map.tilesToPixels(14, 12)
 		wisp[4].x, wisp[4].y = map.tilesToPixels(24, 12)
 		]]
-		objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(5,8)
-		objects["switchWall1"].accel = true
-		objects["switchWall1"].defX = objects["switchWall1"].x
+		--objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(5,8)
+		--objects["switchWall1"].accel = true
+		--objects["switchWall1"].defX = objects["switchWall1"].x
 		--generateWisps(wisp, map, 1, 4)
-		generate.gWater(water, map, 1, 2)
+		--generate.gWater(water, map, 1, 2)
 	elseif pane == "U" then
 		-- Red Aura
 		objects["redAura1"].x, objects["redAura1"].y = map.tilesToPixels(29, 13)		
