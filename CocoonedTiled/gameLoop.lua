@@ -118,6 +118,10 @@ function loadMap()
 	-- Load in map
 	gui, miniMap = loadLevel.createLevel(mapData, ball, player1)
 
+	-- fix offset, because Dusk Engine is offsetting during render
+	gui.x = gui.x - 20
+	gui.y = gui.y + 20
+
 	--start physics when everything is finished loading
 	physics.start()
 end
