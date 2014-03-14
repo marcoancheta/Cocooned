@@ -4,7 +4,7 @@
 -- blueWallCollision.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-local GA = require("plugin.gameanalytics")
+--local GA = require("plugin.gameanalytics")
 
 --------------------------------------------------------------------------------
 -- Collide Function - function for blue wall collision
@@ -17,7 +17,7 @@ function collide(collideObject, player, event, mapData, map)
 		event.contact.isEnabled = false
 	end
 	
-	GA.newEvent ( "design", {event_id = "collide:" ..collideObject.name, area = "level: "..mapData.levelNum, x=player.imageObject.x, y=player.imageObject.y } )
+	--GA.newEvent ( "design", {event_id = "collide:" ..collideObject.name, area = "level: "..mapData.levelNum, x=player.imageObject.x, y=player.imageObject.y } )
 end
 
 --------------------------------------------------------------------------------

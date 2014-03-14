@@ -10,7 +10,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Game Analytics
-local GA = require("plugin.gameanalytics")
+--local GA = require("plugin.gameanalytics")
 
 -- Hide status bar
 display.setStatusBar(display.HiddenStatusBar);
@@ -21,9 +21,10 @@ system.setIdleTimer(false)
 -- Global Variables
 local sCounter = 0
 
+--[[
 --Settings
 GA.isDebug                   = true
-GA.runInSimulator            = true
+GA.runInSimulator            = false
 
 GA.submitWhileRoaming        = false
 GA.waitForCustomUserID       = false
@@ -63,6 +64,7 @@ GA.init ({
     secret_key = '98be3f1d7da678b370f3b92f421715c4c9ad95f4',
     build_name = '1.0'
 })
+]]--
 
 --------------------------------------------------------------------------------
 -- Main

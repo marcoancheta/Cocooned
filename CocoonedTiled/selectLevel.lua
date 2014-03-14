@@ -91,7 +91,8 @@ local function onLocalCollision(self, event)
 			goals.findGoals(selectLevel)
 					
 			-- Level unlocked? Then create play button, else do nothing.
-			if i == 2 then
+			-- Unlock play button for level (i == levelNum+1)
+			if i == 2 or i == 3 then
 				play.isVisible = true
 				play:toFront()
 			else
@@ -225,8 +226,8 @@ local function createPortals(map)
 	textPos = {
 		--      X,         Y,
 		[1] = 750,   [2] = 800,  -- T
-		[3] = -75,  [4] = 150,  -- 1 [3] = -250,  [4] = 305,  -- 1
-		[5] = -250,  [6] = 305,  -- 2[ 5] = -75,  [6] = 150,  -- 2
+		[3] = -250,  [4] = 305,  -- 1 [3] = -250,  [4] = 305,  -- 1
+		[5] = -75,  [6] = 150,  -- 2[ 5] = -75,  [6] = 150,  -- 2
 		[7] = 770,  [8] = 140,  -- 3
 		[9] = 1600, [10] = 170, -- 4
 		[11] = 1800, [12] = 300, -- 5
@@ -259,8 +260,8 @@ local function createPortals(map)
 		map.layer["tiles"]:insert(kCircle[i])
 		map.layer["tiles"]:insert(levels[i])
 		
-		-- Unlock && lock levels
-
+		-- Unlock (i~=levelNum+1) && lock levels
+		-- When unlocking levels, also add changes to line 95 of this lua file.
 		if i~=2 and i ~= 3 then
 			lockedLevels[i] = display.newImage("graphics/lock.png")
 			lockedLevels[i].x = kCircle[i].x

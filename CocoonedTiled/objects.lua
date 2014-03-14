@@ -115,7 +115,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function createObjects(objectNumbers, pane)
+local function createObjects(objectNumbers, mapData)
 	-- declare wisp and object list
 	local wisp = {}
 	local objects = {}
@@ -125,7 +125,7 @@ local function createObjects(objectNumbers, pane)
 	
 	
 	-- Water vertices (Applies for png: water4, water5)
-	local waterVertices = {-115,-35,   
+	--[[local waterVertices = {-115,-35,   
 					    0,-40,
 					   40, -50,
 					   75,-35,
@@ -137,28 +137,43 @@ local function createObjects(objectNumbers, pane)
 					 -190,20,
 				     -260,10,  
 					 -135,-25,}
-					 
+	]]-- 
 		
-	-- create all waters in level
+	-- Load walls based on level
+	if mapData.levelNum == "1" then
+		-- Main walls
+		wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
+		wall[2] = display.newImage("mapdata/art/background/1-1BB/1-1U.png", true)
+		wall[3] = display.newImage("mapdata/art/background/1-1BB/1-1B.png", true)		
+		-- Aura walls
+		auraWall[1] = display.newImage("mapdata/art/auraWalls/blueAuraWall.png", true)
+	elseif mapData.levelNum == "2" then
+		if mapData.pane == "M" then
+			wall[1] = display.newImage("mapdata/art/background/2/2-1BB/2-1-WALL4.png", true)
+			water[1] = display.newImage("mapdata/art/background/2/2-1BB/2-1-WATER2.png", true)
+		elseif mapData.pane == "L" then
+			wall[1] = display.newImage("mapdata/art/background/2/2-2BB/2-2-WALL4.png", true)
+			water[1] = display.newImage("mapdata/art/background/2/2-2BB/2-2-WATER2.png", true)
+		end
+		
+		-- Border walls
+		wall[2] = display.newImage("mapdata/art/background/story border 1.png", true)		
+	end
+	
+		-- create all waters in level
 	for i=1, tonumber(objectNumbers.waterCount) do
-		water[i] = display.newPolygon(655, 100, waterVertices)
 		water[i].isVisible = false
-		water[i]:setFillColor(0, 0, 0, 0)
+		--water[i]:setFillColor(0, 0, 0, 0)
 		--water[i].strokeWidth = 5
 		--water[i]:setStrokeColor( 0, 1, 1 )
 	end
 	
-	
-		wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
-		wall[2] = display.newImage("mapdata/art/background/1-1BB/1-1U.png", true)
-		wall[3] = display.newImage("mapdata/art/background/1-1BB/1-1B.png", true)
-		
-		auraWall[1] = display.newImage("mapdata/art/auraWalls/blueAuraWall.png", true)
-		
 	-- create all walls in level
 	for i=1, tonumber(objectNumbers.wallCount) do
 		wall[i].isVisible = false
-		--wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
+		--wall[i]:setFillColor(0, 0, 0, 0)
+		--wall[i].strokeWidth = 5
+		--wall[i]:setStrokeColor( 0, 1, 1 )
 	end
 	
 	-- create all walls in level
@@ -175,11 +190,11 @@ local function createObjects(objectNumbers, pane)
 	
 	-- call function to animate objects
 	for i = 1, 5 do
-		createAnimations(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
+		createAnimations(objectNumbers[mapData.pane][objectNames[i]], objectNames[i], objects)
 	end
 	-- call function that creates sprites
 	for i = 6, 12 do
-		createSprites(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
+		createSprites(objectNumbers[mapData.pane][objectNames[i]], objectNames[i], objects)
 	end
 
 	-- return object and wisp list
@@ -197,9 +212,9 @@ local function main(mapData, map, player)
 	-- get which level lua, player is in
 	level = require("levels." .. levelNames[mapData.levelNum])
 	-- get objects and wisps list and create them
-	objects, wisp, water, wall, auraWall = createObjects(level, mapData.pane)
+	objects, wisp, water, wall, auraWall = createObjects(level, mapData)
 	-- load in which pane player is in
-	level.load(mapData.pane, map, rune, objects, wisp, water, wall, auraWall)
+	level.load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 end
 
 

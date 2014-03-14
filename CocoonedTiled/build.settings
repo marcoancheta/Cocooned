@@ -17,6 +17,7 @@ settings =
 	orientation={
 		default = "landscapeRight"
 	},
+	--[[
 	plugins =
     {
         -- key is the name passed to Lua's 'require()'
@@ -25,5 +26,6 @@ settings =
             -- required
             publisherId = "com.gameanalytics",
         },
-    },     
+    },
+	]]--
 }

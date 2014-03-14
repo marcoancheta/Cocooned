@@ -15,8 +15,11 @@
 local moveableObject = require("moveableObject")
 -- wind emmiter object class (windEmitter.lua)
 local windEmitterMechanic = require("windEmitter")
-local physicsData = (require "levels.one_collision.walls").physicsData(1.0)
-local physicsData2 = (require "levels.one_collision.blueWall").physicsData(1.0)
+
+local physicsData = {
+			  [1] = (require "levels.one_collision.walls").physicsData(1.0),
+			  [2] = (require "levels.one_collision.blueWall").physicsData(1.0),
+			  [3] = (require "levels.two_collision.walls").physicsData(1.0) }
 
 --------------------------------------------------------------------------------
 -- geneate wisps functions
@@ -194,22 +197,31 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-local function gWater(water, map, startIndex, endIndex)
+local function gWater(water, map, mapData, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
 	   	-- insert water into map display group
-		map.layer["water"]:insert(water[i])
+		map.layer["tiles"]:insert(water[i])
 
 		-- add physics body for wisp for collision
 		physics.addBody(water[i], "static", {bounce=0})
 		
-		-- set properties of wisps
+		-- set properties of water
 	   	water[i].isVisible = true
+		--water[i]:setFillColor(0, 0, 0, 1)
 	    water[i].func = "waterCollision"
 	   	water[i].collType = "passThru"
-		water[i].escape = "downRight"
+		water[i].escape = "topRight"
 	    water[i].name = "water"
-
+	end
+	
+	-- add physics body for water for collision
+	if mapData.levelNum == "2" then
+		if mapData.pane == "M" then
+			physics.addBody(water[1], "static", physicsData[3]:get("2-1-WATER2") )	
+		elseif mapData.pane == "L" then
+			physics.addBody(water[1], "static", physicsData[3]:get("2-2-WATER2") )	
+		end
 	end
 end
 
@@ -219,7 +231,7 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-local function gWalls(wall, map, startIndex, endIndex)
+local function gWalls(wall, map, mapData, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
 	   	-- insertwater into map display group
@@ -227,16 +239,26 @@ local function gWalls(wall, map, startIndex, endIndex)
 		
 		-- set properties of wisps
 	   	wall[i].isVisible = true
-		wall[i]:setFillColor(0, 0, 0, 0)
+		--wall[i]:setFillColor(0, 0, 0, 1)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
 
 	end
 	
-	-- add physics body for wisp for collision
-	physics.addBody(wall[1], "static", physicsData:get("1-1L") )
-	physics.addBody(wall[2], "static", physicsData:get("1-1U") )
-	physics.addBody(wall[3], "static", physicsData:get("1-1B") )
+	-- add physics body for wall for collision
+	if mapData.levelNum == "1" then
+		physics.addBody(wall[1], "static", physicsData[1]:get("1-1L") )
+		physics.addBody(wall[2], "static", physicsData[1]:get("1-1U") )
+		physics.addBody(wall[3], "static", physicsData[1]:get("1-1B") )
+	elseif mapData.levelNum == "2" then
+		if mapData.pane == "M" then
+			physics.addBody(wall[1], "static", physicsData[3]:get("2-1-WALL4") )
+			physics.addBody(wall[2], "static", physicsData[3]:get("story border 1") )
+		elseif mapData.pane == "L" then
+			physics.addBody(wall[1], "static", physicsData[3]:get("2-2-WALL4") )
+			physics.addBody(wall[2], "static", physicsData[3]:get("story border 1") )
+		end
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -245,7 +267,7 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-local function gAuraWalls(auraWall, map, startIndex, endIndex)
+local function gAuraWalls(auraWall, map, mapData, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
 	   	-- insertwater into map display group
@@ -261,7 +283,9 @@ local function gAuraWalls(auraWall, map, startIndex, endIndex)
 	end
 	
 	-- add physics body for wisp for collision
-	physics.addBody(auraWall[1], "static", physicsData2:get("blueAuraWall") )
+	if mapData.levelNum == "1" then
+		physics.addBody(auraWall[1], "static", physicsData[2]:get("blueAuraWall") )
+	end
 end
 
 --------------------------------------------------------------------------------

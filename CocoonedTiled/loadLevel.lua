@@ -65,8 +65,12 @@ function createLevel(mapData, ball, player)
 	--map.layer["vWalls"].sx = map.layer["vWalls"].x
 	--map.layer["hWalls"].sy = map.layer["hWalls"].y
 
-	-- set players location
-	ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
+	-- set players location according to level
+	if mapData.levelNum == "1" then
+		ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
+	elseif mapData.levelNum == "2" then
+		ball.x, ball.y = map.tilesToPixels(map.playerLocation.x - 10, map.playerLocation.y - 8)
+	end
 
 	-- create miniMap for level
 	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, player, map)
