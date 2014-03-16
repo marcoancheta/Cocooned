@@ -7,27 +7,28 @@
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
   <property name="tutorial" value="false"/>
  </properties>
- <tileset firstgid="1" name="2-2 BASE1" tilewidth="1440" tileheight="864">
+ <tileset firstgid="1" name="2-2" tilewidth="1440" tileheight="864">
   <tileoffset x="-720" y="432"/>
-  <image source="../../../art/background/2/2-2 BASE1.png" trans="000000" width="1440" height="864"/>
- </tileset>
- <tileset firstgid="2" name="2-2 SHADOW3" tilewidth="1440" tileheight="864">
-  <tileoffset x="-720" y="432"/>
-  <image source="../../../art/background/2/2-2 SHADOW3.png" trans="000000" width="1440" height="864"/>
+  <image source="../../../art/background/2/2-2.png" trans="000000" width="1440" height="864"/>
  </tileset>
  <layer name="bg" width="40" height="24" opacity="0.9">
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7DTvzQRLhCYLcESAKCZ7wAAcLYW0AAC
   </data>
  </layer>
- <layer name="tiles" width="40" height="24">
+ <layer name="hWalls" width="40" height="24">
   <data encoding="base64" compression="zlib">
    eJztwQENAAAAwqD3T20PBxQAAAD8Gw8AAAE=
   </data>
  </layer>
- <layer name="shadow" width="40" height="24">
+ <layer name="vWalls" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztzjENAAAIA7AF/6KRsIODp1XQBABo5jsAAJwtHqAAAw==
+   eJztwQENAAAAwqD3T20PBxQAAAD8Gw8AAAE=
+  </data>
+ </layer>
+ <layer name="tiles" width="40" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAAD8Gw8AAAE=
   </data>
  </layer>
 </map>

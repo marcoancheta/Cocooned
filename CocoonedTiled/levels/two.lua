@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- Cocotwod by Damaged Panda Games (http://signup.cocotwodgame.com/)
 -- two.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -16,7 +16,7 @@ local gameData = require("gameData")
 local generate = require("generateObjects")
 
 --------------------------------------------------------------------------------
--- Level One Variables
+-- Level two Variables
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ local two = {
 	-- { Middle, Down, Up, Right, Left }
 	panes = {true,false,false,false,true},
 	-- number of wisps in the level
-	wispCount = 30,
+	wispCount = 6,
 	waterCount = 1,
 	wallCount = 2,
 	auraWallCount = 0,
@@ -126,32 +126,49 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	
 	-- Check which pane
 	if mapData.pane == "M" then
-		print("draw once")		
-		
-		-- Pink rune
-		--rune[4].x, rune[4].y = map.tilesToPixels(4.5, 4.5)			
-		--rune[4].isVisible = true
-			
 		-- Portal
 		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(37, 7)
-		
+		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(38, 7)
+				
 		-- Wisps
-		--wisp[1].x, wisp[1].y = map.tilesToPixels(23, 6)
-		--wisp[2].x, wisp[2].y = map.tilesToPixels(24, 8)
-		--wisp[3].x, wisp[3].y = map.tilesToPixels(26, 9)
-		--wisp[4].x, wisp[4].y = map.tilesToPixels(28, 9)
-		--wisp[5].x, wisp[5].y = map.tilesToPixels(37, 10)
-		--wisp[6].x, wisp[6].y = map.tilesToPixels(37, 13)
+		--[[
+		wisp[1].x, wisp[1].y = map.tilesToPixels(5, 9)
+		wisp[2].x, wisp[2].y = map.tilesToPixels(5, 11)
+		wisp[3].x, wisp[3].y = map.tilesToPixels(5, 13)
+		wisp[4].x, wisp[4].y = map.tilesToPixels(5, 15)
+		]]--
 						
 		-- Water			
-		water[1].x, water[1].y = map.tilesToPixels(18.5, 15.5)
+		water[1].x, water[1].y = map.tilesToPixels(18.2, 15.5)
 		
 		-- Walls
-		wall[1].x, wall[1].y = map.tilesToPixels(20, 12)
+		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)
 		wall[2].x, wall[2].y = map.tilesToPixels(21, 12)
 		
-		--generate.gWisps(wisp, map, 1, 6)
+		--generate.gWisps(wisp, map, mapData, 1, 4)
+		generate.gWater(water, map, mapData, 1, 1)
+		generate.gWalls(wall, map, mapData, 1, 2)
+	elseif mapData.pane == "L" then
+		-- Pink rune
+		rune[4].x, rune[4].y = map.tilesToPixels(21, 18)			
+		rune[4].isVisible = true
+		
+		-- Wisps
+		wisp[1].x, wisp[1].y = map.tilesToPixels(29, 12)
+		wisp[2].x, wisp[2].y = map.tilesToPixels(25, 12)
+		wisp[3].x, wisp[3].y = map.tilesToPixels(21, 12)
+		wisp[4].x, wisp[4].y = map.tilesToPixels(21, 16)
+		wisp[5].x, wisp[5].y = map.tilesToPixels(39, 10)
+		wisp[6].x, wisp[6].y = map.tilesToPixels(39, 14)	
+	
+		-- Water
+		water[1].x, water[1].y = map.tilesToPixels(8.5, 14)
+		
+		-- Walls
+		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)
+		wall[2].x, wall[2].y = map.tilesToPixels(21, 12)
+
+		generate.gWisps(wisp, map, mapData, 1, 6)
 		generate.gWater(water, map, mapData, 1, 1)
 		generate.gWalls(wall, map, mapData, 1, 2)
 	elseif mapData.pane == "U" then
@@ -160,27 +177,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "R" then
 		print("You shouldn't be in here...")
-	elseif mapData.pane == "L" then
-		--[[
-		-- Wisps
-		wisp[23].x, wisp[23].y = map.tilesToPixels(8, 5.5)
-		wisp[24].x, wisp[24].y = map.tilesToPixels(13, 5.5)
-		wisp[25].x, wisp[25].y = map.tilesToPixels(18, 5.5)
-		wisp[26].x, wisp[26].y = map.tilesToPixels(28.5, 12)
-		wisp[27].x, wisp[27].y = map.tilesToPixels(8, 19)
-		wisp[28].x, wisp[28].y = map.tilesToPixels(13, 19)
-		wisp[29].x, wisp[29].y = map.tilesToPixels(18, 19)
-		]]--
-		
-		-- Water
-		water[1].x, water[1].y = map.tilesToPixels(10, 14)
-		-- Walls
-		wall[1].x, wall[1].y = map.tilesToPixels(20, 12)
-		wall[2].x, wall[2].y = map.tilesToPixels(21, 12)
-		
-		--generate.gWisps(wisp, map, 23, 29)
-		generate.gWater(water, map, mapData, 1, 1)
-		generate.gWalls(wall, map, mapData, 1, 2)
 	end
 
 	-- generates all objects in pane when locations are set

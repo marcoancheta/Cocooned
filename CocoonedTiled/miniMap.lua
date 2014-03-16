@@ -249,7 +249,7 @@ function checkInventory(invDisplay, player)
 	if #player.inventory.items > invDisplay.size then
 		for count = invDisplay.size+1, #player.inventory.items do
 			local itemName = player.inventory.items[count]
-			local itemDisplay = display.newImage("mapdata/items/" .. tostring(itemName) .. ".png")
+			local itemDisplay = display.newImage("mapdata/art/" .. tostring(itemName) .. ".png")
 			itemDisplay.x, itemDisplay.y = 130+ (30 *count), 250
 			invDisplay:insert(itemDisplay)
 			invDisplay.size = invDisplay.size + 1

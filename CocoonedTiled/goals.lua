@@ -18,7 +18,7 @@ local bSet
 local goalie
 
 -- Draw/Insert Objects
-local function drawGoals(text, rune, coins)
+local function drawGoals(text, rune)
 	-- boxSettings
 	bSet = {
 		font = nativeSystemfont,
@@ -52,9 +52,9 @@ local function drawGoals(text, rune, coins)
 	
 	for i=1, #text[gNum]-1 do
 		if i==1 then
-			textObject[i] = display.newText(text[gNum][i], bSet.x-600, bSet.y + 35 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
+			textObject[i] = display.newText(text[gNum][i], bSet.x-250, bSet.y + 35 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
 		elseif i>=2 then
-			textObject[i] = display.newText(text[gNum][i], bSet.x-200, bSet.y - 35 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
+			textObject[i] = display.newText(text[gNum][i], bSet.x-100, bSet.y - 35 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
 		end
 		textObject[i]:setFillColor(0,0,0)
 		textObject[i].align = "left"
@@ -83,11 +83,11 @@ local function findGoals(mapData)
 		
 	-- Load runes
 	local rune = {
-		[1] = display.newImage("mapdata/Items/blueRune.png"),
-		[2] = display.newImage("mapdata/Items/greenRune.png"),
-		[3] = display.newImage("mapdata/Items/pinkRune.png"),
-		[4] = display.newImage("mapdata/Items/purpleRune.png"),
-		[5] = display.newImage("mapdata/Items/yellowRune.png")
+		[1] = display.newImage("mapdata/art/runes/blueRune.png"),
+		[2] = display.newImage("mapdata/art/runes/greenRune.png"),
+		[3] = display.newImage("mapdata/art/runes/pinkRune.png"),
+		[4] = display.newImage("mapdata/art/runes/purpleRune.png"),
+		[5] = display.newImage("mapdata/art/runes/yellowRune.png")
 	}
 	
 	-- temp max Rune Amounts
@@ -99,18 +99,10 @@ local function findGoals(mapData)
 		--rune[i].isBodyActive = true
 	end
 	
-	-- Load Coins (coinSheet = animation sheet)
-	--local coinSheet = graphics.newImageSheet("mapdata/art/coins.png", 
-				 --{width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
-	
-	--coins = display.newSprite(coinSheet, spriteOptions.energy)
-	--coins.speed = 50
-	--coins.isVisible = false
-	
 	-- Goal text displayer
 	local text = {
 		[1] = {
-			[1] = "-Level Goals-",
+			[1] = "Collect",
 			[2] = "Runes:",
 			[3] = "",
 			--[4] = "Coins:",
@@ -121,20 +113,20 @@ local function findGoals(mapData)
 	}
 	
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
-	if temp == "T" then
+	if temp == "1" then
 		runeAMT = 1
-	elseif temp == "1" then
-		runeAMT = 4
 	elseif temp == "2" then
-		runeAMT = 3
+		runeAMT = 1
 	elseif temp == "3" then
+		runeAMT = 3
+	elseif temp == "4" then
 		runeAMT = 4
-	else runeAMT = #rune
+	else runeAMT = 0
 	end
 
 	-- Position and draw in goal displayer
 	for i=1, runeAMT do
-		rune[i].x = xCoord-100
+		rune[i].x = xCoord+50
 		rune[i].y = 125-35
 		rune[i]:scale(0.8, 0.8)
 		rune[i].isVisible = true

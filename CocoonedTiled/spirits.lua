@@ -25,12 +25,7 @@ local function run(event)
 		--print("blue spirit")
 		Runtime:removeEventListener("enterFrame", run)
 		gameData.blueG = false
-	elseif gameData.pinkG then
-		--temp[1].time = 20000
-		--temp[2].time = 20000
-		--temp[3].time = 20000
-		--temp[4].time = 20000
-		
+	elseif gameData.pinkG then	
 		--print("pink spirit")
 		Runtime:removeEventListener("enterFrame", run)
 		gameData.pinkG = false

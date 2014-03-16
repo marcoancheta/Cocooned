@@ -39,11 +39,11 @@ local function init()
 	
 	-- Load runes
 	rune = {
-		[1] = display.newImage("mapdata/Items/blueRune.png"),
-		[2] = display.newImage("mapdata/Items/greenRune.png"),
-		[3] = display.newImage("mapdata/Items/pinkRune.png"),
-		[4] = display.newImage("mapdata/Items/purpleRune.png"),
-		[5] = display.newImage("mapdata/Items/yellowRune.png")
+		[1] = display.newImage("mapdata/art/runes/blueRune.png"),
+		[2] = display.newImage("mapdata/art/runes/greenRune.png"),
+		[3] = display.newImage("mapdata/art/runes/pinkRune.png"),
+		[4] = display.newImage("mapdata/art/runes/purpleRune.png"),
+		[5] = display.newImage("mapdata/art/runes/yellowRune.png")
 	}
 	
 	-- Assign object name
@@ -64,15 +64,15 @@ local function init()
 	-- load object sprite sheets
 	sheetList = {}
 
-	sheetList["redAura"] = graphics.newImageSheet("mapdata/art/redAuraSheet.png", 
+	sheetList["redAura"] = graphics.newImageSheet("mapdata/art/animation/redAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
-	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/greenAuraSheet.png", 
+	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/animation/greenAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})	
-	sheetList["blueAura"] = graphics.newImageSheet("mapdata/art/blueAuraSheet.png", 
+	sheetList["blueAura"] = graphics.newImageSheet("mapdata/art/animation/blueAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})				 
-	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/exitPortalSheet.png", 
+	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet.png", 
 				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
-	sheetList["wolf"] = graphics.newImageSheet("mapdata/art/wolfSheet.png", 
+	sheetList["wolf"] = graphics.newImageSheet("mapdata/art/animation/wolfSheet.png", 
 				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8})
 	
 	return true
@@ -121,37 +121,21 @@ local function createObjects(objectNumbers, mapData)
 	local wall = {}
 	local auraWall = {}
 	
-	
-	-- Water vertices (Applies for png: water4, water5)
-	--[[local waterVertices = {-115,-35,   
-					    0,-40,
-					   40, -50,
-					   75,-35,
-					   50, -15,
-					  180,5, 
-					  160,30,     
-					  145,50, 
-					 -200,50,   
-					 -190,20,
-				     -260,10,  
-					 -135,-25,}
-	]]-- 
-		
 	-- Load walls based on level
 	if mapData.levelNum == "1" then
 		if mapData.pane == "M" then
 			-- Main walls
-			wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
-			wall[2] = display.newImage("mapdata/art/background/1-1BB/1-1U.png", true)
-			wall[3] = display.newImage("mapdata/art/background/1-1BB/1-1B.png", true)		
+			wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1.png", true)
 			-- Aura walls
 			auraWall[1] = display.newImage("mapdata/art/auraWalls/blueAuraWall.png", true)
 		end
 	elseif mapData.levelNum == "2" then
 		if mapData.pane == "M" then
+			-- Level 2: Pane 'M'
 			wall[1] = display.newImage("mapdata/art/background/2/2-1BB/2-1-WALL4.png", true)
 			water[1] = display.newImage("mapdata/art/background/2/2-1BB/2-1-WATER2.png", true)
 		elseif mapData.pane == "L" then
+			-- Level 2: Pane 'L'
 			wall[1] = display.newImage("mapdata/art/background/2/2-2BB/2-2-WALL4.png", true)
 			water[1] = display.newImage("mapdata/art/background/2/2-2BB/2-2-WATER2.png", true)
 		end
@@ -183,7 +167,7 @@ local function createObjects(objectNumbers, mapData)
 	
 	-- create all wisps in level
 	for i=1, tonumber(objectNumbers.wispCount) do
-		wisp[i] = display.newImage("mapdata/art/wisp2.png")
+		wisp[i] = display.newImage("mapdata/art/wisp/wisp2.png")
 		wisp[i].isVisible = false
 		wisp[i].x, wisp[i].y = 100, 100
 	end	

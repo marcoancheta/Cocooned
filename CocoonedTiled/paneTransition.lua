@@ -11,7 +11,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local paneSheet = graphics.newImageSheet("mapdata/art/snowAnimation.png", 
+local paneSheet = graphics.newImageSheet("mapdata/art/animation/snowAnimation.png", 
 				 {width = 1440, height = 891, sheetContentWidth = 7200, sheetContentHeight = 4081, numFrames = 20})
 local transPic, tempPic
 

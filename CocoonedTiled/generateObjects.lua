@@ -19,7 +19,8 @@ local windEmitterMechanic = require("windEmitter")
 local physicsData = {
 			  [1] = (require "levels.one_collision.walls").physicsData(1.0),
 			  [2] = (require "levels.one_collision.blueWall").physicsData(1.0),
-			  [3] = (require "levels.two_collision.walls").physicsData(1.0) }
+			  [3] = (require "levels.two_collision.walls").physicsData(1.0),
+			  [4] = (require "levels.storyborder_collision.border").physicsData(1.0) }
 
 --------------------------------------------------------------------------------
 -- geneate wisps functions
@@ -208,7 +209,7 @@ local function gWater(water, map, mapData, startIndex, endIndex)
 		
 		-- set properties of water
 	   	water[i].isVisible = true
-		water[i]:setFillColor(0, 0, 0, 1)
+		water[i]:setFillColor(0, 0, 0, 0)
 	    water[i].func = "waterCollision"
 	   	water[i].collType = "passThru"
 		water[i].escape = "topRight"
@@ -239,7 +240,7 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		
 		-- set properties of wisps
 	   	wall[i].isVisible = true
-		--wall[i]:setFillColor(0, 0, 0, 1)
+		wall[i]:setFillColor(0, 0, 0, 0)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
 
@@ -248,18 +249,18 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 	-- add physics body for wall for collision
 	if mapData.levelNum == "1" then
 		if mapData.pane == "M" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("1-1L") )
-			physics.addBody(wall[2], "static", physicsData[1]:get("1-1U") )
-			physics.addBody(wall[3], "static", physicsData[1]:get("1-1B") )
+			physics.addBody(wall[1], "static", physicsData[1]:get("1-1") )
 		end
 	elseif mapData.levelNum == "2" then
 		if mapData.pane == "M" then
 			physics.addBody(wall[1], "static", physicsData[3]:get("2-1-WALL4") )
-			physics.addBody(wall[2], "static", physicsData[3]:get("story border 1") )
+			physics.addBody(wall[2], "static", physicsData[4]:get("story border 1") )
 		elseif mapData.pane == "L" then
 			physics.addBody(wall[1], "static", physicsData[3]:get("2-2-WALL4") )
-			physics.addBody(wall[2], "static", physicsData[3]:get("story border 1") )
+			physics.addBody(wall[2], "static", physicsData[4]:get("story border 1") )
 		end
+
+		wall[2]:setFillColor(0, 0, 0, 1)
 	end
 end
 
@@ -277,7 +278,7 @@ local function gAuraWalls(auraWall, map, mapData, startIndex, endIndex)
 		
 		-- set properties of wisps
 	   	auraWall[i].isVisible = true
-		auraWall[i]:setFillColor(0, 0, 0, 0)
+		--auraWall[i]:setFillColor(0, 0, 0, 0)
 	   	auraWall[i].collType = "passThru"
 		auraWall[i].func = "blueWallCollision"
 	    auraWall[i].name = "blueWall"

@@ -27,7 +27,7 @@ local one = {
 	-- number of wisps in the level
 	wispCount = 6,
 	waterCount = 0,
-	wallCount = 3,
+	wallCount = 1,
 	auraWallCount = 1,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
@@ -64,11 +64,11 @@ local one = {
 	},
 	["U"] = {
 		["blueAura"] = 0,
-		["redAura"] = 1,
-		["greenAura"] = 1,
+		["redAura"] = 0,
+		["greenAura"] = 0,
 		["wolf"] = 0,
-		["fish1"] = 2,
-		["fish2"] = 2,
+		["fish1"] = 0,
+		["fish2"] = 0,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -145,15 +145,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[5].x, wisp[5].y = map.tilesToPixels(37, 10)
 		wisp[6].x, wisp[6].y = map.tilesToPixels(37, 13)
 			
-		wall[1].x, wall[1].y = map.tilesToPixels(4.5, 12)	 --L
-		wall[2].x, wall[2].y = map.tilesToPixels(23.6, 7) 	 --U
-		wall[3].x, wall[3].y = map.tilesToPixels(22.2, 16.2) --B
-		
+		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)	 
+				
 		auraWall[1].x, auraWall[1].y = map.tilesToPixels(6.5, 5) -- blueAuraWall
 		
 		generate.gAuraWalls(auraWall, map, mapData, 1, 1)
 		generate.gWisps(wisp, map, mapData, 1, 6)
-		generate.gWalls(wall, map, mapData, 1, 3)
+		generate.gWalls(wall, map, mapData, 1, 1)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then

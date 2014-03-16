@@ -77,13 +77,13 @@ spriteOptions = {
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 sheetOptions = {
-	runeSheet = graphics.newImageSheet("mapdata/art/runeAnimation.png", 
+	runeSheet = graphics.newImageSheet("mapdata/art/animation/runeAnimation.png", 
 				 {width = 72, height = 72, sheetContentWidth = 432, sheetContentHeight = 216, numFrames = 18}),
-	shrinkSheet = graphics.newImageSheet("mapdata/graphics/switchPanesSheet.png", 
+	shrinkSheet = graphics.newImageSheet("mapdata/art/animation/switchPanesSheet.png", 
 				 {width = 72, height = 72, sheetContentWidth = 792, sheetContentHeight = 72, numFrames = 11}),
-	deathSheet = graphics.newImageSheet("mapdata/art/screenCrack.png", 
+	deathSheet = graphics.newImageSheet("mapdata/art/animation/screenCrack.png", 
 				 {width = 1552, height = 864, sheetContentWidth =3108, sheetContentHeight =1728, numFrames = 4}),
-	wolfSheet = graphics.newImageSheet("mapdata/art/wolfSheet.png", 
+	wolfSheet = graphics.newImageSheet("mapdata/art/animation/wolfSheet.png", 
 				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8}),
 
 }

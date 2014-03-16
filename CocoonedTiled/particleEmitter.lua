@@ -107,14 +107,14 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
       
       -- set particle image and set properties
       if(self.particleImage) then
-        particle = display.newImage("mapdata/art/particle.png")        
+        particle = display.newImage("mapdata/art/animation/particle.png")        
         particle.x = ex
         particle.y = ey
         particle.rotation = na
         particle:setFillColor(self.colorR, self.colorG, self.colorB)
       else
         -- set particle image
-        particle = display.newImage("mapdata/art/particle.png") 
+        particle = display.newImage("mapdata/art/animation/particle.png") 
         -- particle:scale(0.5,0.5)
         physics.addBody(particle)
         -- particle:applyTorque( 50 )

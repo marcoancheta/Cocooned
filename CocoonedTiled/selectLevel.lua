@@ -51,8 +51,6 @@ local map, bg
 local player1, ball
 local player1Sheet
 local loaded = 0
-local kCircleSheet = graphics.newImageSheet("mapdata/art/exitPortalSheet.png", 
-				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
 
 -- loading screen functions
 local levelNumber = -1 -- -1 for level select (used for cutscenes)
@@ -85,17 +83,9 @@ local function onLocalCollision(self, event)
 			local pause = function() physics.start(); event.other.isBodyActive = false; end
 			local begin = function() event.other.isBodyActive = true; end
 
-			local trans = transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() physics.pause(); timer.performWithDelay(1000, pause); 
-																														timer.performWithDelay(5000, begin); 
-												end})
-			
-			if event.other.isBodyActive == false then
-				self:setSequence("still")
-			elseif event.other.isBodyActive then
-				self:setSequence("move")
-				self:play()
-			end
-			
+			local trans = transition.to(ball, {time = 1500, x = kCircle[i].x, y = kCircle[i].y - 15, onComplete = function() 
+																physics.pause(); timer.performWithDelay(1000, pause); 
+																				 timer.performWithDelay(5000, begin); end})				
 			
 			selectLevel.levelNum = kCircle[i].name
 	
@@ -104,7 +94,7 @@ local function onLocalCollision(self, event)
 					
 			-- Level unlocked? Then create play button, else do nothing.
 			-- Unlock play button for level (i == levelNum+1)
-			if i == 2 or i == 3 then
+			if i == 1 or i == 2 then
 				play.isVisible = true
 				play:toFront()
 			else
@@ -165,7 +155,7 @@ end
 --------------------------------------------------------------------------------
 local function createLevelPlay()
 	-- Create play button
-	play = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
+	play = display.newImage("mapdata/art/buttons/sil_kipcha.png", 0, 0, true)
 	play.x = 1280
 	play.y =150
 	play:scale(2, 2)
@@ -199,15 +189,6 @@ local function selectLoop(event)
 	levels = {}  -- Level Indicator Array
 	lockedLevels = {} -- Locked Levels Array
 			
-	-- Load image sheet
-	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
-				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-	
-	-- Create player
-	player = display.newSprite(playerSheet, spriteOptions.player)
-	player.speed = 250
-	player.title = "player"
-	player:scale(0.8, 0.8)
 end
 
 
@@ -249,6 +230,10 @@ local function createPortals(map)
 		[33] = 750,  [34] = 1100,  -- F
 		[35] = -200, [36] = 700   -- Bonus]]--
 	}
+	
+	local kCircleSheet = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet.png", 
+				 {width = 72.5, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
+		
 		
 	for i=1, #lvlNumber do
 		-- Make & assign attributes to the 10 circles (kCircle[array])
@@ -270,7 +255,7 @@ local function createPortals(map)
 		-- Unlock (i~=levelNum+1) && lock levels
 		-- When unlocking levels, also add changes to line 95 of this lua file.
 		if i~=1 and i ~= 2 then
-			lockedLevels[i] = display.newImage("graphics/lock.png")
+			lockedLevels[i] = display.newImage("mapdata/art/buttons/lock.png")
 			lockedLevels[i].x = kCircle[i].x
 			lockedLevels[i].y = kCircle[i].y
 			lockedLevels[i]:scale(0.2, 0.2)
@@ -287,7 +272,6 @@ local function createPortals(map)
 	
 	-- Loading Screen delay
 	timer.performWithDelay(1, myClosure)
-	
 end
 
 --------------------------------------------------------------------------------
@@ -304,7 +288,7 @@ local function loadSelector()
 	system.setAccelerometerInterval(30)
 
 	-- Create player sprite sheet
-	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
+	local playerSheet = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite.png", 
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
 	
 	-- Create player/ball object to map
@@ -322,7 +306,7 @@ local function loadSelector()
 	ball.y = 500
 
 	-- Create levelSelector Background
-	bg = display.newImage("mapdata/art/waterBG.png", 0, 0, true)
+	bg = display.newImage("mapdata/art/background/screens/waterBG.png", 0, 0, true)
 	bg.x = 720
 	bg.y = 450
 	bg:scale(0.8, 0.8)
@@ -338,8 +322,8 @@ local function loadSelector()
 		  map.layer["tiles"]:insert(wall[1])
 		   
 	for i=1, #wall do
-		wall[i].isVisible = true
-		wall[i]:setFillColor(1, 0, 0, 0.5)
+		wall[i].isVisible = false
+		--wall[i]:setFillColor(1, 0, 0, 0.5)
 		physics.addBody(wall[i], "static", physicsData:get("LS") )
 	end
 	

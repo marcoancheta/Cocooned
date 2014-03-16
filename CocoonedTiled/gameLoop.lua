@@ -38,8 +38,6 @@ local sound = require("sound")
 local player = require("player")
 -- Object variables/files (objects.lua)
 local objects = require("objects")
--- Save/Load Game Data Functions
-local save = require("GGData")
 -- miniMap display functions
 local miniMapMechanic = require("miniMap")
 
@@ -98,7 +96,7 @@ function loadMap()
 	system.setAccelerometerInterval(30)
 
 	-- Create player sprite sheet
-	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
+	local playerSheet = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite.png", 
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
 	
 	-- Create player/ball object to map
