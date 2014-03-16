@@ -25,8 +25,8 @@ local one = {
 	-- { Middle, Down, Up, Right, Left }
 	panes = {true,false,false,false,false},
 	-- number of wisps in the level
-	wispCount = 30,
-	waterCount = 10,
+	wispCount = 6,
+	waterCount = 0,
 	wallCount = 3,
 	auraWallCount = 1,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -125,8 +125,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 	
 	-- Check which pane
-	if mapData.pane == "M" then
-	
+	if mapData.pane == "M" then	
 		-- Blue Aura
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
@@ -146,9 +145,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[5].x, wisp[5].y = map.tilesToPixels(37, 10)
 		wisp[6].x, wisp[6].y = map.tilesToPixels(37, 13)
 			
-		wall[1].x, wall[1].y = map.tilesToPixels(4.5, 12)	--L
-		wall[2].x, wall[2].y = map.tilesToPixels(23.6, 7) 	--U
-		wall[3].x, wall[3].y = map.tilesToPixels(22.2, 16.2)	--B
+		wall[1].x, wall[1].y = map.tilesToPixels(4.5, 12)	 --L
+		wall[2].x, wall[2].y = map.tilesToPixels(23.6, 7) 	 --U
+		wall[3].x, wall[3].y = map.tilesToPixels(22.2, 16.2) --B
 		
 		auraWall[1].x, auraWall[1].y = map.tilesToPixels(6.5, 5) -- blueAuraWall
 		

@@ -126,6 +126,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	
 	-- Check which pane
 	if mapData.pane == "M" then
+		print("draw once")		
 		
 		-- Pink rune
 		--rune[4].x, rune[4].y = map.tilesToPixels(4.5, 4.5)			

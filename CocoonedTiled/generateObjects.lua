@@ -27,7 +27,7 @@ local physicsData = {
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-local function gWisps(wisp, map, startIndex, endIndex)
+local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
 		-- set properties of wisps
@@ -208,7 +208,7 @@ local function gWater(water, map, mapData, startIndex, endIndex)
 		
 		-- set properties of water
 	   	water[i].isVisible = true
-		--water[i]:setFillColor(0, 0, 0, 1)
+		water[i]:setFillColor(0, 0, 0, 1)
 	    water[i].func = "waterCollision"
 	   	water[i].collType = "passThru"
 		water[i].escape = "topRight"
@@ -247,9 +247,11 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 	
 	-- add physics body for wall for collision
 	if mapData.levelNum == "1" then
-		physics.addBody(wall[1], "static", physicsData[1]:get("1-1L") )
-		physics.addBody(wall[2], "static", physicsData[1]:get("1-1U") )
-		physics.addBody(wall[3], "static", physicsData[1]:get("1-1B") )
+		if mapData.pane == "M" then
+			physics.addBody(wall[1], "static", physicsData[1]:get("1-1L") )
+			physics.addBody(wall[2], "static", physicsData[1]:get("1-1U") )
+			physics.addBody(wall[3], "static", physicsData[1]:get("1-1B") )
+		end
 	elseif mapData.levelNum == "2" then
 		if mapData.pane == "M" then
 			physics.addBody(wall[1], "static", physicsData[3]:get("2-1-WALL4") )

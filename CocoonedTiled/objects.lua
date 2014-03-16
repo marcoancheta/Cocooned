@@ -64,8 +64,6 @@ local function init()
 	-- load object sprite sheets
 	sheetList = {}
 
-	sheetList.energy = graphics.newImageSheet("mapdata/art/coins.png", 
-				 {width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
 	sheetList["redAura"] = graphics.newImageSheet("mapdata/art/redAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
 	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/greenAuraSheet.png", 
@@ -141,12 +139,14 @@ local function createObjects(objectNumbers, mapData)
 		
 	-- Load walls based on level
 	if mapData.levelNum == "1" then
-		-- Main walls
-		wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
-		wall[2] = display.newImage("mapdata/art/background/1-1BB/1-1U.png", true)
-		wall[3] = display.newImage("mapdata/art/background/1-1BB/1-1B.png", true)		
-		-- Aura walls
-		auraWall[1] = display.newImage("mapdata/art/auraWalls/blueAuraWall.png", true)
+		if mapData.pane == "M" then
+			-- Main walls
+			wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1L.png", true)
+			wall[2] = display.newImage("mapdata/art/background/1-1BB/1-1U.png", true)
+			wall[3] = display.newImage("mapdata/art/background/1-1BB/1-1B.png", true)		
+			-- Aura walls
+			auraWall[1] = display.newImage("mapdata/art/auraWalls/blueAuraWall.png", true)
+		end
 	elseif mapData.levelNum == "2" then
 		if mapData.pane == "M" then
 			wall[1] = display.newImage("mapdata/art/background/2/2-1BB/2-1-WALL4.png", true)

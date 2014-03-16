@@ -523,39 +523,12 @@ local function menuLoop(event)
 end
 
 --------------------------------------------------------------------------------
--- Core Sound Loop
---------------------------------------------------------------------------------
---[[
-function soundLoop(event)
-	--------------
-	-- BGM LOOP --
-	--------------
-	if gameData.BGM ~= 0 then
-		if gameData.BGM == 1 then
-			-- Play BGM
-			sound.playBGM(event, sound.mainmenuSound)
-		end 
-		
-		if gameData.BGM == 2 then
-			-- Stop BGM
-			sound.stop(event)
-		end
-		
-		gameData.BGM = 0
-	end 
-end
-]]--
-
---------------------------------------------------------------------------------
 -- Call gameLoop && menuLoop every 30 fps
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 Runtime:addEventListener("enterFrame", gameLoop)
 Runtime:addEventListener("enterFrame", menuLoop)
-
---Runtime:addEventListener("enterFrame", soundLoop)
-
 
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)
