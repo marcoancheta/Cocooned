@@ -87,7 +87,7 @@ function createLevel(mapData, playerInstance, player2)
 		ball.x, ball.y = map.tilesToPixels(map.playerLocation.x, map.playerLocation.y - 8)
 		if map.secondPlayerLocation.x > 0 and map.secondPlayerLocation.y > 0 then
 			player2Params.isActive=true
-			player2Params.x, player2Params.y= map.tilesToPixels(map.secondPlayerLocation.x , map.secondPlayerLocation.y -8)
+			player2Params.x, player2Params.y= map.tilesToPixels(map.secondPlayerLocation.x , map.secondPlayerLocation.y-8)
 		else
 			player2Params.active = false
 		end

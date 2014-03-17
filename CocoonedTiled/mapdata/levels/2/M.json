@@ -51,7 +51,7 @@
      "itemSize":"0",
      "moveObj":"0",
      "playerLocation":"!json! {\"x\": 20, \"y\":12 }",
-     "secondPlayerLocation":"!json! {\"x\": 22, \"y\":14 }",
+     "secondPlayerLocation":"!json! {\"x\": 16, \"y\":12 }",
      "tutorial":"false"
     },
  "tileheight":36,

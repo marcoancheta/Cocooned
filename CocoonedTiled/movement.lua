@@ -20,19 +20,20 @@ local count = 0
 --------------------------------------------------------------------------------
 -- Updated by: Andrew added the force put on a player for use with moveable walls
 --------------------------------------------------------------------------------
-local function moveAndAnimate(event, player)
-	local vx, vy = player.imageObject:getLinearVelocity()
+local function moveAndAnimate(event, currPlayer)
+	print(currPlayer)
+	local vx, vy = currPlayer.imageObject:getLinearVelocity()
 
-	if player.movement == "accel" then
+	if currPlayer.movement == "accel" then
 		--print("moving")
 				
 		local yForce = 0
 		local xForce = 0
-		player.xGrav = player.xGrav * (player.speedConst)
-		player.yGrav = player.yGrav * (player.speedConst)
-		if player.xGrav <= player.maxSpeed then
-			if player.xGrav>= player.maxSpeed*-1 then
-				xForce = player.xGrav/player.maxSpeed
+		currPlayer.xGrav = currPlayer.xGrav * (currPlayer.speedConst)
+		currPlayer.yGrav = currPlayer.yGrav * (currPlayer.speedConst)
+		if currPlayer.xGrav <= currPlayer.maxSpeed then
+			if currPlayer.xGrav>= currPlayer.maxSpeed*-1 then
+				xForce = currPlayer.xGrav/currPlayer.maxSpeed
 			else
 				xForce = -1
 			end
@@ -40,9 +41,9 @@ local function moveAndAnimate(event, player)
 			xForce = 1
 		end
 
-		if player.yGrav <= player.maxSpeed then
-			if player.yGrav >= player.maxSpeed*-1 then
-				yForce = player.yGrav/player.maxSpeed
+		if currPlayer.yGrav <= currPlayer.maxSpeed then
+			if currPlayer.yGrav >= currPlayer.maxSpeed*-1 then
+				yForce = currPlayer.yGrav/currPlayer.maxSpeed
 			else
 				yForce = -1
 			end
@@ -56,45 +57,45 @@ local function moveAndAnimate(event, player)
 		if yForce * vy < 0 and vx < 30 then
 			yForce = 1.5 * yForce
 		end
-		player.xForce = xForce
-		player.yForce = yForce
-		player.imageObject:applyForce(xForce, yForce,player.imageObject.x,player.imageObject.y)
+		currPlayer.xForce = xForce
+		currPlayer.yForce = yForce
+		currPlayer.imageObject:applyForce(xForce, yForce,currPlayer.imageObject.x,currPlayer.imageObject.y)
 		--if vy == 0 or vx == 0 then
 		--	sound.pauseSound(event, sound.rollSnowSound)
 		--end
 	end
 
-	if (vx ~= 0 or vy ~= 0) and player.movement == "accel" then
-		player:rotate(vx, vy)
-	elseif(player.xGrav ~= 0 or player.yGrav ~= 0) then
-		player:rotate(player.xGrav, player.yGrav)
+	if (vx ~= 0 or vy ~= 0) and currPlayer.movement == "accel" then
+		currPlayer:rotate(vx, vy)
+	elseif(currPlayer.xGrav ~= 0 or currPlayer.yGrav ~= 0) then
+		currPlayer:rotate(currPlayer.xGrav, currPlayer.yGrav)
 	end
 	
 	--change timescale of animation in relation to speed of ball
 	local speed = math.sqrt((vy*vy)+(vx*vx))
-	if player.movement == "accel" then
+	if currPlayer.movement == "accel" then
 		if speed > 1125 then
-			player.imageObject:play()
-			player.imageObject.timeScale = 2.5
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = 2.5
 		elseif speed > 600 then
 			--local delay = timer.performWithDelay(4000, sound.playEventSound, 0)
 			--delay.params = {params1 = event, params2 = sound.rollSnowSound}
-			player.imageObject:play()
-			player.imageObject.timeScale = 2
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = 2
 		elseif speed > 300 then
-			player.imageObject:play()
-			player.imageObject.timeScale = 1.5
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = 1.5
 		elseif speed > 30 then
-			player.imageObject:play()
-			player.imageObject.timeScale = .5
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = .5
 		elseif speed > 5 then
-			player.imageObject:play()
-			player.imageObject.timeScale = .25
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = .25
 		else
-			player.imageObject:pause()
+			currPlayer.imageObject:pause()
 		end
 	else
-		player.imageObject:pause()
+		currPlayer.imageObject:pause()
 	end
 end
 

@@ -119,7 +119,7 @@ function loadMap()
 	-- fix offset, because Dusk Engine is offsetting during render
 	gui.x = gui.x - 20
 	gui.y = gui.y + 20
-	print("params=",player2Params.isActive)
+	print("params=",player2Params.isActive, player2Params.x, player2Params.y)
 	if player2Params.isActive == true then
 		player2 = player.create()
 			-- Create player sprite sheet
@@ -129,7 +129,7 @@ function loadMap()
 		-- Create player/ball object to map
 		player2.imageObject = display.newSprite(playerSheet2, spriteOptions.player2)
 		ball2 = player2.imageObject
-
+		print(player2.imageObject)
 		-- set name and animation sequence for ball
 		ball2.name = "player2"
 		ball2:setSequence("move")
@@ -214,7 +214,8 @@ local function speedUp(event)
 		if player2.isActive then
 			player2.xGrav = player2.xGrav*player2.curse
 			player2.yGrav = player2.yGrav*player2.curse
-			movement.moveAndAnimate(player2)
+			print(player2.imageObject)
+			movement.moveAndAnimate(event, player2)
 		end
 		movement.moveAndAnimate(event, player1)
 
