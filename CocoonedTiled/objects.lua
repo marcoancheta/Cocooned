@@ -125,7 +125,7 @@ local function createObjects(objectNumbers, mapData)
 	if mapData.levelNum == "1" then
 		if mapData.pane == "M" then
 			-- Main walls
-			wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1.png", true)
+			wall[1] = display.newImage("mapdata/art/background/1/1-1BB/1-1.png", true)
 			-- Aura walls
 			auraWall[1] = display.newImage("mapdata/art/auraWalls/blueAuraWall.png", true)
 		end
