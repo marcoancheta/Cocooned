@@ -204,9 +204,6 @@ local function gWater(water, map, mapData, startIndex, endIndex)
 
 	   	-- insert water into map display group
 		map.layer["tiles"]:insert(water[i])
-
-		-- add physics body for wisp for collision
-		physics.addBody(water[i], "static", {bounce=0})
 		
 		-- set properties of water
 	   	water[i].isVisible = true
