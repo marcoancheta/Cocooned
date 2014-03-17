@@ -5,16 +5,11 @@
   <property name="itemSize" value="0"/>
   <property name="moveObj" value="0"/>
   <property name="playerLocation" value="!json! {&quot;x&quot;: 20, &quot;y&quot;:12 }"/>
-  <property name="secondPlayerLocation" value="!json! {&quot;x&quot;:20, &quot;y&quot;:19}"/>
   <property name="tutorial" value="false"/>
  </properties>
- <tileset firstgid="1" name="2-1 BASE1" tilewidth="1440" tileheight="864">
+ <tileset firstgid="1" name="1-1_v2_small2" tilewidth="1440" tileheight="864">
   <tileoffset x="-720" y="432"/>
-  <image source="../../../art/background/2/2-1 BASE1.png" trans="000000" width="1440" height="864"/>
- </tileset>
- <tileset firstgid="2" name="2-1 SHADOW3" tilewidth="1440" tileheight="852">
-  <tileoffset x="-720" y="426"/>
-  <image source="../../../art/background/2/2-1 SHADOW3.png" trans="000000" width="1440" height="852"/>
+  <image source="../../../art/background/1/1-1_v2_small2.png" trans="000000" width="1440" height="864"/>
  </tileset>
  <layer name="bg" width="40" height="24">
   <data encoding="base64" compression="zlib">
@@ -28,7 +23,7 @@
  </layer>
  <layer name="vWalls" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztzgEJAAAMA6Dx/qEfYww0gQkAsO7aAQAY8B1gAAM=
+   eJztwQENAAAAwqD3T20PBxQAAAD8Gw8AAAE=
   </data>
  </layer>
  <layer name="tiles" width="40" height="24">
