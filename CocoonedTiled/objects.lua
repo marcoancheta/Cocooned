@@ -102,7 +102,7 @@ end
 function createSprites(count, name, objectList)
 	for i = 1, count do
 		print("creating:", count, name, i)
-		objectList[name .. i] = display.newImage("mapdata/art/object/" .. name .. ".png")
+		objectList[name .. i] = display.newImage("mapdata/art/objects/" .. name .. ".png")
 		objectList[name .. i].name = name .. i
 	end
 	return true
