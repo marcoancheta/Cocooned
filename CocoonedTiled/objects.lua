@@ -85,7 +85,7 @@ end
 --------------------------------------------------------------------------------
 function createAnimations(count, name, objectList)
 	for i = 1, count do
-		print(name)
+		--print(name)
 		objectList[name .. i] = display.newSprite(sheetList[name], spriteOptions[name])
 		objectList[name .. i].name = name .. i
 		objectList[name .. i]:setSequence("move")

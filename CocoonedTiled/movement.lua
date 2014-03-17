@@ -21,7 +21,7 @@ local count = 0
 -- Updated by: Andrew added the force put on a player for use with moveable walls
 --------------------------------------------------------------------------------
 local function moveAndAnimate(event, currPlayer)
-	print(currPlayer)
+	--print(currPlayer)
 	local vx, vy = currPlayer.imageObject:getLinearVelocity()
 
 	if currPlayer.movement == "accel" then

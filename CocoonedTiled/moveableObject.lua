@@ -55,7 +55,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function moveObject:endTransition()
-	print("ended transition", self.object.name)
+	--print("ended transition", self.object.name)
 
 	transition.cancel(foward)
 	transition.cancel(back)
@@ -79,7 +79,7 @@ end
 --------------------------------------------------------------------------------
 function moveFoward(obj)
 	
-	print("moveF:", obj.name)
+	--print("moveF:", obj.name)
 	if obj.stop ~= true then
 		foward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
 		obj:rotate(180)
@@ -94,7 +94,7 @@ end
 --------------------------------------------------------------------------------
 function moveBackward(obj)
 
-	print("moveB:", obj.name)
+	--print("moveB:", obj.name)
 	if obj.stop ~= true then
 		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveFoward})
 		obj:rotate(180)
