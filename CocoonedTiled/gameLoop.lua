@@ -266,7 +266,7 @@ local function tapMechanic(event)
 		local tempPane = mapData.pane
 
 		-- call function for tap screen
-		tempPane = touch.tapScreen(event, miniMap, mapData, physics, gui.back[1], player1)
+		tempPane = touch.tapScreen(event, miniMap, mapData, physics, gui.back[1], player1, player2)
 
 		-- check if pane is different from current one, if so, switch panes
 		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
