@@ -254,7 +254,7 @@ local function createPortals(map)
 		
 		-- Unlock (i~=levelNum+1) && lock levels
 		-- When unlocking levels, also add changes to line 95 of this lua file.
-		if i~=1 and i ~= 2 then
+		if i~=1 and i~=2 and i~=3 and i~=4 then
 			lockedLevels[i] = display.newImage("mapdata/art/buttons/lock.png")
 			lockedLevels[i].x = kCircle[i].x
 			lockedLevels[i].y = kCircle[i].y
