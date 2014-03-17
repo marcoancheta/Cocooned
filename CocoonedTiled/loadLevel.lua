@@ -91,6 +91,8 @@ function createLevel(mapData, playerInstance, player2)
 		else
 			player2Params.active = false
 		end
+	elseif mapData.levelNum == "4" then
+		ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 10, map.playerLocation.y - 1.5)
 	end
 	
 	-- create miniMap for level

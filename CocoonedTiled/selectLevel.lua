@@ -94,7 +94,7 @@ local function onLocalCollision(self, event)
 					
 			-- Level unlocked? Then create play button, else do nothing.
 			-- Unlock play button for level (i == levelNum+1)
-			if i == 1 or i == 2 then
+			if i == 1 or i == 2 or i == 4 then
 				play.isVisible = true
 				play:toFront()
 			else
@@ -211,10 +211,10 @@ local function createPortals(map)
 	-- Level numbers' position
 	textPos = {
 		--      X,         Y,
-		 [3] = -60,   [4] = 555,   -- 1
-		 [1] = 205,   [2] = 355,    -- 2
+		 [1] = -60,   [2] = 555,   -- 1
+		 [7] = 205,   [8] = 355,    -- 2
 		 [5] = 460,   [6] = 355,   -- 3 
-		 [7] = 710,   [8] = 555,    -- 4
+		 [3] = 710,   [4] = 555,    -- 4
 		--[[ [9] = 710,  [10] = 515,   -- 5
 		[11] = 1800, [12] = 300,  -- 6
 		[13] = 1750, [14] = 650,  -- 7
@@ -254,7 +254,7 @@ local function createPortals(map)
 		
 		-- Unlock (i~=levelNum+1) && lock levels
 		-- When unlocking levels, also add changes to line 95 of this lua file.
-		if i~=1 and i~=2 and i~=3 and i~=4 then
+		if i~=1 and i~=2 and i~=4 then
 			lockedLevels[i] = display.newImage("mapdata/art/buttons/lock.png")
 			lockedLevels[i].x = kCircle[i].x
 			lockedLevels[i].y = kCircle[i].y

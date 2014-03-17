@@ -141,7 +141,19 @@ local function createObjects(objectNumbers, mapData)
 		end
 		
 		-- Border walls
-		wall[2] = display.newImage("mapdata/art/background/story border 1.png", true)		
+		wall[2] = display.newImage("mapdata/art/background/story border 1.png", true)
+	elseif mapData.levelNum == "4" then
+		if mapData.pane == "M" then
+			-- Level 4: Pane 'M'
+			wall[1] = display.newImage("mapdata/art/background/4/4-1BB/4-1WALL.png", true)
+			water[1] = display.newImage("mapdata/art/background/4/4-1BB/4-1WATER1.png", true)
+			water[2] = display.newImage("mapdata/art/background/4/4-1BB/4-1WATER2.png", true)
+		elseif mapData.pane == "R" then
+			-- Level 4: Pane 'M'
+			wall[1] = display.newImage("mapdata/art/background/4/4-2BB/4-2WALL.png", true)
+			water[1] = display.newImage("mapdata/art/background/4/4-2BB/4-2WATER1.png", true)
+			water[2] = display.newImage("mapdata/art/background/4/4-2BB/4-2WATER2.png", true)
+		end
 	end
 	
 		-- create all waters in level
