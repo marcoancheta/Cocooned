@@ -50,6 +50,11 @@ function collide(collideObject, player, event, mapData, map, physics)
 	runeCollide:setSequence("move")
 	runeCollide:play()
 
+	-- Create animation for the ball shrinking 
+	--local playerShrink = display.newSprite(sheetOptions.shrinkSheet, spriteOptions.shrinkAnimation)
+	--playerShrink.x, playerShrink.y = collideObject.x - 45, collideObject.y
+	--playerShrink:setSequence("move")
+
 	-- check which rune was collected and activate ability
 	if collideObject.name == "blueRune" then
 		player:breakWalls(map)
@@ -60,6 +65,13 @@ function collide(collideObject, player, event, mapData, map, physics)
 		player:moveWalls(map)
 	elseif collideObject.name == "yellowRune" then
 	elseif collideObject.name == "purpleRune" then
+		collideObject:removeSelf()
+		-- Create animation for the ball shrinking 
+		local playerShrink = display.newSprite(sheetOptions.shrinkSheet, spriteOptions.shrinkAnimation)
+		playerShrink.x, playerShrink.y = collideObject.x, collideObject.y
+		playerShrink:setSequence("move")
+		playerShrink:play()
+		playerShrink:removeSelf( )
 		player:shrink()
 	end
 	

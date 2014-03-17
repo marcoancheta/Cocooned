@@ -7,7 +7,7 @@ local loadingBG={}
 function cutScene(levelNumber)
 	levNum = levelNumber
 	for i= numberOfScreens[levelNumber]-1,0,-1 do
-		loadingBG[i] = display.newImage("mapdata/cutscenes/level"..levelNumber .. "scene" .. i .. ".jpg", 10, 20,true )
+		loadingBG[i] = display.newImage("mapdata/art/cutscenes/level"..levelNumber .. "scene" .. i .. ".jpg", 10, 20,true )
 	end
 	gui.back:addEventListener("tap", nextSceneOrDelete)
 	currScene = numberOfScreens[levelNumber]

@@ -67,7 +67,7 @@ function MainMenu(event)
 	main:scale(1.1, 1.1)
 
 	-- Add Play button
-	play = display.newImage("graphics/newgame.png", 0, 0, true)
+	play = display.newImage("mapdata/art/buttons/newgame.png", 0, 0, true)
 	play:setFillColor(0.5,0.5,0.5)
 	
 	-- Assign name for runtime functions
@@ -81,7 +81,7 @@ function MainMenu(event)
 	play:scale(2.5, 2.5)
 
 	-- Option buttons: See play button details
-	options = display.newImage("graphics/options.png", 0, 0, true)
+	options = display.newImage("mapdata/art/buttons/options.png", 0, 0, true)
 	options:setFillColor(0.5,0.5,0.5)
 	options.name = "optionButton"
 	options.x = 750
@@ -108,7 +108,7 @@ end
 function Options(event)
 	
 	-- Add options background image
-	optionsBG = display.newImage("graphics/cocooned_menu.png", 0, 0, true)
+	optionsBG = display.newImage("mapdata/art/background/screens/cocooned_menu.png", 0, 0, true)
 	
 	-- Create onScreen text objects
 	optionText = display.newText("OPTIONS", 200, 150, native.Systemfont, 72)
@@ -120,13 +120,13 @@ function Options(event)
 	optionsBG:scale(0.5, 0.5)
 	
 	-- Add Main Menu button
-	backtoMain = display.newImage("graphics/main.png", 0, 0, true)
+	backtoMain = display.newImage("mapdata/art/buttons/main.png", 0, 0, true)
 
 	-- Assign name for runtime functions
 	backtoMain.name = "BacktoMain"
 
 	-- Add Sound button
-	--soundOptions = display.newImage("graphics/sound.png", 0, 0, true)
+	--soundOptions = display.newImage("mapdata/art/buttons/sound.png", 0, 0, true)
 
 	-- Assign name for runtime functions
 	--soundOptions.name = "soundOptions"
@@ -166,7 +166,7 @@ function ingameOptionsbutton(event, player, playerTwo)
 	player2 = playerTwo
 
 	-- Add in-game options image (option_wheel.png)
-	ingameOptions = display.newImage("graphics/option_wheel.png", 0, 0, true)
+	ingameOptions = display.newImage("mapdata/art/buttons/option_wheel.png", 0, 0, true)
 
 	-- Scale image size
 	ingameOptions.x = 1435
@@ -190,7 +190,7 @@ function ingameMenu(event, player, playerTwo)
 	player2 = playerTwo
 	print("ingameMenu")
 	-- Add options background image
-	gameOptionsBG = display.newImage("graphics/cocooned_menu.png", 0, 0, true)
+	gameOptionsBG = display.newImage("mapdata/art/background/screens/cocooned_menu.png", 0, 0, true)
 	
 	-- Create onScreen text object
 	ingameOptionText = display.newText("PAUSED", 1155, 100, native.Systemfont, 69)
@@ -210,9 +210,9 @@ function ingameMenu(event, player, playerTwo)
 	gameOptionsBG:scale(-0.5, 0.5)
 		
 	-- Add Main Menu button
-	gameMainM = display.newImage("graphics/main.png", 0, 0, true)
+	gameMainM = display.newImage("mapdata/art/buttons/main.png", 0, 0, true)
 	-- Add Resume game button
-	gameResume = display.newImage("graphics/resume.png", 0, 0, true)
+	gameResume = display.newImage("mapdata/art/buttons/resume.png", 0, 0, true)
 		
 	-- Assign name for runtime functions
 	gameMainM.name = "gotoMain"
@@ -233,7 +233,7 @@ function ingameMenu(event, player, playerTwo)
 	gameResume:scale(2.5, 2.5)
 
 	-- Plus button	
-	plus = display.newImage("graphics/plus.png", 0, 0, true)
+	plus = display.newImage("mapdata/art/buttons/plus.png", 0, 0, true)
 	plus:setFillColor(0.5,0.5,0.5)
 	plus.name = "plusButton"
 	plus.x = 1250
@@ -243,7 +243,7 @@ function ingameMenu(event, player, playerTwo)
 	plus:scale(.25, .25)
 
 	-- Minus button	
-	minus = display.newImage("graphics/minus.png", 0, 0, true)
+	minus = display.newImage("mapdata/art/buttons/minus.png", 0, 0, true)
 	minus:setFillColor(0.5,0.5,0.5)
 	minus.name = "minusButton"
 	minus.x = 1050
@@ -253,7 +253,7 @@ function ingameMenu(event, player, playerTwo)
 	minus:scale(.25, .25)
 
 	-- Plus button	
-	plusDamping = display.newImage("graphics/plus.png", 0, 0, true)
+	plusDamping = display.newImage("mapdata/art/buttons/plus.png", 0, 0, true)
 	plusDamping:setFillColor(0.5,0.5,0.5)
 	plusDamping.name = "plusButtonDamping"
 	plusDamping.x = 1250
@@ -263,7 +263,7 @@ function ingameMenu(event, player, playerTwo)
 	plusDamping:scale(.25, .25)
 
 	-- Minus button	
-	minusDamping = display.newImage("graphics/minus.png", 0, 0, true)
+	minusDamping = display.newImage("mapdata/art/buttons/minus.png", 0, 0, true)
 	minusDamping:setFillColor(0.5,0.5,0.5)
 	minusDamping.name = "minusButtonDamping"
 	minusDamping.x = 1050
@@ -301,7 +301,7 @@ function buttonPressed(event)
 	-----------------------------
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then
-		print("play button pressed")
+		--print("play button pressed")
 		
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)
@@ -324,7 +324,7 @@ function buttonPressed(event)
 	--------------------------------
 	--[[ Options button pressed ]]--
 	elseif event.target.name == "optionButton" then
-		print("options button pressed")
+		--print("options button pressed")
 						
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)
@@ -342,7 +342,7 @@ function buttonPressed(event)
 	-------------------------------------
 	--[[ Back to Main button pressed ]]--
 	elseif event.target.name == "BacktoMain" then
-		print("Back to Main Menu")
+		--print("Back to Main Menu")
 		
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)
@@ -382,7 +382,7 @@ function buttonPressed(event)
 	--[[ In game options button pressed ]]--	
 	elseif event.target.name == "inGameOptionsBTN" then
 
-		print("In game options")
+		--print("In game options")
 		
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)
@@ -397,7 +397,7 @@ function buttonPressed(event)
 	--------------------------------------------------
 	--[[ Back to Main from In-Game button pressed ]]--
 	elseif event.target.name == "gotoMain" then
-		print("Back to Main Menu")
+		--print("Back to Main Menu")
 				
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)
@@ -408,7 +408,7 @@ function buttonPressed(event)
 	---------------------------------------
 	--[[ Resume In-Game button pressed ]]--
 	elseif event.target.name == "Resume" then
-		print("Resume game")
+		--print("Resume game")
 		
 		-- Play Sound
 		sound.playSound(event, sound.clickSound)

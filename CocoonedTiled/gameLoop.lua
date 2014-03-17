@@ -15,7 +15,8 @@ local require = require
 local math_abs = math.abs
 local physics = require("physics")
 local dusk = require("Dusk.Dusk")
-
+--local GA = require("plugin.gameanalytics")
+	  
 --------------------------------------------------------------------------------
 -- Load in files/variables from other .lua's
 --------------------------------------------------------------------------------
@@ -37,8 +38,6 @@ local sound = require("sound")
 local player = require("player")
 -- Object variables/files (objects.lua)
 local objects = require("objects")
--- Save/Load Game Data Functions
-local save = require("GGData")
 -- miniMap display functions
 local miniMapMechanic = require("miniMap")
 
@@ -59,8 +58,9 @@ local paneTransition = require("paneTransition")
 --------------------------------------------------------------------------------
 -- Local/Global Variables
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
+
 -- Initialize ball
 local ball
 local mapPanes
@@ -96,7 +96,7 @@ function loadMap()
 	system.setAccelerometerInterval(30)
 
 	-- Create player sprite sheet
-	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
+	local playerSheet = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite.png", 
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
 	
 	-- Create player/ball object to map
@@ -115,6 +115,10 @@ function loadMap()
 
 	-- Load in map
 	gui, miniMap, player2Params = loadLevel.createLevel(mapData, player1, player2)
+	
+	-- fix offset, because Dusk Engine is offsetting during render
+	gui.x = gui.x - 20
+	gui.y = gui.y + 20
 	print("params=",player2Params.isActive)
 	if player2Params.isActive == true then
 		player2 = player.create()
@@ -142,7 +146,8 @@ function loadMap()
 			movement = "accel"
 		}
 	end
-	--TODO: add else
+
+	
 	--start physics when everything is finished loading
 	physics.start()
 end
@@ -205,14 +210,13 @@ local function speedUp(event)
 
 		player1.xGrav = player1.xGrav*player1.curse
 		player1.yGrav = player1.yGrav*player1.curse
+		newMap = map
 		if player2.isActive then
 			player2.xGrav = player2.xGrav*player2.curse
 			player2.yGrav = player2.yGrav*player2.curse
 			movement.moveAndAnimate(player2)
 		end
-		movement.moveAndAnimate(player1)
-		newMap = map
-
+		movement.moveAndAnimate(event, player1)
 
 	end
 end
@@ -328,7 +332,6 @@ local function gameLoop(event)
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
-		sound.playEventSound(event, sound.selectMapSound)	
 		selectLevel.selectLoop(event)	
 		gameData.selectLevel = false
 	end
@@ -345,12 +348,12 @@ local function gameLoop(event)
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
 	if gameData.gameStart then	
-
 		-- full deletes select level screen and event listeners
 		selectLevel.clean()
-		
+		sound.stop(event, sound.gameSound)
+	
 		-- Stop BGM
-		--sound.stopBGM(event, sound.mainmenuSound)
+		--sound.stop(event, sound.mainmenuSound)
 		-- Start physics
 		physics.start()
 		-- Load Map
@@ -510,14 +513,12 @@ local function menuLoop(event)
 	--[[ MAIN MENU ]]--
 	if gameData.menuOn then
 		-- If in main menu do:
-		print("In Main Menu")
+		--print("In Main Menu")
 		-- Go to main menu
 		menu.MainMenu(event)
 		
-		if not sound.isChannel2Active then
-			-- Start BGM
-			--sound.playBGM(event, sound.mainmenuSound)
-		end
+		-- Start BGM
+		sound.playBGM(event, sound.gameSound)
 		
 		-- reset mapData variables
 		mapData.pane = "M"
@@ -547,8 +548,6 @@ local function menuLoop(event)
 	--[[ IN-GAME OPTIONS ]]--
 	elseif gameData.inGameOptions then
 		-- If in game options do:
-		-- Clear on screen objects
-		--gui:removeSelf()
 		-- Go to in-game option menu
 		menu.ingameMenu(event, player1, player2)
 		
@@ -590,44 +589,12 @@ local function menuLoop(event)
 end
 
 --------------------------------------------------------------------------------
--- Core Sound Loop
---------------------------------------------------------------------------------
---[[
-function soundLoop(event)
-	--------------
-	-- BGM LOOP --
-	--------------
-	if gameData.BGM ~= 0 then
-		if gameData.BGM == 1 then
-			-- Play BGM
-			sound.playBGM(event, sound.mainmenuSound)
-		end 
-		
-		if gameData.BGM == 2 then
-			-- Stop BGM
-			sound.stopBGM(event)
-		end
-		
-		gameData.BGM = 0
-	end 
-end
-]]--
-
-local function touch(event)
-	print(event.x, event.y)
-end
-Runtime:addEventListener("touch", touch)
-
---------------------------------------------------------------------------------
 -- Call gameLoop && menuLoop every 30 fps
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 Runtime:addEventListener("enterFrame", gameLoop)
 Runtime:addEventListener("enterFrame", menuLoop)
-
---Runtime:addEventListener("enterFrame", soundLoop)
-
 
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)

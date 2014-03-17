@@ -16,13 +16,19 @@ local moveableObject = require("moveableObject")
 -- wind emmiter object class (windEmitter.lua)
 local windEmitterMechanic = require("windEmitter")
 
+local physicsData = {
+			  [1] = (require "levels.one_collision.walls").physicsData(1.0),
+			  [2] = (require "levels.one_collision.blueWall").physicsData(1.0),
+			  [3] = (require "levels.two_collision.walls").physicsData(1.0),
+			  [4] = (require "levels.storyborder_collision.border").physicsData(1.0) }
+
 --------------------------------------------------------------------------------
 -- geneate wisps functions
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-local function gWisps(wisp, map, startIndex, endIndex)
+local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
 		-- set properties of wisps
@@ -187,27 +193,101 @@ local function gMObjects(level, objects, map, pane)
 end
 
 --------------------------------------------------------------------------------
--- geneate water functions
+-- Generate water functions
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-local function gWater(water, map, startIndex, endIndex)
+local function gWater(water, map, mapData, startIndex, endIndex)
 	for i=startIndex, endIndex do
 
-	   	-- insertwater into map display group
-		map.layer["water"]:insert(water[i])
+	   	-- insert water into map display group
+		map.layer["tiles"]:insert(water[i])
 
 		-- add physics body for wisp for collision
 		physics.addBody(water[i], "static", {bounce=0})
 		
-		-- set properties of wisps
+		-- set properties of water
 	   	water[i].isVisible = true
+		water[i]:setFillColor(0, 0, 0, 0)
 	    water[i].func = "waterCollision"
 	   	water[i].collType = "passThru"
-		water[i].escape = "downRight"
+		water[i].escape = "topRight"
 	    water[i].name = "water"
+	end
+	
+	-- add physics body for water for collision
+	if mapData.levelNum == "2" then
+		if mapData.pane == "M" then
+			physics.addBody(water[1], "static", physicsData[3]:get("2-1-WATER2") )	
+		elseif mapData.pane == "L" then
+			physics.addBody(water[1], "static", physicsData[3]:get("2-2-WATER2") )	
+		end
+	end
+end
 
+--------------------------------------------------------------------------------
+-- Generate walls functions
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+-- takes in a start and end index and creates those wisps only
+local function gWalls(wall, map, mapData, startIndex, endIndex)
+	for i=startIndex, endIndex do
+
+	   	-- insertwater into map display group
+		map.layer["tiles"]:insert(wall[i])
+		
+		-- set properties of wisps
+	   	wall[i].isVisible = true
+		wall[i]:setFillColor(0, 0, 0, 0)
+	   	wall[i].collType = "wall"
+	    wall[i].name = "wall"
+
+	end
+	
+	-- add physics body for wall for collision
+	if mapData.levelNum == "1" then
+		if mapData.pane == "M" then
+			physics.addBody(wall[1], "static", physicsData[1]:get("1-1") )
+		end
+	elseif mapData.levelNum == "2" then
+		if mapData.pane == "M" then
+			physics.addBody(wall[1], "static", physicsData[3]:get("2-1-WALL4") )
+			physics.addBody(wall[2], "static", physicsData[4]:get("story border 1") )
+		elseif mapData.pane == "L" then
+			physics.addBody(wall[1], "static", physicsData[3]:get("2-2-WALL4") )
+			physics.addBody(wall[2], "static", physicsData[4]:get("story border 1") )
+		end
+
+		wall[2]:setFillColor(0, 0, 0, 1)
+	end
+end
+
+--------------------------------------------------------------------------------
+-- Generate walls functions
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+-- takes in a start and end index and creates those wisps only
+local function gAuraWalls(auraWall, map, mapData, startIndex, endIndex)
+	for i=startIndex, endIndex do
+
+	   	-- insertwater into map display group
+		map.layer["tiles"]:insert(auraWall[i])
+		
+		-- set properties of wisps
+	   	auraWall[i].isVisible = true
+		--auraWall[i]:setFillColor(0, 0, 0, 0)
+	   	auraWall[i].collType = "passThru"
+		auraWall[i].func = "blueWallCollision"
+	    auraWall[i].name = "blueWall"
+
+	end
+	
+	-- add physics body for wisp for collision
+	if mapData.levelNum == "1" then
+		physics.addBody(auraWall[1], "static", physicsData[2]:get("blueAuraWall") )
 	end
 end
 
@@ -218,7 +298,7 @@ end
 --------------------------------------------------------------------------------
 -- call this function after setting all objects in pane so it will destroy unused object
 -- to decrease memory usage
-local function destroyObjects(level, rune, wisp, objects) 
+local function destroyObjects(level, rune, wisp, water, objects) 
 
 	-- deleted extra runes
 	for i = 1, #rune do
@@ -236,6 +316,33 @@ local function destroyObjects(level, rune, wisp, objects)
 			wisp[i] = nil
 		end
 	end
+	
+	-- deleted extra water
+	for i = 1, level.waterCount do
+		--print("energyCount:", i)
+		if water[i].isVisible == false then
+			water[i]:removeSelf()
+			water[i] = nil
+		end
+	end
+	
+	-- deleted extra walls
+	for i = 1, level.wallCount do
+		--print("energyCount:", i)
+		if wall[i].isVisible == false then
+			wall[i]:removeSelf()
+			wall[i] = nil
+		end
+	end
+	
+	-- deleted extra walls
+	for i = 1, level.auraWallCount do
+		--print("energyCount:", i)
+		if auraWall[i].isVisible == false then
+			auraWall[i]:removeSelf()
+			auraWall[i] = nil
+		end
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -248,6 +355,8 @@ generateObjects = {
 	gWisps = gWisps,
 	gMObjects = gMObjects,
 	gWater = gWater,
+	gWalls = gWalls,
+	gAuraWalls = gAuraWalls,
 	destroyObjects = destroyObjects
 }
 

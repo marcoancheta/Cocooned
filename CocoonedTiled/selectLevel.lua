@@ -23,6 +23,8 @@ local movementMechanic = require("Accelerometer")
 local movement = require("movement")
 local goals = require("goals")
 
+local physicsData = (require "levels.lvlselect_collision.walls").physicsData(1.0)
+
 local loaded = 0
 
 --------------------------------------------------------------------------------
@@ -58,11 +60,11 @@ local deleteClosure = function() return loading.deleteLoading(levelNumber) end
 --------------------------------------------------------------------------------
 -- Ball Camera
 --------------------------------------------------------------------------------
--- Updated by: Andrew Moved move and animate into the camera event since the camera event runs every frame and i didnt think i should add another listener
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function camera(event)
-	--movement.moveAndAnimate needs to be in a enterframe listener while the Accelerometer needs to be in a accelerometer listener.
-	movement.moveAndAnimate(player1)
+	movement.moveAndAnimate(event, player1)
+
 	-- Set Camera to Ball
 	map.setCameraFocus(ball)
 	map.setTrackingLevel(0.1)
@@ -78,12 +80,12 @@ local function onLocalCollision(self, event)
 		if event.other.x == kCircle[i].x and event.other.y == kCircle[i].y then
 			event.other.isSensor = true
 						
-			local pause = function() physics.start(); event.other.isBodyActive = false; self:setSequence("move"); end
+			local pause = function() physics.start(); event.other.isBodyActive = false; end
 			local begin = function() event.other.isBodyActive = true; end
-			
-			local trans = transition.to(ball, {time=1500, x=kCircle[i].x, y=kCircle[i].y, onComplete=function() self:setSequence("still"); physics.pause(); timer.performWithDelay(100, pause); 
-																														timer.performWithDelay(5000, begin); 
-												end})
+
+			local trans = transition.to(ball, {time = 1500, x = kCircle[i].x, y = kCircle[i].y - 15, onComplete = function() 
+																physics.pause(); timer.performWithDelay(1000, pause); 
+																				 timer.performWithDelay(5000, begin); end})				
 			
 			selectLevel.levelNum = kCircle[i].name
 	
@@ -91,14 +93,14 @@ local function onLocalCollision(self, event)
 			goals.findGoals(selectLevel)
 					
 			-- Level unlocked? Then create play button, else do nothing.
-			if i == 2 then
+			-- Unlock play button for level (i == levelNum+1)
+			if i == 1 or i == 2 then
 				play.isVisible = true
 				play:toFront()
 			else
 				play.isVisible = false
 			end
 			
-			print("done6")
 		end
 	end
 end
@@ -124,14 +126,13 @@ local function tapOnce(event)
 		goals.destroyGoals()
 				
 		gameData.gameStart = true
-		print("done5")
 	end		
 end
 
 --------------------------------------------------------------------------------
 -- Control Mechanics - controls movement for player1
 --------------------------------------------------------------------------------
--- Updated by: Andrew, this is only to get accelerometer readings, I moved the movement function call into the camera function.
+-- Updated by: Derrick [Derived from Andrews's controlMovement() in gameLoop.lua]
 --------------------------------------------------------------------------------
 local function controlMovement(event)
  	--ball:setSequence("move")
@@ -139,10 +140,11 @@ local function controlMovement(event)
 	
 	-- call accelerometer to get data
 	physicsParam = movementMechanic.onAccelerate(event, player1, map)
+
 	-- set player1's X and Y gravity times the player1's curse
 	player1.xGrav = physicsParam.xGrav
 	player1.yGrav = physicsParam.yGrav
-	--print("done4")
+				
 end
 
 
@@ -153,7 +155,7 @@ end
 --------------------------------------------------------------------------------
 local function createLevelPlay()
 	-- Create play button
-	play = display.newImage("graphics/sil_kipcha.png", 0, 0, true)
+	play = display.newImage("mapdata/art/buttons/sil_kipcha.png", 0, 0, true)
 	play.x = 1280
 	play.y =150
 	play:scale(2, 2)
@@ -161,7 +163,6 @@ local function createLevelPlay()
 	play.isVisible = false
 	
 	play:addEventListener("tap", tapOnce)
-	print("done3")
 end
 
 --------------------------------------------------------------------------------
@@ -180,30 +181,14 @@ local function selectLoop(event)
 	levelGUI = display.newGroup()
 	levelGUI.front = display.newGroup()
 	levelGUI.back = display.newGroup()
-	dPad = display.newGroup()
+
 	loading.loadingInit() -- initializes loading screen assets and displays them on top
 	
 	-- Create Arrays
 	kCircle = {} -- Color Circle Array
 	levels = {}  -- Level Indicator Array
 	lockedLevels = {} -- Locked Levels Array
-	
-	-- Load Map
-	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
-	
-	bg = display.newImage("mapdata/art/bgLS.png", 0, 0, true)
-	bg.x = 1930
-	bg.y = 1150
-	
-	-- Load image sheet
-	playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
-				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-	
-	-- Create player
-	player = display.newSprite(playerSheet, spriteOptions.player)
-	player.speed = 250
-	player.title = "player"
-	player:scale(0.8, 0.8)
+			
 end
 
 
@@ -215,70 +200,78 @@ end
 local function createPortals(map)
 	-- Create level numbers
 	lvlNumber = {	
-		[1] = "T", [2] = "1", [3] = "2",
-		[4] = "3", [5] = "4", [6] = "5",
-		[7] = "6", [8] = "7", [9] = "8",
-		[10] = "9", [11] = "10", [12] = "11",
-		[13] = "12", [14] = "13", [15] = "14",
-		[16] = "15", [17] = "F", [18] = "bonus"
+		[1] = "1", [2] = "2", [3] = "3",
+		[4] = "4", --[[[5] = "5", [6] = "6",
+		[7] = "7", [8] = "8", [9] = "9",
+		[10] = "10", [11] = "11", [12] = "12",
+		[13] = "13", [14] = "14", [15] = "15",
+		[16] = "16", [17] = "F", [18] = "bonus"]]--
 	}
 	
 	-- Level numbers' position
 	textPos = {
 		--      X,         Y,
-		[1] = 750,   [2] = 800,  -- T
-		[3] = -75,  [4] = 150,  -- 1 [3] = -250,  [4] = 305,  -- 1
-		[5] = -250,  [6] = 305,  -- 2[ 5] = -75,  [6] = 150,  -- 2
-		[7] = 770,  [8] = 140,  -- 3
-		[9] = 1600, [10] = 170, -- 4
-		[11] = 1800, [12] = 300, -- 5
-		[13] = 1750, [14] = 650, -- 6
-		[15] = 1950, [16] = 900, -- 7
-		[17] = 1750, [18] = 1100, -- 8
-		[19] = 1850, [20] = 1500,  -- 9
-		[21] = 1600, [22] = 1650, -- 10
-		[23] = 770, [24] = 1700,  -- 11
-		[25] = -60, [26] = 1650,  -- 12
-		[27] = -250, [28] = 1500,  -- 13
-		[29] = -200, [30] = 1100,  -- 14
-		[31] = -380, [32] = 850,  -- 15
-		[33] = 750, [34] = 1100,  -- F
-		[35] = -200, [36] = 700  -- Bonus
+		 [1] = -60,   [2] = 555,   -- 1
+		 [3] = 205,   [4] = 355,    -- 2
+		 [5] = 460,   [6] = 355,   -- 3 
+		 [7] = 710,   [8] = 555,    -- 4
+		--[[ [9] = 710,  [10] = 515,   -- 5
+		[11] = 1800, [12] = 300,  -- 6
+		[13] = 1750, [14] = 650,  -- 7
+		[15] = 1950, [16] = 900,  -- 8
+		[17] = 1750, [18] = 1100, -- 9
+		[19] = 1850, [20] = 1500, -- 10
+		[21] = 1600, [22] = 1650, -- 11
+		[23] = 770,  [24] = 1700,  -- 12
+		[25] = -60,  [26] = 1650,  -- 13
+		[27] = -250, [28] = 1500, -- 14
+		[29] = -200, [30] = 1100, -- 15
+		[31] = -380, [32] = 850,  -- 16
+		[33] = 750,  [34] = 1100,  -- F
+		[35] = -200, [36] = 700   -- Bonus]]--
 	}
+	
+	local kCircleSheet = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet.png", 
+				 {width = 72.5, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
+		
 		
 	for i=1, #lvlNumber do
 		-- Make & assign attributes to the 10 circles (kCircle[array])
-		kCircle[i] = display.newCircle(textPos[2*i-1] + 500, textPos[2*i], 35)
+		--kCircle[i] = display.newCircle(textPos[2*i-1] + 500, textPos[2*i], 35)
+		kCircle[i] = display.newSprite(kCircleSheet, spriteOptions["exitPortal"])
+		kCircle[i]:scale(1.5, 1.5)
+		kCircle[i].x, kCircle[i].y = textPos[2*i-1] + 500, textPos[2*i]
 		kCircle[i].name = lvlNumber[i]
 		kCircle[i]:setFillColor(105*0.00392156862, 210*0.00392156862, 231*0.00392156862)
-		kCircle[i]:setStrokeColor(1, 1, 1)
-		kCircle[i].strokeWidth = 5
 		physics.addBody(kCircle[i], "static", {bounce=0})
 
 		-- Along with its text indicator (levels[array])
-		levels[i] = display.newText(lvlNumber[i], textPos[2*i-1]+ 500, textPos[2*i], native.Systemfont, 35)
-		levels[i]:setFillColor(0, 0, 0)
+		levels[i] = display.newText(lvlNumber[i], textPos[2*i-1]+ 500, textPos[2*i] - 40, native.Systemfont, 50)
+		levels[i]:setFillColor(3*0.00392156862, 101*0.00392156862, 100*0.00392156862)
+		--levels[i]:setFillColor(0, 0, 0)
 		map.layer["tiles"]:insert(kCircle[i])
 		map.layer["tiles"]:insert(levels[i])
 		
-		-- Unlock && lock levels
-
-		if i~=2 and i ~= 3 then
-			lockedLevels[i] = display.newImage("graphics/lock.png")
+		-- Unlock (i~=levelNum+1) && lock levels
+		-- When unlocking levels, also add changes to line 95 of this lua file.
+		if i~=1 and i ~= 2 then
+			lockedLevels[i] = display.newImage("mapdata/art/buttons/lock.png")
 			lockedLevels[i].x = kCircle[i].x
 			lockedLevels[i].y = kCircle[i].y
 			lockedLevels[i]:scale(0.2, 0.2)
 			map.layer["tiles"]:insert(lockedLevels[i])
 			kCircle[i].isAwake = false
+			kCircle[i]:setSequence("still")
+			kCircle[i]:play()
 		else		
+			kCircle[i]:setSequence("move")
+			kCircle[i]:play()
 			kCircle[i].isAwake = true
 		end
 	end
 	
 	-- Loading Screen delay
 	timer.performWithDelay(1, myClosure)
-	
-	print("done 2")
 end
 
 --------------------------------------------------------------------------------
@@ -295,7 +288,7 @@ local function loadSelector()
 	system.setAccelerometerInterval(30)
 
 	-- Create player sprite sheet
-	local playerSheet = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite.png", 
+	local playerSheet = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite.png", 
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
 	
 	-- Create player/ball object to map
@@ -313,13 +306,26 @@ local function loadSelector()
 	ball.y = 500
 
 	-- Create levelSelector Background
-	bg = display.newImage("mapdata/art/bgLS.png", 0, 0, true)
+	bg = display.newImage("mapdata/art/background/screens/waterBG.png", 0, 0, true)
 	bg.x = 720
 	bg.y = 450
 	bg:scale(0.8, 0.8)
 	
 	-- Load in map
 	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
+	
+	-- Load in walls
+	local wall = {
+			  [1] = display.newImage("mapdata/art/background/LS/LS-BB/LS.png"), }
+		   
+		  wall[1].x, wall[1].y = map.tilesToPixels(22, 15)
+		  map.layer["tiles"]:insert(wall[1])
+		   
+	for i=1, #wall do
+		wall[i].isVisible = false
+		--wall[i]:setFillColor(1, 0, 0, 0.5)
+		physics.addBody(wall[i], "static", physicsData:get("LS") )
+	end
 	
 	-- Callers:
 	--		+ createPortals [create level portals]]
@@ -335,8 +341,6 @@ local function loadSelector()
 	ball:addEventListener("collision", ball)
 	Runtime:addEventListener("accelerometer", controlMovement)
 	Runtime:addEventListener("enterFrame", camera)
-	
-	print("done")
 end
 
 
@@ -369,8 +373,6 @@ local function selectLoop(event)
 				
 	-- Loading Screen delay
 	timer.performWithDelay(2000, deleteClosure)
-	
-	print("Loop1")
 end
 
 --------------------------------------------------------------------------------

@@ -39,11 +39,11 @@ local function init()
 	
 	-- Load runes
 	rune = {
-		[1] = display.newImage("mapdata/Items/blueRune.png"),
-		[2] = display.newImage("mapdata/Items/greenRune.png"),
-		[3] = display.newImage("mapdata/Items/pinkRune.png"),
-		[4] = display.newImage("mapdata/Items/purpleRune.png"),
-		[5] = display.newImage("mapdata/Items/yellowRune.png")
+		[1] = display.newImage("mapdata/art/runes/blueRune.png"),
+		[2] = display.newImage("mapdata/art/runes/greenRune.png"),
+		[3] = display.newImage("mapdata/art/runes/pinkRune.png"),
+		[4] = display.newImage("mapdata/art/runes/purpleRune.png"),
+		[5] = display.newImage("mapdata/art/runes/yellowRune.png")
 	}
 	
 	-- Assign object name
@@ -64,15 +64,15 @@ local function init()
 	-- load object sprite sheets
 	sheetList = {}
 
-	sheetList.energy = graphics.newImageSheet("mapdata/art/coins.png", 
-				 {width = 66, height = 56, sheetContentWidth = 267, sheetContentHeight = 56, numFrames = 4})
-	sheetList["redAura"] = graphics.newImageSheet("mapdata/art/redAuraSheet.png", 
+	sheetList["redAura"] = graphics.newImageSheet("mapdata/art/animation/redAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
-	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/greenAuraSheet.png", 
-				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
-	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/exitPortalSheet.png", 
+	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/animation/greenAuraSheet.png", 
+				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})	
+	sheetList["blueAura"] = graphics.newImageSheet("mapdata/art/animation/blueAuraSheet.png", 
+				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})				 
+	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet.png", 
 				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
-	sheetList["wolf"] = graphics.newImageSheet("mapdata/art/wolfSheet.png", 
+	sheetList["wolf"] = graphics.newImageSheet("mapdata/art/animation/wolfSheet.png", 
 				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8})
 	
 	return true
@@ -113,51 +113,76 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function createObjects(objectNumbers, pane)
+local function createObjects(objectNumbers, mapData)
 	-- declare wisp and object list
 	local wisp = {}
 	local objects = {}
 	local water = {}
+	local wall = {}
+	local auraWall = {}
 	
-	-- Water vertices (Applies for png: water4, water5
-	local vertices = {-115,-35,   
-					    0,-40,
-					   40, -50,
-					   75,-35,
-					   50, -15,
-					  180,5, 
-					  160,30,     
-					  145,50, 
-					 -200,50,   
-					 -190,20,
-				     -260,10,  
-					 -135,-25,}
+	-- Load walls based on level
+	if mapData.levelNum == "1" then
+		if mapData.pane == "M" then
+			-- Main walls
+			wall[1] = display.newImage("mapdata/art/background/1-1BB/1-1.png", true)
+			-- Aura walls
+			auraWall[1] = display.newImage("mapdata/art/auraWalls/blueAuraWall.png", true)
+		end
+	elseif mapData.levelNum == "2" then
+		if mapData.pane == "M" then
+			-- Level 2: Pane 'M'
+			wall[1] = display.newImage("mapdata/art/background/2/2-1BB/2-1-WALL4.png", true)
+			water[1] = display.newImage("mapdata/art/background/2/2-1BB/2-1-WATER2.png", true)
+		elseif mapData.pane == "L" then
+			-- Level 2: Pane 'L'
+			wall[1] = display.newImage("mapdata/art/background/2/2-2BB/2-2-WALL4.png", true)
+			water[1] = display.newImage("mapdata/art/background/2/2-2BB/2-2-WATER2.png", true)
+		end
+		
+		-- Border walls
+		wall[2] = display.newImage("mapdata/art/background/story border 1.png", true)		
+	end
 	
-	-- create all waters in level
+		-- create all waters in level
 	for i=1, tonumber(objectNumbers.waterCount) do
-		water[i] = display.newPolygon(655, 100, vertices)
 		water[i].isVisible = false
-		water[i]:setFillColor(0, 0, 0, 0)
+		--water[i]:setFillColor(0, 0, 0, 0)
 		--water[i].strokeWidth = 5
 		--water[i]:setStrokeColor( 0, 1, 1 )
 	end
+	
+	-- create all walls in level
+	for i=1, tonumber(objectNumbers.wallCount) do
+		wall[i].isVisible = false
+		--wall[i]:setFillColor(0, 0, 0, 0)
+		--wall[i].strokeWidth = 5
+		--wall[i]:setStrokeColor( 0, 1, 1 )
+	end
+	
+	-- create all walls in level
+	for i=1, tonumber(objectNumbers.auraWallCount) do
+		auraWall[i].isVisible = false
+	end
+	
 	-- create all wisps in level
 	for i=1, tonumber(objectNumbers.wispCount) do
-		wisp[i] = display.newImage("mapdata/art/wisp.png")
+		wisp[i] = display.newImage("mapdata/art/wisp/wisp2.png")
 		wisp[i].isVisible = false
 		wisp[i].x, wisp[i].y = 100, 100
 	end	
+	
 	-- call function to animate objects
 	for i = 1, 5 do
-		createAnimations(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
+		createAnimations(objectNumbers[mapData.pane][objectNames[i]], objectNames[i], objects)
 	end
 	-- call function that creates sprites
 	for i = 6, 12 do
-		createSprites(objectNumbers[pane][objectNames[i]], objectNames[i], objects)
+		createSprites(objectNumbers[mapData.pane][objectNames[i]], objectNames[i], objects)
 	end
 
 	-- return object and wisp list
-	return objects, wisp, water
+	return objects, wisp, water, wall, auraWall
 end
 
 --------------------------------------------------------------------------------
@@ -171,9 +196,9 @@ local function main(mapData, map, player)
 	-- get which level lua, player is in
 	level = require("levels." .. levelNames[mapData.levelNum])
 	-- get objects and wisps list and create them
-	objects, wisp, water = createObjects(level, mapData.pane)
+	objects, wisp, water, wall, auraWall = createObjects(level, mapData)
 	-- load in which pane player is in
-	level.load(mapData.pane, map, rune, objects, wisp, water)
+	level.load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 end
 
 
@@ -188,6 +213,18 @@ local function destroy(mapData)
 		display.remove(rune[i])
 		rune[i] = nil
 	end
+	
+	for i=0, #wall do
+		display.remove(wall[i])
+		wall[i] = nil
+	end
+	
+	
+	for i=0, #auraWall do
+		display.remove(auraWall[i])
+		auraWall[i] = nil
+	end
+	
 	-- destroy all objects in level pan
 	level.destroyAll()
 end
