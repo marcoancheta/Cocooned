@@ -144,6 +144,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Walls
 		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)
 		wall[2].x, wall[2].y = map.tilesToPixels(21, 12)
+		wall[2]:toFront()
 		
 		--generate.gWisps(wisp, map, mapData, 1, 4)
 		generate.gWater(water, map, mapData, 1, 1)
@@ -167,7 +168,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Walls
 		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)
 		wall[2].x, wall[2].y = map.tilesToPixels(21, 12)
-
 		generate.gWisps(wisp, map, mapData, 1, 6)
 		generate.gWater(water, map, mapData, 1, 1)
 		generate.gWalls(wall, map, mapData, 1, 2)

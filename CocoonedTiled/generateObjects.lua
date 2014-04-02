@@ -260,10 +260,10 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 	elseif mapData.levelNum == "2" then
 		if mapData.pane == "M" then
 			physics.addBody(wall[1], "static", physicsData[4]:get("2-1-WALL4") )
-			physics.addBody(wall[2], "static", physicsData[1]:get("story border 1") )
+			physics.addBody(wall[2], "static", physicsData[1]:get("border2") )
 		elseif mapData.pane == "L" then
 			physics.addBody(wall[1], "static", physicsData[4]:get("2-2-WALL4") )
-			physics.addBody(wall[2], "static", physicsData[1]:get("story border 1") )
+			physics.addBody(wall[2], "static", physicsData[1]:get("border2") )
 		end
 
 		wall[2]:setFillColor(0, 0, 0, 1)

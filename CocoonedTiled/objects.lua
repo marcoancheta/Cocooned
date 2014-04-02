@@ -141,7 +141,8 @@ local function createObjects(objectNumbers, mapData)
 		end
 		
 		-- Border walls
-		wall[2] = display.newImage("mapdata/art/background/story border 1.png", true)
+		wall[2] = display.newImage("mapdata/art/background/border2.png", true)
+		
 	elseif mapData.levelNum == "4" then
 		if mapData.pane == "M" then
 			-- Level 4: Pane 'M'
