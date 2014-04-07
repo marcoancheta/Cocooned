@@ -201,34 +201,16 @@ local function createPortals(map)
 	-- Create level numbers
 	lvlNumber = {	
 		[1] = "1", [2] = "2", [3] = "3",
-		[4] = "4", --[[[5] = "5", [6] = "6",
-		[7] = "7", [8] = "8", [9] = "9",
-		[10] = "10", [11] = "11", [12] = "12",
-		[13] = "13", [14] = "14", [15] = "15",
-		[16] = "16", [17] = "F", [18] = "bonus"]]--
+		[4] = "4",
 	}
 	
 	-- Level numbers' position
 	textPos = {
 		--      X,         Y,
-		 [1] = -60,   [2] = 555,   -- 1
-		 [3] = 205,   [4] = 355,    -- 2
-		 [5] = 460,   [6] = 355,   -- 3 
-		 [7] = 710,   [8] = 555,    -- 4
-		--[[ [9] = 710,  [10] = 515,   -- 5
-		[11] = 1800, [12] = 300,  -- 6
-		[13] = 1750, [14] = 650,  -- 7
-		[15] = 1950, [16] = 900,  -- 8
-		[17] = 1750, [18] = 1100, -- 9
-		[19] = 1850, [20] = 1500, -- 10
-		[21] = 1600, [22] = 1650, -- 11
-		[23] = 770,  [24] = 1700,  -- 12
-		[25] = -60,  [26] = 1650,  -- 13
-		[27] = -250, [28] = 1500, -- 14
-		[29] = -200, [30] = 1100, -- 15
-		[31] = -380, [32] = 850,  -- 16
-		[33] = 750,  [34] = 1100,  -- F
-		[35] = -200, [36] = 700   -- Bonus]]--
+		[1] = -60, [2] = 555,   -- 1
+		[7] = 205, [8] = 355,   -- 2
+		[5] = 460, [6] = 355,   -- 3 
+		[3] = 710, [4] = 555,   -- 4
 	}
 	
 	local kCircleSheet = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet.png", 
@@ -237,7 +219,6 @@ local function createPortals(map)
 		
 	for i=1, #lvlNumber do
 		-- Make & assign attributes to the 10 circles (kCircle[array])
-		--kCircle[i] = display.newCircle(textPos[2*i-1] + 500, textPos[2*i], 35)
 		kCircle[i] = display.newSprite(kCircleSheet, spriteOptions["exitPortal"])
 		kCircle[i]:scale(1.5, 1.5)
 		kCircle[i].x, kCircle[i].y = textPos[2*i-1] + 500, textPos[2*i]
@@ -248,7 +229,7 @@ local function createPortals(map)
 		-- Along with its text indicator (levels[array])
 		levels[i] = display.newText(lvlNumber[i], textPos[2*i-1]+ 500, textPos[2*i] - 40, native.Systemfont, 50)
 		levels[i]:setFillColor(3*0.00392156862, 101*0.00392156862, 100*0.00392156862)
-		--levels[i]:setFillColor(0, 0, 0)
+
 		map.layer["tiles"]:insert(kCircle[i])
 		map.layer["tiles"]:insert(levels[i])
 		
@@ -312,7 +293,7 @@ local function loadSelector()
 	bg:scale(0.8, 0.8)
 	
 	-- Load in map
-	map = dusk.buildMap("mapdata/levels/LS/levelSelect.json")
+	map = dusk.buildMap("mapdata/levels/LS/LS.json")
 	
 	-- Load in walls
 	local wall = {

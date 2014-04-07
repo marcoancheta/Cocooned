@@ -5,8 +5,6 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
-
-
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -28,7 +26,7 @@ local tempPane, tempPane2
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function checkPane(map, pane, tempPane, index)
+local function checkPane(map, pane, tempPane, index)
 	-- if pane is valid, return new pane
 	if map.panes[index] == true then
 		return pane
@@ -43,9 +41,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function swipeScreen(event, mapData, player, miniMap, map)
-
-
+local function swipeScreen(event, mapData, player, miniMap, map)
 	-- phase name
 	local phase = event.phase
 
@@ -55,7 +51,6 @@ function swipeScreen(event, mapData, player, miniMap, map)
 	--------------------------------------------------------------------------------
 	-- swipe mechanic
 	--------------------------------------------------------------------------------
-
 	--get swipe length for x and y
 	local swipeLength = math.abs(event.x - event.xStart)
 	local swipeLengthY = math.abs(event.y - event.yStart)
@@ -125,7 +120,6 @@ function swipeScreen(event, mapData, player, miniMap, map)
 
 			-- debug for which way player swiped
 			print("swipe", mapData.pane)
-			
 		end
 	end
 end
@@ -135,7 +129,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function tapScreen(event, miniMap, mapData, physics, map, player, player2) 
+local function tapScreen(event, miniMap, mapData, physics, gui, player, player2, map) 
 	-- if tapped twice, show miniMap or if showing, hide it
 	if event.numTaps >= 2 and player.movement == "accel" and player2.movement=="accel" then
 		-- show miniMap 
@@ -150,15 +144,15 @@ function tapScreen(event, miniMap, mapData, physics, map, player, player2)
 			end
 
 			-- update minimap pane images
-			miniMapMechanic.updateMiniMap(mapData.pane, miniMap, map, player, player2)
+			miniMapMechanic.updateMiniMap(mapData.pane, miniMap, gui, player, player2)
 
 			-- save current pane for later check
 			tempPane2 = mapData.pane
-			
+
 			-- set miniMap display to visible
 			gameData.isShowingMiniMap = true
 			miniMap.alpha = 0.75
-			
+
 		--hide miniMap
 		else
 			-- start physics
@@ -175,7 +169,7 @@ function tapScreen(event, miniMap, mapData, physics, map, player, player2)
 	else
 		if gameData.isShowingMiniMap  == true then
 			-- call miniMap move function
-			miniMapMechanic.moveMiniMap(miniMap, mapData, map, event)
+			miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
 		end
 	end
 
@@ -190,7 +184,7 @@ end
 --------------------------------------------------------------------------------
 local touchMechanic = {
 	swipeScreen = swipeScreen,
-	tapScreen = tapScreen
+	tapScreen = tapScreen,
 }
 
 return touchMechanic

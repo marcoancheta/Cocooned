@@ -22,6 +22,15 @@ local miniMapMechanic = require("miniMap")
 local objects = require("objects")
 -- loading screen function (loadingScreen.lua)
 local loading = require("loadingScreen")
+--create player 2 if player2 is in current level
+local player = require("player")
+-- Collision Detection (collisionDetection.lua)
+local collisionDetection = require("collisionDetection")
+-- Touch mechanics (touchMechanic.lua)
+local touch = require("touchMechanic")
+-- Menu variables/objects (menu.lua)
+local menu = require("menu")
+
 -- set variables for loading screen
 local loaded = 0
 local level = 0 
@@ -30,18 +39,16 @@ local player2Params={
 		x=-1,
 		y=-1
 }
+
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading(level) end
---create player 2 if player2 is in current level
-local player = require("player")
-
 
 --------------------------------------------------------------------------------
 -- Create Level - function that creates starting pane of level
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function createLevel(mapData, playerInstance, player2)
+local function createLevel(mapData, player1, player2)
 
 	loaded = 0 -- current loading checkpoint, max is 6
 	level =  mapData.levelNum
@@ -59,23 +66,27 @@ function createLevel(mapData, playerInstance, player2)
 	gui:insert(gui.back)
 	gui:insert(gui.front)
 
-	print("loadMap", mapData.levelNum)
+	--print("loadMap", mapData.levelNum)
 
-	-- Load in map	
-	map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
+	-- Load in map
+	local map
+	if mapData.levelNum ~= "LS" then
+		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
+	else
+		print(mapData.levelNum)
+		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/LS.json")
+	end
+	
 	objects.main(mapData, map, player)
 
-	local shadowGroup = display.newGroup()
-
-	--map.layer["shadows"].sx = map.layer["shadows"].x
-	--map.layer["shadows"].sy = map.layer["shadows"].y
-	--map.layer["vWalls"].sx = map.layer["vWalls"].x
-	--map.layer["hWalls"].sy = map.layer["hWalls"].y
-
 	-- set players location
-	ball = playerInstance.imageObject
+	ball = player1.imageObject
+	
 	-- set players location according to level
-	if mapData.levelNum == "1" then
+	if mapData.levelNum == "LS" then
+		ball.x, ball.y = map.tilesToPixels(24, 18)
+		player2Params.active = false
+	elseif mapData.levelNum == "1" then
 		ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 		if map.secondPlayerLocation.x > 0 and map.secondPlayerLocation.y > 0 then
 			player2Params.isActive=true
@@ -97,31 +108,28 @@ function createLevel(mapData, playerInstance, player2)
 	
 	-- create miniMap for level
 	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, player, map)
-	miniMapDisplay.name = "miniMapName"
+		  miniMapDisplay.name = "miniMapName"
 
 	-- Add objects to its proper groups
 	gui.back:insert(1, map)
 	map.layer["tiles"]:insert(ball)
-
+	
 	-- destroy loading screen
 	timer.performWithDelay(1000, deleteClosure)
 
 	-- reutrn gui and miniMap
-	return gui, miniMapDisplay, player2Params
+	return gui, miniMapDisplay, player2Params, map
 end
+
 
 --------------------------------------------------------------------------------
 -- Change Pane - function that changes panes of level
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function changePane(mapData, player, player2, miniMap)
-
+local function changePane(mapData, player, player2, miniMap)
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
-
-	--map.layer["vWalls"].sx = map.layer["vWalls"].x
-	--map.layer["hWalls"].sy = map.layer["hWalls"].y
 	
 	objects.main(mapData, map, player)
 
@@ -177,7 +185,6 @@ function changePane(mapData, player, player2, miniMap)
 	return map
 end
 
-
 --------------------------------------------------------------------------------
 -- Finish Up
 --------------------------------------------------------------------------------
@@ -185,9 +192,8 @@ end
 --------------------------------------------------------------------------------
 local loadLevel = {
 	createLevel = createLevel,
-	changePane = changePane
+	changePane = changePane,
 }
 
 return loadLevel
-
 -- end of loadLevel

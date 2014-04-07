@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- Accelerometer.lua
+-- accelerometer.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -58,7 +58,7 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 
-function moveShadows(map, x, y)
+local function moveShadows(map, x, y)
 
 	if x > 0.1 and map.layer["bg"].y < map.layer["hWalls"].sy + 6 then
 		map.layer["tiles"].y = map.layer["tiles"].y - 2
@@ -98,13 +98,14 @@ function moveShadows(map, x, y)
 	]]	
 	
 end
+
 --------------------------------------------------------------------------------
 -- On Accelerate - function that gathers accelerometer data
 --------------------------------------------------------------------------------
 -- Updated by: Andrew 
 --------------------------------------------------------------------------------
 
-local function onAccelerate( event, player, player2, map)
+local function onAccelerate( event, player, player2)
 	
 	--print(player.escape)
 	if event.isShake and player.movement == "inWater" then

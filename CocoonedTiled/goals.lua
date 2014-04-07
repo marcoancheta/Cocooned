@@ -13,7 +13,7 @@ local goals = {}
 ---------------------
 local gNum = 1
 local goalBox, textBox, box, coin
-local textObject = {}
+local textObject
 local bSet
 local goalie
 
@@ -56,8 +56,8 @@ local function drawGoals(text, rune)
 		elseif i>=2 then
 			textObject[i] = display.newText(text[gNum][i], bSet.x-100, bSet.y - 35 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
 		end
-		textObject[i]:setFillColor(0,0,0)
-		textObject[i].align = "left"
+		textObject[i]:setFillColor(1,0,0)
+		textObject[i].anchorX = 21
 	end
 		
 		
@@ -66,6 +66,7 @@ local function drawGoals(text, rune)
 	for i=1, #textObject do
 		goalie:insert(textObject[i])
 	end
+	
 	for i=1, #rune do
 		goalie:insert(rune[i])
 		rune[i].isSensor = true
@@ -103,7 +104,7 @@ local function findGoals(mapData)
 	local text = {
 		[1] = {
 			[1] = "Collect",
-			[2] = "Runes:",
+			[2] = "runes:",
 			[3] = "",
 			--[4] = "Coins:",
 			--[5] = "",
@@ -133,19 +134,7 @@ local function findGoals(mapData)
 		rune[i].isSensor = true
 		xCoord = xCoord + 50
 	end
-	
-	-- Position coins in goal displayer
-	--[[coins.x = 220
-	coins.y = 350
-	coins.isVisible = true
-	coins.isSensor = true
-	coins:setSequence("move")
-	coins:play()]]
-	
-	-- Draw amount of coins in level text
-	--coin = display.newText("x" .. runeAMT*5, coins.x + 70, coins.y, nativeSystemfont, 50)
-	--coin:setFillColor(0,0,0)
-					
+						
 	-- Call function to draw and insert objects
 	drawGoals(text, rune)
 end
@@ -162,14 +151,12 @@ end
 -- Destroy it all!
 local function destroyGoals()
 	print("Destroyed goalie")
-	goalBox, textBox, box, coin = nil
+	goalBox, textBox, box = nil
 	textObject = nil
 	rune = nil
-	--coins = nil
-	if goalie then
-		goalie:removeSelf()
-		goalie = nil
-	end
+
+	goalie:removeSelf()
+	goalie = nil
 end
 
 -- Pass into globals

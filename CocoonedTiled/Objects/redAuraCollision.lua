@@ -19,12 +19,13 @@ local sound = require("sound")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function collide(collideObject, player, event, mapData, map)
-	audio.stop()
-	sound.playSound(event, sound.auraPickupSound)
+local function collide(collideObject, player, event, mapData, map)
+	--audio.stop()
+	--sound.playSound(event, sound.auraPickupSound)
 	player = player
 	event.contact.isEnabled = false
 	player:changeColor('red')
+	
 	local closure = function() return player:changeColor('white') end
 	timer1 = timer.performWithDelay( 10000, closure, 1)
 end

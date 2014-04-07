@@ -24,8 +24,6 @@ local dusk = require("Dusk.Dusk")
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("gameData")
--- Select level function (loadLevel.lua)
-local selectLevel = require("selectLevel")
 -- Load level function (loadLevel.lua)
 local loadLevel = require("loadLevel")
 -- Animation variables/data (animation.lua)
@@ -40,6 +38,8 @@ local player = require("player")
 local objects = require("objects")
 -- miniMap display functions
 local miniMapMechanic = require("miniMap")
+-- memory checker (memory.lua)
+local memory = require("memory")
 
 --[[ Load in game mechanics begin here ]]--
 -- Touch mechanics (touchMechanic.lua)
@@ -54,6 +54,7 @@ local collisionDetection = require("collisionDetection")
 local spirits = require("spirits")
 -- Pane Transitions (paneTransition.lua)
 local paneTransition = require("paneTransition")
+
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -76,81 +77,11 @@ local mapData = {
 }
 
 local miniMap
+local map, ball
+local gui
+local player1, player2 -- create player variables
+local tempPane -- variable that holds current pane player is in for later use
 
--- create player variables
-local player1, player2
-
-
---------------------------------------------------------------------------------
--- Load Map - loads start of level
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-function loadMap()
-	--TODO: move player creation into create level?
-	-- pause physics
-	physics.pause()
-	physics.setScale(45)
-	-- Initialize player(s)
-	player1 = player.create()
-	system.setAccelerometerInterval(30)
-
-	-- Create player sprite sheet
-	local playerSheet = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite.png", 
-			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-	
-	-- Create player/ball object to map
-	player1.imageObject = display.newSprite(playerSheet, spriteOptions.player)
-	ball = player1.imageObject
-
-	-- set name and animation sequence for ball
-	ball.name = "player"
-	ball:setSequence("move")
-
-	-- add physics to ball
-	physics.addBody(ball, {radius = 38, bounce = .25})
-	physics.setGravity(0,0)
-	ball.linearDamping = 1.25
-	ball.density = .3
-
-	-- Load in map
-	gui, miniMap, player2Params = loadLevel.createLevel(mapData, player1, player2)
-	
-	-- fix offset, because Dusk Engine is offsetting during render
-	gui.x = gui.x - 20
-	gui.y = gui.y + 20
-	--print("params=",player2Params.isActive, player2Params.x, player2Params.y)
-	if player2Params.isActive == true then
-		player2 = player.create()
-			-- Create player sprite sheet
-		local playerSheet2 = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite2.png", 
-			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-	
-		-- Create player/ball object to map
-		player2.imageObject = display.newSprite(playerSheet2, spriteOptions.player2)
-		ball2 = player2.imageObject
-		--print(player2.imageObject)
-		-- set name and animation sequence for ball
-		ball2.name = "player2"
-		ball2:setSequence("move")
-		player2.isActive = true
-		player2.imageObject.x, player2.imageObject.y = player2Params.x, player2Params.y
-		map.layer["tiles"]:insert(player2.imageObject)
-		-- add physics to secondball
-		physics.addBody(player2.imageObject, {radius = 38, bounce = .25})
-		player2.imageObject.linearDamping = 1.25
-		player2.imageObject.density = .3
-	else
-		player2 ={
-			isActive = false,
-			movement = "accel"
-		}
-	end
-
-	
-	--start physics when everything is finished loading
-	physics.start()
-end
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -161,6 +92,53 @@ end
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
+-- Swipe Mechanics - function that is called when player swipes
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function swipeMechanics(event)
+
+	if player1.movement == "accel" and player2.movement == "accel" then
+		-- save temp pane for later check
+		tempPane = mapData.pane
+
+		-- call swipe mechanic and get new Pane
+		--TODO: ask why player1 is passed in
+		touch.swipeScreen(event, mapData, player1, miniMap, gui.back[1])
+		
+		-- if touch ended then change map if pane is switched
+		if "ended" == event.phase and mapData.pane ~= tempPane then
+			-- play snow transition effect
+			--TODO: does player need to be pased in?
+			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1, player2, map)
+		end
+
+	end
+end
+
+--------------------------------------------------------------------------------
+-- Tap Mechanics - function that is called when player taps
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function tapMechanic(event)
+	if gameData.allowMiniMap then
+
+		-- save current pane for later use
+		tempPane = mapData.pane
+
+		-- call function for tap screen
+		touch.tapScreen(event, miniMap, mapData, physics, gui, player1, player2, map)
+
+		-- check if pane is different from current one, if so, switch panes
+		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
+			-- play snow transition effect
+			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1, player2, map)
+		end
+	end
+end
+
+--------------------------------------------------------------------------------
 -- Control Mechanics - controls movement for player
 --------------------------------------------------------------------------------
 -- Updated by: Andrew moved curse to speedUp so we can use the player's physics params
@@ -168,7 +146,7 @@ end
 local function controlMovement(event) 
 	
 	-- if miniMap isn't showing, move player
-	if gameData.isShowingMiniMap == false then
+	if gameData.isShowingMiniMap == false and gameData.gameEnd == false then
 		-- call accelerometer to get data
 		physicsParam = movementMechanic.onAccelerate(event, player1, player2, gui.back[1])
 	
@@ -207,121 +185,153 @@ local function speedUp(event)
 				end
 			end
 		end
-
-		player1.xGrav = player1.xGrav*player1.curse
-		player1.yGrav = player1.yGrav*player1.curse
-		newMap = map
-		if player2.isActive then
-			player2.xGrav = player2.xGrav*player2.curse
-			player2.yGrav = player2.yGrav*player2.curse
-			--print(player2.imageObject)
-			movement.moveAndAnimate(event, player2)
-		end
-		movement.moveAndAnimate(event, player1)
-
-	end
-end
-
--- variable that holds current pane player is in for later use
-local tempPane
-
---------------------------------------------------------------------------------
--- Swipe Mechanics - function that is called when player swipes
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-local function swipeMechanics(event)
-	
-
-	if player1.movement == "accel" and player2.movement == "accel" then
-		-- save temp pane for later check
-		tempPane = mapData.pane
-
-		-- call swipe mechanic and get new Pane
-		--TODO: ask why player1 is passed in
-		touch.swipeScreen(event, mapData, player1, miniMap, gui.back[1])
-		-- if touch ended then change map if pane is switched
-		if "ended" == event.phase and mapData.pane ~= tempPane then
-
-			-- play snow transition effect
-			--TODO: does player need to be pased in?
-			paneTransition.playTransition(tempPane, mapData.pane, gui.back[1], player1)
+		
+		if player1 ~= nil then
+			player1.xGrav = player1.xGrav*player1.curse
+			player1.yGrav = player1.yGrav*player1.curse
 			
-			-- switch panes
-			movePanes()
-		end
-
-	end
-end
-
---------------------------------------------------------------------------------
--- Tap Mechanics - function that is called when player taps
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-local function tapMechanic(event)
-	if gameData.allowMiniMap then
-
-		-- save current pane for later use
-		local tempPane = mapData.pane
-
-		-- call function for tap screen
-		tempPane = touch.tapScreen(event, miniMap, mapData, physics, gui.back[1], player1, player2)
-
-		-- check if pane is different from current one, if so, switch panes
-		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
-			-- play snow transition effect
-			paneTransition.playTransition(tempPane, mapData.pane, gui.back[1], player1, player2)
-
-			-- switch panes
-			movePanes()
+			if player2.isActive then
+					player2.xGrav = player2.xGrav*player2.curse
+					player2.yGrav = player2.yGrav*player2.curse
+					--print(player2.imageObject)
+					movement.moveAndAnimate(event, player2)
+			end
+			
+			movement.moveAndAnimate(event, player1)
 		end
 	end
 end
 
 --------------------------------------------------------------------------------
--- Move Panes - changes current pane to new one
+-- Load Map - loads start of level
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function movePanes()
-	-- update new miniMap
-	miniMapMechanic.updateMiniMap(tempPane, miniMap, gui.back[1], player1, player2)
-
-	-- delete everything on map
-	objects.destroy(mapData)
-	map:removeSelf()
-	
-		
-	-- Pause physics
-	physics.pause()
-
-	---------------------------------------------------
-	-- Play "character" teleportation animation here --
-	---------------------------------------------------
-		
-	-- load new map pane
-	map = loadLevel.changePane(mapData, player1, player2, miniMap)
-
-	-- insert objects onto map layer
-	gui.back:insert(map)
-
-	map.layer["tiles"]:insert(player1.imageObject)
-	if player2.isActive then
-		map.layer["tiles"]:insert(player2.imageObject)
-	end
-
-	-- Resume physics
+local function loadMap(mapData)
+	-- Start physics
 	physics.start()
-
-	-- Reassign game mechanic listeners
 	
-	collisionDetection.changeCollision(ball, player1, mapData, gui.back[1], gui.front, physics, miniMap)
-	if player2.isActive then
-		collisionDetection.changeCollision(ball, player2, mapData, gui.back[1],gui.front, physics, miniMap)
+	--TODO: move player creation into create level?
+	-- pause physics
+	physics.pause()
+	physics.setScale(45)
+	-- Initialize player(s)
+	player1 = player.create()
+	system.setAccelerometerInterval(30)
+
+	-- Create player sprite sheet
+	local playerSheet = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite.png", 
+			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
+	
+	-- Create player/ball object to map
+	player1.imageObject = display.newSprite(playerSheet, spriteOptions.player)
+	ball = player1.imageObject
+
+	-- set name and animation sequence for ball
+	ball.name = "player"
+	ball:setSequence("move")
+
+	-- add physics to ball
+	physics.addBody(ball, {radius = 38, bounce = .25})
+	physics.setGravity(0,0)
+	ball.linearDamping = 1.25
+	ball.density = .3
+
+	-- Load in map
+	gui, miniMap, player2Params, map = loadLevel.createLevel(mapData, player1, player2)
+	
+	-- fix offset, because Dusk Engine is offsetting during render
+	gui.x = gui.x
+	gui.y = gui.y
+	
+	--print("params=",player2Params.isActive, player2Params.x, player2Params.y)
+	if player2Params.isActive == true then
+		player2 = player.create()
+		-- Create player sprite sheet
+		local playerSheet2 = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite2.png", 
+			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
+		
+		-- Create player/ball object to map
+		player2.imageObject = display.newSprite(playerSheet2, spriteOptions.player2)
+		ball2 = player2.imageObject
+		--print(player2.imageObject)
+		-- set name and animation sequence for ball
+		ball2.name = "player2"
+		ball2:setSequence("move")
+		player2.isActive = true
+		player2.imageObject.x, player2.imageObject.y = player2Params.x, player2Params.y
+		map.layer["tiles"]:insert(player2.imageObject)
+		-- add physics to secondball
+		physics.addBody(player2.imageObject, {radius = 38, bounce = .25})
+		player2.imageObject.linearDamping = 1.25
+		player2.imageObject.density = .3
+	else
+		player2 ={
+			isActive = false,
+			movement = "accel"
+		}
 	end
+
+	--start physics when everything is finished loading
+	physics.start()
+	
+	-- Start mechanics
+	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui.back[1], gui.front, physics, miniMap)
+	
+	if player2.isActive then
+		collisionDetection.createCollisionDetection(player2.imageObject, player2, mapData, gui.back[1], gui.front,physics, miniMap)
+	end
+		
+	map:addEventListener("touch", swipeMechanics)
+	map:addEventListener("tap", tapMechanic)
+	Runtime:addEventListener("accelerometer", controlMovement)
+	Runtime:addEventListener("enterFrame", speedUp)
+		
+	menu.ingameOptionsbutton(event, map)
 end
 
+local function clean(event)
+	-- remove all eventListeners
+	map:removeEventListener("touch", swipeMechanics)
+	map:removeEventListener("tap", tapMechanic)
+	ball:removeEventListener("accelerometer", controlMovement)
+	Runtime:removeEventListener("enterFrame", speedUp)
+		
+	collisionDetection.destroyCollision(player1.imageObject)
+		
+	if player2.isActive == true then
+		collisionDetection.destroyCollision(player2.imageObject)
+		player2.imageObject:removeSelf()
+		player2.imageObject = nil
+		player2:destroy()
+		player2 = nil
+	end
+		
+	-- destroy and remove all data
+	map:removeSelf()
+	map = nil
+	
+	ball:removeSelf()
+	ball = nil
+	
+	display.remove(gui)
+	gui = nil
+	
+	miniMap:removeSelf()
+	miniMap = nil
+
+	-- destroy player instance
+	player1:destroy()
+	player1 = nil
+	playerSheet = nil
+			
+	--TODO: move player 2 sheet into gameloop?
+	-- call objects-destroy
+	objects.destroy(mapData)
+
+	-- stop physics
+	physics.stop()
+end
 
 --------------------------------------------------------------------------------
 -- Core Game Loop
@@ -329,54 +339,40 @@ end
 -- Updated by: Marco - added selectLevel.clean in gameStart if statement 
 --------------------------------------------------------------------------------
 local function gameLoop(event)
+	-- Run monitorMemory from open to close.
+	memory.monitorMem()
+				
+	if mapData.levelNum == "LS" then
+		-- Set Camera to Ball
+		map.setCameraFocus(ball)
+		map.setTrackingLevel(0.1)
+	end
+	
 	---------------------------------
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
-		selectLevel.selectLoop(event)	
+		--selectLevel.selectLoop(event)	
+		mapData.levelNum = "LS"
+		mapData.pane = "LS"
+		
+		loadMap(mapData)
+				
+		-- Re-evaluate gameData booleans	
 		gameData.selectLevel = false
 	end
-
-	if gameData.inLevelSelector then
-		mapData.levelNum = selectLevel.levelNum
-		mapData.pane = selectLevel.pane
-		mapData.version = selectLevel.version
-		Runtime:removeEventListener("enterFrame", selectLevel.camera)
-		gameData.inLevelSelector = false
-	end
-
+	
 	-----------------------------
 	--[[ START GAMEPLAY LOOP ]]--
 	-- If game has started do:
-	if gameData.gameStart then	
-		-- full deletes select level screen and event listeners
-		selectLevel.clean()
-		sound.stop(event, sound.gameSound)
-	
-		-- Stop BGM
-		--sound.stop(event, sound.mainmenuSound)
-		-- Start physics
-		physics.start()
-		-- Load Map
-		loadMap()
-
-		--print("Game Start!")
-	
-		-- Start mechanics
-		collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui.back[1], gui.front, physics, miniMap)
-		if player2.isActive then
-			collisionDetection.createCollisionDetection(player2.imageObject, player2, mapData, gui.back[1], gui.front,physics, miniMap)
-		end
-		Runtime:addEventListener("enterFrame", speedUp)
-		Runtime:addEventListener("accelerometer", controlMovement)
-		gui.back:addEventListener("touch", swipeMechanics)
-		gui.back:addEventListener("tap", tapMechanic)
-		menu.ingameOptionsbutton(event,player1, player2)
+	if gameData.gameStart then
+		print("start game")
 		
+		mapData = gameData.mapData
+		loadMap(mapData)
+				
 		-- Re-evaluate gameData booleans
-		gameData.BGM = 2
 		gameData.menuOn = false
-		gameData.BGM = false
 		gameData.ingame = true
 		gameData.allowPaneSwitch = true
 		gameData.allowMiniMap = true
@@ -388,92 +384,18 @@ local function gameLoop(event)
 	--[[ END GAMEPLAY LOOP ]]--
 	-- If game has ended do:
 	if gameData.gameEnd then
-
-		-- remove all eventListeners
-		gui.back:removeEventListener("touch", swipeMechanics)
-		gui.back:removeEventListener("tap", tapMechanic)
-		Runtime:removeEventListener("accelerometer", controlMovement)
-		Runtime:removeEventListener("enterFrame", speedUp)
-		collisionDetection.destroyCollision(player1.imageObject)
-		if player2.isActive == true then
-			collisionDetection.destroyCollision(player2.imageObject)
-		end
-		-- destroy and remove all data
-		map.destroy()
-		map = nil
-		ball:removeSelf()
-		ball = nil
-		if player2.isActive==true then
-			player2.imageObject:removeSelf()
-			player2.imageObject = nil
-		end
-		display.remove(gui)
-		gui = nil
-
-		--for i=1, 7 do
-		--display.remove(miniMap[i])
-		--end
-		miniMap:removeSelf()
-		miniMap = nil
-
-		-- destroy player instance
-		player1:destroy()
-		player1 = nil
-		playerSheet = nil
-		if player2.isActive then
-			player2:destroy()
-			player2 = nil
-		end
-		--TODO: move player 2 sheet into gameloop?
-
-		-- call objects-destroy
-		objects.destroy(mapData)
-
-		-- stop physics
-		physics.stop()
-		
-		-- set boolean variables
+		clean(event)
+	
+		-- set booleans
 		gameData.gameEnd = false
+		
 		if gameData.menuOn ~= true then
 			gameData.selectLevel = true
 		end
 	elseif gameData.levelRestart == true then
-		-- remove all eventListeners
-		gui.back:removeEventListener("touch", swipeMechanics)
-		miniMap:removeEventListener("tap", tapMechanic)
-		Runtime:removeEventListener("accelerometer", controlMovement)
-		Runtime:removeEventListener("enterFrame", speedUp)
-		collisionDetection.destroyCollision(player1.imageObject)
-		if player2.isActive then
-			collisionDetection.destroyCollision(player2.imageObject)
-		end
-
-		-- destroy and remove all data
-		map.destroy()
-		map = nil
-		ball:removeSelf()
-		ball = nil
-		display.remove(gui)
-		gui = nil
-
-		miniMap:removeSelf()
-		miniMap = nil
-
-		-- destroy player instance
-		player1:destroy()
-		player1 = nil
-		playerSheet = nil
-		if player2.isActive then
-			player2:destroy()
-			player2 = nil
-		end
-		--TODO: move player 2 sheet into gameloop?
-			
-		-- call objects-destroy
-		objects.destroy(mapData)		
-
-		-- stop physics
-		physics.stop()
+		clean(event)
+		
+		-- set booleans
 		gameData.levelRestart = false
 		gameData.gameStart = true
 
@@ -484,8 +406,9 @@ local function gameLoop(event)
 	----------------------
 	--[[ IN-GAME LOOP ]]--
 	-- If ingame has started do:
-	--[[
-	if gameData.ingame then
+	--if gameData.ingame then
+	
+		--[[
 		local time = os.time() 
 		if ( time ~= timeCheck ) then
   			print("Time:", time)
@@ -499,58 +422,42 @@ local function gameLoop(event)
   				activateWind = false
   			end
 		end
-	end
-	]]
+		]]--
+	--end
 	
-end
-
---------------------------------------------------------------------------------
--- Core Menu Loop
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-local function menuLoop(event)
 	-------------------
 	--[[ MAIN MENU ]]--
 	if gameData.menuOn then
-		-- If in main menu do:
-		--print("In Main Menu")
 		-- Go to main menu
 		menu.MainMenu(event)
 		
 		-- Start BGM
-		sound.playBGM(event, sound.gameSound)
+		--sound.playBGM(event, sound.gameSound)
 		
 		-- reset mapData variables
-		mapData.pane = "M"
-		mapData.version = 0
+		if mapData.pane ~= "M" then
+			mapData.pane = "M"
+			mapData.version = 0
+		end
 
 		-- Re-evaluate gameData booleans
-		gameData.gameStart = false
-		gameData.ingame = false
-		gameData.showMiniMap = false
 		gameData.menuOn = false
-
-
-	
 	----------------------
 	--[[ OPTIONS MENU ]]--	
 	elseif gameData.inOptions then
 		-- If in options do:
-		print("In Main Menu")
 		-- Go to options menu
 		menu.Options(event)
 		--menu.soundOptions(event)
+																																																																						
 		-- Re-evaluate gameData booleans
-		gameData.menuOn = false
-		gameData.inOptions = false
-		
+		gameData.inOptions = false		
 	-------------------------
 	--[[ IN-GAME OPTIONS ]]--
 	elseif gameData.inGameOptions then
 		-- If in game options do:
 		-- Go to in-game option menu
-		menu.ingameMenu(event, player1, player2)
+		menu.ingameMenu(event, player1, player2, gui)
 		
 		-- Remove object listeners
 		gui.back:removeEventListener("touch", swipeMechanics)
@@ -564,20 +471,18 @@ local function menuLoop(event)
 		gameData.allowMiniMap = false
 		gameData.showMiniMap = false
 		gameData.isShowingMiniMap = false
-		gameData.inGameOptions = false
-		
+		gameData.inGameOptions = false		
 	--------------------------
 	--[[ RESUME GAME LOOP ]]--		
 	elseif gameData.resumeGame then 
 		-- If resumeGame from game options then do:
 		
 		-- Re-add in game options button
-		menu.ingameOptionsbutton(event)
+		menu.ingameOptionsbutton(event, map)
 
 		-- Add object listeners
-		gui.back:addEventListener("touch", swipeMechanics)
-		gui.back:addEventListener("tap", tapMechanic)
-		gui.back:addEventListener("tap", tapMechanic)
+		map:addEventListener("touch", swipeMechanics)
+		map:addEventListener("tap", tapMechanic)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		Runtime:addEventListener("enterFrame", speedUp)
 		
@@ -586,7 +491,7 @@ local function menuLoop(event)
 		gameData.allowMiniMap = true
 		gameData.showMiniMap = true
 		gameData.resumeGame = false
-	end
+	end	
 end
 
 --------------------------------------------------------------------------------
@@ -595,47 +500,3 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 Runtime:addEventListener("enterFrame", gameLoop)
-Runtime:addEventListener("enterFrame", menuLoop)
-
---------------------------------------------------------------------------------
--- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-
--- debug text object
-local textObject = display.newText("test", 220, 750, native.systemFont, 48)
-local fpsText = display.newText("fps", 100, 800, native.systemFont, 48)
-textObject:setFillColor(0,1,0)
-fpsText:setFillColor(0,1,0)
-
-local prevTextMem = 0
-local prevMemCount = 0
-local monitorMem = function()
-collectgarbage("collect")
-
-local memCount = collectgarbage("count")
-	if (prevMemCount ~= memCount) then
-		--print( "MemUsage: " .. memCount)
-		textObject.text = "Mem:" .. " " .. memCount
-		fpsText.text = "FPS:" .. " " .. display.fps
-		fpsText:toFront()
-		textObject:toFront()
-		prevMemCount = memCount
-	end
-	
-	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
-	
-	if (prevTextMem ~= textMem) then
-		prevTextMem = textMem
-	end
-
-	-- Display fps
-	--print(display.fps)
-end
-
-Runtime:addEventListener( "enterFrame", monitorMem )
---------------------------------------------------------------------------------
--- END MEMORY CHECKER
---------------------------------------------------------------------------------
-

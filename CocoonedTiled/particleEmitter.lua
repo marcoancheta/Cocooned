@@ -11,9 +11,10 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-emitterLib = {}
 require("physics")
 math.randomseed(os.time())
+
+local emitterLib = {}
  
 local Random = math.random
 local msqrt = math.sqrt
@@ -29,6 +30,7 @@ local Cos = math.cos
 --------------------------------------------------------------------------------
 function emitterLib:createEmitter(radiusRange, thickness, particleDuration, initAlpha, endAlpha, inParticleImage, inParticleImageWidth, inParticleImageHeight)
   local customEmitter = {}
+   
   customEmitter.radiusRange = radiusRange
   customEmitter.thickness = thickness
   customEmitter.particleDuration = particleDuration
@@ -154,5 +156,4 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
   
   return customEmitter
 end
-
 -- end of particleEmitter.lua

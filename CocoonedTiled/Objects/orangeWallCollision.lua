@@ -10,7 +10,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function dissolve(event)
+local function dissolve(event)
 	local params = event.source.params
 	display.remove(params.param1)
 end
@@ -20,7 +20,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map)
 	print("got to orange wall collision")
 	--event.contact.isEnabled = false
 	

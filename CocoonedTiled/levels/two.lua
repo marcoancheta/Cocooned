@@ -180,9 +180,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	end
 
 	-- generates all objects in pane when locations are set
-	generate.gObjects(two, objects, map, mapData.pane, rune)
+	generate.gObjects(two, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
-	mObjects = generate.gMObjects(two, objects, map, mapData.pane)
+	mObjects = generate.gMObjects(two, objects, map, mapData)
 	-- destroy the unused objects
 	generate.destroyObjects(two, rune, wisp, water, wall, objects)
 
@@ -198,7 +198,7 @@ end
 -- destroys all objects in pane
 -- called when switching panes to reset memory usage
 local function destroyAll() 
-
+	gameData.gameEnd = true
 	-- destroy all wisps
 	for i=1, #wisp do
 		display.remove(wisp[i])

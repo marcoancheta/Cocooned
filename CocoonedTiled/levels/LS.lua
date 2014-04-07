@@ -14,6 +14,7 @@
 local gameData = require("gameData")
 -- generator for objects (generateObjects.lua)
 local generate = require("generateObjects")
+local movement = require("movement")
 
 --------------------------------------------------------------------------------
 -- Level One Variables
@@ -21,20 +22,25 @@ local generate = require("generateObjects")
 
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local one = { 
+local LS = { 
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
 	panes = {true,false,false,false,false},
 	-- number of wisps in the level
-	wispCount = 6,
+	wispCount = 0,
 	waterCount = 0,
 	wallCount = 1,
-	auraWallCount = 1,
+	auraWallCount = 0,
+	-- mapData clone
+	-- LS.levelNum || LS.pane || LS.version
+	levelNum = 0,
+	pane = "M",
+	version = 0,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
-	["M"] = {
-		["blueAura"] = 1,
+	["LS"] = {
+		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -45,74 +51,22 @@ local one = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1,
+		["exitPortal"] = 4,
 		["enemy"] = 0,
 	},
-	["D"] = {
-		["blueAura"] = 0,
-		["redAura"] = 0,
-		["greenAura"] = 0,
-		["wolf"] = 0,
-		["fish1"] = 0,
-		["fish2"] = 0,
-		["blueTotem"] = 0,
-		["redTotem"] = 0,
-		["greenTotem"] = 0,
-		["switch"] = 0,
-		["switchWall"] = 0,
-		["exitPortal"] = 0, 
-		["enemy"] = 0,
-	},
-	["U"] = {
-		["blueAura"] = 0,
-		["redAura"] = 0,
-		["greenAura"] = 0,
-		["wolf"] = 0,
-		["fish1"] = 0,
-		["fish2"] = 0,
-		["blueTotem"] = 0,
-		["redTotem"] = 0,
-		["greenTotem"] = 0,
-		["switch"] = 0,
-		["switchWall"] = 0,
-		["exitPortal"] = 0, 
-		["enemy"] = 0,
-	},
-	["R"] = {
-		["blueAura"] = 0,
-		["redAura"] = 0,
-		["greenAura"] = 0,
-		["wolf"] = 0,
-		["fish1"] = 0,
-		["fish2"] = 0,
-		["blueTotem"] = 0,
-		["redTotem"] = 0,
-		["greenTotem"] = 0,
-		["switch"] = 0,
-		["switchWall"] = 0,
-		["exitPortal"] = 0, 
-		["enemy"] = 0,
-	},	
-	["L"] = {
-		["blueAura"] = 0,
-		["redAura"] = 0,
-		["greenAura"] = 0,
-		["wolf"] = 0,
-		["fish1"] = 0,
-		["fish2"] = 0,
-		["blueTotem"] = 0,
-		["redTotem"] = 0,
-		["greenTotem"] = 0,
-		["switch"] = 0,
-		["switchWall"] = 0,
-		["exitPortal"] = 0, 
-		["enemy"] = 0,
-	}
 }
 
 -- variable that holds objects of pane for later use
 local objectList
-local mObjectslocal 
+local mObjectslocal
+local bg
+local locks = {}
+
+--------------------------------------------------------------------------------
+-- Ball Camera
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 -- load pane function
@@ -124,53 +78,56 @@ local mObjectslocal
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 	
+	-- Create levelSelector Background
+	bg = display.newImage("mapdata/art/background/screens/waterBG.png", 0, 0, true)
+	bg.x, bg.y = map.tilesToPixels(22, 15)
+		 		  
+	map.layer["bg"]:insert(bg)	
+		
+			
 	-- Check which pane
-	if mapData.pane == "M" then	
-		-- Blue Aura
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = map.tilesToPixels(26, 6)
+	if mapData.pane == "LS" then
+		for i=1, 4 do
+			objects["exitPortal" ..i.. ""]:setSequence("move")
+			objects["exitPortal" ..i.. ""]:play()
+			objects["exitPortal" ..i.. ""]:scale(2, 2)
+		end
 		
-		-- Pink rune
-		rune[4].x, rune[4].y = map.tilesToPixels(4.5, 4.5)			
-		rune[4].isVisible = true
-			
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(37, 7)
+		objects["exitPortal2"].x, objects["exitPortal2"].y = map.tilesToPixels(13, 16)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(19, 12)
+		objects["exitPortal3"].x, objects["exitPortal3"].y = map.tilesToPixels(26, 12)
+		objects["exitPortal4"].x, objects["exitPortal4"].y = map.tilesToPixels(31, 16)
 		
-		wisp[1].x, wisp[1].y = map.tilesToPixels(23, 6)
-		wisp[2].x, wisp[2].y = map.tilesToPixels(24, 8)
-		wisp[3].x, wisp[3].y = map.tilesToPixels(26, 9)
-		wisp[4].x, wisp[4].y = map.tilesToPixels(28, 9)
-		wisp[5].x, wisp[5].y = map.tilesToPixels(37, 10)
-		wisp[6].x, wisp[6].y = map.tilesToPixels(37, 13)
-			
-		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)	 
+		for i=1, 4 do
+			locks[i] = display.newImageRect("mapdata/art/buttons/lock.png", 50, 50, true)
+			locks[i].x = objects["exitPortal" ..i.. ""].x
+			locks[i].y = objects["exitPortal" ..i.. ""].y
 				
-		auraWall[1].x, auraWall[1].y = map.tilesToPixels(6.5, 5) -- blueAuraWall
+			map.layer["tiles"]:insert(locks[i])
+			
+			if i~=3 then
+				locks[i].isVisible = false
+			end			
+		end
 		
-		generate.gAuraWalls(auraWall, map, mapData, 1, 1)
-		generate.gWisps(wisp, map, mapData, 1, 6)
+		wall[1].x, wall[1].y = map.tilesToPixels(22, 15)
+		
 		generate.gWalls(wall, map, mapData, 1, 1)
-	elseif mapData.pane == "U" then
-		print("You shouldn't be in here...")
-	elseif mapData.pane == "D" then
-		print("You shouldn't be in here...")
-	elseif mapData.pane == "R" then
-		print("You shouldn't be in here...")
-	elseif mapData.pane == "L" then
-		print("You shouldn't be in here...")
 	end
-
+	
 	-- generates all objects in pane when locations are set
-	generate.gObjects(one, objects, map, mapData, rune)
+	generate.gObjects(LS, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
-	mObjects = generate.gMObjects(one, objects, map, mapData)
+	mObjects = generate.gMObjects(LS, objects, map, mapData)
+	
+	for i=1, #locks do
+		locks[i]:toFront()
+	end
+	
 	-- destroy the unused objects
-	generate.destroyObjects(one, rune, wisp, water, wall, objects)
-
+	generate.destroyObjects(LS, rune, wisp, water, wall, objects)
 	-- set which panes are avaiable for player
-	map.panes = one.panes
+	map.panes = LS.panes
 end
 
 --------------------------------------------------------------------------------
@@ -181,7 +138,8 @@ end
 -- destroys all objects in pane
 -- called when switching panes to reset memory usage
 local function destroyAll() 
-	gameData.gameEnd = true
+	display.remove(bg)
+	display.remove(locks)
 	
 	-- destroy all wisps
 	for i=1, #wisp do
@@ -216,9 +174,8 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-one.load = load
-one.destroyAll = destroyAll
+LS.load = load
+LS.destroyAll = destroyAll
 
-return one
-
+return LS
 -- end of one.lua

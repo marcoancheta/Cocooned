@@ -35,8 +35,12 @@ local gameData = {
 	
 	locked = false,
 	
-	-- Sound booleans
-	BGM = 1    -- [1=ON, 2=OFF]
+	-- Player
+	mapData = {
+		levelNum = 1,
+		pane = "M",
+		version = 0
+	},
 }
 
 return gameData

@@ -23,7 +23,7 @@ local cSS = require("cutSceneSystem")
 --------------------------------------------------------------------------------
 -- Updated by: 
 --------------------------------------------------------------------------------
-function loadingInit(loadGroup)
+local function loadingInit(loadGroup)
 	if levelComplete == true then 
 		levelCompleteBG = display.newImage('mapdata/art/background/screens/levelComplete.png', 720, 450, true )
 		levelCompleteBG:scale(1.095, 1.095)
@@ -58,16 +58,16 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco - constantly adding loading screen to front of screen
 --------------------------------------------------------------------------------
-function updateLoading()
+--local function updateLoading()
 	--loadingBG:toFront()
-end
+--end
 
 --------------------------------------------------------------------------------
 -- Delete Loading - function that destroys lodaing screen when loading is finished
 --------------------------------------------------------------------------------
 -- Updated by: 
 --------------------------------------------------------------------------------
-function deleteLoading(level)
+local function deleteLoading(level)
 	--l = tonumber(level)
 	--if  l > 0 then
 		--cSS.cutScene(l)
@@ -98,8 +98,8 @@ end
 --------------------------------------------------------------------------------
 local loadingScreen = {
 	loadingInit = loadingInit,
-	updateLoading = updateLoading,
-	deleteLoading=deleteLoading
+	--updateLoading = updateLoading,
+	deleteLoading = deleteLoading
 }
 
 -- return loadingScreen.lua

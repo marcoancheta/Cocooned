@@ -3,8 +3,6 @@
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
 -- generateObjects.lua
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
--- lua class that generate all objects in the pane
 
 --------------------------------------------------------------------------------
 -- Variables
@@ -15,23 +13,15 @@
 local moveableObject = require("moveableObject")
 -- wind emmiter object class (windEmitter.lua)
 local windEmitterMechanic = require("windEmitter")
-
-local physicsData = {
-			  [1] = (require "levels.storyborder_collision.border").physicsData(1.0),
-			  [2] = (require "levels.one_collision.walls").physicsData(1.0),
-			  [3] = (require "levels.one_collision.blueWall").physicsData(1.0),
-			  [4] = (require "levels.two_collision.walls").physicsData(1.0),
-			  [5] = (require "levels.four_collision.walls").physicsData(1.0) }
-
 --------------------------------------------------------------------------------
--- geneate wisps functions
+-- generate wisps functions
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
 local function gWisps(wisp, map, mapData, startIndex, endIndex)
+	
 	for i=startIndex, endIndex do
-
 		-- set properties of wisps
 		wisp[i].speed = 50
 	   	wisp[i].isVisible = true
@@ -54,32 +44,35 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- finalizing objects in pane
-local function gObjects(level, objects, map, pane, runes)
+local function gObjects(level, objects, map, mapData, runes)
 	-- goes down object list and sets all their properties
 	for i = 1, #objectNames do
-
 		-- save name of object
 		local name = objectNames[i]
-
+		
 		-- go down list and set properties
-		for j = 1, level[pane][name] do
-
+		for j = 1, level[mapData.pane][name] do
+			-- set properties and add to physics group
+			if mapData.levelNum == "LS" then
+				objects[name .. j].func = "levelPortalCollision"
+				physics.addBody(objects[name ..j], "static", {bounce = 0})
+				objects[name ..j].collType = "passThru"
+			else
+				objects[name .. j].func = name .. "Collision"
+				physics.addBody(objects[name ..j], "static", {bounce = 0})
+				objects[name ..j].collType = "passThru"
+			end
+			
 			-- add object to map display group
 			map.layer["tiles"]:insert(objects[name .. j])
-
-			-- set properties and add to physics group
-			objects[name .. j].func = name .. "Collision"
-			physics.addBody(objects[name ..j], "static", {bounce = 0})
-			objects[name ..j].collType = "passThru"
 		end
 	end
 
 	-- goes down rune list and adds runes that are visible in pane
-	for i = 1, #rune do
-
+	for i = 1, #runes do
 		-- check if rune is visible and if so, add to map display group
-		if rune[i].isVisible == true then
-			map.layer["tiles"]:insert(rune[i])
+		if runes[i].isVisible == true then
+			map.layer["tiles"]:insert(runes[i])
 		end
 	end
 end
@@ -90,14 +83,12 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- goes down object list and starts moving objects that are set to move
-local function gMObjects(level, objects, map, pane)
-
+local function gMObjects(level, objects, map, mapData)
 	-- clear mObjects is not already cleared
-	mObjects = {}
-
+	local mObjects = {}
+	
 	-- create moveable fish1 objects
-	for i = 1, level[pane]["fish1"] do
-
+	for i = 1, level[mapData.pane]["fish1"] do
 		-- create moveable object and set name
 		mObjects[i] = moveableObject.create()
 		mObjects[i].object = objects["fish1" .. i]
@@ -119,15 +110,13 @@ local function gMObjects(level, objects, map, pane)
 	end
 
 	-- set offset for next moveable object
-
 	local offset = 0
-	if level[pane]["fish1"] > 0 then
-		offset = level[pane]["fish1"]
+	if level[mapData.pane]["fish1"] > 0 then
+		offset = level[mapData.pane]["fish1"]
 	end
 
 	-- create moveable fish2 obects
-	for i = 1+offset, level[pane]["fish2"]+offset do
-
+	for i = 1+offset, level[mapData.pane]["fish2"]+offset do
 		-- create moveable object and set name
 		mObjects[i] = moveableObject.create()
 		mObjects[i].object = objects["fish2" .. i-offset]
@@ -148,8 +137,8 @@ local function gMObjects(level, objects, map, pane)
 		mObjects[i]:startTransition(mObjects[i].object)
 	end
 
-	if level[pane]["fish2"] > 0 then
-		offset = offset + level[pane]["wolf"]
+	if level[mapData.pane]["fish2"] > 0 then
+		offset = offset + level[mapData.pane]["wolf"]
 	end
 
 	-- creates wind emmitter
@@ -160,13 +149,12 @@ local function gMObjects(level, objects, map, pane)
 	local pImageWidth = nil
 	local pImageHeight = nil
 	local emitterDensity = 10
-
 	local windSpeed = 500
 	local windEmitterDensity = 0
 	local windRadiusRange = 1000
 	local windThickness = 10
 
-	for i = 1+offset, level[pane]["wolf"]+offset do
+	for i = 1+offset, level[mapData.pane]["wolf"]+offset do
 		local windEmitter = windEmitterLib:createEmitter(windRadiusRange, windThickness, duration, startAlpha, endAlpha, pImage, pImageWidth, pImageHeight)
 		local windDisplayGroup = display.newGroup()
 		local emitWind = { count = 1 }
@@ -200,34 +188,40 @@ end
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
 local function gWater(water, map, mapData, startIndex, endIndex)
+	local physicsData = {}
+	
 	for i=startIndex, endIndex do
-
-	   	-- insert water into map display group
+		-- insert water into map display group
 		map.layer["tiles"]:insert(water[i])
-		
 		-- set properties of water
-	   	water[i].isVisible = true
-		water[i]:setFillColor(0, 0, 0, 0)
-	    water[i].func = "waterCollision"
-	   	water[i].collType = "passThru"
+		water[i].isVisible = true
+		water[i]:setFillColor(0, 1, 0, 1)
+		water[i].func = "waterCollision"
+		water[i].collType = "passThru"
 		water[i].escape = "topRight"
-	    water[i].name = "water"
+		water[i].name = "water"
 	end
 	
 	-- add physics body for water for collision
 	if mapData.levelNum == "2" then
+		-- load in physics data.
+		physicsData[1] = (require "levels.two_collision.walls").physicsData(1.0)
+		-- assign physics according to pane.
 		if mapData.pane == "M" then
-			physics.addBody(water[1], "static", physicsData[4]:get("2-1-WATER2") )	
+			physics.addBody(water[1], "static", physicsData[1]:get("2-1-WATER2") )	
 		elseif mapData.pane == "L" then
-			physics.addBody(water[1], "static", physicsData[4]:get("2-2-WATER2") )	
+			physics.addBody(water[1], "static", physicsData[1]:get("2-2-WATER2") )	
 		end
 	elseif mapData.levelNum == "4" then
+		-- load in physics data.
+		physicsData[1] = (require "levels.four_collision.walls").physicsData(1.0)
+		-- assign physics according to pane.
 		if mapData.pane == "M" then
-			physics.addBody(water[1], "static", physicsData[5]:get("4-1WATER1") )
-			physics.addBody(water[2], "static", physicsData[5]:get("4-1WATER2") )
+			physics.addBody(water[1], "static", physicsData[1]:get("4-1WATER1") )
+			physics.addBody(water[2], "static", physicsData[1]:get("4-1WATER2") )
 		elseif mapData.pane == "R" then
-			physics.addBody(water[1], "static", physicsData[5]:get("4-2WATER1") )
-			physics.addBody(water[2], "static", physicsData[5]:get("4-2WATER2") )
+			physics.addBody(water[1], "static", physicsData[1]:get("4-2WATER1") )
+			physics.addBody(water[2], "static", physicsData[1]:get("4-2WATER2") )
 		end
 	end
 end
@@ -239,39 +233,55 @@ end
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
 local function gWalls(wall, map, mapData, startIndex, endIndex)
+	local physicsData = {}
+	
 	for i=startIndex, endIndex do
-
 	   	-- insertwater into map display group
 		map.layer["tiles"]:insert(wall[i])
-		
 		-- set properties of wisps
 	   	wall[i].isVisible = true
-		wall[i]:setFillColor(0, 0, 0, 0)
+		wall[i]:setFillColor(1, 0, 0, 1)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
-
 	end
 	
 	-- add physics body for wall for collision
-	if mapData.levelNum == "1" then
+	if mapData.levelNum == "LS" then
+		-- load in physics data.
+		physicsData[1] = (require "levels.lvlselect_collision.walls").physicsData(1.0)
+		-- assign physics according to pane.
+		if mapData.pane == "LS" then
+			physics.addBody(wall[1], "static", physicsData[1]:get("LS") )
+		end
+	elseif mapData.levelNum == "1" then
+		-- load in physics data.
+		physicsData[1] = (require "levels.one_collision.walls").physicsData(1.0)
+		-- assign physics according to pane.
 		if mapData.pane == "M" then
-			physics.addBody(wall[1], "static", physicsData[2]:get("1-1") )
+			physics.addBody(wall[1], "static", physicsData[1]:get("1-1") )
 		end
 	elseif mapData.levelNum == "2" then
+		-- load in physics data.
+		physicsData[1] = (require "levels.two_collision.walls").physicsData(1.0)
+		physicsData[2] = (require "levels.storyborder_collision.border").physicsData(1.0)
+		-- assign physics according to pane.
 		if mapData.pane == "M" then
-			physics.addBody(wall[1], "static", physicsData[4]:get("2-1-WALL4") )
-			physics.addBody(wall[2], "static", physicsData[1]:get("border2") )
+			physics.addBody(wall[1], "static", physicsData[1]:get("2-1-WALL4") )
+			physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
 		elseif mapData.pane == "L" then
-			physics.addBody(wall[1], "static", physicsData[4]:get("2-2-WALL4") )
-			physics.addBody(wall[2], "static", physicsData[1]:get("border2") )
+			physics.addBody(wall[1], "static", physicsData[1]:get("2-2-WALL4") )
+			physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
 		end
 
 		wall[2]:setFillColor(0, 0, 0, 1)
 	elseif mapData.levelNum == "4" then
+		-- load in physics data.
+		physicsData[1] = (require "levels.four_collision.walls").physicsData(1.0)
+		-- assign physics according to pane.
 		if mapData.pane == "M" then
-			physics.addBody(wall[1], "static", physicsData[5]:get("4-1WALL") )
+			physics.addBody(wall[1], "static", physicsData[1]:get("4-1WALL") )
 		elseif mapData.pane == "R" then
-			physics.addBody(wall[1], "static", physicsData[5]:get("4-2WALL") )
+			physics.addBody(wall[1], "static", physicsData[1]:get("4-2WALL") )
 		end
 	end
 end
@@ -283,23 +293,23 @@ end
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
 local function gAuraWalls(auraWall, map, mapData, startIndex, endIndex)
+	local physicsData = { }
+		
 	for i=startIndex, endIndex do
-
 	   	-- insertwater into map display group
 		map.layer["tiles"]:insert(auraWall[i])
-		
 		-- set properties of wisps
 	   	auraWall[i].isVisible = true
-		--auraWall[i]:setFillColor(0, 0, 0, 0)
+		auraWall[i]:setFillColor(1, 0, 0, 1)
 	   	auraWall[i].collType = "passThru"
 		auraWall[i].func = "blueWallCollision"
 	    auraWall[i].name = "blueWall"
-
 	end
 	
 	-- add physics body for wisp for collision
 	if mapData.levelNum == "1" then
-		physics.addBody(auraWall[1], "static", physicsData[3]:get("blueAuraWall") )
+		physicsData[1] = (require "levels.one_collision.blueWall").physicsData(1.0)
+		physics.addBody(auraWall[1], "static", physicsData[1]:get("blueAuraWall") )
 	end
 end
 
@@ -311,7 +321,6 @@ end
 -- call this function after setting all objects in pane so it will destroy unused object
 -- to decrease memory usage
 local function destroyObjects(level, rune, wisp, water, objects) 
-
 	-- deleted extra runes
 	for i = 1, #rune do
 		if rune[i].isVisible == false then

@@ -23,15 +23,15 @@ local function run(event)
 		end
 			
 		--print("blue spirit")
-		Runtime:removeEventListener("enterFrame", run)
+		--Runtime:removeEventListener("enterFrame", run)
 		gameData.blueG = false
 	elseif gameData.pinkG then	
 		--print("pink spirit")
-		Runtime:removeEventListener("enterFrame", run)
+		--Runtime:removeEventListener("enterFrame", run)
 		gameData.pinkG = false
 	elseif gameData.greenG then
 		--print("green spirit")
-		Runtime:removeEventListener("enterFrame", run)
+		--Runtime:removeEventListener("enterFrame", run)
 		gameData.greenG = false
 	end
 end

@@ -67,7 +67,7 @@ end
 -- Create Inventory
 --------------------------------------------------------------------------------
 --call this to create a new inventory, but make sure to change parameters
-function createInventory(o)
+local function createInventory(o)
 	o = o or {} -- create inventory if user does not provide one
 	return inventoryInstance:new(o)
 end

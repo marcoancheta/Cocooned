@@ -34,8 +34,8 @@ end
 function collide(collideObject, player, event, mapData, map, physics)
 
 	-- stop audio and play audio sound
-	audio.stop()
-	sound.playSound(event, sound.runePickupSound)
+	--audio.stop()
+	--sound.playSound(event, sound.runePickupSound)
 
 	-- set collision to false
 	event.contact.isEnabled = false

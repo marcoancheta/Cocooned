@@ -10,17 +10,11 @@
 --------------------------------------------------------------------------------
 local gameData = require("gameData")
 local sound = require("sound")
-local widget = require("widget")
-local player1 = nil
-local player2 = nil
+--local widget = require("widget")
 
--- Create new menu display group
-menuGroup = display.newGroup()
--- Create options group
-optionsGroup = display.newGroup()
--- Create in-game options group
-ingameOptionsGroup = display.newGroup()
-
+local menuGroup
+local player1, player2 = nil
+local groupText = {}
 
 --------------------------------------------------------------------------------
 -- Create Sound Options system
@@ -38,7 +32,7 @@ local function onSwitchPress(event)
 	end
 end
 
-function soundOptions(event)
+local function soundOptions(event)
 	-- Create the widget
 	local onOffSwitch = widget.newSwitch
 	{
@@ -54,42 +48,132 @@ end
 ]]--
 
 --------------------------------------------------------------------------------
+-- Button events - function that holds button functionality
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function buttonPressed(event)
+	--[[ Play button pressed ]]--
+	if event.target.name == "playButton" then								
+		-- Remove menuGroup
+		menuGroup:removeSelf()	
+		-- User pressed play, set gameActive to true
+		gameData.selectLevel = true
+		
+	--[[ Options button pressed ]]--
+	elseif event.target.name == "optionButton" then		
+		-- Remove menuGroup
+		menuGroup:removeSelf()
+		-- Call to options display
+		gameData.inOptions = true
+		
+	--[[ Back to Main button pressed ]]--
+	elseif event.target.name == "BacktoMain" then
+		print("Back to Main Menu")
+		-- Remove menuGroup		
+		menuGroup:removeSelf()
+		-- Go back to menu
+		gameData.menuOn = true
+		
+	--[[ Back to Main from In-Game button pressed ]]--
+	elseif event.target.name == "gotoMain" then
+		print("Back to Main Menu")				
+		gameData.menuOn = true		
+		gameData.gameEnd = true
+
+	--[[ In game options button pressed ]]--	
+	elseif event.target.name == "inGameOptionsBTN" then
+		print("In game options")			
+		-- Pause physics
+		physics.pause()
+		gameData.inGameOptions = true	
+		
+	--[[ Resume In-Game button pressed ]]--
+	elseif event.target.name == "Resume" then
+		print("Resume game")		
+		menuGroup:removeSelf()
+				
+		physics.start()		
+		gameData.resumeGame = true
+	--[[ Increase or decrease speed ]]--
+	elseif event.target.name == "plusButton" then
+		if player1 ~= nil then
+			player1.speedConst = player1.speedConst +1
+			player1.maxSpeed = player1.maxSpeed +1
+			
+			if player2.isActive then
+				player2.speedConst = player2.speedConst +1
+				player2.maxSpeed = player2.maxSpeed +1
+			end
+			--player's current speed
+			groupText[2].text = player1.speedConst		
+		end
+	elseif event.target.name == "minusButton" then
+		if player1 ~= nil then
+			player1.speedConst = player1.speedConst -1
+			player1.maxSpeed = player1.maxSpeed -1
+			
+			if player2.isActive then
+				player2.speedConst = player2.speedConst -1
+				player2.maxSpeed = player2.maxSpeed -1
+			end
+			--player's current speed
+			groupText[2].text = player1.speedConst
+		end
+	elseif event.target.name == "plusButtonDamping" then
+		if player1 ~= nil then
+			player1.imageObject.linearDamping = player1.imageObject.linearDamping +.25
+			
+			if player2.isActive then
+				player2.imageObject.linearDamping = player2.imageObject.linearDamping +.25
+			end
+			--player's linear damping
+			groupText[3].text = player1.imageObject.linearDamping
+		end
+	elseif event.target.name == "minusButtonDamping" then
+		if player1 ~= nil then
+			player1.imageObject.linearDamping = player1.imageObject.linearDamping -.25
+			
+			if player2.isActive then
+				player2.imageObject.linearDamping = player2.imageObject.linearDamping -.25
+			end
+			--player's linear damping
+			groupText[3].text = player1.imageObject.linearDamping
+		end
+	end
+end
+
+--------------------------------------------------------------------------------
 -- Main Menu - function that creates menu System
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function MainMenu(event)
-
-	-- Add main menu background image
-	main = display.newImage("mapdata/art/TitleScreen.png", 720, 425, true)
-		
-	-- Scale background image
-	main:scale(1.1, 1.1)
-
-	-- Add Play button
-	play = display.newImage("mapdata/art/buttons/newgame.png", 0, 0, true)
-	play:setFillColor(0.5,0.5,0.5)
+local function MainMenu(event)
+	print("In Main Menu")
+	-- Create new menu display group
+	menuGroup = display.newGroup()
 	
-	-- Assign name for runtime functions
+	local main = display.newImageRect("mapdata/art/TitleScreen.png", 1425, 900, true)
+	local play = display.newImageRect("mapdata/art/buttons/newgame.png", 400, 150, true)
+	play:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
+	  
+	local options = display.newImageRect("mapdata/art/buttons/options.png", 400, 150, true)
+	options:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
+	
+	-- Add main menu background image
+	main.x = display.contentCenterX
+	main.y = display.contentCenterY
+		
+	-- Add Play button
+	play.x = display.contentCenterX
+	play.y = display.contentCenterY + 100
 	play.name = "playButton"
 	
-	-- Play button fixed location and scaled
-	play.x = 750
-	play.y = 580
-	play.anchorX = 0.5
-	play.anchorY = 0.5
-	play:scale(2.5, 2.5)
-
 	-- Option buttons: See play button details
-	options = display.newImage("mapdata/art/buttons/options.png", 0, 0, true)
-	options:setFillColor(0.5,0.5,0.5)
+	options.x = display.contentCenterX
+	options.y = display.contentCenterY + 270
 	options.name = "optionButton"
-	options.x = 750
-	options.y = 750
-	options.anchorX = 0.5
-	options.anchorY = 0.5
-	options:scale(2.5, 2.5)
-		
+	
 	-- Insert all images/buttons into group
 	menuGroup:insert(main)
 	menuGroup:insert(play)
@@ -101,387 +185,144 @@ function MainMenu(event)
 end
 
 --------------------------------------------------------------------------------
+-- In-Game Options - function that creates inGame options button
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function ingameOptionsbutton(event, map)
+	-- Add in-game options image (option_wheel.png)
+	local ingameOptions = display.newImage("mapdata/art/buttons/option_wheel.png", 0, 0, true)
+
+	-- Scale image size
+	ingameOptions.x, ingameOptions.y = map.tilesToPixels(38, 2)	
+	ingameOptions.name = "inGameOptionsBTN"	
+	ingameOptions:addEventListener("tap", buttonPressed)
+end
+
+--------------------------------------------------------------------------------
 -- Options - function that creates options menu system
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function Options(event)
+local function Options(event)
+	print("In Options")
+	menuGroup = display.newGroup()
 	
 	-- Add options background image
-	optionsBG = display.newImage("mapdata/art/background/screens/cocooned_menu.png", 0, 0, true)
+	local optionsBG = display.newImageRect("mapdata/art/background/screens/cocooned_menu.png", 
+									1425, 900, true)
+	optionsBG.x = display.contentCenterX
+	optionsBG.y = display.contentCenterY
 	
 	-- Create onScreen text objects
-	optionText = display.newText("OPTIONS", 200, 150, native.Systemfont, 72)
+	local optionText = display.newText("OPTIONS", 350, 150, native.Systemfont, 103)
 	optionText:setFillColor(0, 0, 0)
-	
-	-- Scale background image
-	optionsBG.x = 700
-	optionsBG.y = 400
-	optionsBG:scale(0.5, 0.5)
-	
+		
 	-- Add Main Menu button
-	backtoMain = display.newImage("mapdata/art/buttons/main.png", 0, 0, true)
-
-	-- Assign name for runtime functions
-	backtoMain.name = "BacktoMain"
-
-	-- Add Sound button
-	--soundOptions = display.newImage("mapdata/art/buttons/sound.png", 0, 0, true)
-
-	-- Assign name for runtime functions
-	--soundOptions.name = "soundOptions"
-	
-	-- Main menu button fixed location and scaled
+	local backtoMain = display.newImageRect("mapdata/art/buttons/main.png", 400, 150, true)
 	backtoMain.x = 350
 	backtoMain.y = 650
-	backtoMain.anchorX = 0.5
-	backtoMain.anchorY = 0.5
-	backtoMain:scale(2.5, 2.5)
-
-	--[[ Sound options location
-	soundOptions.x = 1000
-	soundOptions.y = 650
-	soundOptions.anchorX = 0.5
-	soundOptions.anchorY = 0.5
-	soundOptions:scale(2.5, 2.5)
-	--]]
+	backtoMain.name = "BacktoMain"	
 	
-	optionsGroup:insert(optionsBG)
-	optionsGroup:insert(backtoMain)
-	--optionsGroup:insert(soundOptions)
-	optionsGroup:insert(optionText)
+	menuGroup:insert(optionsBG)
+	menuGroup:insert(backtoMain)
+	menuGroup:insert(optionText)
 	
 	backtoMain:addEventListener("tap", buttonPressed)
-	--soundOptions:addEventListener("tap", buttonPressed)
 end
 
---------------------------------------------------------------------------------
--- n-Game Options - function that creates inGame options button
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-function ingameOptionsbutton(event, player, playerTwo)
-	--get player and create a local reference to it for button press function
-	player1 = player
-	player2 = playerTwo
-
-	-- Add in-game options image (option_wheel.png)
-	ingameOptions = display.newImage("mapdata/art/buttons/option_wheel.png", 0, 0, true)
-
-	-- Scale image size
-	ingameOptions.x = 1435
-	ingameOptions.y = 60
-	ingameOptions:scale(1, 1)
-	
-	ingameOptions.name = "inGameOptionsBTN"
-	
-	gui.front:insert(ingameOptions)
-	
-	ingameOptions:addEventListener("tap", buttonPressed)
-end
 
 --------------------------------------------------------------------------------
 -- In-Game Options Menu - function that creates inGame Options Menu
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function ingameMenu(event, player, playerTwo)
+local function ingameMenu(event, player, playerTwo, gui)
+	print("ingameMenu")		
+	menuGroup = display.newGroup()
+	
+	-- Add options background image
+	local gameOptionsBG = display.newImageRect("mapdata/art/background/screens/cocooned_menu.png", 1425, 900, true)	
+		
+	local menuObjects = {
+		-- Add Main Menu button
+		[1] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150, true),
+		-- Add Resume game button
+		[2] = display.newImageRect("mapdata/art/buttons/resume.png", 400, 150, true),
+		-- Minus button	#1
+		[3] = display.newImageRect("mapdata/art/buttons/minus.png", 100, 100, true),
+		-- Plus button	#1
+		[4] = display.newImageRect("mapdata/art/buttons/plus.png", 100, 100, true),
+		-- Minus button	#2
+		[5] = display.newImageRect("mapdata/art/buttons/minus.png", 100, 100, true),
+		-- Pluss button #2
+		[6] = display.newImageRect("mapdata/art/buttons/plus.png", 100, 100, true)
+	}
+	
+	groupText = {
+		-- Create onScreen text object
+		[1] = display.newText("PAUSED", 1155, 100, native.Systemfont, 69),
+		--player's current speed
+		[2] = display.newText(player.speedConst, 1150, 380, native.Systemfont, 69),
+		--player's linear damping
+		[3] = display.newText(player.imageObject.linearDamping, 1150, 225, native.Systemfont, 69)
+	}
+	
 	player1 = player
 	player2 = playerTwo
-	print("ingameMenu")
-	-- Add options background image
-	gameOptionsBG = display.newImage("mapdata/art/background/screens/cocooned_menu.png", 0, 0, true)
 	
-	-- Create onScreen text object
-	ingameOptionText = display.newText("PAUSED", 1155, 100, native.Systemfont, 69)
-	ingameOptionText:setFillColor(1, 0, 0)
-
-	--player's current speed
-	ingameOptionTextSpeed = display.newText(player1.speedConst, 1150, 380, native.Systemfont, 69)
-	ingameOptionTextSpeed:setFillColor(0, 1, 0)
+	gameOptionsBG.x = display.contentCenterX
+	gameOptionsBG.y = display.contentCenterY
+	gameOptionsBG:scale(-1, 1)		
 	
-	--player's linear damping
-	ingameOptionTextDamping = display.newText(player1.imageObject.linearDamping, 1150, 180, native.Systemfont, 69)
-	ingameOptionTextDamping:setFillColor(0, 1, 0)
-
-	-- Scale background image
-	gameOptionsBG.x = 700
-	gameOptionsBG.y = 400
-	gameOptionsBG:scale(-0.5, 0.5)
-		
-	-- Add Main Menu button
-	gameMainM = display.newImage("mapdata/art/buttons/main.png", 0, 0, true)
-	-- Add Resume game button
-	gameResume = display.newImage("mapdata/art/buttons/resume.png", 0, 0, true)
-		
 	-- Assign name for runtime functions
-	gameMainM.name = "gotoMain"
-	gameResume.name = "Resume"
+	-- Assign position		
+	menuObjects[1].name = "gotoMain"
+	menuObjects[1].x = display.contentCenterX + 450
+	menuObjects[1].y = display.contentCenterY + 150
+		
+	menuObjects[2].name = "Resume"	
+	menuObjects[2].x = display.contentCenterX + 450
+	menuObjects[2].y = display.contentCenterY + 300
+		
+	menuObjects[6].name = "plusButton"
+	menuObjects[6].x = display.contentCenterX + 575
+	menuObjects[6].y = display.contentCenterY - 20
+
+	menuObjects[5].name = "minusButton"
+	menuObjects[5].x = display.contentCenterX + 325
+	menuObjects[5].y = display.contentCenterY - 20
 	
-	-- Main menu button fixed location and scaled
-	gameMainM.x = 1050
-	gameMainM.y = 720
-	gameMainM.anchorX = 0.5
-	gameMainM.anchorY = 0.5
-	gameMainM:scale(2.5, 2.5)
+	menuObjects[4].name = "plusButtonDamping"
+	menuObjects[4].x = display.contentCenterX + 575
+	menuObjects[4].y = display.contentCenterY - 175
+
+	menuObjects[3].name = "minusButtonDamping"
+	menuObjects[3].x = display.contentCenterX + 325
+	menuObjects[3].y = display.contentCenterY - 175
 	
-	-- Resume button fixed location and scaled
-	gameResume.x = 1050
-	gameResume.y = 550
-	gameResume.anchorX = 0.5
-	gameResume.anchorY = 0.5
-	gameResume:scale(2.5, 2.5)
-
-	-- Plus button	
-	plus = display.newImage("mapdata/art/buttons/plus.png", 0, 0, true)
-	plus:setFillColor(0.5,0.5,0.5)
-	plus.name = "plusButton"
-	plus.x = 1250
-	plus.y = 380
-	plus.anchorX = 0.5
-	plus.anchorY = 0.5
-	plus:scale(.25, .25)
-
-	-- Minus button	
-	minus = display.newImage("mapdata/art/buttons/minus.png", 0, 0, true)
-	minus:setFillColor(0.5,0.5,0.5)
-	minus.name = "minusButton"
-	minus.x = 1050
-	minus.y = 380
-	minus.anchorX = 0.5
-	minus.anchorY = 0.5
-	minus:scale(.25, .25)
-
-	-- Plus button	
-	plusDamping = display.newImage("mapdata/art/buttons/plus.png", 0, 0, true)
-	plusDamping:setFillColor(0.5,0.5,0.5)
-	plusDamping.name = "plusButtonDamping"
-	plusDamping.x = 1250
-	plusDamping.y = 180
-	plusDamping.anchorX = 0.5
-	plusDamping.anchorY = 0.5
-	plusDamping:scale(.25, .25)
-
-	-- Minus button	
-	minusDamping = display.newImage("mapdata/art/buttons/minus.png", 0, 0, true)
-	minusDamping:setFillColor(0.5,0.5,0.5)
-	minusDamping.name = "minusButtonDamping"
-	minusDamping.x = 1050
-	minusDamping.y = 180
-	minusDamping.anchorX = 0.5
-	minusDamping.anchorY = 0.5
-	minusDamping:scale(.25, .25)
+	menuGroup:insert(gameOptionsBG)
 	
-
-	gui.front:insert(gameOptionsBG)
-	gui.front:insert(gameMainM)
-	gui.front:insert(gameResume)
-	gui.front:insert(ingameOptionText)
-	gui.front:insert(ingameOptionTextSpeed)
-	gui.front:insert(plus)
-	gui.front:insert(minus)
-	gui.front:insert(plusDamping)
-	gui.front:insert(minusDamping)
-	
-	-- add event listeners to buttons
-	gameMainM:addEventListener("tap", buttonPressed)
-	gameResume:addEventListener("tap", buttonPressed)
-	plus:addEventListener("tap", buttonPressed)
-	minus:addEventListener("tap", buttonPressed)
-	plusDamping:addEventListener("tap", buttonPressed)
-	minusDamping:addEventListener("tap", buttonPressed)
-end
-
---------------------------------------------------------------------------------
--- Button events - function that holds button functionality
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-function buttonPressed(event)
-	-----------------------------
-	--[[ Play button pressed ]]--
-	if event.target.name == "playButton" then
-		--print("play button pressed")
-		
-		-- Play Sound
-		sound.playSound(event, sound.clickSound)
-								
-		-- Remove menuGroup
-		play:removeEventListener("tap", buttonPressed)
-		options:removeEventListener("tap", buttonPressed)
-		menuGroup:remove(main)
-		menuGroup:remove(play)
-		menuGroup:remove(options)
-		
-		physics.start()
-		physics.setGravity(0, 0)
-		
-		-- User pressed play, set gameActive to true
-		gameData.selectLevel = true
-		--gameData.gameStart = true
-		gameData.inGameOptions = false
-
-	--------------------------------
-	--[[ Options button pressed ]]--
-	elseif event.target.name == "optionButton" then
-		--print("options button pressed")
-						
-		-- Play Sound
-		sound.playSound(event, sound.clickSound)
-						
-		-- Remove menuGroup
-		play:removeEventListener("tap", buttonPressed)
-		options:removeEventListener("tap", buttonPressed)
-		menuGroup:remove(main)
-		menuGroup:remove(play)
-		menuGroup:remove(options)
-		
-		-- Call to options display
-		gameData.inOptions = true
-
-	-------------------------------------
-	--[[ Back to Main button pressed ]]--
-	elseif event.target.name == "BacktoMain" then
-		--print("Back to Main Menu")
-		
-		-- Play Sound
-		sound.playSound(event, sound.clickSound)
-		
-		-- Remove optionsGroup
-		--optionsGroup:removeSelf()
-		--backtoMain:removeEventListener("tap", buttonPressed)
-		if optionsGroup then
-			optionsGroup:remove(optionsBG)
-			optionsGroup:remove(backtoMain)
-			--optionsGroup:remove(soundOptions)
-			optionsGroup:remove(optionText)
+	for i=1, #groupText do
+		if i >= 2 then
+			groupText[i]:setFillColor(0, 0, 0)
+		else
+			groupText[i]:setFillColor(1, 0, 0)
 		end
-		gameData.menuOn = true
-
-		-------------------------------------
-	--[[ Sound button pressed ]]--
-	--[[
-	elseif event.target.name == "soundOptions" then
-		
-		-- Play Sound
-		sound.playSound(event, sound.clickSound)
-		
-		-- Remove optionsGroup
-		--optionsGroup:removeSelf()
-		--backtoMain:removeEventListener("tap", buttonPressed)
-		if optionsGroup then
-			optionsGroup:remove(optionsBG)
-			optionsGroup:remove(soundOptions)
-			optionsGroup:remove(backToMain)
-			optionsGroup:remove(optionText)
-		end
-		
-		gameData.menuOn = true
-	]]--	
-	----------------------------------------
-	--[[ In game options button pressed ]]--	
-	elseif event.target.name == "inGameOptionsBTN" then
-
-		--print("In game options")
-		
-		-- Play Sound
-		sound.playSound(event, sound.clickSound)
-	
-		-- Pause physics
-		physics.pause()
-	
-		gui.front:remove(ingameOptions)
-	
-		gameData.inGameOptions = true
-		
-	--------------------------------------------------
-	--[[ Back to Main from In-Game button pressed ]]--
-	elseif event.target.name == "gotoMain" then
-		--print("Back to Main Menu")
-				
-		-- Play Sound
-		sound.playSound(event, sound.clickSound)
-
-		gameData.gameEnd = true
-		gameData.menuOn = true
-
-	---------------------------------------
-	--[[ Resume In-Game button pressed ]]--
-	elseif event.target.name == "Resume" then
-		--print("Resume game")
-		
-		-- Play Sound
-		sound.playSound(event, sound.clickSound)
-		
-		gui.front:remove(ingameOptionText)
-		ingameOptionTextSpeed:removeSelf()
-		ingameOptionTextDamping:removeSelf()
-		gui.front:remove(gameOptionsBG)
-		gui.front:remove(gameMainM)
-		gui.front:remove(gameResume)
-		gui.front:remove(plus)
-		gui.front:remove(minus)
-		gui.front:remove(plusDamping)
-		gui.front:remove(minusDamping)
-
-		physics.start()
-		
-		gameData.resumeGame = true
-	---------------------------------------
-	--[[ Increase or decrease speed ]]--
-	elseif event.target.name == "plusButton" then
-		if player1 ~= nil then
-			ingameOptionTextSpeed:removeSelf()
-			player1.speedConst = player1.speedConst +1
-			player1.maxSpeed = player1.maxSpeed +1
-			if player2.isActive then
-				player2.speedConst = player2.speedConst +1
-				player2.maxSpeed = player2.maxSpeed +1
-			end
-			--player's current speed
-			ingameOptionTextSpeed = display.newText(player1.speedConst, 1150, 380, native.Systemfont, 69)
-			ingameOptionTextSpeed:setFillColor(0, 1, 0)
-			gui.front:insert(ingameOptionTextSpeed)			
-		end
-	elseif event.target.name == "minusButton" then
-		if player1 ~= nil then
-			ingameOptionTextSpeed:removeSelf()
-			player1.speedConst = player1.speedConst -1
-			player1.maxSpeed = player1.maxSpeed -1
-			if player2.isActive then
-				player2.speedConst = player2.speedConst -1
-				player2.maxSpeed = player2.maxSpeed -1
-			end
-			--player's current speed
-			ingameOptionTextSpeed = display.newText(player1.speedConst, 1150, 380, native.Systemfont, 69)
-			ingameOptionTextSpeed:setFillColor(0, 1, 0)
-			gui.front:insert(ingameOptionTextSpeed)
-		end
-	elseif event.target.name == "plusButtonDamping" then
-		if player1 ~= nil then
-			ingameOptionTextDamping:removeSelf()
-			player1.imageObject.linearDamping = player1.imageObject.linearDamping +.25
-			if player2.isActive then
-				player2.imageObject.linearDamping = player2.imageObject.linearDamping +.25
-			end
-			--player's linear damping
-			ingameOptionTextDamping = display.newText(player1.imageObject.linearDamping, 1150, 180, native.Systemfont, 69)
-			ingameOptionTextDamping:setFillColor(0, 1, 0)
-			gui.front:insert(ingameOptionTextDamping)			
-		end
-	elseif event.target.name == "minusButtonDamping" then
-		if player1 ~= nil then
-			ingameOptionTextDamping:removeSelf()
-			player1.imageObject.linearDamping = player1.imageObject.linearDamping -.25
-			if player2.isActive then
-				player2.imageObject.linearDamping = player2.imageObject.linearDamping -.25
-			end
-			--player's linear damping
-			ingameOptionTextDamping = display.newText(player1.imageObject.linearDamping, 1150, 180, native.Systemfont, 69)
-			ingameOptionTextDamping:setFillColor(0, 1, 0)
-			gui.front:insert(ingameOptionTextDamping)
-		end
+		-- Add everything to menuGroup
+		menuGroup:insert(groupText[i])
 	end
+			
+	for i=1, #menuObjects do
+		menuObjects[i].anchorX = 0.5
+		menuObjects[i].anchorY = 0.5
+		
+		-- Add everything to menuGroup
+		menuGroup:insert(menuObjects[i])
+		-- add event listeners to buttons
+		menuObjects[i]:addEventListener("tap", buttonPressed)
+	end
+	
 end
 
 --------------------------------------------------------------------------------

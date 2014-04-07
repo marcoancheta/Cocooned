@@ -19,8 +19,8 @@ local sound = require("sound")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function collide(collideObject, player, event, mapData, map)
-	sound.playSound(event, sound.auraPickupSound)
+local function collide(collideObject, player, event, mapData, map)
+	--sound.playSound(event, sound.auraPickupSound)
 	player = player
 	event.contact.isEnabled = false
 	player:changeColor('green')

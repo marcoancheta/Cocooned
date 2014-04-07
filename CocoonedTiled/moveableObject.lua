@@ -4,13 +4,12 @@
 -- moveableObject.lua
 --------------------------------------------------------------------------------
 -- lua file that creates moveable objects for pane
-
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local foward, back
+local forward, back
 
 --------------------------------------------------------------------------------
 -- Moveable Objectt Instance - moveabled object table
@@ -33,7 +32,7 @@ local moveObject = {
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 --call this to create a new moveable object, but make sure to change parameters
-function create(o)
+local function create(o)
 	o = o or {}
 	return moveObject:new(o)
 end
@@ -56,8 +55,7 @@ end
 --------------------------------------------------------------------------------
 function moveObject:endTransition()
 	--print("ended transition", self.object.name)
-
-	transition.cancel(foward)
+	transition.cancel(forward)
 	transition.cancel(back)
 	self.object:removeSelf()
 	self.obj = nil
@@ -69,19 +67,19 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function moveObject:startTransition(obj)
-	moveFoward(obj)
+	moveforward(obj)
 end
 
 --------------------------------------------------------------------------------
--- Move Foward - function that transitions object to end point
+-- Move forward - function that transitions object to end point
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function moveFoward(obj)
+local function moveforward(obj)
 	
 	--print("moveF:", obj.name)
 	if obj.stop ~= true then
-		foward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
+		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
 		obj:rotate(180)
 	end
 	--
@@ -92,11 +90,11 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function moveBackward(obj)
+local function moveBackward(obj)
 
 	--print("moveB:", obj.name)
 	if obj.stop ~= true then
-		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveFoward})
+		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveforward})
 		obj:rotate(180)
 	end
 	--obj:rotate(180)

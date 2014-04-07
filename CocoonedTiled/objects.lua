@@ -12,8 +12,6 @@
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("gameData")
--- Bonus level variable (bonus.lua)
-local bonus = require("levels.bonus")
 
 -- holds the level name for loading
 local levelNames = {
@@ -21,30 +19,29 @@ local levelNames = {
 	["2"] = "two",
 	["3"] = "three",
 	["4"] = "four",
-	["15"] = "fifteen"
+	["15"] = "fifteen",
+	["LS"] = "LS"
 }
 -- local variable for that holds "level".lua
 local level
 
 -- variable that holds all objects in level for later use
 local objects = {}
-
+local rune = {}
+local sheetList = {}
 --------------------------------------------------------------------------------
 -- Object - initialize runes and sprite sheets
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function init()
-	physics.setGravity(0,0)
 	
 	-- Load runes
-	rune = {
-		[1] = display.newImage("mapdata/art/runes/blueRune.png"),
-		[2] = display.newImage("mapdata/art/runes/greenRune.png"),
-		[3] = display.newImage("mapdata/art/runes/pinkRune.png"),
-		[4] = display.newImage("mapdata/art/runes/purpleRune.png"),
-		[5] = display.newImage("mapdata/art/runes/yellowRune.png")
-	}
+	rune[1] = display.newImage("mapdata/art/runes/blueRune.png")
+	rune[2] = display.newImage("mapdata/art/runes/greenRune.png")
+	rune[3] = display.newImage("mapdata/art/runes/pinkRune.png")
+	rune[4] = display.newImage("mapdata/art/runes/purpleRune.png")
+	rune[5] = display.newImage("mapdata/art/runes/yellowRune.png")
 	
 	-- Assign object name
 	rune[1].name = "blueRune"
@@ -62,8 +59,6 @@ local function init()
 	end
 	
 	-- load object sprite sheets
-	sheetList = {}
-
 	sheetList["redAura"] = graphics.newImageSheet("mapdata/art/animation/redAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
 	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/animation/greenAuraSheet.png", 
@@ -83,7 +78,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function createAnimations(count, name, objectList)
+local function createAnimations(count, name, objectList)
 	for i = 1, count do
 		--print(name)
 		objectList[name .. i] = display.newSprite(sheetList[name], spriteOptions[name])
@@ -99,9 +94,9 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function createSprites(count, name, objectList)
+local function createSprites(count, name, objectList)
 	for i = 1, count do
-		print("creating:", count, name, i)
+		--print("creating:", count, name, i)
 		objectList[name .. i] = display.newImage("mapdata/art/objects/" .. name .. ".png")
 		objectList[name .. i].name = name .. i
 	end
@@ -122,7 +117,12 @@ local function createObjects(objectNumbers, mapData)
 	local auraWall = {}
 	
 	-- Load walls based on level
-	if mapData.levelNum == "1" then
+	if mapData.levelNum == "LS" then
+		if mapData.pane == "LS" then
+			-- Main Walls
+			wall[1] = display.newImage("mapdata/art/background/LS/LS-BB/LS.png", true)
+		end
+	elseif mapData.levelNum == "1" then
 		if mapData.pane == "M" then
 			-- Main walls
 			wall[1] = display.newImage("mapdata/art/background/1/1-1BB/1-1.png", true)
@@ -160,17 +160,11 @@ local function createObjects(objectNumbers, mapData)
 		-- create all waters in level
 	for i=1, tonumber(objectNumbers.waterCount) do
 		water[i].isVisible = false
-		--water[i]:setFillColor(0, 0, 0, 0)
-		--water[i].strokeWidth = 5
-		--water[i]:setStrokeColor( 0, 1, 1 )
 	end
 	
 	-- create all walls in level
 	for i=1, tonumber(objectNumbers.wallCount) do
 		wall[i].isVisible = false
-		--wall[i]:setFillColor(0, 0, 0, 0)
-		--wall[i].strokeWidth = 5
-		--wall[i]:setStrokeColor( 0, 1, 1 )
 	end
 	
 	-- create all walls in level
@@ -211,7 +205,9 @@ local function main(mapData, map, player)
 	-- get objects and wisps list and create them
 	objects, wisp, water, wall, auraWall = createObjects(level, mapData)
 	-- load in which pane player is in
+	print("map:", map)
 	level.load(mapData, map, rune, objects, wisp, water, wall, auraWall)
+	
 end
 
 
@@ -226,12 +222,11 @@ local function destroy(mapData)
 		display.remove(rune[i])
 		rune[i] = nil
 	end
-	
+
 	for i=0, #wall do
 		display.remove(wall[i])
 		wall[i] = nil
 	end
-	
 	
 	for i=0, #auraWall do
 		display.remove(auraWall[i])

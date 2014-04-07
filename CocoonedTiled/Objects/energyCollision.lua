@@ -17,9 +17,9 @@ local sound = require("sound")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function collide(collideObject, player, event, mapData, map)
-	audio.stop()
-	sound.playSound(event, sound.orbPickupSound)
+local function collide(collideObject, player, event, mapData, map)
+	--audio.stop()
+	--sound.playSound(event, sound.orbPickupSound)
 	event.contact.isEnabled = false
 	player:addInventory(collideObject)
  	collideObject:removeSelf()
