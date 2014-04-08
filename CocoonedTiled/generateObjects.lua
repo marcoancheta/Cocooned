@@ -251,7 +251,7 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		physicsData[1] = (require "levels.lvlselect_collision.walls").physicsData(1.0)
 		-- assign physics according to pane.
 		if mapData.pane == "LS" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("LS") )
+			physics.addBody(wall[1], "static", physicsData[1]:get("lvl_island"))
 		end
 	elseif mapData.levelNum == "1" then
 		-- load in physics data.

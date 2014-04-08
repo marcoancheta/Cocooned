@@ -36,7 +36,9 @@ local function tapOnce(event)
 		-- remove all objects
 		------------------------------------------------------------
 		-- Destroy goals map
+
 		play:removeEventListener("tap", tapOnce)
+		play:removeSelf();
 		goals.destroyGoals()
 		--transition.cancel()
 		
@@ -84,6 +86,7 @@ local function collide(collideObject, player, event, mapData, map)
 	for i=1, 4 do
 		if collideObject.name == "exitPortal" ..i.. "" then
 			selectLevel.levelNum = ""..i..""
+			selectLevel.pane = "M"
 			goals.refresh()
 			goals.findGoals(selectLevel)
 			createLevelPlay(map)

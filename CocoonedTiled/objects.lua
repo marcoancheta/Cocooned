@@ -123,7 +123,9 @@ local function createObjects(objectNumbers, mapData)
 			wall[1] = display.newImage("mapdata/art/background/LS/LS-BB/LS.png", true)
 		end
 	elseif mapData.levelNum == "1" then
+
 		if mapData.pane == "M" then
+			print("creating lvl 1 walls")
 			-- Main walls
 			wall[1] = display.newImage("mapdata/art/background/1/1-1BB/1-1.png", true)
 			-- Aura walls
@@ -162,11 +164,13 @@ local function createObjects(objectNumbers, mapData)
 		water[i].isVisible = false
 	end
 	
+	print("wall number", mapData.levelNum, objectNumbers.wallCount)
 	-- create all walls in level
 	for i=1, tonumber(objectNumbers.wallCount) do
 		wall[i].isVisible = false
 	end
 	
+
 	-- create all walls in level
 	for i=1, tonumber(objectNumbers.auraWallCount) do
 		auraWall[i].isVisible = false

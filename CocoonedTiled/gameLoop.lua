@@ -367,6 +367,7 @@ local function gameLoop(event)
 	-- If game has started do:
 	if gameData.gameStart then
 		print("start game")
+		clean(event)
 		
 		mapData = gameData.mapData
 		loadMap(mapData)
@@ -386,12 +387,12 @@ local function gameLoop(event)
 	if gameData.gameEnd then
 		clean(event)
 	
-		-- set booleans
-		gameData.gameEnd = false
-		
 		if gameData.menuOn ~= true then
 			gameData.selectLevel = true
 		end
+		-- set booleans
+		gameData.gameEnd = false
+
 	elseif gameData.levelRestart == true then
 		clean(event)
 		
