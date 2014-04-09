@@ -17,7 +17,7 @@ local gameData = require("gameData")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
 	print("To the Ice TEMPLE!")
 	gameData.bonusLevel = true

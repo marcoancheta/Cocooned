@@ -10,8 +10,6 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local colorChange = false 
-local player = nil
 local sound = require("sound")
 
 --------------------------------------------------------------------------------
@@ -19,7 +17,7 @@ local sound = require("sound")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map, gui)
 	--audio.stop()
 	--sound.playSound(event, sound.auraPickupSound)
 	player = player

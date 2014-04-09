@@ -10,7 +10,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
-function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map, gui)
 	player.imageObject:applyForce(player.xForce*-15, player.yForce*-15, player.imageObject.x, player.imageObject.y)
 end
 

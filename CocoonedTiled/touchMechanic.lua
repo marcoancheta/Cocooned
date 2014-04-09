@@ -41,7 +41,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function swipeScreen(event, mapData, player, miniMap, map)
+local function swipeScreen(event, mapData, miniMap, map)
 	-- phase name
 	local phase = event.phase
 
@@ -131,17 +131,11 @@ end
 --------------------------------------------------------------------------------
 local function tapScreen(event, miniMap, mapData, physics, gui, player, player2, map) 
 	-- if tapped twice, show miniMap or if showing, hide it
-	if event.numTaps >= 2 and player.movement == "accel" and player2.movement=="accel" then
+	if event.numTaps >= 2 then
 		-- show miniMap 
 		if gameData.isShowingMiniMap == false then
 			-- pause physics when miniMap is shown
 			physics.pause()
-			player.xGrav = 0
-			player.yGrav = 0
-			if player2.isActive == true then
-				player2.xGrav = 0
-				player2.yGrav =0
-			end
 
 			-- update minimap pane images
 			miniMapMechanic.updateMiniMap(mapData.pane, miniMap, gui, player, player2)
@@ -153,8 +147,11 @@ local function tapScreen(event, miniMap, mapData, physics, gui, player, player2,
 			gameData.isShowingMiniMap = true
 			miniMap.alpha = 0.75
 
-		--hide miniMap
-		else
+		-- else, tapped once, do funationality for miniMap if it is showing
+		elseif gameData.isShowingMiniMap == true then
+			-- call miniMap move function
+			miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
+				
 			-- start physics
 			physics.start()
 
@@ -165,16 +162,11 @@ local function tapScreen(event, miniMap, mapData, physics, gui, player, player2,
 			-- return saved tempPane2
 			return tempPane2
 		end
-	-- else, tapped once, do funationality for miniMap if it is showing
-	else
-		if gameData.isShowingMiniMap  == true then
-			-- call miniMap move function
-			miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
-		end
 	end
 
 	-- return new MapData.pane
 	return mapData.pane
+	--gameData.mapData = mapData
 end
 
 --------------------------------------------------------------------------------

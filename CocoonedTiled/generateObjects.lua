@@ -195,7 +195,7 @@ local function gWater(water, map, mapData, startIndex, endIndex)
 		map.layer["tiles"]:insert(water[i])
 		-- set properties of water
 		water[i].isVisible = true
-		water[i]:setFillColor(0, 1, 0, 1)
+		water[i].alpha = 0
 		water[i].func = "waterCollision"
 		water[i].collType = "passThru"
 		water[i].escape = "topRight"
@@ -240,7 +240,7 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		map.layer["tiles"]:insert(wall[i])
 		-- set properties of wisps
 	   	wall[i].isVisible = true
-		wall[i]:setFillColor(1, 0, 0, 1)
+		wall[i].alpha = 1
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
 	end
@@ -258,22 +258,17 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		physicsData[1] = (require "levels.one_collision.walls").physicsData(1.0)
 		-- assign physics according to pane.
 		if mapData.pane == "M" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("1-1") )
+			physics.addBody(wall[1], "static", physicsData[1]:get("1-1_BB") )
 		end
 	elseif mapData.levelNum == "2" then
 		-- load in physics data.
 		physicsData[1] = (require "levels.two_collision.walls").physicsData(1.0)
-		physicsData[2] = (require "levels.storyborder_collision.border").physicsData(1.0)
 		-- assign physics according to pane.
 		if mapData.pane == "M" then
 			physics.addBody(wall[1], "static", physicsData[1]:get("2-1-WALL4") )
-			physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
 		elseif mapData.pane == "L" then
 			physics.addBody(wall[1], "static", physicsData[1]:get("2-2-WALL4") )
-			physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
 		end
-
-		wall[2]:setFillColor(0, 0, 0, 1)
 	elseif mapData.levelNum == "4" then
 		-- load in physics data.
 		physicsData[1] = (require "levels.four_collision.walls").physicsData(1.0)
@@ -300,8 +295,9 @@ local function gAuraWalls(auraWall, map, mapData, startIndex, endIndex)
 		map.layer["tiles"]:insert(auraWall[i])
 		-- set properties of wisps
 	   	auraWall[i].isVisible = true
-		auraWall[i]:setFillColor(1, 0, 0, 1)
-	   	auraWall[i].collType = "passThru"
+		--auraWall[i]:setFillColor(1, 0, 0, 1)
+		auraWall[i].alpha = 0
+		auraWall[i].collType = "passThru"
 		auraWall[i].func = "blueWallCollision"
 	    auraWall[i].name = "blueWall"
 	end

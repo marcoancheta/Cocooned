@@ -27,7 +27,7 @@ local two = {
 	-- number of wisps in the level
 	wispCount = 6,
 	waterCount = 1,
-	wallCount = 2,
+	wallCount = 1,
 	auraWallCount = 0,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
@@ -143,12 +143,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		
 		-- Walls
 		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)
-		wall[2].x, wall[2].y = map.tilesToPixels(21, 12)
-		wall[2]:toFront()
 		
 		--generate.gWisps(wisp, map, mapData, 1, 4)
 		generate.gWater(water, map, mapData, 1, 1)
-		generate.gWalls(wall, map, mapData, 1, 2)
+		generate.gWalls(wall, map, mapData, 1, 1)
 	elseif mapData.pane == "L" then
 		-- Pink rune
 		rune[4].x, rune[4].y = map.tilesToPixels(21, 18)			
@@ -167,10 +165,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		
 		-- Walls
 		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)
-		wall[2].x, wall[2].y = map.tilesToPixels(21, 12)
+		
 		generate.gWisps(wisp, map, mapData, 1, 6)
 		generate.gWater(water, map, mapData, 1, 1)
-		generate.gWalls(wall, map, mapData, 1, 2)
+		generate.gWalls(wall, map, mapData, 1, 1)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
@@ -198,7 +196,7 @@ end
 -- destroys all objects in pane
 -- called when switching panes to reset memory usage
 local function destroyAll() 
-	gameData.gameEnd = true
+
 	-- destroy all wisps
 	for i=1, #wisp do
 		display.remove(wisp[i])

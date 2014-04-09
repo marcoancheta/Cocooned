@@ -11,17 +11,13 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local gameData = require("gameData")
-local sound = require("sound")
-local gameOver = false
 
 --------------------------------------------------------------------------------
 -- Collide Function - function for water collision
 --------------------------------------------------------------------------------
 -- Updated by: Andrew moved event.contact.isenabled to precollision
 --------------------------------------------------------------------------------
-function collide(collideObject, player, event, mapData, map)
-
-	
+local function collide(collideObject, player, event, mapData, map, gui)
 	--event.contact.isEnabled = false
 
 	-- set players movement to inWater
@@ -37,9 +33,8 @@ function collide(collideObject, player, event, mapData, map)
 
 	-- if death time is nil, set it
 	if player.deathTimer == nil then
-		audio.stop()
 		--sound.playSound(event, sound.splashSound)
-		player.deathTimer = timer.performWithDelay(5000, function() gameOver = true gameData.gameEnd = true end)
+		player.deathTimer = timer.performWithDelay(5000, function() gameData.gameEnd = true end)
 		player.deathScreen = display.newSprite(sheetOptions.deathSheet, spriteOptions.deathAnimation)
 		player.deathScreen.x, player.deathScreen.y = 720, 432
 		player.deathScreen:setSequence("move")

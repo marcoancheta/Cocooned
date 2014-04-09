@@ -10,7 +10,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
 	timer.performWithDelay(20, function() player:windRepel(-15,0) end )
 end

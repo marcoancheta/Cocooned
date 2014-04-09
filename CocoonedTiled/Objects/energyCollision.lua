@@ -1,23 +1,21 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- wispCollision.lua
+-- energyCollision.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local sound = require("sound")
-
 --------------------------------------------------------------------------------
 -- Collide Function - remove wisp object if collected
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map, gui)
 	--audio.stop()
 	--sound.playSound(event, sound.orbPickupSound)
 	event.contact.isEnabled = false
@@ -31,10 +29,9 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local runeCollision = {
+local energyCollision = {
 	collide = collide
 }
 
-return runeCollision
-
--- end of runeCollision.lua
+return energyCollision
+-- end of wispCollision.lua

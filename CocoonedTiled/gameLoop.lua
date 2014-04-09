@@ -97,14 +97,13 @@ local tempPane -- variable that holds current pane player is in for later use
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function swipeMechanics(event)
-
 	if player1.movement == "accel" and player2.movement == "accel" then
 		-- save temp pane for later check
 		tempPane = mapData.pane
 
 		-- call swipe mechanic and get new Pane
 		--TODO: ask why player1 is passed in
-		touch.swipeScreen(event, mapData, player1, miniMap, gui.back[1])
+		touch.swipeScreen(event, mapData, miniMap, gui.back[1])
 		
 		-- if touch ended then change map if pane is switched
 		if "ended" == event.phase and mapData.pane ~= tempPane then
@@ -112,7 +111,6 @@ local function swipeMechanics(event)
 			--TODO: does player need to be pased in?
 			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1, player2, map)
 		end
-
 	end
 end
 
@@ -123,7 +121,6 @@ end
 --------------------------------------------------------------------------------
 local function tapMechanic(event)
 	if gameData.allowMiniMap then
-
 		-- save current pane for later use
 		tempPane = mapData.pane
 
@@ -276,25 +273,23 @@ local function loadMap(mapData)
 	physics.start()
 	
 	-- Start mechanics
-	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui.back[1], gui.front, physics, miniMap)
+	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui, map)
 	
 	if player2.isActive then
-		collisionDetection.createCollisionDetection(player2.imageObject, player2, mapData, gui.back[1], gui.front,physics, miniMap)
+		collisionDetection.createCollisionDetection(player2.imageObject, player2, mapData, gui, map)
 	end
 		
 	map:addEventListener("touch", swipeMechanics)
 	map:addEventListener("tap", tapMechanic)
 	Runtime:addEventListener("accelerometer", controlMovement)
 	Runtime:addEventListener("enterFrame", speedUp)
-		
-	menu.ingameOptionsbutton(event, map)
 end
 
 local function clean(event)
 	-- remove all eventListeners
 	map:removeEventListener("touch", swipeMechanics)
-	map:removeEventListener("tap", tapMechanic)
-	ball:removeEventListener("accelerometer", controlMovement)
+	map:removeEventListener("tap", tapMechanic)	
+	Runtime:removeEventListener("accelerometer", controlMovement)
 	Runtime:removeEventListener("enterFrame", speedUp)
 		
 	collisionDetection.destroyCollision(player1.imageObject)
@@ -314,7 +309,7 @@ local function clean(event)
 	ball:removeSelf()
 	ball = nil
 	
-	display.remove(gui)
+	gui:removeSelf()
 	gui = nil
 	
 	miniMap:removeSelf()
@@ -324,7 +319,7 @@ local function clean(event)
 	player1:destroy()
 	player1 = nil
 	playerSheet = nil
-			
+				
 	--TODO: move player 2 sheet into gameloop?
 	-- call objects-destroy
 	objects.destroy(mapData)
@@ -343,9 +338,11 @@ local function gameLoop(event)
 	memory.monitorMem()
 				
 	if mapData.levelNum == "LS" then
-		-- Set Camera to Ball
-		map.setCameraFocus(ball)
-		map.setTrackingLevel(0.1)
+		if map then
+			-- Set Camera to Ball
+			map.setCameraFocus(ball)
+			map.setTrackingLevel(0.1)
+		end
 	end
 	
 	---------------------------------
@@ -357,6 +354,7 @@ local function gameLoop(event)
 		mapData.pane = "LS"
 		
 		loadMap(mapData)
+		menu.ingameOptionsbutton(event, map)
 				
 		-- Re-evaluate gameData booleans	
 		gameData.selectLevel = false
@@ -371,13 +369,13 @@ local function gameLoop(event)
 		
 		mapData = gameData.mapData
 		loadMap(mapData)
-				
+		menu.ingameOptionsbutton(event, map)
+		
 		-- Re-evaluate gameData booleans
 		gameData.menuOn = false
 		gameData.ingame = true
 		gameData.allowPaneSwitch = true
 		gameData.allowMiniMap = true
-		gameData.showMiniMap = true
 		gameData.gameStart = false
 	end
 
@@ -387,21 +385,21 @@ local function gameLoop(event)
 	if gameData.gameEnd then
 		clean(event)
 	
-		if gameData.menuOn ~= true then
-			gameData.selectLevel = true
-		end
 		-- set booleans
 		gameData.gameEnd = false
-
 	elseif gameData.levelRestart == true then
 		clean(event)
 		
-		-- set booleans
+		if gameData.menuOn ~= true then
+			gameData.selectLevel = true
+		else
+			-- reset pane to middle pane
+			local mapD = gameData.mapData
+			mapD.pane = 'M'
+			gameData.gameStart = true
+		end
+		
 		gameData.levelRestart = false
-		gameData.gameStart = true
-
-		-- reset pane to middle pane
-		mapData.pane = 'M'
 	end
 	
 	----------------------
@@ -468,11 +466,11 @@ local function gameLoop(event)
 		Runtime:removeEventListener("enterFrame", speedUp)
 
 		-- Re-evaluate gameData booleans
-		gameData.ingame = false
+		--gameData.ingame = false
 		gameData.allowMiniMap = false
 		gameData.showMiniMap = false
 		gameData.isShowingMiniMap = false
-		gameData.inGameOptions = false		
+		gameData.inGameOptions = false
 	--------------------------
 	--[[ RESUME GAME LOOP ]]--		
 	elseif gameData.resumeGame then 

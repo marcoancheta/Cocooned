@@ -18,7 +18,7 @@
 -- Updated by: Andrew (moved water collision to be spread out across, precollision, begin collision, and post collision)
 --------------------------------------------------------------------------------
 -- creates the collision detection for that pane
-function createCollisionDetection(imageObject, player, mapData, map) 
+function createCollisionDetection(imageObject, player, mapData, gui, map) 
 
   -- function for pre collision 
   -- before the object collides, call its own collide function
@@ -28,19 +28,19 @@ function createCollisionDetection(imageObject, player, mapData, map)
    local collideObject = event.other
    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
       local col = require("Objects." .. collideObject.func)
-      col.collide(collideObject, player, event, mapData, map)
+      col.collide(collideObject, player, event, mapData, map, gui)
    end
 
    -- if the object is a solid, call it's collide function
    if collideObject.collType == "solid" then
       local col = require("Objects." .. collideObject.func)
-      col.collide(collideObject, player, event, mapData, map)
+      col.collide(collideObject, player, event, mapData, map, gui)
    end
 
   -- if the object is a collectable, call it's collide function
   if collideObject.collectable == true then
       local col = require("Objects." .. collideObject.func)
-      col.collide(collideObject, player, event, mapData, map)
+      col.collide(collideObject, player, event, mapData, map, gui)
       audio.play(wallHitSound)
    end
 
@@ -52,7 +52,7 @@ function createCollisionDetection(imageObject, player, mapData, map)
 
     if collideObject.name == "wind" then
       local col = require("Objects." .. collideObject.func)
-      col.collide(collideObject, player, event, mapData, map)
+      col.collide(collideObject, player, event, mapData, map, gui)
     end
    
 
@@ -71,7 +71,7 @@ function createCollisionDetection(imageObject, player, mapData, map)
       -- if the object is a solid, call it's function
       if collideObject.collType == "solid" then
         local col = require("Objects." .. collideObject.func)
-        col.collide(collideObject, player, event, mapData)
+        col.collide(collideObject, player, event, mapData, map, gui)
       end
       
       -- create particle effect
@@ -83,7 +83,7 @@ function createCollisionDetection(imageObject, player, mapData, map)
       if collideObject.name == "water" then
         player.shook = false
         local col = require("Objects." .. collideObject.func)
-        col.collide(collideObject, player, event, mapData, map)
+        col.collide(collideObject, player, event, mapData, map, gui)
       end
 
     -- when collision ends, do this
@@ -109,14 +109,14 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- changes the collision detection for all objects in new pane
-function changeCollision(imageObject, player, mapData, map) 
+local function changeCollision(imageObject, player, mapData, map) 
 
   -- remove old collision detection event listeners
   imageObject:removeEventListener("collision" , imageObject)
   imageObject:removeEventListener("preCollision")
 
   -- create new collision detection event listeners
-  createCollisionDetection(imageObject, player, mapData, map)
+  createCollisionDetection(imageObject, player, mapData, map, gui)
 end
 
 --------------------------------------------------------------------------------
@@ -124,7 +124,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function destroyCollision(imageObject)
+local function destroyCollision(imageObject)
   imageObject:removeEventListener("collision" , imageObject)
   imageObject:removeEventListener("preCollision")
 end
