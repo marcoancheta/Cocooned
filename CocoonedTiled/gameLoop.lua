@@ -97,7 +97,7 @@ local tempPane -- variable that holds current pane player is in for later use
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function swipeMechanics(event)
-	if player1.movement == "accel" and player2.movement == "accel" then
+	if gameData.allowMiniMap then
 		-- save temp pane for later check
 		tempPane = mapData.pane
 
@@ -238,8 +238,8 @@ local function loadMap(mapData)
 	gui, miniMap, player2Params, map = loadLevel.createLevel(mapData, player1, player2)
 	
 	-- fix offset, because Dusk Engine is offsetting during render
-	gui.x = gui.x
-	gui.y = gui.y
+	gui.x = gui.x - 20
+	--gui.y = gui.y
 	
 	--print("params=",player2Params.isActive, player2Params.x, player2Params.y)
 	if player2Params.isActive == true then
