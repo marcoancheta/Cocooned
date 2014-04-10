@@ -81,7 +81,7 @@ local map, ball
 local gui
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
-
+local count = 0
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -98,6 +98,7 @@ local tempPane -- variable that holds current pane player is in for later use
 --------------------------------------------------------------------------------
 local function swipeMechanics(event)
 	if gameData.allowMiniMap then
+		count = count + 1
 		-- save temp pane for later check
 		tempPane = mapData.pane
 
@@ -109,8 +110,10 @@ local function swipeMechanics(event)
 		if "ended" == event.phase and mapData.pane ~= tempPane then
 			-- play snow transition effect
 			--TODO: does player need to be pased in?
+			print(tempPane, mapData.pane)
 			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1, player2, map)
 		end
+		print(count)
 	end
 end
 
@@ -216,13 +219,8 @@ local function loadMap(mapData)
 	player1 = player.create()
 	system.setAccelerometerInterval(30)
 
-	-- Create player sprite sheet
-	local playerSheet = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite.png", 
-			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-	
 	-- Create player/ball object to map
-	player1.imageObject = display.newSprite(playerSheet, spriteOptions.player)
-	ball = player1.imageObject
+	ball = display.newSprite(sheetOptions.playerSheet, spriteOptions.player)
 
 	-- set name and animation sequence for ball
 	ball.name = "player"
@@ -233,6 +231,8 @@ local function loadMap(mapData)
 	physics.setGravity(0,0)
 	ball.linearDamping = 1.25
 	ball.density = .3
+	
+	player1.imageObject = ball
 
 	-- Load in map
 	gui, miniMap, player2Params, map = loadLevel.createLevel(mapData, player1, player2)
@@ -249,8 +249,7 @@ local function loadMap(mapData)
 			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
 		
 		-- Create player/ball object to map
-		player2.imageObject = display.newSprite(playerSheet2, spriteOptions.player2)
-		ball2 = player2.imageObject
+		ball2 = display.newSprite(playerSheet2, spriteOptions.player2)
 		--print(player2.imageObject)
 		-- set name and animation sequence for ball
 		ball2.name = "player2"
@@ -262,6 +261,7 @@ local function loadMap(mapData)
 		physics.addBody(player2.imageObject, {radius = 38, bounce = .25})
 		player2.imageObject.linearDamping = 1.25
 		player2.imageObject.density = .3
+		player2.imageObject = ball2
 	else
 		player2 ={
 			isActive = false,

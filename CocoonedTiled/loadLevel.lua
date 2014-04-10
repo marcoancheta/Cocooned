@@ -72,9 +72,10 @@ local function createLevel(mapData, player1, player2)
 	local map
 	if mapData.levelNum ~= "LS" then
 		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
+		map.name = "map"
 	else
-		print(mapData.levelNum)
 		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/LS.json")
+		map.name = "map"
 	end
 	
 	objects.main(mapData, map, player)
@@ -131,6 +132,7 @@ local function changePane(mapData, player, player2, miniMap)
 	-- Load in map
 	local map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
 	
+	print(mapData.pane)
 	objects.main(mapData, map, player)
 
 	-- if player is small, set player size back to normal
@@ -180,7 +182,7 @@ local function changePane(mapData, player, player2, miniMap)
 
 	--TODO: how does checkWin work?
 	-- check if player has finished level
-	checkWin(player, map, mapData)
+	--checkWin(player, map, mapData)
 	-- return new pane
 	return map
 end

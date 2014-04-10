@@ -94,8 +94,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			objects["exitPortal" ..i.. ""]:scale(2, 2)
 		end
 		
-		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(13, 16)
-		objects["exitPortal2"].x, objects["exitPortal2"].y = map.tilesToPixels(19, 12)
+		objects["exitPortal2"].x, objects["exitPortal2"].y = map.tilesToPixels(13, 16)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(19, 12)
 		objects["exitPortal3"].x, objects["exitPortal3"].y = map.tilesToPixels(26, 12)
 		objects["exitPortal4"].x, objects["exitPortal4"].y = map.tilesToPixels(31, 16)
 		

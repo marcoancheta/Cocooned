@@ -73,15 +73,16 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	event.other.isSensor = true
 	
 	local function resume()
-		ball.isBodyActive = true;
-		ball:setSequence("move");
+		event.other.isSensor = false
 	end
 	
 	local function temp()
 		ball.isBodyActive = false;
 		ball:setSequence("still")
-		local timer = timer.performWithDelay(100, resume); 
+		local timer = timer.performWithDelay(1000, resume);
 		--timer.performWithDelay(500, begin);
+		ball.isBodyActive = true;
+		ball:setSequence("move");
 	end
 						
 	local trans = transition.to(ball, {time=1500, x=collideObject.x, y=collideObject.y-15, onComplete = temp} )				
