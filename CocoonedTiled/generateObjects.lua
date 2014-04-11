@@ -30,7 +30,11 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	wisp[i].name = "wisp" .. i
 
 	   	-- insert wisp into map display group
-		map.layer["tiles"]:insert(wisp[i])
+		if mapData.levelNum ~= "2" then
+			map.layer["tiles"]:insert(wisp[i])
+		else
+			map:insert(wisp[i])
+		end
 
 		-- add physics body for wisp for collision
 		physics.addBody(wisp[i], "static", {bounce=0})
@@ -64,7 +68,12 @@ local function gObjects(level, objects, map, mapData, runes)
 			end
 			
 			-- add object to map display group
-			map.layer["tiles"]:insert(objects[name .. j])
+
+			if mapData.levelNum ~= "2" then
+				map.layer["tiles"]:insert(objects[name .. j])
+			else
+				map:insert(objects[name .. j])
+			end
 		end
 	end
 
@@ -72,7 +81,11 @@ local function gObjects(level, objects, map, mapData, runes)
 	for i = 1, #runes do
 		-- check if rune is visible and if so, add to map display group
 		if runes[i].isVisible == true then
-			map.layer["tiles"]:insert(runes[i])
+			if mapData.levelNum ~= "2" then
+				map.layer["tiles"]:insert(runes[i])
+			else
+				map:insert(runes[i])
+			end
 		end
 	end
 end
@@ -192,7 +205,11 @@ local function gWater(water, map, mapData, startIndex, endIndex)
 	
 	for i=startIndex, endIndex do
 		-- insert water into map display group
-		map.layer["tiles"]:insert(water[i])
+		if mapData.levelNum ~= "2" then
+			map.layer["tiles"]:insert(water[i])
+		else
+			map:insert(water[i])
+		end
 		-- set properties of water
 		water[i].isVisible = true
 		water[i]:setFillColor(0, 1, 0, 1)
@@ -237,12 +254,17 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 	
 	for i=startIndex, endIndex do
 	   	-- insertwater into map display group
-		map.layer["tiles"]:insert(wall[i])
+	   	if mapData.levelNum ~= "2" then
+			map.layer["tiles"]:insert(wall[i])
+		else
+			map:insert(wall[i])
+		end
 		-- set properties of wisps
 	   	wall[i].isVisible = true
 		wall[i]:setFillColor(1, 0, 0, 1)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
+	    print("inserted walls")
 	end
 	
 	-- add physics body for wall for collision
@@ -267,13 +289,13 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		-- assign physics according to pane.
 		if mapData.pane == "M" then
 			physics.addBody(wall[1], "static", physicsData[1]:get("2-1-WALL4") )
-			physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
+			--physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
 		elseif mapData.pane == "L" then
 			physics.addBody(wall[1], "static", physicsData[1]:get("2-2-WALL4") )
-			physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
+			--physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
 		end
 
-		wall[2]:setFillColor(0, 0, 0, 1)
+		--wall[2]:setFillColor(0, 0, 0, 1)
 	elseif mapData.levelNum == "4" then
 		-- load in physics data.
 		physicsData[1] = (require "levels.four_collision.walls").physicsData(1.0)

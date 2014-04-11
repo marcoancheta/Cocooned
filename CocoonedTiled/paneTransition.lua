@@ -79,7 +79,7 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1, player2,
 	--tempPic = display.capture(gui)
 	--tempPic.x, tempPic.y = 720, 432
 	
-	--[[
+	
 	print("playing transition")
 	-- play pane switch transition and move to front
 	transPic = display.newSprite(sheetOptions.paneSheet, spriteOptions.paneSwitch)
@@ -149,7 +149,7 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1, player2,
 	
 	-- timers for deleting pane image and ending pane switch
 	local endTrans = timer.performWithDelay(1000, endTransition)
-	]]--
+	
 	
 	local moveTrans = timer.performWithDelay(400, movePanes)
 	moveTrans.params = {tempPane = tempPane, 
