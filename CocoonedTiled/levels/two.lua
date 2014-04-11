@@ -27,7 +27,7 @@ local two = {
 	-- number of wisps in the level
 	wispCount = 6,
 	waterCount = 1,
-	wallCount = 2,
+	wallCount = 1,
 	auraWallCount = 0,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
@@ -128,7 +128,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	if mapData.pane == "M" then
 		-- Portal
 		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(38, 7)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
 				
 		-- Wisps
 		--[[
@@ -139,38 +139,36 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		]]--
 						
 		-- Water			
-		water[1].x, water[1].y = map.tilesToPixels(18.2, 15.5)
+		water[1].x, water[1].y = generate.tilesToPixels(18.2, 15.5)
 		
 		-- Walls
-		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)
-		wall[2].x, wall[2].y = map.tilesToPixels(21, 12)
-		wall[2]:toFront()
+		wall[1].x, wall[1].y = generate.tilesToPixels(21, 12)
 		
 		--generate.gWisps(wisp, map, mapData, 1, 4)
-		generate.gWater(water, map, mapData, 1, 1)
-		generate.gWalls(wall, map, mapData, 1, 2)
+		--generate.gWater(water, map, mapData, 1, 1)
+		--generate.gWalls(wall, map, mapData, 1, 1)
 	elseif mapData.pane == "L" then
 		-- Pink rune
-		rune[4].x, rune[4].y = map.tilesToPixels(21, 18)			
+		rune[4].x, rune[4].y = generate.tilesToPixels(21, 18)			
 		rune[4].isVisible = true
 		
 		-- Wisps
-		wisp[1].x, wisp[1].y = map.tilesToPixels(29, 12)
-		wisp[2].x, wisp[2].y = map.tilesToPixels(25, 12)
-		wisp[3].x, wisp[3].y = map.tilesToPixels(21, 12)
-		wisp[4].x, wisp[4].y = map.tilesToPixels(21, 16)
-		wisp[5].x, wisp[5].y = map.tilesToPixels(39, 10)
-		wisp[6].x, wisp[6].y = map.tilesToPixels(39, 14)	
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(29, 12)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 12)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(21, 12)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(21, 16)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(39, 10)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(39, 14)	
 	
 		-- Water
-		water[1].x, water[1].y = map.tilesToPixels(8.5, 14)
+		water[1].x, water[1].y = generate.tilesToPixels(8.5, 14)
 		
 		-- Walls
-		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)
-		wall[2].x, wall[2].y = map.tilesToPixels(21, 12)
-		generate.gWisps(wisp, map, mapData, 1, 6)
-		generate.gWater(water, map, mapData, 1, 1)
-		generate.gWalls(wall, map, mapData, 1, 2)
+		wall[1].x, wall[1].y = generate.tilesToPixels(21, 12)
+		
+		--generate.gWisps(wisp, map, mapData, 1, 6)
+		--generate.gWater(water, map, mapData, 1, 1)
+		--generate.gWalls(wall, map, mapData, 1, 1)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
@@ -180,9 +178,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	end
 
 	-- generates all objects in pane when locations are set
-	generate.gObjects(two, objects, map, mapData, rune)
+	--generate.gObjects(two, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
-	mObjects = generate.gMObjects(two, objects, map, mapData)
+	--mObjects = generate.gMObjects(two, objects, map, mapData)
 	-- destroy the unused objects
 	generate.destroyObjects(two, rune, wisp, water, wall, objects)
 
@@ -198,7 +196,7 @@ end
 -- destroys all objects in pane
 -- called when switching panes to reset memory usage
 local function destroyAll() 
-	gameData.gameEnd = true
+
 	-- destroy all wisps
 	for i=1, #wisp do
 		display.remove(wisp[i])

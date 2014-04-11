@@ -19,49 +19,41 @@ local collisionDetection = require("collisionDetection")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local paneSheet = graphics.newImageSheet("mapdata/art/animation/snowAnimation.png", 
-				 {width = 1440, height = 891, sheetContentWidth = 7200, sheetContentHeight = 4081, numFrames = 20})
 local transPic
+local paneSheet
 
 --------------------------------------------------------------------------------
 -- Move Panes - changes current pane to new one
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function movePanes(tempPane, miniMap, gui, player1, player2, mapData, map)
+local function movePanes(event)
+	local params = event.source.params
+
 	-- update new miniMap
-	miniMapMechanic.updateMiniMap(tempPane, miniMap, gui, player1, player2)
+	miniMapMechanic.updateMiniMap(params.tempPane, params.miniMap, params.gui, params.player1, params.player2)
 
 	-- delete everything on map
-	objects.destroy(mapData)
-	gui.back[1]:removeSelf()
-	map = nil
-		
-	-- Pause physics
-	physics.pause()
+	objects.destroy(params.mapData)
+	params.map = nil
 
 	---------------------------------------------------
 	-- Play "character" teleportation animation here --
 	---------------------------------------------------
 	-- load new map pane
-	map = loadLevel.changePane(mapData, player1, player2, miniMap)
+	params.map = loadLevel.changePane(params.mapData, params.player1, params.player2, params.miniMap)
 
 	-- insert objects onto map layer
-	gui.back:insert(map)
+	params.gui.back:insert(params.map)
 
-	map.layer["tiles"]:insert(player1.imageObject)
-	
-	if player2.isActive then
-		map.layer["tiles"]:insert(player2.imageObject)
-	end
-
-	-- Resume physics
-	physics.start()
-
+	print(ball.name)
 	-- Reassign game mechanic listeners	
-	collisionDetection.changeCollision(ball, player1, mapData, gui.back[1], gui.front, physics, miniMap)
-	if player2.isActive then
-		collisionDetection.changeCollision(ball, player2, mapData, gui.back[1], gui.front, physics, miniMap)
+	params.map:insert(params.player1.imageObject)
+	collisionDetection.changeCollision(params.player1, params.mapData, params.map)
+	
+	if params.player2.isActive then
+		params.map.layer["tiles"]:insert(params.player2.imageObject)
+		collisionDetection.changeCollision(params.player2, params.mapData, params.map)
 	end
 end
 
@@ -71,15 +63,10 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function endTransition(event)
-	local params = event.source.params
-
 	-- set sequence to stop and remove it
 	transPic:setSequence("stop")
-	transPic:toBack()
 	transPic:removeSelf()
-	
-	-- switch panes
-	movePanes(params.tempPane, params.miniMap, params.gui, params.player1, params.player2, params.mapData, params.map)
+	transPic = nil
 end
 
 --------------------------------------------------------------------------------
@@ -88,19 +75,19 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function playTransition(tempPane, miniMap, mapData, gui, player1, player2, map)
-
 	-- save current pane image
 	--tempPic = display.capture(gui)
 	--tempPic.x, tempPic.y = 720, 432
-
+	
+	--[[
+	print("playing transition")
 	-- play pane switch transition and move to front
-	transPic = display.newSprite(paneSheet, spriteOptions.paneSwitch)
+	transPic = display.newSprite(sheetOptions.paneSheet, spriteOptions.paneSwitch)
 	--transPic:scale(1.25, 1.25)
-	transPic.x, transPic.y = 720, 432
+	transPic.x, transPic.y = map.tilesToPixels(21, 10)
 	transPic:setSequence("move")
 	transPic:play()
-	--tempPic:toFront()
-	transPic:toFront()
+	
 
 	-- declare direction which pane swithc transition should play
 	local direction = "None"
@@ -159,10 +146,13 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1, player2,
 		transPic:scale(1.5,1.5)
 		transPic.rotation = -135
 	end
-
+	
 	-- timers for deleting pane image and ending pane switch
 	local endTrans = timer.performWithDelay(1000, endTransition)
-	endTrans.params = {tempPane = tempPane, 
+	]]--
+	
+	local moveTrans = timer.performWithDelay(400, movePanes)
+	moveTrans.params = {tempPane = tempPane, 
 						miniMap = miniMap, 
 							gui = gui, 
 						player1 = player1, 
@@ -176,9 +166,9 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function deleteTemp()
+--local function deleteTemp()
 	--tempPic:removeSelf()
-end
+--end
 
 --------------------------------------------------------------------------------
 -- Finish Up

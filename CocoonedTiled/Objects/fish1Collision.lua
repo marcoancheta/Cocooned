@@ -10,7 +10,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map, gui)
 	if player.curse == 1 then
 		--timer.performWithDelay(5000, function() player.curse = 1 end)
 	end

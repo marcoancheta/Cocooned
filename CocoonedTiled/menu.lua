@@ -56,7 +56,8 @@ local function buttonPressed(event)
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then								
 		-- Remove menuGroup
-		menuGroup:removeSelf()	
+		menuGroup:removeSelf()
+		menuGroup = nil
 		-- User pressed play, set gameActive to true
 		gameData.selectLevel = true
 		
@@ -64,6 +65,7 @@ local function buttonPressed(event)
 	elseif event.target.name == "optionButton" then		
 		-- Remove menuGroup
 		menuGroup:removeSelf()
+		menuGroup = nil
 		-- Call to options display
 		gameData.inOptions = true
 		
@@ -72,12 +74,18 @@ local function buttonPressed(event)
 		print("Back to Main Menu")
 		-- Remove menuGroup		
 		menuGroup:removeSelf()
+		menuGroup = nil
 		-- Go back to menu
 		gameData.menuOn = true
+		gameData.allowPaneSwitch = false
+		gameData.allowMiniMap = false
+		gameData.showMiniMap = false
 		
 	--[[ Back to Main from In-Game button pressed ]]--
 	elseif event.target.name == "gotoMain" then
-		print("Back to Main Menu")				
+		print("Back to Main Menu")	
+		physics.stop()
+		
 		gameData.menuOn = true		
 		gameData.gameEnd = true
 
@@ -90,8 +98,11 @@ local function buttonPressed(event)
 		
 	--[[ Resume In-Game button pressed ]]--
 	elseif event.target.name == "Resume" then
-		print("Resume game")		
-		menuGroup:removeSelf()
+		print("Resume game")
+		if menuGroup then
+			menuGroup:removeSelf()
+			menuGroup = nil
+		end
 				
 		physics.start()		
 		gameData.resumeGame = true
@@ -149,6 +160,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function MainMenu(event)
+	physics.start()
 	print("In Main Menu")
 	-- Create new menu display group
 	menuGroup = display.newGroup()
@@ -197,6 +209,7 @@ local function ingameOptionsbutton(event, map)
 	ingameOptions.x, ingameOptions.y = map.tilesToPixels(38, 2)	
 	ingameOptions.name = "inGameOptionsBTN"	
 	ingameOptions:addEventListener("tap", buttonPressed)
+	ingameOptions:toFront()
 end
 
 --------------------------------------------------------------------------------

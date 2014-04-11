@@ -11,7 +11,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map, gui)
 	if #player.inventory.items > 0 then
 		if player.inventory.items[1].name == "key" then
 			collideObject:removeSelf()

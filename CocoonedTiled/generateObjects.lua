@@ -366,6 +366,17 @@ local function destroyObjects(level, rune, wisp, water, objects)
 	end
 end
 
+local function tilesToPixels( Tx, Ty)
+
+	local x, y = Tx, Ty
+	--tprint.assert((x ~= nil) and (y ~= nil), "Missing argument(s).")
+	x, y = x - 0.5, y - 0.5
+	print("generating tiles to pixels")
+	x, y = (x * 36), (y * 36)
+
+	return x, y
+end
+
 --------------------------------------------------------------------------------
 -- Finish Up
 --------------------------------------------------------------------------------
@@ -378,7 +389,8 @@ generateObjects = {
 	gWater = gWater,
 	gWalls = gWalls,
 	gAuraWalls = gAuraWalls,
-	destroyObjects = destroyObjects
+	destroyObjects = destroyObjects,
+	tilesToPixels = tilesToPixels
 }
 
 return generateObjects

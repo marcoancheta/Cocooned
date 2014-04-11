@@ -126,7 +126,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 	
 	-- Check which pane
-
 	if mapData.pane == "M" then
 		-- Fish1 Set
 		objects["fish11"].x, objects["fish11"].y = map.tilesToPixels(4, 13)
@@ -174,7 +173,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	elseif mapData.pane == "R" then
 		-- Exit portals
 		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(38, 5)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(34, 5)
+		
+		print("opening..")
 		
 		wisp[20].x, wisp[20].y = map.tilesToPixels(21, 5)
 		wisp[21].x, wisp[21].y = map.tilesToPixels(24, 6)
@@ -187,17 +188,19 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[28].x, wisp[28].y = map.tilesToPixels(21, 5)
 		wisp[29].x, wisp[29].y = map.tilesToPixels(38, 7)
 		wisp[30].x, wisp[30].y = map.tilesToPixels(38, 9)
+		print("opening...")
 		
 		-- Walls
 		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)
-		
+		print("opening....")
 		-- Water
 		water[1].x, water[1].y = map.tilesToPixels(5, 3)
-		water[2].x, water[2].y = map.tilesToPixels(20.5, 18.5)
-				
+		water[2].x, water[2].y = map.tilesToPixels(21, 18.5)
+		print("opening....")
 		generate.gWisps(wisp, map, mapData, 20, 30)
 		generate.gWalls(wall, map, mapData, 1, 1)
 		generate.gWater(water, map, mapData, 1, 2)
+		print("opening......")
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
@@ -207,9 +210,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	end
 
 	-- generates all objects in pane when locations are set
-	generate.gObjects(four, objects, map, mapData.pane, rune)
+	generate.gObjects(four, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
-	mObjects = generate.gMObjects(four, objects, map, mapData.pane)
+	mObjects = generate.gMObjects(four, objects, map, mapData)
 	-- destroy the unused objects
 	generate.destroyObjects(four, rune, wisp, water, wall, objects)
 
@@ -243,6 +246,7 @@ local function destroyAll()
 	end
 
 	print("destroying objects", #mObjects)
+	
 	-- destroy all moveable objects and stop moving them
 	for i=1, #mObjects do
 		if mObjects[i].moveable == true then
@@ -264,5 +268,4 @@ four.load = load
 four.destroyAll = destroyAll
 
 return four
-
 -- end of four.lua

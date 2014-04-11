@@ -60,7 +60,7 @@ local LS = {
 local objectList
 local mObjectslocal
 local bg
-local locks = {}
+local locks
 
 --------------------------------------------------------------------------------
 -- Ball Camera
@@ -76,6 +76,7 @@ local locks = {}
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
+	locks = {}
 	objectList = objects
 	
 	-- Create levelSelector Background
@@ -93,8 +94,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			objects["exitPortal" ..i.. ""]:scale(2, 2)
 		end
 		
-		objects["exitPortal2"].x, objects["exitPortal2"].y = map.tilesToPixels(13, 16)
-		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(19, 12)
+		objects["exitPortal2"].x, objects["exitPortal2"].y = map.tilesToPixels(19, 11)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(13, 16)
 		objects["exitPortal3"].x, objects["exitPortal3"].y = map.tilesToPixels(26, 12)
 		objects["exitPortal4"].x, objects["exitPortal4"].y = map.tilesToPixels(31, 16)
 		
@@ -140,6 +141,8 @@ end
 local function destroyAll() 
 	display.remove(bg)
 	display.remove(locks)
+	bg = nil
+	locks = nil
 	
 	-- destroy all wisps
 	for i=1, #wisp do

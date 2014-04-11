@@ -6,8 +6,6 @@
 --------------------------------------------------------------------------------
 local gameData = require("gameData")
 
-local goals = {}
-
 ---------------------
 -- Local variables
 ---------------------
@@ -15,10 +13,11 @@ local gNum = 1
 local goalBox, textBox, box, coin
 local textObject
 local bSet
-local goalie
+
+local goals = {}
 
 -- Draw/Insert Objects
-local function drawGoals(text, rune)
+local function drawGoals(text, rune, gui, map)
 	-- boxSettings
 	bSet = {
 		font = nativeSystemfont,
@@ -26,58 +25,54 @@ local function drawGoals(text, rune)
 		fontSizeLG = 55,
 		offset = 50,
 		offsetLG = 70,
-		x = 720,
+		x = 740,
 		y = 50,
 		boxX = 10,
 		boxY = 88, 
 		boxW = 1500,
 		boxH = 50,
-		boxA = 1
+		boxA = 0.5
 	}
-
-	-- create new display group for goals
-	goalie = display.newGroup()
-	goalie.name = "goals"
 		
 	local boxH = bSet.boxH*#text[gNum]
-	
-	-- create outer text box rectangle
-	textBox = display.newRect(bSet.x, bSet.boxY, bSet.boxW, boxH)
-	textBox:setStrokeColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
-	textBox.strokeWidth = 15
-	textBox.alpha = bSet.boxA
 	
 	-- Draw the textObjects
 	textObject = {}
 	
+	-- create outer text box rectangle
+	textBox = display.newRect(740, 52, bSet.boxW, boxH)
+	textBox.x, textBox.y = map.tilesToPixels(20, 3)
+	textBox:setStrokeColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
+	textBox:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
+	textBox.strokeWidth = 15
+	textBox.alpha = bSet.boxA
+		
 	for i=1, #text[gNum]-1 do
 		if i==1 then
 			textObject[i] = display.newText(text[gNum][i], bSet.x-250, bSet.y + 35 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
 		elseif i>=2 then
 			textObject[i] = display.newText(text[gNum][i], bSet.x-100, bSet.y - 35 + bSet.offsetLG*(i-1), bSet.font, bSet.fontSizeSM)
 		end
-		textObject[i]:setFillColor(1,0,0)
+		textObject[i]:setFillColor(1,1,0)
 		textObject[i].anchorX = 21
 	end
 		
 		
-	-- insert objects to display group: goalie
-	goalie:insert(textBox)
+	-- insert objects to display group
+	gui.front:insert(textBox)
+	
 	for i=1, #textObject do
-		goalie:insert(textObject[i])
+		gui.front:insert(textObject[i])
 	end
 	
 	for i=1, #rune do
-		goalie:insert(rune[i])
+		gui.front:insert(rune[i])
 		rune[i].isSensor = true
 	end
-	--goalie:insert(coins)
-	--goalie:insert(coin)
-	goalie:toFront()
 end
 
 -- findGoals: set and adjust goals via their respected level
-local function findGoals(mapData)
+local function findGoals(mapData, gui, map)
 	
 	local xCoord = 720
 	local temp = mapData.levelNum
@@ -127,36 +122,27 @@ local function findGoals(mapData)
 
 	-- Position and draw in goal displayer
 	for i=1, runeAMT do
-		rune[i].x = xCoord+50
-		rune[i].y = 125-35
-		rune[i]:scale(0.8, 0.8)
+		rune[i].x = xCoord + 10
+		rune[i].y = 90
+		rune[i]:scale(1, 1)
 		rune[i].isVisible = true
 		rune[i].isSensor = true
 		xCoord = xCoord + 50
 	end
 						
 	-- Call function to draw and insert objects
-	drawGoals(text, rune)
+	drawGoals(text, rune, gui, map)
+	
+	return gui
 end
 
--- Refresh goal displayer: deletes old goals displayed and creates a new one
-local function refresh()
-	if goalie then
-		goalie:removeSelf()
-		goalie = nil
-		goalie = display.newGroup()
-	end
-end
 
 -- Destroy it all!
-local function destroyGoals()
+local function destroyGoals(gui)
 	print("Destroyed goalie")
 	goalBox, textBox, box = nil
 	textObject = nil
 	rune = nil
-
-	goalie:removeSelf()
-	goalie = nil
 end
 
 -- Pass into globals

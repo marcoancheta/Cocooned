@@ -81,6 +81,8 @@ spriteOptions = {
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 sheetOptions = {
+	playerSheet = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite.png", 
+			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9}),
 	runeSheet = graphics.newImageSheet("mapdata/art/animation/runeAnimation.png", 
 				 {width = 72, height = 72, sheetContentWidth = 432, sheetContentHeight = 216, numFrames = 18}),
 	shrinkSheet = graphics.newImageSheet("mapdata/art/animation/switchPanesSheet.png", 
@@ -89,7 +91,8 @@ sheetOptions = {
 				 {width = 1552, height = 864, sheetContentWidth =3108, sheetContentHeight =1728, numFrames = 4}),
 	wolfSheet = graphics.newImageSheet("mapdata/art/animation/wolfSheet.png", 
 				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8}),
-
+	paneSheet = graphics.newImageSheet("mapdata/art/animation/snowAnimation.png", 
+				 {width = 1440, height = 891, sheetContentWidth = 7200, sheetContentHeight = 4081, numFrames = 20}),		 
 }
 
 --------------------------------------------------------------------------------
@@ -110,6 +113,5 @@ objectNames = {
 	[10] = "greenTotem",
 	[11] = "switch",
 	[12] = "switchWall"
-
 }
 

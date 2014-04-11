@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------
+ --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
 -- loadingScreen.lua
@@ -11,6 +11,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: 
 --------------------------------------------------------------------------------
+local gameData = require("gameData")
 local loadingBG = nil
 local levelCompleteBG = nil
 local gameOverBG = nil 
@@ -29,7 +30,7 @@ local function loadingInit(loadGroup)
 		levelCompleteBG:scale(1.095, 1.095)
 
 		levelCompleteBG:toFront()
-	elseif gameOver == true then
+	elseif gameData.gameEnd == true then
 		gameOverBG = display.newImage('mapdata/art/background/screens/gameOver.png', 720, 450, true)
 		gameOverBG:scale(1.095, 1.095)
 		gameOverBG:toFront()

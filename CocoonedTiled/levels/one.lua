@@ -127,31 +127,32 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- Check which pane
 	if mapData.pane == "M" then	
 		-- Blue Aura
+		
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = map.tilesToPixels(26, 6)
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(26, 6)
 		
 		-- Pink rune
-		rune[4].x, rune[4].y = map.tilesToPixels(4.5, 4.5)			
+		rune[4].x, rune[4].y = generate.tilesToPixels(4.5, 4.5)			
 		rune[4].isVisible = true
 			
 		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(37, 7)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(37, 7)
 		
-		wisp[1].x, wisp[1].y = map.tilesToPixels(23, 6)
-		wisp[2].x, wisp[2].y = map.tilesToPixels(24, 8)
-		wisp[3].x, wisp[3].y = map.tilesToPixels(26, 9)
-		wisp[4].x, wisp[4].y = map.tilesToPixels(28, 9)
-		wisp[5].x, wisp[5].y = map.tilesToPixels(37, 10)
-		wisp[6].x, wisp[6].y = map.tilesToPixels(37, 13)
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(23, 6)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(24, 8)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(26, 9)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(28, 9)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(37, 10)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(37, 13)
 			
-		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)	 
+		wall[1].x, wall[1].y = generate.tilesToPixels(21, 12)	 
 				
-		auraWall[1].x, auraWall[1].y = map.tilesToPixels(6.5, 5) -- blueAuraWall
+		auraWall[1].x, auraWall[1].y = generate.tilesToPixels(6.5, 5) -- blueAuraWall
 		
-		generate.gAuraWalls(auraWall, map, mapData, 1, 1)
-		generate.gWisps(wisp, map, mapData, 1, 6)
-		generate.gWalls(wall, map, mapData, 1, 1)
+		--generate.gAuraWalls(auraWall, map, mapData, 1, 1)
+		--generate.gWisps(wisp, map, mapData, 1, 6)
+		--generate.gWalls(wall, map, mapData, 1, 1)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
@@ -163,9 +164,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	end
 
 	-- generates all objects in pane when locations are set
-	generate.gObjects(one, objects, map, mapData, rune)
+	--generate.gObjects(one, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
-	mObjects = generate.gMObjects(one, objects, map, mapData)
+	--Objects = generate.gMObjects(one, objects, map, mapData)
 	-- destroy the unused objects
 	generate.destroyObjects(one, rune, wisp, water, wall, objects)
 

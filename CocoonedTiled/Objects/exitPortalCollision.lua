@@ -12,14 +12,14 @@
 --------------------------------------------------------------------------------
 local sound = require("sound")
 local gameData = require("gameData")
-levelComplete = false
+local levelComplete = false
 
 --------------------------------------------------------------------------------
 -- Collide Function - end game if exit portal is active
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
 	
 	if collideObject.sequence == "move" and player.deathTimer == nil then

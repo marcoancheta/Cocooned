@@ -19,7 +19,7 @@ local sound = require("sound")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map, gui)
 	--sound.playSound(event, sound.auraPickupSound)
 	player = player
 	event.contact.isEnabled = false

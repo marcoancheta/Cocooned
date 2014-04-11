@@ -17,7 +17,7 @@ local sound = require("sound")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function collide(collideObject, player, event, mapData, map)
+function collide(collideObject, player, event, mapData, map, gui)
 	--sound.playSound(event, sound.totemSound)
 	if player.color ~= 'red' then
 		player:totemRepel(collideObject)

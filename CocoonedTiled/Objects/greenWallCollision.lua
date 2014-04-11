@@ -10,7 +10,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map, gui)
 	if player.color == 'green' then
 		event.contact.isEnabled = false
 	end

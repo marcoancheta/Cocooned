@@ -13,8 +13,10 @@
 local sound = require("sound")
 local gameData = require("gameData")
 local goals = require("goals")
+local play 
 
-levelComplete = false
+local levelComplete = false
+local guiClone = display.newGroup()
 
 -- Local mapData array clone
 local selectLevel = {
@@ -39,7 +41,8 @@ local function tapOnce(event)
 
 		play:removeEventListener("tap", tapOnce)
 		play:removeSelf();
-		goals.destroyGoals()
+		play = nil;
+		goals.destroyGoals(guiClone)
 		--transition.cancel()
 		
 		gameData.gameStart = true
@@ -66,19 +69,20 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map)
+local function collide(collideObject, player, event, mapData, map, gui)
 	event.other.isSensor = true
 	
 	local function resume()
-		ball.isBodyActive = true;
-		ball:setSequence("move");
+		event.other.isSensor = false
 	end
 	
 	local function temp()
 		ball.isBodyActive = false;
 		ball:setSequence("still")
-		local timer = timer.performWithDelay(100, resume); 
+		local timer = timer.performWithDelay(1000, resume);
 		--timer.performWithDelay(500, begin);
+		ball.isBodyActive = true;
+		ball:setSequence("move");
 	end
 						
 	local trans = transition.to(ball, {time=1500, x=collideObject.x, y=collideObject.y-15, onComplete = temp} )				
@@ -87,21 +91,13 @@ local function collide(collideObject, player, event, mapData, map)
 		if collideObject.name == "exitPortal" ..i.. "" then
 			selectLevel.levelNum = ""..i..""
 			selectLevel.pane = "M"
-			goals.refresh()
-			goals.findGoals(selectLevel)
+			--goals.refresh(gui)
+			guiClone = goals.findGoals(selectLevel, gui, map)
 			createLevelPlay(map)
 			gameData.mapData = selectLevel
 		end
 	end
 		
-	-- Level unlocked? Then create play button, else do nothing.
-	-- Unlock play button for level (i == levelNum+1)
-	--if i == 1 or i == 2 or i == 4 then
-	--	play.isVisible = true
-	--	play:toFront()
-	--else
-	--	play.isVisible = false
-	--end
 end
 
 --------------------------------------------------------------------------------
