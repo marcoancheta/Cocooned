@@ -167,12 +167,7 @@ local function changePane(mapData, player, player2, miniMap)
 	local map = display.newGroup()
 	local level
 	--dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
-	if mapData.pane == "M" then
-		level = display.newImage("mapdata/art/background/2/2-1.png")
-	else
-		level = display.newImage("mapdata/art/background/2/2-2.png")
-	end
-	
+	level = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png")	
 	level.anchorX = 0
 	level.anchorY = 0
 	map:insert(level)
