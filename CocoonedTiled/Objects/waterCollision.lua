@@ -21,8 +21,8 @@ gameOver = false
 --------------------------------------------------------------------------------
 function collide(collideObject, player, event, mapData, map)
 
-	
-	--event.contact.isEnabled = false
+	player.shook = false
+	event.contact.isEnabled = false
 
 	-- set players movement to inWater
 	player.movement ="inWater"
@@ -38,7 +38,7 @@ function collide(collideObject, player, event, mapData, map)
 	-- if death time is nil, set it
 	if player.deathTimer == nil then
 		audio.stop()
-		sound.playSound(event, sound.splashSound)
+		--sound.playSound(event, sound.splashSound)
 		player.deathTimer = timer.performWithDelay(5000, function() gameOver = true gameData.gameEnd = true end)
 		player.deathScreen = display.newSprite(sheetOptions.deathSheet, spriteOptions.deathAnimation)
 		player.deathScreen.x, player.deathScreen.y = 720, 432

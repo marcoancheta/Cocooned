@@ -42,9 +42,9 @@ local one = {
 		["fish2"] = 0,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
-		["greenTotem"] = 0,
+		["greenTotem"] = 1,
 		["switch"] = 0,
-		["switchWall"] = 0,
+		["switchWall"] = 1,
 		["exitPortal"] = 1,
 		["enemy"] = 0,
 	},
@@ -146,6 +146,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[4].x, wisp[4].y = map.tilesToPixels(28, 9)
 		wisp[5].x, wisp[5].y = map.tilesToPixels(37, 10)
 		wisp[6].x, wisp[6].y = map.tilesToPixels(37, 13)
+		--TODO: add greenRune and switchwall
+		switchWall[1].x, switchWall[1].y = map.tilesToPixels(23, 13)
+		greenRune[1].x, greenRune[1].y = map.tilesToPixels(26, 7)
+
 			
 		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)	 
 				

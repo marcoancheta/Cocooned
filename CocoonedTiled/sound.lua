@@ -28,6 +28,7 @@ local function playSound(event, name)
 	if isChannel4Playing then
 		audio.stop( 4 )
 	end
+	print("name: ", name)
 	local temp = audio.play(name, {channel = 4, 
 									 loops = 0, 
 								onComplete = function() audio.dispose(name)

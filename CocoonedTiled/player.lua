@@ -27,8 +27,11 @@ local sound = require("sound")
 -- Updated by: Andrew added xForce and yForce used in speedUp in gameloop
 --------------------------------------------------------------------------------
 playerInstance = {
-	x=0,
+	x =0,
 	y=0,
+	preCollision=false,
+	preCollisionX=0,
+	preCollisionY=0,
 	magnetized='nuetral', -- {negative, nuetral, positive}
 	color='white',
 	image = 'null',
@@ -267,6 +270,7 @@ function changeBodyType(event)
 	for check = 1, params.param1.layer["tiles"].numChildren do
 		currName = string.sub(params.param1.layer["tiles"][check].name,1,10)
 		if  currName == "switchWall" then
+			--TODO: make sure switch walls stays passThru
 			params.param1.layer["tiles"][check].bodyType = "dynamic"
  			params.param1.layer["tiles"][check].isFixedRotation = true
 		end

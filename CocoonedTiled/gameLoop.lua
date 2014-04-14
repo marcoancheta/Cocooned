@@ -193,16 +193,25 @@ local function speedUp(event)
 			for check = 1, map.layer["tiles"].numChildren do
 			currObject = map.layer["tiles"][check]
 				if currObject.accel == true then
-					local vel = 40
+					local yVel = 40
+					local xVel = 40
+					-- check for verticalMovable property
 					if player1.yGrav<0 then
-						vel = -40
+						yVel = -40
 					elseif player1.yGrav == 0 then
-						vel = 0
+						yVel = 0
+					end
+					--check for horizontalMovable property
+					if player1.xGrav<0 then
+						xVel = -40
+					elseif player1.xGrav == 0 then
+						xVel = 0
 					end
 					--print(string.sub(currObject.name,1,10))
+					
 					if string.sub(currObject.name,1,10) == "switchWall"then
-						currObject.x = currObject.defX
-						currObject:setLinearVelocity(0, vel)
+						--currObject.x = currObject.defX
+						currObject:setLinearVelocity(xVel, yVel)
 					end
 				end
 			end

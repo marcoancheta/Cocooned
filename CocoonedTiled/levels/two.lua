@@ -43,7 +43,7 @@ local two = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0,
+		["switchWall"] = 1,
 		["exitPortal"] = 1,
 		["enemy"] = 0,
 	},
@@ -126,20 +126,22 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	
 	-- Check which pane
 	if mapData.pane == "M" then
+		-- Green rune
+		rune[2].x, rune[2].y = map.tilesToPixels(21, 3)			
+		rune[2].isVisible = true
 		-- Portal
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(38, 7)
 				
-		-- Wisps
-		--[[
-		wisp[1].x, wisp[1].y = map.tilesToPixels(5, 9)
-		wisp[2].x, wisp[2].y = map.tilesToPixels(5, 11)
-		wisp[3].x, wisp[3].y = map.tilesToPixels(5, 13)
-		wisp[4].x, wisp[4].y = map.tilesToPixels(5, 15)
-		]]--
+		-- MovableWall
+		objects["switchWall1"].x, objects["switchWall1"].y = map.tilesToPixels(18, 15)
+
+		objects["switchWall1"].accel = true
+		objects["switchWall1"].collType = "passThru"
 						
 		-- Water			
 		water[1].x, water[1].y = map.tilesToPixels(18.2, 15.5)
+		water[1].collType = "passThru"
 		
 		-- Walls
 		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)

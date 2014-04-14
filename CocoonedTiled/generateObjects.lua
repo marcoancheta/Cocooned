@@ -69,7 +69,7 @@ local function gObjects(level, objects, map, pane, runes)
 
 			-- set properties and add to physics group
 			objects[name .. j].func = name .. "Collision"
-			physics.addBody(objects[name ..j], "static", {bounce = 0})
+			physics.addBody(objects[name ..j], "static", {bounce = 0, filter = {  groupIndex = -1 }})
 			objects[name ..j].collType = "passThru"
 		end
 	end
@@ -210,7 +210,7 @@ local function gWater(water, map, mapData, startIndex, endIndex)
 		water[i]:setFillColor(0, 0, 0, 0)
 	    water[i].func = "waterCollision"
 	   	water[i].collType = "passThru"
-		water[i].escape = "topRight"
+		water[i].escape = "up"
 	    water[i].name = "water"
 	end
 	
@@ -249,7 +249,7 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		wall[i]:setFillColor(0, 0, 0, 0)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
-
+	    
 	end
 	
 	-- add physics body for wall for collision

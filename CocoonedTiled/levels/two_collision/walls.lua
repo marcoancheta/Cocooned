@@ -433,211 +433,211 @@ function M.physicsData(scale)
                     
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -223.5, -220  ,  -254.5, -185  ,  -253.5, -215  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -409.5, 2  ,  -343.5, -27  ,  -398.5, 22  ,  -410.5, 18  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   481.166625976562, -142.666656494141  ,  429.5, -167  ,  467.5, -168  ,  486.5, -155  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -392.5, 33  ,  -358.5, 242  ,  -431.5, 66  ,  -431.5, 42  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   467.5, -57  ,  471.5, -115  ,  510.5, -84  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   359.5, -208  ,  160.5, -259  ,  333.166687011719, -244  ,  359.5, -226  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -254.5, -185  ,  -131.5, -220  ,  -278.5, -163  ,  -277.5, -175  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   571.5, 34  ,  510.5, 86.6666717529297  ,  551.5, 10  ,  569.5, 21  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -330.5, -89  ,  -293.5, -148  ,  -318.5, -67  ,  -331.5, -79  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -38.5, -267  ,  20.5, -272  ,  -83.5, -244  ,  -90.5, -259  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   504.5, -26  ,  500.5, -12  ,  467.5, -57  ,  496.5, -46  ,  505.5, -35  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -368.5, -125  ,  -293.5, -148  ,  -330.5, -89  ,  -372.5, -110  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -110.5, 268  ,  -293.5, -148  ,  -278.5, -163  ,  -131.5, -220  ,  -107.5, -224  ,  -48.5, 262  ,  -75.5, 275  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -160.5, -232  ,  -139.5, -227  ,  -131.5, -220  ,  -254.5, -185  ,  -223.5, -220  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   289.5, 241  ,  400.5, 193  ,  399.5, 206  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -431.5, 66  ,  -486.5, 145  ,  -499.5, 126  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   478.5, -129  ,  471.5, -115  ,  429.5, -167  ,  481.166625976562, -142.666656494141  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   467.5, -57  ,  360.5, -191  ,  408.5, -181  ,  429.5, -167  ,  471.5, -115  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   510.5, 86.6666717529297  ,  479.833374023438, 125.33332824707  ,  500.5, -12  ,  535.5, -1  ,  551.5, 10  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   479.833374023438, 125.33332824707  ,  464.5, 127  ,  45.1666870117188, -278.666687011719  ,  108.5, -275  ,  360.5, -191  ,  467.5, -57  ,  500.5, -12  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   98.5, 278  ,  46.5, 267  ,  26.5, 258  ,  152.5, 258  ,  126.5, 274  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   160.5, -259  ,  108.5, -275  ,  137.166687011719, -272  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   289.5, 241  ,  363.5, 218  ,  317.5, 242  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -343.5, -27  ,  -392.5, 33  ,  -398.5, 22  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -568.5, 179  ,  -486.5, 145  ,  -460.5, 221  ,  -504.5, 216  ,  -535.5, 205  ,  -567.5, 186  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -431.5, 66  ,  -358.5, 242  ,  -434.5, 235  ,  -460.5, 221  ,  -486.5, 145  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -343.5, -27  ,  -271.5, 255  ,  -343.5, 253  ,  -358.5, 242  ,  -392.5, 33  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   400.5, 193  ,  289.5, 241  ,  205.166687011719, 254.666666030884  ,  171.5, 248  ,  441.5, 154  ,  418.5, 182  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -318.5, -67  ,  -167.5, 263  ,  -239.5, 265  ,  -271.5, 255  ,  -343.5, -27  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   -293.5, -148  ,  -110.5, 268  ,  -167.5, 263  ,  -318.5, -67  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   20.5, -272  ,  -48.5, 262  ,  -107.5, -224  ,  -83.5, -244  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   360.5, -191  ,  160.5, -259  ,  359.5, -208  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   26.5, 258  ,  171.5, 248  ,  152.5, 258  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = -1 },
                     shape = {   26.5, 258  ,  -25.5, 257  ,  45.1666870117188, -278.666687011719  ,  464.5, 127  ,  441.5, 154  ,  171.5, 248  }
                     }
                      ,
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    filter = { groupIndex = -1 },
                     shape = {   45.1666870117188, -278.666687011719  ,  -25.5, 257  ,  -48.5, 262  ,  20.5, -272  }
                     }
                     
