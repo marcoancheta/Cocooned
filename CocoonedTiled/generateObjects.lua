@@ -30,10 +30,10 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	wisp[i].name = "wisp" .. i
 
 	   	-- insert wisp into map display group
-		if mapData.levelNum ~= "2" then
-			map.layer["tiles"]:insert(wisp[i])
-		else
+		if mapData.levelNum ~= "LS" then
 			map:insert(wisp[i])
+		else
+			map.layer["tiles"]:insert(wisp[i])
 		end
 
 		-- add physics body for wisp for collision
@@ -69,10 +69,10 @@ local function gObjects(level, objects, map, mapData, runes)
 			
 			-- add object to map display group
 
-			if mapData.levelNum ~= "2" then
-				map.layer["tiles"]:insert(objects[name .. j])
+			if mapData.levelNum ~= "LS" then
+				map:insert(objects[name .. j])				
 			else
-				map:insert(objects[name .. j])
+				map.layer["tiles"]:insert(objects[name .. j])
 			end
 		end
 	end
@@ -81,10 +81,10 @@ local function gObjects(level, objects, map, mapData, runes)
 	for i = 1, #runes do
 		-- check if rune is visible and if so, add to map display group
 		if runes[i].isVisible == true then
-			if mapData.levelNum ~= "2" then
-				map.layer["tiles"]:insert(runes[i])
-			else
+			if mapData.levelNum ~= "LS" then
 				map:insert(runes[i])
+			else
+				map.layer["tiles"]:insert(runes[i])
 			end
 		end
 	end
@@ -212,7 +212,7 @@ local function gWater(water, map, mapData, startIndex, endIndex)
 		end
 		-- set properties of water
 		water[i].isVisible = true
-		water[i]:setFillColor(0, 1, 0, 1)
+		water[i].alpha = 0;
 		water[i].func = "waterCollision"
 		water[i].collType = "passThru"
 		water[i].escape = "topRight"
@@ -254,14 +254,14 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 	
 	for i=startIndex, endIndex do
 	   	-- insertwater into map display group
-	   	if mapData.levelNum ~= "2" then
+	   	if mapData.levelNum ~= "LS" then
+	   		map:insert(wall[i])
+		else			
 			map.layer["tiles"]:insert(wall[i])
-		else
-			map:insert(wall[i])
 		end
 		-- set properties of wisps
 	   	wall[i].isVisible = true
-		wall[i]:setFillColor(1, 0, 0, 1)
+	   	wall[i].alpha = 0
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
 	    print("inserted walls")
@@ -280,7 +280,7 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		physicsData[1] = (require "levels.one_collision.walls").physicsData(1.0)
 		-- assign physics according to pane.
 		if mapData.pane == "M" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("1-1") )
+			physics.addBody(wall[1], "static", physicsData[1]:get("1-1_BB") )
 		end
 	elseif mapData.levelNum == "2" then
 		-- load in physics data.
@@ -319,10 +319,15 @@ local function gAuraWalls(auraWall, map, mapData, startIndex, endIndex)
 		
 	for i=startIndex, endIndex do
 	   	-- insertwater into map display group
-		map.layer["tiles"]:insert(auraWall[i])
+	   	if mapData.levelNum ~= "LS" then
+	   		map:insert(auraWall[i])
+	   	else
+	   		map.layer["tiles"]:insert(auraWall[i])
+	   	end
+		
 		-- set properties of wisps
 	   	auraWall[i].isVisible = true
-		auraWall[i]:setFillColor(1, 0, 0, 1)
+	   	auraWall[i].alpha = 0
 	   	auraWall[i].collType = "passThru"
 		auraWall[i].func = "blueWallCollision"
 	    auraWall[i].name = "blueWall"

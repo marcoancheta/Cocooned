@@ -73,19 +73,12 @@ local function createLevel(mapData, player1, player2)
 	-- Load in map
 	local map = display.newGroup()
 	if mapData.levelNum ~= "LS" then
-		if mapData.levelNum == "2" then
-			
-			print("map found")
-			local level
-			level = display.newImage("mapdata/art/background/2/2-1.png")
-			level.anchorX = 0
-			level.anchorY = 0
-			map:insert(level)
-			
-		else
-			map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
-		end
-
+		print("map found")
+		local level
+		level = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png")
+		level.anchorX = 0
+		level.anchorY = 0
+		map:insert(level)
 	else
 		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/LS.json")
 	end

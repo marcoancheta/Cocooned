@@ -150,9 +150,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 				
 		auraWall[1].x, auraWall[1].y = generate.tilesToPixels(6.5, 5) -- blueAuraWall
 		
-		--generate.gAuraWalls(auraWall, map, mapData, 1, 1)
-		--generate.gWisps(wisp, map, mapData, 1, 6)
-		--generate.gWalls(wall, map, mapData, 1, 1)
+		generate.gAuraWalls(auraWall, map, mapData, 1, 1)
+		generate.gWisps(wisp, map, mapData, 1, 6)
+		generate.gWalls(wall, map, mapData, 1, 1)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
@@ -164,9 +164,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	end
 
 	-- generates all objects in pane when locations are set
-	--generate.gObjects(one, objects, map, mapData, rune)
+	generate.gObjects(one, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
-	--Objects = generate.gMObjects(one, objects, map, mapData)
+	Objects = generate.gMObjects(one, objects, map, mapData)
 	-- destroy the unused objects
 	generate.destroyObjects(one, rune, wisp, water, wall, objects)
 
