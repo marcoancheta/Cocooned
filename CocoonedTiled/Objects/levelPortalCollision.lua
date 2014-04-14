@@ -13,17 +13,6 @@
 local sound = require("sound")
 local gameData = require("gameData")
 local goals = require("goals")
-local play 
-
-local levelComplete = false
--- Local mapData array clone
-local selectLevel = {
-	levelNum = 0,
-	pane = "M",
-	version = 0
-}
-
-local guiLevel = display.newGroup()
 
 --------------------------------------------------------------------------------
 -- Collide Function - end game if exit portal is active
@@ -31,9 +20,18 @@ local guiLevel = display.newGroup()
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
+	-- Local mapData array clone
+	local selectLevel = {
+		levelNum = 0,
+		pane = "M",
+		version = 0
+	}
+
+	-- Turn off portal collision (temporarily)
 	event.other.isSensor = true
 	
 	local function resume()
+		-- Re-enable portal collision
 		event.other.isSensor = false
 		ball:setSequence("move");
 	end
@@ -63,7 +61,6 @@ end
 --------------------------------------------------------------------------------
 local levelPortalCollision = {
 	collide = collide
-	
 }
 
 return levelPortalCollision

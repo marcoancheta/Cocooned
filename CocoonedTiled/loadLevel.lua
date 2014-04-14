@@ -13,7 +13,7 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- level finished function (levelFinished.lua)
-require("levelFinished")
+--local levelFinished = require("levelFinished")
 -- Dusk Engine (Dusk.lua)
 local dusk = require("Dusk.Dusk")
 -- miniMap function (miniMap.lua)
@@ -26,10 +26,6 @@ local loading = require("loadingScreen")
 local player = require("player")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("collisionDetection")
--- Touch mechanics (touchMechanic.lua)
-local touch = require("touchMechanic")
--- Menu variables/objects (menu.lua)
-local menu = require("menu")
 -- Goals (goals.lua)
 local goals = require("goals")
 
@@ -186,7 +182,7 @@ local function changePane(mapData, player, player2, miniMap)
 
 	--TODO: how does checkWin work?
 	-- check if player has finished level
-	--checkWin(player, map, mapData)
+	--levelFinished.checkWin(player, map, mapData)
 	-- return new pane
 	return map
 end

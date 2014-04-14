@@ -373,7 +373,6 @@ local function gameLoopEvents(event)
 		menu.ingameOptionsbutton(event, map)
 		
 		-- Re-evaluate gameData booleans
-		gameData.menuOn = false
 		gameData.ingame = true
 		gameData.allowPaneSwitch = true
 		gameData.allowMiniMap = true
@@ -385,9 +384,9 @@ local function gameLoopEvents(event)
 	-- If game has ended do:
 	if gameData.gameEnd then
 		clean(event)
-		gameData.menuOn = true
 		
 		-- set booleans
+		gameData.menuOn = true
 		gameData.gameEnd = false
 	elseif gameData.levelRestart == true then
 		clean(event)
@@ -395,9 +394,8 @@ local function gameLoopEvents(event)
 		if gameData.menuOn ~= true then
 			gameData.selectLevel = true
 		else
-			-- reset pane to middle pane
-			local mapD = gameData.mapData
-			mapD.pane = 'M'
+			-- reset mapData variables
+			mapData.pane = "M"
 			gameData.gameStart = true
 		end
 		
@@ -438,7 +436,6 @@ local function gameLoopEvents(event)
 		-- reset mapData variables
 		if mapData.pane ~= "M" then
 			mapData.pane = "M"
-			mapData.version = 0
 		end
 
 		-- Re-evaluate gameData booleans
@@ -461,9 +458,8 @@ local function gameLoopEvents(event)
 		menu.ingameMenu(event, player1, player2, gui)
 		
 		-- Remove object listeners
-		gui.back:removeEventListener("touch", swipeMechanics)
-		gui.back:removeEventListener("tap", tapMechanic)
-		gui.back:addEventListener("tap", tapMechanic)
+		map:removeEventListener("touch", swipeMechanics)
+		map:removeEventListener("tap", tapMechanic)
 		Runtime:removeEventListener("accelerometer", controlMovement)
 		Runtime:removeEventListener("enterFrame", speedUp)
 

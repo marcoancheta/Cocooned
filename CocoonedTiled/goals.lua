@@ -6,8 +6,6 @@
 --------------------------------------------------------------------------------
 local gameData = require("gameData")
 
-local goals = {}
-
 ---------------------
 -- Local variables
 ---------------------
@@ -45,7 +43,11 @@ for i=1, #rune do
 	rune[i].isVisible = false
 end
 
--- Destroy it all!
+--------------------------------------------------------------------------------
+-- Destroy Goals - Destroy it all!
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function destroyGoals()
 	print("Destroyed goalie")	
 	
@@ -128,7 +130,11 @@ local function drawGoals(gui, map)
 	end
 end
 
--- findGoals: set and adjust goals via their respected level
+--------------------------------------------------------------------------------
+-- Find Goals - set and adjust goals via their respected level
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function findGoals(mapData, gui)
 	local xCoord = 720
 	local tempData = mapData.levelNum
@@ -157,9 +163,11 @@ local function findGoals(mapData, gui)
 	end
 end
 
--- Pass into globals
-goals.findGoals = findGoals
-goals.drawGoals = drawGoals
-goals.destroyGoals = destroyGoals
+local goals = {
+	-- Pass into globals
+	findGoals = findGoals,
+	drawGoals = drawGoals,
+	destroyGoals = destroyGoals
+}
 
 return goals

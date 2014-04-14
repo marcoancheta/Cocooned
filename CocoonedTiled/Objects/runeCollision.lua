@@ -10,7 +10,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-require("levelFinished")
+local levelFinished = require("levelFinished")
 local gameData = require("gameData")
 local sound = require("sound")
 
@@ -78,9 +78,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- remove rune
  	collideObject:removeSelf()
 
-
  	-- check if player has reached level goal
- 	checkWin(player, map, mapData)
+ 	levelFinished.checkWin(player, map, mapData)
 end
 
 --------------------------------------------------------------------------------
