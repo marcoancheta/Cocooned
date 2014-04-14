@@ -61,6 +61,7 @@ local paneTransition = require("paneTransition")
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
+local gameLoop = {}
 
 -- Initialize ball
 local ball
@@ -333,7 +334,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco - added selectLevel.clean in gameStart if statement 
 --------------------------------------------------------------------------------
-local function gameLoop(event)
+local function gameLoopEvents(event)
 	-- Run monitorMemory from open to close.
 	memory.monitorMem()
 				
@@ -384,7 +385,8 @@ local function gameLoop(event)
 	-- If game has ended do:
 	if gameData.gameEnd then
 		clean(event)
-	
+		gameData.menuOn = true
+		
 		-- set booleans
 		gameData.gameEnd = false
 	elseif gameData.levelRestart == true then
@@ -493,9 +495,6 @@ local function gameLoop(event)
 	end	
 end
 
---------------------------------------------------------------------------------
--- Call gameLoop && menuLoop every 30 fps
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-Runtime:addEventListener("enterFrame", gameLoop)
+gameLoop.gameLoopEvents = gameLoopEvents
+
+return gameLoop

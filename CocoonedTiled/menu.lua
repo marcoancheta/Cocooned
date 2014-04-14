@@ -160,17 +160,20 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function MainMenu(event)
-	physics.start()
 	print("In Main Menu")
-	-- Create new menu display group
-	menuGroup = display.newGroup()
 	
+	-- Create new menu display group
+	if menuGroup then
+		menuGroup:removeSelf()
+		menuGroup = nil
+	end
+			
 	local main = display.newImageRect("mapdata/art/TitleScreen.png", 1425, 900, true)
 	local play = display.newImageRect("mapdata/art/buttons/newgame.png", 400, 150, true)
-	play:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
-	  
 	local options = display.newImageRect("mapdata/art/buttons/options.png", 400, 150, true)
-	options:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
+	
+	play:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
+	options:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 
 	
 	-- Add main menu background image
 	main.x = display.contentCenterX
@@ -185,6 +188,8 @@ local function MainMenu(event)
 	options.x = display.contentCenterX
 	options.y = display.contentCenterY + 270
 	options.name = "optionButton"
+	
+	menuGroup = display.newGroup()
 	
 	-- Insert all images/buttons into group
 	menuGroup:insert(main)
@@ -348,8 +353,7 @@ local menu = {
 	MainMenu = MainMenu,
 	Options = Options,
 	ingameOptionsbutton = ingameOptionsbutton,
-	ingameMenu = ingameMenu,
-	buttonPressed = buttonPressed
+	ingameMenu = ingameMenu
 }
 
 return menu

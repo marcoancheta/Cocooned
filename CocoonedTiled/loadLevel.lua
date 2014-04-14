@@ -30,6 +30,8 @@ local collisionDetection = require("collisionDetection")
 local touch = require("touchMechanic")
 -- Menu variables/objects (menu.lua)
 local menu = require("menu")
+-- Goals (goals.lua)
+local goals = require("goals")
 
 -- set variables for loading screen
 local loaded = 0
@@ -51,7 +53,7 @@ local deleteClosure = function() return loading.deleteLoading(level) end
 local function createLevel(mapData, player1, player2)
 
 	loaded = 0 -- current loading checkpoint, max is 6
-	level =  mapData.levelNum
+	local level = mapData.levelNum
 
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
@@ -70,24 +72,26 @@ local function createLevel(mapData, player1, player2)
 
 	-- Load in map
 	local map
-	if mapData.levelNum ~= "LS" then
-		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/M.json")
-		map.name = "map"
+	if level ~= "LS" then
+		map = dusk.buildMap("mapdata/levels/" .. level .. "/M.json")
 	else
-		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/LS.json")
-		map.name = "map"
+		-- mapData.levelNum = "LS"
+		-- print(mapData.levelNum)
+		map = dusk.buildMap("mapdata/levels/" .. level .. "/LS.json")
+		goals.drawGoals(gui, map)
 	end
 	
+	map.name = "map"	
 	objects.main(mapData, map, player)
 
 	-- set players location
 	ball = player1.imageObject
 	
 	-- set players location according to level
-	if mapData.levelNum == "LS" then
+	if level == "LS" then
 		ball.x, ball.y = map.tilesToPixels(24, 18)
 		player2Params.active = false
-	elseif mapData.levelNum == "1" then
+	elseif level == "1" then
 		ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 0.5, map.playerLocation.y + 0.5)
 		if map.secondPlayerLocation.x > 0 and map.secondPlayerLocation.y > 0 then
 			player2Params.isActive=true
@@ -95,7 +99,7 @@ local function createLevel(mapData, player1, player2)
 		else
 			player2Params.active = false
 		end
-	elseif mapData.levelNum == "2" then
+	elseif level == "2" then
 		ball.x, ball.y = map.tilesToPixels(map.playerLocation.x, map.playerLocation.y - 8)
 		if map.secondPlayerLocation.x > 0 and map.secondPlayerLocation.y > 0 then
 			player2Params.isActive=true
@@ -103,7 +107,7 @@ local function createLevel(mapData, player1, player2)
 		else
 			player2Params.active = false
 		end
-	elseif mapData.levelNum == "4" then
+	elseif level == "4" then
 		ball.x, ball.y = map.tilesToPixels(map.playerLocation.x + 10, map.playerLocation.y - 1.5)
 	end
 	

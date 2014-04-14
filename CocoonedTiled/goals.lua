@@ -6,20 +6,17 @@
 --------------------------------------------------------------------------------
 local gameData = require("gameData")
 
+local goals = {}
+
 ---------------------
 -- Local variables
 ---------------------
 local gNum = 1
-local goalBox, textBox, box, coin
+local goalBox, textBox, box, play
 local textObject
-local bSet
 
-local goals = {}
-
--- Draw/Insert Objects
-local function drawGoals(text, rune, gui, map)
-	-- boxSettings
-	bSet = {
+-- boxSettings
+local bSet = {
 		font = nativeSystemfont,
 		fontSizeSM = 45,
 		fontSizeLG = 55,
@@ -33,7 +30,64 @@ local function drawGoals(text, rune, gui, map)
 		boxH = 50,
 		boxA = 0.5
 	}
+
+-- Load runes
+local rune = {
+	[1] = display.newImage("mapdata/art/runes/blueRune.png"),
+	[2] = display.newImage("mapdata/art/runes/greenRune.png"),
+	[3] = display.newImage("mapdata/art/runes/pinkRune.png"),
+	[4] = display.newImage("mapdata/art/runes/purpleRune.png"),
+	[5] = display.newImage("mapdata/art/runes/yellowRune.png")
+}
+
+-- Disable rune visibility
+for i=1, #rune do
+	rune[i].isVisible = false
+end
+
+-- Destroy it all!
+local function destroyGoals()
+	print("Destroyed goalie")	
+	
+	play = nil;
+	goalBox, textBox, box = nil
+	textObject, rune = nil
+end
+
+--------------------------------------------------------------------------------
+-- Tap Once - function is called when player1 taps screen
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+local function tapOnce(event)
+	-- Kipcha Play button detection
+	-- If player1 taps silhouette kipcha, start game
+	if event.target.name == play.name then	
+		------------------------------------------------------------
+		-- remove all objects
+		------------------------------------------------------------
+		-- Destroy goals map
+		destroyGoals()
 		
+		gameData.gameStart = true
+	end		
+end
+
+--------------------------------------------------------------------------------
+-- Draw Goals - create find goal objects and images
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+local function drawGoals(gui, map)
+	-- Goal text displayer
+	local text = {
+		[1] = {
+			[1] = "Collect",
+			[2] = "runes:",
+			[3] = ""
+		}
+	}
+			
 	local boxH = bSet.boxH*#text[gNum]
 	
 	-- Draw the textObjects
@@ -41,7 +95,7 @@ local function drawGoals(text, rune, gui, map)
 	
 	-- create outer text box rectangle
 	textBox = display.newRect(740, 52, bSet.boxW, boxH)
-	textBox.x, textBox.y = map.tilesToPixels(20, 3)
+	textBox.x, textBox.y = map.tilesToPixels(22, 3)
 	textBox:setStrokeColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 	textBox:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 	textBox.strokeWidth = 15
@@ -57,65 +111,38 @@ local function drawGoals(text, rune, gui, map)
 		textObject[i].anchorX = 21
 	end
 		
+	-- Create play button
+	play = display.newImage("mapdata/art/buttons/sil_kipcha.png", 0, 0, true)
+	play.x, play.y = map.tilesToPixels(5, 4)
+	play:scale(1.5, 1.5)
+	play.name = "playButton"
+
+	play:addEventListener("tap", tapOnce)
 		
 	-- insert objects to display group
 	gui.front:insert(textBox)
+	gui.front:insert(play)
 	
 	for i=1, #textObject do
 		gui.front:insert(textObject[i])
 	end
-	
-	for i=1, #rune do
-		gui.front:insert(rune[i])
-		rune[i].isSensor = true
-	end
 end
 
 -- findGoals: set and adjust goals via their respected level
-local function findGoals(mapData, gui, map)
-	
+local function findGoals(mapData, gui)
 	local xCoord = 720
-	local temp = mapData.levelNum
-		
-	-- Load runes
-	local rune = {
-		[1] = display.newImage("mapdata/art/runes/blueRune.png"),
-		[2] = display.newImage("mapdata/art/runes/greenRune.png"),
-		[3] = display.newImage("mapdata/art/runes/pinkRune.png"),
-		[4] = display.newImage("mapdata/art/runes/purpleRune.png"),
-		[5] = display.newImage("mapdata/art/runes/yellowRune.png")
-	}
-	
-	-- temp max Rune Amounts
-	local runeAMT = #rune
-	
-	-- Disable rune visibility
-	for i=1, #rune do
-		rune[i].isVisible = false
-		--rune[i].isBodyActive = true
-	end
-	
-	-- Goal text displayer
-	local text = {
-		[1] = {
-			[1] = "Collect",
-			[2] = "runes:",
-			[3] = "",
-			--[4] = "Coins:",
-			--[5] = "",
-			--[6] = "Key:",
-			--[7] = -50
-		}
-	}
-	
+	local tempData = mapData.levelNum
+	local runeAMT = 0
+						
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
-	if temp == "1" then
+	if tempData == "1" then
 		runeAMT = 1
-	elseif temp == "2" then
+	elseif tempData == "2" then
 		runeAMT = 1
-	elseif temp == "3" then
+	elseif tempData == "3" then
 		runeAMT = 3
-	elseif temp == "4" then
+		--createLevelPlay(map)
+	elseif tempData == "4" then
 		runeAMT = 4
 	else runeAMT = 0
 	end
@@ -124,30 +151,15 @@ local function findGoals(mapData, gui, map)
 	for i=1, runeAMT do
 		rune[i].x = xCoord + 10
 		rune[i].y = 90
-		rune[i]:scale(1, 1)
 		rune[i].isVisible = true
-		rune[i].isSensor = true
 		xCoord = xCoord + 50
+		gui.front:insert(rune[i])
 	end
-						
-	-- Call function to draw and insert objects
-	drawGoals(text, rune, gui, map)
-	
-	return gui
-end
-
-
--- Destroy it all!
-local function destroyGoals(gui)
-	print("Destroyed goalie")
-	goalBox, textBox, box = nil
-	textObject = nil
-	rune = nil
 end
 
 -- Pass into globals
 goals.findGoals = findGoals
-goals.refresh = refresh
+goals.drawGoals = drawGoals
 goals.destroyGoals = destroyGoals
 
 return goals

@@ -16,8 +16,6 @@ local goals = require("goals")
 local play 
 
 local levelComplete = false
-local guiClone = display.newGroup()
-
 -- Local mapData array clone
 local selectLevel = {
 	levelNum = 0,
@@ -25,44 +23,7 @@ local selectLevel = {
 	version = 0
 }
 
---------------------------------------------------------------------------------
--- Tap Once - function is called when player1 taps screen
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-local function tapOnce(event)
-	-- Kipcha Play button detection
-	-- If player1 taps silhouette kipcha, start game
-	if event.target.name == play.name then	
-		------------------------------------------------------------
-		-- remove all objects
-		------------------------------------------------------------
-		-- Destroy goals map
-
-		play:removeEventListener("tap", tapOnce)
-		play:removeSelf();
-		play = nil;
-		goals.destroyGoals(guiClone)
-		--transition.cancel()
-		
-		gameData.gameStart = true
-	end		
-end
-
---------------------------------------------------------------------------------
--- Create play button and level details
----------------------------------------------------	-----------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-local function createLevelPlay(map)
-	-- Create play button
-	play = display.newImage("mapdata/art/buttons/sil_kipcha.png", 0, 0, true)
-	play.x, play.y = map.tilesToPixels(5, 4)
-	play:scale(1.5, 1.5)
-	play.name = "playButton"
-	
-	play:addEventListener("tap", tapOnce)
-end
+local guiLevel = display.newGroup()
 
 --------------------------------------------------------------------------------
 -- Collide Function - end game if exit portal is active
@@ -74,15 +35,12 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	
 	local function resume()
 		event.other.isSensor = false
+		ball:setSequence("move");
 	end
 	
 	local function temp()
-		ball.isBodyActive = false;
 		ball:setSequence("still")
 		local timer = timer.performWithDelay(1000, resume);
-		--timer.performWithDelay(500, begin);
-		ball.isBodyActive = true;
-		ball:setSequence("move");
 	end
 						
 	local trans = transition.to(ball, {time=1500, x=collideObject.x, y=collideObject.y-15, onComplete = temp} )				
@@ -91,9 +49,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		if collideObject.name == "exitPortal" ..i.. "" then
 			selectLevel.levelNum = ""..i..""
 			selectLevel.pane = "M"
-			--goals.refresh(gui)
-			guiClone = goals.findGoals(selectLevel, gui, map)
-			createLevelPlay(map)
+			goals.findGoals(selectLevel, gui)
 			gameData.mapData = selectLevel
 		end
 	end
