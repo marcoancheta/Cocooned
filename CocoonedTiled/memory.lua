@@ -20,10 +20,11 @@ local textObject = {
 local prevTextMem = 0
 local prevMemCount = 0
 local monitorMem = function() collectgarbage("collect")
-local memCount = collectgarbage("count")
-local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
-		
+	local memCount = collectgarbage("count")
+	local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
+		  
 	if (prevMemCount ~= memCount) and (prevTextMem ~= textMem) then
+	
 		textObject[1].text = "Mem:" .. " " .. memCount
 		textObject[2].text = "Text:" .. " " .. textMem
 		textObject[3].text = "FPS:" .. " " .. display.fps
@@ -40,7 +41,6 @@ local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
 end
 
 local memory = {
-	textObject = textObject,
 	monitorMem = monitorMem
 }
 

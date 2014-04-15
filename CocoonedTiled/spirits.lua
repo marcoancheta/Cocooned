@@ -8,7 +8,6 @@ local pi = math.pi
 local rSpirits = {}
 local playerCoord = {}
 local spiritSprites = {}
-
 local temp = {}
 
 local function run(event)
