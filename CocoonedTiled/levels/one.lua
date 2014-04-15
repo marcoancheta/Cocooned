@@ -113,7 +113,6 @@ local one = {
 -- variable that holds objects of pane for later use
 local objectList
 local mObjectslocal
-local shadow
 
 --------------------------------------------------------------------------------
 -- load pane function
@@ -127,12 +126,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	
 	-- Check which pane
 	if mapData.pane == "M" then
-	
-		shadow = display.newImage("mapdata/art/background/1/shadow.png", true)
-		shadow.x, shadow.y = map.tilesToPixels(20.8, 13.3)
-		shadow:setFillColor(0, 0, 0, 0.3)
-		shadow.isVisible = false
-	
+		
 		-- Blue Aura
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
@@ -154,12 +148,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			
 		wall[1].x, wall[1].y = map.tilesToPixels(21, 12)
 				
-		auraWall[1].x, auraWall[1].y = map.tilesToPixels(6.5, 5) -- blueAuraWall
+		auraWall[1].x, auraWall[1].y = map.tilesToPixels(21, 12) -- blueAuraWall
 		
-		generate.gAuraWalls(auraWall, map, mapData, 1, 1)
 		generate.gWisps(wisp, map, mapData, 1, 6)
 		generate.gWalls(wall, map, mapData, 1, 1)
-		shadow.isVisible = true
+		generate.gAuraWalls(auraWall, map, mapData, 1, 1)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
@@ -207,7 +200,6 @@ local function destroyAll()
 		wall[i] = nil
 	end
 
-	display.remove(shadow)
 	
 	print("destroying objects", #mObjects)
 	-- destroy all moveable objects and stop moving them

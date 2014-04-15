@@ -12,6 +12,7 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
+
 	print("got to blue wall collision")
 	if player.color == 'blue' then
 		event.contact.isEnabled = false

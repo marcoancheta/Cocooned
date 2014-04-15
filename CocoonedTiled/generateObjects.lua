@@ -258,7 +258,7 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		physicsData[1] = (require "levels.one_collision.walls").physicsData(1.0)
 		-- assign physics according to pane.
 		if mapData.pane == "M" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("1-1_BB") )
+			physics.addBody(wall[1], "static", physicsData[1]:get("wall") )
 		end
 	elseif mapData.levelNum == "2" then
 		-- load in physics data.
@@ -286,7 +286,6 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
--- takes in a start and end index and creates those wisps only
 local function gAuraWalls(auraWall, map, mapData, startIndex, endIndex)
 	local physicsData = { }
 		
@@ -296,7 +295,7 @@ local function gAuraWalls(auraWall, map, mapData, startIndex, endIndex)
 		-- set properties of wisps
 	   	auraWall[i].isVisible = true
 		--auraWall[i]:setFillColor(1, 0, 0, 1)
-		auraWall[i].alpha = 0
+		auraWall[i].alpha = 0.8
 		auraWall[i].collType = "passThru"
 		auraWall[i].func = "blueWallCollision"
 	    auraWall[i].name = "blueWall"
@@ -304,8 +303,8 @@ local function gAuraWalls(auraWall, map, mapData, startIndex, endIndex)
 	
 	-- add physics body for wisp for collision
 	if mapData.levelNum == "1" then
-		physicsData[1] = (require "levels.one_collision.blueWall").physicsData(1.0)
-		physics.addBody(auraWall[1], "static", physicsData[1]:get("blueAuraWall") )
+		physicsData[1] = (require "levels.one_collision.walls").physicsData(1.0)
+		physics.addBody(auraWall[1], "static", physicsData[1]:get("bluewall") )
 	end
 end
 

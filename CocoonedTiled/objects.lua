@@ -127,9 +127,9 @@ local function createObjects(objectNumbers, mapData)
 		if mapData.pane == "M" then
 			print("creating lvl 1 walls")
 			-- Main walls
-			wall[1] = display.newImage("mapdata/art/background/1/1-1BB/1-1_BB.png", true)
+			wall[1] = display.newImage("mapdata/art/background/1/M/wall.png", true)
 			-- Aura walls
-			auraWall[1] = display.newImage("mapdata/art/auraWalls/blueAuraWall.png", true)
+			auraWall[1] = display.newImage("mapdata/art/background/1/M/bluewall.png", true)
 		end
 	elseif mapData.levelNum == "2" then
 		if mapData.pane == "M" then
