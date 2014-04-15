@@ -20,7 +20,7 @@ function M.physicsData(scale)
 	local physics = { data =
 	{ 
 		
-		["2-1-WALL4"] = {
+		["M"] = {
                     
                     
                     

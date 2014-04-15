@@ -221,14 +221,15 @@ local function gWater(water, map, mapData, startIndex, endIndex)
 	
 	-- add physics body for water for collision
 	if mapData.levelNum == "2" then
-		-- load in physics data.
+		--[[ load in physics data.
 		physicsData[1] = (require "levels.two_collision.walls").physicsData(1.0)
 		-- assign physics according to pane.
 		if mapData.pane == "M" then
-			physics.addBody(water[1], "static", physicsData[1]:get("2-1-WATER2") )	
+			physics.addBody(map, "static", physicsData[1]:get("2-1-WATER2") )	
 		elseif mapData.pane == "L" then
 			physics.addBody(water[1], "static", physicsData[1]:get("2-2-WATER2") )	
 		end
+		]]--
 	elseif mapData.levelNum == "4" then
 		-- load in physics data.
 		physicsData[1] = (require "levels.four_collision.walls").physicsData(1.0)
@@ -250,6 +251,7 @@ end
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
 local function gWalls(wall, map, mapData, startIndex, endIndex)
+
 	local physicsData = {}
 	
 	for i=startIndex, endIndex do
@@ -261,7 +263,7 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		end
 		-- set properties of wisps
 	   	wall[i].isVisible = true
-	   	wall[i].alpha = 0
+	   --	wall[i]:setFillColor(1,0,0,1)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
 	    print("inserted walls")
@@ -284,14 +286,15 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		end
 	elseif mapData.levelNum == "2" then
 		-- load in physics data.
-		physicsData[1] = (require "levels.two_collision.walls").physicsData(1.0)
-		physicsData[2] = (require "levels.storyborder_collision.border").physicsData(1.0)
+		physicsData[1] = (require "levels.two_collision.newWalls").physicsData(1.0)
+		--physicsData[2] = (require "levels.storyborder_collision.border").physicsData(1.0)
 		-- assign physics according to pane.
 		if mapData.pane == "M" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("2-1-WALL4") )
+
+			physics.addBody(wall[1], "static", physicsData[1]:get("M") )
 			--physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
 		elseif mapData.pane == "L" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("2-2-WALL4") )
+			physics.addBody(wall[1], "static", physicsData[1]:get("L") )
 			--physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
 		end
 

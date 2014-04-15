@@ -334,6 +334,8 @@ end
 -- Updated by: Marco - added selectLevel.clean in gameStart if statement 
 --------------------------------------------------------------------------------
 local function gameLoop(event)
+	physics.setDrawMode("hybrid")
+
 	-- Run monitorMemory from open to close.
 	memory.monitorMem()
 				

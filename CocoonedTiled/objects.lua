@@ -132,17 +132,19 @@ local function createObjects(objectNumbers, mapData)
 			auraWall[1] = display.newImage("mapdata/art/auraWalls/blueAuraWall.png", true)
 		end
 	elseif mapData.levelNum == "2" then
-		--[[
+		
 		if mapData.pane == "M" then
 			-- Level 2: Pane 'M'
-			wall[1] = display.newImage("mapdata/art/background/2/2-1BB/2-1-WALL4.png", true)
+			wall[1] = display.newGroup();
+			wall[1].anchorX = -1
+			wall[1].anchorY = 25
 			water[1] = display.newImage("mapdata/art/background/2/2-1BB/2-1-WATER2.png", true)
 		elseif mapData.pane == "L" then
 			-- Level 2: Pane 'L'
-			wall[1] = display.newImage("mapdata/art/background/2/2-2BB/2-2-WALL4.png", true)
+			wall[1] = display.newGroup();
 			water[1] = display.newImage("mapdata/art/background/2/2-2BB/2-2-WATER2.png", true)
 		end		
-		]]
+		
 	elseif mapData.levelNum == "4" then
 		if mapData.pane == "M" then
 			-- Level 4: Pane 'M'
