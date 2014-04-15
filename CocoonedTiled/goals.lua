@@ -13,6 +13,8 @@ local gNum = 1
 local goalBox, textBox, box, play
 local textObject
 
+local rune = { }
+
 -- boxSettings
 local bSet = {
 		font = nativeSystemfont,
@@ -29,19 +31,6 @@ local bSet = {
 		boxA = 0.5
 	}
 
--- Load runes
-local rune = {
-	[1] = display.newImage("mapdata/art/runes/blueRune.png"),
-	[2] = display.newImage("mapdata/art/runes/greenRune.png"),
-	[3] = display.newImage("mapdata/art/runes/pinkRune.png"),
-	[4] = display.newImage("mapdata/art/runes/purpleRune.png"),
-	[5] = display.newImage("mapdata/art/runes/yellowRune.png")
-}
-
--- Disable rune visibility
-for i=1, #rune do
-	rune[i].isVisible = false
-end
 
 --------------------------------------------------------------------------------
 -- Destroy Goals - Destroy it all!
@@ -51,9 +40,20 @@ end
 local function destroyGoals()
 	print("Destroyed goalie")	
 	
-	play = nil;
-	goalBox, textBox, box = nil
-	textObject, rune = nil
+	local removeObj = {
+		[1] = play,
+		[2] = goalBox,
+		[3] = textBox,
+		[4] = box,
+		[5] = textObject,
+		[6] = rune
+	}
+	
+	for i=1, #removeObj do
+		display.remove(removeObj[i])
+	end
+	
+	removeObj = nil
 end
 
 --------------------------------------------------------------------------------
@@ -139,6 +139,20 @@ local function findGoals(mapData, gui)
 	local xCoord = 720
 	local tempData = mapData.levelNum
 	local runeAMT = 0
+	
+	local locs = {
+		[1] = "mapdata/art/runes/blueRune.png",
+		[2] = "mapdata/art/runes/greenRune.png",
+		[3] = "mapdata/art/runes/pinkRune.png",
+		[4] = "mapdata/art/runes/purpleRune.png",
+		[5] = "mapdata/art/runes/yellowRune.png"
+	}
+	
+	-- Load runes
+	for i=1, #locs do
+		rune[i] = display.newImage(locs[i])
+		rune[i].isVisible = false
+	end
 						
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData == "1" then
@@ -147,10 +161,8 @@ local function findGoals(mapData, gui)
 		runeAMT = 1
 	elseif tempData == "3" then
 		runeAMT = 3
-		--createLevelPlay(map)
 	elseif tempData == "4" then
 		runeAMT = 4
-	else runeAMT = 0
 	end
 
 	-- Position and draw in goal displayer
@@ -166,8 +178,7 @@ end
 local goals = {
 	-- Pass into globals
 	findGoals = findGoals,
-	drawGoals = drawGoals,
-	destroyGoals = destroyGoals
+	drawGoals = drawGoals
 }
 
 return goals
