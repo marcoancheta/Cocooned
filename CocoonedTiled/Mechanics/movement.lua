@@ -10,7 +10,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: 
 --------------------------------------------------------------------------------
-local sound = require("sound")
+local sound = require("sounds.sound")
 local highestSpeed = 0
 local count = 0
 

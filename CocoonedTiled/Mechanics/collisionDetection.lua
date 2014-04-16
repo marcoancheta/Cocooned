@@ -44,16 +44,17 @@ function createCollisionDetection(imageObject, player, mapData, gui, map)
       audio.play(wallHitSound)
    end
 
-    --let the ball go through water
-    if collideObject.name == "water" then
-      -- disabled collision
-      event.contact.isEnabled = false
-    end
+  --let the ball go through water
+  if collideObject.name == "water" then
+    -- disabled collision
+    print("collided with water")
+    event.contact.isEnabled = false
+  end
 
-    if collideObject.name == "wind" then
-      local col = require("Objects." .. collideObject.func)
-      col.collide(collideObject, player, event, mapData, map, gui)
-    end
+  if collideObject.name == "wind" then
+    local col = require("Objects." .. collideObject.func)
+    col.collide(collideObject, player, event, mapData, map, gui)
+  end
    
 
   end

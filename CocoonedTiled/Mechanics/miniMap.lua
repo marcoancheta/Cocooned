@@ -11,7 +11,7 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
-local gameData = require("gameData")
+local gameData = require("Core.gameData")
 -- Dusk Engine (Dusk.lua)
 local dusk = require("Dusk.Dusk")
 
@@ -20,7 +20,7 @@ local dusk = require("Dusk.Dusk")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function createMiniMap(mapData, player, map)
+local function createMiniMap(mapData, map)
 	--hold miniMap panes
 	local miniMapTable = {}
 	
@@ -114,14 +114,12 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function updateMiniMap(mapPane, miniMap, gui, player1, player2)	
+local function updateMiniMap(mapPane, miniMap, gui, player1)	
 	local temp = gui.back[1]
 	
 	-- set player image object to invisible for display capture
 	player1.imageObject.isVisible = false
-	if player2.isActive == true then
-		player2.imageObject.isVisible = false
-	end
+
 
 	-- capture display group image for new miniMap display
 	local pane = display.capture(temp)
@@ -186,9 +184,6 @@ local function updateMiniMap(mapPane, miniMap, gui, player1, player2)
 
 	-- set player image object to visible once update is done
 	player1.imageObject.isVisible = true
-	if player2.isActive == true then
-		player2.imageObject.isVisible = true
-	end
 
 	--checkInventory(miniMap[8], player)
 end
@@ -199,7 +194,6 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function moveMiniMap(miniMap, mapData, gui, event)
-
 	-- hold current pane for later use
 	local tempPane = mapData.pane
 

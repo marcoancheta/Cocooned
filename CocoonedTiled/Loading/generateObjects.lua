@@ -10,9 +10,11 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- moveable object class that creates moveable objects (moveableObject.lua)
-local moveableObject = require("moveableObject")
+local moveableObject = require("Loading.moveableObject")
 -- wind emmiter object class (windEmitter.lua)
-local windEmitterMechanic = require("windEmitter")
+local windEmitterMechanic = require("Mechanics.windEmitter")
+
+local physicsData = require("Loading.physicsData")
 --------------------------------------------------------------------------------
 -- generate wisps functions
 --------------------------------------------------------------------------------
@@ -195,56 +197,6 @@ local function gMObjects(level, objects, map, mapData)
 end
 
 --------------------------------------------------------------------------------
--- Generate water functions
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
--- takes in a start and end index and creates those wisps only
-local function gWater(water, map, mapData, startIndex, endIndex)
-	local physicsData = {}
-	
-	for i=startIndex, endIndex do
-		-- insert water into map display group
-		if mapData.levelNum ~= "2" then
-			map.layer["tiles"]:insert(water[i])
-		else
-			map:insert(water[i])
-		end
-		-- set properties of water
-		water[i].isVisible = true
-		water[i].alpha = 0;
-		water[i].func = "waterCollision"
-		water[i].collType = "passThru"
-		water[i].escape = "topRight"
-		water[i].name = "water"
-	end
-	
-	-- add physics body for water for collision
-	if mapData.levelNum == "2" then
-		--[[ load in physics data.
-		physicsData[1] = (require "levels.two_collision.walls").physicsData(1.0)
-		-- assign physics according to pane.
-		if mapData.pane == "M" then
-			physics.addBody(map, "static", physicsData[1]:get("2-1-WATER2") )	
-		elseif mapData.pane == "L" then
-			physics.addBody(water[1], "static", physicsData[1]:get("2-2-WATER2") )	
-		end
-		]]--
-	elseif mapData.levelNum == "4" then
-		-- load in physics data.
-		physicsData[1] = (require "levels.four_collision.walls").physicsData(1.0)
-		-- assign physics according to pane.
-		if mapData.pane == "M" then
-			physics.addBody(water[1], "static", physicsData[1]:get("4-1WATER1") )
-			physics.addBody(water[2], "static", physicsData[1]:get("4-1WATER2") )
-		elseif mapData.pane == "R" then
-			physics.addBody(water[1], "static", physicsData[1]:get("4-2WATER1") )
-			physics.addBody(water[2], "static", physicsData[1]:get("4-2WATER2") )
-		end
-	end
-end
-
---------------------------------------------------------------------------------
 -- Generate walls functions
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
@@ -263,10 +215,9 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		end
 		-- set properties of wisps
 	   	wall[i].isVisible = true
-	   --	wall[i]:setFillColor(1,0,0,1)
+	   	--wall[i]:setFillColor(1,0,0,1)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
-	    print("inserted walls")
 	end
 	
 	-- add physics body for wall for collision
@@ -277,70 +228,42 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		if mapData.pane == "LS" then
 			physics.addBody(wall[1], "static", physicsData[1]:get("lvl_island"))
 		end
-	elseif mapData.levelNum == "1" then
-		-- load in physics data.
-		physicsData[1] = (require "levels.one_collision.walls").physicsData(1.0)
-		-- assign physics according to pane.
-		if mapData.pane == "M" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("1-1_BB") )
-		end
-	elseif mapData.levelNum == "2" then
-		-- load in physics data.
-		physicsData[1] = (require "levels.two_collision.newWalls").physicsData(1.0)
-		--physicsData[2] = (require "levels.storyborder_collision.border").physicsData(1.0)
-		-- assign physics according to pane.
-		if mapData.pane == "M" then
-
-			physics.addBody(wall[1], "static", physicsData[1]:get("M") )
-			--physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
-		elseif mapData.pane == "L" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("L") )
-			--physics.addBody(wall[2], "static", physicsData[2]:get("border2") )
-		end
-
-		--wall[2]:setFillColor(0, 0, 0, 1)
-	elseif mapData.levelNum == "4" then
-		-- load in physics data.
-		physicsData[1] = (require "levels.four_collision.walls").physicsData(1.0)
-		-- assign physics according to pane.
-		if mapData.pane == "M" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("4-1WALL") )
-		elseif mapData.pane == "R" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("4-2WALL") )
-		end
 	end
 end
 
 --------------------------------------------------------------------------------
--- Generate walls functions
+-- Generate aura walls collision
 --------------------------------------------------------------------------------
--- Updated by: Derrick
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-local function gAuraWalls(auraWall, map, mapData, startIndex, endIndex)
-	local physicsData = { }
-		
-	for i=startIndex, endIndex do
-	   	-- insertwater into map display group
-	   	if mapData.levelNum ~= "LS" then
-	   		map:insert(auraWall[i])
-	   	else
-	   		map.layer["tiles"]:insert(auraWall[i])
-	   	end
-		
-		-- set properties of wisps
-	   	auraWall[i].isVisible = true
-	   	auraWall[i].alpha = 0
-	   	auraWall[i].collType = "passThru"
-		auraWall[i].func = "blueWallCollision"
-	    auraWall[i].name = "blueWall"
-	end
-	
-	-- add physics body for wisp for collision
-	if mapData.levelNum == "1" then
-		physicsData[1] = (require "levels.one_collision.blueWall").physicsData(1.0)
-		physics.addBody(auraWall[1], "static", physicsData[1]:get("blueAuraWall") )
-	end
+local function gAuraWalls(map, mapData, type)
+	local auraWall = display.newImage("mapdata/art/background/blank.png")
+	auraWall.name = "type"
+	auraWall.collType = "passThru"
+	auraWall.func = type .. "Collision"
+	auraWall.x, auraWall.y = 720, 432
+	map:insert(auraWall)
+	physics.addBody(auraWall, "static", physicsData.getAura(mapData.levelNum):get(mapData.pane))
+
+end
+
+--------------------------------------------------------------------------------
+-- Generate water collision
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+-- takes in a start and end index and creates those wisps only
+local function gWater(map, mapData)
+	-- load in water collision
+	local water = display.newImage("mapdata/art/background/blank.png")
+	water.name = "water"
+	water.func = "waterCollision"
+	water.x = 720
+	water.y = 432
+	map:insert(water)
+	physics.addBody(water, "static", physicsData.getWater(mapData.levelNum):get(mapData.pane))
+
 end
 
 --------------------------------------------------------------------------------
@@ -367,33 +290,6 @@ local function destroyObjects(level, rune, wisp, water, objects)
 			wisp[i] = nil
 		end
 	end
-	
-	-- deleted extra water
-	for i = 1, level.waterCount do
-		--print("energyCount:", i)
-		if water[i].isVisible == false then
-			water[i]:removeSelf()
-			water[i] = nil
-		end
-	end
-	
-	-- deleted extra walls
-	for i = 1, level.wallCount do
-		--print("energyCount:", i)
-		if wall[i].isVisible == false then
-			wall[i]:removeSelf()
-			wall[i] = nil
-		end
-	end
-	
-	-- deleted extra walls
-	for i = 1, level.auraWallCount do
-		--print("energyCount:", i)
-		if auraWall[i].isVisible == false then
-			auraWall[i]:removeSelf()
-			auraWall[i] = nil
-		end
-	end
 end
 
 local function tilesToPixels( Tx, Ty)
@@ -401,7 +297,6 @@ local function tilesToPixels( Tx, Ty)
 	local x, y = Tx, Ty
 	--tprint.assert((x ~= nil) and (y ~= nil), "Missing argument(s).")
 	x, y = x - 0.5, y - 0.5
-	print("generating tiles to pixels")
 	x, y = (x * 36), (y * 36)
 
 	return x, y

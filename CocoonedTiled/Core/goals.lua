@@ -4,8 +4,8 @@
 -- goals.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-local gameData = require("gameData")
-
+local gameData = require("Core.gameData")
+local generate = require("Loading.generateObjects")
 ---------------------
 -- Local variables
 ---------------------
@@ -41,7 +41,7 @@ local function drawGoals(text, rune, gui, map)
 	
 	-- create outer text box rectangle
 	textBox = display.newRect(740, 52, bSet.boxW, boxH)
-	textBox.x, textBox.y = map.tilesToPixels(20, 3)
+	textBox.x, textBox.y = generate.tilesToPixels(20, 3)
 	textBox:setStrokeColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 	textBox:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 	textBox.strokeWidth = 15

@@ -11,18 +11,18 @@
 --------------------------------------------------------------------------------
 -- Updated by: 
 --------------------------------------------------------------------------------
-local gameData = require("gameData")
+local gameData = require("Core.gameData")
 local loadingBG = nil
 local levelCompleteBG = nil
 local gameOverBG = nil 
 local loadWolf = nil
 local wolfSheet = nil
-local cSS = require("cutSceneSystem")
+local cSS = require("Loading.cutSceneSystem")
 
 --------------------------------------------------------------------------------
 -- Loading Init - function that initialzies loading screen
 --------------------------------------------------------------------------------
--- Updated by: 
+-- Updated by: Marco
 --------------------------------------------------------------------------------
 local function loadingInit(loadGroup)
 	if levelComplete == true then 

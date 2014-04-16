@@ -13,7 +13,7 @@
 -- Updated by: 
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
-local gameData = require("gameData")
+local gameData = require("Core.gameData")
 
 --------------------------------------------------------------------------------
 -- Check Win - function that determines if player has finished level

@@ -11,7 +11,9 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
-local gameData = require("gameData")
+local gameData = require("Core.gameData")
+
+local physicsData = require("Loading.physicsData")
 
 -- holds the level name for loading
 local levelNames = {
@@ -54,6 +56,7 @@ local function init()
 	for i=1, #rune do
 		physics.addBody(rune[i], "dynamic", {bounce=0})
 		rune[i].isVisible = false
+		rune[i].isSensor = true
 		rune[i].collectable = true
 		rune[i].func = "runeCollision"
 	end
@@ -122,58 +125,12 @@ local function createObjects(objectNumbers, mapData)
 			-- Main Walls
 			wall[1] = display.newImage("mapdata/art/background/LS/LS-BB/LS.png", true)
 		end
-	elseif mapData.levelNum == "1" then
 
-		if mapData.pane == "M" then
-			print("creating lvl 1 walls")
-			-- Main walls
-			wall[1] = display.newImage("mapdata/art/background/1/1-1BB/1-1_BB.png", true)
-			-- Aura walls
-			auraWall[1] = display.newImage("mapdata/art/auraWalls/blueAuraWall.png", true)
+		-- create all walls in level
+		for i=1, tonumber(objectNumbers.wallCount) do
+			wall[i].isVisible = false
 		end
-	elseif mapData.levelNum == "2" then
-		
-		if mapData.pane == "M" then
-			-- Level 2: Pane 'M'
-			wall[1] = display.newGroup();
-			wall[1].anchorX = -1
-			wall[1].anchorY = 25
-			water[1] = display.newImage("mapdata/art/background/2/2-1BB/2-1-WATER2.png", true)
-		elseif mapData.pane == "L" then
-			-- Level 2: Pane 'L'
-			wall[1] = display.newGroup();
-			water[1] = display.newImage("mapdata/art/background/2/2-2BB/2-2-WATER2.png", true)
-		end		
-		
-	elseif mapData.levelNum == "4" then
-		if mapData.pane == "M" then
-			-- Level 4: Pane 'M'
-			wall[1] = display.newImage("mapdata/art/background/4/4-1BB/4-1WALL.png", true)
-			water[1] = display.newImage("mapdata/art/background/4/4-1BB/4-1WATER1.png", true)
-			water[2] = display.newImage("mapdata/art/background/4/4-1BB/4-1WATER2.png", true)
-		elseif mapData.pane == "R" then
-			-- Level 4: Pane 'M'
-			wall[1] = display.newImage("mapdata/art/background/4/4-2BB/4-2WALL.png", true)
-			water[1] = display.newImage("mapdata/art/background/4/4-2BB/4-2WATER1.png", true)
-			water[2] = display.newImage("mapdata/art/background/4/4-2BB/4-2WATER2.png", true)
-		end
-	end
-	
-		-- create all waters in level
-	for i=1, tonumber(objectNumbers.waterCount) do
-		water[i].isVisible = false
-	end
-	
-	print("wall number", mapData.levelNum, objectNumbers.wallCount)
-	-- create all walls in level
-	for i=1, tonumber(objectNumbers.wallCount) do
-		wall[i].isVisible = false
-	end
-	
 
-	-- create all walls in level
-	for i=1, tonumber(objectNumbers.auraWallCount) do
-		auraWall[i].isVisible = false
 	end
 	
 	-- create all wisps in level
@@ -201,7 +158,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function main(mapData, map, player)
+local function main(mapData, map)
 	-- call initialize function to initialize all objects and sprite sheets
 	init()
 	-- get which level lua, player is in
@@ -209,7 +166,6 @@ local function main(mapData, map, player)
 	-- get objects and wisps list and create them
 	objects, wisp, water, wall, auraWall = createObjects(level, mapData)
 	-- load in which pane player is in
-	print("map:", map)
 	level.load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	
 end

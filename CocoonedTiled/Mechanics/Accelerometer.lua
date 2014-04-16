@@ -52,52 +52,6 @@ local function cancelDeathTimer2()
 	end
 end
 
---------------------------------------------------------------------------------
--- Cancel Death Timer - function that cancels end game from being changed
---------------------------------------------------------------------------------
--- Updated by: Andrew
---------------------------------------------------------------------------------
-
-local function moveShadows(map, x, y)
-
-	if x > 0.1 and map.layer["bg"].y < map.layer["hWalls"].sy + 6 then
-		map.layer["tiles"].y = map.layer["tiles"].y - 2
-		--map.layer["hWalls"].y = map.layer["hWalls"].y + 2
-		--map.layer["vWalls"].y = map.layer["vWalls"].y + 1
-		map.layer["bg"].y = map.layer["bg"].y + 1
-	elseif x < -0.1 and map.layer["bg"].y > map.layer["hWalls"].sy - 6 then
-		map.layer["tiles"].y = map.layer["tiles"].y + 2
-		--map.layer["hWalls"].y = map.layer["hWalls"].y - 2
-		--map.layer["vWalls"].y = map.layer["vWalls"].y - 1
-		map.layer["bg"].y = map.layer["bg"].y - 1
-	end
-
-	if y > 0.1 and map.layer["bg"].x < (map.layer["vWalls"].sx + 6) then
-		map.layer["tiles"].x = map.layer["tiles"].x - 2
-		--map.layer["vWalls"].x = map.layer["vWalls"].x + 2
-		--map.layer["hWalls"].x = map.layer["hWalls"].x + 1
-		map.layer["bg"].x = map.layer["bg"].x + 1
-	elseif y < -0.1 and map.layer["bg"].x > (map.layer["vWalls"].sx - 6) then
-		map.layer["tiles"].x = map.layer["tiles"].x + 2
-		--map.layer["vWalls"].x = map.layer["vWalls"].x - 2
-		--map.layer["hWalls"].x = map.layer["hWalls"].x - 1
-		map.layer["bg"].x = map.layer["bg"].x - 1
-	end
-	--[[
-	if x > 0  and map.layer["shadows"].y > map.layer["shadows"].sy - 30 then
-		map.layer["shadows"].y = map.layer["shadows"].y - 5
-	elseif x < 0 and map.layer["shadows"].y < map.layer["shadows"].sy + 30 then
-		map.layer["shadows"].y = map.layer["shadows"].y + 5
-	end
-		
-	if y > 0 and map.layer["shadows"].x > (map.layer["shadows"].sx - 30) then
-		map.layer["shadows"].x = map.layer["shadows"].x - 5
-	elseif y < 0 and map.layer["shadows"].x < (map.layer["shadows"].sx + 30) then
-		map.layer["shadows"].x = map.layer["shadows"].x + 5
-	end
-	]]	
-	
-end
 
 --------------------------------------------------------------------------------
 -- On Accelerate - function that gathers accelerometer data
@@ -105,7 +59,7 @@ end
 -- Updated by: Andrew 
 --------------------------------------------------------------------------------
 
-local function onAccelerate( event, player, player2)
+local function onAccelerate( event, player)
 	
 	--print(player.escape)
 	if event.isShake and player.movement == "inWater" then
@@ -139,44 +93,7 @@ local function onAccelerate( event, player, player2)
 		player.shook = true
 		timer.performWithDelay(200, cancelDeathTimer)
 	end
-	if player2.isActive == true then
-		if event.isShake and player2.movement == "inWater" then
-			local ball = player2.imageObject
-			accelPlayer = player2
-			local xDirection = 0
-			local yDirection = 0
-			if player.escape == "up" then
-				yDirection = -1
-			elseif player.escape == "upLeft" then
-				yDirection = -1
-				xDirection = -1
-			elseif player.escape == "upRight" then
-				yDirection = -1
-				xDirection = 1
-			elseif player.escape == "left" then
-				xDirection = -1
-			elseif player.escape == "right" then
-				xDirection = 1
-			elseif player.escape == "downRight" then
-				xDirection = 1
-				yDirection = 1
-			elseif player.escape == "down" then
-				yDirection = 1
-			elseif player.escape == "downLeft" then
-				yDirection = 1
-				xDirection = -1
-			end
 
-			ball:applyLinearImpulse(.15*xDirection,.15*yDirection,ball.x, ball.y )
-			player2.shook = true
-			timer.performWithDelay(200, cancelDeathTimerPlayer2)
-		end
-	end
-
-	--print("accel", event.yGravity*10, event.xGravity*10)
-	--moveShadows(map, event.xInstant, event.yInstant)
-
-	--print("accel")
 	local xGrav=1
 	local yGrav=1
 	-- X gravity change

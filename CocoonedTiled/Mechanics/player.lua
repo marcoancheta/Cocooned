@@ -15,10 +15,10 @@ local floor = math.floor
 local atan2 = math.atan2
 local pi = math.pi
 -- inventory mechanic (inventoryMechanic.lua)
-local inventoryMechanic = require("inventoryMechanic")
+local inventoryMechanic = require("Mechanics.inventoryMechanic")
 -- GameData variables/booleans (gameData.lua)
-local gameData = require("gameData")
-local sound = require("sound")
+local gameData = require("Core.gameData")
+local sound = require("sounds.sound")
 
 
 --------------------------------------------------------------------------------

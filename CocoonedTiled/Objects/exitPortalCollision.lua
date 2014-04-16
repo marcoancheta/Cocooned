@@ -10,8 +10,8 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local sound = require("sound")
-local gameData = require("gameData")
+local sound = require("sounds.sound")
+local gameData = require("Core.gameData")
 local levelComplete = false
 
 --------------------------------------------------------------------------------

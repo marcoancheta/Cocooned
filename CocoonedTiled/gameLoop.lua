@@ -23,38 +23,35 @@ local dusk = require("Dusk.Dusk")
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
-local gameData = require("gameData")
+local gameData = require("Core.gameData")
 -- Load level function (loadLevel.lua)
-local loadLevel = require("loadLevel")
+local loadLevel = require("Loading.loadLevel")
 -- Animation variables/data (animation.lua)
-local animation = require("animation")
+local animation = require("Core.animation")
 -- Menu variables/objects (menu.lua)
-local menu = require("menu")
+local menu = require("Core.menu")
 -- Sound files/variables (sound.lua)
-local sound = require("sound")
+local sound = require("sounds.sound")
 -- Player variables/files (player.lua)
-local player = require("player")
+local player = require("Mechanics.player")
 -- Object variables/files (objects.lua)
-local objects = require("objects")
+local objects = require("Loading.objects")
 -- miniMap display functions
-local miniMapMechanic = require("miniMap")
+local miniMapMechanic = require("Mechanics.miniMap")
 -- memory checker (memory.lua)
 local memory = require("memory")
 
 --[[ Load in game mechanics begin here ]]--
 -- Touch mechanics (touchMechanic.lua)
-local touch = require("touchMechanic")
+local touch = require("Mechanics.touchMechanic")
 -- Accelerometer mechanic (Accelerometer.lua)
-local movementMechanic = require("Accelerometer")
+local movementMechanic = require("Mechanics.Accelerometer")
 -- Movement based on Accelerometer readings
-local movement = require("movement")
+local movement = require("Mechanics.movement")
 -- Collision Detection (collisionDetection.lua)
-local collisionDetection = require("collisionDetection")
--- Spirits mechanics (spirits.lua)
-local spirits = require("spirits")
+local collisionDetection = require("Mechanics.collisionDetection")
 -- Pane Transitions (paneTransition.lua)
-local paneTransition = require("paneTransition")
-
+local paneTransition = require("Loading.paneTransition")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -79,6 +76,7 @@ local mapData = {
 local miniMap
 local map, ball
 local gui
+local players = {}
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 local count = 0
@@ -110,10 +108,8 @@ local function swipeMechanics(event)
 		if "ended" == event.phase and mapData.pane ~= tempPane then
 			-- play snow transition effect
 			--TODO: does player need to be pased in?
-			print(tempPane, mapData.pane)
-			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1, player2, map)
+			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
 		end
-		print(count)
 	end
 end
 
@@ -128,12 +124,12 @@ local function tapMechanic(event)
 		tempPane = mapData.pane
 
 		-- call function for tap screen
-		touch.tapScreen(event, miniMap, mapData, physics, gui, player1, player2, map)
+		touch.tapScreen(event, miniMap, mapData, physics, gui, player1)
 
 		-- check if pane is different from current one, if so, switch panes
 		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
 			-- play snow transition effect
-			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1, player2, map)
+			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
 		end
 	end
 end
@@ -153,10 +149,6 @@ local function controlMovement(event)
 		-- set player's X and Y gravity times the player's curse
 		player1.xGrav = physicsParam.xGrav
 		player1.yGrav = physicsParam.yGrav
-		if player2.isActive then
-			player2.xGrav = physicsParam.xGrav
-			player2.yGrav = physicsParam.yGrav
-		end
 	end
 end
 
@@ -167,36 +159,10 @@ end
 --------------------------------------------------------------------------------
 local function speedUp(event)
 	if gameData.isShowingMiniMap == false then
-		if gameData.greenG == true then
-			for check = 1, map.layer["tiles"].numChildren do
-			currObject = map.layer["tiles"][check]
-				if currObject.accel == true then
-					local vel = 40
-					if player1.yGrav<0 then
-						vel = -40
-					elseif player1.yGrav == 0 then
-						vel = 0
-					end
-					--print(string.sub(currObject.name,1,10))
-					if string.sub(currObject.name,1,10) == "switchWall"then
-						currObject.x = currObject.defX
-						currObject:setLinearVelocity(0, vel)
-					end
-				end
-			end
-		end
 		
 		if player1 ~= nil then
 			player1.xGrav = player1.xGrav*player1.curse
 			player1.yGrav = player1.yGrav*player1.curse
-			
-			if player2.isActive then
-					player2.xGrav = player2.xGrav*player2.curse
-					player2.yGrav = player2.yGrav*player2.curse
-					--print(player2.imageObject)
-					movement.moveAndAnimate(event, player2)
-			end
-			
 			movement.moveAndAnimate(event, player1)
 		end
 	end
@@ -235,76 +201,32 @@ local function loadMap(mapData)
 	player1.imageObject = ball
 
 	-- Load in map
-	gui, miniMap, player2Params, map = loadLevel.createLevel(mapData, player1, player2)
-	
-	-- fix offset, because Dusk Engine is offsetting during render
-	gui.x = gui.x - 20
-	--gui.y = gui.y
-	
-	--print("params=",player2Params.isActive, player2Params.x, player2Params.y)
-	if player2Params.isActive == true then
-		player2 = player.create()
-		-- Create player sprite sheet
-		local playerSheet2 = graphics.newImageSheet("mapdata/graphics/AnimationRollSprite2.png", 
-			   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9})
-		
-		-- Create player/ball object to map
-		ball2 = display.newSprite(playerSheet2, spriteOptions.player2)
-		--print(player2.imageObject)
-		-- set name and animation sequence for ball
-		ball2.name = "player2"
-		ball2:setSequence("move")
-		player2.isActive = true
-		player2.imageObject.x, player2.imageObject.y = player2Params.x, player2Params.y
-		map.layer["tiles"]:insert(player2.imageObject)
-		-- add physics to secondball
-		physics.addBody(player2.imageObject, {radius = 38, bounce = .25})
-		player2.imageObject.linearDamping = 1.25
-		player2.imageObject.density = .3
-		player2.imageObject = ball2
-	else
-		player2 ={
-			isActive = false,
-			movement = "accel"
-		}
-	end
+	gui, miniMap= loadLevel.createLevel(mapData, player1)
 
 	--start physics when everything is finished loading
 	physics.start()
 	
 	-- Start mechanics
-	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui, map)
-	
-	if player2.isActive then
-		collisionDetection.createCollisionDetection(player2.imageObject, player2, mapData, gui, map)
-	end
-		
-	map:addEventListener("touch", swipeMechanics)
-	map:addEventListener("tap", tapMechanic)
+	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui, gui.back[1])
+
+	gui:addEventListener("touch", swipeMechanics)
+	gui:addEventListener("tap", tapMechanic)
 	Runtime:addEventListener("accelerometer", controlMovement)
 	Runtime:addEventListener("enterFrame", speedUp)
 end
 
 local function clean(event)
 	-- remove all eventListeners
-	map:removeEventListener("touch", swipeMechanics)
-	map:removeEventListener("tap", tapMechanic)	
+	gui:removeEventListener("touch", swipeMechanics)
+	gui:removeEventListener("tap", tapMechanic)	
 	Runtime:removeEventListener("accelerometer", controlMovement)
 	Runtime:removeEventListener("enterFrame", speedUp)
 		
 	collisionDetection.destroyCollision(player1.imageObject)
-		
-	if player2.isActive == true then
-		collisionDetection.destroyCollision(player2.imageObject)
-		player2.imageObject:removeSelf()
-		player2.imageObject = nil
-		player2:destroy()
-		player2 = nil
+
+	if mapData.levelNum == "LS" then
+		gui[1][1].destroy()
 	end
-		
-	-- destroy and remove all data
-	map:removeSelf()
-	map = nil
 	
 	ball:removeSelf()
 	ball = nil
@@ -340,23 +262,22 @@ local function gameLoop(event)
 	memory.monitorMem()
 				
 	if mapData.levelNum == "LS" then
-		if map then
-			-- Set Camera to Ball
-			map.setCameraFocus(ball)
-			map.setTrackingLevel(0.1)
-		end
+		-- Set Camera to Ball
+		gui.back[1].setCameraFocus(ball)
+		gui.back[1].setTrackingLevel(0.1)
 	end
 	
 	---------------------------------
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
+
 		--selectLevel.selectLoop(event)	
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		
 		loadMap(mapData)
-		menu.ingameOptionsbutton(event, map)
+		menu.ingameOptionsbutton(event, gui)
 				
 		-- Re-evaluate gameData booleans	
 		gameData.selectLevel = false
@@ -403,28 +324,6 @@ local function gameLoop(event)
 		
 		gameData.levelRestart = false
 	end
-	
-	----------------------
-	--[[ IN-GAME LOOP ]]--
-	-- If ingame has started do:
-	--if gameData.ingame then
-	
-		--[[
-		local time = os.time() 
-		if ( time ~= timeCheck ) then
-  			print("Time:", time)
-  			timeCount = timeCount + 1
-  			timeCheck = time
-  			if timeCount % 5 == 1 then 
-  				activateWind = true
-				--player:changeColor('white')
-  				print(activateWind)
-  			elseif timeCount % 5 ~= 1 then
-  				activateWind = false
-  			end
-		end
-		]]--
-	--end
 	
 	-------------------
 	--[[ MAIN MENU ]]--
@@ -482,8 +381,8 @@ local function gameLoop(event)
 		menu.ingameOptionsbutton(event, map)
 
 		-- Add object listeners
-		map:addEventListener("touch", swipeMechanics)
-		map:addEventListener("tap", tapMechanic)
+		gui:addEventListener("touch", swipeMechanics)
+		gui:addEventListener("tap", tapMechanic)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		Runtime:addEventListener("enterFrame", speedUp)
 		

@@ -13,9 +13,9 @@
 -- Dusk Engine (Dusk.lua)
 local dusk = require("Dusk.Dusk")
 -- GameData variables/booleans (gameData.lua)
-local gameData = require("gameData")
+local gameData = require("Core.gameData")
 -- miniMap Mechanic (miniMap.lua)
-local miniMapMechanic = require("miniMap")
+local miniMapMechanic = require("Mechanics.miniMap")
 -- variable for miniMap mechanic for previous tap time
 local tapTime = 0
 local canSwipe = true
@@ -42,7 +42,6 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function swipeScreen(event, mapData, miniMap, map)
-	print(map.name)
 	
 	-- phase name
 	local phase = event.phase
@@ -131,7 +130,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function tapScreen(event, miniMap, mapData, physics, gui, player, player2, map) 
+local function tapScreen(event, miniMap, mapData, physics, gui, player) 
 	-- if tapped twice, show miniMap or if showing, hide it
 	if event.numTaps >= 2 then
 		-- show miniMap 
@@ -153,7 +152,7 @@ local function tapScreen(event, miniMap, mapData, physics, gui, player, player2,
 		elseif gameData.isShowingMiniMap == true then
 			-- call miniMap move function
 			miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
-				
+			
 			-- start physics
 			physics.start()
 
@@ -163,6 +162,12 @@ local function tapScreen(event, miniMap, mapData, physics, gui, player, player2,
 
 			-- return saved tempPane2
 			return tempPane2
+		end
+	-- else, tapped once, do funationality for miniMap if it is showing
+	else
+		if gameData.isShowingMiniMap  == true then
+			-- call miniMap move function
+			miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
 		end
 	end
 

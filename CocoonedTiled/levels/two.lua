@@ -11,9 +11,9 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
-local gameData = require("gameData")
+local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
-local generate = require("generateObjects")
+local generate = require("Loading.generateObjects")
 
 --------------------------------------------------------------------------------
 -- Level two Variables
@@ -24,11 +24,9 @@ local two = {
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
 	panes = {true,false,false,false,true},
+	playerCount = 1,
 	-- number of wisps in the level
 	wispCount = 6,
-	waterCount = 1,
-	wallCount = 1,
-	auraWallCount = 0,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -123,30 +121,20 @@ local mObjectslocal
 -- this is where the objects locations are set in each pane
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
-	
-	-- Check which pane
+		-- Check which pane
 	if mapData.pane == "M" then
 		-- Portal
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
 				
 		-- Wisps
-		--[[
-		wisp[1].x, wisp[1].y = map.tilesToPixels(5, 9)
-		wisp[2].x, wisp[2].y = map.tilesToPixels(5, 11)
-		wisp[3].x, wisp[3].y = map.tilesToPixels(5, 13)
-		wisp[4].x, wisp[4].y = map.tilesToPixels(5, 15)
-		]]--
-						
-		-- Water			
-		water[1].x, water[1].y = generate.tilesToPixels(18.2, 15.5)
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(2, 2)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(5, 11)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(5, 13)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(5, 15)
 		
-		-- Walls
-		wall[1].x, wall[1].y = generate.tilesToPixels(21, 12)
-		
+		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 1, 4)
-		generate.gWater(water, map, mapData, 1, 1)
-		generate.gWalls(wall, map, mapData, 1, 1)
 	elseif mapData.pane == "L" then
 		-- Pink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(21, 18)			
@@ -159,16 +147,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[4].x, wisp[4].y = generate.tilesToPixels(21, 16)
 		wisp[5].x, wisp[5].y = generate.tilesToPixels(39, 10)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(39, 14)	
-	
-		-- Water
-		water[1].x, water[1].y = generate.tilesToPixels(8.5, 14)
-		
-		-- Walls
-		wall[1].x, wall[1].y = generate.tilesToPixels(21, 12)
-		
+
+		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 1, 6)
-		generate.gWater(water, map, mapData, 1, 1)
-		generate.gWalls(wall, map, mapData, 1, 1)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then

@@ -6,13 +6,15 @@
 --------------------------------------------------------------------------------
 -- lua class that holds functionality for pane switching transitions
 -- miniMap display functions
-local miniMapMechanic = require("miniMap")
+local miniMapMechanic = require("Mechanics.miniMap")
 -- Object variables/files (objects.lua)
-local objects = require("objects")
+local objects = require("Loading.objects")
 -- Load level function (loadLevel.lua)
-local loadLevel = require("loadLevel")
+local loadLevel = require("Loading.loadLevel")
 -- Collision Detection (collisionDetection.lua)
-local collisionDetection = require("collisionDetection")
+local collisionDetection = require("Mechanics.collisionDetection")
+
+local generate = require("Loading.generateObjects")
 
 --------------------------------------------------------------------------------
 -- Variables
@@ -31,30 +33,25 @@ local function movePanes(event)
 	local params = event.source.params
 
 	-- update new miniMap
-	miniMapMechanic.updateMiniMap(params.tempPane, params.miniMap, params.gui, params.player1, params.player2)
+	miniMapMechanic.updateMiniMap(params.tempPane, params.miniMap, params.gui, params.player1)
 
 	-- delete everything on map
 	objects.destroy(params.mapData)
+	params.gui[1][1]:removeSelf()
 	params.map = nil
 
 	---------------------------------------------------
 	-- Play "character" teleportation animation here --
 	---------------------------------------------------
 	-- load new map pane
-	params.map = loadLevel.changePane(params.mapData, params.player1, params.player2, params.miniMap)
+	params.map = loadLevel.changePane(params.mapData, params.player1, params.miniMap)
 
 	-- insert objects onto map layer
 	params.gui.back:insert(params.map)
 
-	print(ball.name)
 	-- Reassign game mechanic listeners	
 	params.map:insert(params.player1.imageObject)
 	collisionDetection.changeCollision(params.player1, params.mapData, params.map)
-	
-	if params.player2.isActive then
-		params.map.layer["tiles"]:insert(params.player2.imageObject)
-		collisionDetection.changeCollision(params.player2, params.mapData, params.map)
-	end
 end
 
 --------------------------------------------------------------------------------
@@ -74,7 +71,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function playTransition(tempPane, miniMap, mapData, gui, player1, player2, map)
+local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	-- save current pane image
 	--tempPic = display.capture(gui)
 	--tempPic.x, tempPic.y = 720, 432
@@ -84,7 +81,7 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1, player2,
 	-- play pane switch transition and move to front
 	transPic = display.newSprite(sheetOptions.paneSheet, spriteOptions.paneSwitch)
 	--transPic:scale(1.25, 1.25)
-	transPic.x, transPic.y = map.tilesToPixels(21, 10)
+	transPic.x, transPic.y = generate.tilesToPixels(21, 10)
 	transPic:setSequence("move")
 	transPic:play()
 	
@@ -156,9 +153,8 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1, player2,
 						miniMap = miniMap, 
 							gui = gui, 
 						player1 = player1, 
-						player2 = player2,
 						mapData = mapData,  
-							map = map}
+						}
 end
 
 --------------------------------------------------------------------------------

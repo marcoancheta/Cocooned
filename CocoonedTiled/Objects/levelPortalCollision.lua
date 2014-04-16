@@ -10,9 +10,10 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local sound = require("sound")
-local gameData = require("gameData")
-local goals = require("goals")
+local sound = require("sounds.sound")
+local gameData = require("Core.gameData")
+local goals = require("Core.goals")
+local generate = require("Loading.generateObjects")
 local play 
 
 local levelComplete = false
@@ -57,7 +58,7 @@ end
 local function createLevelPlay(map)
 	-- Create play button
 	play = display.newImage("mapdata/art/buttons/sil_kipcha.png", 0, 0, true)
-	play.x, play.y = map.tilesToPixels(5, 4)
+	play.x, play.y = generate.tilesToPixels(5, 4)
 	play:scale(1.5, 1.5)
 	play.name = "playButton"
 	
@@ -77,15 +78,17 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	end
 	
 	local function temp()
-		ball.isBodyActive = false;
-		ball:setSequence("still")
+		player.imageObject.isBodyActive = false;
+		player.imageObject:setSequence("still")
 		local timer = timer.performWithDelay(1000, resume);
 		--timer.performWithDelay(500, begin);
-		ball.isBodyActive = true;
-		ball:setSequence("move");
+		player.imageObject.isBodyActive = true;
+		player.imageObject:setSequence("move");
 	end
 						
-	local trans = transition.to(ball, {time=1500, x=collideObject.x, y=collideObject.y-15, onComplete = temp} )				
+	local trans = transition.to(player.imageObject, {time=300, x=collideObject.x, y=collideObject.y-15, onComplete = temp} )
+	player.GravX = 0
+	player.GravY = 0				
 			
 	for i=1, 4 do
 		if collideObject.name == "exitPortal" ..i.. "" then

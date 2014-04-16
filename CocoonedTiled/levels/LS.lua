@@ -11,10 +11,10 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
-local gameData = require("gameData")
+local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
-local generate = require("generateObjects")
-local movement = require("movement")
+local generate = require("Loading.generateObjects")
+local movement = require("Mechanics.movement")
 
 --------------------------------------------------------------------------------
 -- Level One Variables
@@ -29,7 +29,7 @@ local LS = {
 	-- number of wisps in the level
 	wispCount = 0,
 	waterCount = 0,
-	wallCount = 1,
+	wallCount = 0,
 	auraWallCount = 0,
 	-- mapData clone
 	-- LS.levelNum || LS.pane || LS.version

@@ -8,8 +8,9 @@
 --------------------------------------------------------------------------------
 -- Load in Global Variables
 --------------------------------------------------------------------------------
-local gameData = require("gameData")
-local sound = require("sound")
+local gameData = require("Core.gameData")
+local sound = require("sounds.sound")
+local generate = require("Loading.generateObjects")
 --local widget = require("widget")
 
 local menuGroup
@@ -206,7 +207,7 @@ local function ingameOptionsbutton(event, map)
 	local ingameOptions = display.newImage("mapdata/art/buttons/option_wheel.png", 0, 0, true)
 
 	-- Scale image size
-	ingameOptions.x, ingameOptions.y = map.tilesToPixels(38, 2)	
+	ingameOptions.x, ingameOptions.y = generate.tilesToPixels(38, 2)	
 	ingameOptions.name = "inGameOptionsBTN"	
 	ingameOptions:addEventListener("tap", buttonPressed)
 	ingameOptions:toFront()

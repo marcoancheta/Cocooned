@@ -11,7 +11,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: John
 --------------------------------------------------------------------------------
-local gameData = require("gameData")
+local gameData = require("Core.gameData")
 local name
 
 audio.setVolume(0.1, {channel = 4} )

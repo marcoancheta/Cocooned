@@ -27,9 +27,6 @@ local four = {
 	panes = {true,false,false,true,false},
 	-- number of wisps in the level
 	wispCount = 30,
-	waterCount = 2,
-	wallCount = 1,
-	auraWallCount = 0,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
