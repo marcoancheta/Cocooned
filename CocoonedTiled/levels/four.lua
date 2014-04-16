@@ -134,10 +134,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fish12"].eX, objects["fish12"].eY = map.tilesToPixels(13, 3)		
 		
 		-- Fish2 Set
-		objects["fish21"].x, objects["fish21"].y = map.tilesToPixels(9, 15)
-		objects["fish21"].eX, objects["fish21"].eY = map.tilesToPixels(9, 4)
-		objects["fish22"].x, objects["fish22"].y = map.tilesToPixels(18, 13)
-		objects["fish22"].eX, objects["fish22"].eY = map.tilesToPixels(18, 3)
+		objects["fish21"].x, objects["fish21"].y = map.tilesToPixels(9, 4)
+		objects["fish21"].eX, objects["fish21"].eY = map.tilesToPixels(9, 15)
+		objects["fish22"].x, objects["fish22"].y = map.tilesToPixels(18, 3)
+		objects["fish22"].eX, objects["fish22"].eY = map.tilesToPixels(18, 13)
 		
 		-- Wisps
 		wisp[1].x, wisp[1].y = map.tilesToPixels(2, 8)

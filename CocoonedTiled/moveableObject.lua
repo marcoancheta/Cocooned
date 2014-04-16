@@ -27,33 +27,37 @@ local moveObject = {
 }
 
 --------------------------------------------------------------------------------
--- Move forward - function that transitions object to end point
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-local function moveforward(obj)
-	
-	--print("moveF:", obj.name)
-	if obj.stop ~= true then
-		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
-		obj:rotate(180)
-	end
-	--
-end
-
---------------------------------------------------------------------------------
 -- Move Backward - function that transitions object to start point
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function moveBackward(obj)
 
-	--print("moveB:", obj.name)
+	print("moveB:", obj.name)
 	if obj.stop ~= true then
+		obj.alpha = 1
+		print("transition started")
 		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveforward})
 		obj:rotate(180)
 	end
 	--obj:rotate(180)
+end
+
+--------------------------------------------------------------------------------
+-- Move forward - function that transitions object to end point
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+function moveforward(obj)
+	
+	print("moveF:", obj.name)
+	if obj.stop ~= true then
+		obj.alpha = 0.25
+		print("transition started")
+		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
+		obj:rotate(180)
+	end
+	--
 end
 
 --------------------------------------------------------------------------------
