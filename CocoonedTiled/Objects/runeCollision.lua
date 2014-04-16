@@ -10,9 +10,9 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-require("levelFinished")
-local gameData = require("gameData")
-local sound = require("sound")
+require("Core.levelFinished")
+local gameData = require("Core.gameData")
+local sound = require("sounds.sound")
 
 --------------------------------------------------------------------------------
 -- End Animation -- function that ends animation for collecting rune
