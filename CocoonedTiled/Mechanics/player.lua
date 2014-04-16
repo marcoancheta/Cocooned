@@ -192,7 +192,7 @@ end
 function changeSize(player)
 	physics.removeBody(player)
 	player:scale(0.5,0.5)
-	physics.addBody(player, {radius = 10, bounce = .25, density = 0.7})
+	physics.addBody(player, {radius = 15, bounce = .25, density = 0.7})
 end
 
 --------------------------------------------------------------------------------
