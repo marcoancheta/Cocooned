@@ -10,15 +10,16 @@
 -- called and does their own functions upon collision
 -- for example, before a red aura collides with player, its collision is turned 
 -- off and the player's color is changed
-
-
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+local sound = require("sound")
 --------------------------------------------------------------------------------
 -- Collision Detection Mechanic
 --------------------------------------------------------------------------------
 -- Updated by: Andrew (moved water collision to be spread out across, precollision, begin collision, and post collision)
 --------------------------------------------------------------------------------
 -- creates the collision detection for that pane
-function createCollisionDetection(imageObject, player, mapData, gui, map) 
+local function createCollisionDetection(imageObject, player, mapData, gui, map) 
 
   -- function for pre collision 
   -- before the object collides, call its own collide function
