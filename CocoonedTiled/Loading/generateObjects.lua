@@ -279,6 +279,8 @@ local function destroyObjects(level, rune, wisp, water, objects)
 		if rune[i].isVisible == false then
 			rune[i]:removeSelf()
 			rune[i] = nil
+		else
+			rune[i].isSensor = false;
 		end
 	end
 
