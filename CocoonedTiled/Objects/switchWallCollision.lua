@@ -12,6 +12,7 @@
 --------------------------------------------------------------------------------
 function collide(collideObject, player, event, mapData, map)
 	event.contact.isEnabled = false
+	player.onIceberg = true
 	--player.imageObject:applyForce(player.xForce*-15, player.yForce*-15, player.imageObject.x, player.imageObject.y)
 	
 end

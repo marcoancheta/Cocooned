@@ -138,6 +138,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		objects["switchWall1"].accel = true
 		objects["switchWall1"].collType = "passThru"
+		objects["switchWall1"].maxX = 900
+		objects["switchWall1"].minX = 300
+		objects["switchWall1"].type = "horizontal"
 						
 		-- Water			
 		water[1].x, water[1].y = map.tilesToPixels(18.2, 15.5)

@@ -23,19 +23,32 @@ function collide(collideObject, player, event, mapData, map)
 
 	player.shook = false
 	event.contact.isEnabled = false
+	if player.onIceberg == false then
+		-- set players movement to inWater
+		player.movement ="inWater"
 
-	-- set players movement to inWater
-	player.movement ="inWater"
+		-- get direction of player escape route
+		player.escape = collideObject.escape
 
-	-- get direction of player escape route
-	player.escape = collideObject.escape
+		-- reset player's aura and movement
+		player:changeColor("white")
+		player.cursed = 1
+		player.imageObject.linearDamping = 6
 
-	-- reset player's aura and movement
-	player:changeColor("white")
-	player.cursed = 1
-	player.imageObject.linearDamping = 6
+		-- if death time is nil, set it
+		--TODO: put into a timer?
+		local waterDeathTimer = timer.performWithDelay(100, initializeDeath)
+			waterDeathTimer.params = {param1 = player}
+	end
+end
 
-	-- if death time is nil, set it
+--------------------------------------------------------------------------------
+-- Initialize death
+--------------------------------------------------------------------------------
+-- Updated by: Andrew
+--------------------------------------------------------------------------------
+function initializeDeath(event)
+	local player = event.source.params.param1
 	if player.deathTimer == nil then
 		audio.stop()
 		--sound.playSound(event, sound.splashSound)
@@ -46,6 +59,8 @@ function collide(collideObject, player, event, mapData, map)
 		player.deathScreen:play()
 	end
 end
+
+
 
 --------------------------------------------------------------------------------
 -- Finish Up

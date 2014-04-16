@@ -47,8 +47,6 @@ function createCollisionDetection(imageObject, player, mapData, map)
     --let the ball go through water
     if collideObject.name == "water" then
       -- disabled collision
-
-      player.preCollision = true
       event.contact.isEnabled = false
     end
 
@@ -93,6 +91,9 @@ function createCollisionDetection(imageObject, player, mapData, map)
       if collideObject.name == "water" and player.shook == true then
         player.movement = "accel"
         player.shook = false
+      end
+      if string.sub(collideObject.name,1,10) == "switchWall" then
+        player.onIceberg = false
       end
     end
   end
