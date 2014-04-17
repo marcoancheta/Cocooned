@@ -1,0 +1,31 @@
+settings = 
+{
+	iphone =
+    {
+        plist =
+        {
+            UIApplicationExitsOnSuspend = false,
+            UIPrerenderedIcon = true,
+            UIStatusBarHidden = true,
+            UIAppFonts = { "AvenirLTStd-Black.otf","SourceCodePro-Black.ttf" },
+            CFBundleIconFiles = { },
+            MinimumOSVersion = "5.1.0",
+        },
+
+        skipPNGCrush = false,
+    },
+	orientation={
+		default = "landscapeRight"
+	},
+	--[[
+	plugins =
+    {
+        -- key is the name passed to Lua's 'require()'
+        ["plugin.gameanalytics"] =
+        {
+            -- required
+            publisherId = "com.gameanalytics",
+        },
+    },
+	]]--
+}
