@@ -61,7 +61,7 @@ end
 
 local function onAccelerate( event, player)
 	
-	--print(player.escape)
+	print(player.escape)
 	if event.isShake and player.movement == "inWater" then
 		local ball = player.imageObject
 		accelPlayer = player

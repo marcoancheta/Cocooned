@@ -18,11 +18,12 @@ local gameData = require("Core.gameData")
 -- Updated by: Andrew moved event.contact.isenabled to precollision
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	--event.contact.isEnabled = false
+	event.contact.isEnabled = false
+	player.shook = false
 
 	-- set players movement to inWater
 	player.movement ="inWater"
-
+	print("E", collideObject.escape)
 	-- get direction of player escape route
 	player.escape = collideObject.escape
 

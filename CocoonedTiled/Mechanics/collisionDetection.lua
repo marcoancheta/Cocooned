@@ -46,9 +46,8 @@ function createCollisionDetection(imageObject, player, mapData, gui, map)
 
   --let the ball go through water
   if collideObject.name == "water" then
-    -- disabled collision
-    print("collided with water")
-    event.contact.isEnabled = false
+    -- disabled collision    event.contact.isEnabled = false
+
   end
 
   if collideObject.name == "wind" then
@@ -82,7 +81,7 @@ function createCollisionDetection(imageObject, player, mapData, gui, map)
 
       --when the player collides with water, make sure that shook is false and call the water collision function.
       if collideObject.name == "water" then
-        player.shook = false
+        
         local col = require("Objects." .. collideObject.func)
         col.collide(collideObject, player, event, mapData, map, gui)
       end

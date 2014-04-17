@@ -309,7 +309,9 @@ local function gameLoop(event)
 		clean(event)
 	
 		-- set booleans
+		gameData.menuOn = true
 		gameData.gameEnd = false
+
 	elseif gameData.levelRestart == true then
 		clean(event)
 		

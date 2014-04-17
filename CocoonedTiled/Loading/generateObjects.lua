@@ -254,11 +254,12 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-local function gWater(map, mapData)
+local function gWater(map, mapData, direction)
 	-- load in water collision
 	local water = display.newImage("mapdata/art/background/blank.png")
 	water.name = "water"
 	water.func = "waterCollision"
+	water.escape = "right"
 	water.x = 720
 	water.y = 432
 	map:insert(water)
