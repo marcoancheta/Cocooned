@@ -34,10 +34,12 @@ local menu = require("Core.menu")
 local generate = require("Loading.generateObjects")
 -- load in physics data
 local physicsData = require("Loading.physicsData")
+local goals = require("Core.goals")
 
 -- set variables for loading screen
 local loaded = 0
 local level = 0 
+
 -- holds the level name for loading
 local levelNames = {
 	["1"] = "one",
@@ -51,16 +53,23 @@ local levelNames = {
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading(level) end
 
+local function drawPane(mapData)
+	local levelMapping
+	levelMapping = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png")
+	levelMapping.name = "testing 1"
+	levelMapping.anchorX = 0
+	levelMapping.anchorY = 0
+	physics.addBody(levelMapping, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
+		
+	return levelMapping
+end
+
 --------------------------------------------------------------------------------
 -- Create Level - function that creates starting pane of level
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function createLevel(mapData, player1)
-
-	loaded = 0 -- current loading checkpoint, max is 6
-	level =  mapData.levelNum
-
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
 
@@ -68,25 +77,21 @@ local function createLevel(mapData, player1)
 	gui.front = display.newGroup()
 	gui.back = display.newGroup()
 
-	loading.loadingInit() --initializes loading screen assets and displays them on top
-
 	-- Add subgroups into main GUI group
 	gui:insert(gui.back)
 	gui:insert(gui.front)
-
+	
+	loading.loadingInit() --initializes loading screen assets and displays them on top
+	loaded = 0 -- current loading checkpoint, max is 6
+	level = mapData.levelNum
+		
 	-- Load in map
 	local map = display.newGroup()
 	map.name = "display group"
 	if mapData.levelNum ~= "LS" then
 		-- load in wall collision
-		local level
-		level = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png")
-		level.name = "testing 1"
-		level.anchorX = 0
-		level.anchorY = 0
-		map:insert(1, level)
-		physics.addBody(level, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
-		
+		local levelMap = drawPane(mapData)
+		map:insert(levelMap)		
 	else
 		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/LS.json")
 	end
@@ -95,9 +100,12 @@ local function createLevel(mapData, player1)
 	
 	-- set players location according to level
 	if mapData.levelNum == "LS" then
+		goals.drawGoals(gui)
 		player1.imageObject.x, player1.imageObject.y = map.tilesToPixels(24, 18)
+		map.layer["tiles"]:insert(player1.imageObject)
 	else
 		player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(20, 6)
+		map:insert(player1.imageObject)
 	end
 	
 	-- create miniMap for level
@@ -106,12 +114,6 @@ local function createLevel(mapData, player1)
 
 	-- Add objects to its proper groups
 	gui.back:insert(1, map)
-	if mapData.levelNum ~= "LS" then
-		map:insert(player1.imageObject)
-	else
-		map.layer["tiles"]:insert(player1.imageObject)
-	end
-	
 	
 	-- destroy loading screen
 	timer.performWithDelay(1000, deleteClosure)
@@ -127,16 +129,15 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function changePane(mapData, player, player2, miniMap)
-
 	-- Load in map
 	local map = display.newGroup()
-	local level
-	--dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/" .. mapData.pane .. ".json")
-	level = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png")	
-	level.anchorX = 0
-	level.anchorY = 0
-	map:insert(level)
-	physics.addBody(level, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
+	local levelMap
+	
+	levelMap = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png")	
+	levelMap.anchorX = 0
+	levelMap.anchorY = 0
+	map:insert(levelMap)
+	physics.addBody(levelMap, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
 
 	objects.main(mapData, map)
 
