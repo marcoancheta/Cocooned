@@ -82,8 +82,6 @@ local function buttonPressed(event)
 	elseif event.target.name == "gotoMain" then
 		print("Back to Main Menu")	
 		physics.stop()
-		menuGroup:removeSelf()
-		menuGroup = nil
 		gameData.gameEnd = true
 		
 	--[[ In game options button pressed ]]--	
