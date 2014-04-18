@@ -4,25 +4,21 @@
 -- loadingScreen.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- lua class that creates loading screen in between gameplay and menu systems
-
+local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
 -- Variables - variables for loading screens
 --------------------------------------------------------------------------------
 -- Updated by: 
 --------------------------------------------------------------------------------
-local gameData = require("Core.gameData")
 local loadingBG
-
+local displayX = display.contentWidth
+local displayY = display.contentHeight
 --------------------------------------------------------------------------------
 -- Loading Init - function that initialzies loading screen
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function loadingInit(loadGroup)
-	local displayX = display.contentWidth
-	local displayY = display.contentHeight
-
 	if gameData.levelComplete == true then 
 		loadingBG = display.newImageRect('mapdata/art/background/screens/levelComplete.png', displayX, displayY)
 	elseif gameData.gameEnd == true then
@@ -41,7 +37,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function deleteLoading(level)
+local function deleteLoading()
 	if loadingBG then 
 		display.remove(loadingBG)
 		loadingBG = nil

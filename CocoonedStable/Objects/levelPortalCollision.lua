@@ -4,16 +4,15 @@
 -- levelPortalCollision.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+local sound = require("sounds.sound")
+local gameData = require("Core.gameData")
+local goals = require("Core.goals")
 
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local sound = require("sounds.sound")
-local gameData = require("Core.gameData")
-local goals = require("Core.goals")
-
 -- Local mapData array clone
 local selectLevel = {
 	levelNum = 0,

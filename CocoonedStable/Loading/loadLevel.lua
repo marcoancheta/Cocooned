@@ -5,7 +5,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- level finished function (levelFinished.lua)
-require("Core.levelFinished")
+--require("Core.levelFinished")
 -- Dusk Engine (Dusk.lua)
 local dusk = require("Dusk.Dusk")
 -- miniMap function (miniMap.lua)
@@ -34,16 +34,15 @@ local level = 0
 
 -- holds the level name for loading
 local levelNames = {
+	["LS"] = "LS",
 	["1"] = "one",
 	["2"] = "two",
 	["3"] = "three",
-	["4"] = "four",
-	["15"] = "fifteen",
-	["LS"] = "LS"
+	["4"] = "four"
 }
 
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
-local deleteClosure = function() return loading.deleteLoading(level) end
+local deleteClosure = function() return loading.deleteLoading() end
 
 --------------------------------------------------------------------------------
 -- drawPane - function that draws the actual pane; returns levelMap
@@ -127,7 +126,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function changePane(mapData, player, player2, miniMap)
+local function changePane(mapData, player, miniMap)
 	-- Load in map
 	local map = display.newGroup()
 	-- load in wall collision
@@ -147,7 +146,6 @@ local function changePane(mapData, player, player2, miniMap)
 	-- return new pane
 	return map
 end
-
 
 --------------------------------------------------------------------------------
 -- Finish Up

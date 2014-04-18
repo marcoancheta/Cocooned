@@ -75,8 +75,7 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	-- save current pane image
 	--tempPic = display.capture(gui)
 	--tempPic.x, tempPic.y = 720, 432
-	
-	
+		
 	print("playing transition")
 	-- play pane switch transition and move to front
 	transPic = display.newSprite(sheetOptions.paneSheet, spriteOptions.paneSwitch)
@@ -85,7 +84,6 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	transPic:setSequence("move")
 	transPic:play()
 	
-
 	-- declare direction which pane swithc transition should play
 	local direction = "None"
 
