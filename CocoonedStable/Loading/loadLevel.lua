@@ -53,12 +53,18 @@ local levelNames = {
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading(level) end
 
+--------------------------------------------------------------------------------
+-- drawPane - function that draws the actual pane; returns levelMap
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function drawPane(mapData)
 	local levelMapping
 	levelMapping = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png")
 	levelMapping.name = "testing 1"
 	levelMapping.anchorX = 0
 	levelMapping.anchorY = 0
+	
 	physics.addBody(levelMapping, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
 		
 	return levelMapping
@@ -113,7 +119,7 @@ local function createLevel(mapData, player1)
 	--	  miniMapDisplay.name = "miniMapName"
 
 	-- Add objects to its proper groups
-	gui.back:insert(1, map)
+	gui.back:insert(map)
 	
 	-- destroy loading screen
 	timer.performWithDelay(1000, deleteClosure)
@@ -131,14 +137,10 @@ end
 local function changePane(mapData, player, player2, miniMap)
 	-- Load in map
 	local map = display.newGroup()
-	local levelMap
+	-- load in wall collision
+	local levelMap = drawPane(mapData)
 	
-	levelMap = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png")	
-	levelMap.anchorX = 0
-	levelMap.anchorY = 0
 	map:insert(levelMap)
-	physics.addBody(levelMap, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
-
 	objects.main(mapData, map)
 
 	-- if player is small, set player size back to normal
@@ -146,9 +148,9 @@ local function changePane(mapData, player, player2, miniMap)
 		player:unshrink()
 	end
 
-	--TODO: how does checkWin work?
 	-- check if player has finished level
 	--checkWin(player, map, mapData)
+	
 	-- return new pane
 	return map
 end
