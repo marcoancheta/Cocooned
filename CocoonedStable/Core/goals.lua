@@ -22,8 +22,14 @@ local function destroyGoals()
 	print("Destroyed goalie")
 		
 	display.remove(play)
-	display.remove(textObject)
-	display.remove(rune)
+	
+	for i=1, #textObject do
+		display.remove(textObject[i])
+	end
+	
+	for i=1, #rune do
+		display.remove(rune[i])
+	end
 	
 	play = nil;
 	rune = nil;
@@ -135,7 +141,8 @@ end
 local goals = {
 -- Pass into globals
 	drawGoals = drawGoals,
-	findGoals = findGoals
+	findGoals = findGoals,
+	destroyGoals = destroyGoals
 }
 
 return goals
