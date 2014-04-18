@@ -248,7 +248,7 @@ end
 --------------------------------------------------------------------------------
 -- Core Game Loop
 --------------------------------------------------------------------------------
--- Updated by: Marco - added selectLevel.clean in gameStart if statement 
+-- Updated by: Derrick 
 --------------------------------------------------------------------------------
 local function gameLoopEvents(event)
 	-- Run monitorMemory from open to close.
@@ -264,8 +264,6 @@ local function gameLoopEvents(event)
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
-
-		--selectLevel.selectLoop(event)	
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		
@@ -321,7 +319,7 @@ local function gameLoopEvents(event)
 	--[[ MAIN MENU ]]--
 	if gameData.menuOn then
 		-- Go to main menu
-		menu.MainMenu(event)
+		menu.mainMenu(event)
 		
 		-- Start BGM
 		--sound.playBGM(event, sound.gameSound)
@@ -337,17 +335,13 @@ local function gameLoopEvents(event)
 	----------------------
 	--[[ OPTIONS MENU ]]--	
 	elseif gameData.inOptions then
-		-- If in options do:
 		-- Go to options menu
-		menu.Options(event)
-		--menu.soundOptions(event)
-																																																																						
+		menu.options(event)																																																																						
 		-- Re-evaluate gameData booleans
 		gameData.inOptions = false		
 	-------------------------
 	--[[ IN-GAME OPTIONS ]]--
 	elseif gameData.inGameOptions then
-		-- If in game options do:
 		-- Go to in-game option menu
 		menu.ingameMenu(event, player1, player2, gui)
 		
@@ -365,9 +359,9 @@ local function gameLoopEvents(event)
 		gameData.inGameOptions = false
 	--------------------------
 	--[[ RESUME GAME LOOP ]]--		
-	elseif gameData.resumeGame then 
-		-- If resumeGame from game options then do:
-		
+	elseif gameData.resumeGame then
+		-- Restart physics
+		physics.start()		
 		-- Re-add in game options button
 		menu.ingameOptionsbutton(event, map)
 

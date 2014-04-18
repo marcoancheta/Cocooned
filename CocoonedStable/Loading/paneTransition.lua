@@ -147,12 +147,11 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	
 	
 	local moveTrans = timer.performWithDelay(400, movePanes)
-	moveTrans.params = {tempPane = tempPane, 
-						miniMap = miniMap, 
-							gui = gui, 
-						player1 = player1, 
-						mapData = mapData,  
-						}
+		  moveTrans.params = { tempPane = tempPane, 
+								miniMap = miniMap, 
+									gui = gui, 
+								player1 = player1, 
+								mapData = mapData  }
 end
 
 --------------------------------------------------------------------------------
