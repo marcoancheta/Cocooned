@@ -164,7 +164,7 @@ end
 --------------------------------------------------------------------------------
 local loadLevel = {
 	createLevel = createLevel,
-	changePane = changePane,
+	changePane = changePane
 }
 
 return loadLevel
