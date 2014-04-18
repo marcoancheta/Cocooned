@@ -13,7 +13,7 @@ local objects = require("Loading.objects")
 local loadLevel = require("Loading.loadLevel")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("Mechanics.collisionDetection")
-
+-- Generate Objects (generateObjects.lua)
 local generate = require("Loading.generateObjects")
 
 --------------------------------------------------------------------------------
@@ -174,5 +174,4 @@ local paneTransition = {
 }
 
 return paneTransition
-
 -- end of paneTransition.lua

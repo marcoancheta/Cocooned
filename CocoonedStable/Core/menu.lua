@@ -77,15 +77,13 @@ local function buttonPressed(event)
 		menuGroup = nil
 		-- Go back to menu
 		gameData.menuOn = true
-		gameData.allowPaneSwitch = false
-		gameData.allowMiniMap = false
-		gameData.showMiniMap = false	
 		
 	--[[ Back to Main from In-Game button pressed ]]--
 	elseif event.target.name == "gotoMain" then
 		print("Back to Main Menu")	
 		physics.stop()
-		gameData.menuOn = true		
+		menuGroup:removeSelf()
+		menuGroup = nil
 		gameData.gameEnd = true
 		
 	--[[ In game options button pressed ]]--	
@@ -167,12 +165,7 @@ local function mainMenu(event)
 	print("In Main Menu")
 	
 	-- Create new menu display group
-	if menuGroup then
-		menuGroup:removeSelf()
-		menuGroup = nil
-	else
-		menuGroup = display.newGroup()
-	end
+	menuGroup = display.newGroup()
 	
 	local menuObjects = {
 		-- Add main menu background image
@@ -216,12 +209,7 @@ local function options(event)
 	print("In Options")
 	
 	-- Create new menu display group
-	if menuGroup then
-		menuGroup:removeSelf()
-		menuGroup = nil
-	else
-		menuGroup = display.newGroup()
-	end
+	menuGroup = display.newGroup()
 	
 	local menuObjects = {
 		-- Add options background image
@@ -280,12 +268,7 @@ local function ingameMenu(event, gui)
 	print("ingameMenu")		
 	
 	-- Create new menu display group
-	if menuGroup then
-		menuGroup:removeSelf()
-		menuGroup = nil
-	else
-		menuGroup = display.newGroup()
-	end
+	menuGroup = display.newGroup()
 	
 	--player1 = player
 	--player2 = playerTwo

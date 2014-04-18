@@ -226,8 +226,8 @@ local function clean(event)
 	ball:removeSelf()
 	ball = nil
 	
-	gui:removeSelf()
-	gui = nil
+	--gui:removeSelf()
+	--gui = nil
 	
 	--miniMap:removeSelf()
 	--miniMap = nil
@@ -255,9 +255,11 @@ local function gameLoopEvents(event)
 	memory.monitorMem()
 				
 	if mapData.levelNum == "LS" then
-		-- Set Camera to Ball
-		gui.back[1].setCameraFocus(ball)
-		gui.back[1].setTrackingLevel(0.1)
+		if gui.back[1] then
+			-- Set Camera to Ball
+			gui.back[1].setCameraFocus(ball)
+			gui.back[1].setTrackingLevel(0.1)
+		end
 	end
 	
 	---------------------------------
@@ -307,8 +309,7 @@ local function gameLoopEvents(event)
 			gameData.selectLevel = true
 		else
 			-- reset pane to middle pane
-			local mapD = gameData.mapData
-			mapD.pane = 'M'
+			mapData.pane = 'M'
 			gameData.gameStart = true
 		end
 		
