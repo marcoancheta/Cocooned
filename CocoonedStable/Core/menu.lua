@@ -14,7 +14,7 @@ local generate = require("Loading.generateObjects")
 --local widget = require("widget")
 
 local menuGroup
-local player1, player2 = nil
+--local player1, player2 = nil
 local groupText = {}
 
 --------------------------------------------------------------------------------
@@ -109,6 +109,7 @@ local function buttonPressed(event)
 		gameData.resumeGame = true
 	--[[ Increase or decrease speed ]]--
 	elseif event.target.name == "plusButton" then
+		--[[
 		if player1 ~= nil then
 			player1.speedConst = player1.speedConst +1
 			player1.maxSpeed = player1.maxSpeed +1
@@ -120,7 +121,9 @@ local function buttonPressed(event)
 			--player's current speed
 			groupText[2].text = player1.speedConst		
 		end
+		]]--
 	elseif event.target.name == "minusButton" then
+		--[[
 		if player1 ~= nil then
 			player1.speedConst = player1.speedConst -1
 			player1.maxSpeed = player1.maxSpeed -1
@@ -132,7 +135,9 @@ local function buttonPressed(event)
 			--player's current speed
 			groupText[2].text = player1.speedConst
 		end
+		]]--
 	elseif event.target.name == "plusButtonDamping" then
+		--[[
 		if player1 ~= nil then
 			player1.imageObject.linearDamping = player1.imageObject.linearDamping +.25
 			
@@ -142,7 +147,9 @@ local function buttonPressed(event)
 			--player's linear damping
 			groupText[3].text = player1.imageObject.linearDamping
 		end
+		]]--
 	elseif event.target.name == "minusButtonDamping" then
+		--[[
 		if player1 ~= nil then
 			player1.imageObject.linearDamping = player1.imageObject.linearDamping -.25
 			
@@ -152,6 +159,7 @@ local function buttonPressed(event)
 			--player's linear damping
 			groupText[3].text = player1.imageObject.linearDamping
 		end
+		]]--
 	end
 end
 
@@ -161,17 +169,20 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function MainMenu(event)
-	physics.start()
 	print("In Main Menu")
-	-- Create new menu display group
-	menuGroup = display.newGroup()
 	
+	-- Create new menu display group
+	if menuGroup then
+		menuGroup:removeSelf()
+		menuGroup = nil
+	end
+			
 	local main = display.newImageRect("mapdata/art/TitleScreen.png", 1425, 900, true)
 	local play = display.newImageRect("mapdata/art/buttons/newgame.png", 400, 150, true)
-	play:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
-	  
 	local options = display.newImageRect("mapdata/art/buttons/options.png", 400, 150, true)
-	options:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
+	
+	play:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
+	options:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 
 	
 	-- Add main menu background image
 	main.x = display.contentCenterX
@@ -186,6 +197,8 @@ local function MainMenu(event)
 	options.x = display.contentCenterX
 	options.y = display.contentCenterY + 270
 	options.name = "optionButton"
+	
+	menuGroup = display.newGroup()
 	
 	-- Insert all images/buttons into group
 	menuGroup:insert(main)
@@ -203,11 +216,15 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function ingameOptionsbutton(event, map)
+	local cX = display.contentCenterX
+	local cY = display.contentCenterY
+
 	-- Add in-game options image (option_wheel.png)
 	local ingameOptions = display.newImage("mapdata/art/buttons/option_wheel.png", 0, 0, true)
 
 	-- Scale image size
-	ingameOptions.x, ingameOptions.y = generate.tilesToPixels(38, 2)	
+	ingameOptions.x = cX + 650
+	ingameOptions.y = cY - 350
 	ingameOptions.name = "inGameOptionsBTN"	
 	ingameOptions:addEventListener("tap", buttonPressed)
 	ingameOptions:toFront()
@@ -251,13 +268,29 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function ingameMenu(event, player, playerTwo, gui)
+--local function ingameMenu(event, player, playerTwo, gui)
+local function ingameMenu(event, gui)
 	print("ingameMenu")		
 	menuGroup = display.newGroup()
+	--player1 = player
+	--player2 = playerTwo
 	
 	-- Add options background image
 	local gameOptionsBG = display.newImageRect("mapdata/art/background/screens/cocooned_menu.png", 1425, 900, true)	
-		
+		  gameOptionsBG.x = display.contentCenterX
+		  gameOptionsBG.y = display.contentCenterY
+		  -- Flip image (horizontal)
+		  gameOptionsBG:scale(-1, 1)
+	
+	local menuNames = {
+		[1] = "gotoMain",
+		[2] = "Resume",
+		[3] = "minusButtonDamping",
+		[4] = "plusButtonDamping",
+		[5] = "minusButton",
+		[6] = "plusButton"
+	}
+	
 	local menuObjects = {
 		-- Add Main Menu button
 		[1] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150, true),
@@ -272,51 +305,15 @@ local function ingameMenu(event, player, playerTwo, gui)
 		-- Pluss button #2
 		[6] = display.newImageRect("mapdata/art/buttons/plus.png", 100, 100, true)
 	}
-	
-	groupText = {
-		-- Create onScreen text object
-		[1] = display.newText("PAUSED", 1155, 100, native.Systemfont, 69),
-		--player's current speed
-		[2] = display.newText(player.speedConst, 1150, 380, native.Systemfont, 69),
-		--player's linear damping
-		[3] = display.newText(player.imageObject.linearDamping, 1150, 225, native.Systemfont, 69)
-	}
-	
-	player1 = player
-	player2 = playerTwo
-	
-	gameOptionsBG.x = display.contentCenterX
-	gameOptionsBG.y = display.contentCenterY
-	gameOptionsBG:scale(-1, 1)		
-	
-	-- Assign name for runtime functions
-	-- Assign position		
-	menuObjects[1].name = "gotoMain"
-	menuObjects[1].x = display.contentCenterX + 450
-	menuObjects[1].y = display.contentCenterY + 150
 		
-	menuObjects[2].name = "Resume"	
-	menuObjects[2].x = display.contentCenterX + 450
-	menuObjects[2].y = display.contentCenterY + 300
+	
+	-- Create onScreen text object
+	groupText[1] = display.newText("PAUSED", 1155, 100, native.Systemfont, 69)
+	--player's current speed
+	--groupText[2] = display.newText(player.speedConst, 1150, 380, native.Systemfont, 69)
+	--player's linear damping
+	--groupText[3] = display.newText(player.imageObject.linearDamping, 1150, 225, native.Systemfont, 69)
 		
-	menuObjects[6].name = "plusButton"
-	menuObjects[6].x = display.contentCenterX + 575
-	menuObjects[6].y = display.contentCenterY - 20
-
-	menuObjects[5].name = "minusButton"
-	menuObjects[5].x = display.contentCenterX + 325
-	menuObjects[5].y = display.contentCenterY - 20
-	
-	menuObjects[4].name = "plusButtonDamping"
-	menuObjects[4].x = display.contentCenterX + 575
-	menuObjects[4].y = display.contentCenterY - 175
-
-	menuObjects[3].name = "minusButtonDamping"
-	menuObjects[3].x = display.contentCenterX + 325
-	menuObjects[3].y = display.contentCenterY - 175
-	
-	menuGroup:insert(gameOptionsBG)
-	
 	for i=1, #groupText do
 		if i >= 2 then
 			groupText[i]:setFillColor(0, 0, 0)
@@ -326,7 +323,34 @@ local function ingameMenu(event, player, playerTwo, gui)
 		-- Add everything to menuGroup
 		menuGroup:insert(groupText[i])
 	end
-			
+	
+	-- Assign name for runtime functions
+	-- Assign position		
+	menuObjects[1].x = display.contentCenterX + 450
+	menuObjects[1].y = display.contentCenterY + 150
+		
+	menuObjects[2].x = display.contentCenterX + 450
+	menuObjects[2].y = display.contentCenterY + 300
+	
+
+	menuObjects[3].x = display.contentCenterX + 325
+	menuObjects[3].y = display.contentCenterY - 175
+	
+	menuObjects[4].x = display.contentCenterX + 575
+	menuObjects[4].y = display.contentCenterY - 175
+
+	menuObjects[5].x = display.contentCenterX + 325
+	menuObjects[5].y = display.contentCenterY - 20
+		
+	menuObjects[6].x = display.contentCenterX + 575
+	menuObjects[6].y = display.contentCenterY - 20	
+	
+	for i=1, #menuObjects do
+		menuObjects[i].name = menuNames[i]
+	end
+	
+	menuGroup:insert(gameOptionsBG)
+				
 	for i=1, #menuObjects do
 		menuObjects[i].anchorX = 0.5
 		menuObjects[i].anchorY = 0.5
@@ -349,10 +373,8 @@ local menu = {
 	MainMenu = MainMenu,
 	Options = Options,
 	ingameOptionsbutton = ingameOptionsbutton,
-	ingameMenu = ingameMenu,
-	buttonPressed = buttonPressed
+	ingameMenu = ingameMenu
 }
 
 return menu
-
 -- end of menu.lua

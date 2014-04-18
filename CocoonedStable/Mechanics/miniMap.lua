@@ -266,9 +266,9 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local miniMap = {
-	createMiniMap = createMiniMap,
-	updateMiniMap = updateMiniMap,
-	moveMiniMap = moveMiniMap,
+	--createMiniMap = createMiniMap,
+	--updateMiniMap = updateMiniMap,
+	--moveMiniMap = moveMiniMap,
 }
 
 

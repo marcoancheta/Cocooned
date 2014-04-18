@@ -101,8 +101,8 @@ local function createLevel(mapData, player1)
 	end
 	
 	-- create miniMap for level
-	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, map)
-		  miniMapDisplay.name = "miniMapName"
+	--local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, map)
+	--	  miniMapDisplay.name = "miniMapName"
 
 	-- Add objects to its proper groups
 	gui.back:insert(1, map)

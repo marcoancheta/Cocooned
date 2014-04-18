@@ -33,7 +33,7 @@ local function movePanes(event)
 	local params = event.source.params
 
 	-- update new miniMap
-	miniMapMechanic.updateMiniMap(params.tempPane, params.miniMap, params.gui, params.player1)
+	--miniMapMechanic.updateMiniMap(params.tempPane, params.miniMap, params.gui, params.player1)
 
 	-- delete everything on map
 	objects.destroy(params.mapData)

@@ -37,7 +37,7 @@ local player = require("Mechanics.player")
 -- Object variables/files (objects.lua)
 local objects = require("Loading.objects")
 -- miniMap display functions
-local miniMapMechanic = require("Mechanics.miniMap")
+--local miniMapMechanic = require("Mechanics.miniMap")
 -- memory checker (memory.lua)
 local memory = require("memory")
 
@@ -73,7 +73,7 @@ local mapData = {
 	version = 0
 }
 
-local miniMap
+--local miniMap
 local map, ball
 local gui
 local players = {}
@@ -201,7 +201,7 @@ local function loadMap(mapData)
 	player1.imageObject = ball
 
 	-- Load in map
-	gui, miniMap= loadLevel.createLevel(mapData, player1)
+	gui, miniMap = loadLevel.createLevel(mapData, player1)
 
 	--start physics when everything is finished loading
 	physics.start()
@@ -234,8 +234,8 @@ local function clean(event)
 	gui:removeSelf()
 	gui = nil
 	
-	miniMap:removeSelf()
-	miniMap = nil
+	--miniMap:removeSelf()
+	--miniMap = nil
 
 	-- destroy player instance
 	player1:destroy()
@@ -255,7 +255,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco - added selectLevel.clean in gameStart if statement 
 --------------------------------------------------------------------------------
-local function gameLoop(event)
+local function gameLoopEvents(event)
 	physics.setDrawMode("hybrid")
 
 	-- Run monitorMemory from open to close.
@@ -295,8 +295,6 @@ local function gameLoop(event)
 		menu.ingameOptionsbutton(event, map)
 		
 		-- Re-evaluate gameData booleans
-		gameData.menuOn = false
-		gameData.ingame = true
 		gameData.allowPaneSwitch = true
 		gameData.allowMiniMap = true
 		gameData.gameStart = false
@@ -311,7 +309,6 @@ local function gameLoop(event)
 		-- set booleans
 		gameData.menuOn = true
 		gameData.gameEnd = false
-
 	elseif gameData.levelRestart == true then
 		clean(event)
 		
@@ -396,9 +393,9 @@ local function gameLoop(event)
 	end	
 end
 
---------------------------------------------------------------------------------
--- Call gameLoop && menuLoop every 30 fps
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-Runtime:addEventListener("enterFrame", gameLoop)
+local gameLoop = {
+	gameLoopEvents = gameLoopEvents
+}
+
+return gameLoop
+
