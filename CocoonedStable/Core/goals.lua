@@ -10,11 +10,14 @@ local generate = require("Loading.generateObjects")
 -- Local variables
 ---------------------
 local play
-
 local rune = {}
 local textObject = {}
 
--- Destroy it all!
+--------------------------------------------------------------------------------
+-- destroyGoals - Destroy it all!
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function destroyGoals()
 	print("Destroyed goalie")
 		
@@ -23,8 +26,8 @@ local function destroyGoals()
 	display.remove(rune)
 	
 	play = nil;
-	textObject = nil
-	rune = nil
+	rune = nil;
+	textObject = nil;
 end
 
 --------------------------------------------------------------------------------
@@ -41,9 +44,16 @@ local function tapOnce(event)
 	end		
 end
 
-
--- Draw/Insert Objects
+--------------------------------------------------------------------------------
+-- drawGoals - Draw/Insert Objects
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function drawGoals(gui)
+	-- Reinitialize arrays
+	textObject = {}
+	rune = {}
+
 	-- Initial rune x-coordinate
 	local xCoord = 720
 	-- Goal text displayer
@@ -97,7 +107,11 @@ local function drawGoals(gui)
 
 end
 
--- findGoals: set and adjust goals via their respected level
+--------------------------------------------------------------------------------
+-- findGoals - set and adjust goals via their respected level
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function findGoals(mapData, gui)
 	local runeAmount = 0
 	local tempData = mapData.levelNum

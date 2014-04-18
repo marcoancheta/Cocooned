@@ -59,11 +59,13 @@ local deleteClosure = function() return loading.deleteLoading(level) end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function drawPane(mapData)
-	local levelMapping
-	levelMapping = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png")
-	levelMapping.name = "testing 1"
-	levelMapping.anchorX = 0
-	levelMapping.anchorY = 0
+	local displayX = display.contentWidth
+	local displayY = display.contentHeight
+	
+	local levelMapping = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png", displayX, displayY)
+		  levelMapping.x = display.contentCenterX
+		  levelMapping.y = display.contentCenterY
+		  levelMapping.name = "testing 1"
 	
 	physics.addBody(levelMapping, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
 		
@@ -73,12 +75,13 @@ end
 --------------------------------------------------------------------------------
 -- Create Level - function that creates starting pane of level
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function createLevel(mapData, player1)
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
-
+	local map = display.newGroup()
+	
 	-- Create GUI subgroups
 	gui.front = display.newGroup()
 	gui.back = display.newGroup()
@@ -92,47 +95,45 @@ local function createLevel(mapData, player1)
 	level = mapData.levelNum
 		
 	-- Load in map
-	local map = display.newGroup()
-	map.name = "display group"
 	if mapData.levelNum ~= "LS" then
-		-- load in wall collision
+		-- load in map
 		local levelMap = drawPane(mapData)
-		map:insert(levelMap)		
-	else
-		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/LS.json")
-	end
-	
-	objects.main(mapData, map)
-	
-	-- set players location according to level
-	if mapData.levelNum == "LS" then
-		goals.drawGoals(gui)
-		player1.imageObject.x, player1.imageObject.y = map.tilesToPixels(24, 18)
-		map.layer["tiles"]:insert(player1.imageObject)
-	else
+		map:insert(levelMap)
+		-- load in objects
+		objects.main(mapData, map)
+		-- load in player
 		player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(20, 6)
 		map:insert(player1.imageObject)
+	elseif mapData.levelNum == "LS" then
+		-- load in map
+		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/LS.json")
+		-- load in objects
+		objects.main(mapData, map)
+		-- load in goals
+		goals.drawGoals(gui)
+		-- load in player
+		player1.imageObject.x, player1.imageObject.y = map.tilesToPixels(24, 18)
+		map.layer["tiles"]:insert(player1.imageObject)
 	end
+	
+	-- Add objects to its proper groups
+	gui.back:insert(map)
 	
 	-- create miniMap for level
 	--local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, map)
 	--	  miniMapDisplay.name = "miniMapName"
-
-	-- Add objects to its proper groups
-	gui.back:insert(map)
 	
 	-- destroy loading screen
 	timer.performWithDelay(1000, deleteClosure)
 
 	-- reutrn gui and miniMap
-	return gui, miniMapDisplay
-	
+	return gui, miniMapDisplay	
 end
 
 --------------------------------------------------------------------------------
 -- Change Pane - function that changes panes of level
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function changePane(mapData, player, player2, miniMap)
 	-- Load in map
