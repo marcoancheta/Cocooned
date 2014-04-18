@@ -176,11 +176,9 @@ end
 local function loadMap(mapData)
 	-- Start physics
 	physics.start()
-	
-	--TODO: move player creation into create level?
-	-- pause physics
-	physics.pause()
+	physics.setDrawMode("hybrid")
 	physics.setScale(45)
+	
 	-- Initialize player(s)
 	player1 = player.create()
 	system.setAccelerometerInterval(30)
@@ -202,9 +200,6 @@ local function loadMap(mapData)
 
 	-- Load in map
 	gui, miniMap = loadLevel.createLevel(mapData, player1)
-
-	--start physics when everything is finished loading
-	physics.start()
 	
 	-- Start mechanics
 	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui, gui.back[1])
@@ -256,8 +251,6 @@ end
 -- Updated by: Marco - added selectLevel.clean in gameStart if statement 
 --------------------------------------------------------------------------------
 local function gameLoopEvents(event)
-	physics.setDrawMode("hybrid")
-
 	-- Run monitorMemory from open to close.
 	memory.monitorMem()
 				
@@ -361,7 +354,6 @@ local function gameLoopEvents(event)
 		-- Remove object listeners
 		gui.back:removeEventListener("touch", swipeMechanics)
 		gui.back:removeEventListener("tap", tapMechanic)
-		gui.back:addEventListener("tap", tapMechanic)
 		Runtime:removeEventListener("accelerometer", controlMovement)
 		Runtime:removeEventListener("enterFrame", speedUp)
 

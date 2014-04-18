@@ -33,6 +33,9 @@ local gameData = {
 	showMiniMap = false,
 	isShowingMiniMap = false,
 	
+	-- Game Booleans
+	levelComplete = false,	
+	
 	locked = false,
 	
 	-- Player
