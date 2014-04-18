@@ -4,14 +4,6 @@
 -- loadLevel.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- lua class that loads pane for level
-
-
---------------------------------------------------------------------------------
--- Variables - variables for loading panes
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
 -- level finished function (levelFinished.lua)
 require("Core.levelFinished")
 -- Dusk Engine (Dusk.lua)
@@ -34,8 +26,14 @@ local menu = require("Core.menu")
 local generate = require("Loading.generateObjects")
 -- load in physics data
 local physicsData = require("Loading.physicsData")
+-- Goals (goals.lua)
 local goals = require("Core.goals")
 
+--------------------------------------------------------------------------------
+-- Variables - variables for loading panes
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 -- set variables for loading screen
 local loaded = 0
 local level = 0 
