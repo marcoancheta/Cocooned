@@ -20,7 +20,7 @@ function M.physicsData(scale)
 	local physics = { data =
 	{ 
 		
-		["border2"] = {
+		["M"] = {
                     
                     
                     
@@ -28,40 +28,61 @@ function M.physicsData(scale)
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
-                    shape = {   -750, -432  ,  -750, 432  ,  -770, 432  ,  -770, -432  }
+                    shape = {   720, 432  ,  295, 431  ,  -73, -209  ,  -76, -324  ,  10, -432  ,  720, -432  }
                     }
-                    
-                    
-                    
                      ,
-                    
-                    
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
-                    shape = {   730, 432  ,  -770, 432  ,  -770, 416  ,  770, 416  }
+                    shape = {   -720, -432  ,  36, 114  ,  1, 205  ,  -133, 432  ,  -720, 432  }
                     }
-                    
-                    
-                    
                      ,
-                    
-                    
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
-                    shape = {   770, -432  ,  770, 432  ,  752, 432  ,  752, -432  }
+                    shape = {   -159, -152  ,  109, 111  ,  -280, -168  ,  -231, -182  }
                     }
-                    
-                    
-                    
                      ,
-                    
-                    
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
-                    shape = {   -770, -432  ,  770, -432  ,  770, -414  ,  -770, -413  }
+                    shape = {   -324, -214  ,  -720, -432  ,  -385, -413  ,  -338, -364  }
+                    }
+                     ,
+                    {
+                    pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    shape = {   109, 111  ,  295, 431  ,  184, 270  }
+                    }
+                     ,
+                    {
+                    pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    shape = {   -385, -413  ,  -720, -432  ,  -388, -432  }
+                    }
+                     ,
+                    {
+                    pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    shape = {   -720, -432  ,  -280, -168  ,  109, 111  ,  36, 114  }
+                    }
+                     ,
+                    {
+                    pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    shape = {   -280, -168  ,  -720, -432  ,  -324, -214  }
+                    }
+                     ,
+                    {
+                    pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    shape = {   -118, -153  ,  109, 111  ,  -159, -152  }
+                    }
+                     ,
+                    {
+                    pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    shape = {   -73, -209  ,  109, 111  ,  -118, -153  }
                     }
                     
                     

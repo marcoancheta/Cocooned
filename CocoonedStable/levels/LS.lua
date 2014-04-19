@@ -51,7 +51,7 @@ local LS = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 4,
+		["exitPortal"] = 5,
 		["enemy"] = 0,
 	},
 }
@@ -80,28 +80,30 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 			
 	-- Check which pane
-	if mapData.pane == "LS" then
-		for i=1, 4 do
+	if mapData.pane == "LS" then		
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(8, 16)
+		objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(8, 8)
+		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(32, 7)
+		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(33, 15)
+		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(21, 15)
+		
+		for i=1, 5 do
 			objects["exitPortal" ..i.. ""]:setSequence("move")
 			objects["exitPortal" ..i.. ""]:play()
 			objects["exitPortal" ..i.. ""]:scale(2, 2)
-		end
-		
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(8, 16)
-		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(8, 8)
-		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(32, 7)
-		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(33, 15)
-		
-		for i=1, 4 do
+			
 			locks[i] = display.newImageRect("mapdata/art/buttons/lock.png", 50, 50, true)
 			locks[i].x = objects["exitPortal" ..i.. ""].x
 			locks[i].y = objects["exitPortal" ..i.. ""].y
 				
 			--map.layer["tiles"]:insert(locks[i])
 			
-			if i~=3 then
+			if i==1 or i==4 then
+				locks[i].isVisible = true
+				objects["exitPortal" ..i.. ""]:setSequence("still")
+			else
 				locks[i].isVisible = false
-			end			
+			end		
 		end
 	end
 	

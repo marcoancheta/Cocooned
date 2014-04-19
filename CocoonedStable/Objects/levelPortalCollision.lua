@@ -39,10 +39,11 @@ local function collide(collideObject, player, event, mapData, map, gui)
 							
 	local trans = transition.to(player.imageObject, {time=1500, x=collideObject.x, y=collideObject.y-15, onComplete = temp} )		
 			
-	for i=1, 4 do
+	for i=1, 5 do
 		if collideObject.name == "exitPortal" ..i.. "" then
 			selectLevel.levelNum = ""..i..""
 			selectLevel.pane = "M"
+			print(selectLevel.levelNum)
 			goals.findGoals(selectLevel, gui)
 			gameData.mapData = selectLevel
 		end
