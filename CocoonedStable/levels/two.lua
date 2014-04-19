@@ -23,7 +23,7 @@ local generate = require("Loading.generateObjects")
 local two = { 
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
-	panes = {true,false,false,false,true},
+	panes = {true,false,false,false,false},
 	playerCount = 1,
 	-- number of wisps in the level
 	wispCount = 6,
@@ -31,7 +31,7 @@ local two = {
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
 	["M"] = {
-		["blueAura"] = 0,
+		["blueAura"] = 1,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -123,19 +123,28 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
-		-- Portal
+		objects["blueAura1"]:setSequence("move")
+		objects["blueAura1"]:play()
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(28, 6)
+		
+		-- Pink rune
+		rune[4].x, rune[4].y = generate.tilesToPixels(4.5, 4.5)			
+		rune[4].isVisible = true
+		
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 6)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(26, 8)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(28, 9)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(30, 9)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(38, 10)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(38, 13)
+		
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
-				
-		-- Wisps
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(2, 2)
-		wisp[2].x, wisp[2].y = generate.tilesToPixels(5, 11)
-		wisp[3].x, wisp[3].y = generate.tilesToPixels(5, 13)
-		wisp[4].x, wisp[4].y = generate.tilesToPixels(5, 15)
 		
-		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 1, 4)
+		generate.gWisps(wisp, map, mapData, 1, 6)
+		generate.gAuraWalls(map, mapData, "blueWall")
 	elseif mapData.pane == "L" then
+		--[[
 		-- Pink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(21, 18)			
 		rune[4].isVisible = true
@@ -150,6 +159,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 1, 6)
+		]]--
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then

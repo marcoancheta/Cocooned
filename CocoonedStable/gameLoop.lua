@@ -176,7 +176,7 @@ end
 local function loadMap(mapData)
 	-- Start physics
 	physics.start()
-	physics.setDrawMode("hybrid")
+	--physics.setDrawMode("hybrid")
 	physics.setScale(45)
 	
 	-- Initialize player(s)
