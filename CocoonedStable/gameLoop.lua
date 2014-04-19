@@ -205,10 +205,10 @@ local function speedUp(event)
 			ballPt.y = player1.imageObject.y
 				
 			table.insert(linePts, ballPt);
+			
+			drawTrail(event)
 		end
 	end
-	
-	drawTrail(event)
 end
 
 --------------------------------------------------------------------------------
