@@ -169,12 +169,6 @@ local function controlMovement(event)
 		textObject.y = display.contentCenterY
 		textObject:setFillColor(1,0,0)
 		textObject:toFront()
-	elseif event.isShake == false then
-		textObject.text = "Not Shaking!"
-		textObject.x = display.contentCenterX
-		textObject.y = display.contentCenterY
-		textObject:setFillColor(1,0,0)
-		textObject:toFront()
 	end
 end
 
