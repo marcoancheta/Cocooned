@@ -166,11 +166,16 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function drawTrail(event)
+	if line then		
+		line:removeSelf()
+		line = nil
+	end
+
 	if gui then				
 		if #linePts >= 2 then
 			line = display.newLine(linePts[1].x, linePts[1].y, linePts[2].x, linePts[2].y)
-			--line:setStrokeColor(236*0.003921568627451, 228*0.003921568627451, 243*0.003921568627451)
-			line.stroke = floorText
+			line:setStrokeColor(236*0.003921568627451, 228*0.003921568627451, 243*0.003921568627451)
+			--line.stroke = floorText
 			line.strokeWidth = 50
 			
 			gui.back:insert(line)
@@ -194,7 +199,7 @@ local function speedUp(event)
 			player1.xGrav = player1.xGrav*player1.curse
 			player1.yGrav = player1.yGrav*player1.curse
 			movement.moveAndAnimate(event, player1)
-					
+										
 			local ballPt = {}
 			ballPt.x = player1.imageObject.x
 			ballPt.y = player1.imageObject.y
@@ -266,10 +271,11 @@ local function clean(event)
 	--	gui[1][1].destroy()
 	--end
 	
-	if line then
-		line:removeSelf()
+	if linePts then
+		linePts = nil
+		linePts = {}
 	end
-	
+			
 	ball:removeSelf()
 	ball = nil
 	
