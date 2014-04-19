@@ -75,6 +75,12 @@ local function drawPane(mapData)
 	
 	physics.addBody(levelWall, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
 	
+	--[[local function repeatTrans()
+		transition.to(levelBG, {time=1000, x=levelBG.x+0.5, onComplete=repeatTrans})
+	end
+	repeatTrans()
+	]]--
+	
 	return levelBG, levelWall
 end
 

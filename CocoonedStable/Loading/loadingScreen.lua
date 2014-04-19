@@ -11,8 +11,8 @@ local gameData = require("Core.gameData")
 -- Updated by: 
 --------------------------------------------------------------------------------
 local loadingBG
-local displayX = display.contentWidth
-local displayY = display.contentHeight
+local displayX = 1440
+local displayY = 864
 --------------------------------------------------------------------------------
 -- Loading Init - function that initialzies loading screen
 --------------------------------------------------------------------------------

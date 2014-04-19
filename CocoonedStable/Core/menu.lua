@@ -245,11 +245,13 @@ local function ingameOptionsbutton(event, map)
 	local cY = display.contentCenterY
 
 	-- Add in-game options image (option_wheel.png)
-	local ingameOptions = display.newImage("mapdata/art/buttons/option_wheel.png", 0, 0, true)
+	local ingameOptions = display.newImageRect("mapdata/art/buttons/option_wheel.png", 90, 90, true)
 
 	-- Scale image size
-	ingameOptions.x = cX + 650
-	ingameOptions.y = cY - 350
+	--ingameOptions.anchorX = 0
+	--ingameOptions.anchorY = 1
+	ingameOptions.x = display.contentCenterX + 600
+	ingameOptions.y = display.contentCenterY - 350
 	ingameOptions.name = "inGameOptionsBTN"	
 	ingameOptions:addEventListener("tap", buttonPressed)
 	ingameOptions:toFront()
@@ -282,7 +284,7 @@ local function ingameMenu(event, gui)
 	
 	local menuObjects = {
 		-- Add options background image
-		[1] = display.newImageRect("mapdata/art/background/screens/cocooned_menu.png", 1425, 900),
+		[1] = display.newImageRect("mapdata/art/background/screens/cocoonedMenu.png", 1425, 900),
 		-- Add Main Menu button
 		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
 		-- Add Resume game button
@@ -305,17 +307,7 @@ local function ingameMenu(event, gui)
 		--player's linear damping
 		--[3] = display.newText(player.imageObject.linearDamping, 1150, 225, native.Systemfont, 69)
 	}	
-		
-	for i=1, #groupText do
-		if i >= 2 then
-			groupText[i]:setFillColor(0, 0, 0)
-		else
-			groupText[i]:setFillColor(1, 0, 0)
-		end
-		-- Add everything to menuGroup
-		menuGroup:insert(groupText[i])
-	end
-	
+			
 	-- Assign position		
 	menuObjects[1].x = display.contentCenterX
 	menuObjects[1].y = display.contentCenterY	
@@ -345,6 +337,16 @@ local function ingameMenu(event, gui)
 		menuObjects[i]:addEventListener("tap", buttonPressed)
 		-- Add everything to menuGroup
 		menuGroup:insert(menuObjects[i])
+	end
+	
+	for i=1, #groupText do
+		if i >= 2 then
+			groupText[i]:setFillColor(0, 0, 0)
+		else
+			groupText[i]:setFillColor(1, 0, 0)
+		end
+		-- Add everything to menuGroup
+		menuGroup:insert(groupText[i])
 	end
 end
 

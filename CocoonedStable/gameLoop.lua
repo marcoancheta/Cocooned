@@ -110,7 +110,7 @@ local function swipeMechanics(event)
 
 		-- call swipe mechanic and get new Pane
 		--TODO: ask why player1 is passed in
-		touch.swipeScreen(event, mapData, miniMap, gui.back)
+		touch.swipeScreen(event, mapData, miniMap, gui.front)
 		
 		-- if touch ended then change map if pane is switched
 		if "ended" == event.phase and mapData.pane ~= tempPane then
@@ -220,7 +220,7 @@ end
 local function loadMap(mapData)
 	-- Start physics
 	physics.start()
-	physics.setDrawMode("hybrid")
+	--physics.setDrawMode("hybrid")
 	physics.setScale(45)
 	
 	-- Initialize player(s)
@@ -248,8 +248,8 @@ local function loadMap(mapData)
 	-- Start mechanics
 	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui, gui.back[1])
 
-	gui:addEventListener("touch", swipeMechanics)
-	gui:addEventListener("tap", tapMechanic)
+	gui.front:addEventListener("touch", swipeMechanics)
+	gui.front:addEventListener("tap", tapMechanic)
 	Runtime:addEventListener("accelerometer", controlMovement)
 	Runtime:addEventListener("enterFrame", speedUp)
 end
@@ -261,8 +261,8 @@ end
 --------------------------------------------------------------------------------
 local function clean(event)
 	-- remove all eventListeners
-	gui:removeEventListener("touch", swipeMechanics)
-	gui:removeEventListener("tap", tapMechanic)	
+	gui.front:removeEventListener("touch", swipeMechanics)
+	gui.front:removeEventListener("tap", tapMechanic)	
 	Runtime:removeEventListener("accelerometer", controlMovement)
 	Runtime:removeEventListener("enterFrame", speedUp)
 		
@@ -280,8 +280,14 @@ local function clean(event)
 	ball:removeSelf()
 	ball = nil
 	
-	--gui:removeSelf()
-	--gui = nil
+	--[[
+	gui.back:removeSelf()
+	gui.middle:removeSelf()
+	gui.front:removeSelf()
+	gui.back = nil
+	gui.middle = nil
+	gui.front = nil
+	]]--
 	
 	--miniMap:removeSelf()
 	--miniMap = nil
@@ -389,22 +395,26 @@ local function gameLoopEvents(event)
 
 		-- Re-evaluate gameData booleans
 		gameData.menuOn = false
+	end
+	
 	----------------------
 	--[[ OPTIONS MENU ]]--	
-	elseif gameData.inOptions then
+	if gameData.inOptions then
 		-- Go to options menu
 		menu.options(event)																																																																						
 		-- Re-evaluate gameData booleans
 		gameData.inOptions = false		
+	end
+	
 	-------------------------
 	--[[ IN-GAME OPTIONS ]]--
-	elseif gameData.inGameOptions then
+	if gameData.inGameOptions then
 		-- Go to in-game option menu
 		menu.ingameMenu(event, player1, player2, gui)
 		
 		-- Remove object listeners
-		gui.back:removeEventListener("touch", swipeMechanics)
-		gui.back:removeEventListener("tap", tapMechanic)
+		gui.front:removeEventListener("touch", swipeMechanics)
+		gui.front:removeEventListener("tap", tapMechanic)
 		Runtime:removeEventListener("accelerometer", controlMovement)
 		Runtime:removeEventListener("enterFrame", speedUp)
 
@@ -414,17 +424,18 @@ local function gameLoopEvents(event)
 		gameData.showMiniMap = false
 		gameData.isShowingMiniMap = false
 		gameData.inGameOptions = false
+	end
 	--------------------------
 	--[[ RESUME GAME LOOP ]]--		
-	elseif gameData.resumeGame then
+	if gameData.resumeGame then
 		-- Restart physics
 		physics.start()		
 		-- Re-add in game options button
 		menu.ingameOptionsbutton(event, map)
 
 		-- Add object listeners
-		gui:addEventListener("touch", swipeMechanics)
-		gui:addEventListener("tap", tapMechanic)
+		gui.front:addEventListener("touch", swipeMechanics)
+		gui.front:addEventListener("tap", tapMechanic)
 		Runtime:addEventListener("accelerometer", controlMovement)
 		Runtime:addEventListener("enterFrame", speedUp)
 		
