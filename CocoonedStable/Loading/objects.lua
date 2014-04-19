@@ -118,21 +118,7 @@ local function createObjects(objectNumbers, mapData)
 	local water = {}
 	local wall = {}
 	local auraWall = {}
-	
-	-- Load walls based on level
-	if mapData.levelNum == "LS" then
-		if mapData.pane == "LS" then
-			-- Main Walls
-			wall[1] = display.newImage("mapdata/art/background/LS/LS-BB/LS.png", true)
-		end
-
-		-- create all walls in level
-		for i=1, tonumber(objectNumbers.wallCount) do
-			wall[i].isVisible = false
-		end
-
-	end
-	
+		
 	-- create all wisps in level
 	for i=1, tonumber(objectNumbers.wispCount) do
 		wisp[i] = display.newImage("mapdata/art/wisp/wisp2.png")

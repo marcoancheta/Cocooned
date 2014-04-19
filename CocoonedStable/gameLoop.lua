@@ -219,9 +219,9 @@ local function clean(event)
 		
 	collisionDetection.destroyCollision(player1.imageObject)
 
-	if mapData.levelNum == "LS" then
-		gui[1][1].destroy()
-	end
+	--if mapData.levelNum == "LS" then
+	--	gui[1][1].destroy()
+	--end
 	
 	ball:removeSelf()
 	ball = nil
@@ -253,7 +253,8 @@ end
 local function gameLoopEvents(event)
 	-- Run monitorMemory from open to close.
 	memory.monitorMem()
-				
+	
+	--[[	
 	if mapData.levelNum == "LS" then
 		if gui.back[1] then
 			-- Set Camera to Ball
@@ -261,6 +262,7 @@ local function gameLoopEvents(event)
 			gui.back[1].setTrackingLevel(0.1)
 		end
 	end
+	]]--
 	
 	---------------------------------
 	--[[ START LVL SELECTOR LOOP ]]--
@@ -385,4 +387,3 @@ local gameLoop = {
 }
 
 return gameLoop
-

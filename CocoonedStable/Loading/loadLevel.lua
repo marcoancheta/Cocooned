@@ -86,25 +86,17 @@ local function createLevel(mapData, player1)
 	level = mapData.levelNum
 		
 	-- Load in map
-	if mapData.levelNum ~= "LS" then
-		-- load in map
-		local levelMap = drawPane(mapData)
-		map:insert(levelMap)
-		-- load in objects
-		objects.main(mapData, map)
-		-- load in player
-		player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(20, 6)
-		map:insert(player1.imageObject)
-	elseif mapData.levelNum == "LS" then
-		-- load in map
-		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/LS.json")
-		-- load in objects
-		objects.main(mapData, map)
+	local levelMap = drawPane(mapData)
+	map:insert(levelMap)
+	-- load in objects
+	objects.main(mapData, map)
+	-- load in player
+	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(20, 6)
+	map:insert(player1.imageObject)
+	
+	if mapData.levelNum == "LS" then
 		-- load in goals
 		goals.drawGoals(gui)
-		-- load in player
-		player1.imageObject.x, player1.imageObject.y = map.tilesToPixels(24, 18)
-		map.layer["tiles"]:insert(player1.imageObject)
 	end
 	
 	-- Add objects to its proper groups

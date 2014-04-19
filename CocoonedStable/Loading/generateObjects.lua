@@ -71,11 +71,11 @@ local function gObjects(level, objects, map, mapData, runes)
 			
 			-- add object to map display group
 
-			if mapData.levelNum ~= "LS" then
+			--if mapData.levelNum ~= "LS" then
 				map:insert(objects[name .. j])				
-			else
-				map.layer["tiles"]:insert(objects[name .. j])
-			end
+			--else
+			--	map.layer["tiles"]:insert(objects[name .. j])
+			--end
 		end
 	end
 
@@ -207,7 +207,7 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 	local physicsData = {}
 	
 	for i=startIndex, endIndex do
-	   	-- insertwater into map display group
+	   	-- insert water into map display group
 	   	if mapData.levelNum ~= "LS" then
 	   		map:insert(wall[i])
 		else			
@@ -218,16 +218,6 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 	   	--wall[i]:setFillColor(1,0,0,1)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
-	end
-	
-	-- add physics body for wall for collision
-	if mapData.levelNum == "LS" then
-		-- load in physics data.
-		physicsData[1] = (require "levels.lvlselect_collision.walls").physicsData(1.0)
-		-- assign physics according to pane.
-		if mapData.pane == "LS" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("lvl_island"))
-		end
 	end
 end
 
@@ -322,5 +312,4 @@ generateObjects = {
 }
 
 return generateObjects
-
 -- end of generateObjects.lua
