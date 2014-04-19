@@ -24,7 +24,7 @@ local function loadingInit(loadGroup)
 	elseif gameData.gameEnd == true then
 		loadingBG = display.newImageRect('mapdata/art/background/screens/gameOver.png', displayX, displayY)
 	else
-		loadingBG = display.newImageRect('mapdata/art/background/screens/LoadingScreen2.png', displayX, displayY)
+		loadingBG = display.newImageRect('mapdata/art/background/screens/loadingScreen.png', displayX, displayY)
 	end
 	
 	loadingBG.x = display.contentCenterX

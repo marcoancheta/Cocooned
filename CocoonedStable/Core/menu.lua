@@ -211,7 +211,7 @@ local function options(event)
 	
 	local menuObjects = {
 		-- Add options background image
-		[1] = display.newImageRect("mapdata/art/background/screens/cocooned_menu.png", 1425, 900),
+		[1] = display.newImageRect("mapdata/art/background/screens/cocoonedMenu.png", 1440, 864),
 		-- Add Main Menu button
 		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
 		-- Create onScreen text objects
