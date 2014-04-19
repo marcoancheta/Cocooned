@@ -84,6 +84,9 @@ local gui
 local line
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
+
+local textObject = display.newText("shakers", 25, 25, native.systemFont, 48)
+
 local count = 0
 
 local players = {}
@@ -157,12 +160,16 @@ local function controlMovement(event)
 		-- set player's X and Y gravity times the player's curse
 		player1.xGrav = physicsParam.xGrav
 		player1.yGrav = physicsParam.yGrav
+
 	end
 	
 	if event.isShake then
-		local textObject = display.newText("shakers", 25, 25, native.systemFont, 48)
-		
 		textObject.text = "Shaking!"
+		textObject.anchorX = 0
+		textObject:setFillColor(1,0,0)
+		textObject:toFront()
+	elseif event.isShake == false then
+		textObject.text = "Not Shaking!"
 		textObject.anchorX = 0
 		textObject:setFillColor(1,0,0)
 		textObject:toFront()
