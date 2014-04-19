@@ -198,10 +198,8 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-local function gWalls(wall, map, mapData, startIndex, endIndex)
-
-	local physicsData = {}
-	
+--[[
+local function gWalls(wall, map, mapData, startIndex, endIndex)	
 	for i=startIndex, endIndex do
 	   	-- insert water into map display group
 	   	if mapData.levelNum ~= "LS" then
@@ -211,11 +209,11 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		end
 		-- set properties of wisps
 	   	wall[i].isVisible = true
-	   	--wall[i]:setFillColor(1,0,0,1)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
 	end
 end
+]]--
 
 --------------------------------------------------------------------------------
 -- Generate aura walls collision
@@ -224,14 +222,15 @@ end
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
 local function gAuraWalls(map, mapData, type)
-	local auraWall = display.newImage("mapdata/art/background/blank.png")
+	local auraWall = display.newCircle(1, 1, 1)
+	auraWall.alpha = 0
 	auraWall.name = "type"
 	auraWall.collType = "passThru"
 	auraWall.func = type .. "Collision"
-	auraWall.x, auraWall.y = 720, 432
+	auraWall.x = display.contentCenterX
+	auraWall.y = display.contentCenterY
 	map:insert(auraWall)
 	physics.addBody(auraWall, "static", physicsData.getAura(mapData.levelNum):get(mapData.pane))
-
 end
 
 --------------------------------------------------------------------------------
@@ -242,12 +241,13 @@ end
 -- takes in a start and end index and creates those wisps only
 local function gWater(map, mapData, direction)
 	-- load in water collision
-	local water = display.newImage("mapdata/art/background/blank.png")
+	local water = display.newCircle(1, 1, 1)
+	water.alpha = 0
 	water.name = "water"
 	water.func = "waterCollision"
 	water.escape = "right"
-	water.x = 720
-	water.y = 432
+	water.x = display.contentCenterX
+	water.y = display.contentCenterY
 	map:insert(water)
 	physics.addBody(water, "static", physicsData.getWater(mapData.levelNum):get(mapData.pane))
 
@@ -282,12 +282,10 @@ local function destroyObjects(level, rune, wisp, water, objects)
 end
 
 local function tilesToPixels( Tx, Ty)
-
 	local x, y = Tx, Ty
 	--tprint.assert((x ~= nil) and (y ~= nil), "Missing argument(s).")
 	x, y = x - 0.5, y - 0.5
 	x, y = (x * 36), (y * 36)
-
 	return x, y
 end
 

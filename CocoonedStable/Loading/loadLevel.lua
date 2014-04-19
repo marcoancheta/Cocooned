@@ -60,8 +60,8 @@ local deleteClosure = function() return loading.deleteLoading() end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function drawPane(mapData)
-	local displayX = display.contentWidth
-	local displayY = display.contentHeight
+	local displayX = 1440
+	local displayY = 864
 	
 	local levelBG = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/bg/" .. mapData.pane .. ".png", displayX, displayY)
 		  levelBG.x = display.contentCenterX
@@ -119,8 +119,8 @@ local function createLevel(mapData, player1)
 	
 	-- Add objects to its proper groups
 	gui.back:insert(levelBG)
-	gui.front:insert(player1.imageObject)
 	gui.middle:insert(levelWalls)
+	gui.front:insert(player1.imageObject)
 	
 	-- create miniMap for level
 	--local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, map)

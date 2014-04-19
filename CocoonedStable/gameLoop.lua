@@ -198,7 +198,8 @@ local function speedUp(event)
 			player1.xGrav = player1.xGrav*player1.curse
 			player1.yGrav = player1.yGrav*player1.curse
 			movement.moveAndAnimate(event, player1)
-										
+			
+			--[[	
 			local ballPt = {}
 			ballPt.x = player1.imageObject.x
 			ballPt.y = player1.imageObject.y
@@ -206,6 +207,7 @@ local function speedUp(event)
 			table.insert(linePts, ballPt);
 						
 			drawTrail(event)
+			]]--
 		end
 	end
 end
@@ -218,7 +220,7 @@ end
 local function loadMap(mapData)
 	-- Start physics
 	physics.start()
-	--physics.setDrawMode("hybrid")
+	physics.setDrawMode("hybrid")
 	physics.setScale(45)
 	
 	-- Initialize player(s)
