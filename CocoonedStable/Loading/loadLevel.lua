@@ -5,7 +5,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- level finished function (levelFinished.lua)
---require("Core.levelFinished")
+require("Core.levelFinished")
 -- Dusk Engine (Dusk.lua)
 local dusk = require("Dusk.Dusk")
 -- miniMap function (miniMap.lua)
@@ -133,7 +133,7 @@ local function changePane(mapData, player, miniMap)
 	end
 
 	-- check if player has finished level
-	--checkWin(player, map, mapData)
+	checkWin(player, map, mapData)
 	
 	-- return new pane
 	return map
