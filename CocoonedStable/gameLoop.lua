@@ -73,6 +73,11 @@ local mapData = {
 	version = 0
 }
 
+local floorText = {
+	type = "image",
+	filename = "mapdata/art/texture/floor.png"
+}
+
 --local miniMap
 local map, ball
 local gui
@@ -164,7 +169,8 @@ local function drawTrail(event)
 	if gui then				
 		if #linePts >= 2 then
 			line = display.newLine(linePts[1].x, linePts[1].y, linePts[2].x, linePts[2].y)
-			line:setStrokeColor(236*0.003921568627451, 228*0.003921568627451, 243*0.003921568627451)
+			--line:setStrokeColor(236*0.003921568627451, 228*0.003921568627451, 243*0.003921568627451)
+			line.stroke = floorText
 			line.strokeWidth = 50
 			
 			gui.back:insert(line)
