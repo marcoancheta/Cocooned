@@ -161,11 +161,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function drawTrail(event)
-	if gui then
-		if line then
-			line:removeSelf()
-		end
-				
+	if gui then				
 		if #linePts >= 2 then
 			line = display.newLine(linePts[1].x, linePts[1].y, linePts[2].x, linePts[2].y)
 			line:setStrokeColor(236*0.003921568627451, 228*0.003921568627451, 243*0.003921568627451)
@@ -263,6 +259,10 @@ local function clean(event)
 	--if mapData.levelNum == "LS" then
 	--	gui[1][1].destroy()
 	--end
+	
+	if line then
+		line:removeSelf()
+	end
 	
 	ball:removeSelf()
 	ball = nil
