@@ -178,7 +178,7 @@ local function drawTrail(event)
 			--line.stroke = floorText
 			line.strokeWidth = 50
 			
-			gui.back:insert(line)
+			gui.middle:insert(line)
 			
 			for i = 3, #linePts, 1 do 
 				line:append(linePts[i].x,linePts[i].y);
@@ -194,7 +194,6 @@ end
 --------------------------------------------------------------------------------
 local function speedUp(event)
 	if gameData.isShowingMiniMap == false then
-		
 		if player1 ~= nil then
 			player1.xGrav = player1.xGrav*player1.curse
 			player1.yGrav = player1.yGrav*player1.curse
@@ -205,7 +204,7 @@ local function speedUp(event)
 			ballPt.y = player1.imageObject.y
 				
 			table.insert(linePts, ballPt);
-			
+						
 			drawTrail(event)
 		end
 	end
