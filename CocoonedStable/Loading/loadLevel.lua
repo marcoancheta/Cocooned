@@ -72,7 +72,7 @@ local function createLevel(mapData, player1)
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
 	local map = display.newGroup()
-	
+		
 	-- Create GUI subgroups
 	gui.front = display.newGroup()
 	gui.back = display.newGroup()
@@ -87,19 +87,22 @@ local function createLevel(mapData, player1)
 		
 	-- Load in map
 	local levelMap = drawPane(mapData)
-	map:insert(levelMap)
-	-- load in objects
+	-- Load in objects
 	objects.main(mapData, map)
-	-- load in player
-	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(20, 6)
-	map:insert(player1.imageObject)
+	-- Load in player
+	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(20, 10)
 	
+	----------------------------
+	-- Level selector exclusive
 	if mapData.levelNum == "LS" then
 		-- load in goals
 		goals.drawGoals(gui)
 	end
+	----------------------------
 	
 	-- Add objects to its proper groups
+	map:insert(levelMap)
+	gui.front:insert(player1.imageObject)
 	gui.back:insert(map)
 	
 	-- create miniMap for level
@@ -110,7 +113,7 @@ local function createLevel(mapData, player1)
 	timer.performWithDelay(1000, deleteClosure)
 
 	-- reutrn gui and miniMap
-	return gui, miniMapDisplay	
+	return gui, miniMapDisplay
 end
 
 --------------------------------------------------------------------------------

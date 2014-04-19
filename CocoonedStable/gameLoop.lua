@@ -76,10 +76,13 @@ local mapData = {
 --local miniMap
 local map, ball
 local gui
-local players = {}
+local line
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 local count = 0
+
+local players = {}
+local linePts = {}
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -153,6 +156,34 @@ local function controlMovement(event)
 end
 
 --------------------------------------------------------------------------------
+-- Create Trail - Draws trail behind player
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function drawTrail(event)
+	if gui then
+		if line then
+			line:removeSelf()
+		end
+		
+		print("starting")
+		
+		if #linePts >= 2 then
+			print("drawing")
+			line = display.newLine(linePts[1].x, linePts[1].y, linePts[2].x, linePts[2].y)
+			line:setStrokeColor(236*0.003921568627451, 228*0.003921568627451, 243*0.003921568627451)
+			line.strokeWidth = 50
+			
+			gui.back:insert(line)
+			
+			for i = 3, #linePts, 1 do 
+				line:append(linePts[i].x,linePts[i].y);
+			end 
+		end
+	end	
+end
+
+--------------------------------------------------------------------------------
 -- Speed Up - gives momentum to player movement
 --------------------------------------------------------------------------------
 -- Updated by: Andrew uncommented move wall code
@@ -164,8 +195,17 @@ local function speedUp(event)
 			player1.xGrav = player1.xGrav*player1.curse
 			player1.yGrav = player1.yGrav*player1.curse
 			movement.moveAndAnimate(event, player1)
+					
+			local ballPt = {}
+			ballPt.x = player1.imageObject.x
+			ballPt.y = player1.imageObject.y
+			print(ballPt.x, ballPt.y)
+				
+			table.insert(linePts, ballPt);
 		end
 	end
+	
+	drawTrail(event)
 end
 
 --------------------------------------------------------------------------------
@@ -197,7 +237,7 @@ local function loadMap(mapData)
 	ball.density = .3
 	
 	player1.imageObject = ball
-
+		
 	-- Load in map
 	gui, miniMap = loadLevel.createLevel(mapData, player1)
 	
@@ -210,6 +250,11 @@ local function loadMap(mapData)
 	Runtime:addEventListener("enterFrame", speedUp)
 end
 
+--------------------------------------------------------------------------------
+-- Clean - clean level
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
 local function clean(event)
 	-- remove all eventListeners
 	gui:removeEventListener("touch", swipeMechanics)
@@ -274,7 +319,7 @@ local function gameLoopEvents(event)
 		loadMap(mapData)
 		menu.ingameOptionsbutton(event, gui)
 				
-		-- Re-evaluate gameData booleans	
+		-- Re-evaluate gameData booleans
 		gameData.selectLevel = false
 	end
 	
@@ -294,7 +339,7 @@ local function gameLoopEvents(event)
 		gameData.allowMiniMap = true
 		gameData.gameStart = false
 	end
-
+		
 	-----------------------------
 	--[[ END GAMEPLAY LOOP ]]--
 	-- If game has ended do:
