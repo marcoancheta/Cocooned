@@ -53,14 +53,19 @@ local function drawPane(mapData)
 	local displayX = display.contentWidth
 	local displayY = display.contentHeight
 	
-	local levelMapping = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png", displayX, displayY)
-		  levelMapping.x = display.contentCenterX
-		  levelMapping.y = display.contentCenterY
-		  levelMapping.name = "testing 1"
+	local levelBG = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/bg/" .. mapData.pane .. ".png", displayX, displayY)
+		  levelBG.x = display.contentCenterX
+		  levelBG.y = display.contentCenterY
+		  levelBG.name = "background"
 	
-	physics.addBody(levelMapping, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
-		
-	return levelMapping
+	local levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)
+		  levelWall.x = display.contentCenterX
+		  levelWall.y = display.contentCenterY
+		  levelWall.name = "walls"
+	
+	physics.addBody(levelWall, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
+	
+	return levelBG, levelWall
 end
 
 --------------------------------------------------------------------------------
@@ -87,9 +92,9 @@ local function createLevel(mapData, player1)
 	level = mapData.levelNum
 		
 	-- Load in map
-	local levelMap = drawPane(mapData)
+	local levelBG, levelWalls = drawPane(mapData)
 	-- Load in objects
-	objects.main(mapData, gui.middle) -- gui.middle = map
+	objects.main(mapData, gui.front) -- gui.front = map
 	-- Load in player
 	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(20, 10)
 	
@@ -102,8 +107,9 @@ local function createLevel(mapData, player1)
 	----------------------------
 	
 	-- Add objects to its proper groups
-	gui.back:insert(levelMap)
+	gui.back:insert(levelBG)
 	gui.front:insert(player1.imageObject)
+	gui.middle:insert(levelWalls)
 	
 	-- create miniMap for level
 	--local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, map)

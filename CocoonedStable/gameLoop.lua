@@ -176,7 +176,7 @@ local function drawTrail(event)
 			line = display.newLine(linePts[1].x, linePts[1].y, linePts[2].x, linePts[2].y)
 			line:setStrokeColor(236*0.003921568627451, 228*0.003921568627451, 243*0.003921568627451)
 			--line.stroke = floorText
-			line.strokeWidth = 50
+			line.strokeWidth = 25
 			
 			gui.middle:insert(line)
 			
