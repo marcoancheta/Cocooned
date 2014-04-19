@@ -64,7 +64,7 @@ playerInstance = {
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function rotateTransition(imageObject, rotationDelta, timeDelta)
-        transition.to( imageObject, { rotation=rotationDelta, time=timeDelta, transition=easing.inOutCubic, tag='rotation' } )
+    transition.to( imageObject, { rotation=rotationDelta, time=timeDelta, transition=easing.inOutCubic, tag='rotation' } )
 end 
 
 --------------------------------------------------------------------------------
