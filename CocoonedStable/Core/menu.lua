@@ -167,7 +167,7 @@ local function mainMenu(event)
 	
 	local menuObjects = {
 		-- Add main menu background image
-		[1] = display.newImageRect("mapdata/art/TitleScreen.png", 1425, 900),
+		[1] = display.newImageRect("mapdata/art/TitleScreen.png", 1440, 864),
 		-- Add Play button
 		[2] = display.newImageRect("mapdata/art/buttons/newgame.png", 400, 150),
 		-- Option buttons: See play button details
