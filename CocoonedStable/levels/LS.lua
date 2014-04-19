@@ -85,7 +85,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(8, 8)
 		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(32, 7)
 		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(33, 15)
-		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(21, 15)
+		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(21, 8)
 		
 		for i=1, 5 do
 			objects["exitPortal" ..i.. ""]:setSequence("move")

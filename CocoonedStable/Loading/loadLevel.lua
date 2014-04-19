@@ -41,6 +41,16 @@ local levelNames = {
 	["4"] = "four"
 }
 
+local ballPos = {
+	["LS"] = {["x"]=21,["y"]=15},
+	["1"]  = {["x"]=5, ["y"]=5},
+	["2"]  = {["x"]=20,["y"]=10},
+	["3"]  = {["x"]=5, ["y"]=5},
+	["4"]  = {["x"]=15, ["y"]=3},
+	["5"]  = {["x"]=2, ["y"]=2},
+}
+
+
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading() end
 
@@ -96,7 +106,8 @@ local function createLevel(mapData, player1)
 	-- Load in objects
 	objects.main(mapData, gui.front) -- gui.front = map
 	-- Load in player
-	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(20, 10)
+	
+	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
 	
 	----------------------------
 	-- Level selector exclusive

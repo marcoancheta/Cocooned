@@ -110,7 +110,7 @@ local function swipeMechanics(event)
 
 		-- call swipe mechanic and get new Pane
 		--TODO: ask why player1 is passed in
-		touch.swipeScreen(event, mapData, miniMap, gui.back[1])
+		touch.swipeScreen(event, mapData, miniMap, gui.back)
 		
 		-- if touch ended then change map if pane is switched
 		if "ended" == event.phase and mapData.pane ~= tempPane then

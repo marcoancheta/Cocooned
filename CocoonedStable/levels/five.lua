@@ -23,7 +23,7 @@ local generate = require("Loading.generateObjects")
 local five = { 
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
-	panes = {true,false,false,false,false},
+	panes = {true,false,false,false,true},
 	playerCount = 1,
 	-- number of wisps in the level
 	wispCount = 6,
