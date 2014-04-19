@@ -169,6 +169,8 @@ local function controlMovement(event)
 		textObject.y = display.contentCenterY
 		textObject:setFillColor(1,0,0)
 		textObject:toFront()
+	else
+		textObject:toBack()
 	end
 end
 
