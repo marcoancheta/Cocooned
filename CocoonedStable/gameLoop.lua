@@ -165,11 +165,8 @@ local function drawTrail(event)
 		if line then
 			line:removeSelf()
 		end
-		
-		print("starting")
-		
+				
 		if #linePts >= 2 then
-			print("drawing")
 			line = display.newLine(linePts[1].x, linePts[1].y, linePts[2].x, linePts[2].y)
 			line:setStrokeColor(236*0.003921568627451, 228*0.003921568627451, 243*0.003921568627451)
 			line.strokeWidth = 50
@@ -199,7 +196,6 @@ local function speedUp(event)
 			local ballPt = {}
 			ballPt.x = player1.imageObject.x
 			ballPt.y = player1.imageObject.y
-			print(ballPt.x, ballPt.y)
 				
 			table.insert(linePts, ballPt);
 		end
