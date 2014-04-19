@@ -158,6 +158,15 @@ local function controlMovement(event)
 		player1.xGrav = physicsParam.xGrav
 		player1.yGrav = physicsParam.yGrav
 	end
+	
+	if event.isShake then
+		local textObject = display.newText("shakers", 25, 25, native.systemFont, 48)
+		
+		textObject.text = "Shaking!"
+		textObject.anchorX = 0
+		textObject:setFillColor(1,0,0)
+		textObject:toFront()
+	end
 end
 
 --------------------------------------------------------------------------------

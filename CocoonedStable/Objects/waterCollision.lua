@@ -23,7 +23,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 	-- set players movement to inWater
 	player.movement ="inWater"
-	print("E", collideObject.escape)
+	print("collideObject.escape: ", collideObject.escape)
 	-- get direction of player escape route
 	player.escape = collideObject.escape
 
