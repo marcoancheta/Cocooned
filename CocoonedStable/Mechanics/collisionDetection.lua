@@ -46,7 +46,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		--let the ball go through water
 		if collideObject.name == "water" then
 		  -- disabled collision
-		  event.contact.isEnabled = false
+		  --event.contact.isEnabled = false
 		end
 
 		if collideObject.name == "wind" then
