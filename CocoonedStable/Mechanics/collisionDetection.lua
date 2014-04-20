@@ -38,27 +38,27 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				-- Create particle effect.
 				--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
 			end
-		end
+			
+			local textObject = display.newText("", 600, 400, native.systemFont, 72)
 		
-		local textObject = display.newText("", 600, 400, native.systemFont, 72)
-		
-		--if the player shook, and the collision with water ended
-		if collideObject.name == "water" then
-			local col = require("Objects." .. collideObject.func)
-			col.collide(collideObject, player, event, mapData, map, gui)	
-		
-			textObject.text = "WATER!"
-			textObject.x = display.contentCenterX
-			textObject.y = display.contentCenterY
-			textObject:setFillColor(0,0,1)
-			textObject:toFront()
-		
-			if player.shook == true then
-				--player.movement = "accel"
-				textObject.text = ""
-				gameData.inWater = false
-				event.contact.isEnabled = false
-				player.shook = false
+			--if the player shook, and the collision with water ended
+			if collideObject.name == "water" then
+				local col = require("Objects." .. collideObject.func)
+				col.collide(collideObject, player, event, mapData, map, gui)	
+			
+				textObject.text = "WATER!"
+				textObject.x = display.contentCenterX
+				textObject.y = display.contentCenterY
+				textObject:setFillColor(0,0,1)
+				textObject:toFront()
+			
+				if player.shook == true then
+					--player.movement = "accel"
+					textObject:toBack()
+					gameData.inWater = false
+					event.contact.isEnabled = false
+					player.shook = false
+				end
 			end
 		end
 	end
