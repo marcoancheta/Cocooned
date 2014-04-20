@@ -67,6 +67,10 @@ local function onAccelerate(event, player)
 	-- Print escape path
 	print(player.escape)
 	
+	-- Local variables
+	local xGrav = 0
+	local yGrav = 0
+	
 	-- Accelerometer Shake Event
 	if event.isShake and player.movement == "inWater" then
 		local ball = player.imageObject
@@ -103,47 +107,46 @@ local function onAccelerate(event, player)
 		
 		ball:applyLinearImpulse(.15*xDirection, .15*yDirection, ball.x, ball.y)
 		timer.performWithDelay(200, cancelDeathTimer)
-	end
+		
+	elseif event.isShake ~= true then
+		-- Accelerometer Tilt Events	
+		-- X gravity change
+		if event.yInstant > 0.1 then
+			xGrav = -event.yInstant
+		elseif event.yInstant < -0.1 then
+			xGrav = -event.yInstant
+		elseif event.yGravity > 0.1 then
+			xGrav = -event.yGravity
+		elseif event.yGravity < -0.1 then
+			xGrav = -event.yGravity
+		else
+			xGrav = 0
+		end
 
-	local xGrav=1
-	local yGrav=1
-	
-	-- X gravity change
-	if event.yInstant > 0.1 then
-		xGrav = -event.yInstant
-	elseif event.yInstant < -0.1 then
-		xGrav = -event.yInstant
-	elseif event.yGravity > 0.1 then
-		xGrav = -event.yGravity
-	elseif event.yGravity < -0.1 then
-		xGrav = -event.yGravity
-	else
-		xGrav = 0
+		-- Y gravity change
+		if event.xInstant > 0.1 then
+			yGrav = -event.xInstant
+		elseif event.xInstant < -0.1 then
+			yGrav = -event.xInstant
+		elseif event.xGravity > 0.1 then
+			yGrav = -event.xGravity
+		elseif event.xGravity < -0.1 then
+			yGrav = -event.xGravity
+		else
+			yGrav = 0
+		end
+		
+		if yGrav < highestygrav then
+			highestygrav = yGrav
+		end
+		if xGrav < highestxgrav then
+			highestxgrav = xGrav
+		end
+		
+		-- offset the gravity to return
+		physicsParam.xGrav = xGrav
+		physicsParam.yGrav = yGrav
 	end
-
-	-- Y gravity change
-	if event.xInstant > 0.1 then
-		yGrav = -event.xInstant
-	elseif event.xInstant < -0.1 then
-		yGrav = -event.xInstant
-	elseif event.xGravity > 0.1 then
-		yGrav = -event.xGravity
-	elseif event.xGravity < -0.1 then
-		yGrav = -event.xGravity
-	else
-		yGrav = 0
-	end
-	
-	if yGrav < highestygrav then
-		highestygrav = yGrav
-	end
-	if xGrav < highestxgrav then
-		highestxgrav = xGrav
-	end
-	
-	-- offset the gravity to return
-	physicsParam.xGrav = xGrav
-	physicsParam.yGrav = yGrav
 	
 	--return physics parameters
 	return physicsParam
