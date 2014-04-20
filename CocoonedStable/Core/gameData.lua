@@ -34,7 +34,8 @@ local gameData = {
 	isShowingMiniMap = false,
 	
 	-- Game Booleans
-	levelComplete = false,	
+	inWater = false,
+	levelComplete = false,
 	
 	locked = false,
 	
