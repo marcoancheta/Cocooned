@@ -60,17 +60,18 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				-- Create particle effect.
 				--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
 			end
-			
+		end
+		
 		-- when collision ends:
 		--elseif ( event.phase == "ended" ) then	
-			--if the player shook, and the collision with water ended
-			if collideObject.name == "water" then
-				if player.shook == true then
-					player.movement = "accel"
-					player.shook = false
-				end
+		--if the player shook, and the collision with water ended
+		if collideObject.name == "water" then
+			if player.shook == true then
+				player.movement = "accel"
+				player.shook = false
 			end
 		end
+
 	end
 
 	-- add event listener to collision detection and pre collision detection

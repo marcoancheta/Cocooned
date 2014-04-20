@@ -30,7 +30,7 @@ local playerInstance = {
 	color = "white",
 	image = "null",
 	name = "hello",
-	movement = "accel",
+	movement = "accel", -- {"accel", "inWater"}
 	escape = "center",
 	
 	-- Int's
