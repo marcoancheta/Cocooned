@@ -44,6 +44,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		if collideObject.name == "water" then
 			if player.shook == true then
 				--player.movement = "accel"
+				event.contact.isEnabled = false
 				player.shook = false
 			end
 		else
