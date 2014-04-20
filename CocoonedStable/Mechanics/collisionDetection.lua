@@ -29,10 +29,10 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		-- if the object is a passThru, calls it's collide function
 	    local collideObject = event.other
 		
-		if collideObject.name ~= "water" or collideObject == nil then
-			gameData.inWater = false
+		--if collideObject.name ~= "water" or collideObject == nil then
+			--gameData.inWater = false
 			--player.imageObject.linearDamping = 1.25 
-		end
+		--end
 		
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
 			local col = require("Objects." .. collideObject.func)
@@ -90,54 +90,24 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				--col.collide(collideObject, player, event, mapData, map, gui)
 				-- set players movement to inWater
 				gameData.inWater = false
+				player.imageObject.linearDamping = 1.25 
 			end
 		end
 	end
 
 	--[[
-	--function for collision detection
-	-- when an object collides, call its own collide function
-	local function onLocalCollision(self, event)
+	function imageObject:postCollision(event)
+		-- if the object is a passThru, calls it's collide function
+	    local collideObject = event.other
 		
-		if (event.phase == "began") then
-			-- save the collide object
-			local collideObject = event.other
-			
-			if collideObject.collType == "solid" or	collideObject.collectable == true or 
-				collideObject.name == "wind" or  collideObject.collType == "passThru" then
-				local col = require("Objects." .. collideObject.func)
-				col.collide(collideObject, player, event, mapData, map, gui)				
-				--elseif collideObject.collType == "wall" then
-					-- Create particle effect.
-					--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
-			end
-		-- when collision began, do this
-		--if event.phase == "began" then		
-			-- if the object is a solid, call it's function		
-			local textObject = display.newText("", 600, 400, native.systemFont, 72)
-		
-			--if the player shook, and the collision with water ended
-			if collideObject.name == "water" then
-				local col = require("Objects." .. collideObject.func)
-				col.collide(collideObject, player, event, mapData, map, gui)	
-			
-				textObject.text = collideObject.name
-				textObject.x = display.contentCenterX
-				textObject.y = display.contentCenterY
-				textObject:setFillColor(0,0,1)
-				textObject:toFront()
-			
-				if player.shook == true then
-					--player.movement = "accel"
-					textObject:toBack()
-					gameData.inWater = false
-					event.contact.isEnabled = false
-					player.shook = false
-				end
-			end
+		--let the ball go through water
+		if collideObject.name ~= "water" then
+			-- disabled collision
+			gameData.inWater = false
 		end
-		]]--
-
+	end
+	]]--
+	
 	-- add event listener to collision detection and pre collision detection
 	imageObject.collision = onLocalCollision
 	imageObject:addEventListener("collision", imageObject)
