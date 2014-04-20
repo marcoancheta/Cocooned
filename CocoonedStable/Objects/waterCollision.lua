@@ -19,7 +19,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	--event.contact.isEnabled = true
 
 	-- reset player's aura and movement
-	player:changeColor("yellow")
+	player:changeColor("white")
 	--player.movement ="inWater"
 	gameData.inWater = true
 
