@@ -17,10 +17,15 @@ local function getAura(levelNum)
 	return (require("levels." .. levelNum .. "_collision.auraWalls")).physicsData(1.0)
 end
 
+local function getFloor(levelNum)
+	return (require("levels." .. levelNum .. "_collision.floor")).physicsData(1.0)
+end
+
 local physicsData = {
 	getData = getData,
 	getWater = getWater,
-	getAura = getAura
+	getAura = getAura,
+	getFloor = getFloor
 }
 
 return physicsData
