@@ -181,12 +181,12 @@ local function onAccelerate(event, player)
 		if xGrav < highestxgrav then
 			highestxgrav = xGrav
 		end
+		
+		-- offset the gravity to return
+		physicsParam.xGrav = xGrav
+		physicsParam.yGrav = yGrav
 	end
-	
-	-- offset the gravity to return
-	physicsParam.xGrav = xGrav
-	physicsParam.yGrav = yGrav
-	
+		
 	--return physics parameters
 	return physicsParam
 end
