@@ -22,15 +22,16 @@
 local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	
 	function imageObject:preCollision(event)
-		if collideObject.collType == "solid" or 
-			collideObject.collectable == true or collideObject.name == "wind" or
-			collideObject.collType == "passThru" then
+		--[[
+		if collideObject.collType == "solid" or	collideObject.collectable == true or 
+		   collideObject.name == "wind" or  collideObject.collType == "passThru" then
 			local col = require("Objects." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)				
 		--elseif collideObject.collType == "wall" then
 			-- Create particle effect.
 			--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
 		end
+		]]--
 	end
 
 	--function for collision detection
@@ -38,7 +39,14 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	local function onLocalCollision(self, event)
 		-- save the collide object
 		local collideObject = event.other
-
+				if collideObject.collType == "solid" or	collideObject.collectable == true or 
+				   collideObject.name == "wind" or  collideObject.collType == "passThru" then
+					local col = require("Objects." .. collideObject.func)
+					col.collide(collideObject, player, event, mapData, map, gui)				
+				--elseif collideObject.collType == "wall" then
+					-- Create particle effect.
+					--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
+				end
 		-- when collision began, do this
 		--if event.phase == "began" then		
 			-- if the object is a solid, call it's function		
@@ -92,9 +100,9 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function destroyCollision(player)
-	player.imageObject:removeEventListener("collision", imageObject)
-	player.imageObject:removeEventListener("preCollision")
+local function destroyCollision(imageObject)
+	imageObject:removeEventListener("collision", imageObject)
+	imageObject:removeEventListener("preCollision")
 end
 
 --------------------------------------------------------------------------------
