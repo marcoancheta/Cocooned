@@ -47,6 +47,12 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		  local col = require("Objects." .. collideObject.func)
 		  col.collide(collideObject, player, event, mapData, map, gui)
 		end
+		
+		--let the ball go through water
+		if collideObject.name == "water" then
+			-- disabled collision
+			event.contact.isEnabled = false
+		end
 	end
 
 	--function for collision detection
@@ -67,12 +73,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			--if collideObject.collType == "wall" then
 				--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
 			--end
-			
-			--let the ball go through water
-			if collideObject.name == "water" then
-			  -- disabled collision
-			  event.contact.isEnabled = false
-			end
 			
 		elseif event.phase == "ended" then
 			local textObject = display.newText("", 600, 200, native.systemFont, 72)
