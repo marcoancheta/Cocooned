@@ -107,7 +107,7 @@ local function onAccelerate(event, player)
 		end
 		
 		if gameData.inWater == false then
-			txtObj.text = "false"
+			local txtObj = display.newText("false", 600, 200, native.systemFont, 72)
 			txtObj.x = display.contentCenterX
 			txtObj.y = display.contentCenterY
 			txtObj:setFillColor(0,1,0)
