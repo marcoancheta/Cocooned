@@ -23,7 +23,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	
 	-- function for pre collision 
 	-- before the object collides, call its own collide function
-	function imageObject:preCollision( event ) 
+	function imageObject:preCollision(event)
 		-- if the object is a passThru, calls it's collide function
 	    local collideObject = event.other
 		
@@ -86,7 +86,8 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				local col = require("Objects." .. collideObject.func)
 				col.collide(collideObject, player, event, mapData, map, gui)
 				-- set players movement to inWater
-				--gameData.inWater = true				
+				--gameData.inWater = true
+				event.contact.isEnabled = true
 			else
 				gameData.inWater = false
 			end
