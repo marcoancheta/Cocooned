@@ -139,7 +139,7 @@ end
 local function destroyCollision(imageObject)
 	if imageObject then
 		imageObject:removeEventListener("collision", imageObject)
-		--imageObject:removeEventListener("preCollision")
+		imageObject:removeEventListener("preCollision")
 	end
 end
 

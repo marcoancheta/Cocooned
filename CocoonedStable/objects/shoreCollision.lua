@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- wallCollision.lua
+-- shoreCollision.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Variables
@@ -20,8 +20,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	collideObject.isSensor = true
 	
 	gameData.inWater = false
-	
-	print("hope")
 end
 
 --------------------------------------------------------------------------------
@@ -29,9 +27,9 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local wallCollision = {
+local shoreCollision = {
 	collide = collide
 }
 
-return wallCollision
--- end of wallCollision.lua
+return shoreCollision
+-- end of shoreCollision.lua

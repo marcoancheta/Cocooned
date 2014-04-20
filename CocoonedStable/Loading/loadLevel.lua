@@ -67,7 +67,7 @@ local function drawPane(mapData)
 		  levelBG.x = display.contentCenterX
 		  levelBG.y = display.contentCenterY
 		  levelBG.name = "background"
-		  levelBG.func = "wallCollision"
+		  levelBG.func = "shoreCollision"
 		  levelBG.collType = "passThru"
 	
 	if mapData.levelNum ~= "LS" then
