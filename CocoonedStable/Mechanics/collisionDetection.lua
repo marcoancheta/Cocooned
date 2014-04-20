@@ -39,7 +39,9 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	local function onLocalCollision(self, event)
 		-- save the collide object
 		local collideObject = event.other
-				if collideObject.collType == "solid" or	collideObject.collectable == true or 
+		
+		if ( event.phase == "began" ) then
+			if collideObject.collType == "solid" or	collideObject.collectable == true or 
 				   collideObject.name == "wind" or  collideObject.collType == "passThru" then
 					local col = require("Objects." .. collideObject.func)
 					col.collide(collideObject, player, event, mapData, map, gui)				
@@ -71,7 +73,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 					player.shook = false
 				end
 			end
-		--end
+		end
 	end
 
 	-- add event listener to collision detection and pre collision detection
