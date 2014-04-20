@@ -104,7 +104,8 @@ local function onAccelerate(event, player)
 		-- offset the gravity to return
 		physicsParam.xGrav = 0 
 		physicsParam.yGrav = 0
-	elseif event.isShake ~= true and gameData.inWater == false then		
+	elseif event.isShake ~= true and gameData.inWater == false then	
+		player.shook = false
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav
