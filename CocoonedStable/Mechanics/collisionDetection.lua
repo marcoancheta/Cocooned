@@ -40,10 +40,18 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			end
 		end
 		
+		local textObject = display.newText("", 600, 400, native.systemFont, 72)
+		
 		--if the player shook, and the collision with water ended
 		if collideObject.name == "water" then
 			local col = require("Objects." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)	
+		
+			textObject.text = "WATER!"
+			textObject.x = display.contentCenterX
+			textObject.y = display.contentCenterY
+			textObject:setFillColor(0,0,1)
+			textObject:toFront()
 		
 			if player.shook == true then
 				--player.movement = "accel"
@@ -51,6 +59,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				player.shook = false
 			end
 		else
+			textObject.text = ""
 			gameData.inWater = false
 		end
 	end
