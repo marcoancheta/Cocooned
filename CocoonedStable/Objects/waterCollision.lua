@@ -8,7 +8,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local gameData = require("Core.gameData")
+local gameData = require("core.gameData")
 
 --------------------------------------------------------------------------------
 -- Collide Function - function for water collision
