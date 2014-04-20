@@ -66,11 +66,7 @@ end
 local function onAccelerate(event, player)
 	-- Print escape path
 	print(player.escape)
-	
-	-- Local variables
-	local xGrav = 0
-	local yGrav = 0
-	
+		
 	-- Accelerometer Shake Event
 	if event.isShake and player.movement == "inWater" then
 		local ball = player.imageObject
@@ -110,6 +106,9 @@ local function onAccelerate(event, player)
 		
 	elseif event.isShake ~= true then
 		-- Accelerometer Tilt Events	
+		local xGrav = 0
+		local yGrav = 0
+		
 		-- X gravity change
 		if event.yInstant > 0.1 then
 			xGrav = -event.yInstant
