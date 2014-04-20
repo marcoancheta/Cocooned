@@ -67,6 +67,8 @@ local function drawPane(mapData)
 		  levelBG.x = display.contentCenterX
 		  levelBG.y = display.contentCenterY
 		  levelBG.name = "background"
+		  levelBG.func = "wallCollision"
+		  levelBG.collType = "passThru"
 	
 	local levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)
 		  levelWall.x = display.contentCenterX

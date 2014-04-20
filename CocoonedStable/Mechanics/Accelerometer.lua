@@ -98,7 +98,7 @@ local function onAccelerate(event, player)
 		local ball = player.imageObject		
 		accelPlayer[1] = player
 		player.shook = true
-		ball:applyLinearImpulse(xGrav * 0.15, yGrav * 0.15, ball.x, ball.y)
+		ball:applyLinearImpulse(xGrav * 0.2, yGrav * 0.2, ball.x, ball.y)
 		--timer.performWithDelay(100, cancelDeathTimer)
 	elseif gameData.inWater == false then
 		-- offset the gravity to return

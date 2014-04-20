@@ -224,7 +224,7 @@ end
 local function gAuraWalls(map, mapData, type)
 	local auraWall = display.newCircle(1, 1, 1)
 	auraWall.alpha = 0
-	auraWall.name = "type"
+	auraWall.name = "" .. type .. ""
 	auraWall.collType = "passThru"
 	auraWall.func = type .. "Collision"
 	auraWall.x = display.contentCenterX
