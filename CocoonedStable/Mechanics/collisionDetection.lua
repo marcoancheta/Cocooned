@@ -65,7 +65,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 
 	-- add event listener to collision detection and pre collision detection
 	imageObject.collision = onLocalCollision
-	imageObject:addEventListener("collision", imageObject)
+	Runtime:addEventListener("collision", imageObject)
 end
 
 --------------------------------------------------------------------------------
