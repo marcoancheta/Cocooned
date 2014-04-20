@@ -16,17 +16,12 @@ local gameData = require("Core.gameData")
 -- Updated by: Andrew moved event.contact.isenabled to precollision
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui, txtObj)
-	--event.contact.isEnabled = false
+	event.contact.isEnabled = true
 
 	-- reset player's aura and movement
 	player:changeColor("white")
 	player.movement ="inWater"
 	gameData.inWater = true
-	-- get direction of player escape route
-	--player.escape = collideObject.escape
-	--player.shook = false
-	player.cursed = 1
-	player.imageObject.linearDamping = 1.25
 
 	if gameData.inWater then
 		txtObj.text = "true"
