@@ -60,7 +60,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				local col = require("Objects." .. collideObject.func)
 				col.collide(collideObject, player, event, mapData, map, gui)	
 			
-				textObject.text = "collideObject.name"
+				textObject.text = collideObject.name
 				textObject.x = display.contentCenterX
 				textObject.y = display.contentCenterY
 				textObject:setFillColor(0,0,1)
