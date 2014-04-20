@@ -22,7 +22,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	player:changeColor("white")
 	--player.movement ="inWater"
 	gameData.inWater = true
-	player.imageObject.linearDamping = 20
+	player.imageObject.linearDamping = 10
 	
 	--[[if player.shook then
 		event.contact.isEnabled = false
