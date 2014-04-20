@@ -8,7 +8,7 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local gameData = require("core.gameData")
+local gameData = require("Core.gameData")
 
 --------------------------------------------------------------------------------
 -- Collide Function - function for water collision
@@ -23,9 +23,11 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	player.movement ="inWater"
 	gameData.inWater = true
 
-	--if player.shook then
-	--	event.contact.isEnabled = false
-	--end
+	if player.shook then
+		event.contact.isEnabled = false
+	else
+		event.contact.isEnabled = true
+	end
 	-- if death time is nil, set it
 	--[[
 	if player.deathTimer == nil then
