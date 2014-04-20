@@ -40,7 +40,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	    end
 
 	    -- if the object is a solid, call it's collide function
-	    if collideObject.collType == "solid" or collideObject.collType == "passT then
+	    if collideObject.collType == "solid" or collideObject.collType == "passThru" then
 			local col = require("Objects." .. collideObject.func)
 				  col.collide(collideObject, player, event, mapData, map, gui)
 	    end
