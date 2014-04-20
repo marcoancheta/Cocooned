@@ -60,6 +60,8 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		if collideObject.name == "water" then
 			-- disabled collision
 			event.contact.isEnabled = false
+		else
+			event.contact.isEnabled = true
 		end
 	end
 
