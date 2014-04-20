@@ -20,7 +20,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 	-- reset player's aura and movement
 	player:changeColor("white")
-	-- player.movement ="inWater"
+	player.movement ="inWater"
+	gameData.inWater = true
 	-- get direction of player escape route
 	--player.escape = collideObject.escape
 	--player.shook = false
