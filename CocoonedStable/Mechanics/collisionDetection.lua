@@ -85,14 +85,8 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			if collideObject.name == "water" then
 				local col = require("Objects." .. collideObject.func)
 				col.collide(collideObject, player, event, mapData, map, gui)	
-				
-				if player.shook == true then
-					--player.movement = "accel"
-					textObject.text = ""
-					gameData.inWater = false
-					--event.contact.isEnabled = false
-					player.shook = false
-				end
+			else
+				gameData.inWater = false
 			end
 		end
 	end
