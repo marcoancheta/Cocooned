@@ -17,9 +17,7 @@ local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	--event.contact.isEnabled = false
-	
-	-- set players movement to inWater
-	gameData.inWater = true
+
 	-- reset player's aura and movement
 	player:changeColor("white")
 	-- player.movement ="inWater"
@@ -27,7 +25,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	--player.escape = collideObject.escape
 	--player.shook = false
 	player.cursed = 1
-	player.imageObject.linearDamping = 6
+	player.imageObject.linearDamping = 1.25
 
 	-- if death time is nil, set it
 	--[[
