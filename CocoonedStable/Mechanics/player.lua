@@ -26,10 +26,10 @@ local sound = require("sounds.sound")
 --------------------------------------------------------------------------------
 -- Updated by: Andrew added xForce and yForce used in speedUp in gameloop
 --------------------------------------------------------------------------------
-playerInstance = {
+local playerInstance = {
 	x=0,
 	y=0,
-	magnetized='nuetral', -- {negative, nuetral, positive}
+	magnetized='neutral', -- {negative, neutral, positive}
 	color='white',
 	image = 'null',
 	name = 'hello',
@@ -73,7 +73,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 --call this to create a new player, but make sure to change parameters
-function create(o)
+local function create(o)
 	o = o or {} -- create object if user does not provide one
 	return playerInstance:new(o)
 end
@@ -118,11 +118,17 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:changeColor (color)
-		colors={['white']={1,1,1},['red']={1,0.5,0.5},['green']={0.5,1,0.5},['blue']={0.5,0.5,1}}
+function playerInstance:changeColor(color)
+		local colors ={
+			['white'] = {1,1,1},
+			['red'] = {1,0.5,0.5}, 
+			['green'] = {0.5,1,0.5},
+			['blue'] = {0.5,0.5,1}
+		}
+		
 		--print(self.color)
     	self.color = color
-    	c=colors[color]
+    	c = colors[color]
     	self.imageObject:setFillColor(c[1],c[2],c[3])
 end
 

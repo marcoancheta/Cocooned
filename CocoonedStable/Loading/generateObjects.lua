@@ -229,8 +229,8 @@ local function gAuraWalls(map, mapData, type)
 	auraWall.func = type .. "Collision"
 	auraWall.x = display.contentCenterX
 	auraWall.y = display.contentCenterY
-	map:insert(auraWall)
 	physics.addBody(auraWall, "static", physicsData.getAura(mapData.levelNum):get(mapData.pane))
+	map:insert(auraWall)
 end
 
 --------------------------------------------------------------------------------
@@ -248,13 +248,14 @@ local function gWater(map, mapData, direction)
 	water.escape = "right"
 	water.x = display.contentCenterX
 	water.y = display.contentCenterY
-	map:insert(water)
+	
 	physics.addBody(water, "static", physicsData.getWater(mapData.levelNum):get(mapData.pane))
 
+	map:insert(water)
 end
 
 --------------------------------------------------------------------------------
--- destroy unused objects function
+-- Destroy unused objects function
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------

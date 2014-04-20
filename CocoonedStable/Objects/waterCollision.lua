@@ -53,5 +53,4 @@ local waterCollision = {
 }
 
 return waterCollision
-
 -- end of waterCollision.lua

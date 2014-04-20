@@ -19,52 +19,31 @@ local M = {}
 function M.physicsData(scale)
 	local physics = { data =
 	{ 
-		
-		["M"] = {                  
-                    
+		["M"] = {                    
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
                     shape = {   -716, -432  ,  -716, 432  ,  -720, 432  ,  -720, -432  }
                     }
-                    
-                    
-                    
                      ,
-                    
-                    
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
                     shape = {   -720, -428  ,  -720, -432  ,  720, -432  ,  720, -413  }
                     }
-                    
-                    
-                    
                      ,
-                    
-                    
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
                     shape = {   -720, 432  ,  -720, 428  ,  716, 395  ,  720, 432  }
                     }
-                    
-                    
-                    
                      ,
-                    
-                    
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
                     shape = {   716, -432  ,  720, -432  ,  725, 424  ,  716, 432  }
                     }
-                    
-                    
-                    
 		}
-		
 	} }
 
         -- apply scale factor
