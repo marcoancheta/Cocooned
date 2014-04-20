@@ -99,7 +99,7 @@ local function onAccelerate(event, player)
 		accelPlayer[1] = player
 		player.shook = true
 						
-		ball:applyLinearImpulse(xGrav * 0.25, yGrav * 0.25, ball.x, ball.y)
+		ball:applyLinearImpulse(xGrav * 0.5, yGrav * 0.5, ball.x, ball.y)
 		--timer.performWithDelay(100, cancelDeathTimer)
 	end
 		
