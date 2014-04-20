@@ -19,14 +19,15 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	--event.contact.isEnabled = true
 
 	-- reset player's aura and movement
-	player:changeColor("white")
-	player.movement ="inWater"
+	player:changeColor("yellow")
+	--player.movement ="inWater"
 	gameData.inWater = true
 
 	if player.shook then
 		event.contact.isEnabled = false
-	--else
-	--	event.contact.isEnabled = true
+		player.shook = false
+	else
+		event.contact.isEnabled = true
 	end
 	-- if death time is nil, set it
 	--[[
