@@ -100,12 +100,11 @@ local function onAccelerate(event, player)
 						
 		ball:applyLinearImpulse(xGrav * 0.10, yGrav * 0.10 , ball.x, ball.y)
 		timer.performWithDelay(100, cancelDeathTimer)
-	end
-	--elseif event.isShake ~= true then		
+	elseif event.isShake ~= true then		
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav
-	--end
+	end
 		
 	--return physics parameters
 	return physicsParam
