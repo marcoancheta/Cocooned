@@ -67,11 +67,49 @@ local function onAccelerate(event, player)
 	-- Print escape path
 	print(player.escape)
 		
+	-- Accelerometer Tilt Events	
+	local xGrav = 0
+	local yGrav = 0
+		
+	-- Note: Accelerometer is always relative to the device in portrait orientation
+	-- X gravity change
+	if event.yInstant > 0.1 then
+		xGrav = -event.yInstant
+	elseif event.yInstant < -0.1 then
+		xGrav = -event.yInstant
+	elseif event.yGravity > 0.1 then
+		xGrav = -event.yGravity
+	elseif event.yGravity < -0.1 then
+		xGrav = -event.yGravity
+	else
+		xGrav = 0
+	end
+
+	-- Y gravity change
+	if event.xInstant > 0.1 then
+		yGrav = -event.xInstant
+	elseif event.xInstant < -0.1 then
+		yGrav = -event.xInstant
+	elseif event.xGravity > 0.1 then
+		yGrav = -event.xGravity
+	elseif event.xGravity < -0.1 then
+		yGrav = -event.xGravity
+	else
+		yGrav = 0
+	end
+		
+	if yGrav < highestygrav then
+		highestygrav = yGrav
+	end
+	if xGrav < highestxgrav then
+		highestxgrav = xGrav
+	end
+		
 	-- Accelerometer Shake Event
 	if event.isShake and player.movement == "inWater" then
 		local ball = player.imageObject
-		local xDirection = 0
-		local yDirection = 0
+		--local xDirection = 0
+		--local yDirection = 0
 		
 		accelPlayer[1] = player
 		player.shook = true
@@ -101,87 +139,11 @@ local function onAccelerate(event, player)
 		print(.15*xDirection)
 		print(.15*yDirection)
 		]]--
-		
-		-- Accelerometer Tilt Events	
-		local xGrav = 0
-		local yGrav = 0
-		
-		-- Note: Accelerometer is always relative to the device in portrait orientation
-		-- X gravity change
-		if event.yInstant > 0.1 then
-			xGrav = -event.yInstant
-		elseif event.yInstant < -0.1 then
-			xGrav = -event.yInstant
-		elseif event.yGravity > 0.1 then
-			xGrav = -event.yGravity
-		elseif event.yGravity < -0.1 then
-			xGrav = -event.yGravity
-		else
-			xGrav = 0
-		end
-
-		-- Y gravity change
-		if event.xInstant > 0.1 then
-			yGrav = -event.xInstant
-		elseif event.xInstant < -0.1 then
-			yGrav = -event.xInstant
-		elseif event.xGravity > 0.1 then
-			yGrav = -event.xGravity
-		elseif event.xGravity < -0.1 then
-			yGrav = -event.xGravity
-		else
-			yGrav = 0
-		end
-		
-		if yGrav < highestygrav then
-			highestygrav = yGrav
-		end
-		if xGrav < highestxgrav then
-			highestxgrav = xGrav
-		end
-		
-		ball:applyLinearImpulse(xGrav * 0.85, yGrav * 0.85 , ball.x, ball.y)
+				
+		ball:applyLinearImpulse(xGrav * 0.10, yGrav * 0.10 , ball.x, ball.y)
 		timer.performWithDelay(200, cancelDeathTimer)
 		
-	elseif event.isShake ~= true then
-		-- Accelerometer Tilt Events	
-		local xGrav = 0
-		local yGrav = 0
-		
-		-- Note: Accelerometer is always relative to the device in portrait orientation
-		-- X gravity change
-		if event.yInstant > 0.1 then
-			xGrav = -event.yInstant
-		elseif event.yInstant < -0.1 then
-			xGrav = -event.yInstant
-		elseif event.yGravity > 0.1 then
-			xGrav = -event.yGravity
-		elseif event.yGravity < -0.1 then
-			xGrav = -event.yGravity
-		else
-			xGrav = 0
-		end
-
-		-- Y gravity change
-		if event.xInstant > 0.1 then
-			yGrav = -event.xInstant
-		elseif event.xInstant < -0.1 then
-			yGrav = -event.xInstant
-		elseif event.xGravity > 0.1 then
-			yGrav = -event.xGravity
-		elseif event.xGravity < -0.1 then
-			yGrav = -event.xGravity
-		else
-			yGrav = 0
-		end
-		
-		if yGrav < highestygrav then
-			highestygrav = yGrav
-		end
-		if xGrav < highestxgrav then
-			highestxgrav = xGrav
-		end
-		
+	elseif event.isShake ~= true then		
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav
