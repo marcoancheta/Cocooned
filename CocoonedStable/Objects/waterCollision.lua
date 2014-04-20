@@ -23,9 +23,9 @@ local function collide(collideObject, player, event, mapData, map, gui, txtObj)
 	player.movement ="inWater"
 	gameData.inWater = true
 
-	if player.shook then
-		event.contact.isEnabled = false
-	end
+	--if player.shook then
+	--	event.contact.isEnabled = false
+	--end
 	
 	if gameData.inWater then
 		txtObj.text = "true"

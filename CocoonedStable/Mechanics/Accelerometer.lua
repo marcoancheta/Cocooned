@@ -98,7 +98,6 @@ local function onAccelerate(event, player)
 		local ball = player.imageObject		
 		accelPlayer[1] = player
 		player.shook = true
-						
 		ball:applyLinearImpulse(xGrav * 0.25, yGrav * 0.25, ball.x, ball.y)
 		--timer.performWithDelay(100, cancelDeathTimer)
 	elseif event.isShake ~= true then

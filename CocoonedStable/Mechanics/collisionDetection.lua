@@ -26,6 +26,13 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	function imageObject:preCollision( event ) 
 		-- if the object is a passThru, calls it's collide function
 	    local collideObject = event.other
+		
+		if collideObject.name ~= "water" then
+			gameData.inWater = false
+			player.imageObject.linearDamping = 1.25 
+		end
+		
+		
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
 			local col = require("Objects." .. collideObject.func)
 				  col.collide(collideObject, player, event, mapData, map, gui)
@@ -84,11 +91,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				-- set players movement to inWater
 				--gameData.inWater = true				
 			end
-		end
-		
-		if collideObject.name ~= "water" then
-			gameData.inWater = false
-			player.imageObject.linearDamping = 1.25 
 		end
 	end
 
