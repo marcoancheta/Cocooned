@@ -89,6 +89,10 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				gameData.inWater = false
 			end
 		end
+		
+		if collideObject.name ~= "water" then
+			gameData.inWater = false
+		end
 	end
 
 	--[[
