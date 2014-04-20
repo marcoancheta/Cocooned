@@ -29,6 +29,7 @@ local accelPlayer = {
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
+--[[
 local function cancelDeathTimer() 
 	for i=1, #accelPlayer do
 		if accelPlayer[i].movement == "accel" and accelPlayer[i].deathTimer ~= nil then 
@@ -43,7 +44,7 @@ local function cancelDeathTimer()
 		end
 	end
 end
-
+]]--
 --------------------------------------------------------------------------------
 -- On Accelerate - function that gathers accelerometer data
 --------------------------------------------------------------------------------
@@ -99,11 +100,8 @@ local function onAccelerate(event, player)
 		player.shook = true
 						
 		ball:applyLinearImpulse(xGrav * 0.10, yGrav * 0.10 , ball.x, ball.y)
-		timer.performWithDelay(100, cancelDeathTimer)
-		
-		-- offset the gravity to return
-		physicsParam.xGrav = 0 
-		physicsParam.yGrav = 0
+		ball.linearDamping = 1.25 
+		--timer.performWithDelay(100, cancelDeathTimer)
 	elseif event.isShake ~= true and gameData.inWater == false then	
 		player.shook = false
 		-- offset the gravity to return
