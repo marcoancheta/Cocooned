@@ -27,7 +27,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		local collideObject = event.other
 
 		-- when collision began, do this
-		if event.phase == "began" then		
+		--if event.phase == "began" then		
 			-- if the object is a solid, call it's function
 			if collideObject.collType == "solid" or 
 			collideObject.collectable == true or collideObject.name == "wind" or
@@ -60,12 +60,12 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 					player.shook = false
 				end
 			end
-		end
+		--end
 	end
 
 	-- add event listener to collision detection and pre collision detection
 	imageObject.collision = onLocalCollision
-	Runtime:addEventListener("collision", imageObject)
+	imageObject:addEventListener("collision", imageObject)
 end
 
 --------------------------------------------------------------------------------
