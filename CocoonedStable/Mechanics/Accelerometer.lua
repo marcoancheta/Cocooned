@@ -140,7 +140,7 @@ local function onAccelerate(event, player)
 			highestxgrav = xGrav
 		end
 		
-		ball:applyLinearImpulse(xGrav * 0.5, yGrav * 0.5 , ball.x, ball.y)
+		ball:applyLinearImpulse(xGrav * 0.85, yGrav * 0.85 , ball.x, ball.y)
 		timer.performWithDelay(200, cancelDeathTimer)
 		
 	elseif event.isShake ~= true then
