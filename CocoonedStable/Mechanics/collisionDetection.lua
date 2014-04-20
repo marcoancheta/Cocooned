@@ -135,8 +135,10 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function destroyCollision(imageObject)
-	imageObject:removeEventListener("collision", imageObject)
-	imageObject:removeEventListener("preCollision")
+	if imageObject then
+		imageObject:removeEventListener("collision", imageObject)
+		imageObject:removeEventListener("preCollision")
+	end
 end
 
 --------------------------------------------------------------------------------
