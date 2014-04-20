@@ -18,6 +18,8 @@
 -- Previous update: Andrew (moved water collision to be spread out across, 
 -- 							pre-collision, begin collision, and post collision)
 --------------------------------------------------------------------------------
+local gameData = require("core.gameData")
+
 -- creates the collision detection for that pane
 local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	
