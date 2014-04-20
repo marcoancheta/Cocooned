@@ -67,6 +67,7 @@ local function main()
 	-- Game Analytics
 	-- local GA = require("plugin.gameanalytics")
 	local gameLoop = require("gameLoop")
+	local memory = require("memory")
 	local textureFilter = "nearest"
 	
 	display.setDefault("minTextureFilter", textureFilter)
@@ -79,6 +80,7 @@ local function main()
 	end
 	
 	Runtime:addEventListener("enterFrame", gameLoop.gameLoopEvents)
+	Runtime:addEventListener("memoryWarning", memory.handleLowMemory)
 end
 
 main()

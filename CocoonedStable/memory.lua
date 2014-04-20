@@ -12,9 +12,10 @@
 --------------------------------------------------------------------------------
 -- debug text object
 local textObject = {
-			display.newText("mem",  25, 660, native.systemFont, 48),
-			display.newText("text", 25, 710, native.systemFont, 48),
-			display.newText("fps", 25, 760, native.systemFont, 48)
+			display.newText("mem",  10, 720, native.systemFont, 48),
+			display.newText("text", 10, 780, native.systemFont, 48),
+			display.newText("fps", 10, 80, native.systemFont, 48),
+			display.newText("Memory Stable", 10, 30, native.systemFont, 48)
 }
 
 local prevTextMem = 0
@@ -34,14 +35,20 @@ local textMem = system.getInfo( "textureMemoryUsed" ) / 1000000
 
 	for i=1, #textObject do
 		textObject[i].anchorX = 0
-		textObject[i]:setFillColor(1,0,0)
+		textObject[i]:setFillColor(0,1,0)
 		textObject[i]:toFront()
 	end
 end
 
+local function handleLowMemory(event) 
+	textObject[4].text = "Memory warning received"
+	textObject[4]:setFillColor(1, 0, 0)
+end
+ 
 local memory = {
 	textObject = textObject,
-	monitorMem = monitorMem
+	monitorMem = monitorMem,
+	handleLowMemory = handleLowMemory
 }
 
 return memory
