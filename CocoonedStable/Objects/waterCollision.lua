@@ -22,14 +22,16 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	player:changeColor("white")
 	--player.movement ="inWater"
 	gameData.inWater = true
-
-	if player.shook then
+	
+	--[[if player.shook then
 		event.contact.isEnabled = false
 		gameData.inWater = false
 		player.shook = false
 	else
+		
 		event.contact.isEnabled = true
 	end
+	]]--
 	-- if death time is nil, set it
 	--[[
 	if player.deathTimer == nil then
