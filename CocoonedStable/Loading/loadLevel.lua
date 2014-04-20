@@ -70,7 +70,9 @@ local function drawPane(mapData)
 		  levelBG.func = "wallCollision"
 		  levelBG.collType = "passThru"
 	
-	physics.addBody(levelBG, "static", physicsData.getFloor(mapData.levelNum):get(mapData.pane))
+	if mapData.levelNum ~= "LS" then
+		physics.addBody(levelBG, "static", physicsData.getFloor(mapData.levelNum):get(mapData.pane))
+	end
 	
 	local levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)
 		  levelWall.x = display.contentCenterX
