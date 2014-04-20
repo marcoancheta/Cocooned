@@ -4,9 +4,6 @@
 -- player.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- lua file that creates player object tables and its functionality
-
---------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
 -- Updated by: Marco
@@ -20,42 +17,51 @@ local inventoryMechanic = require("Mechanics.inventoryMechanic")
 local gameData = require("Core.gameData")
 local sound = require("sounds.sound")
 
-
 --------------------------------------------------------------------------------
 -- Player Instance - player instance table that holds all properties
 --------------------------------------------------------------------------------
--- Updated by: Andrew added xForce and yForce used in speedUp in gameloop
+-- Updated by: Derrick (re-organizing)
+-- Previous: Andrew added xForce and yForce used in speedUp in gameLoop
 --------------------------------------------------------------------------------
 local playerInstance = {
-	x=0,
-	y=0,
-	magnetized='neutral', -- {negative, neutral, positive}
-	color='white',
-	image = 'null',
-	name = 'hello',
-	radius = 38, --default radius
-	bounce = .25,
-	imageObject = '',
-	hasItem={},
-	tapPosition=0,
-	inventory = inventoryMechanic.createInventory(),
+	-- Strings
+	imageObject = "",
+	magnetized = "neutral", -- {negative, neutral, positive}
+	color = "white",
+	image = "null",
+	name = "hello",
+	movement = "accel",
+	escape = "center",
+	
+	-- Int's
+	x = 0,
+	y = 0,
+	tapPosition = 0,
 	xGrav = 0,
 	yGrav = 0,
 	xForce = 0,
 	yForce = 0,
-	speedConst = 10,
+	bounce = .25,
+	curse = 1,
 	maxSpeed = 6,
-	movement="accel",
+	speedConst = 10,
+	defaultSpeed = 10,
+	radius = 38, --default radius
+	
+	-- Booleans
 	deathTimer = nil,
 	slowDownTimer = nil,
 	speedUpTimer = nil,
 	deathScreen = nil,
-	curse = 1,
-	escape = "center",
 	small = false,
 	breakable = false,
 	shook = false,
-	defaultSpeed = 10
+	
+	-- Functions
+	inventory = inventoryMechanic.createInventory(),
+	
+	-- Arrays
+	hasItem = {},
 }
 
 --------------------------------------------------------------------------------
@@ -64,7 +70,7 @@ local playerInstance = {
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function rotateTransition(imageObject, rotationDelta, timeDelta)
-    transition.to( imageObject, { rotation=rotationDelta, time=timeDelta, transition=easing.inOutCubic, tag='rotation' } )
+    transition.to(imageObject, {rotation=rotationDelta, time=timeDelta, transition=easing.inOutCubic, tag='rotation' } )
 end 
 
 --------------------------------------------------------------------------------
@@ -84,7 +90,6 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:destroy()
-
 	-- remove deathScreen image object
 	if self.deathScreen ~= nil then
 		self.deathScreen:pause()
@@ -99,7 +104,6 @@ function playerInstance:destroy()
 	-- destroy inventory of player
 	self.inventory:destroy()
 	self.inventory = nil
-
 end
 
 --------------------------------------------------------------------------------
@@ -107,10 +111,10 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:new (o) 
-      	setmetatable(o, self)
-    	self.__index = self
-    	return o
+function playerInstance:new(o) 
+    setmetatable(o, self)
+    self.__index = self
+    return o
 end
 
 --------------------------------------------------------------------------------
@@ -119,17 +123,17 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:changeColor(color)
-		local colors ={
-			['white'] = {1,1,1},
-			['red'] = {1,0.5,0.5}, 
-			['green'] = {0.5,1,0.5},
-			['blue'] = {0.5,0.5,1}
-		}
+	local colors ={
+		['white'] = {1,1,1},
+		['red'] = {1,0.5,0.5}, 
+		['green'] = {0.5,1,0.5},
+		['blue'] = {0.5,0.5,1}
+	}
 		
-		--print(self.color)
-    	self.color = color
-    	c = colors[color]
-    	self.imageObject:setFillColor(c[1],c[2],c[3])
+	--print(self.color)
+    self.color = color
+    c = colors[color]
+    self.imageObject:setFillColor(c[1],c[2],c[3])
 end
 
 --------------------------------------------------------------------------------
@@ -137,10 +141,10 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:totemRepel (collideObject)
-		print((self.imageObject.x - collideObject.x)/1000)
-		self.imageObject:applyLinearImpulse((self.imageObject.x - collideObject.x)/175, (self.imageObject.y - collideObject.y)/175, self.imageObject.x, self.imageObject.y) 
-		self.imageObject.angularVelocity = 0
+function playerInstance:totemRepel(collideObject)
+	print((self.imageObject.x - collideObject.x)/175)
+	self.imageObject:applyLinearImpulse((self.imageObject.x - collideObject.x)/175, (self.imageObject.y - collideObject.y)/175, self.imageObject.x, self.imageObject.y) 
+	self.imageObject.angularVelocity = 0
 end
 
 --------------------------------------------------------------------------------
@@ -148,9 +152,9 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:windRepel (rX, rY)
-		self.imageObject:applyLinearImpulse((self.imageObject.x - (self.imageObject.x+rX))/175, (self.imageObject.y - (self.imageObject.y+rY))/175, self.imageObject.x, self.imageObject.y)
-		self.imageObject.angularVelocity = 0
+function playerInstance:windRepel(rX, rY)
+	self.imageObject:applyLinearImpulse((self.imageObject.x - (self.imageObject.x+rX))/175, (self.imageObject.y - (self.imageObject.y+rY))/175, self.imageObject.x, self.imageObject.y)
+	self.imageObject.angularVelocity = 0
 end
 
 --------------------------------------------------------------------------------
@@ -158,10 +162,10 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:attract (goTo)
-		--self.imageObject:applyLinearImpulse(-1, -1, self.imageObject.x, self.imageObject.y)
-		self.imageObject:setLinearVelocity(goTo, goTo, goTo, goTo)
-		self.imageObject.angularVelocity = 0
+function playerInstance:attract(goTo)
+	--self.imageObject:applyLinearImpulse(-1, -1, self.imageObject.x, self.imageObject.y)
+	self.imageObject:setLinearVelocity(goTo, goTo, goTo, goTo)
+	self.imageObject.angularVelocity = 0
 end
 
 --------------------------------------------------------------------------------
@@ -188,7 +192,6 @@ function playerInstance:unshrink()
 	local delayShrink = function() return changeBack( self.imageObject ) end
 	timer.performWithDelay(20, delayShrink)
 end
-
 
 --------------------------------------------------------------------------------
 -- Change Size - player function that shrinks the player image object
@@ -287,8 +290,8 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:rotate (x,y)
 	transition.cancel('rotation')
-	angle = (floor(atan2(y, x) * ( 180 / pi))) 
-	self.imageObject.rotation = angle +90
+	angle = (floor(atan2(y, x)*( 180 / pi))) 
+	self.imageObject.rotation = angle + 90
 end
 
 --------------------------------------------------------------------------------
@@ -319,10 +322,4 @@ local player  = {
 }
 
 return player
-
 -- end of player.lua
-
-
-
-
- 

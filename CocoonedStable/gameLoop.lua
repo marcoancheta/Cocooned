@@ -45,7 +45,7 @@ local memory = require("memory")
 -- Touch mechanics (touchMechanic.lua)
 local touch = require("Mechanics.touchMechanic")
 -- Accelerometer mechanic (Accelerometer.lua)
-local movementMechanic = require("Mechanics.Accelerometer")
+local accelerometer = require("Mechanics.Accelerometer")
 -- Movement based on Accelerometer readings
 local movement = require("Mechanics.movement")
 -- Collision Detection (collisionDetection.lua)
@@ -150,17 +150,18 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Andrew moved curse to speedUp so we can use the player's physics params
 --------------------------------------------------------------------------------
-local function controlMovement(event) 
-	
+local function controlMovement(event)
 	-- if miniMap isn't showing, move player
 	if gameData.isShowingMiniMap == false and gameData.gameEnd == false then
 		-- call accelerometer to get data
-		physicsParam = movementMechanic.onAccelerate(event, player1, player2, gui.back[1])
-	
+		physicsParam = accelerometer.onAccelerate(event, player1, player2, gui.back[1])
+		
 		-- set player's X and Y gravity times the player's curse
 		player1.xGrav = physicsParam.xGrav
 		player1.yGrav = physicsParam.yGrav
-
+		
+		print(player1.xGrav)
+		print(player1.yGrav)
 	end
 	
 	if event.isShake then

@@ -4,9 +4,7 @@
 -- accelerometer.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 --NOTE: to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
-
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -65,7 +63,6 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Andrew 
 --------------------------------------------------------------------------------
-
 local function onAccelerate(event, player)
 	-- Print escape path
 	print(player.escape)
@@ -73,10 +70,11 @@ local function onAccelerate(event, player)
 	-- Accelerometer Shake Event
 	if event.isShake and player.movement == "inWater" then
 		local ball = player.imageObject
-		accelPlayer[1] = player
-		
 		local xDirection = 0
 		local yDirection = 0
+		
+		accelPlayer[1] = player
+		player.shook = true
 		
 		if player.escape == "up" then
 			yDirection = -1
@@ -100,8 +98,10 @@ local function onAccelerate(event, player)
 			xDirection = -1
 		end
 
-		ball:applyLinearImpulse(.15*xDirection,.15*yDirection,ball.x, ball.y )
-		player.shook = true
+		print(.15*xDirection)
+		print(.15*yDirection)
+		
+		ball:applyLinearImpulse(.15*xDirection, .15*yDirection, ball.x, ball.y)
 		timer.performWithDelay(200, cancelDeathTimer)
 	end
 

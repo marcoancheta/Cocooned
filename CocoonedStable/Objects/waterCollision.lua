@@ -19,13 +19,14 @@ local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
-	player.shook = false
 
+	print("collideObject.escape: ", collideObject.escape)
+	
 	-- set players movement to inWater
 	player.movement ="inWater"
-	print("collideObject.escape: ", collideObject.escape)
 	-- get direction of player escape route
 	player.escape = collideObject.escape
+	player.shook = false
 
 	-- reset player's aura and movement
 	player:changeColor("white")
