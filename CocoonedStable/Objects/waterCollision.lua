@@ -25,8 +25,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 	if player.shook then
 		event.contact.isEnabled = false
+		gameData.inWater = false
 		player.shook = false
-	elseif gameData.inWater then
+	else
 		event.contact.isEnabled = true
 	end
 	-- if death time is nil, set it
