@@ -167,7 +167,7 @@ local function mainMenu(event)
 	
 	local menuObjects = {
 		-- Add main menu background image
-		[1] = display.newImageRect("mapdata/art/TitleScreen.png", 1440, 864),
+		[1] = display.newImageRect("mapdata/art/TitleScreen.png", 1460, 864),
 		-- Add Play button
 		[2] = display.newImageRect("mapdata/art/buttons/newgame.png", 400, 150),
 		-- Option buttons: See play button details
@@ -211,7 +211,7 @@ local function options(event)
 	
 	local menuObjects = {
 		-- Add options background image
-		[1] = display.newImageRect("mapdata/art/background/screens/cocoonedMenu.png", 1440, 864),
+		[1] = display.newImageRect("mapdata/art/background/screens/cocoonedMenu.png", 1460, 864),
 		-- Add Main Menu button
 		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
 		-- Create onScreen text objects
@@ -284,7 +284,7 @@ local function ingameMenu(event, gui)
 	
 	local menuObjects = {
 		-- Add options background image
-		[1] = display.newImageRect("mapdata/art/background/screens/cocoonedMenu.png", 1425, 900),
+		[1] = display.newImageRect("mapdata/art/background/screens/cocoonedMenu.png", 1460, 864),
 		-- Add Main Menu button
 		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
 		-- Add Resume game button

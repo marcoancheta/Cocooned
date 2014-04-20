@@ -12,14 +12,18 @@
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
+local highestxgrav = 0
+local highestygrav = 0
+
 local physicsParam = {
 	xGrav = 0,
 	yGrav = 0
 }
-local highestxgrav = 0
-local highestygrav = 0
-local accelPlayer=nil
-local accelPlayer2=nil
+
+local accelPlayer = {
+	[1] = nil,
+	[2] = nil
+}
 
 --------------------------------------------------------------------------------
 -- Cancel Death Timer - function that cancels end game from being changed
@@ -27,18 +31,21 @@ local accelPlayer2=nil
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function cancelDeathTimer() 
-	if accelPlayer.movement == "accel" and accelPlayer.deathTimer ~= nil then 
-		timer.cancel(accelPlayer.deathTimer) 
-		accelPlayer.deathTimer=nil  
-		accelPlayer.imageObject.linearDamping = 1.25 
-		accelPlayer.speedConst = accelPlayer.defaultSpeed
-		--accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
-		accelPlayer.deathScreen:pause()
-		accelPlayer.deathScreen:removeSelf()
-		accelPlayer.deathScreen = nil
+	for i=1, #accelPlayer do
+		if accelPlayer[i].movement == "accel" and accelPlayer[i].deathTimer ~= nil then 
+			timer.cancel(accelPlayer[i].deathTimer) 
+			accelPlayer[i].deathTimer = nil  
+			accelPlayer[i].imageObject.linearDamping = 1.25 
+			accelPlayer[i].speedConst = accelPlayer[i].defaultSpeed
+			--accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
+			accelPlayer[i].deathScreen:pause()
+			accelPlayer[i].deathScreen:removeSelf()
+			accelPlayer[i].deathScreen = nil
+		end
 	end
 end
 
+--[[
 local function cancelDeathTimer2() 
 	if accelPlayer2.movement == "accel" and accelPlayer2.deathTimer ~= nil then 
 		timer.cancel(accelPlayer2.deathTimer) 
@@ -51,7 +58,7 @@ local function cancelDeathTimer2()
 		accelPlayer2.deathScreen = nil
 	end
 end
-
+]]--
 
 --------------------------------------------------------------------------------
 -- On Accelerate - function that gathers accelerometer data
@@ -59,14 +66,18 @@ end
 -- Updated by: Andrew 
 --------------------------------------------------------------------------------
 
-local function onAccelerate( event, player)
-	
+local function onAccelerate(event, player)
+	-- Print escape path
 	print(player.escape)
+	
+	-- Accelerometer Shake Event
 	if event.isShake and player.movement == "inWater" then
 		local ball = player.imageObject
-		accelPlayer = player
+		accelPlayer[1] = player
+		
 		local xDirection = 0
 		local yDirection = 0
+		
 		if player.escape == "up" then
 			yDirection = -1
 		elseif player.escape == "upLeft" then
@@ -96,6 +107,7 @@ local function onAccelerate( event, player)
 
 	local xGrav=1
 	local yGrav=1
+	
 	-- X gravity change
 	if event.yInstant > 0.1 then
 		xGrav = -event.yInstant
@@ -105,8 +117,8 @@ local function onAccelerate( event, player)
 		xGrav = -event.yGravity
 	elseif event.yGravity < -0.1 then
 		xGrav = -event.yGravity
-		else
-			xGrav = 0
+	else
+		xGrav = 0
 	end
 
 	-- Y gravity change
@@ -118,18 +130,21 @@ local function onAccelerate( event, player)
 		yGrav = -event.xGravity
 	elseif event.xGravity < -0.1 then
 		yGrav = -event.xGravity
-		else
-			yGrav = 0
+	else
+		yGrav = 0
 	end
+	
 	if yGrav < highestygrav then
-		highestygrav=yGrav
+		highestygrav = yGrav
 	end
 	if xGrav < highestxgrav then
-		highestxgrav=xGrav
+		highestxgrav = xGrav
 	end
+	
 	-- offset the gravity to return
-	physicsParam.xGrav=xGrav
-	physicsParam.yGrav=yGrav
+	physicsParam.xGrav = xGrav
+	physicsParam.yGrav = yGrav
+	
 	--return physics parameters
 	return physicsParam
 end
@@ -144,5 +159,4 @@ local accelerometer = {
 }
 
 return accelerometer
-
 -- end of accelerometer.lua
