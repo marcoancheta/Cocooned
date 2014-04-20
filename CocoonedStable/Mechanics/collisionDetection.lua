@@ -83,8 +83,8 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				  
 			--if the player shook, and the collision with water ended
 			if collideObject.name == "water" then
-				--local col = require("Objects." .. collideObject.func)
-				--col.collide(collideObject, player, event, mapData, map, gui)	
+				local col = require("Objects." .. collideObject.func)
+				col.collide(collideObject, player, event, mapData, map, gui)	
 				
 				if player.shook == true then
 					--player.movement = "accel"
