@@ -89,7 +89,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				if player.shook == true then
 					--player.movement = "accel"
 					textObject.text = ""
-					--gameData.inWater = false
+					gameData.inWater = false
 					--event.contact.isEnabled = false
 					player.shook = false
 				end

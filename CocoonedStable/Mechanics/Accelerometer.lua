@@ -94,6 +94,9 @@ local function onAccelerate(event, player)
 		
 	-- Accelerometer Shake Event
 	if event.isShake and gameData.inWater == true then
+		physicsParam.xGrav = 0
+		physicsParam.yGrav = 0
+		
 		local ball = player.imageObject		
 		accelPlayer[1] = player
 		player.shook = true

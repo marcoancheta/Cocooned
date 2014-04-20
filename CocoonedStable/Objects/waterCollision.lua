@@ -26,8 +26,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- get direction of player escape route
 	--player.escape = collideObject.escape
 	--player.shook = false
-	player.cursed = 1
-	player.imageObject.linearDamping = 6
+	--player.cursed = 1
+	--player.imageObject.linearDamping = 6
 
 	-- if death time is nil, set it
 	--[[
