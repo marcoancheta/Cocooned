@@ -99,15 +99,20 @@ local function onAccelerate(event, player)
 		accelPlayer[1] = player
 		player.shook = true
 						
-		ball:applyLinearImpulse(xGrav * 0.20, yGrav * 0.20, ball.x, ball.y)
+		ball:applyLinearImpulse(xGrav * 0.25, yGrav * 0.25, ball.x, ball.y)
 		--timer.performWithDelay(100, cancelDeathTimer)
 	end
 		
-	if event.isShake ~= true and gameData.inWater == false then	
-		player.shook = false
-		-- offset the gravity to return
-		physicsParam.xGrav = xGrav
-		physicsParam.yGrav = yGrav
+	if event.isShake ~= true then
+		if player.shook == true then
+			player.shook = false
+		end
+		
+		if gameData.inWater == false then
+			-- offset the gravity to return
+			physicsParam.xGrav = xGrav
+			physicsParam.yGrav = yGrav
+		end
 	end
 	
 	--return physics parameters
