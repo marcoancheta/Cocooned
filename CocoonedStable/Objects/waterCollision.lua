@@ -15,7 +15,7 @@ local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
 -- Updated by: Andrew moved event.contact.isenabled to precollision
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map, gui, txtObj)
+local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = true
 
 	-- reset player's aura and movement
@@ -26,17 +26,6 @@ local function collide(collideObject, player, event, mapData, map, gui, txtObj)
 	--if player.shook then
 	--	event.contact.isEnabled = false
 	--end
-	
-	if gameData.inWater then
-		txtObj.text = "true"
-	else
-		txtObj.text = "false"
-	end
-	
-	txtObj.x = display.contentCenterX
-	txtObj.y = display.contentCenterY
-	txtObj:setFillColor(0,0,1)
-	txtObj:toFront()	
 	-- if death time is nil, set it
 	--[[
 	if player.deathTimer == nil then

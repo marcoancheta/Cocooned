@@ -82,13 +82,11 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
 			--end
 			
-		elseif event.phase == "ended" then
-			local textObject = display.newText("", 600, 200, native.systemFont, 72)
-				  
+		elseif event.phase == "ended" then				  
 			--if the player shook, and the collision with water ended
 			if collideObject.name == "water" then
 				local col = require("Objects." .. collideObject.func)
-				col.collide(collideObject, player, event, mapData, map, gui, textObject)
+				col.collide(collideObject, player, event, mapData, map, gui)
 				-- set players movement to inWater
 				--gameData.inWater = true				
 			end

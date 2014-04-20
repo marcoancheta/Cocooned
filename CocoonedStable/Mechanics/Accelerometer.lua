@@ -106,12 +106,6 @@ local function onAccelerate(event, player)
 		end
 		
 		if gameData.inWater == false then
-			local txtObj = display.newText("false", 600, 200, native.systemFont, 72)
-			txtObj.x = display.contentCenterX
-			txtObj.y = display.contentCenterY
-			txtObj:setFillColor(0,1,0)
-			txtObj:toFront()
-		
 			-- offset the gravity to return
 			physicsParam.xGrav = xGrav
 			physicsParam.yGrav = yGrav

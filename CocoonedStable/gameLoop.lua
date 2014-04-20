@@ -86,7 +86,11 @@ local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 
 local textObject = display.newText("shakers", 600, 400, native.systemFont, 72)
-
+local txtObj = display.newText("", 600, 200, native.systemFont, 72)
+	  txtObj.x = display.contentCenterX
+	  txtObj.y = display.contentCenterY
+	  txtObj:setFillColor(0,0,1)
+		
 local count = 0
 
 local players = {}
@@ -320,6 +324,16 @@ local function clean(event)
 	physics.stop()
 end
 
+local function inWater()
+	if gameData.inWater then
+		txtObj.text = "true"
+	else
+		txtObj.text = "false"
+	end
+	
+	txtObj:toFront()
+end
+
 --------------------------------------------------------------------------------
 -- Core Game Loop
 --------------------------------------------------------------------------------
@@ -328,6 +342,7 @@ end
 local function gameLoopEvents(event)
 	-- Run monitorMemory from open to close.
 	memory.monitorMem()
+	inWater()
 	
 	--[[	
 	if mapData.levelNum == "LS" then
