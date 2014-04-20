@@ -40,7 +40,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	    end
 
 	    -- if the object is a solid, call it's collide function
-	    if collideObject.collType == "solid" then
+	    if collideObject.collType == "solid" or collideObject.collType == "passT then
 			local col = require("Objects." .. collideObject.func)
 				  col.collide(collideObject, player, event, mapData, map, gui)
 	    end
@@ -74,7 +74,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		-- when collision began, do this
 		if event.phase == "began" then
 			-- if the object is a solid, call it's function
-			if collideObject.collType == "solid" or collideObject.name == "water" then
+			if collideObject.collType == "solid" or collideObject.name == "water" or collideObject.collTpye == "passThru" then
 				local col = require("Objects." .. collideObject.func)
 					  event.contact.isEnabled = true
 					  col.collide(collideObject, player, event, mapData, map, gui)
