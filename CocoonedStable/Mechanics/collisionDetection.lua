@@ -42,13 +42,13 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		
 		if ( event.phase == "began" ) then
 			if collideObject.collType == "solid" or	collideObject.collectable == true or 
-				   collideObject.name == "wind" or  collideObject.collType == "passThru" then
-					local col = require("Objects." .. collideObject.func)
-					col.collide(collideObject, player, event, mapData, map, gui)				
+				collideObject.name == "wind" or  collideObject.collType == "passThru" then
+				local col = require("Objects." .. collideObject.func)
+				col.collide(collideObject, player, event, mapData, map, gui)				
 				--elseif collideObject.collType == "wall" then
 					-- Create particle effect.
 					--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
-				end
+			end
 		-- when collision began, do this
 		--if event.phase == "began" then		
 			-- if the object is a solid, call it's function		
@@ -59,7 +59,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				local col = require("Objects." .. collideObject.func)
 				col.collide(collideObject, player, event, mapData, map, gui)	
 			
-				textObject.text = "WATER!"
+				textObject.text = "collideObject.name"
 				textObject.x = display.contentCenterX
 				textObject.y = display.contentCenterY
 				textObject:setFillColor(0,0,1)
