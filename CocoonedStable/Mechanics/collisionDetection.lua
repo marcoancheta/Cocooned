@@ -89,7 +89,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				col.collide(collideObject, player, event, mapData, map, gui)
 				-- set players movement to inWater
 				--gameData.inWater = true
-				event.contact.isEnabled = true
 			else
 				gameData.inWater = false
 			end
