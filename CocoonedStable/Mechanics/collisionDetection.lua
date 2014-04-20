@@ -92,6 +92,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		
 		if collideObject.name ~= "water" then
 			gameData.inWater = false
+			player.imageObject.linearDamping = 1.25 
 		end
 	end
 
