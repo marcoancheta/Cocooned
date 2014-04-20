@@ -76,6 +76,7 @@ local function onAccelerate(event, player)
 		accelPlayer[1] = player
 		player.shook = true
 		
+		--[[
 		if player.escape == "up" then
 			yDirection = -1
 		elseif player.escape == "upLeft" then
@@ -97,18 +98,15 @@ local function onAccelerate(event, player)
 			yDirection = 1
 			xDirection = -1
 		end
-
 		print(.15*xDirection)
 		print(.15*yDirection)
+		]]--
 		
-		ball:applyLinearImpulse(.15*xDirection, .15*yDirection, ball.x, ball.y)
-		timer.performWithDelay(200, cancelDeathTimer)
-		
-	elseif event.isShake ~= true then
 		-- Accelerometer Tilt Events	
 		local xGrav = 0
 		local yGrav = 0
 		
+		-- Note: Accelerometer is always relative to the device in portrait orientation
 		-- X gravity change
 		if event.yInstant > 0.1 then
 			xGrav = -event.yInstant
@@ -142,10 +140,52 @@ local function onAccelerate(event, player)
 			highestxgrav = xGrav
 		end
 		
-		-- offset the gravity to return
-		physicsParam.xGrav = xGrav
-		physicsParam.yGrav = yGrav
+		ball:applyLinearImpulse(xGrav, yGrav, ball.x, ball.y)
+		timer.performWithDelay(200, cancelDeathTimer)
+		
+	elseif event.isShake ~= true then
+		-- Accelerometer Tilt Events	
+		local xGrav = 0
+		local yGrav = 0
+		
+		-- Note: Accelerometer is always relative to the device in portrait orientation
+		-- X gravity change
+		if event.yInstant > 0.1 then
+			xGrav = -event.yInstant
+		elseif event.yInstant < -0.1 then
+			xGrav = -event.yInstant
+		elseif event.yGravity > 0.1 then
+			xGrav = -event.yGravity
+		elseif event.yGravity < -0.1 then
+			xGrav = -event.yGravity
+		else
+			xGrav = 0
+		end
+
+		-- Y gravity change
+		if event.xInstant > 0.1 then
+			yGrav = -event.xInstant
+		elseif event.xInstant < -0.1 then
+			yGrav = -event.xInstant
+		elseif event.xGravity > 0.1 then
+			yGrav = -event.xGravity
+		elseif event.xGravity < -0.1 then
+			yGrav = -event.xGravity
+		else
+			yGrav = 0
+		end
+		
+		if yGrav < highestygrav then
+			highestygrav = yGrav
+		end
+		if xGrav < highestxgrav then
+			highestxgrav = xGrav
+		end
 	end
+	
+	-- offset the gravity to return
+	physicsParam.xGrav = xGrav
+	physicsParam.yGrav = yGrav
 	
 	--return physics parameters
 	return physicsParam

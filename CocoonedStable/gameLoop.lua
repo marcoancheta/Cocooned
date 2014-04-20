@@ -151,7 +151,6 @@ end
 -- Updated by: Andrew moved curse to speedUp so we can use the player's physics params
 --------------------------------------------------------------------------------
 local function controlMovement(event)
-	system.setAccelerometerInterval( 50 )
 	-- if miniMap isn't showing, move player
 	if gameData.isShowingMiniMap == false and gameData.gameEnd == false then
 		-- call accelerometer to get data
