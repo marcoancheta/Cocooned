@@ -24,7 +24,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	function imageObject:preCollision(event)
 		if collideObject.collType == "solid" or 
 			collideObject.collectable == true or collideObject.name == "wind" or
-			collideObject.collType == "passThru" and collideObject.name ~= "water"	then
+			collideObject.collType == "passThru" then
 			local col = require("Objects." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)				
 		--elseif collideObject.collType == "wall" then
