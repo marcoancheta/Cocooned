@@ -245,7 +245,7 @@ local function gWater(map, mapData, direction)
 	water.alpha = 0
 	water.name = "water"
 	water.func = "waterCollision"
-	water.escape = "right"
+	--water.escape = "right"
 	water.x = display.contentCenterX
 	water.y = display.contentCenterY
 	

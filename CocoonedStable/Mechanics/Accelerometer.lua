@@ -4,6 +4,7 @@
 -- accelerometer.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+local gameData = require("Core.gameData")
 --NOTE: to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
 --------------------------------------------------------------------------------
 -- Variables
@@ -43,25 +44,11 @@ local function cancelDeathTimer()
 	end
 end
 
---[[
-local function cancelDeathTimer2() 
-	if accelPlayer2.movement == "accel" and accelPlayer2.deathTimer ~= nil then 
-		timer.cancel(accelPlayer2.deathTimer) 
-		accelPlayer2.deathTimer=nil  
-		accelPlayer2.imageObject.linearDamping = 1.25 
-		accelPlayer2.speedConst = accelPlayer2.defaultSpeed
-		--accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
-		accelPlayer2.deathScreen:pause()
-		accelPlayer2.deathScreen:removeSelf()
-		accelPlayer2.deathScreen = nil
-	end
-end
-]]--
-
 --------------------------------------------------------------------------------
 -- On Accelerate - function that gathers accelerometer data
 --------------------------------------------------------------------------------
--- Updated by: Andrew 
+-- Updated by: Derrick
+-- Previous: Andrew 
 --------------------------------------------------------------------------------
 local function onAccelerate(event, player)
 	-- Print escape path
@@ -106,43 +93,13 @@ local function onAccelerate(event, player)
 	end
 		
 	-- Accelerometer Shake Event
-	if event.isShake and player.movement == "inWater" then
-		local ball = player.imageObject
-		--local xDirection = 0
-		--local yDirection = 0
-		
+	if event.isShake and gameData.inWater == true then
+		local ball = player.imageObject		
 		accelPlayer[1] = player
 		player.shook = true
-		
-		--[[
-		if player.escape == "up" then
-			yDirection = -1
-		elseif player.escape == "upLeft" then
-			yDirection = -1
-			xDirection = -1
-		elseif player.escape == "upRight" then
-			yDirection = -1
-			xDirection = 1
-		elseif player.escape == "left" then
-			xDirection = -1
-		elseif player.escape == "right" then
-			xDirection = 1
-		elseif player.escape == "downRight" then
-			xDirection = 1
-			yDirection = 1
-		elseif player.escape == "down" then
-			yDirection = 1
-		elseif player.escape == "downLeft" then
-			yDirection = 1
-			xDirection = -1
-		end
-		print(.15*xDirection)
-		print(.15*yDirection)
-		]]--
-				
+						
 		ball:applyLinearImpulse(xGrav * 0.10, yGrav * 0.10 , ball.x, ball.y)
-		timer.performWithDelay(100, cancelDeathTimer)
-		
+		timer.performWithDelay(100, cancelDeathTimer)		
 	elseif event.isShake ~= true then		
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav

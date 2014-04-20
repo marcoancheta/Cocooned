@@ -20,29 +20,6 @@
 --------------------------------------------------------------------------------
 -- creates the collision detection for that pane
 local function createCollisionDetection(imageObject, player, mapData, gui, map)
-	-- function for pre collision 
-	-- before the object collides, call its own collide function
-	function imageObject:preCollision(event)
-		-- save the collide object
-	 	local collideObject = event.other
-		
-		--let the ball go through water
-		--[[
-		if collideObject.name == "water" then
-			-- disabled collision   
-			event.contact.isEnabled = false
-		else
-		]]--
-		if collideObject.collType == "passThru" and collideObject.name ~= "water" or
-		collideObject.collType == "solid" or collideObject.collectable == true or collideObject.name == "wind" then
-			-- if the object is a passThru, calls it's collide function
-			-- if the object is a solid, call it's collide function
-			-- if the object is a collectable, call it's collide function
-			local col = require("Objects." .. collideObject.func)
-			col.collide(collideObject, player, event, mapData, map, gui)
-		end 
-	end
-
 	--function for collision detection
 	-- when an object collides, call its own collide function
 	local function onLocalCollision(self, event)
@@ -50,34 +27,33 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		local collideObject = event.other
 
 		-- when collision began, do this
-		if ( event.phase == "began" ) then		
+		if event.phase == "began" then		
 			-- if the object is a solid, call it's function
-			-- when the player collides with water, make sure that shook is false and call the water collision function.
-			if collideObject.collType == "solid" or collideObject.name == "water" then
+			if collideObject.collType == "solid" or collideObject.name == "water" or 
+			collideObject.collectable == true or collideObject.name == "wind" or
+			collideObject.collType == "passThru" and collideObject.name ~= "water"	then
 				local col = require("Objects." .. collideObject.func)
 				col.collide(collideObject, player, event, mapData, map, gui)				
-				--elseif collideObject.collType == "wall" then
+			--elseif collideObject.collType == "wall" then
 				-- Create particle effect.
 				--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
 			end
 		end
 		
-		-- when collision ends:
-		--elseif ( event.phase == "ended" ) then	
 		--if the player shook, and the collision with water ended
 		if collideObject.name == "water" then
 			if player.shook == true then
-				player.movement = "accel"
+				--player.movement = "accel"
 				player.shook = false
 			end
+		else
+			gameData.inWater = false
 		end
-
 	end
 
 	-- add event listener to collision detection and pre collision detection
 	imageObject.collision = onLocalCollision
 	imageObject:addEventListener("collision", imageObject)
-	imageObject:addEventListener("preCollision")
 end
 
 --------------------------------------------------------------------------------
@@ -89,7 +65,6 @@ end
 local function changeCollision(player, mapData, map) 
 	-- remove old collision detection event listeners
 	player.imageObject:removeEventListener("collision", player.imageObject)
-	player.imageObject:removeEventListener("preCollision")
 
 	-- create new collision detection event listeners
 	createCollisionDetection(player.imageObject, player, mapData, map, gui)
@@ -102,7 +77,6 @@ end
 --------------------------------------------------------------------------------
 local function destroyCollision(imageObject)
 	imageObject:removeEventListener("collision", imageObject)
-	imageObject:removeEventListener("preCollision")
 end
 
 --------------------------------------------------------------------------------
