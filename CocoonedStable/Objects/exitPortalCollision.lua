@@ -22,7 +22,9 @@ local levelComplete = false
 local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
 	
-	local transPortal = transition.to(player.imageObject, {time=1000, x=collideObject.x, y=collideObject.y-15, onComplete = gameData.levelComplete=true} )
+	local complete = function()	gameData.levelComplete = true; end
+	
+	local transPortal = transition.to(player, {time=1000, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
 	--[[
 	if collideObject.sequence == "move" and player.deathTimer == nil then
 		--audio.stop()
