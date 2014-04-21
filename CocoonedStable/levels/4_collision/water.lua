@@ -304,7 +304,6 @@ function M.physicsData(scale)
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
                     shape = {   720, -432  ,  720, 432  ,  595, 432  ,  594, -432  }
                     }
-s
 		}
 		
 	} }
