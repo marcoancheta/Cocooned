@@ -40,14 +40,12 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	    end
 
 	    -- if the object is a solid, call it's collide function
-	    if (collideObject.collType == "solid") or (collideObject.collectable == true) or
-		(collideObject.name == "wind") then
+	    if collideObject.collType == "solid" or collideObject.collectable == true then
 			local col = require("Objects." .. collideObject.func)
 				  col.collide(collideObject, player, event, mapData, map, gui)
 	    end
 
 		-- if the object is a collectable, call it's collide function
-		--[[
 		if collideObject.collectable == true then
 			local col = require("Objects." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)
@@ -57,7 +55,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		  local col = require("Objects." .. collideObject.func)
 		  col.collide(collideObject, player, event, mapData, map, gui)
 		end
-		]]--
 		
 		--let the ball go through water
 		if collideObject.name == "water" then
