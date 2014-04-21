@@ -302,7 +302,7 @@ local function clean(event)
 	--miniMap:removeSelf()
 	--miniMap = nil
 	
-	if gameData.menuOn or gameData.gameEnd then
+	if gameData.gameEnd then
 		gui.back:removeSelf()
 		gui.middle:removeSelf()
 		gui.front:removeSelf()
@@ -315,8 +315,6 @@ local function clean(event)
 		player1 = nil
 		playerSheet = nil
 	end
-
-	
 	
 	--TODO: move player 2 sheet into gameloop?
 	-- call objects-destroy
