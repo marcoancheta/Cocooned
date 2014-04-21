@@ -13,6 +13,7 @@
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
+	
 	player:changeColor('blue')
 end
 
