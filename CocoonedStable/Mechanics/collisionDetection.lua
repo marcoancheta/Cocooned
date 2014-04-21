@@ -91,7 +91,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			
 		elseif event.phase == "ended" then				  
 			--if the player shook, and the collision with water ended
-			if collideObject.name ~= "water" then
+			if collideObject.name ~= "water" and collideObject.name ~= "wall" then
 				--local col = require("Objects." .. collideObject.func)
 				--col.collide(collideObject, player, event, mapData, map, gui)
 				-- set players movement to inWater
