@@ -474,7 +474,13 @@ local function gameLoopEvents(event)
 		gameData.allowMiniMap = true
 		gameData.showMiniMap = true
 		gameData.resumeGame = false
-	end	
+	end
+	
+	-----------------------------
+	--[[ LEVEL COMPLETE LOOP ]]--
+	if gameData.levelComplete then
+		gameData.selectLevel = true
+	end
 end
 
 local gameLoop = {

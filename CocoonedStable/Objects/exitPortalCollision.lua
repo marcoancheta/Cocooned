@@ -22,12 +22,15 @@ local levelComplete = false
 local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
 	
+	local transPortal = transition.to(player.imageObject, {time=1000, x=collideObject.x, y=collideObject.y-15, onComplete = gameData.levelComplete=true} )
+	--[[
 	if collideObject.sequence == "move" and player.deathTimer == nil then
 		--audio.stop()
 		--sound.playSound(event, sound.portalOpeningSound)
 		levelComplete = true 
 		player.deathTimer = timer.performWithDelay(2000, function() gameData.gameEnd = true end)
 	end
+	]]--
 end
 
 --------------------------------------------------------------------------------
