@@ -299,20 +299,18 @@ local function clean(event)
 	ball:removeSelf()
 	ball = nil
 	
-	--[[
 	gui.back:removeSelf()
 	gui.middle:removeSelf()
 	gui.front:removeSelf()
 	gui.back = nil
 	gui.middle = nil
 	gui.front = nil
-	]]--
 	
 	--miniMap:removeSelf()
 	--miniMap = nil
 
 	-- destroy player instance
-	player1:destroy()
+	player1:removeSelf()
 	player1 = nil
 	playerSheet = nil
 				
