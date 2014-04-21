@@ -50,6 +50,16 @@ local function tapOnce(event)
 	end		
 end
 
+local function onPlay(bool)
+	if bool then
+		play.isVisible = true
+		play:addEventListener("tap", tapOnce)
+	else
+		play.isVisible = false
+		play:removeEventListener("tap", tapOnce)
+	end
+end
+
 --------------------------------------------------------------------------------
 -- drawGoals - Draw/Insert Objects
 --------------------------------------------------------------------------------
@@ -103,14 +113,11 @@ local function drawGoals(gui)
 	play.x, play.y = generate.tilesToPixels(5, 4)
 	play:scale(1.5, 1.5)
 	play.name = "playButton"
-	
-	play:addEventListener("tap", tapOnce)
-		
+			
 	-- insert objects to display group
 	gui.front:insert(textObject[1])
 	gui.front:insert(textObject[2])
 	gui.front:insert(play)
-
 end
 
 --------------------------------------------------------------------------------
@@ -133,9 +140,11 @@ local function findGoals(mapData, gui)
 		runeAmount = 4
 	end
 		
-	for i=1, runeAmount do
-		rune[i].isVisible = true
-	end		
+	if rune then
+		for i=1, runeAmount do
+			rune[i].isVisible = true
+		end
+	end
 end
 
 local goals = {

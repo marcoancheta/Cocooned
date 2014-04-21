@@ -82,8 +82,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- Check which pane
 	if mapData.pane == "LS" then		
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(8, 16)
-		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(8, 8)
-		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(32, 7)
+		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(8, 8)
+		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(32, 7)
 		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(33, 15)
 		objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(21, 8)
 		
@@ -98,9 +98,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 				
 			--map.layer["tiles"]:insert(locks[i])
 			
-			if i==1 or i==4 then
+			if i==1 then
 				locks[i].isVisible = true
 				objects["exitPortal" ..i.. ""]:setSequence("still")
+				objects["exitPortal" ..i.. ""].isSensor = true
 			else
 				locks[i].isVisible = false
 			end		
