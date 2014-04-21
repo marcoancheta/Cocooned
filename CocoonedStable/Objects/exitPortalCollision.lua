@@ -13,6 +13,7 @@
 local sound = require("sounds.sound")
 local gameData = require("Core.gameData")
 local levelComplete = false
+local complete = function()	gameData.levelComplete = true; end
 
 --------------------------------------------------------------------------------
 -- Collide Function - end game if exit portal is active
@@ -21,10 +22,8 @@ local levelComplete = false
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
-	
-	local complete = function()	gameData.levelComplete = true; end
-	
-	local transPortal = transition.to(player, {time=1000, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
+		
+	local transPortal = transition.to(player, {time=100, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
 	--[[
 	if collideObject.sequence == "move" and player.deathTimer == nil then
 		--audio.stop()

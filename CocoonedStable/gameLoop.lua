@@ -481,6 +481,7 @@ local function gameLoopEvents(event)
 	if gameData.levelComplete then
 		clean(event)
 		gameData.selectLevel = true
+		gameData.levelComplete = false
 	end
 end
 
