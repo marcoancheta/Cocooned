@@ -299,21 +299,25 @@ local function clean(event)
 	ball:removeSelf()
 	ball = nil
 	
-	gui.back:removeSelf()
-	gui.middle:removeSelf()
-	gui.front:removeSelf()
-	gui.back = nil
-	gui.middle = nil
-	gui.front = nil
-	
 	--miniMap:removeSelf()
 	--miniMap = nil
+	
+	if gameData.menuOn or gameData.gameEnd then
+		gui.back:removeSelf()
+		gui.middle:removeSelf()
+		gui.front:removeSelf()
+		gui.back = nil
+		gui.middle = nil
+		gui.front = nil
 
-	-- destroy player instance
-	player1:removeSelf()
-	player1 = nil
-	playerSheet = nil
-				
+		-- destroy player instance
+		player1:removeSelf()
+		player1 = nil
+		playerSheet = nil
+	end
+
+	
+	
 	--TODO: move player 2 sheet into gameloop?
 	-- call objects-destroy
 	objects.destroy(mapData)
