@@ -36,21 +36,26 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	local function temp()		
 		local timer = timer.performWithDelay(1000, resume);
 	end
-							
-	local trans = transition.to(player.imageObject, {time=1500, x=collideObject.x, y=collideObject.y-15, onComplete = temp} )		
-			
-	for i=1, 5 do
+									
+	local bool = false
+	for i=1, 5 do		
 		if i ~= 1 then
 			if collideObject.name == "exitPortal" ..i.. "" then
 				selectLevel.levelNum = ""..i..""
-				selectLevel.pane = "M"
+				selectLevel.pane = "M"				
 				print(selectLevel.levelNum)
+				
+				bool = true
+				goals.onPlay(bool)			
 				goals.findGoals(selectLevel, gui)
 				gameData.mapData = selectLevel
-			else
-				transition.cancel(trans)
-				trans = nil
+				local trans = transition.to(player.imageObject, {time=1000, x=collideObject.x, y=collideObject.y-15, onComplete = temp} )
 			end
+		else
+			bool = false
+			goals.onPlay(bool)
+			transition.cancel(trans)
+			trans = nil
 		end
 	end
 end

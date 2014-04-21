@@ -52,10 +52,10 @@ end
 
 local function onPlay(bool)
 	if bool then
-		play.isVisible = true
+		play.alpha = 1
 		play:addEventListener("tap", tapOnce)
 	else
-		play.isVisible = false
+		play.alpha = 0.2
 		play:removeEventListener("tap", tapOnce)
 	end
 end
@@ -112,6 +112,7 @@ local function drawGoals(gui)
 	play = display.newImage("mapdata/art/buttons/sil_kipcha.png", 0, 0, true)
 	play.x, play.y = generate.tilesToPixels(5, 4)
 	play:scale(1.5, 1.5)
+	play.alpha = 0.2
 	play.name = "playButton"
 			
 	-- insert objects to display group
@@ -141,6 +142,9 @@ local function findGoals(mapData, gui)
 	end
 		
 	if rune then
+		for i=1, #rune do
+			rune[i].isVisible = false
+		end
 		for i=1, runeAmount do
 			rune[i].isVisible = true
 		end
@@ -151,7 +155,8 @@ local goals = {
 -- Pass into globals
 	drawGoals = drawGoals,
 	findGoals = findGoals,
-	destroyGoals = destroyGoals
+	destroyGoals = destroyGoals,
+	onPlay = onPlay
 }
 
 return goals
