@@ -88,14 +88,20 @@ local function createLevel(mapData, player1)
 		physics.addBody(level, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
 		
 	else
-		map = dusk.buildMap("mapdata/levels/" .. mapData.levelNum .. "/LS.json")
+		local level
+		level = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/" .. mapData.pane .. ".png")
+		level.name = "LS"
+		level.anchorX = 0
+		level.anchorY = 0
+		map:insert(1, level)
+		physics.addBody(level, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
 	end
 	
 	objects.main(mapData, map)
 	
 	-- set players location according to level
 	if mapData.levelNum == "LS" then
-		player1.imageObject.x, player1.imageObject.y = map.tilesToPixels(24, 18)
+		player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(24, 18)
 	else
 		player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(20, 6)
 	end
@@ -109,7 +115,7 @@ local function createLevel(mapData, player1)
 	if mapData.levelNum ~= "LS" then
 		map:insert(player1.imageObject)
 	else
-		map.layer["tiles"]:insert(player1.imageObject)
+		map:insert(player1.imageObject)
 	end
 	
 	

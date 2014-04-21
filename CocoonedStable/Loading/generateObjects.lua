@@ -74,7 +74,7 @@ local function gObjects(level, objects, map, mapData, runes)
 			if mapData.levelNum ~= "LS" then
 				map:insert(objects[name .. j])				
 			else
-				map.layer["tiles"]:insert(objects[name .. j])
+				map:insert(objects[name .. j])
 			end
 		end
 	end

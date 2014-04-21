@@ -123,12 +123,7 @@ local function createObjects(objectNumbers, mapData)
 	if mapData.levelNum == "LS" then
 		if mapData.pane == "LS" then
 			-- Main Walls
-			wall[1] = display.newImage("mapdata/art/background/LS/LS-BB/LS.png", true)
-		end
-
-		-- create all walls in level
-		for i=1, tonumber(objectNumbers.wallCount) do
-			wall[i].isVisible = false
+			--wall[1] = display.newImage("mapdata/art/background/LS/LS-BB/LS.png", true)
 		end
 
 	end

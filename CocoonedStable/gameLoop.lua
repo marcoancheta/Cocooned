@@ -52,6 +52,8 @@ local movement = require("Mechanics.movement")
 local collisionDetection = require("Mechanics.collisionDetection")
 -- Pane Transitions (paneTransition.lua)
 local paneTransition = require("Loading.paneTransition")
+-- camera model (camera.lua)
+local createCamera = require("camera")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -80,6 +82,9 @@ local players = {}
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 local count = 0
+
+-- create camera model
+local camera
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -216,6 +221,13 @@ local function loadMap(mapData)
 end
 
 local function clean(event)
+	if camera ~= nil then
+		camera:cancel()
+		camera:remove(player1.imageObject)
+		camera:remove(gui.back)
+		camera:destroy()
+		camera = nil
+	end
 	-- remove all eventListeners
 	gui:removeEventListener("touch", swipeMechanics)
 	gui:removeEventListener("tap", tapMechanic)	
@@ -225,7 +237,7 @@ local function clean(event)
 	collisionDetection.destroyCollision(player1.imageObject)
 
 	if mapData.levelNum == "LS" then
-		gui[1][1].destroy()
+		--gui[1][1].destroy()
 	end
 	
 	ball:removeSelf()
@@ -263,22 +275,30 @@ local function gameLoop(event)
 				
 	if mapData.levelNum == "LS" then
 		-- Set Camera to Ball
-		gui.back[1].setCameraFocus(ball)
-		gui.back[1].setTrackingLevel(0.1)
+		--gui.back[1].setCameraFocus(ball)
+		--gui.back[1].setTrackingLevel(0.1)
+
 	end
 	
 	---------------------------------
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
-
+		
 		--selectLevel.selectLoop(event)	
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		
 		loadMap(mapData)
 		menu.ingameOptionsbutton(event, gui)
-				
+		
+		-- add map and player object to camera
+		camera = createCamera.createView(2)
+		camera:add(player1.imageObject, 1)
+		camera:add(gui.back, 2)
+		camera:setFocus(player1.imageObject)
+		camera:track()
+		
 		-- Re-evaluate gameData booleans	
 		gameData.selectLevel = false
 	end

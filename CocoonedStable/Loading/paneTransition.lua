@@ -79,11 +79,11 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	
 	print("playing transition")
 	-- play pane switch transition and move to front
-	transPic = display.newSprite(sheetOptions.paneSheet, spriteOptions.paneSwitch)
+	--transPic = display.newSprite(sheetOptions.paneSheet, spriteOptions.paneSwitch)
 	--transPic:scale(1.25, 1.25)
-	transPic.x, transPic.y = generate.tilesToPixels(21, 10)
-	transPic:setSequence("move")
-	transPic:play()
+	--transPic.x, transPic.y = generate.tilesToPixels(21, 10)
+	--transPic:setSequence("move")
+	--transPic:play()
 	
 
 	-- declare direction which pane swithc transition should play
@@ -118,7 +118,7 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 		else direction = "down"
 		end
 	end
-	
+	--[[
 	-- depending on which direction, rotate the pane switch transition
 	if direction == "right" then
 		transPic:scale(2,2)
@@ -143,9 +143,9 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 		transPic:scale(1.5,1.5)
 		transPic.rotation = -135
 	end
-	
+	]]--
 	-- timers for deleting pane image and ending pane switch
-	local endTrans = timer.performWithDelay(1000, endTransition)
+	--local endTrans = timer.performWithDelay(1000, endTransition)
 	
 	
 	local moveTrans = timer.performWithDelay(400, movePanes)

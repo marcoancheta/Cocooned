@@ -29,11 +29,11 @@ local function createMiniMap(mapData, map)
 	
 	-- set miniMap pane images
 	if mapData.levelNum ~= "LS" then
-		miniMapTable[1] = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/M.png")
-		miniMapTable[2] = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/U.png")
-		miniMapTable[3] = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/D.png")
-		miniMapTable[4] = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/R.png")
-		miniMapTable[5] = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/L.png")
+		miniMapTable[1] = display.newImage("mapdata/art/background/blank.png")
+		miniMapTable[2] = display.newImage("mapdata/art/background/blank.png")
+		miniMapTable[3] = display.newImage("mapdata/art/background/blank.png")
+		miniMapTable[4] = display.newImage("mapdata/art/background/blank.png")
+		miniMapTable[5] = display.newImage("mapdata/art/background/blank.png")
 	end
 		
 	-- create background image
@@ -65,7 +65,7 @@ local function createMiniMap(mapData, map)
 		miniMap:insert(i+2, miniMapTable[i])
 
 	end
-
+	print("miniMap", miniMap.numChildren)
 	-- set current pane highlight to current pane player is in
 	for m = 3, 7 do
 		if mapData.pane == "U" then
