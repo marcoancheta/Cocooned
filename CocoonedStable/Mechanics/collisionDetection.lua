@@ -34,6 +34,15 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			--player.imageObject.linearDamping = 1.25 
 		--end
 		
+		--let the ball go through water
+		if collideObject.name == "water" then
+			-- disabled collision
+			event.contact.isEnabled = false
+		else
+			event.contact.isEnabled = true
+		end
+		
+		
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
 			local col = require("Objects." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)
@@ -54,14 +63,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		if collideObject.name == "wind" then
 			local col = require("Objects." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)
-		end
-		
-		--let the ball go through water
-		if collideObject.name == "water" then
-			-- disabled collision
-			event.contact.isEnabled = false
-		else
-			event.contact.isEnabled = true
 		end
 	end
 
