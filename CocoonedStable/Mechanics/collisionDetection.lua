@@ -36,13 +36,13 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
 			local col = require("Objects." .. collideObject.func)
-				  col.collide(collideObject, player, event, mapData, map, gui)
+			col.collide(collideObject, player, event, mapData, map, gui)
 	    end
 
 	    -- if the object is a solid, call it's collide function
-	    if collideObject.collType == "solid" or collideObject.collectable == true then
+	    if collideObject.collType == "solid" then
 			local col = require("Objects." .. collideObject.func)
-				  col.collide(collideObject, player, event, mapData, map, gui)
+			col.collide(collideObject, player, event, mapData, map, gui)
 	    end
 
 		-- if the object is a collectable, call it's collide function
@@ -52,8 +52,8 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		end
 
 		if collideObject.name == "wind" then
-		  local col = require("Objects." .. collideObject.func)
-		  col.collide(collideObject, player, event, mapData, map, gui)
+			local col = require("Objects." .. collideObject.func)
+			col.collide(collideObject, player, event, mapData, map, gui)
 		end
 		
 		--let the ball go through water
@@ -100,19 +100,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		end
 	end
 
-	--[[
-	function imageObject:postCollision(event)
-		-- if the object is a passThru, calls it's collide function
-	    local collideObject = event.other
-		
-		--let the ball go through water
-		if collideObject.name ~= "water" then
-			-- disabled collision
-			gameData.inWater = false
-		end
-	end
-	]]--
-	
 	-- add event listener to collision detection and pre collision detection
 	imageObject.collision = onLocalCollision
 	imageObject:addEventListener("collision", imageObject)
