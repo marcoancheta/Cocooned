@@ -55,12 +55,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	    end
 
 		-- if the object is a collectable, call it's collide function
-		if collideObject.collectable == true then
-			local col = require("Objects." .. collideObject.func)
-			col.collide(collideObject, player, event, mapData, map, gui)
-		end
-
-		if collideObject.name == "wind" then
+		if collideObject.collectable == true or collideObject.name == "wind" then
 			local col = require("Objects." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)
 		end
@@ -92,8 +87,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		elseif event.phase == "ended" then				  
 			--if the player shook, and the collision with water ended
 			if collideObject.name ~= "water" and collideObject.name ~= "wall" then
-				--local col = require("Objects." .. collideObject.func)
-				--col.collide(collideObject, player, event, mapData, map, gui)
 				-- set players movement to inWater
 				gameData.inWater = false
 				player.imageObject.linearDamping = 1.25 
