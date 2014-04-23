@@ -316,7 +316,7 @@ local function clean(event)
 	--if mapData.levelNum == "LS" then
 	--	gui[1][1].destroy()
 	--end
-	
+
 	if linePts then
 		linePts = nil
 		linePts = {}
@@ -352,7 +352,7 @@ end
 
 local function inWater()
 	if gameData.inWater then
-		txtObj.text = "true"
+		txtObj.text = player1.inventory.runeSize
 	else
 		txtObj.text = "false"
 	end

@@ -302,6 +302,10 @@ function playerInstance:addInventory(item, map)
 	self.inventory:addItem(item, map)
 end
 
+function playerInstance:resetRune()
+	self.inventory:resetRunes();
+end
+
 --------------------------------------------------------------------------------
 -- Add Rune - player function that adds rune to inventory rune table
 --------------------------------------------------------------------------------

@@ -126,7 +126,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	if mapData.pane == "M" then
 		
 		-- Pink rune
-		rune[3].x, rune[3].y = generate.tilesToPixels(20, 12)			
+		rune[3].x, rune[3].y = generate.tilesToPixels(1, 1)			
 		rune[3].isVisible = true
 		
 		--[[ A-5-2 wisps

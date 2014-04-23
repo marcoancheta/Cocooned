@@ -35,6 +35,10 @@ function inventoryInstance:addRune(item, map)
 	self.runeSize = self.runeSize + 1
 end
 
+
+function inventoryInstance:resetRunes()
+	self.runeSize = 0
+end
 --------------------------------------------------------------------------------
 -- New - function that creates a new iventory table
 --------------------------------------------------------------------------------
