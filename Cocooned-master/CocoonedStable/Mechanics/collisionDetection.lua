@@ -86,10 +86,12 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			
 		elseif event.phase == "ended" then				  
 			--if the player shook, and the collision with water ended
-			if collideObject.name ~= "water" and collideObject.name ~= "wall" then
+			if collideObject.name ~= "water" and collideObject.name ~= "wall" and string.sub(collideObject.name,1,12) ~= "fixedIceberg" then
 				-- set players movement to inWater
 				gameData.inWater = false
-				player.imageObject.linearDamping = 1.25 
+				player.imageObject.linearDamping = 1.25
+				elseif string.sub(collideObject.name,1,12) == "fixedIceberg" then
+					gameData.onIceberg = false
 			end
 		end
 	end
@@ -98,6 +100,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	imageObject.collision = onLocalCollision
 	imageObject:addEventListener("collision", imageObject)
 	imageObject:addEventListener( "preCollision")
+
 end
 
 --------------------------------------------------------------------------------

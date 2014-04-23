@@ -24,26 +24,13 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	gameData.inWater = true
 	player.imageObject.linearDamping = 8
 	
-	--[[if player.shook then
-		event.contact.isEnabled = false
-		gameData.inWater = false
-		player.shook = false
-	else
-		
-		event.contact.isEnabled = true
+	if gameData.onIceberg == false then
+		-- reset player's aura and movement
+		player:changeColor("white")
+		--player.movement ="inWater"
+		gameData.inWater = true
+		player.imageObject.linearDamping = 8
 	end
-	]]--
-	-- if death time is nil, set it
-	--[[
-	if player.deathTimer == nil then
-		--sound.playSound(event, sound.splashSound)
-		--player.deathTimer = timer.performWithDelay(5000, function() gameData.gameEnd = true end)
-		player.deathScreen = display.newSprite(sheetOptions.deathSheet, spriteOptions.deathAnimation)
-		player.deathScreen.x, player.deathScreen.y = 720, 432
-		player.deathScreen:setSequence("move")
-		player.deathScreen:play()
-	end
-	]]--
 end
 
 --------------------------------------------------------------------------------

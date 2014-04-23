@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- Cocofived by Damaged Panda Games (http://signup.cocofivedgame.com/)
--- five.lua
+-- Cocothreed by Damaged Panda Games (http://signup.cocothreedgame.com/)
+-- three.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -16,17 +16,17 @@ local gameData = require("Core.gameData")
 local generate = require("Loading.generateObjects")
 
 --------------------------------------------------------------------------------
--- Level five Variables
+-- Level three Variables
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local five = { 
+local three = { 
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
-	panes = {true,false,false,false,true},
+	panes = {true,false,false,false,false},
 	playerCount = 1,
 	-- number of wisps in the level
-	wispCount = 6,
+	wispCount = 7,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -35,14 +35,14 @@ local five = {
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
-		["fish1"] = 0,
-		["fish2"] = 0,
+		["fish1"] = 2,
+		["fish2"] = 2,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0,
+		["exitPortal"] = 1,
 		["enemy"] = 0,
 	},
 	["D"] = {
@@ -111,6 +111,7 @@ local five = {
 local objectList
 local mObjectslocal 
 
+
 --------------------------------------------------------------------------------
 -- load pane function
 --------------------------------------------------------------------------------
@@ -122,32 +123,50 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
-		--[[
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(28, 6)
 		
 		-- Pink rune
-		rune[4].x, rune[4].y = generate.tilesToPixels(4.5, 4.5)			
+		rune[4].x, rune[4].y = generate.tilesToPixels(20, 12)			
 		rune[4].isVisible = true
 		
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 6)
-		wisp[2].x, wisp[2].y = generate.tilesToPixels(26, 8)
-		wisp[3].x, wisp[3].y = generate.tilesToPixels(28, 9)
-		wisp[4].x, wisp[4].y = generate.tilesToPixels(30, 9)
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(38, 10)
-		wisp[6].x, wisp[6].y = generate.tilesToPixels(38, 13)
-		]]--
+		--[[ A-5-2 wisps
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 10)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(15, 12)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(30, 13)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(35, 20)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(30, 30)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 30)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(38, 10)
+		wisp[8].x, wisp[8].y = generate.tilesToPixels(15, 35)
+		]]
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 8)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(2, 13)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(7, 16)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(3, 20)
+		-- Right three wisps
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(23, 10)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 15)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(17, 10)
+
+		--[[
+		objects["fish11"].x, objects["fish11"].y = map.tilesToPixels(12, 8)
+ 		objects["fish11"].eX, objects["fish11"].eY = map.tilesToPixels(12, 19)
+ 		objects["fish12"].x, objects["fish12"].y = map.tilesToPixels(12, 8)
+ 		objects["fish12"].eX, objects["fish12"].eY = map.tilesToPixels(12, 19)
+ 		objects["fish21"].eX, objects["fish21"].eY = map.tilesToPixels(16, 8)
+ 		objects["fish21"].x, objects["fish21"].y = map.tilesToPixels(16, 19)
+ 		objects["fish11"].time = 375
+ 		objects["fish12"].time = 375
+ 		objects["fish21"].time = 375
+ 		--]]
 		
-		--objects["exitPortal1"]:setSequence("still")
-		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
-		
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(35, 12)
+
 		generate.gWater(map, mapData)
-		--generate.gWisps(wisp, map, mapData, 1, 6)
-		--generate.gAuraWalls(map, mapData, "blueWall")
+		generate.gWisps(wisp, map, mapData, 1, 7)
+
 	elseif mapData.pane == "L" then
-	
-		generate.gWater(map, mapData)
+		print("You shouldn't be in here...")
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
@@ -157,14 +176,14 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	end
 
 	-- generates all objects in pane when locations are set
-	generate.gObjects(five, objects, map, mapData, rune)
+	generate.gObjects(three, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
-	mObjects = generate.gMObjects(five, objects, map, mapData)
+	mObjects = generate.gMObjects(three, objects, map, mapData)
 	-- destroy the unused objects
-	generate.destroyObjects(five, rune, wisp, water, wall, objects)
+	generate.destroyObjects(three, rune, wisp, water, wall, objects)
 
 	-- set which panes are avaiable for player
-	map.panes = five.panes
+	map.panes = three.panes
 end
 
 --------------------------------------------------------------------------------
@@ -196,6 +215,7 @@ local function destroyAll()
 	-- destroy all moveable objects and stop moving them
 	for i=1, #mObjects do
 		if mObjects[i].moveable == true then
+
 			mObjects[i]:endTransition()
 			mObjects[i].object.stop = true
 		else
@@ -209,8 +229,8 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-five.load = load
-five.destroyAll = destroyAll
+three.load = load
+three.destroyAll = destroyAll
 
-return five
--- end of five.lua
+return three
+-- end of three.lua

@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- one.lua
+-- Cocofived by Damaged Panda Games (http://signup.cocofivedgame.com/)
+-- five.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -16,22 +16,22 @@ local gameData = require("Core.gameData")
 local generate = require("Loading.generateObjects")
 
 --------------------------------------------------------------------------------
--- Level One Variables
+-- Level five Variables
 --------------------------------------------------------------------------------
-
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local one = { 
+local five = { 
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
-	panes = {true,false,false,false,false},
+	panes = {true,false,false,true,false},
+	playerCount = 1,
 	-- number of wisps in the level
-	wispCount = 6,
+	wispCount = 17,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
 	["M"] = {
-		["blueAura"] = 1,
+		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -42,8 +42,9 @@ local one = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1,
+		["exitPortal"] = 0,
 		["enemy"] = 0,
+		["fixedIceberg"] = 1
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -59,6 +60,7 @@ local one = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+		["fixedIceberg"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -74,6 +76,7 @@ local one = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+		["fixedIceberg"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -87,8 +90,9 @@ local one = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0, 
+		["exitPortal"] = 1, 
 		["enemy"] = 0,
+		["fixedIceberg"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -104,6 +108,7 @@ local one = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+		["fixedIceberg"] = 0
 	}
 }
 
@@ -120,52 +125,62 @@ local mObjectslocal
 -- this is where the objects locations are set in each pane
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
-	
-	-- Check which pane
-	if mapData.pane == "M" then	
-		-- Blue Aura
-		
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(26, 6)
+		-- Check which pane
+	if mapData.pane == "M" then
 		
 		-- Pink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(4.5, 4.5)			
 		rune[4].isVisible = true
-			
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(37, 7)
 		
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(23, 6)
-		wisp[2].x, wisp[2].y = generate.tilesToPixels(24, 8)
-		wisp[3].x, wisp[3].y = generate.tilesToPixels(26, 9)
-		wisp[4].x, wisp[4].y = generate.tilesToPixels(28, 9)
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(37, 10)
-		wisp[6].x, wisp[6].y = generate.tilesToPixels(37, 13)
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 5)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(15, 6)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 7)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(35, 20)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(30, 19)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 19)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(33, 10)
+		wisp[8].x, wisp[8].y = generate.tilesToPixels(15, 20)
 
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(8, 12)
+		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(20, 12)
+		objects["fixedIceberg1"].time = 1000
 		
-									
-		generate.gAuraWalls(map, mapData, "blueWall")
-		generate.gWisps(wisp, map, mapData, 1, 6)
+		generate.gWater(map, mapData)
+		generate.gWisps(wisp, map, mapData, 1, 8)
+
+	elseif mapData.pane == "L" then
+		print("You shouldn't be in here...")
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "R" then
-		print("You shouldn't be in here...")
-	elseif mapData.pane == "L" then
-		print("You shouldn't be in here...")
+		wisp[9].x, wisp[9].y = generate.tilesToPixels(10, 10)
+		wisp[10].x, wisp[10].y = generate.tilesToPixels(15, 12)
+		wisp[11].x, wisp[11].y = generate.tilesToPixels(30, 13)
+		wisp[12].x, wisp[12].y = generate.tilesToPixels(35, 20)
+		wisp[13].x, wisp[13].y = generate.tilesToPixels(30, 30)
+		wisp[14].x, wisp[14].y = generate.tilesToPixels(20, 30)
+		wisp[15].x, wisp[15].y = generate.tilesToPixels(38, 10)
+		wisp[16].x, wisp[16].y = generate.tilesToPixels(15, 35)	
+		wisp[17].x, wisp[17].y = generate.tilesToPixels(15, 35)	
+
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
+
+		generate.gWater(map, mapData)
+		generate.gWisps(wisp, map, mapData, 9, 17)
 	end
 
 	-- generates all objects in pane when locations are set
-	generate.gObjects(one, objects, map, mapData, rune)
+	generate.gObjects(five, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
-	Objects = generate.gMObjects(one, objects, map, mapData)
+	mObjects = generate.gMObjects(five, objects, map, mapData)
 	-- destroy the unused objects
-	generate.destroyObjects(one, rune, wisp, water, wall, objects)
+	generate.destroyObjects(five, rune, wisp, water, wall, objects)
 
 	-- set which panes are avaiable for player
-	map.panes = one.panes
+	map.panes = five.panes
 end
 
 --------------------------------------------------------------------------------
@@ -176,8 +191,7 @@ end
 -- destroys all objects in pane
 -- called when switching panes to reset memory usage
 local function destroyAll() 
-	gameData.gameEnd = true
-	
+
 	-- destroy all wisps
 	for i=1, #wisp do
 		display.remove(wisp[i])
@@ -211,9 +225,8 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-one.load = load
-one.destroyAll = destroyAll
+five.load = load
+five.destroyAll = destroyAll
 
-return one
-
--- end of one.lua
+return five
+-- end of five.lua

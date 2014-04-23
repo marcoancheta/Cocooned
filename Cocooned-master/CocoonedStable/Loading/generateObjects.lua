@@ -23,6 +23,7 @@ local physicsData = require("Loading.physicsData")
 -- takes in a start and end index and creates those wisps only
 local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	
+	print("count: ", startIndex .. " " .. endIndex)
 	for i=startIndex, endIndex do
 		-- set properties of wisps
 		wisp[i].speed = 50
@@ -30,6 +31,7 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	wisp[i].func = "energyCollision"
 	   	wisp[i].collectable = true
 	   	wisp[i].name = "wisp" .. i
+	   	print("created: ", wisp[i].name)
 
 	   	-- insert wisp into map display group
 		if mapData.levelNum ~= "LS" then
@@ -64,8 +66,13 @@ local function gObjects(level, objects, map, mapData, runes)
 				physics.addBody(objects[name ..j], "static", {bounce = 0})
 				objects[name ..j].collType = "passThru"
 			else
+				print(name)
 				objects[name .. j].func = name .. "Collision"
-				physics.addBody(objects[name ..j], "static", {bounce = 0})
+				if name ~= "fixedIceberg" then
+					physics.addBody(objects[name ..j], "static", {bounce = 0})
+				else
+					physics.addBody(objects[name ..j], "static", {bounce = 0, filter = {groupIndex = -1 }})
+				end				
 				objects[name ..j].collType = "passThru"
 			end
 			
@@ -187,10 +194,34 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i] = emitWind
 		mObjects[i].moveable = false
 	end
-	-- return object table
-	return mObjects
+	if level[mapData.pane]["wolf"] > 0 then
+		offset = offset + level[mapData.pane]["wolf"]
+	end
 
-end
+	-- create moveable fish2 obects
+	for i = 1+offset, level[mapData.pane]["fixedIceberg"]+offset do
+		-- create moveable object and set name
+		mObjects[i] = moveableObject.create()
+		mObjects[i].object = objects["fixedIceberg" .. i-offset]
+		mObjects[i].moveable = true
+		-- set start and end points where moveable object will transition to
+		local startX, startY = objects["fixedIceberg" .. i-offset].x, objects["fixedIceberg" .. i-offset].y
+		local endX, endY = objects["fixedIceberg" .. i-offset].eX, objects["fixedIceberg" .. i-offset].eY
+		local time = objects["fixedIceberg" .. i-offset].time
+		-- set properties of moveable object
+		mObjects[i].object.startX, mObjects[i].object.startY = startX, startY
+		mObjects[i].object.endX, mObjects[i].object.endY = endX, endY
+		mObjects[i].object.time = time
+		mObjects[i].object.stop = false
+		mObjects[i].object.moveable = true
+
+		-- start moving object
+		mObjects[i]:startTransition(mObjects[i].object)
+		end
+		-- return object table
+		return mObjects
+
+	end
 
 --------------------------------------------------------------------------------
 -- Generate walls functions
@@ -274,7 +305,7 @@ local function destroyObjects(level, rune, wisp, water, objects)
 
 	-- deleted extra energies
 	for i = 1, level.wispCount do
-		--print("energyCount:", i)
+		
 		if wisp[i].isVisible == false then
 			wisp[i]:removeSelf()
 			wisp[i] = nil

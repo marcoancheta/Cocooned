@@ -36,6 +36,7 @@ local gameData = {
 	-- Game Booleans
 	inWater = false,
 	levelComplete = false,
+	onIceberg = false,
 	
 	locked = false,
 	
