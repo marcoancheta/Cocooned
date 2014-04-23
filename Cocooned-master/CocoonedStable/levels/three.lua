@@ -158,6 +158,14 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish11"].time = 375
  		objects["fish12"].time = 375
  		objects["fish21"].time = 375
+
+ 		--[[
+ 		fixed iceberg
+ 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(3, 8)
+		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(3, 21) --not needed if free
+		objects["fixedIceberg1"].time = 3800 --not needed if free
+		objects["fixedIceberg1"].movement = "fixed" - fixed or free
+		]]--
  		
 		
 		objects["exitPortal1"]:setSequence("still")

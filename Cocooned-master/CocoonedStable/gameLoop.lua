@@ -226,7 +226,7 @@ local function speedUp(event)
 			if gameData.gRune == true then
 				for check = 1, gui.middle.numChildren do
 		  			local currObject = gui.middle[check]
-		  				if string.sub(currObject.name,1,10) == "switchWall"then
+		  				if string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
 		  					local velY = 0
 		  					local velX = 0
 		  					if player1.yGrav<0 then
@@ -264,7 +264,7 @@ end
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
 	-- Start physics
-	--physics.setDrawMode("hybrid")
+	physics.setDrawMode("hybrid")
 	physics.start()
 	physics.setScale(45)
 	

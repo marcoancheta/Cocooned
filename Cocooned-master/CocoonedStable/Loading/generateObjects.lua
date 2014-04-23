@@ -199,28 +199,29 @@ local function gMObjects(level, objects, map, mapData)
 
 	-- create moveable fish2 obects
 	for i = 1+offset, level[mapData.pane]["fixedIceberg"]+offset do
-		-- create moveable object and set name
-		mObjects[i] = moveableObject.create()
-		mObjects[i].object = objects["fixedIceberg" .. i-offset]
-		mObjects[i].moveable = true
-		-- set start and end points where moveable object will transition to
-		local startX, startY = objects["fixedIceberg" .. i-offset].x, objects["fixedIceberg" .. i-offset].y
-		local endX, endY = objects["fixedIceberg" .. i-offset].eX, objects["fixedIceberg" .. i-offset].eY
-		local time = objects["fixedIceberg" .. i-offset].time
-		-- set properties of moveable object
-		mObjects[i].object.startX, mObjects[i].object.startY = startX, startY
-		mObjects[i].object.endX, mObjects[i].object.endY = endX, endY
-		mObjects[i].object.time = time
-		mObjects[i].object.stop = false
-		mObjects[i].object.moveable = true
+		if objects["fixedIceberg" .. i-offset].movement == "fixed" then
+			-- create moveable object and set name
+			mObjects[i] = moveableObject.create()
+			mObjects[i].object = objects["fixedIceberg" .. i-offset]
+			mObjects[i].moveable = true
+			-- set start and end points where moveable object will transition to
+			local startX, startY = objects["fixedIceberg" .. i-offset].x, objects["fixedIceberg" .. i-offset].y
+			local endX, endY = objects["fixedIceberg" .. i-offset].eX, objects["fixedIceberg" .. i-offset].eY
+			local time = objects["fixedIceberg" .. i-offset].time
+			-- set properties of moveable object
+			mObjects[i].object.startX, mObjects[i].object.startY = startX, startY
+			mObjects[i].object.endX, mObjects[i].object.endY = endX, endY
+			mObjects[i].object.time = time
+			mObjects[i].object.stop = false
+			mObjects[i].object.moveable = true
 
-		-- start moving object
-		mObjects[i]:startTransition(mObjects[i].object)
+			-- start moving object
+			mObjects[i]:startTransition(mObjects[i].object)
 		end
 		-- return object table
-		return mObjects
-
 	end
+	return mObjects
+end
 
 --------------------------------------------------------------------------------
 -- Generate walls functions

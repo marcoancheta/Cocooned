@@ -151,6 +151,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(3, 8)
 		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(3, 21)
 		objects["fixedIceberg1"].time = 3800
+		objects["fixedIceberg1"].movement = "fixed"
 		
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 1, 8)
