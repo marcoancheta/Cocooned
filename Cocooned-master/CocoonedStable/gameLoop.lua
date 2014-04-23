@@ -55,6 +55,8 @@ local paneTransition = require("Loading.paneTransition")
 -- Cut Scene System (cutSceneSystem.lua)
 local cutSceneSystem = require("Loading.cutSceneSystem")
 
+local cameraMechanic = require("camera")
+
 --------------------------------------------------------------------------------
 -- Local/Global Variables
 --------------------------------------------------------------------------------
@@ -97,6 +99,8 @@ local count = 0
 
 local players = {}
 local linePts = {}
+
+local camera;
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -380,6 +384,8 @@ local function gameLoopEvents(event)
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
+		
+
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		
