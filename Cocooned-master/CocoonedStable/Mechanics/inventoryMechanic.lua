@@ -37,7 +37,7 @@ end
 
 
 function inventoryInstance:resetRunes()
-	self.runeSize = 0
+	self.runeSize = 1
 end
 --------------------------------------------------------------------------------
 -- New - function that creates a new iventory table
