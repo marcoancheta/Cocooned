@@ -44,7 +44,7 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 1,
 		["enemy"] = 0,
-		["fixedIceberg"] = 3
+		["fixedIceberg"] = 0
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -108,7 +108,7 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 3
 	}
 }
 
@@ -126,7 +126,13 @@ local mObjectslocal
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
+<<<<<<< HEAD
 	if mapData.pane == "R" then
+=======
+	if mapData.pane == "M" then
+		generate.gWater(map, mapData)
+	elseif mapData.pane == "L" then
+>>>>>>> 06303fba7274ddf8066bccdbdd98121c14caa7eb
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 17)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 15)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 13)
