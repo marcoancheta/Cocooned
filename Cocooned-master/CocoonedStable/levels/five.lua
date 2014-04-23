@@ -23,7 +23,7 @@ local generate = require("Loading.generateObjects")
 local five = { 
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
-	panes = {true,false,false,true,false},
+	panes = {true,false,false,false,true},
 	playerCount = 1,
 	-- number of wisps in the level
 	wispCount = 17,
@@ -78,7 +78,7 @@ local five = {
 		["enemy"] = 0,
 		["fixedIceberg"] = 0
 	},
-	["R"] = {
+	["L"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
@@ -94,7 +94,7 @@ local five = {
 		["enemy"] = 0,
 		["fixedIceberg"] = 0
 	},	
-	["L"] = {
+	["R"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
@@ -148,13 +148,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 1, 8)
 
-	elseif mapData.pane == "L" then
+	elseif mapData.pane == "R" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
 		print("You shouldn't be in here...")
-	elseif mapData.pane == "R" then
+	elseif mapData.pane == "L" then
 		wisp[9].x, wisp[9].y = generate.tilesToPixels(10, 10)
 		wisp[10].x, wisp[10].y = generate.tilesToPixels(15, 12)
 		wisp[11].x, wisp[11].y = generate.tilesToPixels(30, 13)

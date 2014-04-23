@@ -66,7 +66,6 @@ local function gObjects(level, objects, map, mapData, runes)
 				physics.addBody(objects[name ..j], "static", {bounce = 0})
 				objects[name ..j].collType = "passThru"
 			else
-				print(name)
 				objects[name .. j].func = name .. "Collision"
 				if name ~= "fixedIceberg" then
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
@@ -135,6 +134,7 @@ local function gMObjects(level, objects, map, mapData)
 
 	-- create moveable fish2 obects
 	for i = 1+offset, level[mapData.pane]["fish2"]+offset do
+		--print("moving fish2" .. mObjects[i].name)
 		-- create moveable object and set name
 		mObjects[i] = moveableObject.create()
 		mObjects[i].object = objects["fish2" .. i-offset]
@@ -194,6 +194,7 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i] = emitWind
 		mObjects[i].moveable = false
 	end
+
 	if level[mapData.pane]["wolf"] > 0 then
 		offset = offset + level[mapData.pane]["wolf"]
 	end
@@ -271,6 +272,7 @@ end
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
 local function gWater(map, mapData, direction)
+	print("generate water")
 	-- load in water collision
 	local water = display.newCircle(1, 1, 1)
 	water.alpha = 0
@@ -282,7 +284,7 @@ local function gWater(map, mapData, direction)
 	
 	physics.addBody(water, "static", physicsData.getWater(mapData.levelNum):get(mapData.pane))
 
-	map:insert(water)
+	map:insert(water, 1)
 end
 
 --------------------------------------------------------------------------------

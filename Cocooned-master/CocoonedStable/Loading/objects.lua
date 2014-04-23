@@ -99,9 +99,9 @@ end
 --------------------------------------------------------------------------------
 local function createSprites(count, name, objectList)
 	for i = 1, count do
-		--print("creating:", count, name, i)
 		objectList[name .. i] = display.newImage("mapdata/art/objects/" .. name .. ".png")
 		objectList[name .. i].name = name .. i
+		print(name)
 	end
 	return true
 end
@@ -132,7 +132,6 @@ local function createObjects(objectNumbers, mapData)
 	end
 	-- call function that creates sprites
 	for i = 6, 13 do
-		print(objectNames[i])
 		createSprites(objectNumbers[mapData.pane][objectNames[i]], objectNames[i], objects)
 	end
 

@@ -104,6 +104,10 @@ local function createLevel(mapData, player1)
 	gui.middle = display.newGroup()
 	gui.back = display.newGroup()
 
+	gui.front.name = "front"
+	gui.back.name = "back"
+	gui.middle.name = "middle"
+
 	-- Add subgroups into main GUI group
 	gui:insert(gui.back)
 	gui:insert(gui.middle)
@@ -130,8 +134,8 @@ local function createLevel(mapData, player1)
 	----------------------------
 	
 	-- Add objects to its proper groups
-	gui.back:insert(levelBG)
-	gui.middle:insert(levelWalls)
+	gui.back:insert(levelBG, 1)
+	gui.middle:insert(levelWalls, 1)
 	gui.front:insert(player1.imageObject) -- in-game objects also draws here.
 	
 	-- create miniMap for level
@@ -150,14 +154,16 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function changePane(mapData, player, miniMap)
+local function changePane(gui, mapData, player, miniMap)
 	-- Load in map
-	local map = display.newGroup()
-	-- load in wall collision
-	local levelMap = drawPane(mapData)
 	
-	map:insert(levelMap)
-	objects.main(mapData, map)
+	-- load in wall collision
+	local levelBG, levelWalls = drawPane(mapData)
+	
+	gui.back:insert(levelBG, 1)
+	gui.middle:insert(levelWalls, 1)
+	gui.front:insert(player.imageObject)
+	objects.main(mapData, gui.front)
 
 	-- if player is small, set player size back to normal
 	if player.small == true then
@@ -165,10 +171,10 @@ local function changePane(mapData, player, miniMap)
 	end
 
 	-- check if player has finished level
-	checkWin(player, map, mapData)
+	--checkWin(player, map, mapData)
 	
 	-- return new pane
-	return map
+	return gui
 end
 
 --------------------------------------------------------------------------------

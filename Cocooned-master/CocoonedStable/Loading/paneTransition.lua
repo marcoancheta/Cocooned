@@ -34,23 +34,27 @@ local function movePanes(event)
 
 	-- update new miniMap
 	--miniMapMechanic.updateMiniMap(params.tempPane, params.miniMap, params.gui, params.player1)
+	print("nameB: " .. params.gui.back[1].name)
+	print("nameM: " .. params.gui.middle[1].name)
+	print("nameF: " .. params.gui.front[1].name)
 
 	-- delete everything on map
 	objects.destroy(params.mapData)
-	params.gui[1][1]:removeSelf()
+	params.gui.back[1]:removeSelf()
+	params.gui.middle[1]:removeSelf()
+	
 	params.map = nil
 
 	---------------------------------------------------
 	-- Play "character" teleportation animation here --
 	---------------------------------------------------
 	-- load new map pane
-	params.map = loadLevel.changePane(params.mapData, params.player1, params.miniMap)
+	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
 
-	-- insert objects onto map layer
-	params.gui.back:insert(params.map)
+	
 
 	-- Reassign game mechanic listeners	
-	params.map:insert(params.player1.imageObject)
+	--params.gui.front:insert(params.player1.imageObject)
 	collisionDetection.changeCollision(params.player1, params.mapData, params.map)
 end
 

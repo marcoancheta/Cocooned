@@ -44,6 +44,7 @@ local two = {
 		["switchWall"] = 0,
 		["exitPortal"] = 1,
 		["enemy"] = 0,
+		["fixedIceberg"] = 0
 	},
 	["D"] = {
 		["blueAura"] = 0,

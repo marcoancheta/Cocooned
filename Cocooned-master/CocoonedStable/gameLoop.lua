@@ -238,6 +238,7 @@ end
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
 	-- Start physics
+	physics.setDrawMode("hybrid")
 	physics.start()
 	physics.setScale(45)
 	
@@ -266,8 +267,8 @@ local function loadMap(mapData)
 	-- Start mechanics
 	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui, gui.back[1])
 
-	gui.front:addEventListener("touch", swipeMechanics)
-	gui.front:addEventListener("tap", tapMechanic)
+	gui.back:addEventListener("touch", swipeMechanics)
+	gui.back:addEventListener("tap", tapMechanic)
 	Runtime:addEventListener("accelerometer", controlMovement)
 	Runtime:addEventListener("enterFrame", speedUp)
 end
@@ -279,8 +280,8 @@ end
 --------------------------------------------------------------------------------
 local function clean(event)
 	-- remove all eventListeners
-	gui.front:removeEventListener("touch", swipeMechanics)
-	gui.front:removeEventListener("tap", tapMechanic)	
+	gui.back:removeEventListener("touch", swipeMechanics)
+	gui.back:removeEventListener("tap", tapMechanic)	
 	Runtime:removeEventListener("accelerometer", controlMovement)
 	Runtime:removeEventListener("enterFrame", speedUp)
 		

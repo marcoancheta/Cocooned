@@ -36,7 +36,7 @@ local three = {
 		["greenAura"] = 0,
 		["wolf"] = 0,
 		["fish1"] = 2,
-		["fish2"] = 2,
+		["fish2"] = 1,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -44,6 +44,7 @@ local three = {
 		["switchWall"] = 0,
 		["exitPortal"] = 1,
 		["enemy"] = 0,
+		["fixedIceberg"] = 0,
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -147,17 +148,17 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 15)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(17, 10)
 
-		--[[
-		objects["fish11"].x, objects["fish11"].y = map.tilesToPixels(12, 8)
- 		objects["fish11"].eX, objects["fish11"].eY = map.tilesToPixels(12, 19)
- 		objects["fish12"].x, objects["fish12"].y = map.tilesToPixels(12, 8)
- 		objects["fish12"].eX, objects["fish12"].eY = map.tilesToPixels(12, 19)
- 		objects["fish21"].eX, objects["fish21"].eY = map.tilesToPixels(16, 8)
- 		objects["fish21"].x, objects["fish21"].y = map.tilesToPixels(16, 19)
+		
+		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(30, 4)
+ 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(30, 19)
+ 		objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(22, 4)
+ 		objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(22, 19)
+ 		objects["fish21"].eX, objects["fish21"].eY = generate.tilesToPixels(26, 4)
+ 		objects["fish21"].x, objects["fish21"].y = generate.tilesToPixels(26, 19)
  		objects["fish11"].time = 375
  		objects["fish12"].time = 375
  		objects["fish21"].time = 375
- 		--]]
+ 		
 		
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(35, 12)
