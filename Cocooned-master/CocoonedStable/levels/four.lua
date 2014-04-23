@@ -126,13 +126,8 @@ local mObjectslocal
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
-<<<<<<< HEAD
-	if mapData.pane == "R" then
-=======
-	if mapData.pane == "M" then
-		generate.gWater(map, mapData)
-	elseif mapData.pane == "L" then
->>>>>>> 06303fba7274ddf8066bccdbdd98121c14caa7eb
+
+	if mapData.pane == "L" then
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 17)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 15)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 13)
@@ -164,7 +159,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		--objects["exitPortal1"]:setSequence("still")
 		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
 		
-		--generate.gWisps(wisp, map, mapData, 1, 6)
+		generate.gWisps(wisp, map, mapData, 1, 16)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "M" then
@@ -183,7 +178,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(2, 12)
 
-		generate.gWisps(wisp, map, mapData, 1, 23)
+		generate.gWisps(wisp, map, mapData, 17, 23)
 
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
