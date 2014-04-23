@@ -35,13 +35,13 @@ local five = {
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
-		["fish1"] = 0,
+		["fish1"] = 2,
 		["fish2"] = 0,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 1,
+		["switchWall"] = 0,
 		["exitPortal"] = 0,
 		["enemy"] = 0,
 		["fixedIceberg"] = 1
@@ -129,11 +129,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	if mapData.pane == "M" then
 		
 		-- Pink rune
-		--rune[4].x, rune[4].y = generate.tilesToPixels(4, 17)			
-		--rune[4].isVisible = true
-
-		rune[2].x, rune[2].y = generate.tilesToPixels(2, 2)			
-		rune[2].isVisible = true
+		rune[4].x, rune[4].y = generate.tilesToPixels(4, 17)			
+		rune[4].isVisible = true
 		
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 6)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(17, 7)
@@ -144,11 +141,16 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 4.5)
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(15, 20)
 
+		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(12, 2)
+ 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(12, 11)
+ 		objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(22, 11)
+ 		objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(22, 2)
+ 		objects["fish11"].time = 675
+ 		objects["fish12"].time = 675
+
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(3, 8)
 		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(3, 21)
 		objects["fixedIceberg1"].time = 3800
-		objects["switchWall1"].x, objects["switchWall1"].y = generate.tilesToPixels(32,15)
-		
 		
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 1, 8)
@@ -160,18 +162,19 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	elseif mapData.pane == "D" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "L" then
-		wisp[9].x, wisp[9].y = generate.tilesToPixels(10, 10)
-		wisp[10].x, wisp[10].y = generate.tilesToPixels(15, 12)
-		wisp[11].x, wisp[11].y = generate.tilesToPixels(30, 13)
-		wisp[12].x, wisp[12].y = generate.tilesToPixels(35, 20)
-		wisp[13].x, wisp[13].y = generate.tilesToPixels(30, 30)
-		wisp[14].x, wisp[14].y = generate.tilesToPixels(20, 30)
-		wisp[15].x, wisp[15].y = generate.tilesToPixels(38, 10)
-		wisp[16].x, wisp[16].y = generate.tilesToPixels(15, 35)	
-		wisp[17].x, wisp[17].y = generate.tilesToPixels(15, 35)	
+		wisp[9].x, wisp[9].y = generate.tilesToPixels(5, 7)
+		wisp[10].x, wisp[10].y = generate.tilesToPixels(11, 10)
+		wisp[11].x, wisp[11].y = generate.tilesToPixels(30, 14)
+		wisp[12].x, wisp[12].y = generate.tilesToPixels(32, 18)
+		wisp[13].x, wisp[13].y = generate.tilesToPixels(27, 10)
+		wisp[14].x, wisp[14].y = generate.tilesToPixels(22, 8)
+		wisp[15].x, wisp[15].y = generate.tilesToPixels(36, 20)
+		wisp[16].x, wisp[16].y = generate.tilesToPixels(13, 15)	
+		wisp[17].x, wisp[17].y = generate.tilesToPixels(17, 11)	
 
 		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
+		-- Should be at 4,4
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(1, 1)
 
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 9, 17)
@@ -186,6 +189,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	-- set which panes are avaiable for player
 	map.front.panes = five.panes
+	map.middle.itemGoal = 1
 end
 
 --------------------------------------------------------------------------------

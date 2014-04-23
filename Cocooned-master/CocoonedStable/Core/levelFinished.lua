@@ -28,19 +28,19 @@ function checkWin(player, map, mapData)
 	if tonumber(player.inventory.runeSize)-1 == tonumber(map.itemGoal) then
 
 		-- check if player is in Main pane, if so, change exit portal to moving
-		if mapData.pane == "M" then
+		--if mapData.pane == "M" then
 
 			-- find exit portal and start moving it
-			for check = 1, map.layer["tiles"].numChildren do
-				if map.layer["tiles"][check].name == "exitPortal1" then
-					map.layer["tiles"][check]:setSequence("move")
-					map.layer["tiles"][check]:play()
+			for check = 1, map.numChildren do
+				if map[check].name == "exitPortal1" then
+					map[check]:setSequence("move")
+					map[check]:play()
 
 					--debug letting player know level has finished
 					print("level finished")
 				end
 			end
-		end	
+		--end	
 	end
 end
 

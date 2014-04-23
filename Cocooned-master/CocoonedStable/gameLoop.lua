@@ -260,7 +260,7 @@ end
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
 	-- Start physics
-	physics.setDrawMode("hybrid")
+	--physics.setDrawMode("hybrid")
 	physics.start()
 	physics.setScale(45)
 	
@@ -399,7 +399,7 @@ local function gameLoopEvents(event)
 		
 		mapData = gameData.mapData
 		loadMap(mapData)
-		cutSceneSystem.cutScene(1, gui)
+		--cutSceneSystem.cutScene(1, gui)
 		menu.ingameOptionsbutton(event, map)
 		
 		-- Re-evaluate gameData booleans

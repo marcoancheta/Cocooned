@@ -179,7 +179,7 @@ local function changePane(gui, mapData, player, miniMap)
 	end
 
 	-- check if player has finished level
-	--checkWin(player, map, mapData)
+	checkWin(player, gui.middle, mapData)
 	
 	-- return new pane
 	return gui

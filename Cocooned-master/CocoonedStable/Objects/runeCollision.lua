@@ -80,7 +80,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 
  	-- check if player has reached level goal
- 	checkWin(player, map, mapData)
+ 	checkWin(player, gui.middle, mapData)
 end
 
 --------------------------------------------------------------------------------
