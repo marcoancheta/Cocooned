@@ -59,7 +59,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if collideObject.name == "blueRune" then
 		player:breakWalls(map)
 	elseif collideObject.name == "pinkRune" then
-		player:slowTime(map)		
+		player:slowTime(gui.middle)		
 	elseif collideObject.name == "greenRune" then
 		gameData.gRune = true
 		player:moveWalls(gui)

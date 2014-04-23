@@ -221,9 +221,9 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:slowTime(map)
-	for check = 1, map.layer["tiles"].numChildren do
-		if map.layer["tiles"][check].moveable == true then
-			map.layer["tiles"][check].time = 20000
+	for check = 1, map.numChildren do
+		if map[check].moveable == true then
+			map[check].time = 20000
 		end
 	end
 end
