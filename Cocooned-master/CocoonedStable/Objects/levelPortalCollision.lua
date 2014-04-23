@@ -38,8 +38,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	end
 									
 	local bool = false
-	for i=1, 5 do		
-		if i ~= 1 then
+	for i=0, 5 do		
+		if i ~= 0 then
 			if collideObject.name == "exitPortal" ..i.. "" then
 				selectLevel.levelNum = ""..i..""
 				selectLevel.pane = "M"				
