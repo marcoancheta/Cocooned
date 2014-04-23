@@ -177,7 +177,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(2, 12)
-
+		generate.gAuraWalls(map, mapData, "blueWall")
+		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 17, 23)
 
 	elseif mapData.pane == "U" then

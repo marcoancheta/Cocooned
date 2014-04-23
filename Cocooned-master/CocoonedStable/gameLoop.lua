@@ -264,7 +264,7 @@ end
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
 	-- Start physics
-	--physics.setDrawMode("hybrid")
+	physics.setDrawMode("hybrid")
 	physics.start()
 	physics.setScale(45)
 	
