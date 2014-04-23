@@ -18,11 +18,7 @@ local gameData = require("Core.gameData")
 local function collide(collideObject, player, event, mapData, map, gui)
 	--event.contact.isEnabled = true
 	
-	-- reset player's aura and movement
-	player:changeColor("white")
-	--player.movement ="inWater"
-	gameData.inWater = true
-	player.imageObject.linearDamping = 8
+	
 	
 	if gameData.onIceberg == false then
 		-- reset player's aura and movement
