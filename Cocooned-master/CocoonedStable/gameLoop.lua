@@ -239,7 +239,7 @@ local function speedUp(event)
 		  				end
 	  			end
 	  		end
-
+			
 			--[[	
 			local ballPt = {}
 			ballPt.x = player1.imageObject.x
