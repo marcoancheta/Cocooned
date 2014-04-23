@@ -26,12 +26,12 @@ local four = {
 	panes = {true,false,false,false,true},
 	playerCount = 1,
 	-- number of wisps in the level
-	wispCount = 17,
+	wispCount = 23,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
 	["M"] = {
-		["blueAura"] = 0,
+		["blueAura"] = 1,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -42,7 +42,7 @@ local four = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0,
+		["exitPortal"] = 1,
 		["enemy"] = 0,
 		["fixedIceberg"] = 3
 	},
@@ -126,9 +126,7 @@ local mObjectslocal
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
-	if mapData.pane == "M" then
-
-	elseif mapData.pane == "L" then
+	if mapData.pane == "R" then
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 17)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 15)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 13)
@@ -156,8 +154,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg1"].time = 7000
 		objects["fixedIceberg2"].time = 11000
 		objects["fixedIceberg3"].time = 3800
-
-		generate.gWisps(wisp, map, mapData, 1, 16)
 		
 		--objects["exitPortal1"]:setSequence("still")
 		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
@@ -165,11 +161,29 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		--generate.gWisps(wisp, map, mapData, 1, 6)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
+	elseif mapData.pane == "M" then
+		wisp[17].x, wisp[17].y = generate.tilesToPixels(22, 13)
+		wisp[18].x, wisp[18].y = generate.tilesToPixels(25, 10)
+		wisp[19].x, wisp[19].y = generate.tilesToPixels(18, 10)
+		wisp[20].x, wisp[20].y = generate.tilesToPixels(16, 12)
+		wisp[21].x, wisp[21].y = generate.tilesToPixels(13, 12)
+		wisp[22].x, wisp[22].y = generate.tilesToPixels(10, 12)
+		wisp[23].x, wisp[23].y = generate.tilesToPixels(7, 12)
+
+		objects["blueAura1"]:setSequence("move")
+		objects["blueAura1"]:play()
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(13, 1)
+
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(2, 12)
+
+		generate.gWisps(wisp, map, mapData, 1, 23)
+
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
 		print("You shouldn't be in here...")
-	elseif mapData.pane == "R" then
+	elseif mapData.pane == "L" then
 		print("You shouldn't be in here...")
 	end
 

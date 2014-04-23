@@ -39,7 +39,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 									
 	local bool = false
 	for i=1, 5 do		
-		if i ~= 1 then
+		--if i ~= 1 then
 			if collideObject.name == "exitPortal" ..i.. "" then
 				selectLevel.levelNum = ""..i..""
 				selectLevel.pane = "M"				
@@ -51,12 +51,12 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				gameData.mapData = selectLevel
 				local trans = transition.to(player.imageObject, {time=1000, x=collideObject.x, y=collideObject.y-15, onComplete = temp} )
 			end
-		else
-			bool = false
-			goals.onPlay(bool)
-			transition.cancel(trans)
-			trans = nil
-		end
+		--else
+		--	bool = false
+		--	goals.onPlay(bool)
+		--	transition.cancel(trans)
+		--	trans = nil
+		--end
 	end
 end
 
