@@ -405,7 +405,7 @@ local function gameLoopEvents(event)
 		
 		mapData = gameData.mapData
 		loadMap(mapData)
-		--cutSceneSystem.cutScene(1, gui)
+		--cutSceneSystem.cutScene("1", gui)
 		menu.ingameOptionsbutton(event, map)
 		
 		-- Re-evaluate gameData booleans
