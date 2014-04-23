@@ -3,23 +3,15 @@
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
 -- main.lua
 --------------------------------------------------------------------------------
-
 --------------------------------------------------------------------------------
 -- Source(s) Cited:
 --   Splash Screen Detail - http://developer.coronalabs.com/code/android-friendly-splash-screen-logic
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- Game Analytics
---local GA = require("plugin.gameanalytics")
-
 -- Hide status bar
 display.setStatusBar(display.HiddenStatusBar);
-
 -- disable sleep screen mode on device
 system.setIdleTimer(false)
-
--- Global Variables
-local sCounter = 0
 
 --[[
 --Settings
@@ -71,61 +63,24 @@ GA.init ({
 --------------------------------------------------------------------------------
 -- Updated by: Marco -- removed sprite loading screen
 --------------------------------------------------------------------------------
-function main(event)
-	--[[
-   sCounter = sCounter + 1
-   if( sCounter == 1 ) then
-      -- Display splash screen
-      splashScreen = display.newImageRect("Default.png", 1500, 800)
-      splashScreen.x = 720
-      splashScreen.y = 440
-   elseif (sCounter > 120) then   -- show splash screen for 120 milliseconds
-   
-      -- Clear splash screen objects
-      if (splashScreen ~= nil) then
-           splashScreen:removeSelf()
-           splashScreen = nil
-      end
-       
-   end
-	  -- Remove Splash Screen Listener
-      --Runtime:removeEventListener("enterFrame", main)
-
-	  -- End Splash Screen Code
-	   
-	  -- Begin game details
-	  --display.setStatusBar(display.HiddenStatusBar)
-	]]
-
-	
-	
+local function main()
+	-- Game Analytics
+	-- local GA = require("plugin.gameanalytics")
+	local gameLoop = require("gameLoop")
+	local memory = require("memory")
 	local textureFilter = "nearest"
+	
 	display.setDefault("minTextureFilter", textureFilter)
 	display.setDefault("magTextureFilter", textureFilter)
-
---------------------------------------------------------------------------------
--- Load Game - function that loads game
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-	local function loadGame()
-		-- start core game loop
-		require("gameLoop")
-	end
-
-	-- start game
-	loadGame()
 
 	--for rCorona
 	if system.getInfo("environment") == "simulator" then
 		local rcorona = require("rcorona")
 		rcorona.startServer(8181)
 	end
+	
+	Runtime:addEventListener("enterFrame", gameLoop.gameLoopEvents)
+	Runtime:addEventListener("memoryWarning", memory.handleLowMemory)
 end
- 
---------------------------------------------------------------------------------
--- Finish Up - event listener that starts game
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-Runtime:addEventListener( "enterFrame", main )
+
+main()

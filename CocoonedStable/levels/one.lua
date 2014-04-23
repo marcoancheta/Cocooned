@@ -26,7 +26,7 @@ local one = {
 	-- { Middle, Down, Up, Right, Left }
 	panes = {true,false,false,false,false},
 	-- number of wisps in the level
-	wispCount = 6,
+	wispCount = 7,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -123,12 +123,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	
 	-- Check which pane
 	if mapData.pane == "M" then	
-		-- Blue Aura
-		
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(26, 6)
-		
 		-- Pink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(4.5, 4.5)			
 		rune[4].isVisible = true
@@ -136,17 +130,17 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(37, 7)
 		
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(23, 6)
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(23, 15)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(24, 8)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(26, 9)
 		wisp[4].x, wisp[4].y = generate.tilesToPixels(28, 9)
 		wisp[5].x, wisp[5].y = generate.tilesToPixels(37, 10)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(37, 13)
-
-		
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(28, 20)
 									
 		generate.gAuraWalls(map, mapData, "blueWall")
-		generate.gWisps(wisp, map, mapData, 1, 6)
+		generate.gWisps(wisp, map, mapData, 1, 8)
+
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then

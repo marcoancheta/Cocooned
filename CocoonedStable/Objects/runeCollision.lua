@@ -61,8 +61,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	elseif collideObject.name == "pinkRune" then
 		player:slowTime(map)		
 	elseif collideObject.name == "greenRune" then
-		gameData.greenG = true
-		player:moveWalls(map)
+		gameData.gRune = true
+		player:moveWalls(gui)
 	elseif collideObject.name == "yellowRune" then
 	elseif collideObject.name == "purpleRune" then
 		collideObject:removeSelf()

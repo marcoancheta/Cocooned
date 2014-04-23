@@ -33,6 +33,12 @@ local gameData = {
 	showMiniMap = false,
 	isShowingMiniMap = false,
 	
+	-- Game Booleans
+	inWater = false,
+	levelComplete = false,
+	onIceberg = false,
+	gRune = false,
+	
 	locked = false,
 	
 	-- Player

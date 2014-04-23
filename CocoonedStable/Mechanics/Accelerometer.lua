@@ -4,98 +4,62 @@
 -- accelerometer.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
+local gameData = require("Core.gameData")
 --NOTE: to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
-
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
+local highestxgrav = 0
+local highestygrav = 0
+
 local physicsParam = {
 	xGrav = 0,
 	yGrav = 0
 }
-local highestxgrav = 0
-local highestygrav = 0
-local accelPlayer=nil
-local accelPlayer2=nil
+
+local accelPlayer = {
+	[1] = nil,
+	[2] = nil
+}
 
 --------------------------------------------------------------------------------
 -- Cancel Death Timer - function that cancels end game from being changed
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
+--[[
 local function cancelDeathTimer() 
-	if accelPlayer.movement == "accel" and accelPlayer.deathTimer ~= nil then 
-		timer.cancel(accelPlayer.deathTimer) 
-		accelPlayer.deathTimer=nil  
-		accelPlayer.imageObject.linearDamping = 1.25 
-		accelPlayer.speedConst = accelPlayer.defaultSpeed
-		--accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
-		accelPlayer.deathScreen:pause()
-		accelPlayer.deathScreen:removeSelf()
-		accelPlayer.deathScreen = nil
+	for i=1, #accelPlayer do
+		if accelPlayer[i].movement == "accel" and accelPlayer[i].deathTimer ~= nil then 
+			timer.cancel(accelPlayer[i].deathTimer) 
+			accelPlayer[i].deathTimer = nil  
+			accelPlayer[i].imageObject.linearDamping = 1.25 
+			accelPlayer[i].speedConst = accelPlayer[i].defaultSpeed
+			--accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
+			accelPlayer[i].deathScreen:pause()
+			accelPlayer[i].deathScreen:removeSelf()
+			accelPlayer[i].deathScreen = nil
+		end
 	end
 end
-
-local function cancelDeathTimer2() 
-	if accelPlayer2.movement == "accel" and accelPlayer2.deathTimer ~= nil then 
-		timer.cancel(accelPlayer2.deathTimer) 
-		accelPlayer2.deathTimer=nil  
-		accelPlayer2.imageObject.linearDamping = 1.25 
-		accelPlayer2.speedConst = accelPlayer2.defaultSpeed
-		--accelPlayer.speedUpTimer = timer.performWithDelay(5000, function() accelPlayer.speedConst = 10 end)
-		accelPlayer2.deathScreen:pause()
-		accelPlayer2.deathScreen:removeSelf()
-		accelPlayer2.deathScreen = nil
-	end
-end
-
-
+]]--
 --------------------------------------------------------------------------------
 -- On Accelerate - function that gathers accelerometer data
 --------------------------------------------------------------------------------
--- Updated by: Andrew 
+-- Updated by: Derrick
+-- Previous: Andrew 
 --------------------------------------------------------------------------------
-
-local function onAccelerate( event, player)
-	
+local function onAccelerate(event, player)
+	-- Print escape path
 	print(player.escape)
-	if event.isShake and player.movement == "inWater" then
-		local ball = player.imageObject
-		accelPlayer = player
-		local xDirection = 0
-		local yDirection = 0
-		if player.escape == "up" then
-			yDirection = -1
-		elseif player.escape == "upLeft" then
-			yDirection = -1
-			xDirection = -1
-		elseif player.escape == "upRight" then
-			yDirection = -1
-			xDirection = 1
-		elseif player.escape == "left" then
-			xDirection = -1
-		elseif player.escape == "right" then
-			xDirection = 1
-		elseif player.escape == "downRight" then
-			xDirection = 1
-			yDirection = 1
-		elseif player.escape == "down" then
-			yDirection = 1
-		elseif player.escape == "downLeft" then
-			yDirection = 1
-			xDirection = -1
-		end
-
-		ball:applyLinearImpulse(.15*xDirection,.15*yDirection,ball.x, ball.y )
-		player.shook = true
-		timer.performWithDelay(200, cancelDeathTimer)
-	end
-
-	local xGrav=1
-	local yGrav=1
+		
+	-- Accelerometer Tilt Events	
+	local xGrav = 0
+	local yGrav = 0
+		
+	-- Note: Accelerometer is always relative to the device in portrait orientation
 	-- X gravity change
 	if event.yInstant > 0.1 then
 		xGrav = -event.yInstant
@@ -105,8 +69,8 @@ local function onAccelerate( event, player)
 		xGrav = -event.yGravity
 	elseif event.yGravity < -0.1 then
 		xGrav = -event.yGravity
-		else
-			xGrav = 0
+	else
+		xGrav = 0
 	end
 
 	-- Y gravity change
@@ -118,18 +82,33 @@ local function onAccelerate( event, player)
 		yGrav = -event.xGravity
 	elseif event.xGravity < -0.1 then
 		yGrav = -event.xGravity
-		else
-			yGrav = 0
+	else
+		yGrav = 0
 	end
+		
 	if yGrav < highestygrav then
-		highestygrav=yGrav
+		highestygrav = yGrav
 	end
 	if xGrav < highestxgrav then
-		highestxgrav=xGrav
+		highestxgrav = xGrav
 	end
-	-- offset the gravity to return
-	physicsParam.xGrav=xGrav
-	physicsParam.yGrav=yGrav
+		
+	-- Accelerometer Shake Event
+	if event.isShake and gameData.inWater == true then	
+		local ball = player.imageObject		
+		accelPlayer[1] = player
+		player.shook = true
+		ball:applyLinearImpulse(-xGrav * 0.15, -yGrav * 0.15, ball.x, ball.y)
+		--timer.performWithDelay(100, cancelDeathTimer)
+	elseif gameData.inWater == false then
+		-- offset the gravity to return
+		physicsParam.xGrav = xGrav
+		physicsParam.yGrav = yGrav
+	else
+		physicsParam.xGrav = 0
+		physicsParam.yGrav = 0
+	end
+	
 	--return physics parameters
 	return physicsParam
 end
@@ -144,5 +123,4 @@ local accelerometer = {
 }
 
 return accelerometer
-
 -- end of accelerometer.lua

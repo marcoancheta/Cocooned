@@ -112,6 +112,7 @@ objectNames = {
 	[9] = "redTotem",
 	[10] = "greenTotem",
 	[11] = "switch",
-	[12] = "switchWall"
+	[12] = "switchWall",
+	[13] = "fixedIceberg"
 }
 

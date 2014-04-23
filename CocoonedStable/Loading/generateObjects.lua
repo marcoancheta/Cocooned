@@ -33,7 +33,7 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 
 	   	-- insert wisp into map display group
 		if mapData.levelNum ~= "LS" then
-			map:insert(wisp[i])
+			map.middle:insert(wisp[i])
 		else
 			map.layer["tiles"]:insert(wisp[i])
 		end
@@ -65,17 +65,17 @@ local function gObjects(level, objects, map, mapData, runes)
 				objects[name ..j].collType = "passThru"
 			else
 				objects[name .. j].func = name .. "Collision"
-				physics.addBody(objects[name ..j], "static", {bounce = 0})
+				if name ~= "fixedIceberg" then
+					physics.addBody(objects[name ..j], "static", {bounce = 0})
+				else
+					physics.addBody(objects[name ..j], "static", {bounce = 0, filter = {groupIndex = -1 }})
+				end				
 				objects[name ..j].collType = "passThru"
 			end
 			
 			-- add object to map display group
+			map.middle:insert(objects[name .. j])				
 
-			if mapData.levelNum ~= "LS" then
-				map:insert(objects[name .. j])				
-			else
-				map.layer["tiles"]:insert(objects[name .. j])
-			end
 		end
 	end
 
@@ -132,6 +132,7 @@ local function gMObjects(level, objects, map, mapData)
 
 	-- create moveable fish2 obects
 	for i = 1+offset, level[mapData.pane]["fish2"]+offset do
+		--print("moving fish2" .. mObjects[i].name)
 		-- create moveable object and set name
 		mObjects[i] = moveableObject.create()
 		mObjects[i].object = objects["fish2" .. i-offset]
@@ -191,10 +192,35 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i] = emitWind
 		mObjects[i].moveable = false
 	end
-	-- return object table
-	return mObjects
 
-end
+	if level[mapData.pane]["wolf"] > 0 then
+		offset = offset + level[mapData.pane]["wolf"]
+	end
+
+	-- create moveable fish2 obects
+	for i = 1+offset, level[mapData.pane]["fixedIceberg"]+offset do
+		-- create moveable object and set name
+		mObjects[i] = moveableObject.create()
+		mObjects[i].object = objects["fixedIceberg" .. i-offset]
+		mObjects[i].moveable = true
+		-- set start and end points where moveable object will transition to
+		local startX, startY = objects["fixedIceberg" .. i-offset].x, objects["fixedIceberg" .. i-offset].y
+		local endX, endY = objects["fixedIceberg" .. i-offset].eX, objects["fixedIceberg" .. i-offset].eY
+		local time = objects["fixedIceberg" .. i-offset].time
+		-- set properties of moveable object
+		mObjects[i].object.startX, mObjects[i].object.startY = startX, startY
+		mObjects[i].object.endX, mObjects[i].object.endY = endX, endY
+		mObjects[i].object.time = time
+		mObjects[i].object.stop = false
+		mObjects[i].object.moveable = true
+
+		-- start moving object
+		mObjects[i]:startTransition(mObjects[i].object)
+		end
+		-- return object table
+		return mObjects
+
+	end
 
 --------------------------------------------------------------------------------
 -- Generate walls functions
@@ -202,12 +228,10 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-local function gWalls(wall, map, mapData, startIndex, endIndex)
-
-	local physicsData = {}
-	
+--[[
+local function gWalls(wall, map, mapData, startIndex, endIndex)	
 	for i=startIndex, endIndex do
-	   	-- insertwater into map display group
+	   	-- insert water into map display group
 	   	if mapData.levelNum ~= "LS" then
 	   		map:insert(wall[i])
 		else			
@@ -215,21 +239,11 @@ local function gWalls(wall, map, mapData, startIndex, endIndex)
 		end
 		-- set properties of wisps
 	   	wall[i].isVisible = true
-	   	--wall[i]:setFillColor(1,0,0,1)
 	   	wall[i].collType = "wall"
 	    wall[i].name = "wall"
 	end
-	
-	-- add physics body for wall for collision
-	if mapData.levelNum == "LS" then
-		-- load in physics data.
-		physicsData[1] = (require "levels.lvlselect_collision.walls").physicsData(1.0)
-		-- assign physics according to pane.
-		if mapData.pane == "LS" then
-			physics.addBody(wall[1], "static", physicsData[1]:get("lvl_island"))
-		end
-	end
 end
+]]--
 
 --------------------------------------------------------------------------------
 -- Generate aura walls collision
@@ -238,14 +252,15 @@ end
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
 local function gAuraWalls(map, mapData, type)
-	local auraWall = display.newImage("mapdata/art/background/blank.png")
-	auraWall.name = "type"
+	local auraWall = display.newCircle(1, 1, 1)
+	auraWall.alpha = 0
+	auraWall.name = "" .. type .. ""
 	auraWall.collType = "passThru"
 	auraWall.func = type .. "Collision"
-	auraWall.x, auraWall.y = 720, 432
-	map:insert(auraWall)
+	auraWall.x = display.contentCenterX
+	auraWall.y = display.contentCenterY
 	physics.addBody(auraWall, "static", physicsData.getAura(mapData.levelNum):get(mapData.pane))
-
+	map.middle:insert(auraWall)
 end
 
 --------------------------------------------------------------------------------
@@ -256,19 +271,21 @@ end
 -- takes in a start and end index and creates those wisps only
 local function gWater(map, mapData, direction)
 	-- load in water collision
-	local water = display.newImage("mapdata/art/background/blank.png")
+	local water = display.newCircle(1, 1, 1)
+	water.alpha = 0
 	water.name = "water"
 	water.func = "waterCollision"
-	water.escape = "right"
-	water.x = 720
-	water.y = 432
-	map:insert(water)
+	--water.escape = "right"
+	water.x = display.contentCenterX
+	water.y = display.contentCenterY
+	
 	physics.addBody(water, "static", physicsData.getWater(mapData.levelNum):get(mapData.pane))
 
+	map.middle:insert(water, 1)
 end
 
 --------------------------------------------------------------------------------
--- destroy unused objects function
+-- Destroy unused objects function
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
@@ -287,7 +304,7 @@ local function destroyObjects(level, rune, wisp, water, objects)
 
 	-- deleted extra energies
 	for i = 1, level.wispCount do
-		--print("energyCount:", i)
+		
 		if wisp[i].isVisible == false then
 			wisp[i]:removeSelf()
 			wisp[i] = nil
@@ -296,12 +313,10 @@ local function destroyObjects(level, rune, wisp, water, objects)
 end
 
 local function tilesToPixels( Tx, Ty)
-
 	local x, y = Tx, Ty
 	--tprint.assert((x ~= nil) and (y ~= nil), "Missing argument(s).")
 	x, y = x - 0.5, y - 0.5
 	x, y = (x * 36), (y * 36)
-
 	return x, y
 end
 
@@ -322,5 +337,4 @@ generateObjects = {
 }
 
 return generateObjects
-
 -- end of generateObjects.lua

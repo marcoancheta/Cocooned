@@ -17,12 +17,12 @@ local physicsData = require("Loading.physicsData")
 
 -- holds the level name for loading
 local levelNames = {
+	["LS"] = "LS",
 	["1"] = "one",
 	["2"] = "two",
 	["3"] = "three",
 	["4"] = "four",
-	["15"] = "fifteen",
-	["LS"] = "LS"
+	["5"] = "five"
 }
 -- local variable for that holds "level".lua
 local level
@@ -99,9 +99,9 @@ end
 --------------------------------------------------------------------------------
 local function createSprites(count, name, objectList)
 	for i = 1, count do
-		--print("creating:", count, name, i)
 		objectList[name .. i] = display.newImage("mapdata/art/objects/" .. name .. ".png")
 		objectList[name .. i].name = name .. i
+		print(name)
 	end
 	return true
 end
@@ -118,21 +118,7 @@ local function createObjects(objectNumbers, mapData)
 	local water = {}
 	local wall = {}
 	local auraWall = {}
-	
-	-- Load walls based on level
-	if mapData.levelNum == "LS" then
-		if mapData.pane == "LS" then
-			-- Main Walls
-			wall[1] = display.newImage("mapdata/art/background/LS/LS-BB/LS.png", true)
-		end
-
-		-- create all walls in level
-		for i=1, tonumber(objectNumbers.wallCount) do
-			wall[i].isVisible = false
-		end
-
-	end
-	
+		
 	-- create all wisps in level
 	for i=1, tonumber(objectNumbers.wispCount) do
 		wisp[i] = display.newImage("mapdata/art/wisp/wisp2.png")
@@ -145,7 +131,7 @@ local function createObjects(objectNumbers, mapData)
 		createAnimations(objectNumbers[mapData.pane][objectNames[i]], objectNames[i], objects)
 	end
 	-- call function that creates sprites
-	for i = 6, 12 do
+	for i = 6, 13 do
 		createSprites(objectNumbers[mapData.pane][objectNames[i]], objectNames[i], objects)
 	end
 

@@ -13,7 +13,7 @@ local objects = require("Loading.objects")
 local loadLevel = require("Loading.loadLevel")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("Mechanics.collisionDetection")
-
+-- Generate Objects (generateObjects.lua)
 local generate = require("Loading.generateObjects")
 
 --------------------------------------------------------------------------------
@@ -33,24 +33,32 @@ local function movePanes(event)
 	local params = event.source.params
 
 	-- update new miniMap
-	miniMapMechanic.updateMiniMap(params.tempPane, params.miniMap, params.gui, params.player1)
+	--miniMapMechanic.updateMiniMap(params.tempPane, params.miniMap, params.gui, params.player1)
+	print("nameB: " .. params.gui.back.numChildren)
+	print("nameM: " .. params.gui.middle.numChildren)
+	print("nameF: " .. params.gui.front.numChildren)
 
 	-- delete everything on map
 	objects.destroy(params.mapData)
-	params.gui[1][1]:removeSelf()
+	for i = params.gui.back.numChildren,1, -1 do
+		params.gui.back[i]:removeSelf();
+	end
+	for i = params.gui.middle.numChildren, 1, -1 do
+		params.gui.middle[i]:removeSelf()
+	end
+	
 	params.map = nil
 
 	---------------------------------------------------
 	-- Play "character" teleportation animation here --
 	---------------------------------------------------
 	-- load new map pane
-	params.map = loadLevel.changePane(params.mapData, params.player1, params.miniMap)
+	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
 
-	-- insert objects onto map layer
-	params.gui.back:insert(params.map)
+	
 
 	-- Reassign game mechanic listeners	
-	params.map:insert(params.player1.imageObject)
+	--params.gui.front:insert(params.player1.imageObject)
 	collisionDetection.changeCollision(params.player1, params.mapData, params.map)
 end
 
@@ -75,8 +83,7 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	-- save current pane image
 	--tempPic = display.capture(gui)
 	--tempPic.x, tempPic.y = 720, 432
-	
-	
+		
 	print("playing transition")
 	-- play pane switch transition and move to front
 	transPic = display.newSprite(sheetOptions.paneSheet, spriteOptions.paneSwitch)
@@ -85,7 +92,6 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	transPic:setSequence("move")
 	transPic:play()
 	
-
 	-- declare direction which pane swithc transition should play
 	local direction = "None"
 
@@ -149,12 +155,11 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	
 	
 	local moveTrans = timer.performWithDelay(400, movePanes)
-	moveTrans.params = {tempPane = tempPane, 
-						miniMap = miniMap, 
-							gui = gui, 
-						player1 = player1, 
-						mapData = mapData,  
-						}
+		  moveTrans.params = { tempPane = tempPane, 
+								miniMap = miniMap, 
+									gui = gui, 
+								player1 = player1, 
+								mapData = mapData  }
 end
 
 --------------------------------------------------------------------------------
@@ -177,5 +182,4 @@ local paneTransition = {
 }
 
 return paneTransition
-
 -- end of paneTransition.lua

@@ -46,7 +46,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function moveBackward(obj)
+function moveBackward(obj)
 
 	--print("moveB:", obj.name)
 	if obj.stop ~= true then

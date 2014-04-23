@@ -29,11 +29,15 @@ local function createMiniMap(mapData, map)
 	
 	-- set miniMap pane images
 	if mapData.levelNum ~= "LS" then
-		miniMapTable[1] = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/M.png")
-		miniMapTable[2] = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/U.png")
-		miniMapTable[3] = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/D.png")
-		miniMapTable[4] = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/R.png")
-		miniMapTable[5] = display.newImage("mapdata/levels/" .. mapData.levelNum .. "/tmx/L.png")
+		miniMapTable[1] = display.newCircle(1, 1, 1)
+		miniMapTable[2] = display.newCircle(1, 1, 1)
+		miniMapTable[3] = display.newCircle(1, 1, 1)
+		miniMapTable[4] = display.newCircle(1, 1, 1)
+		miniMapTable[5] = display.newCircle(1, 1, 1)	
+	end
+
+	for i=1, #miniMapTable do
+		miniMapTable[i].alpha = 0
 	end
 		
 	-- create background image
@@ -115,14 +119,14 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function updateMiniMap(mapPane, miniMap, gui, player1)	
-	local temp = gui.back[1]
+	local temp = gui.front
 	
 	-- set player image object to invisible for display capture
 	player1.imageObject.isVisible = false
 
 
 	-- capture display group image for new miniMap display
-	local pane = display.capture(temp)
+	local pane = display.capture(gui)
 
 	-- depending on current Pane and save captured display
 	-- group to that miniMap display index
@@ -200,10 +204,10 @@ local function moveMiniMap(miniMap, mapData, gui, event)
 	-- check where player has tapped
 	-- and move current pane highlight to where player has tapped
 	if event.y > 312 and event.y < 552 then
-		if gui.back[1].panes[5] == true and event.x > 920  then
+		if gui.front.panes[5] == true and event.x > 920  then
 			miniMap[2].x = 1120
 			miniMap[2].y = 432
-		elseif gui.back[1].panes[4] == true and event.x < 520 then
+		elseif gui.front.panes[4] == true and event.x < 520 then
 			miniMap[2].x = 320
 			miniMap[2].y = 432
 		elseif event.x < 920 and event.x > 520 then
@@ -211,10 +215,10 @@ local function moveMiniMap(miniMap, mapData, gui, event)
 			miniMap[2].y = 432
 		end
 	elseif event.x < 920 and event.x > 520 then
-		if gui.back[1].panes[2] == true and event.y > 552  then
+		if gui.front.panes[2] == true and event.y > 552  then
 			miniMap[2].y = 672
 			miniMap[2].x = 720
-		elseif gui.back[1].panes[3] == true and event.y < 312 then
+		elseif gui.front.panes[3] == true and event.y < 312 then
 			miniMap[2].y = 192
 			miniMap[2].x = 720
 		end

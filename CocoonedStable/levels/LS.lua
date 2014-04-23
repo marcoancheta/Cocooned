@@ -51,8 +51,9 @@ local LS = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 4,
+		["exitPortal"] = 5,
 		["enemy"] = 0,
+		["fixedIceberg"] = 0
 	},
 }
 
@@ -78,42 +79,35 @@ local locks
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	locks = {}
 	objectList = objects
-	
-	-- Create levelSelector Background
-	bg = display.newImage("mapdata/art/background/screens/waterBG.png", 0, 0, true)
-	bg.x, bg.y = map.tilesToPixels(22, 15)
-		 		  
-	map.layer["bg"]:insert(bg)	
-		
 			
 	-- Check which pane
-	if mapData.pane == "LS" then
-		for i=1, 4 do
+	if mapData.pane == "LS" then		
+		objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(8, 8)
+		--Testing portal is level 2
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(8, 16)
+		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(21, 8)
+		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(32, 7)
+		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(33, 15)
+		
+		for i=1, 5 do
 			objects["exitPortal" ..i.. ""]:setSequence("move")
 			objects["exitPortal" ..i.. ""]:play()
 			objects["exitPortal" ..i.. ""]:scale(2, 2)
-		end
-		
-		objects["exitPortal2"].x, objects["exitPortal2"].y = map.tilesToPixels(19, 11)
-		objects["exitPortal1"].x, objects["exitPortal1"].y = map.tilesToPixels(13, 16)
-		objects["exitPortal3"].x, objects["exitPortal3"].y = map.tilesToPixels(26, 12)
-		objects["exitPortal4"].x, objects["exitPortal4"].y = map.tilesToPixels(31, 16)
-		
-		for i=1, 4 do
+			
 			locks[i] = display.newImageRect("mapdata/art/buttons/lock.png", 50, 50, true)
 			locks[i].x = objects["exitPortal" ..i.. ""].x
 			locks[i].y = objects["exitPortal" ..i.. ""].y
 				
-			map.layer["tiles"]:insert(locks[i])
+			--map.layer["tiles"]:insert(locks[i])
 			
-			if i~=3 then
+			if i==1 then
+				locks[i].isVisible = true
+				objects["exitPortal" ..i.. ""]:setSequence("still")
+				objects["exitPortal" ..i.. ""].isSensor = true
+			else
 				locks[i].isVisible = false
-			end			
+			end		
 		end
-		
-		wall[1].x, wall[1].y = map.tilesToPixels(22, 15)
-		
-		generate.gWalls(wall, map, mapData, 1, 1)
 	end
 	
 	-- generates all objects in pane when locations are set
