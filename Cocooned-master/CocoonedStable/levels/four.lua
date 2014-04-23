@@ -127,6 +127,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
+
+	elseif mapData.pane == "L" then
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 17)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 15)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 13)
@@ -155,18 +157,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg2"].time = 11000
 		objects["fixedIceberg3"].time = 3800
 
-		
-		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 1, 16)
 		
 		--objects["exitPortal1"]:setSequence("still")
 		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
 		
-		generate.gWater(map, mapData)
 		--generate.gWisps(wisp, map, mapData, 1, 6)
 		--generate.gAuraWalls(map, mapData, "blueWall")
-	elseif mapData.pane == "L" then
-	
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
