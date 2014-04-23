@@ -44,7 +44,7 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 1,
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 1
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -155,6 +155,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg1"].time = 7000
 		objects["fixedIceberg2"].time = 11000
 		objects["fixedIceberg3"].time = 3800
+		objects["fixedIceberg1"].movement = "fixed" 
+		objects["fixedIceberg2"].movement = "fixed" 
+		objects["fixedIceberg3"].movement = "fixed" 
 		
 		--objects["exitPortal1"]:setSequence("still")
 		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
@@ -170,6 +173,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[21].x, wisp[21].y = generate.tilesToPixels(13, 12)
 		wisp[22].x, wisp[22].y = generate.tilesToPixels(10, 12)
 		wisp[23].x, wisp[23].y = generate.tilesToPixels(7, 12)
+
+		rune[2].x, rune[2].y = generate.tilesToPixels(11, 1)			
+		rune[2].isVisible = true
+
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(6, 8)
+		objects["fixedIceberg1"].time = 3800 --not needed if free
+		objects["fixedIceberg1"].movement = "free" --fixed or free
 
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()

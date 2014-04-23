@@ -227,19 +227,21 @@ local function speedUp(event)
 				for check = 1, gui.middle.numChildren do
 		  			local currObject = gui.middle[check]
 		  				if string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
-		  					local velY = 0
-		  					local velX = 0
-		  					if player1.yGrav<0 then
-		  						velY = -40
-		  					elseif player1.yGrav > 0 then
-		  						velY = 40
-		  					end
-		  					if player1.xGrav<0 then
-		  						velX = -40
-		  					elseif player1.xGrav > 0 then
-		  						velX = 40
-		  					end
-	  						currObject:setLinearVelocity(velX, velY)
+		  					if player1.onIceberg == true then
+			  					local velY = 0
+			  					local velX = 0
+			  					if player1.yGrav<0 then
+			  						velY = -40
+			  					elseif player1.yGrav > 0 then
+			  						velY = 40
+			  					end
+			  					if player1.xGrav<0 then
+			  						velX = -40
+			  					elseif player1.xGrav > 0 then
+			  						velX = 40
+			  					end
+	  							currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
+	  						end
 		  				end
 	  			end
 	  		end
@@ -264,7 +266,7 @@ end
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
 	-- Start physics
-	physics.setDrawMode("hybrid")
+	--physics.setDrawMode("hybrid")
 	physics.start()
 	physics.setScale(45)
 	
@@ -370,8 +372,8 @@ end
 --------------------------------------------------------------------------------
 local function gameLoopEvents(event)
 	-- Run monitorMemory from open to close.
-	memory.monitorMem()
-	inWater()
+	--memory.monitorMem()
+	--inWater()
 	
 	--[[	
 	if mapData.levelNum == "LS" then
