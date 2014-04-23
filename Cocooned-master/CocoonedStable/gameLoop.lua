@@ -264,13 +264,12 @@ end
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
 	-- Start physics
-	--physics.setDrawMode("hybrid")
+	physics.setDrawMode("hybrid")
 	physics.start()
 	physics.setScale(45)
 	
 	-- Initialize player(s)
 	player1 = player.create()
-	player1:resetRune()
 	system.setAccelerometerInterval(30)
 
 	-- Create player/ball object to map
@@ -317,6 +316,9 @@ local function clean(event)
 	--if mapData.levelNum == "LS" then
 	--	gui[1][1].destroy()
 	--end
+
+	player1:resetRune()
+
 
 	if linePts then
 		linePts = nil

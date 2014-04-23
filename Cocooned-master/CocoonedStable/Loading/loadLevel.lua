@@ -48,7 +48,7 @@ local ballPos = {
 	["1"]  = {["x"]=5, ["y"]=5},
 	["2"]  = {["x"]=20,["y"]=10},
 	["3"]  = {["x"]=5, ["y"]=5},
-	["4"]  = {["x"]=22, ["y"]=20},
+	["4"]  = {["x"]=22, ["y"]=22},
 	["5"]  = {["x"]=4, ["y"]=4},
 }
 
@@ -73,6 +73,7 @@ local function drawPane(mapData)
 		  levelBG.collType = "passThru"
 	
 	if mapData.levelNum ~= "LS" then
+		
 		physics.addBody(levelBG, "static", physicsData.getFloor(mapData.levelNum):get(mapData.pane))
 	end
 	
