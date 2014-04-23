@@ -23,7 +23,6 @@ local physicsData = require("Loading.physicsData")
 -- takes in a start and end index and creates those wisps only
 local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	
-	print("count: ", startIndex .. " " .. endIndex)
 	for i=startIndex, endIndex do
 		-- set properties of wisps
 		wisp[i].speed = 50
@@ -31,11 +30,10 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	wisp[i].func = "energyCollision"
 	   	wisp[i].collectable = true
 	   	wisp[i].name = "wisp" .. i
-	   	print("created: ", wisp[i].name)
 
 	   	-- insert wisp into map display group
 		if mapData.levelNum ~= "LS" then
-			map:insert(wisp[i])
+			map.middle:insert(wisp[i])
 		else
 			map.layer["tiles"]:insert(wisp[i])
 		end
@@ -76,7 +74,7 @@ local function gObjects(level, objects, map, mapData, runes)
 			end
 			
 			-- add object to map display group
-			map:insert(objects[name .. j])				
+			map.middle:insert(objects[name .. j])				
 
 		end
 	end
@@ -262,7 +260,7 @@ local function gAuraWalls(map, mapData, type)
 	auraWall.x = display.contentCenterX
 	auraWall.y = display.contentCenterY
 	physics.addBody(auraWall, "static", physicsData.getAura(mapData.levelNum):get(mapData.pane))
-	map:insert(auraWall)
+	map.middle:insert(auraWall)
 end
 
 --------------------------------------------------------------------------------
@@ -272,7 +270,6 @@ end
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
 local function gWater(map, mapData, direction)
-	print("generate water")
 	-- load in water collision
 	local water = display.newCircle(1, 1, 1)
 	water.alpha = 0
@@ -284,7 +281,7 @@ local function gWater(map, mapData, direction)
 	
 	physics.addBody(water, "static", physicsData.getWater(mapData.levelNum):get(mapData.pane))
 
-	map:insert(water, 1)
+	map.middle:insert(water, 1)
 end
 
 --------------------------------------------------------------------------------

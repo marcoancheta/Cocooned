@@ -34,14 +34,18 @@ local function movePanes(event)
 
 	-- update new miniMap
 	--miniMapMechanic.updateMiniMap(params.tempPane, params.miniMap, params.gui, params.player1)
-	print("nameB: " .. params.gui.back[1].name)
-	print("nameM: " .. params.gui.middle[1].name)
-	print("nameF: " .. params.gui.front[1].name)
+	print("nameB: " .. params.gui.back.numChildren)
+	print("nameM: " .. params.gui.middle.numChildren)
+	print("nameF: " .. params.gui.front.numChildren)
 
 	-- delete everything on map
 	objects.destroy(params.mapData)
-	params.gui.back[1]:removeSelf()
-	params.gui.middle[1]:removeSelf()
+	for i = params.gui.back.numChildren,1, -1 do
+		params.gui.back[i]:removeSelf();
+	end
+	for i = params.gui.middle.numChildren, 1, -1 do
+		params.gui.middle[i]:removeSelf()
+	end
 	
 	params.map = nil
 

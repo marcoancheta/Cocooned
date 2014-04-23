@@ -177,7 +177,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	generate.destroyObjects(two, rune, wisp, water, wall, objects)
 
 	-- set which panes are avaiable for player
-	map.panes = two.panes
+	map.front.panes = two.panes
 end
 
 --------------------------------------------------------------------------------

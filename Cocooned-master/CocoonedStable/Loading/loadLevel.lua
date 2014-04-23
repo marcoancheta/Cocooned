@@ -23,6 +23,8 @@ local physicsData = require("Loading.physicsData")
 -- Goals (goals.lua)
 local goals = require("Core.goals")
 
+local miniMapMechanic = require("Mechanics.miniMap")
+
 --------------------------------------------------------------------------------
 -- Variables - variables for loading panes
 --------------------------------------------------------------------------------
@@ -47,7 +49,7 @@ local ballPos = {
 	["2"]  = {["x"]=20,["y"]=10},
 	["3"]  = {["x"]=5, ["y"]=5},
 	["4"]  = {["x"]=22, ["y"]=20},
-	["5"]  = {["x"]=2, ["y"]=2},
+	["5"]  = {["x"]=4, ["y"]=4},
 }
 
 
@@ -116,11 +118,17 @@ local function createLevel(mapData, player1)
 	loading.loadingInit() --initializes loading screen assets and displays them on top
 	loaded = 0 -- current loading checkpoint, max is 6
 	level = mapData.levelNum
+
+
 		
 	-- Load in map
 	local levelBG, levelWalls = drawPane(mapData)
+
+	-- Add objects to its proper groups
+	gui.back:insert(levelBG, 1)
+	gui.middle:insert(levelWalls)
 	-- Load in objects
-	objects.main(mapData, gui.front) -- gui.front = map
+	objects.main(mapData, gui) -- gui.front = map
 	-- Load in player
 	
 	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
@@ -133,14 +141,14 @@ local function createLevel(mapData, player1)
 	end
 	----------------------------
 	
-	-- Add objects to its proper groups
-	gui.back:insert(levelBG, 1)
-	gui.middle:insert(levelWalls, 1)
+
 	gui.front:insert(player1.imageObject) -- in-game objects also draws here.
+
+	
 	
 	-- create miniMap for level
-	--local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, map)
-	--	  miniMapDisplay.name = "miniMapName"
+	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, gui.front)
+		  miniMapDisplay.name = "miniMapName"
 	
 	-- destroy loading screen
 	timer.performWithDelay(1000, deleteClosure)
@@ -162,8 +170,8 @@ local function changePane(gui, mapData, player, miniMap)
 	
 	gui.back:insert(levelBG, 1)
 	gui.middle:insert(levelWalls, 1)
-	gui.front:insert(player.imageObject)
-	objects.main(mapData, gui.front)
+	--gui.front:insert(player.imageObject)
+	objects.main(mapData, gui)
 
 	-- if player is small, set player size back to normal
 	if player.small == true then
