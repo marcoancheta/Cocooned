@@ -129,21 +129,21 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	if mapData.pane == "M" then
 		
 		-- Pink rune
-		rune[4].x, rune[4].y = generate.tilesToPixels(4.5, 4.5)			
+		rune[4].x, rune[4].y = generate.tilesToPixels(4, 17)			
 		rune[4].isVisible = true
 		
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 5)
-		wisp[2].x, wisp[2].y = generate.tilesToPixels(15, 6)
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 6)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(17, 7)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 7)
-		wisp[4].x, wisp[4].y = generate.tilesToPixels(35, 20)
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(30, 19)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(30, 15)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(24, 17)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 19)
-		wisp[7].x, wisp[7].y = generate.tilesToPixels(33, 10)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 4.5)
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(15, 20)
 
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(8, 12)
-		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(20, 12)
-		objects["fixedIceberg1"].time = 1000
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(3, 8)
+		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(3, 21)
+		objects["fixedIceberg1"].time = 3800
 		
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 1, 8)

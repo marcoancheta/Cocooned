@@ -26,7 +26,7 @@ local four = {
 	panes = {true,false,false,false,true},
 	playerCount = 1,
 	-- number of wisps in the level
-	wispCount = 6,
+	wispCount = 17,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -44,6 +44,7 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0,
 		["enemy"] = 0,
+		["fixedIceberg"] = 3
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -59,6 +60,7 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+		["fixedIceberg"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -74,6 +76,7 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+		["fixedIceberg"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -89,6 +92,7 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+		["fixedIceberg"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -104,6 +108,7 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+		["fixedIceberg"] = 0
 	}
 }
 
@@ -122,22 +127,37 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
-		--[[
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(28, 6)
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 17)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 15)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 13)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(25, 10)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(22, 10)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 10)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(18, 10)
+		wisp[8].x, wisp[8].y = generate.tilesToPixels(16, 10)
+		wisp[9].x, wisp[9].y = generate.tilesToPixels(14, 10)
+		wisp[10].x, wisp[10].y = generate.tilesToPixels(12, 10)
+		wisp[11].x, wisp[11].y = generate.tilesToPixels(10, 10)
+		wisp[12].x, wisp[12].y = generate.tilesToPixels(8, 10)
+		wisp[13].x, wisp[13].y = generate.tilesToPixels(6, 10)
+		wisp[14].x, wisp[14].y = generate.tilesToPixels(4, 10)
+		wisp[15].x, wisp[15].y = generate.tilesToPixels(10, 8)
+		wisp[16].x, wisp[16].y = generate.tilesToPixels(10, 6)
+
+
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(25, 17)
+		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(25, 10)
+		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(25, 10)
+		objects["fixedIceberg2"].eX, objects["fixedIceberg2"].eY = generate.tilesToPixels(4, 10)
+		objects["fixedIceberg3"].x, objects["fixedIceberg3"].y = generate.tilesToPixels(10, 10)
+		objects["fixedIceberg3"].eX, objects["fixedIceberg3"].eY = generate.tilesToPixels(10, 5)
+		objects["fixedIceberg1"].time = 7000
+		objects["fixedIceberg2"].time = 11000
+		objects["fixedIceberg3"].time = 3800
+
 		
-		-- Pink rune
-		rune[4].x, rune[4].y = generate.tilesToPixels(4.5, 4.5)			
-		rune[4].isVisible = true
-		
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 6)
-		wisp[2].x, wisp[2].y = generate.tilesToPixels(26, 8)
-		wisp[3].x, wisp[3].y = generate.tilesToPixels(28, 9)
-		wisp[4].x, wisp[4].y = generate.tilesToPixels(30, 9)
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(38, 10)
-		wisp[6].x, wisp[6].y = generate.tilesToPixels(38, 13)
-		]]--
+		generate.gWater(map, mapData)
+		generate.gWisps(wisp, map, mapData, 1, 16)
 		
 		--objects["exitPortal1"]:setSequence("still")
 		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
