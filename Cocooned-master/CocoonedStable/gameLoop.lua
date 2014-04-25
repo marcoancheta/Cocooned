@@ -333,20 +333,18 @@ local function clean(event)
 	--miniMap:removeSelf()
 	--miniMap = nil
 	
-	if gameData.gameEnd then
-		gui.back:removeSelf()
-		gui.middle:removeSelf()
-		gui.front:removeSelf()
-		gui.back = nil
-		gui.middle = nil
-		gui.front = nil
+	gui.back:removeSelf()
+	gui.middle:removeSelf()
+	gui.front:removeSelf()
+	gui.back = nil
+	gui.middle = nil
+	gui.front = nil
 
-		-- destroy player instance
-		player1:removeSelf()
-		player1 = nil
-		playerSheet = nil
-	end
-	
+	-- destroy player instance
+	--player1:removeSelf()
+	--player1 = nil
+	--playerSheet = nil
+
 	--TODO: move player 2 sheet into gameloop?
 	-- call objects-destroy
 	objects.destroy(mapData)
@@ -372,9 +370,11 @@ end
 --------------------------------------------------------------------------------
 local function gameLoopEvents(event)
 	-- Run monitorMemory from open to close.
-	--memory.monitorMem()
-	--inWater()
-	
+	if gameData.debugMode then
+		memory.monitorMem()
+		inWater()
+	end
+		
 	--[[	
 	if mapData.levelNum == "LS" then
 		if gui.back[1] then
@@ -449,10 +449,7 @@ local function gameLoopEvents(event)
 	if gameData.menuOn then
 		-- Go to main menu
 		menu.mainMenu(event)
-		
-		-- Start BGM
-		--sound.playBGM(event, sound.gameSound)
-		
+				
 		-- reset mapData variables
 		if mapData.pane ~= "M" then
 			mapData.pane = "M"

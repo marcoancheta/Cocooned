@@ -46,8 +46,8 @@ local function loadGameSounds()
 
 	-- Aura
 	sound.soundEffects[1] = audio.loadSound("sounds/auraPickup.wav")
-	-- Ice Cracking
-	sound.soundEffects[2] = audio.loadSound("sounds/ice_cracking.wav")
+	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
+	--sound.soundEffects[2] = audio.loadSound("sounds/ice_cracking.wav")
 	-- Orb Pickup
 	sound.soundEffects[3] = audio.loadSound("sounds/orbPickup.wav")
 	-- Water splash
@@ -70,7 +70,7 @@ end
 --------------------------------------------------------------------------------
 -- Sound Effects Music [Channel: 1]
 local function playSound(name)
-	sfx = audio.play(name, {channel= 1, loops = 0})
+	sfx = audio.play(name, {channel = 1, loops = 0})
 	print("play sound:", name)
 	
 	return sfx
@@ -78,7 +78,7 @@ end
 
 -- Narration [Channel: 2]
 local function playNarration(name)
-	narrator = audio.play(name, {channel=2, loops=0})
+	narrator = audio.play(name, {channel = 2, loops=0})
 	print("play narration:", name)
 	
 	return narrator
@@ -86,7 +86,7 @@ end
 
 -- Background Music [Channel: 3]
 local function playBGM(name)
-	bgm = audio.play(name, {channel=3, loops=-1})
+	bgm = audio.play(name, {channel = 3, loops=-1})
 	print("play BGM:", name)
 	
 	return bgm
@@ -105,9 +105,9 @@ end
 local function stop(chan, name)	
 	print("stop sound on channel: ", chan)
 	if chan == 1 then
-		audio.stopWithDelay(2000, {channel = chan})
+		audio.stopWithDelay(100, {channel = chan})
 	elseif chan == 2 then
-		audio.stopWithDelay(2000, {channel = chan})
+		audio.stopWithDelay(1000, {channel = chan})
 	elseif chan == 3 then
 		audio.stopWithDelay(100, {channel = chan})
 	end
@@ -115,6 +115,7 @@ local function stop(chan, name)
 	audio.dispose(name)
 	print("dispose: ", name)
 	name = nil
+	print("sound name: ", name)
 end
 
 --------------------------------------------------------------------------------

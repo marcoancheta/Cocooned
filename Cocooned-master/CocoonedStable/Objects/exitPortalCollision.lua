@@ -31,8 +31,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	
 	--[[
 	if collideObject.sequence == "move" and player.deathTimer == nil then
-		--audio.stop()
-		--sound.playSound(event, sound.portalOpeningSound)
 		levelComplete = true 
 		player.deathTimer = timer.performWithDelay(2000, function() gameData.gameEnd = true end)
 	end

@@ -32,11 +32,6 @@ end
 -- Updated by: Andrew added lines 59 and 60 gameData.greenG = true and player:moveWalls(map)
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-
-	-- stop audio and play audio sound
-	--audio.stop()
-	--sound.playSound(event, sound.runePickupSound)
-
 	-- set collision to false
 	event.contact.isEnabled = false
 

@@ -84,6 +84,8 @@ local function buttonPressed(event)
 	elseif event.target.name == "gotoMain" then
 		print("Back to Main Menu")	
 		physics.stop()
+		menuGroup:removeSelf()
+		menuGroup = nil
 		gameData.gameEnd = true
 		
 	--[[ In game options button pressed ]]--	
@@ -96,6 +98,7 @@ local function buttonPressed(event)
 	--[[ Resume In-Game button pressed ]]--
 	elseif event.target.name == "Resume" then
 		print("Resume game")
+		physics.start()
 		menuGroup:removeSelf()
 		menuGroup = nil
 		gameData.resumeGame = true
@@ -163,8 +166,11 @@ end
 --------------------------------------------------------------------------------
 local function mainMenu(event)
 	print("In Main Menu")
-	sound.loadMenuSounds()
-	sound.playBGM(sound.backgroundMusic)
+	if audio.isChannelPlaying(3) == false then
+		print(audio.isChannelPlaying(3))
+		sound.loadMenuSounds()
+		sound.playBGM(sound.backgroundMusic)
+	end
 	
 	-- Create new menu display group
 	menuGroup = display.newGroup()
@@ -201,6 +207,8 @@ local function mainMenu(event)
 		menuObjects[i]:addEventListener("tap", buttonPressed)
 		menuGroup:insert(menuObjects[i])
 	end
+	
+	return menuGroup
 end
 
 --------------------------------------------------------------------------------
@@ -238,6 +246,8 @@ local function options(event)
 		
 		menuGroup:insert(menuObjects[i])
 	end
+	
+	return menuGroup
 end
 
 --------------------------------------------------------------------------------
@@ -319,7 +329,7 @@ local function ingameMenu(event, gui)
 	menuObjects[2].x = display.contentCenterX + 450
 	menuObjects[2].y = display.contentCenterY + 150		
 	menuObjects[3].x = display.contentCenterX + 450
-	menuObjects[3].y = display.contentCenterY + 300	
+	menuObjects[3].y = display.contentCenterY + 315
 	menuObjects[4].x = display.contentCenterX + 325
 	menuObjects[4].y = display.contentCenterY - 175	
 	menuObjects[5].x = display.contentCenterX + 575
@@ -331,12 +341,14 @@ local function ingameMenu(event, gui)
 	
 	-- Flip background image (horizontal)
 	menuObjects[1]:scale(-1, 1)
-				
-	for i=1, #menuObjects do
+	menuGroup:insert(menuObjects[1])
+	
+	for i=2, #menuObjects do
 		-- Assign name for runtime functions
-		menuObjects[i].name = menuNames[i]
+		menuObjects[i].name = menuNames[i-1]
 		menuObjects[i].anchorX = 0.5
 		menuObjects[i].anchorY = 0.5
+		menuObjects[i]:setFillColor(0, 0, 1)
 		
 		-- add event listeners to buttons
 		menuObjects[i]:addEventListener("tap", buttonPressed)
@@ -353,6 +365,8 @@ local function ingameMenu(event, gui)
 		-- Add everything to menuGroup
 		menuGroup:insert(groupText[i])
 	end
+	
+	return menuGroup
 end
 
 --------------------------------------------------------------------------------
