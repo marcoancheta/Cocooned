@@ -5,6 +5,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
+local sound = require("sounds.sound")
 --NOTE: to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
 --------------------------------------------------------------------------------
 -- Variables
@@ -71,6 +72,7 @@ local function onAccelerate(event, player)
 		xGrav = -event.yGravity
 	else
 		xGrav = 0
+		sound.pauseSound(1)
 	end
 
 	-- Y gravity change
@@ -84,6 +86,7 @@ local function onAccelerate(event, player)
 		yGrav = -event.xGravity
 	else
 		yGrav = 0
+		sound.pauseSound(1)
 	end
 		
 	if yGrav < highestygrav then
@@ -101,10 +104,12 @@ local function onAccelerate(event, player)
 		ball:applyLinearImpulse(-xGrav * 0.15, -yGrav * 0.15, ball.x, ball.y)
 		--timer.performWithDelay(100, cancelDeathTimer)
 	elseif gameData.inWater == false then
+		sound.playSound(sound.soundEffects[7])
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav
 	else
+		sound.pauseSound(1)
 		physicsParam.xGrav = 0
 		physicsParam.yGrav = 0
 	end

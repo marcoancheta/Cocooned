@@ -53,6 +53,8 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function buttonPressed(event)
+	sound.playSound(sound.soundEffects[1])
+
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then								
 		-- Remove menuGroup
@@ -161,6 +163,8 @@ end
 --------------------------------------------------------------------------------
 local function mainMenu(event)
 	print("In Main Menu")
+	sound.loadMenuSounds()
+	sound.playBGM(sound.backgroundMusic)
 	
 	-- Create new menu display group
 	menuGroup = display.newGroup()
@@ -175,7 +179,7 @@ local function mainMenu(event)
 	}
 		
 	for i=1, #menuObjects do
-		menuObjects[i].x = display.contentCenterX
+		
 		
 		if i==1 then
 			-- buttons[1] is not a menu button, it is a background
@@ -184,16 +188,17 @@ local function mainMenu(event)
 			menuObjects[i].y = display.contentCenterY + 100
 			menuObjects[i].name = "playButton"
 			menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 
-			-- add event listener
-			menuObjects[i]:addEventListener("tap", buttonPressed)
 		elseif i==3 then
 			menuObjects[i].y = display.contentCenterY + 270
 			menuObjects[i].name = "optionButton"
 			menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 
-			-- add event listener
-			menuObjects[i]:addEventListener("tap", buttonPressed)
+			
+			
 		end
 		
+		menuObjects[i].x = display.contentCenterX
+		-- add event listener
+		menuObjects[i]:addEventListener("tap", buttonPressed)
 		menuGroup:insert(menuObjects[i])
 	end
 end
