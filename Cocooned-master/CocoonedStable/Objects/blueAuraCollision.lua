@@ -4,7 +4,7 @@
 -- blueAuraColliaion.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
+local sound = require("sounds.sound")
 
 --------------------------------------------------------------------------------
 -- Collide Function - change color of player to bluw
@@ -12,7 +12,7 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-
+	sound.playSound(sound.soundEffects[1])
 	player = player
 	event.contact.isEnabled = false
 	player:changeColor('blue')

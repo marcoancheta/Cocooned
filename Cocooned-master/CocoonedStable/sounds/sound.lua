@@ -5,102 +5,129 @@
 -- sound.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
--- Require Global Variables
+-- Require(s) / Global Variables
 --------------------------------------------------------------------------------
 -- Updated by: John
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
+
+local sound = {
+	backgroundMusic = nil,
+	soundEffects = {},
+}
 local name
 
-audio.setVolume(0.1, {channel = 4} )
-audio.setVolume(0.4, {channel = 3} )
-audio.setVolume(0.1, {channel = 2} )
+local sfx, bgm, narrator
 
---------------------------------------------------------------------------------
--- Play Sounds
---------------------------------------------------------------------------------
--- Updated by: John
---------------------------------------------------------------------------------
-local function playSound(event, name)
-	local isChannel4Playing = audio.isChannelPlaying( 4 )
-	if isChannel4Playing then
-		audio.stop( 4 )
-	end
-	local temp = audio.play(name, {channel = 4, 
-									 loops = 0, 
-								onComplete = function() audio.dispose(name)
-									end })
-	print("play sound:", name)
-end
+-- Reserve 3 main channels (SFX, Narration, BGM)
+audio.reserveChannels(3)
 
-local function pauseSound(event, name)
-	local temp = audio.pause(name, {channel=4, loops=0})
-	print("pause sound:", name)
-end
-
-local function playEventSound(event, name)
-	local isChannel3Playing = audio.isChannelPlaying( 3 )
-	if isChannel3Playing then
-		audio.stop( 3 )
-		print("Stop 3")
-	end
-	local temp = audio.play(name, {channel = 3, 
-								onComplete = function() audio.dispose(name)
-									end })
-	print("play event sound:", name)
-end
-
-local function playBGM(event, name)
-	local temp = audio.play(name, {channel=2, loops=-1})
-	print("play BGM:", name)
-end
-
+-- Channel 1 = SFX, Channel 2 = Narration, Channel 3 = BGM
+audio.setVolume(0.5, {channel = 1} )
+audio.setVolume(0.5, {channel = 2} )
+audio.setVolume(0.5, {channel = 3} )
 --------------------------------------------------------------------------------
--- Stop Sounds
+-- Load Sounds (Menu, In-Game)
 --------------------------------------------------------------------------------
--- Updated by: John
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function stop(event, name)
-	audio.dispose(name)
-	audio.stop()
-end
-
---------------------------------------------------------------------------------
--- Finish up -&- Load Sounds
---------------------------------------------------------------------------------
--- Updated by: John
---------------------------------------------------------------------------------
-local sound = {
-	soundOptions = soundOptions,
-	BGMOptions = BGMOptions,
-	playSound = playSound,
-	pauseSound = pauseSound,
-	playEventSound = playEventSound,
-	playBGM = playBGM,
-	stop = stop,
-		
-	-- channels:
-	isChannel1Active = audio.isChannelActive(1),
-	isChannel2Active = audio.isChannelActive(2),
-	isChannel3Active = audio.isChannelActive(3),
+local function loadMenuSounds()
+	-- BGM
+	sound.backgroundMusic = audio.loadStream("sounds/bgm.mp3")
+	-- Menu buttons click
+	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	
-	-- Load Sounds here:
-	clickSound = audio.loadSound("sounds/menu_tone.wav"),
-	mainmenuSound = audio.loadSound("sounds/cocoonedmusic.wav"),
-	auraPickupSound = audio.loadSound("sounds/auraPickup.wav"), 
-	gameSound = audio.loadSound("sounds/music.wav"), 
-	orbPickupSound = audio.loadSound("sounds/orbPickup.wav"),
-	portalOpeningSound = audio.loadSound("sounds/portalOpening.wav"),
-	rollSnowSound = audio.loadSound("sounds/rollSnow.wav"),
-	runePickupSound = audio.loadSound("sounds/runePickup.wav"),
-	wallHitSound = audio.loadSound("sounds/wallHit.wav"),
-	splashSound = audio.loadSound("sounds/splash.wav"),
-	--totemSound = audio.loadSound("sounds/totem.wav")
-	--selectMapSound = audio.loadSound('sounds/selectMap.wav')
-}
+	return backgroundMusic, soundEffects
+end
 
+local function loadGameSounds()
+	-- BGM
+	--sound.backgroundMusic = audio.loadStream("sounds/bgm.mp3")
+
+	-- Aura
+	sound.soundEffects[1] = audio.loadSound("sounds/auraPickup.wav")
+	-- Ice Cracking
+	sound.soundEffects[2] = audio.loadSound("sounds/ice_cracking.wav")
+	-- Orb Pickup
+	sound.soundEffects[3] = audio.loadSound("sounds/orbPickup.wav")
+	-- Water splash
+	sound.soundEffects[4] = audio.loadSound("sounds/splash.wav")
+	-- Rune pickup
+	sound.soundEffects[5] = audio.loadSound("sounds/runePickup.wav")
+	-- Wall collision
+	sound.soundEffects[6] = audio.loadSound("sounds/wallHit.wav")
+	-- Snow "ballin"
+	sound.soundEffects[7] = audio.loadStream("sounds/kipcha_on_snow3.mp3")
+	
+	return soundEffects
+end
+
+
+--------------------------------------------------------------------------------
+-- Play Sounds (SFX, Narration, BGM)
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+-- Sound Effects Music [Channel: 1]
+local function playSound(name)
+	sfx = audio.play(name, {channel= 1, loops = 0})
+	print("play sound:", name)
+	
+	return sfx
+end
+
+-- Narration [Channel: 2]
+local function playNarration(name)
+	narrator = audio.play(name, {channel=2, loops=0})
+	print("play narration:", name)
+	
+	return narrator
+end
+
+-- Background Music [Channel: 3]
+local function playBGM(name)
+	bgm = audio.play(name, {channel=3, loops=-1})
+	print("play BGM:", name)
+	
+	return bgm
+end
+
+--------------------------------------------------------------------------------
+-- Pause & Stop Sounds
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+local function pauseSound(chan)
+	audio.pause(chan)
+	print("pause sound on channel:", chan)
+end
+
+local function stop(chan, name)	
+	print("stop sound on channel: ", chan)
+	if chan == 1 then
+		audio.stopWithDelay(2000, {channel = chan})
+	elseif chan == 2 then
+		audio.stopWithDelay(2000, {channel = chan})
+	elseif chan == 3 then
+		audio.stopWithDelay(100, {channel = chan})
+	end
+	
+	audio.dispose(name)
+	print("dispose: ", name)
+	name = nil
+end
+
+--------------------------------------------------------------------------------
+-- Finish up
+--------------------------------------------------------------------------------
+-- Updated by: John
+--------------------------------------------------------------------------------
+sound.playSound = playSound
+sound.pauseSound = pauseSound
+sound.playBGM = playBGM
+sound.stop = stop
+sound.loadMenuSounds = loadMenuSounds
+sound.loadGameSounds = loadGameSounds
+			
 return sound
-
 -- end of sound.lua

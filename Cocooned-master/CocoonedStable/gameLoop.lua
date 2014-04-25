@@ -384,9 +384,10 @@ local function gameLoopEvents(event)
 	---------------------------------
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
-	if gameData.selectLevel then
+	if gameData.selectLevel then		
+		sound.stop(1, sound.soundEffects[1])
+		sound.stop(3, sound.backgroundMusic)
 		
-
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		
@@ -403,6 +404,7 @@ local function gameLoopEvents(event)
 	if gameData.gameStart then
 		print("start game")
 		clean(event)
+		sound.loadGameSounds()
 		
 		mapData = gameData.mapData
 		loadMap(mapData)

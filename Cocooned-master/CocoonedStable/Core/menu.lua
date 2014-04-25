@@ -25,7 +25,7 @@ local function onSwitchPress(event)
 	print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
 	if switch.isOn then
 		gameData.BGM = true
-		print(gameData.BGM)
+		print(game_Data.BGM)
 	elseif switch.isOn == false then
 		gameData.BGM = false
 		print(gameData.BGM)
@@ -53,16 +53,18 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function buttonPressed(event)
+	sound.playSound(sound.soundEffects[1])
+	
 	--[[ Play button pressed ]]--
-	if event.target.name == "playButton" then								
+	if event.target.name == "playButton" then
 		-- Remove menuGroup
 		menuGroup:removeSelf()
 		menuGroup = nil
+		
 		-- User pressed play, set gameActive to true
 		gameData.selectLevel = true		
-		
 	--[[ Options button pressed ]]--
-	elseif event.target.name == "optionButton" then	
+	elseif event.target.name == "optionButton" then
 		-- Remove menuGroup
 		menuGroup:removeSelf()
 		menuGroup = nil
@@ -160,6 +162,9 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function mainMenu(event)
+	sound.loadMenuSounds()
+	sound.playBGM(sound.backgroundMusic)
+	
 	print("In Main Menu")
 	
 	-- Create new menu display group
