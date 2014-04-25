@@ -119,7 +119,7 @@ end
 -- destroys all objects in pane
 -- called when switching panes to reset memory usage
 local function destroyAll() 
-	locks:removeSelf()
+	display:remove(locks)
 	locks = nil
 	
 	-- destroy all wisps

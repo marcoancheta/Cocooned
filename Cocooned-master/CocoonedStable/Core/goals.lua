@@ -71,9 +71,7 @@ local function drawGoals(gui)
 	rune = {}
 
 	-- Initial rune x-coordinate
-	local xCoord = 720
-	-- Goal text displayer
-	local text = "Collect runes: "
+	local xCoord = 310
 	-- Load rune file locations
 	local runeLoc = {
 		[1] = "mapdata/art/runes/blueRune.png",
@@ -86,9 +84,10 @@ local function drawGoals(gui)
 	-- Load runes
 	for i=1, #runeLoc do
 		rune[i] = display.newImage(runeLoc[i])
-		rune[i].x = xCoord + 10
-		rune[i].y = 90
-		xCoord = xCoord + 50
+		rune[i]:scale(0.5, 0.5)
+		rune[i].x = xCoord
+		rune[i].y = 35
+		xCoord = xCoord + 35
 		
 		-- Hide runes (visually)
 		rune[i].isVisible = false
@@ -97,28 +96,32 @@ local function drawGoals(gui)
 	end
 		
 	-- create outer text box rectangle
-	textObject[1] = display.newRect(740, 52, 1500, 125)
-	textObject[1].x, textObject[1].y = generate.tilesToPixels(20, 3)
+	textObject[1] = display.newRect(240, 30, 550, 50)
 	textObject[1]:setStrokeColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 	textObject[1]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 	textObject[1].strokeWidth = 15
 	textObject[1].alpha = 0.5
 
-	textObject[2] = display.newText(text, 700, 85, nativeSystemfont, 55)
+	textObject[2] = display.newText("Collect runes: ", 300, 30, nativeSystemfont, 25)
 	textObject[2]:setFillColor(0,0,0)
 	textObject[2].anchorX = 21
 	
 	-- Create play button
 	play = display.newImage("mapdata/art/buttons/sil_kipcha.png", 0, 0, true)
-	play.x, play.y = generate.tilesToPixels(5, 4)
-	play:scale(1.5, 1.5)
+	play.x, play.y = generate.tilesToPixels(1, 1.5)
+	play:scale(0.8, 0.8)
 	play.alpha = 0.2
 	play.name = "playButton"
 			
 	-- insert objects to display group
-	gui.front:insert(textObject[1])
-	gui.front:insert(textObject[2])
+	
+	for i=1, #textObject do
+		gui.front:insert(textObject[i])
+	end
+
 	gui.front:insert(play)
+	
+	return play
 end
 
 --------------------------------------------------------------------------------

@@ -34,8 +34,6 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	-- insert wisp into map display group
 		if mapData.levelNum ~= "LS" then
 			map.middle:insert(wisp[i])
-		else
-			map.layer["tiles"]:insert(wisp[i])
 		end
 
 		-- add physics body for wisp for collision
