@@ -119,8 +119,6 @@ local function createLevel(mapData, player1)
 	loading.loadingInit() --initializes loading screen assets and displays them on top
 	loaded = 0 -- current loading checkpoint, max is 6
 	level = mapData.levelNum
-
-
 		
 	-- Load in map
 	local levelBG, levelWalls = drawPane(mapData)
@@ -141,11 +139,8 @@ local function createLevel(mapData, player1)
 		goals.drawGoals(gui)
 	end
 	----------------------------
-	
 
 	gui.front:insert(player1.imageObject) -- in-game objects also draws here.
-
-	
 	
 	-- create miniMap for level
 	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, gui.front)
@@ -164,8 +159,6 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function changePane(gui, mapData, player, miniMap)
-	-- Load in map
-	
 	-- load in wall collision
 	local levelBG, levelWalls = drawPane(mapData)
 	
