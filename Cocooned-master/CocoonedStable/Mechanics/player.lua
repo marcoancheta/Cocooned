@@ -46,7 +46,7 @@ local playerInstance = {
 	maxSpeed = 6,
 	speedConst = 10,
 	defaultSpeed = 10,
-	radius = 38, --default radius
+	radius = 18, --default radius
 	
 	-- Booleans
 	deathTimer = nil,
@@ -274,7 +274,7 @@ function changeBodyType(event)
 	local params = event.source.params
 	for check = 1, params.param1.middle.numChildren do
 		local currObject = params.param1.middle[check]
-		if  string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
+		if string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
 			params.param1.middle[check].bodyType = "dynamic"
  			params.param1.middle[check].isFixedRotation = true
 		end
@@ -289,7 +289,7 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:rotate (x,y)
 	transition.cancel('rotation')
-	angle = (floor(atan2(y, x)*( 180 / pi))) 
+	angle = (floor(atan2(y, x)*(180 / pi))) 
 	self.imageObject.rotation = angle + 90
 end
 

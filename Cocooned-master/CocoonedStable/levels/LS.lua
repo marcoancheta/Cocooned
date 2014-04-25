@@ -61,13 +61,7 @@ local LS = {
 local objectList
 local mObjectslocal
 local bg
-local locks
-
---------------------------------------------------------------------------------
--- Ball Camera
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
+local locks = {}
 
 --------------------------------------------------------------------------------
 -- load pane function
@@ -77,29 +71,24 @@ local locks
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
-	locks = {}
 	objectList = objects
 			
 	-- Check which pane
 	if mapData.pane == "LS" then		
-		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(8, 8)
-		--Testing portal is level 2
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(8, 16)
-		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(21, 8)
-		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(32, 7)
-		objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(33, 15)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = 70, 220
+		objects["exitPortal2"].x, objects["exitPortal2"].y = 70, 120
+		objects["exitPortal3"].x, objects["exitPortal3"].y = 250, 100
+		objects["exitPortal4"].x, objects["exitPortal4"].y = 420, 120
+		objects["exitPortal5"].x, objects["exitPortal5"].y = 420, 220
 		
 		for i=1, 5 do
 			objects["exitPortal" ..i.. ""]:setSequence("move")
 			objects["exitPortal" ..i.. ""]:play()
-			objects["exitPortal" ..i.. ""]:scale(2, 2)
 			
-			locks[i] = display.newImageRect("mapdata/art/buttons/lock.png", 50, 50, true)
+			locks[i] = display.newImageRect("mapdata/art/buttons/lock.png", 35, 35)
 			locks[i].x = objects["exitPortal" ..i.. ""].x
 			locks[i].y = objects["exitPortal" ..i.. ""].y
-				
-			--map.layer["tiles"]:insert(locks[i])
-			
+							
 			if i==1 then
 				locks[i].isVisible = true
 				objects["exitPortal" ..i.. ""]:setSequence("still")
@@ -107,18 +96,15 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			else
 				locks[i].isVisible = false
 			end		
+			
+			locks[i]:toFront()
 		end
-	end
+	end	
 	
 	-- generates all objects in pane when locations are set
 	generate.gObjects(LS, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
-	mObjects = generate.gMObjects(LS, objects, map, mapData)
-	
-	for i=1, #locks do
-		locks[i]:toFront()
-	end
-	
+	mObjects = generate.gMObjects(LS, objects, map, mapData)	
 	-- destroy the unused objects
 	generate.destroyObjects(LS, rune, wisp, water, wall, objects)
 	-- set which panes are avaiable for player
@@ -133,9 +119,7 @@ end
 -- destroys all objects in pane
 -- called when switching panes to reset memory usage
 local function destroyAll() 
-	display.remove(bg)
-	display.remove(locks)
-	bg = nil
+	locks:removeSelf()
 	locks = nil
 	
 	-- destroy all wisps

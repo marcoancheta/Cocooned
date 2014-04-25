@@ -167,33 +167,32 @@ local function mainMenu(event)
 	
 	local menuObjects = {
 		-- Add main menu background image
-		[1] = display.newImageRect("mapdata/art/TitleScreen.png", 1460, 864),
+		[1] = display.newImage("mapdata/art/TitleScreen.png"),
 		-- Add Play button
-		[2] = display.newImageRect("mapdata/art/buttons/newgame.png", 400, 150),
+		[2] = display.newImage("mapdata/art/buttons/newgame.png"),
 		-- Option buttons: See play button details
-		[3] = display.newImageRect("mapdata/art/buttons/options.png", 400, 150)
+		[3] = display.newImage("mapdata/art/buttons/options.png")
 	}
 		
 	for i=1, #menuObjects do
+		if i > 1 then 
+			if i==2 then
+				menuObjects[i].y = display.contentCenterY + 30
+				menuObjects[i].name = "playButton"
+			elseif i==3 then
+				menuObjects[i].y = menuObjects[2].y + 70
+				menuObjects[i].name = "optionButton"			
+			end		
+			menuObjects[i]:scale(0.6, 0.6)
+		else
+			menuObjects[i]:rotate(-90)
+			menuObjects[i].y = display.contentCenterY
+		end		
+		-- Position all objects in center
 		menuObjects[i].x = display.contentCenterX
-		
-		if i==1 then
-			-- buttons[1] is not a menu button, it is a background
-			menuObjects[1].y = display.contentCenterY
-		elseif i==2 then
-			menuObjects[i].y = display.contentCenterY + 100
-			menuObjects[i].name = "playButton"
-			menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 
-			-- add event listener
-			menuObjects[i]:addEventListener("tap", buttonPressed)
-		elseif i==3 then
-			menuObjects[i].y = display.contentCenterY + 270
-			menuObjects[i].name = "optionButton"
-			menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 
-			-- add event listener
-			menuObjects[i]:addEventListener("tap", buttonPressed)
-		end
-		
+		-- Add event listener
+		menuObjects[i]:addEventListener("tap", buttonPressed)
+		-- Add all objects to menuGroup
 		menuGroup:insert(menuObjects[i])
 	end
 end
@@ -211,7 +210,7 @@ local function options(event)
 	
 	local menuObjects = {
 		-- Add options background image
-		[1] = display.newImageRect("mapdata/art/background/screens/cocoonedMenu.png", 1460, 864),
+		[1] = display.newImage("mapdata/art/background/screens/cocoonedMenu.png"),
 		-- Add Main Menu button
 		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
 		-- Create onScreen text objects

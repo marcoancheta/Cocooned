@@ -14,7 +14,6 @@
 local require = require
 local math_abs = math.abs
 local physics = require("physics")
-local dusk = require("Dusk.Dusk")
 --local GA = require("plugin.gameanalytics")
 	  
 --------------------------------------------------------------------------------
@@ -54,7 +53,7 @@ local collisionDetection = require("Mechanics.collisionDetection")
 local paneTransition = require("Loading.paneTransition")
 -- Cut Scene System (cutSceneSystem.lua)
 local cutSceneSystem = require("Loading.cutSceneSystem")
-
+-- Camera (camera.lua)
 local cameraMechanic = require("camera")
 
 --------------------------------------------------------------------------------
@@ -88,19 +87,17 @@ local gui
 local line
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
+local camera;
+local count = 0
 
-local textObject = display.newText("shakers", 600, 400, native.systemFont, 72)
-local txtObj = display.newText("", 600, 200, native.systemFont, 72)
+local textObject = display.newText("shakers", 50, 50, native.systemFont, 72)
+local txtObj = display.newText("", 50, 50, native.systemFont, 50)
 	  txtObj.x = display.contentCenterX
 	  txtObj.y = display.contentCenterY
 	  txtObj:setFillColor(0,0,1)
 		
-local count = 0
-
 local players = {}
 local linePts = {}
-
-local camera;
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -226,23 +223,23 @@ local function speedUp(event)
 			if gameData.gRune == true then
 				for check = 1, gui.middle.numChildren do
 		  			local currObject = gui.middle[check]
-		  				if string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
-		  					if player1.onIceberg == true then
-			  					local velY = 0
-			  					local velX = 0
-			  					if player1.yGrav<0 then
-			  						velY = -40
-			  					elseif player1.yGrav > 0 then
-			  						velY = 40
-			  					end
-			  					if player1.xGrav<0 then
-			  						velX = -40
-			  					elseif player1.xGrav > 0 then
-			  						velX = 40
-			  					end
-	  							currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
-	  						end
-		  				end
+		  			if string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
+		  				if player1.onIceberg == true then
+			  				local velY = 0
+			  				local velX = 0
+			  				if player1.yGrav<0 then
+			  					velY = -40
+			  				elseif player1.yGrav > 0 then
+			  					velY = 40
+			  				end
+			  				if player1.xGrav<0 then
+			  					velX = -40
+			  				elseif player1.xGrav > 0 then
+			  					velX = 40
+			  				end
+	  						currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
+	  					end
+		  			end
 	  			end
 	  		end
 			
@@ -266,7 +263,7 @@ end
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
 	-- Start physics
-	--physics.setDrawMode("hybrid")
+	physics.setDrawMode("hybrid")
 	physics.start()
 	physics.setScale(45)
 	
@@ -282,7 +279,7 @@ local function loadMap(mapData)
 	ball:setSequence("move")
 
 	-- add physics to ball
-	physics.addBody(ball, {radius = 38, bounce = .25})
+	physics.addBody(ball, {radius = 18, bounce = .25})
 	physics.setGravity(0,0)
 	ball.linearDamping = 1.25
 	ball.density = .3
@@ -320,7 +317,6 @@ local function clean(event)
 	--end
 
 	player1:resetRune()
-
 
 	if linePts then
 		linePts = nil
@@ -372,8 +368,8 @@ end
 --------------------------------------------------------------------------------
 local function gameLoopEvents(event)
 	-- Run monitorMemory from open to close.
-	--memory.monitorMem()
-	--inWater()
+	memory.monitorMem()
+	inWater()
 	
 	--[[	
 	if mapData.levelNum == "LS" then

@@ -315,8 +315,6 @@ end
 
 local function tilesToPixels( Tx, Ty)
 	local x, y = Tx, Ty
-	--tprint.assert((x ~= nil) and (y ~= nil), "Missing argument(s).")
-	x, y = x - 0.5, y - 0.5
 	x, y = (x * 36), (y * 36)
 	return x, y
 end

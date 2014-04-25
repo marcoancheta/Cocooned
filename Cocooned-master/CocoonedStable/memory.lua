@@ -12,10 +12,10 @@
 --------------------------------------------------------------------------------
 -- debug text object
 local textObject = {
-			display.newText("mem",  10, 720, native.systemFont, 48),
-			display.newText("text", 10, 780, native.systemFont, 48),
-			display.newText("fps", 10, 80, native.systemFont, 48),
-			display.newText("Memory Stable", 10, 30, native.systemFont, 48)
+			display.newText("mem",  0, 280, native.systemFont, 20),
+			display.newText("text", 0, 300, native.systemFont, 20),
+			display.newText("fps", 0, 50, native.systemFont, 20),
+			display.newText("Memory Stable", 0, 30, native.systemFont, 20)
 }
 
 local prevTextMem = 0
@@ -52,7 +52,6 @@ local memory = {
 }
 
 return memory
-
 --------------------------------------------------------------------------------
 -- END MEMORY CHECKER
 --------------------------------------------------------------------------------

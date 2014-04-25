@@ -6,8 +6,6 @@
 --------------------------------------------------------------------------------
 -- level finished function (levelFinished.lua)
 require("Core.levelFinished")
--- Dusk Engine (Dusk.lua)
-local dusk = require("Dusk.Dusk")
 -- miniMap function (miniMap.lua)
 --local miniMapMechanic = require("Mechanics.miniMap")
 -- objects function (object.lua)
@@ -44,43 +42,39 @@ local levelNames = {
 }
 
 local ballPos = {
-	["LS"] = {["x"]=21,["y"]=15},
+	["LS"] = {["x"]=7, ["y"]=5},
 	["1"]  = {["x"]=5, ["y"]=5},
 	["2"]  = {["x"]=20,["y"]=10},
 	["3"]  = {["x"]=5, ["y"]=5},
-	["4"]  = {["x"]=22, ["y"]=22},
+	["4"]  = {["x"]=22,["y"]=22},
 	["5"]  = {["x"]=4, ["y"]=4},
 }
 
-
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading() end
-
 --------------------------------------------------------------------------------
 -- drawPane - function that draws the actual pane; returns levelMap
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function drawPane(mapData)
-	local displayX = 1460
-	local displayY = 864
-	
-	local levelBG = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/bg/" .. mapData.pane .. ".png", displayX, displayY)
+	local levelBG = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/bg/" .. mapData.pane .. ".png")
 		  levelBG.x = display.contentCenterX
 		  levelBG.y = display.contentCenterY
 		  levelBG.name = "background"
 		  levelBG.func = "shoreCollision"
 		  levelBG.collType = "passThru"
+		  levelBG:rotate(90)
 	
-	if mapData.levelNum ~= "LS" then
-		
+	if mapData.levelNum ~= "LS" then		
 		physics.addBody(levelBG, "static", physicsData.getFloor(mapData.levelNum):get(mapData.pane))
 	end
 	
-	local levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)
+	local levelWall = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png")
 		  levelWall.x = display.contentCenterX
 		  levelWall.y = display.contentCenterY
 		  levelWall.name = "walls"
+		  levelWall:rotate(90)
 	
 	physics.addBody(levelWall, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
 	
@@ -119,8 +113,6 @@ local function createLevel(mapData, player1)
 	loading.loadingInit() --initializes loading screen assets and displays them on top
 	loaded = 0 -- current loading checkpoint, max is 6
 	level = mapData.levelNum
-
-
 		
 	-- Load in map
 	local levelBG, levelWalls = drawPane(mapData)
@@ -133,6 +125,7 @@ local function createLevel(mapData, player1)
 	-- Load in player
 	
 	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
+	player1.imageObject:scale(0.5, 0.5)
 	
 	----------------------------
 	-- Level selector exclusive
@@ -144,8 +137,6 @@ local function createLevel(mapData, player1)
 	
 
 	gui.front:insert(player1.imageObject) -- in-game objects also draws here.
-
-	
 	
 	-- create miniMap for level
 	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, gui.front)
