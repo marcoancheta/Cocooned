@@ -98,6 +98,8 @@ local function changeSize(player)
 	physics.removeBody(player)
 	player:scale(0.5,0.5)
 	physics.addBody(player, {radius = 15, bounce = .25, density = 0.3}) --, density = 0.7})
+	player.linearDamping = 1.25
+	physics.setGravity(0,0)
 end
 
 --------------------------------------------------------------------------------
