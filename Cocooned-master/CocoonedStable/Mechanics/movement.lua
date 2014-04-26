@@ -3,7 +3,7 @@
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
 -- movement.lua
 --------------------------------------------------------------------------------
-local sound = require("sounds.sound")
+local sound = require("sound")
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------

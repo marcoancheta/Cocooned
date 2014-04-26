@@ -15,12 +15,14 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
 
+local levelFinished = {}
+
 --------------------------------------------------------------------------------
 -- Check Win - function that determines if player has finished level
 --------------------------------------------------------------------------------
 -- Updated by: 
 --------------------------------------------------------------------------------
-function checkWin(player, map, mapData)
+local function checkWin(player, map, mapData)
 	-- debug for checking win
 	--print("checking win", player.inventory.runeSize-1, map.itemGoal, mapData.pane)
 	--TODO: Inventory
@@ -44,5 +46,7 @@ function checkWin(player, map, mapData)
 	end
 end
 
+levelFinished.checkWin = checkWin
 
+return levelFinished
 -- end of levelFinished.lua

@@ -30,7 +30,7 @@ local animation = require("Core.animation")
 -- Menu variables/objects (menu.lua)
 local menu = require("Core.menu")
 -- Sound files/variables (sound.lua)
-local sound = require("sounds.sound")
+local sound = require("sound")
 -- Player variables/files (player.lua)
 local player = require("Mechanics.player")
 -- Object variables/files (objects.lua)
@@ -39,6 +39,10 @@ local objects = require("Loading.objects")
 --local miniMapMechanic = require("Mechanics.miniMap")
 -- memory checker (memory.lua)
 local memory = require("memory")
+-- Loading Screen (loadingScreen.lua)
+local loadingScreen = require("Loading.loadingScreen")
+-- Custom Camera (camera.lua)
+local cameraMechanic = require("camera")
 
 --[[ Load in game mechanics begin here ]]--
 -- Touch mechanics (touchMechanic.lua)
@@ -54,7 +58,6 @@ local paneTransition = require("Loading.paneTransition")
 -- Cut Scene System (cutSceneSystem.lua)
 local cutSceneSystem = require("Loading.cutSceneSystem")
 
-local cameraMechanic = require("camera")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -264,6 +267,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
+	sound.loadGameSounds()
 	-- Start physics
 	--physics.setDrawMode("hybrid")
 	physics.start()
@@ -298,6 +302,8 @@ local function loadMap(mapData)
 	gui.back:addEventListener("tap", tapMechanic)
 	Runtime:addEventListener("accelerometer", controlMovement)
 	Runtime:addEventListener("enterFrame", speedUp)
+	
+	return player1
 end
 
 --------------------------------------------------------------------------------
@@ -306,6 +312,9 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function clean(event)
+	-- stop physics
+	physics.stop()
+
 	-- remove all eventListeners
 	gui.back:removeEventListener("touch", swipeMechanics)
 	gui.back:removeEventListener("tap", tapMechanic)	
@@ -320,36 +329,29 @@ local function clean(event)
 
 	player1:resetRune()
 
-
 	if linePts then
 		linePts = nil
 		linePts = {}
 	end
-			
+	
+	-- destroy player instance
+	player1.imageObject:removeSelf()
+	player1.imageObject = nil
+	
 	ball:removeSelf()
 	ball = nil
 	
 	--miniMap:removeSelf()
 	--miniMap = nil
-	
-	gui.back:removeSelf()
-	gui.middle:removeSelf()
-	gui.front:removeSelf()
-	gui.back = nil
-	gui.middle = nil
-	gui.front = nil
-
-	-- destroy player instance
-	--player1:removeSelf()
-	--player1 = nil
-	--playerSheet = nil
+		
+	gui:removeSelf()
+	gui = nil
+		
+	playerSheet = nil
 
 	--TODO: move player 2 sheet into gameloop?
 	-- call objects-destroy
 	objects.destroy(mapData)
-
-	-- stop physics
-	physics.stop()
 end
 
 local function inWater()
@@ -390,7 +392,7 @@ local function gameLoopEvents(event)
 	if gameData.selectLevel then
 		sound.stop(1, sound.soundEffects[1])
 		sound.stop(3, sound.backgroundMusic)
-		sound.loadGameSounds()
+		sound.soundClean()
 
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
@@ -442,10 +444,20 @@ local function gameLoopEvents(event)
 		
 		gameData.levelRestart = false
 	end
+		
+	-----------------------------
+	--[[ LEVEL COMPLETE LOOP ]]--
+	if gameData.levelComplete then
+		loadingScreen.deleteLoading()
+		clean(event)
+		gameData.selectLevel = true
+		gameData.levelComplete = false
+	end
 	
 	-------------------
 	--[[ MAIN MENU ]]--
 	if gameData.menuOn then
+		sound.soundClean()
 		-- Go to main menu
 		menu.mainMenu(event)
 				
@@ -506,14 +518,6 @@ local function gameLoopEvents(event)
 		gameData.allowMiniMap = true
 		gameData.showMiniMap = true
 		gameData.resumeGame = false
-	end
-	
-	-----------------------------
-	--[[ LEVEL COMPLETE LOOP ]]--
-	if gameData.levelComplete then
-		clean(event)
-		gameData.selectLevel = true
-		gameData.levelComplete = false
 	end
 end
 

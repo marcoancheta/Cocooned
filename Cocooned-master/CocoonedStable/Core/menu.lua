@@ -9,7 +9,7 @@
 -- Load in Global Variables
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
-local sound = require("sounds.sound")
+local sound = require("sound")
 local generate = require("Loading.generateObjects")
 --local widget = require("widget")
 

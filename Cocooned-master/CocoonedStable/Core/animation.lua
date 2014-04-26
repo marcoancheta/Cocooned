@@ -26,17 +26,17 @@ spriteOptions = {
 		{frames = {4,3,2,1}, name = "move", time = 500},
 		{frames = {1}, name = "still", time = 250}
 	},
-	paneSwitch = {
-		{frames = {6,5,4,3,2,1}, name = "move", time = 500},
-		{frames = {1}, name = "still", time = 250}
-	},
+	--paneSwitch = {
+	--	{frames = {6,5,4,3,2,1}, name = "move", time = 500},
+	--	{frames = {1}, name = "still", time = 250, loopCount = 1}
+	--},
 	loadWolf = {
 			{frames = {8,7,6,5,4,3,2,1}, name = "move", time = 500},
 			{frames = {1}, name = "still", time = 250}
 		},
 	paneSwitch = {
 		{frames = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}, name = "move", time = 900},
-		{frames = {1}, name = "stop", time = 250}
+		{frames = {1}, name = "stop", time = 250, loopCount = 1}
 	},
 	runeAnimation = {	
 		{frames = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}, name = "move", time = 1500, loopCount = 1},
