@@ -127,7 +127,7 @@ local function swipeMechanics(event)
 		touch.swipeScreen(event, mapData, miniMap, gui.front)
 		
 		-- if touch ended then change map if pane is switched
-		if "ended" == event.phase and mapData.pane ~= tempPane then
+		if "ended" == event.phase  then
 			-- play snow transition effect
 			--TODO: does player need to be pased in?
 			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
