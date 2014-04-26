@@ -425,6 +425,7 @@ local function gameLoopEvents(event)
 	--[[ END GAMEPLAY LOOP ]]--
 	-- If game has ended do:
 	if gameData.gameEnd then
+		sound.soundClean()
 		clean(event)
 	
 		-- set booleans
@@ -456,7 +457,6 @@ local function gameLoopEvents(event)
 	-------------------
 	--[[ MAIN MENU ]]--
 	if gameData.menuOn then
-		sound.soundClean()
 		-- Go to main menu
 		menu.mainMenu(event)
 				
