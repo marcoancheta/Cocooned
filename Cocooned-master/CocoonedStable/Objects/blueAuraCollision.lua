@@ -13,6 +13,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	--player = player
 	event.contact.isEnabled = false
 	player:changeColor('blue')
+
+	-- play sound
+	sound.playSound(sound.soundEffects[2])
 	
 	--local closure = function() return player:changeColor('white') end
 	--timer1 = timer.performWithDelay( 10000, closure, 1)
@@ -29,4 +32,4 @@ local blueAuraCollision = {
 
 return blueAuraCollision
 
--- end pf blueAuraCollision.lua
+-- end of blueAuraCollision.lua

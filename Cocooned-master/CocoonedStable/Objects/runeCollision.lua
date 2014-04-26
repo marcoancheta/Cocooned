@@ -35,6 +35,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- set collision to false
 	event.contact.isEnabled = false
 
+	-- play sound
+	sound.playSound(sound.soundEffects[5])
+
 	-- add rune to inventory
 	player:addInventory(collideObject)
 	player:addRune(collideObject)
