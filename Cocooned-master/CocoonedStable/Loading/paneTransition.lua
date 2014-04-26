@@ -25,18 +25,6 @@ local transPic
 local paneSheet
 
 --------------------------------------------------------------------------------
--- End Transition - function that ends pane switch transition
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-local function endTransition(event)
-	-- set sequence to stop and remove it
-	transPic:setSequence("stop")
-	transPic:removeSelf()
-	transPic = nil
-end
-
---------------------------------------------------------------------------------
 -- Move Panes - changes current pane to new one
 --------------------------------------------------------------------------------
 -- Updated by: Marco
@@ -50,10 +38,11 @@ local function movePanes(event)
 	print("nameM: " .. params.gui.middle.numChildren)
 	print("nameF: " .. params.gui.front.numChildren)
 
+	-- delete everything on map
+	objects.destroy(params.mapData)
 	for i = params.gui.back.numChildren,1, -1 do
 		params.gui.back[i]:removeSelf();
 	end
-	
 	for i = params.gui.middle.numChildren, 1, -1 do
 		params.gui.middle[i]:removeSelf()
 	end
@@ -65,10 +54,24 @@ local function movePanes(event)
 	---------------------------------------------------
 	-- load new map pane
 	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
+
 	
+
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
 	collisionDetection.changeCollision(params.player1, params.mapData, params.map)
+end
+
+--------------------------------------------------------------------------------
+-- End Transition - function that ends pane switch transition
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function endTransition(event)
+	-- set sequence to stop and remove it
+	transPic:setSequence("stop")
+	transPic:removeSelf()
+	transPic = nil
 end
 
 --------------------------------------------------------------------------------
@@ -147,18 +150,16 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 		transPic.rotation = -135
 	end
 	
-	-- delete everything on map
-	objects.destroy(mapData)
-
-	local moveTrans = timer.performWithDelay(700, movePanes)
+	-- timers for deleting pane image and ending pane switch
+	local endTrans = timer.performWithDelay(1000, endTransition)
+	
+	
+	local moveTrans = timer.performWithDelay(400, movePanes)
 		  moveTrans.params = { tempPane = tempPane, 
 								miniMap = miniMap, 
 									gui = gui, 
 								player1 = player1, 
 								mapData = mapData  }
-								
-	-- timers for deleting pane image and ending pane switch
-	local endTrans = timer.performWithDelay(1000, endTransition)
 end
 
 --------------------------------------------------------------------------------
