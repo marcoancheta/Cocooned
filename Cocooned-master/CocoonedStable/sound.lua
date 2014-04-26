@@ -23,7 +23,7 @@ local sfx, bgm, narrator
 audio.reserveChannels(3)
 
 -- Channel 1 = SFX, Channel 2 = Narration, Channel 3 = BGM
-audio.setVolume(0.5, {channel = 1} )
+audio.setVolume(1, {channel = 1} )
 audio.setVolume(0.5, {channel = 2} )
 audio.setVolume(0.5, {channel = 3} )
 --------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ local function loadMenuSounds()
 	-- BGM
 	sound.backgroundMusic = audio.loadStream("sounds/bgm.mp3")
 	-- Menu buttons click
-	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.mp3")
+	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	
 	return backgroundMusic, soundEffects
 end
@@ -44,8 +44,10 @@ local function loadGameSounds()
 	-- BGM
 	--sound.backgroundMusic = audio.loadStream("sounds/bgm.mp3")
 
+	-- Menu buttons click
+	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	-- Aura
-	sound.soundEffects[1] = audio.loadSound("sounds/auraPickup.wav")
+	sound.soundEffects[2] = audio.loadSound("sounds/auraPickup.wav")
 	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
 	--sound.soundEffects[2] = audio.loadSound("sounds/ice_cracking.wav")
 	-- Orb Pickup
