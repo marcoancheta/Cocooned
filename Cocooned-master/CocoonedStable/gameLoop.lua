@@ -293,10 +293,11 @@ local function loadMap(mapData)
 		
 	-- Load in map
 	gui, miniMap = loadLevel.createLevel(mapData, player1)
-	
 	-- Start mechanics
 	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui, gui.back[1])
-
+	-- Create in game options button
+	menu.ingameOptionsbutton(event, gui)
+	
 	gui.back:addEventListener("touch", swipeMechanics)
 	gui.back:addEventListener("tap", tapMechanic)
 	Runtime:addEventListener("accelerometer", controlMovement)
@@ -397,8 +398,7 @@ local function gameLoopEvents(event)
 		mapData.pane = "LS"
 		
 		loadMap(mapData)
-		menu.ingameOptionsbutton(event, gui)
-				
+					
 		-- Re-evaluate gameData booleans
 		gameData.selectLevel = false
 	end
@@ -413,7 +413,6 @@ local function gameLoopEvents(event)
 		mapData = gameData.mapData
 		loadMap(mapData)
 		--cutSceneSystem.cutScene("1", gui)
-		menu.ingameOptionsbutton(event, map)
 		
 		-- Re-evaluate gameData booleans
 		gameData.allowPaneSwitch = true
@@ -503,8 +502,6 @@ local function gameLoopEvents(event)
 	if gameData.resumeGame then
 		-- Restart physics
 		physics.start()		
-		-- Re-add in game options button
-		menu.ingameOptionsbutton(event, map)
 
 		-- Add object listeners
 		gui.front:addEventListener("touch", swipeMechanics)

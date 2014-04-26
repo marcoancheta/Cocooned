@@ -255,7 +255,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function ingameOptionsbutton(event, map)
+local function ingameOptionsbutton(event, gui)
 	local cX = display.contentCenterX
 	local cY = display.contentCenterY
 
@@ -269,7 +269,7 @@ local function ingameOptionsbutton(event, map)
 	ingameOptions.y = display.contentCenterY - 350
 	ingameOptions.name = "inGameOptionsBTN"	
 	ingameOptions:addEventListener("tap", buttonPressed)
-	ingameOptions:toFront()
+	gui.front:insert(ingameOptions)
 end
 
 
