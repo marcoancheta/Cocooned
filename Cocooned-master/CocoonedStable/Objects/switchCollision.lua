@@ -14,7 +14,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
 end
 
-
 --------------------------------------------------------------------------------
 -- Finish Up
 --------------------------------------------------------------------------------

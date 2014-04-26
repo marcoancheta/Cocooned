@@ -112,41 +112,30 @@ local three = {
 local objectList
 local mObjectslocal 
 
-
 --------------------------------------------------------------------------------
 -- load pane function
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
-		-- Check which pane
-	if mapData.pane == "M" then
-		
+	
+	-- Check which pane
+	if mapData.pane == "M" then		
 		-- Pink rune
-		rune[3].x, rune[3].y = generate.tilesToPixels(1, 1)			
+		rune[3].x, rune[3].y = generate.tilesToPixels(5, 5)			
 		rune[3].isVisible = true
 		
-		--[[ A-5-2 wisps
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 10)
-		wisp[2].x, wisp[2].y = generate.tilesToPixels(15, 12)
-		wisp[3].x, wisp[3].y = generate.tilesToPixels(30, 13)
-		wisp[4].x, wisp[4].y = generate.tilesToPixels(35, 20)
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(30, 30)
-		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 30)
-		wisp[7].x, wisp[7].y = generate.tilesToPixels(38, 10)
-		wisp[8].x, wisp[8].y = generate.tilesToPixels(15, 35)
-		]]
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 8)
-		wisp[2].x, wisp[2].y = generate.tilesToPixels(2, 13)
-		wisp[3].x, wisp[3].y = generate.tilesToPixels(7, 16)
-		wisp[4].x, wisp[4].y = generate.tilesToPixels(3, 20)
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(5, 8)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(5, 12)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(10, 12)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(15, 12)
 		-- Right three wisps
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(23, 10)
-		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 15)
-		wisp[7].x, wisp[7].y = generate.tilesToPixels(17, 10)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(20, 12)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(25, 12)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(30, 12)
 
 		
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(30, 4)
@@ -158,22 +147,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish11"].time = 375
  		objects["fish12"].time = 375
  		objects["fish21"].time = 375
-
- 		--[[
- 		fixed iceberg
- 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(3, 8)
-		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(3, 21) --not needed if free
-		objects["fixedIceberg1"].time = 3800 --not needed if free
-		objects["fixedIceberg1"].movement = "fixed" - fixed or free
-		]]--
- 		
 		
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(35, 12)
 
-		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 1, 7)
-
 	elseif mapData.pane == "L" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "U" then
@@ -183,7 +161,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	elseif mapData.pane == "R" then
 		print("You shouldn't be in here...")
 	end
-
+	
+	-- generates water collision object
+	generate.gWater(map, mapData)
 	-- generates all objects in pane when locations are set
 	generate.gObjects(three, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
@@ -225,7 +205,6 @@ local function destroyAll()
 	-- destroy all moveable objects and stop moving them
 	for i=1, #mObjects do
 		if mObjects[i].moveable == true then
-
 			mObjects[i]:endTransition()
 			mObjects[i].object.stop = true
 		else

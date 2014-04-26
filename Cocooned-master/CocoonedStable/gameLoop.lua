@@ -14,7 +14,6 @@
 local require = require
 local math_abs = math.abs
 local physics = require("physics")
-local dusk = require("Dusk.Dusk")
 --local GA = require("plugin.gameanalytics")
 	  
 --------------------------------------------------------------------------------

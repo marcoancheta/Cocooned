@@ -17,7 +17,7 @@ local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
-	collideObject.isSensor = true
+	--collideObject.isSensor = true
 	
 	gameData.inWater = false
 end

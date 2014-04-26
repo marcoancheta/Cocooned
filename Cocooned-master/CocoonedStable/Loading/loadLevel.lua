@@ -6,8 +6,6 @@
 --------------------------------------------------------------------------------
 -- level finished function (levelFinished.lua)
 require("Core.levelFinished")
--- Dusk Engine (Dusk.lua)
-local dusk = require("Dusk.Dusk")
 -- miniMap function (miniMap.lua)
 --local miniMapMechanic = require("Mechanics.miniMap")
 -- objects function (object.lua)
@@ -47,11 +45,10 @@ local ballPos = {
 	["LS"] = {["x"]=21,["y"]=15},
 	["1"]  = {["x"]=5, ["y"]=5},
 	["2"]  = {["x"]=20,["y"]=10},
-	["3"]  = {["x"]=5, ["y"]=5},
+	["3"]  = {["x"]=5, ["y"]=20},
 	["4"]  = {["x"]=22, ["y"]=22},
 	["5"]  = {["x"]=4, ["y"]=4},
 }
-
 
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading() end
@@ -69,11 +66,10 @@ local function drawPane(mapData)
 		  levelBG.x = display.contentCenterX
 		  levelBG.y = display.contentCenterY
 		  levelBG.name = "background"
-		  levelBG.func = "shoreCollision"
-		  levelBG.collType = "passThru"
 	
 	if mapData.levelNum ~= "LS" then
-		
+		levelBG.func = "shoreCollision"
+		levelBG.collType = "passThru"
 		physics.addBody(levelBG, "static", physicsData.getFloor(mapData.levelNum):get(mapData.pane))
 	end
 	
