@@ -107,17 +107,27 @@ local function stop(chan, name)
 	if chan == 1 then
 		audio.stopWithDelay(100, {channel = chan})
 	elseif chan == 2 then
-		audio.stopWithDelay(1000, {channel = chan})
+		audio.stopWithDelay(100, {channel = chan})
 	elseif chan == 3 then
 		audio.stopWithDelay(100, {channel = chan})
 	end
 	
-	audio.dispose(name)
-	print("dispose: ", name)
-	name = nil
-	print("sound name: ", name)
+	--audio.dispose(name)
+	--print("dispose: ", name)
+	--name = nil
+	--print("sound name: ", name)
 end
 
+local function soundClean()
+	for i=1, #sound.soundEffects do
+		audio.dispose(sound.soundEffects[i])
+		sound.soundEffects[i] = nil
+	end
+	
+	if sound.backgroundMusic then
+		audio.dispose(sound.backgroundMusic)
+	end
+end
 --------------------------------------------------------------------------------
 -- Finish up
 --------------------------------------------------------------------------------
@@ -129,6 +139,7 @@ sound.playBGM = playBGM
 sound.stop = stop
 sound.loadMenuSounds = loadMenuSounds
 sound.loadGameSounds = loadGameSounds
+sound.soundClean = soundClean
 			
 return sound
 -- end of sound.lua

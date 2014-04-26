@@ -15,7 +15,7 @@ local pi = math.pi
 local inventoryMechanic = require("Mechanics.inventoryMechanic")
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
-local sound = require("sounds.sound")
+local sound = require("sound")
 
 --------------------------------------------------------------------------------
 -- Player Instance - player instance table that holds all properties
@@ -65,15 +65,6 @@ local playerInstance = {
 }
 
 --------------------------------------------------------------------------------
--- Rotate Transition - function that rotates player image object
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-local function rotateTransition(imageObject, rotationDelta, timeDelta)
-    transition.to(imageObject, {rotation=rotationDelta, time=timeDelta, transition=easing.inOutCubic, tag='rotation' } )
-end 
-
---------------------------------------------------------------------------------
 -- Create Player
 --------------------------------------------------------------------------------
 -- Updated by: Marco
@@ -83,6 +74,66 @@ local function create(o)
 	o = o or {} -- create object if user does not provide one
 	return playerInstance:new(o)
 end
+
+--------------------------------------------------------------------------------
+-- Change Back - player function that changes image object back to normal size
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function changeBack(player)
+	physics.removeBody(player)
+	player:scale(2,2)
+	physics.addBody(player, {radius = 36, bounce = .25})
+	physics.setGravity(0,0)
+	player.linearDamping = 1.25
+	player.density = .3
+end
+
+--------------------------------------------------------------------------------
+-- Change Size - player function that shrinks the player image object
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function changeSize(player)
+	physics.removeBody(player)
+	player:scale(0.5,0.5)
+	physics.addBody(player, {radius = 15, bounce = .25, density = 0.3}) --, density = 0.7})
+end
+
+--------------------------------------------------------------------------------
+-- Change Type - player function that changes properties of objects to breakable
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+--[[
+local function changeType(event)
+	local params = event.source.params
+	
+	for check = 1, params.param1.layer["tiles"].numChildren do
+		if params.param1.layer["tiles"][check].name == "orangeWall" then
+			params.param1.layer["tiles"][check].bodyType = "dynamic"
+		end
+	end
+end
+]]--
+
+
+--------------------------------------------------------------------------------
+-- Change Body Type - player function that changes properties of objects to moveable
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function changeBodyType(event)
+	local params = event.source.params
+	for check = 1, params.param1.middle.numChildren do
+		local currObject = params.param1.middle[check]
+		if  string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
+			params.param1.middle[check].bodyType = "dynamic"
+ 			params.param1.middle[check].isFixedRotation = true
+		end
+	end
+end
+
 
 --------------------------------------------------------------------------------
 -- Destroy - function that destroys player table and removes properties
@@ -168,19 +219,6 @@ function playerInstance:attract(goTo)
 	self.imageObject.angularVelocity = 0
 end
 
---------------------------------------------------------------------------------
--- Change Back - player function that changes image object back to normal size
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-function changeBack(player)
-	physics.removeBody(player)
-	player:scale(2,2)
-	physics.addBody(player, {radius = 36, bounce = .25})
-	physics.setGravity(0,0)
-	player.linearDamping = 1.25
-	player.density = .3
-end
 
 --------------------------------------------------------------------------------
 -- UnShrink - player function that calls delay timer for changeBack
@@ -193,16 +231,15 @@ function playerInstance:unshrink()
 	timer.performWithDelay(20, delayShrink)
 end
 
+
 --------------------------------------------------------------------------------
--- Change Size - player function that shrinks the player image object
+-- Rotate Transition - function that rotates player image object
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function changeSize(player)
-	physics.removeBody(player)
-	player:scale(0.5,0.5)
-	physics.addBody(player, {radius = 15, bounce = .25, density = 0.7})
-end
+local function rotateTransition(imageObject, rotationDelta, timeDelta)
+    transition.to(imageObject, {rotation=rotationDelta, time=timeDelta, transition=easing.inOutCubic, tag='rotation' } )
+end 
 
 --------------------------------------------------------------------------------
 -- Shrink - player function that calls delay timer for changeSize
@@ -240,22 +277,6 @@ function playerInstance:breakWalls(map)
 end
 
 --------------------------------------------------------------------------------
--- Change Type - player function that changes properties of objects to breakable
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-function changeType(event)
-	local params = event.source.params
-	
-	for check = 1, params.param1.layer["tiles"].numChildren do
-		if params.param1.layer["tiles"][check].name == "orangeWall" then
-			params.param1.layer["tiles"][check].bodyType = "dynamic"
-		end
-	end
-end
-
-
---------------------------------------------------------------------------------
 -- Move Walls - player function that calls delay timer for changeBodyType
 --------------------------------------------------------------------------------
 -- Updated by: Marco
@@ -264,23 +285,6 @@ function playerInstance:moveWalls(gui)
 	local timer = timer.performWithDelay(10, changeBodyType)
 		  timer.params = {param1 = gui}
 end
-
---------------------------------------------------------------------------------
--- Change Body Type - player function that changes properties of objects to moveable
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-function changeBodyType(event)
-	local params = event.source.params
-	for check = 1, params.param1.middle.numChildren do
-		local currObject = params.param1.middle[check]
-		if  string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
-			params.param1.middle[check].bodyType = "dynamic"
- 			params.param1.middle[check].isFixedRotation = true
-		end
-	end
-end
-
 
 --------------------------------------------------------------------------------
 -- Rotate - player function that rotates image object
@@ -315,13 +319,18 @@ function playerInstance:addRune(item, map)
 	self.inventory:addRune(item, map)
 end
 
+
+
 --------------------------------------------------------------------------------
 -- Finish Up
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local player  = {
-	create = create
+	create = create,
+	changeBack = changeBack,
+	changeSize = changeSize,
+	changeBodyType = changeBodyType
 }
 
 return player
