@@ -28,20 +28,14 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	function imageObject:preCollision(event)
 		-- if the object is a passThru, calls it's collide function
 	    local collideObject = event.other
-		
-		--if collideObject.name ~= "water" or collideObject == nil then
-			--gameData.inWater = false
-			--player.imageObject.linearDamping = 1.25 
-		--end
-		
+				
 		--let the ball go through water
 		if collideObject.name == "water" then
 			-- disabled collision
 			event.contact.isEnabled = false
 		else
 			event.contact.isEnabled = true
-		end
-		
+		end		
 		
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
 			local col = require("Objects." .. collideObject.func)
@@ -49,16 +43,10 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	    end
 
 	    -- if the object is a solid, call it's collide function
-	    if collideObject.collType == "solid" then
+	    if collideObject.collType == "solid" or collideObject.collectable == true or collideObject.name == "wind" then
 			local col = require("Objects." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)
 	    end
-
-		-- if the object is a collectable, call it's collide function
-		if collideObject.collectable == true or collideObject.name == "wind" then
-			local col = require("Objects." .. collideObject.func)
-			col.collide(collideObject, player, event, mapData, map, gui)
-		end
 	end
 
 	--function for collision detection
@@ -90,7 +78,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				-- set players movement to inWater
 				gameData.inWater = false
 				player.imageObject.linearDamping = 1.25
-				elseif string.sub(collideObject.name,1,12) == "fixedIceberg" then
+			elseif string.sub(collideObject.name,1,12) == "fixedIceberg" then
 					gameData.onIceberg = false
 			end
 		end
@@ -100,7 +88,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	imageObject.collision = onLocalCollision
 	imageObject:addEventListener("collision", imageObject)
 	imageObject:addEventListener( "preCollision")
-
 end
 
 --------------------------------------------------------------------------------

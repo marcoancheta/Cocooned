@@ -10,8 +10,6 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
--- Dusk Engine (Dusk.lua)
-local dusk = require("Dusk.Dusk")
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
 -- miniMap Mechanic (miniMap.lua)
@@ -187,5 +185,4 @@ local touchMechanic = {
 }
 
 return touchMechanic
-
 --end of touchMechanic.lua

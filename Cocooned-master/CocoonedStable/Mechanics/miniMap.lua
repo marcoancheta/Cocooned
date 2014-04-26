@@ -12,8 +12,6 @@
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
--- Dusk Engine (Dusk.lua)
-local dusk = require("Dusk.Dusk")
 
 --------------------------------------------------------------------------------
 -- create miniMap - function that creats miniMap display
