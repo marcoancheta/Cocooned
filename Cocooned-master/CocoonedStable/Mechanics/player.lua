@@ -44,7 +44,7 @@ local playerInstance = {
 	bounce = .25,
 	curse = 1,
 	maxSpeed = 6,
-	speedConst = 10,
+	speedConst = 5,
 	defaultSpeed = 10,
 	radius = 38, --default radius
 	

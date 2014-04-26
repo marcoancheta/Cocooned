@@ -66,18 +66,18 @@ local function moveAndAnimate(event, currPlayer)
 		if speed > 1125 then
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = 2.5
-		elseif speed > 600 then
+		elseif speed > 800 then
 			--local delay = timer.performWithDelay(4000, sound.playEventSound, 0)
 			--delay.params = {params1 = event, params2 = sound.rollSnowSound}
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = 2
-		elseif speed > 300 then
+		elseif speed > 600 then
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = 1.5
-		elseif speed > 30 then
+		elseif speed > 300 then
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = .5
-		elseif speed > 5 then
+		elseif speed > 30 then
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = .25
 		else

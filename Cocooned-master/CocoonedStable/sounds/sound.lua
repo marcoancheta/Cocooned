@@ -35,7 +35,7 @@ local function loadMenuSounds()
 	-- BGM
 	sound.backgroundMusic = audio.loadStream("sounds/bgm.mp3")
 	-- Menu buttons click
-	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
+	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.mp3")
 	
 	return backgroundMusic, soundEffects
 end
