@@ -107,7 +107,7 @@ end
 local function stop(chan, name)	
 	print("stop sound on channel: ", chan)
 	if chan == 1 then
-		audio.stopWithDelay(100, {channel = chan})
+		audio.stop(chan)
 	elseif chan == 2 then
 		audio.stopWithDelay(100, {channel = chan})
 	elseif chan == 3 then
