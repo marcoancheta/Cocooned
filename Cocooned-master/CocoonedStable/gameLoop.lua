@@ -90,7 +90,6 @@ local gui
 local line
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
-
 local textObject = display.newText("shakers", 600, 400, native.systemFont, 72)
 local txtObj = display.newText("", 600, 200, native.systemFont, 72)
 	  txtObj.x = display.contentCenterX
@@ -128,7 +127,7 @@ local function swipeMechanics(event)
 		touch.swipeScreen(event, mapData, miniMap, gui.front)
 		
 		-- if touch ended then change map if pane is switched
-		if "ended" == event.phase and mapData.pane ~= tempPane then
+		if "ended" == event.phase  then
 			-- play snow transition effect
 			--TODO: does player need to be pased in?
 			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
@@ -176,6 +175,7 @@ local function controlMovement(event)
 		print(player1.yGrav)
 	end
 	
+	-- Runtime Accelerometer based event
 	if event.isShake then
 		textObject.text = "Device Shaking!"
 		textObject.x = display.contentCenterX
@@ -192,6 +192,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
+--[[
 local function drawTrail(event)
 	if line then		
 		line:removeSelf()
@@ -213,7 +214,7 @@ local function drawTrail(event)
 		end
 	end	
 end
-
+]]--
 --------------------------------------------------------------------------------
 -- Speed Up - gives momentum to player movement
 --------------------------------------------------------------------------------
@@ -275,7 +276,7 @@ local function loadMap(mapData)
 	
 	-- Initialize player(s)
 	player1 = player.create()
-	system.setAccelerometerInterval(30)
+	-- system.setAccelerometerInterval(30)
 
 	-- Create player/ball object to map
 	ball = display.newSprite(sheetOptions.playerSheet, spriteOptions.player)
@@ -329,10 +330,12 @@ local function clean(event)
 
 	player1:resetRune()
 
+	--[[
 	if linePts then
 		linePts = nil
 		linePts = {}
 	end
+	]]--
 	
 	-- destroy player instance
 	player1.imageObject:removeSelf()

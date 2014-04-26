@@ -155,11 +155,26 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function changePane(gui, mapData, player, miniMap)
+	-- Create game user interface (GUI) group
+	--local gui = display.newGroup()
+		
+	-- Create GUI subgroups
+	--gui.front = display.newGroup()
+	--gui.middle = display.newGroup()
+	--gui.back = display.newGroup()
+
+	-- Add subgroups into main GUI group
+	--gui:insert(gui.back)
+	--gui:insert(gui.middle)
+	--gui:insert(gui.front)
+	
 	-- load in wall collision
 	local levelBG, levelWalls = drawPane(mapData)
 	
+	--gui.front:insert(player.imageObject)
 	gui.back:insert(levelBG)
 	gui.middle:insert(levelWalls)
+
 	--gui.front:insert(player.imageObject)
 	objects.main(mapData, gui)
 
