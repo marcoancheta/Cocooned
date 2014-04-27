@@ -104,7 +104,7 @@ local function onAccelerate(event, player)
 		ball:applyLinearImpulse(-xGrav * 0.15, -yGrav * 0.15, ball.x, ball.y)
 		--timer.performWithDelay(100, cancelDeathTimer)
 	elseif gameData.inWater == false then
-		sound.playSound(sound.soundEffects[7])
+		sound.playNarration(sound.soundEffects[7])
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav

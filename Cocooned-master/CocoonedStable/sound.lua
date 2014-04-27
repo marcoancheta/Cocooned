@@ -48,8 +48,6 @@ local function loadGameSounds()
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	-- Aura
 	sound.soundEffects[2] = audio.loadSound("sounds/auraPickup.wav")
-	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
-	--sound.soundEffects[2] = audio.loadSound("sounds/ice_cracking.wav")
 	-- Orb Pickup
 	sound.soundEffects[3] = audio.loadSound("sounds/orbPickup.wav")
 	-- Water splash
@@ -58,8 +56,12 @@ local function loadGameSounds()
 	sound.soundEffects[5] = audio.loadSound("sounds/runePickup.wav")
 	-- Wall collision
 	sound.soundEffects[6] = audio.loadSound("sounds/wallHit.wav")
-	-- Snow "ballin"
+	-- Snow "ballin" [Note: this is a steam]
 	sound.soundEffects[7] = audio.loadStream("sounds/rollSnow.wav")
+	-- Pick up "key" (used for wisps)
+	sound.soundEffects[8] = audio.loadSound("sounds/pickup_key.wav")
+	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
+	--sound.soundEffects[9] = audio.loadSound("sounds/ice_cracking.wav")
 	
 	return soundEffects
 end
@@ -78,7 +80,7 @@ local function playSound(name)
 	return sfx
 end
 
--- Narration [Channel: 2]
+-- Narration/Ball rolling [Channel: 2]
 local function playNarration(name)
 	narrator = audio.play(name, {channel = 2, loops=0})
 	print("play narration:", name)
@@ -142,6 +144,7 @@ end
 -- Updated by: John
 --------------------------------------------------------------------------------
 sound.playSound = playSound
+sound.playNarration = playNarration
 sound.pauseSound = pauseSound
 sound.playBGM = playBGM
 sound.stop = stop

@@ -16,7 +16,9 @@ local sound = require("sound")
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
+	sound.playSound(sound.soundEffects[8])
 	event.contact.isEnabled = false
+		
 	player:addInventory(collideObject)
  	collideObject:removeSelf()
  	collideObject = nil
