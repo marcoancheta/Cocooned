@@ -44,7 +44,6 @@ end
 local function loadGameSounds()
 	-- BGM
 	-- Current place holder: To Zanarkand-FFX Piano Collections
-	--sound.backgroundMusic = audio.loadStream("sounds/ToZanarkand.mp3")
 	sound.backgroundMusic = audio.loadStream("sounds/ToZanarkand.mp3")
 
 	-- Menu buttons click

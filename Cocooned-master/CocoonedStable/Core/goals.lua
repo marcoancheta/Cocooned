@@ -28,7 +28,6 @@ local function destroyGoals()
 	for i=1, #rune do
 		display.remove(rune[i])
 	end
-
 	
 	play:removeSelf()
 	play = nil;

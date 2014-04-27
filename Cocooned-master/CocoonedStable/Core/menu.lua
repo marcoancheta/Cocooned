@@ -94,7 +94,6 @@ local function buttonPressed(event)
 	--[[ Back to Main from In-Game button pressed ]]--
 	elseif event.target.name == "gotoMain" then
 		print("Back to Main Menu")	
-		physics.stop()
 		menuGroup:removeSelf()
 		menuGroup = nil
 		gameData.gameEnd = true
@@ -102,14 +101,11 @@ local function buttonPressed(event)
 	--[[ In game options button pressed ]]--	
 	elseif event.target.name == "inGameOptionsBTN" then
 		print("In game options")			
-		-- Pause physics
-		physics.pause()
 		gameData.inGameOptions = true	
 		
 	--[[ Resume In-Game button pressed ]]--
 	elseif event.target.name == "Resume" then
 		print("Resume game")
-		physics.start()
 		menuGroup:removeSelf()
 		menuGroup = nil
 		gameData.resumeGame = true

@@ -9,7 +9,6 @@
 --------------------------------------------------------------------------------
 -- Global Variables
 --------------------------------------------------------------------------------
-
 local gameData = {
 	-- toggle debug mode
 	debugMode = false,
@@ -45,7 +44,7 @@ local gameData = {
 	
 	locked = false,
 	
-	-- Player
+	-- mapData global
 	mapData = {
 		levelNum = 1,
 		pane = "M",

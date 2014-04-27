@@ -136,7 +136,7 @@ local function destroyAll()
 	display.remove(bg)
 	display.remove(locks)
 	bg = nil
-	locks = nil
+	--locks = nil
 	
 	-- destroy all wisps
 	for i=1, #wisp do
