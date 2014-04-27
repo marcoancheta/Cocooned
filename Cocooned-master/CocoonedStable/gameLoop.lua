@@ -462,9 +462,11 @@ local function gameLoopEvents(event)
 	----------------------
 	--[[ OPTIONS MENU ]]--	
 	if gameData.inOptions then
+		sound.stop(3, sound.backgroundMusic)
 		-- Go to options menu
 		menu.options(event)																																																																						
 		-- Re-evaluate gameData booleans
+		gameData.inMainMenu = false
 		gameData.inOptions = false		
 	end
 	
