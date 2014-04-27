@@ -266,6 +266,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
+	sound.soundClean()
 	sound.loadGameSounds()
 	-- Start physics
 	--physics.setDrawMode("hybrid")
@@ -392,7 +393,6 @@ local function gameLoopEvents(event)
 	if gameData.selectLevel then
 		sound.stop(1, sound.soundEffects[1])
 		sound.stop(3, sound.backgroundMusic)
-		sound.soundClean()
 
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
@@ -409,7 +409,6 @@ local function gameLoopEvents(event)
 	if gameData.gameStart then
 		print("start game")
 		clean(event)
-		
 		mapData = gameData.mapData
 		loadMap(mapData)
 		--cutSceneSystem.cutScene("1", gui)

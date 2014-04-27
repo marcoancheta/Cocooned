@@ -107,7 +107,7 @@ end
 local function stop(chan, name)	
 	print("stop sound on channel: ", chan)
 	if chan == 1 then
-		audio.stop(chan)
+		audio.stopWithDelay(100, {channel = chan})
 	elseif chan == 2 then
 		audio.stopWithDelay(100, {channel = chan})
 	elseif chan == 3 then
@@ -122,12 +122,18 @@ end
 
 local function soundClean()
 	for i=1, #sound.soundEffects do
-		audio.dispose(sound.soundEffects[i])
+		if audio.isChannelPlaying(1) == false then
+			audio.dispose(sound.soundEffects[i])
+		end		
 		sound.soundEffects[i] = nil
+		--print(sound.soundEffects[i])
 	end
 	
 	if sound.backgroundMusic then
-		audio.dispose(sound.backgroundMusic)
+		if audio.isChannelPlaying(3) == false then
+			audio.dispose(sound.backgroundMusic)
+		end		
+		sound.backgroundMusic = nil
 	end
 end
 --------------------------------------------------------------------------------
