@@ -87,7 +87,7 @@ local function moveAndAnimate(event, currPlayer)
 		currPlayer.imageObject:pause()
 	end
 
-	if (vx ~= 0 or vy ~= 0) and currPlayer.movement == "accel" then
+	if (vx > 30 or vy > 30) and currPlayer.movement == "accel" then
 		currPlayer:rotate(vx, vy)
 	elseif(currPlayer.xGrav ~= 0 or currPlayer.yGrav ~= 0) then
 		currPlayer:rotate(currPlayer.xGrav, currPlayer.yGrav)

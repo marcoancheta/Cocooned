@@ -127,11 +127,11 @@ end
 --------------------------------------------------------------------------------
 local function changeBodyType(event)
 	local params = event.source.params
-	for check = 1, params.param1.middle.numChildren do
-		local currObject = params.param1.middle[check]
+	for check = 1, params.param1.front.numChildren do
+		local currObject = params.param1.front[check]
 		if  string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
-			params.param1.middle[check].bodyType = "dynamic"
- 			params.param1.middle[check].isFixedRotation = true
+			params.param1.front[check].bodyType = "dynamic"
+ 			params.param1.front[check].isFixedRotation = true
 		end
 	end
 end

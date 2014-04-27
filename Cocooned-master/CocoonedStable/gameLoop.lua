@@ -192,11 +192,12 @@ local function speedUp(event)
 			player1.xGrav = player1.xGrav*player1.curse
 			player1.yGrav = player1.yGrav*player1.curse
 			movement.moveAndAnimate(event, player1)
+
 			if gameData.gRune == true then
-				for check = 1, gui.middle.numChildren do
-		  			local currObject = gui.middle[check]
+				for check = 1, gui.front.numChildren do
+		  			local currObject = gui.front[check]
 		  			if string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
-		  				if player1.onIceberg == true then
+		  				if gameData.onIceberg == true then
 			  				local velY = 0
 			  				local velX = 0
 			  				if player1.yGrav<0 then
@@ -209,8 +210,13 @@ local function speedUp(event)
 			  				elseif player1.xGrav > 0 then
 			  					velX = 40
 			  				end
-	  						currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
+	  						
+	  						currObject:setLinearVelocity(velX, velY)
+	  						--currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
+	  					else
+	  						currObject:setLinearVelocity(0, 0)
 	  					end
+
 		  			end
 	  			end
 	  		end
