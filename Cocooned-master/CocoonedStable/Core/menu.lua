@@ -191,29 +191,31 @@ local function mainMenu(event)
 		-- Add main menu background image
 		[1] = display.newImageRect("mapdata/art/TitleScreen.png", 1460, 864),
 		-- Add Play button
-		[2] = display.newImageRect("mapdata/art/buttons/newgame.png", 400, 150),
+		--[2] = display.newImageRect("mapdata/art/buttons/newgame.png", 400, 150),
+		[2] = display.newCircle(display.contentCenterX - 350, display.contentCenterY + 210, 100 ),
 		-- Option buttons: See play button details
-		[3] = display.newImageRect("mapdata/art/buttons/options.png", 400, 150)
+		--[3] = display.newImageRect("mapdata/art/buttons/options.png", 400, 150)
+		[3] = display.newCircle(display.contentCenterX + 370, display.contentCenterY + 210, 100 )
 	}
 		
 	for i=1, #menuObjects do		
 		if i > 1 then
 			if i==2 then
-				menuObjects[i].y = display.contentCenterY + 100
 				menuObjects[i].name = "playButton"
-				menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 
+				--menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
+				menuObjects[i]:setFillColor(0,0,0,0.01) 
 			elseif i==3 then
-				menuObjects[i].y = display.contentCenterY + 270
 				menuObjects[i].name = "optionButton"
-				menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 			
-			end
+				--menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
+				menuObjects[i]:setFillColor(0,0,0,0.01) 			
+			end			
 			-- add event listener for new game and options only
 			menuObjects[i]:addEventListener("tap", buttonPressed)
 		else
+			menuObjects[i].x = display.contentCenterX
 			menuObjects[i].y = display.contentCenterY
 		end
 		
-		menuObjects[i].x = display.contentCenterX
 		menuGroup:insert(menuObjects[i])
 	end
 	
