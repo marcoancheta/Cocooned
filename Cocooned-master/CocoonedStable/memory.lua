@@ -57,7 +57,7 @@ local function inWater()
 		textObject[5].text = "false"
 	end
 	
-	textObject[5].x = display.contentCenterX
+	textObject[5].x = display.contentCenterX - 50
 	textObject[5].y = display.contentCenterY
 	textObject[5]:setFillColor(0,0,1)
 	textObject[5]:toFront()

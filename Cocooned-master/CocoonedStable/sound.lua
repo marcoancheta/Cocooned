@@ -33,7 +33,8 @@ audio.setVolume(0.5, {channel = 3} )
 --------------------------------------------------------------------------------
 local function loadMenuSounds()
 	-- BGM
-	sound.backgroundMusic = audio.loadStream("sounds/bgm.mp3")
+	-- Current place holder: 13-Servants of the Mountain-FFX Piano Collections
+	sound.backgroundMusic = audio.loadStream("sounds/13-Servants of the Mountain-FFX Piano Collections.mp3")
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	

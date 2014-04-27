@@ -57,6 +57,9 @@ local paneTransition = require("Loading.paneTransition")
 -- Cut Scene System (cutSceneSystem.lua)
 local cutSceneSystem = require("Loading.cutSceneSystem")
 
+-- Particle effect
+local snow = require("Mechanics.snow")
+
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -262,6 +265,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
+	gameData.inMainMenu = false
 	sound.soundClean()
 	sound.loadGameSounds()
 	-- Start physics
@@ -358,6 +362,10 @@ local function gameLoopEvents(event)
 		memory.monitorMem()
 		memory.inWater()
 	end
+
+	if gameData.inMainMenu then
+		snow.makeSnow(event)
+	end
 		
 	--[[	
 	if mapData.levelNum == "LS" then
@@ -439,7 +447,7 @@ local function gameLoopEvents(event)
 	if gameData.menuOn then
 		-- Go to main menu
 		menu.mainMenu(event)
-				
+		
 		-- reset mapData variables
 		if mapData.pane ~= "M" then
 			mapData.pane = "M"
@@ -447,6 +455,7 @@ local function gameLoopEvents(event)
 		end
 
 		-- Re-evaluate gameData booleans
+		gameData.inMainMenu = true
 		gameData.menuOn = false
 	end
 	

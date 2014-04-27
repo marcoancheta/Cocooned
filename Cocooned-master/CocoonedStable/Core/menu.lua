@@ -11,7 +11,7 @@
 local gameData = require("Core.gameData")
 local sound = require("sound")
 local generate = require("Loading.generateObjects")
-local widget = require( "widget" )
+local widget = require("widget")
 local memory = require("memory")
 
 
@@ -183,10 +183,10 @@ local function mainMenu(event)
 		sound.loadMenuSounds()
 		sound.playBGM(sound.backgroundMusic)
 	end
-		
+			
 	-- Create new menu display group
 	menuGroup = display.newGroup()
-	
+		
 	local menuObjects = {
 		-- Add main menu background image
 		[1] = display.newImageRect("mapdata/art/TitleScreen.png", 1460, 864),
