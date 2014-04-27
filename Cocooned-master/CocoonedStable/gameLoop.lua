@@ -91,10 +91,6 @@ local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 
 local textObject = display.newText("shakers", 600, 400, native.systemFont, 72)
-local txtObj = display.newText("", 600, 200, native.systemFont, 72)
-	  txtObj.x = display.contentCenterX
-	  txtObj.y = display.contentCenterY
-	  txtObj:setFillColor(0,0,1)
 		
 local count = 0
 
@@ -227,23 +223,23 @@ local function speedUp(event)
 			if gameData.gRune == true then
 				for check = 1, gui.middle.numChildren do
 		  			local currObject = gui.middle[check]
-		  				if string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
-		  					if player1.onIceberg == true then
-			  					local velY = 0
-			  					local velX = 0
-			  					if player1.yGrav<0 then
-			  						velY = -40
-			  					elseif player1.yGrav > 0 then
-			  						velY = 40
-			  					end
-			  					if player1.xGrav<0 then
-			  						velX = -40
-			  					elseif player1.xGrav > 0 then
-			  						velX = 40
-			  					end
-	  							currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
-	  						end
-		  				end
+		  			if string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
+		  				if player1.onIceberg == true then
+			  				local velY = 0
+			  				local velX = 0
+			  				if player1.yGrav<0 then
+			  					velY = -40
+			  				elseif player1.yGrav > 0 then
+			  					velY = 40
+			  				end
+			  				if player1.xGrav<0 then
+			  					velX = -40
+			  				elseif player1.xGrav > 0 then
+			  					velX = 40
+			  				end
+	  						currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
+	  					end
+		  			end
 	  			end
 	  		end
 			
@@ -324,10 +320,6 @@ local function clean(event)
 		
 	collisionDetection.destroyCollision(player1.imageObject)
 
-	--if mapData.levelNum == "LS" then
-	--	gui[1][1].destroy()
-	--end
-
 	player1:resetRune()
 
 	if linePts then
@@ -355,16 +347,6 @@ local function clean(event)
 	objects.destroy(mapData)
 end
 
-local function inWater()
-	if gameData.inWater then
-		txtObj.text = player1.inventory.runeSize
-	else
-		txtObj.text = "false"
-	end
-	
-	txtObj:toFront()
-end
-
 --------------------------------------------------------------------------------
 -- Core Game Loop
 --------------------------------------------------------------------------------
@@ -374,7 +356,7 @@ local function gameLoopEvents(event)
 	-- Run monitorMemory from open to close.
 	if gameData.debugMode then
 		memory.monitorMem()
-		inWater()
+		memory.inWater()
 	end
 		
 	--[[	

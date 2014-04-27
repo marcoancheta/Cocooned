@@ -11,7 +11,9 @@
 local gameData = require("Core.gameData")
 local sound = require("sound")
 local generate = require("Loading.generateObjects")
---local widget = require("widget")
+local widget = require( "widget" )
+local memory = require("memory")
+
 
 local menuGroup
 --local player1, player2 = nil
@@ -79,6 +81,16 @@ local function buttonPressed(event)
 		menuGroup = nil
 		-- Go back to menu
 		gameData.menuOn = true
+		
+	--[[ Debug switch button pressed ]]--
+	elseif event.target.name == "debugSwitch" then
+		local switch = event.target		
+		if switch.isOn then
+			gameData.debugMode = true
+		else
+			gameData.debugMode = false
+		end
+		memory.toggle()
 		
 	--[[ Back to Main from In-Game button pressed ]]--
 	elseif event.target.name == "gotoMain" then
@@ -171,7 +183,7 @@ local function mainMenu(event)
 		sound.loadMenuSounds()
 		sound.playBGM(sound.backgroundMusic)
 	end
-	
+		
 	-- Create new menu display group
 	menuGroup = display.newGroup()
 	
@@ -225,19 +237,40 @@ local function options(event)
 		-- Add Main Menu button
 		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
 		-- Create onScreen text objects
-		[3] = display.newText("OPTIONS", 350, 150, native.Systemfont, 103)
+		[3] = display.newText("OPTIONS", 350, 150, native.Systemfont, 103),
+		-- Debug toggle object
+		[4] = widget.newSwitch{x = 500, y = display.contentCenterY + 50, 
+							   style = "onOff", id = "onOffSwitch", 
+							   onPress = buttonPressed},
+		-- Debug text
+		[5] = display.newText("Debug Mode: ", 350, 150, native.Systemfont, 52),
 	}
 		
 	for i=1, #menuObjects do
 		if i==1 then
+			-- Options background image
 			menuObjects[i].x = display.contentCenterX
 			menuObjects[i].y = display.contentCenterY
 		elseif i==2 then
-			menuObjects[i].x = display.contentCenterX - 325
-			menuObjects[i].y = display.contentCenterY + 150
+			-- Main Menu button
+			menuObjects[i].x = 325
+			menuObjects[i].y = display.contentCenterY + 300
 			menuObjects[i].name = "BacktoMain"
 			menuObjects[i]:addEventListener("tap", buttonPressed)
+			menuObjects[i]:setFillColor(0, 0, 1)
 		elseif i==3 then
+			-- Options text object
+			menuObjects[i]:setFillColor(0, 0, 0)
+		elseif i==4 then
+			-- Debug toggle object
+			if gameData.debugMode then
+				menuObjects[i]:setState({isOn = true})
+			end		
+			menuObjects[i].name = "debugSwitch"
+		elseif i==5 then
+			-- Debug text
+			menuObjects[i].x = 300
+			menuObjects[i].y = display.contentCenterY + 50
 			menuObjects[i]:setFillColor(0, 0, 0)
 		end
 		

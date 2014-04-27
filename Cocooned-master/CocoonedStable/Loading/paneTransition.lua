@@ -47,15 +47,11 @@ local function movePanes(event)
 		params.gui.middle[i]:removeSelf()
 	end
 	
-	params.map = nil
-
 	---------------------------------------------------
 	-- Play "character" teleportation animation here --
 	---------------------------------------------------
 	-- load new map pane
 	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
-
-	
 
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
@@ -80,9 +76,6 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function playTransition(tempPane, miniMap, mapData, gui, player1)
-	-- save current pane image
-	--tempPic = display.capture(gui)
-	--tempPic.x, tempPic.y = 720, 432
 		
 	print("playing transition")
 	-- play pane switch transition and move to front

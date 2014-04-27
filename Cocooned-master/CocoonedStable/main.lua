@@ -69,7 +69,7 @@ local function main()
 	local gameLoop = require("gameLoop")
 	local memory = require("memory")
 	local textureFilter = "nearest"
-	
+
 	display.setDefault("minTextureFilter", textureFilter)
 	display.setDefault("magTextureFilter", textureFilter)
 
@@ -78,7 +78,7 @@ local function main()
 		local rcorona = require("rcorona")
 		rcorona.startServer(8181)
 	end
-	
+		
 	Runtime:addEventListener("enterFrame", gameLoop.gameLoopEvents)
 	Runtime:addEventListener("memoryWarning", memory.handleLowMemory)
 end
