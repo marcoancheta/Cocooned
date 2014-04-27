@@ -5,7 +5,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- level finished function (levelFinished.lua)
-require("Core.levelFinished")
+--local levelFinished = require("Core.levelFinished")
 -- miniMap function (miniMap.lua)
 --local miniMapMechanic = require("Mechanics.miniMap")
 -- objects function (object.lua)
@@ -120,7 +120,7 @@ local function createLevel(mapData, player1)
 	local levelBG, levelWalls = drawPane(mapData)
 
 	-- Add objects to its proper groups
-	gui.back:insert(levelBG, 1)
+	gui.back:insert(levelBG)
 	gui.middle:insert(levelWalls)
 	-- Load in objects
 	objects.main(mapData, gui) -- gui.front = map
@@ -158,8 +158,8 @@ local function changePane(gui, mapData, player, miniMap)
 	-- load in wall collision
 	local levelBG, levelWalls = drawPane(mapData)
 	
-	gui.back:insert(levelBG, 1)
-	gui.middle:insert(levelWalls, 1)
+	gui.back:insert(levelBG)
+	gui.middle:insert(levelWalls)
 	--gui.front:insert(player.imageObject)
 	objects.main(mapData, gui)
 
@@ -169,7 +169,7 @@ local function changePane(gui, mapData, player, miniMap)
 	end
 
 	-- check if player has finished level
-	checkWin(player, gui.middle, mapData)
+	--levelFinished.checkWin(player, gui.middle, mapData)
 	
 	-- return new pane
 	return gui

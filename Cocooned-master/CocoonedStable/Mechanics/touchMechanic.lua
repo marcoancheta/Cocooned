@@ -39,8 +39,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function swipeScreen(event, mapData, miniMap, map)
-	
+local function swipeScreen(event, mapData, miniMap, map)	
 	-- phase name
 	local phase = event.phase
 

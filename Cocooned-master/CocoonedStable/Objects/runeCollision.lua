@@ -10,9 +10,9 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-require("Core.levelFinished")
+local levelFinished = require("Core.levelFinished")
 local gameData = require("Core.gameData")
-local sound = require("sounds.sound")
+local sound = require("sound")
 
 --------------------------------------------------------------------------------
 -- End Animation -- function that ends animation for collecting rune
@@ -34,6 +34,9 @@ end
 local function collide(collideObject, player, event, mapData, map, gui)
 	-- set collision to false
 	event.contact.isEnabled = false
+
+	-- play sound
+	sound.playSound(sound.soundEffects[5])
 
 	-- add rune to inventory
 	player:addInventory(collideObject)
@@ -75,7 +78,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 
  	-- check if player has reached level goal
- 	checkWin(player, gui.middle, mapData)
+ 	levelFinished.checkWin(player, gui.middle, mapData)
 end
 
 --------------------------------------------------------------------------------

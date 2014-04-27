@@ -5,7 +5,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
-local sound = require("sounds.sound")
+local sound = require("sound")
 --NOTE: to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
 --------------------------------------------------------------------------------
 -- Variables

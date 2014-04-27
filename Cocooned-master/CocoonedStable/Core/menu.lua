@@ -9,7 +9,7 @@
 -- Load in Global Variables
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
-local sound = require("sounds.sound")
+local sound = require("sound")
 local generate = require("Loading.generateObjects")
 --local widget = require("widget")
 
@@ -184,27 +184,24 @@ local function mainMenu(event)
 		[3] = display.newImageRect("mapdata/art/buttons/options.png", 400, 150)
 	}
 		
-	for i=1, #menuObjects do
-		
-		
-		if i==1 then
-			-- buttons[1] is not a menu button, it is a background
-			menuObjects[1].y = display.contentCenterY
-		elseif i==2 then
-			menuObjects[i].y = display.contentCenterY + 100
-			menuObjects[i].name = "playButton"
-			menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 
-		elseif i==3 then
-			menuObjects[i].y = display.contentCenterY + 270
-			menuObjects[i].name = "optionButton"
-			menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 
-			
-			
+	for i=1, #menuObjects do		
+		if i > 1 then
+			if i==2 then
+				menuObjects[i].y = display.contentCenterY + 100
+				menuObjects[i].name = "playButton"
+				menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 
+			elseif i==3 then
+				menuObjects[i].y = display.contentCenterY + 270
+				menuObjects[i].name = "optionButton"
+				menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8) 			
+			end
+			-- add event listener for new game and options only
+			menuObjects[i]:addEventListener("tap", buttonPressed)
+		else
+			menuObjects[i].y = display.contentCenterY
 		end
 		
 		menuObjects[i].x = display.contentCenterX
-		-- add event listener
-		menuObjects[i]:addEventListener("tap", buttonPressed)
 		menuGroup:insert(menuObjects[i])
 	end
 	
@@ -255,7 +252,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function ingameOptionsbutton(event, map)
+local function ingameOptionsbutton(event, gui)
 	local cX = display.contentCenterX
 	local cY = display.contentCenterY
 
@@ -269,7 +266,7 @@ local function ingameOptionsbutton(event, map)
 	ingameOptions.y = display.contentCenterY - 350
 	ingameOptions.name = "inGameOptionsBTN"	
 	ingameOptions:addEventListener("tap", buttonPressed)
-	ingameOptions:toFront()
+	gui.front:insert(ingameOptions)
 end
 
 
