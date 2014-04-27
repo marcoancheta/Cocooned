@@ -51,14 +51,14 @@ local function tapOnce(event)
 	end		
 end
 
-local function onPlay(bool)
-	if bool == true then
-		play.alpha = 1
-		play:addEventListener("tap", tapOnce)
-	elseif bool == false then
-		play.alpha = 0.2
-		play:removeEventListener("tap", tapOnce)
-	end
+local function onPlay()
+	play.alpha = 1
+	play:addEventListener("tap", tapOnce)
+end
+
+local function hidePlay()
+	play.alpha = 0.2
+	play:removeEventListener("tap", tapOnce)
 end
 
 --------------------------------------------------------------------------------
@@ -157,7 +157,8 @@ local goals = {
 	drawGoals = drawGoals,
 	findGoals = findGoals,
 	destroyGoals = destroyGoals,
-	onPlay = onPlay
+	onPlay = onPlay,
+	hidePlay = hidePlay
 }
 
 return goals

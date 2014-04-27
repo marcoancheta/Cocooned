@@ -30,12 +30,11 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	wisp[i].func = "energyCollision"
 	   	wisp[i].collectable = true
 	   	wisp[i].name = "wisp" .. i
+		wisp[i]:scale(0.5, 0.5)
 
 	   	-- insert wisp into map display group
 		if mapData.levelNum ~= "LS" then
-			map.middle:insert(wisp[i])
-		else
-			map.layer["tiles"]:insert(wisp[i])
+			map.front:insert(wisp[i])
 		end
 
 		-- add physics body for wisp for collision
@@ -74,7 +73,7 @@ local function gObjects(level, objects, map, mapData, runes)
 			end
 			
 			-- add object to map display group
-			map.middle:insert(objects[name .. j])				
+			map.front:insert(objects[name .. j])				
 
 		end
 	end
@@ -83,11 +82,7 @@ local function gObjects(level, objects, map, mapData, runes)
 	for i = 1, #runes do
 		-- check if rune is visible and if so, add to map display group
 		if runes[i].isVisible == true then
-			if mapData.levelNum ~= "LS" then
-				map:insert(runes[i])
-			else
-				map.layer["tiles"]:insert(runes[i])
-			end
+			map.front:insert(runes[i])
 		end
 	end
 end
@@ -261,7 +256,7 @@ local function gAuraWalls(map, mapData, type)
 	auraWall.x = display.contentCenterX
 	auraWall.y = display.contentCenterY
 	physics.addBody(auraWall, "static", physicsData.getAura(mapData.levelNum):get(mapData.pane))
-	map.middle:insert(auraWall)
+	map.front:insert(auraWall)
 end
 
 --------------------------------------------------------------------------------
@@ -282,7 +277,7 @@ local function gWater(map, mapData, direction)
 	
 	physics.addBody(water, "static", physicsData.getWater(mapData.levelNum):get(mapData.pane))
 
-	map.middle:insert(water, 1)
+	map.front:insert(water)
 end
 
 --------------------------------------------------------------------------------

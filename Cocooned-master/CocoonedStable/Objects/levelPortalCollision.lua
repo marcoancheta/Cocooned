@@ -37,7 +37,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		local timer = timer.performWithDelay(1000, resume);
 	end
 									
-	local bool = false
 	for i=0, 5 do		
 		if i ~= 0 then
 			if collideObject.name == "exitPortal" ..i.. "" then
@@ -45,15 +44,13 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				selectLevel.pane = "M"				
 				print(selectLevel.levelNum)
 				
-				bool = true
-				goals.onPlay(bool)			
+				goals.onPlay()			
 				goals.findGoals(selectLevel, gui)
 				gameData.mapData = selectLevel
 				local trans = transition.to(player.imageObject, {time=1000, x=collideObject.x, y=collideObject.y-15, onComplete = temp} )
 			end
 		else
-			bool = false
-			goals.onPlay(bool)
+			goals.hidePlay()
 			transition.cancel(trans)
 			trans = nil
 		end

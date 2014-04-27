@@ -273,9 +273,11 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
+	-- Turn off main menu boolean to turn off snow particles
 	gameData.inMainMenu = false
-	sound.soundClean()
+	sound.stopChannel3()
 	sound.loadGameSounds()
+	
 	-- Start physics
 	--physics.setDrawMode("hybrid")
 	physics.start()
@@ -311,9 +313,7 @@ local function loadMap(mapData)
 	gui.back:addEventListener("tap", tapMechanic)
 	Runtime:addEventListener("accelerometer", controlMovement)
 	Runtime:addEventListener("enterFrame", speedUp)
-	
-	sound.playBGM(sound.backgroundMusic)
-	
+		
 	return player1
 end
 
@@ -325,7 +325,8 @@ end
 local function clean(event)
 	-- stop physics
 	physics.stop()
-
+	sound.soundClean()
+	
 	-- remove all eventListeners
 	gui.back:removeEventListener("touch", swipeMechanics)
 	gui.back:removeEventListener("tap", tapMechanic)	
@@ -373,6 +374,7 @@ local function gameLoopEvents(event)
 		memory.inWater()
 	end
 
+	-- Activate snow particle effect if in main menu
 	if gameData.inMainMenu then
 		snow.makeSnow(event)
 	end
@@ -391,12 +393,12 @@ local function gameLoopEvents(event)
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
-		
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		
 		loadMap(mapData)
-					
+		
+		sound.playBGM(sound.backgroundMusic)
 		-- Re-evaluate gameData booleans
 		gameData.selectLevel = false
 	end
@@ -421,7 +423,7 @@ local function gameLoopEvents(event)
 	--[[ END GAMEPLAY LOOP ]]--
 	-- If game has ended do:
 	if gameData.gameEnd then
-		sound.soundClean()
+		--sound.soundClean()
 		clean(event)
 	
 		-- set booleans
@@ -470,7 +472,7 @@ local function gameLoopEvents(event)
 	----------------------
 	--[[ OPTIONS MENU ]]--	
 	if gameData.inOptions then
-		sound.stop(3, sound.backgroundMusic)
+		sound.stopChannel3()
 		-- Go to options menu
 		menu.options(event)																																																																						
 		-- Re-evaluate gameData booleans

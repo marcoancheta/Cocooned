@@ -109,20 +109,16 @@ local function pauseSound(chan)
 	print("pause sound on channel:", chan)
 end
 
-local function stop(chan, name)	
-	print("stop sound on channel: ", chan)
-	if chan == 1 then
-		audio.stopWithDelay(100, {channel = chan})
-	elseif chan == 2 then
-		audio.stopWithDelay(100, {channel = chan})
-	elseif chan == 3 then
-		audio.stopWithDelay(100, {channel = chan})
-	end
-	
-	--audio.dispose(name)
-	--print("dispose: ", name)
-	--name = nil
-	--print("sound name: ", name)
+local function stopChannel1()
+	audio.stopWithDelay(100, {channel = 1})
+end
+
+local function stopChannel2()
+	audio.stopWithDelay(100, {channel = 2})
+end
+
+local function stopChannel3()
+	audio.stopWithDelay(100, {channel = 3})
 end
 
 local function soundClean()
@@ -150,7 +146,9 @@ sound.playSound = playSound
 sound.playNarration = playNarration
 sound.pauseSound = pauseSound
 sound.playBGM = playBGM
-sound.stop = stop
+sound.stopChannel1 = stopChannel1
+sound.stopChannel2 = stopChannel2
+sound.stopChannel3 = stopChannel3
 sound.loadMenuSounds = loadMenuSounds
 sound.loadGameSounds = loadGameSounds
 sound.soundClean = soundClean

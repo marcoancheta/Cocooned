@@ -59,14 +59,11 @@ local function buttonPressed(event)
 
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then
-		sound.stop(1, sound.soundEffects[1])
-		sound.stop(3, sound.backgroundMusic)
 		-- Remove menuGroup
 		menuGroup:removeSelf()
 		menuGroup = nil
 		-- User pressed play, set gameActive to true
 		gameData.selectLevel = true		
-		
 	--[[ Options button pressed ]]--
 	elseif event.target.name == "optionButton" then	
 		-- Remove menuGroup
