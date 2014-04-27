@@ -82,8 +82,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			
 	-- Check which pane
 	if mapData.pane == "LS" then
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(8, 16)
-		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(8, 8)		
+		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(8, 16)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(8, 8)		
 		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(21, 8)
 		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(32, 7)
 		objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(33, 15)
@@ -93,11 +93,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			objects["exitPortal" ..i.. ""]:play()
 			objects["exitPortal" ..i.. ""]:scale(2, 2)
 			
+			--[[
+			-- Level locked display
 			locks[i] = display.newImageRect("mapdata/art/buttons/lock.png", 50, 50, true)
 			locks[i].x = objects["exitPortal" ..i.. ""].x
 			locks[i].y = objects["exitPortal" ..i.. ""].y
-				
-			--map.layer["tiles"]:insert(locks[i])
 			
 			if i==1 then
 				locks[i].isVisible = true
@@ -105,7 +105,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 				objects["exitPortal" ..i.. ""].isSensor = true
 			else
 				locks[i].isVisible = false
-			end		
+			end	
+			]]--
 		end
 	end
 	

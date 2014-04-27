@@ -58,7 +58,9 @@ local function buttonPressed(event)
 	sound.playSound(sound.soundEffects[1])
 
 	--[[ Play button pressed ]]--
-	if event.target.name == "playButton" then								
+	if event.target.name == "playButton" then
+		sound.stop(1, sound.soundEffects[1])
+		sound.stop(3, sound.backgroundMusic)
 		-- Remove menuGroup
 		menuGroup:removeSelf()
 		menuGroup = nil

@@ -34,7 +34,7 @@ audio.setVolume(0.5, {channel = 3} )
 local function loadMenuSounds()
 	-- BGM
 	-- Current place holder: 13-Servants of the Mountain-FFX Piano Collections
-	sound.backgroundMusic = audio.loadStream("sounds/13-Servants of the Mountain-FFX Piano Collections.mp3")
+	sound.backgroundMusic = audio.loadStream("sounds/ServantsoftheMountain.mp3")
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	
@@ -43,7 +43,9 @@ end
 
 local function loadGameSounds()
 	-- BGM
-	--sound.backgroundMusic = audio.loadStream("sounds/bgm.mp3")
+	-- Current place holder: To Zanarkand-FFX Piano Collections
+	--sound.backgroundMusic = audio.loadStream("sounds/ToZanarkand.mp3")
+	sound.backgroundMusic = audio.loadStream("sounds/ToZanarkand.mp3")
 
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
@@ -124,18 +126,18 @@ local function stop(chan, name)
 end
 
 local function soundClean()
-	for i=1, #sound.soundEffects do
-		if audio.isChannelPlaying(1) == false then
-			audio.dispose(sound.soundEffects[i])
-		end		
+	if audio.isChannelPlaying(3) or audio.isChannelPlaying(2) or audio.isChannelPlaying(1)then
+		audio.stop()
+	end	
+	
+	for i=1, #sound.soundEffects do		
+		audio.dispose(sound.soundEffects[i])
 		sound.soundEffects[i] = nil
 		--print(sound.soundEffects[i])
 	end
 	
 	if sound.backgroundMusic then
-		if audio.isChannelPlaying(3) == false then
-			audio.dispose(sound.backgroundMusic)
-		end		
+		audio.dispose(sound.backgroundMusic)		
 		sound.backgroundMusic = nil
 	end
 end

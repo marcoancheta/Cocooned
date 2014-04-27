@@ -188,8 +188,9 @@ end
 --------------------------------------------------------------------------------
 -- Create Trail - Draws trail behind player
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
+--[[
 local function drawTrail(event)
 	if line then		
 		line:removeSelf()
@@ -199,18 +200,25 @@ local function drawTrail(event)
 	if gui then				
 		if #linePts >= 2 then
 			line = display.newLine(linePts[1].x, linePts[1].y, linePts[2].x, linePts[2].y)
-			line:setStrokeColor(236*0.003921568627451, 228*0.003921568627451, 243*0.003921568627451)
+			line:setStrokeColor(1, 1, 1)
 			--line.stroke = floorText
-			line.strokeWidth = 25
+			line.strokeWidth = 15
 			
-			gui.middle:insert(line)
+			local lineDupe = display.newLine(linePts[1].x, linePts[1].y, linePts[2].x, linePts[2].y)
+			lineDupe:setStrokeColor(236*0.003921568627451, 228*0.003921568627451, 243*0.003921568627451)
+			lineDupe.strokeWidth = 30
+			
+			gui.middle:insert(lineDupe, 1)
+			gui.middle:insert(line, 1)	
 			
 			for i = 3, #linePts, 1 do 
 				line:append(linePts[i].x,linePts[i].y);
+				lineDupe:append(linePts[i].x,linePts[i].y);
 			end 
 		end
 	end	
 end
+]]--
 
 --------------------------------------------------------------------------------
 -- Speed Up - gives momentum to player movement
@@ -245,15 +253,15 @@ local function speedUp(event)
 		  			end
 	  			end
 	  		end
-			
-			--[[	
+
+			--[[
 			local ballPt = {}
 			ballPt.x = player1.imageObject.x
 			ballPt.y = player1.imageObject.y
-				
+					
 			table.insert(linePts, ballPt);
-						
 			drawTrail(event)
+			--table.remove(linePts, 1);
 			]]--
 		end
 	end
@@ -303,6 +311,8 @@ local function loadMap(mapData)
 	gui.back:addEventListener("tap", tapMechanic)
 	Runtime:addEventListener("accelerometer", controlMovement)
 	Runtime:addEventListener("enterFrame", speedUp)
+	
+	sound.playBGM(sound.backgroundMusic)
 	
 	return player1
 end
@@ -381,9 +391,7 @@ local function gameLoopEvents(event)
 	--[[ START LVL SELECTOR LOOP ]]--
 	-- If select level do:
 	if gameData.selectLevel then
-		sound.stop(1, sound.soundEffects[1])
-		sound.stop(3, sound.backgroundMusic)
-
+		
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		
