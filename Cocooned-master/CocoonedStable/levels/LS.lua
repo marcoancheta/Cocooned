@@ -93,11 +93,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			objects["exitPortal" ..i.. ""]:play()
 			objects["exitPortal" ..i.. ""]:scale(2, 2)
 			
+			--[[
+			-- Level locked display
 			locks[i] = display.newImageRect("mapdata/art/buttons/lock.png", 50, 50, true)
 			locks[i].x = objects["exitPortal" ..i.. ""].x
 			locks[i].y = objects["exitPortal" ..i.. ""].y
-				
-			--map.layer["tiles"]:insert(locks[i])
 			
 			if i==1 then
 				locks[i].isVisible = true
@@ -105,7 +105,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 				objects["exitPortal" ..i.. ""].isSensor = true
 			else
 				locks[i].isVisible = false
-			end		
+			end	
+			]]--
 		end
 	end
 	
@@ -135,7 +136,7 @@ local function destroyAll()
 	display.remove(bg)
 	display.remove(locks)
 	bg = nil
-	locks = nil
+	--locks = nil
 	
 	-- destroy all wisps
 	for i=1, #wisp do

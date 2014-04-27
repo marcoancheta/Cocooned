@@ -9,10 +9,9 @@
 --------------------------------------------------------------------------------
 -- Global Variables
 --------------------------------------------------------------------------------
-
 local gameData = {
 	-- toggle debug mode
-	debugMode = true,
+	debugMode = false,
 	
 	-- Game Loop Booleans
 	gameStart = false,
@@ -22,6 +21,7 @@ local gameData = {
 	menuOn = true,	
 	inGameOptions = false,
 	inOptions = false,
+	inMainMenu = false,
 	
 	-- Level Selector Booleans
 	selectLevel = false,
@@ -44,7 +44,7 @@ local gameData = {
 	
 	locked = false,
 	
-	-- Player
+	-- mapData global
 	mapData = {
 		levelNum = 1,
 		pane = "M",

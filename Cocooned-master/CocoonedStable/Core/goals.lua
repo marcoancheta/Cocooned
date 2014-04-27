@@ -20,9 +20,7 @@ local textObject = {}
 --------------------------------------------------------------------------------
 local function destroyGoals()
 	print("Destroyed goalie")
-		
-	display.remove(play)
-	
+			
 	for i=1, #textObject do
 		display.remove(textObject[i])
 	end
@@ -31,7 +29,9 @@ local function destroyGoals()
 		display.remove(rune[i])
 	end
 	
+	play:removeSelf()
 	play = nil;
+	
 	rune = nil;
 	textObject = nil;
 end
@@ -43,21 +43,21 @@ end
 --------------------------------------------------------------------------------
 local function tapOnce(event)
 	-- Kipcha Play button detection
-	if event.target.name == play.name then	
+	if event.target.name == "playButton" then	
 		-- Destroy goals map
 		destroyGoals()	
 		gameData.gameStart = true
 	end		
 end
 
-local function onPlay(bool)
-	if bool then
-		play.alpha = 1
-		play:addEventListener("tap", tapOnce)
-	else
-		play.alpha = 0.2
-		play:removeEventListener("tap", tapOnce)
-	end
+local function onPlay()
+	play.alpha = 1
+	play:addEventListener("tap", tapOnce)
+end
+
+local function hidePlay()
+	play.alpha = 0.2
+	play:removeEventListener("tap", tapOnce)
 end
 
 --------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ local function drawGoals(gui)
 	textObject[2].anchorX = 21
 	
 	-- Create play button
-	play = display.newImage("mapdata/art/buttons/sil_kipcha.png", 0, 0, true)
+	play = display.newImage("mapdata/art/buttons/sil_kipcha.png")
 	play.x, play.y = generate.tilesToPixels(5, 4)
 	play:scale(1.5, 1.5)
 	play.alpha = 0.2
@@ -156,7 +156,8 @@ local goals = {
 	drawGoals = drawGoals,
 	findGoals = findGoals,
 	destroyGoals = destroyGoals,
-	onPlay = onPlay
+	onPlay = onPlay,
+	hidePlay = hidePlay
 }
 
 return goals

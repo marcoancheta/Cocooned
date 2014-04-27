@@ -33,7 +33,8 @@ audio.setVolume(0.5, {channel = 3} )
 --------------------------------------------------------------------------------
 local function loadMenuSounds()
 	-- BGM
-	sound.backgroundMusic = audio.loadStream("sounds/bgm.mp3")
+	-- Current place holder: 13-Servants of the Mountain-FFX Piano Collections
+	sound.backgroundMusic = audio.loadStream("sounds/ServantsoftheMountain.mp3")
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	
@@ -42,14 +43,13 @@ end
 
 local function loadGameSounds()
 	-- BGM
-	--sound.backgroundMusic = audio.loadStream("sounds/bgm.mp3")
+	-- Current place holder: To Zanarkand-FFX Piano Collections
+	sound.backgroundMusic = audio.loadStream("sounds/ToZanarkand.mp3")
 
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	-- Aura
 	sound.soundEffects[2] = audio.loadSound("sounds/auraPickup.wav")
-	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
-	--sound.soundEffects[2] = audio.loadSound("sounds/ice_cracking.wav")
 	-- Orb Pickup
 	sound.soundEffects[3] = audio.loadSound("sounds/orbPickup.wav")
 	-- Water splash
@@ -58,8 +58,12 @@ local function loadGameSounds()
 	sound.soundEffects[5] = audio.loadSound("sounds/runePickup.wav")
 	-- Wall collision
 	sound.soundEffects[6] = audio.loadSound("sounds/wallHit.wav")
-	-- Snow "ballin"
+	-- Snow "ballin" [Note: this is a steam]
 	sound.soundEffects[7] = audio.loadStream("sounds/rollSnow.wav")
+	-- Pick up "key" (used for wisps)
+	sound.soundEffects[8] = audio.loadSound("sounds/pickup_key.wav")
+	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
+	--sound.soundEffects[9] = audio.loadSound("sounds/ice_cracking.wav")
 	
 	return soundEffects
 end
@@ -78,7 +82,7 @@ local function playSound(name)
 	return sfx
 end
 
--- Narration [Channel: 2]
+-- Narration/Ball rolling [Channel: 2]
 local function playNarration(name)
 	narrator = audio.play(name, {channel = 2, loops=0})
 	print("play narration:", name)
@@ -104,30 +108,32 @@ local function pauseSound(chan)
 	print("pause sound on channel:", chan)
 end
 
-local function stop(chan, name)	
-	print("stop sound on channel: ", chan)
-	if chan == 1 then
-		audio.stop(chan)
-	elseif chan == 2 then
-		audio.stopWithDelay(100, {channel = chan})
-	elseif chan == 3 then
-		audio.stopWithDelay(100, {channel = chan})
-	end
-	
-	--audio.dispose(name)
-	--print("dispose: ", name)
-	--name = nil
-	--print("sound name: ", name)
+local function stopChannel1()
+	audio.stopWithDelay(100, {channel = 1})
+end
+
+local function stopChannel2()
+	audio.stopWithDelay(100, {channel = 2})
+end
+
+local function stopChannel3()
+	audio.stopWithDelay(100, {channel = 3})
 end
 
 local function soundClean()
-	for i=1, #sound.soundEffects do
+	if audio.isChannelPlaying(3) or audio.isChannelPlaying(2) or audio.isChannelPlaying(1)then
+		audio.stop()
+	end	
+	
+	for i=1, #sound.soundEffects do		
 		audio.dispose(sound.soundEffects[i])
 		sound.soundEffects[i] = nil
+		--print(sound.soundEffects[i])
 	end
 	
 	if sound.backgroundMusic then
-		audio.dispose(sound.backgroundMusic)
+		audio.dispose(sound.backgroundMusic)		
+		sound.backgroundMusic = nil
 	end
 end
 --------------------------------------------------------------------------------
@@ -136,9 +142,12 @@ end
 -- Updated by: John
 --------------------------------------------------------------------------------
 sound.playSound = playSound
+sound.playNarration = playNarration
 sound.pauseSound = pauseSound
 sound.playBGM = playBGM
-sound.stop = stop
+sound.stopChannel1 = stopChannel1
+sound.stopChannel2 = stopChannel2
+sound.stopChannel3 = stopChannel3
 sound.loadMenuSounds = loadMenuSounds
 sound.loadGameSounds = loadGameSounds
 sound.soundClean = soundClean

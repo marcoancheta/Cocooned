@@ -57,6 +57,8 @@ local paneTransition = require("Loading.paneTransition")
 -- Cut Scene System (cutSceneSystem.lua)
 local cutSceneSystem = require("Loading.cutSceneSystem")
 
+-- Particle effect
+local snow = require("Mechanics.snow")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -78,11 +80,6 @@ local mapData = {
 	version = 0
 }
 
-local floorText = {
-	type = "image",
-	filename = "mapdata/art/texture/floor.png"
-}
-
 --local miniMap
 local map, ball
 local gui
@@ -91,10 +88,6 @@ local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 
 local textObject = display.newText("shakers", 600, 400, native.systemFont, 72)
-local txtObj = display.newText("", 600, 200, native.systemFont, 72)
-	  txtObj.x = display.contentCenterX
-	  txtObj.y = display.contentCenterY
-	  txtObj:setFillColor(0,0,1)
 		
 local count = 0
 
@@ -110,6 +103,8 @@ local camera;
 ------- tapMechanics
 ------- speedUp
 --------------------------------------------------------------------------------
+
+
 
 --------------------------------------------------------------------------------
 -- Swipe Mechanics - function that is called when player swipes
@@ -187,33 +182,6 @@ local function controlMovement(event)
 end
 
 --------------------------------------------------------------------------------
--- Create Trail - Draws trail behind player
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-local function drawTrail(event)
-	if line then		
-		line:removeSelf()
-		line = nil
-	end
-
-	if gui then				
-		if #linePts >= 2 then
-			line = display.newLine(linePts[1].x, linePts[1].y, linePts[2].x, linePts[2].y)
-			line:setStrokeColor(236*0.003921568627451, 228*0.003921568627451, 243*0.003921568627451)
-			--line.stroke = floorText
-			line.strokeWidth = 25
-			
-			gui.middle:insert(line)
-			
-			for i = 3, #linePts, 1 do 
-				line:append(linePts[i].x,linePts[i].y);
-			end 
-		end
-	end	
-end
-
---------------------------------------------------------------------------------
 -- Speed Up - gives momentum to player movement
 --------------------------------------------------------------------------------
 -- Updated by: Andrew uncommented move wall code
@@ -227,37 +195,68 @@ local function speedUp(event)
 			if gameData.gRune == true then
 				for check = 1, gui.middle.numChildren do
 		  			local currObject = gui.middle[check]
-		  				if string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
-		  					if player1.onIceberg == true then
-			  					local velY = 0
-			  					local velX = 0
-			  					if player1.yGrav<0 then
-			  						velY = -40
-			  					elseif player1.yGrav > 0 then
-			  						velY = 40
-			  					end
-			  					if player1.xGrav<0 then
-			  						velX = -40
-			  					elseif player1.xGrav > 0 then
-			  						velX = 40
-			  					end
-	  							currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
-	  						end
-		  				end
+		  			if string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
+		  				if player1.onIceberg == true then
+			  				local velY = 0
+			  				local velX = 0
+			  				if player1.yGrav<0 then
+			  					velY = -40
+			  				elseif player1.yGrav > 0 then
+			  					velY = 40
+			  				end
+			  				if player1.xGrav<0 then
+			  					velX = -40
+			  				elseif player1.xGrav > 0 then
+			  					velX = 40
+			  				end
+	  						currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
+	  					end
+		  			end
 	  			end
 	  		end
-			
-			--[[	
+
+			--[[
 			local ballPt = {}
 			ballPt.x = player1.imageObject.x
 			ballPt.y = player1.imageObject.y
-				
+					
 			table.insert(linePts, ballPt);
-						
-			drawTrail(event)
+			trails.drawTrail(event)
+			--table.remove(linePts, 1);
 			]]--
 		end
 	end
+end
+
+--------------------------------------------------------------------------------
+-- Reset mapData to default settings
+--------------------------------------------------------------------------------
+local function mapDataDefault()
+	mapData.levelNum = 1
+	mapData.pane = "M"
+	mapData.version = 0
+end
+
+--------------------------------------------------------------------------------
+-- Add gameLoop game listeners
+--------------------------------------------------------------------------------
+local function addGameLoopListeners()
+	-- Add object listeners
+	gui.back:addEventListener("touch", swipeMechanics)
+	gui.back:addEventListener("tap", tapMechanic)
+	Runtime:addEventListener("accelerometer", controlMovement)
+	Runtime:addEventListener("enterFrame", speedUp)
+end
+
+--------------------------------------------------------------------------------
+-- Remove gameLoop game listeners
+--------------------------------------------------------------------------------
+local function removeGameLoopListeners()
+	-- Remove object listeners
+	gui.front:removeEventListener("touch", swipeMechanics)
+	gui.front:removeEventListener("tap", tapMechanic)
+	Runtime:removeEventListener("accelerometer", controlMovement)
+	Runtime:removeEventListener("enterFrame", speedUp)
 end
 
 --------------------------------------------------------------------------------
@@ -266,7 +265,11 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
+	-- Turn off main menu boolean to turn off snow particles
+	gameData.inMainMenu = false
+	sound.stopChannel3()
 	sound.loadGameSounds()
+	
 	-- Start physics
 	--physics.setDrawMode("hybrid")
 	physics.start()
@@ -297,14 +300,12 @@ local function loadMap(mapData)
 	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui, gui.back[1])
 	-- Create in game options button
 	menu.ingameOptionsbutton(event, gui)
-	
-	gui.back:addEventListener("touch", swipeMechanics)
-	gui.back:addEventListener("tap", tapMechanic)
-	Runtime:addEventListener("accelerometer", controlMovement)
-	Runtime:addEventListener("enterFrame", speedUp)
-	
+	-- Add game event listeners
+	addGameLoopListeners()
+		
 	return player1
 end
+
 
 --------------------------------------------------------------------------------
 -- Clean - clean level
@@ -314,25 +315,21 @@ end
 local function clean(event)
 	-- stop physics
 	physics.stop()
-
+	-- clean out currently loaded sound files
+	sound.soundClean()	
 	-- remove all eventListeners
-	gui.back:removeEventListener("touch", swipeMechanics)
-	gui.back:removeEventListener("tap", tapMechanic)	
-	Runtime:removeEventListener("accelerometer", controlMovement)
-	Runtime:removeEventListener("enterFrame", speedUp)
-		
+	removeGameLoopListeners()
+	-- clear collision detections
 	collisionDetection.destroyCollision(player1.imageObject)
-
-	--if mapData.levelNum == "LS" then
-	--	gui[1][1].destroy()
-	--end
 
 	player1:resetRune()
 
+	--[[
 	if linePts then
 		linePts = nil
 		linePts = {}
 	end
+	]]--
 	
 	-- destroy player instance
 	player1.imageObject:removeSelf()
@@ -354,18 +351,8 @@ local function clean(event)
 	objects.destroy(mapData)
 end
 
-local function inWater()
-	if gameData.inWater then
-		txtObj.text = player1.inventory.runeSize
-	else
-		txtObj.text = "false"
-	end
-	
-	txtObj:toFront()
-end
-
 --------------------------------------------------------------------------------
--- Core Game Loop
+-- Core Game Loop - Runtime:addEventListener called in main.lua
 --------------------------------------------------------------------------------
 -- Updated by: Derrick 
 --------------------------------------------------------------------------------
@@ -373,7 +360,12 @@ local function gameLoopEvents(event)
 	-- Run monitorMemory from open to close.
 	if gameData.debugMode then
 		memory.monitorMem()
-		inWater()
+		memory.inWater()
+	end
+
+	-- Activate snow particle effect if in main menu
+	if gameData.inMainMenu then
+		snow.makeSnow(event)
 	end
 		
 	--[[	
@@ -385,31 +377,24 @@ local function gameLoopEvents(event)
 		end
 	end
 	]]--
-	
-	---------------------------------
-	--[[ START LVL SELECTOR LOOP ]]--
-	-- If select level do:
+		
+	---------------------------
+	--[[ START LVL SELECTOR]]--
 	if gameData.selectLevel then
-		sound.stop(1, sound.soundEffects[1])
-		sound.stop(3, sound.backgroundMusic)
-		sound.soundClean()
-
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		
-		loadMap(mapData)
-					
+		loadMap(mapData)		
+		sound.playBGM(sound.backgroundMusic)
 		-- Re-evaluate gameData booleans
 		gameData.selectLevel = false
 	end
 	
-	-----------------------------
-	--[[ START GAMEPLAY LOOP ]]--
-	-- If game has started do:
+	-----------------------
+	--[[ START GAMEPLAY]]--
 	if gameData.gameStart then
 		print("start game")
 		clean(event)
-		
 		mapData = gameData.mapData
 		loadMap(mapData)
 		--cutSceneSystem.cutScene("1", gui)
@@ -420,35 +405,35 @@ local function gameLoopEvents(event)
 		gameData.gameStart = false
 	end
 		
-	-----------------------------
-	--[[ END GAMEPLAY LOOP ]]--
-	-- If game has ended do:
+	----------------------
+	--[[ END GAMEPLAY ]]--
 	if gameData.gameEnd then
-		sound.soundClean()
-		clean(event)
-	
+		--sound.soundClean()
+		clean(event)	
 		-- set booleans
 		gameData.menuOn = true
 		gameData.gameEnd = false
-	elseif gameData.levelRestart == true then
+	end
+	
+	-----------------------
+	--[[ Restart level ]]--
+	if gameData.levelRestart == true then
+		-- Clean
 		clean(event)
-		
-		if gameData.menuOn ~= true then
-			gameData.selectLevel = true
-		else
-			-- reset pane to middle pane
-			mapData.pane = 'M'
-			gameData.gameStart = true
-		end
-		
+		-- Reset current pane to middle
+		mapData.pane = "M"
+		-- Apply booleans
+		gameData.gameStart = true
 		gameData.levelRestart = false
 	end
 		
-	-----------------------------
-	--[[ LEVEL COMPLETE LOOP ]]--
+	------------------------
+	--[[ LEVEL COMPLETE ]]--
 	if gameData.levelComplete then
+		-- clean
 		loadingScreen.deleteLoading()
 		clean(event)
+		-- apply booleans
 		gameData.selectLevel = true
 		gameData.levelComplete = false
 	end
@@ -458,61 +443,45 @@ local function gameLoopEvents(event)
 	if gameData.menuOn then
 		-- Go to main menu
 		menu.mainMenu(event)
-				
-		-- reset mapData variables
-		if mapData.pane ~= "M" then
-			mapData.pane = "M"
-			mapData.version = 0
-		end
-
+		mapDataDefault()
 		-- Re-evaluate gameData booleans
+		gameData.inMainMenu = true
 		gameData.menuOn = false
 	end
 	
 	----------------------
 	--[[ OPTIONS MENU ]]--	
 	if gameData.inOptions then
+		sound.stopChannel3()
 		-- Go to options menu
 		menu.options(event)																																																																						
 		-- Re-evaluate gameData booleans
+		gameData.inMainMenu = false
 		gameData.inOptions = false		
 	end
 	
 	-------------------------
 	--[[ IN-GAME OPTIONS ]]--
 	if gameData.inGameOptions then
+		physics.pause()
 		-- Go to in-game option menu
 		menu.ingameMenu(event, player1, player2, gui)
-		
 		-- Remove object listeners
-		gui.front:removeEventListener("touch", swipeMechanics)
-		gui.front:removeEventListener("tap", tapMechanic)
-		Runtime:removeEventListener("accelerometer", controlMovement)
-		Runtime:removeEventListener("enterFrame", speedUp)
-
+		removeGameLoopListeners()
 		-- Re-evaluate gameData booleans
-		--gameData.ingame = false
 		gameData.allowMiniMap = false
-		gameData.showMiniMap = false
-		gameData.isShowingMiniMap = false
 		gameData.inGameOptions = false
 	end
-	--------------------------
-	--[[ RESUME GAME LOOP ]]--		
+	
+	---------------------
+	--[[ RESUME GAME ]]--		
 	if gameData.resumeGame then
 		-- Restart physics
 		physics.start()		
-
 		-- Add object listeners
-		gui.front:addEventListener("touch", swipeMechanics)
-		gui.front:addEventListener("tap", tapMechanic)
-		Runtime:addEventListener("accelerometer", controlMovement)
-		Runtime:addEventListener("enterFrame", speedUp)
-		
+		addGameLoopListeners()		
 		-- Re-evaluate gameData booleans
-		gameData.inGameOptions = false
 		gameData.allowMiniMap = true
-		gameData.showMiniMap = true
 		gameData.resumeGame = false
 	end
 end
