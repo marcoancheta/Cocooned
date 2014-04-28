@@ -39,7 +39,8 @@ end
 --------------------------------------------------------------------------------
 local function deleteLoading()
 	if loadingBG then 
-		display.remove(loadingBG)
+		--display.remove(loadingBG)
+		loadingBG:removeSelf()
 		loadingBG = nil
 	end
 end

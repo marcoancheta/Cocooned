@@ -143,7 +143,8 @@ local function createLevel(mapData, player1)
 		  miniMapDisplay.name = "miniMapName"
 	
 	-- destroy loading screen
-	timer.performWithDelay(1000, deleteClosure)
+	timer.performWithDelay(2000, deleteClosure)
+
 
 	-- reutrn gui and miniMap
 	return gui, miniMapDisplay

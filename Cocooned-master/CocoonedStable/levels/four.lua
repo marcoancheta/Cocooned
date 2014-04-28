@@ -158,10 +158,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg1"].movement = "fixed" 
 		objects["fixedIceberg2"].movement = "fixed" 
 		objects["fixedIceberg3"].movement = "fixed" 
-		
-		--objects["exitPortal1"]:setSequence("still")
-		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
-		
+				
 		generate.gWisps(wisp, map, mapData, 1, 16)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
