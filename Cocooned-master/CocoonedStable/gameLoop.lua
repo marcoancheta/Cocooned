@@ -87,7 +87,7 @@ local line
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 
-local textObject = display.newText("shakers", 600, 400, native.systemFont, 72)
+local textObject = display.newText("", 600, 400, native.systemFont, 72)
 		
 local count = 0
 
@@ -170,14 +170,16 @@ local function controlMovement(event)
 		print(player1.yGrav)
 	end
 	
-	if event.isShake then
-		textObject.text = "Device Shaking!"
-		textObject.x = display.contentCenterX
-		textObject.y = display.contentCenterY
-		textObject:setFillColor(1,0,0)
-		textObject:toFront()
-	else
-		textObject:toBack()
+	if gameData.debugMode then
+		if event.isShake then
+			textObject.text = "Device Shaking!"
+			textObject.x = display.contentCenterX
+			textObject.y = display.contentCenterY
+			textObject:setFillColor(1,0,0)
+			textObject:toFront()
+		else
+			textObject:toBack()
+		end
 	end
 end
 
