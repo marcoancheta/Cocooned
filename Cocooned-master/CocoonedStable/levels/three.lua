@@ -125,7 +125,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- Check which pane
 	if mapData.pane == "M" then		
 		-- Pink rune
-		rune[3].x, rune[3].y = generate.tilesToPixels(5, 5)			
+		rune[3].x, rune[3].y = generate.tilesToPixels(1, 1)			
 		rune[3].isVisible = true
 		
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(5, 8)
@@ -173,7 +173,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	-- set which panes are avaiable for player
 	map.front.panes = three.panes
-	map.middle.itemGoal = 1
+	map.front.itemGoal = 1
 end
 
 --------------------------------------------------------------------------------

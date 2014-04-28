@@ -57,7 +57,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if collideObject.name == "blueRune" then
 		player:breakWalls(map)
 	elseif collideObject.name == "pinkRune" then
-		player:slowTime(gui.middle)		
+		player:slowTime(gui.front)		
 	elseif collideObject.name == "greenRune" then
 		gameData.gRune = true
 		player:moveWalls(gui)
@@ -78,7 +78,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 
  	-- check if player has reached level goal
- 	levelFinished.checkWin(player, gui.middle, mapData)
+ 	levelFinished.checkWin(player, gui.front, mapData)
 end
 
 --------------------------------------------------------------------------------
