@@ -52,7 +52,7 @@ end
 -- Water debug display function
 local function inWater()
 	if gameData.inWater then
-		textObject[5].text = player1.inventory.runeSize
+		textObject[5].text = "true"
 	else
 		textObject[5].text = "false"
 	end
