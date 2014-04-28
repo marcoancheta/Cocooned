@@ -196,7 +196,9 @@ local function speedUp(event)
 			if gameData.gRune == true then
 				for check = 1, gui.front.numChildren do
 		  			local currObject = gui.front[check]
-		  			if string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
+		  			local length = string.len(currObject.name)
+		  			local name = string.sub(currObject.name, 1, length - 1)
+		  			if name == "switchWall" or (name == "fixedIceberg" and currObject.movement == "free") then
 		  				if gameData.onIceberg == true then
 			  				local velY = 0
 			  				local velX = 0
@@ -278,7 +280,7 @@ local function loadMap(mapData)
 	sound.loadGameSounds()
 	
 	-- Start physics
-	--physics.setDrawMode("hybrid")
+	physics.setDrawMode("hybrid")
 	physics.start()
 	physics.setScale(45)
 	
