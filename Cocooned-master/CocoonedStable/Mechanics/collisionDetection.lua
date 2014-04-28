@@ -79,7 +79,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				gameData.inWater = false
 				player.imageObject.linearDamping = 1.25
 			elseif string.sub(collideObject.name,1,12) == "fixedIceberg" then
-					gameData.onIceberg = false
+				gameData.onIceberg = false
 			end
 		end
 	end
