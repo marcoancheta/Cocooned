@@ -164,7 +164,7 @@ local function tapScreen(event, miniMap, mapData, physics, gui, player)
 	else
 		if gameData.isShowingMiniMap  == true then
 			-- call miniMap move function
-			miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
+			mapData.pane = miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
 		end
 	end
 

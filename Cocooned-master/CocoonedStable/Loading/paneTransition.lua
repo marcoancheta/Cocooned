@@ -46,6 +46,11 @@ local function movePanes(event)
 	for i = params.gui.middle.numChildren, 1, -1 do
 		params.gui.middle[i]:removeSelf()
 	end
+	for i = params.gui.front.numChildren, 1, -1 do
+		if params.gui.front[i].name ~= "player" then
+			params.gui.front[i]:removeSelf()
+		end
+	end
 	
 	---------------------------------------------------
 	-- Play "character" teleportation animation here --
