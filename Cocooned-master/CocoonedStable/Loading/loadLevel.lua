@@ -5,7 +5,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- level finished function (levelFinished.lua)
---local levelFinished = require("Core.levelFinished")
+local levelFinished = require("Core.levelFinished")
 -- miniMap function (miniMap.lua)
 --local miniMapMechanic = require("Mechanics.miniMap")
 -- objects function (object.lua)
