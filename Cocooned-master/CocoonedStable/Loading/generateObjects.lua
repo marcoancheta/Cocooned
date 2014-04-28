@@ -30,7 +30,6 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	wisp[i].func = "energyCollision"
 	   	wisp[i].collectable = true
 	   	wisp[i].name = "wisp" .. i
-		wisp[i]:scale(0.5, 0.5)
 
 	   	-- insert wisp into map display group
 		if mapData.levelNum ~= "LS" then

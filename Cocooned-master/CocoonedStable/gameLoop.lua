@@ -279,7 +279,6 @@ local function loadMap(mapData)
 	sound.loadGameSounds()
 	
 	-- Start physics
-	physics.setDrawMode("hybrid")
 	physics.start()
 	physics.setScale(45)
 	
@@ -371,6 +370,7 @@ local function gameLoopEvents(event)
 	if gameData.debugMode then
 		memory.monitorMem()
 		memory.inWater()
+		physics.setDrawMode("hybrid")
 	end
 
 	-- Activate snow particle effect if in main menu
