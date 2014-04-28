@@ -421,7 +421,6 @@ local function gameLoopEvents(event)
 		-- set booleans
 		gameData.menuOn = true
 		gameData.gameEnd = false
-		gameData.selectLevel = true
 	end
 	
 	-----------------------
