@@ -40,7 +40,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	for i=0, 5 do		
 		if i ~= 0 then
 			if collideObject.name == "exitPortal" ..i.. "" then
-				selectLevel.levelNum = ""..i..""				
+				selectLevel.levelNum = ""..i..""
+				selectLevel.pane = "M"				
 				goals.onPlay()			
 				goals.findGoals(selectLevel, gui)
 				gameData.mapData = selectLevel
@@ -55,6 +56,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			end
 		end
 	end
+
+
 end
 
 --------------------------------------------------------------------------------
