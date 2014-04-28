@@ -32,6 +32,7 @@ local playerInstance = {
 	name = "hello",
 	movement = "accel",
 	--escape = "center",
+	name = "kipcha",
 	
 	-- Int's
 	x = 0,

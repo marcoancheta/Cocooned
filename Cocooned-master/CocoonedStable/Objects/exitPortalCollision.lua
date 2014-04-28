@@ -27,6 +27,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if collideObject.sequence == "move" then
 		print("exiting")
 		local transPortal = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
+		gameData.gRune = false 
 	end
 	
 	--[[

@@ -50,8 +50,8 @@ local function loadGameSounds()
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	-- Aura
 	sound.soundEffects[2] = audio.loadSound("sounds/auraPickup.wav")
-	-- Orb Pickup
-	sound.soundEffects[3] = audio.loadSound("sounds/orbPickup.wav")
+	-- Wind (pane transition)
+	sound.soundEffects[3] = audio.loadSound("sounds/wind.wav")
 	-- Water splash
 	sound.soundEffects[4] = audio.loadSound("sounds/splash.wav")
 	-- Rune pickup
@@ -61,7 +61,7 @@ local function loadGameSounds()
 	-- Snow "ballin" [Note: this is a steam]
 	sound.soundEffects[7] = audio.loadStream("sounds/rollSnow.wav")
 	-- Pick up "key" (used for wisps)
-	sound.soundEffects[8] = audio.loadSound("sounds/pickup_key.wav")
+	sound.soundEffects[8] = audio.loadSound("sounds/wispPickup.wav")
 	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
 	--sound.soundEffects[9] = audio.loadSound("sounds/ice_cracking.wav")
 	
