@@ -104,8 +104,6 @@ local camera;
 ------- speedUp
 --------------------------------------------------------------------------------
 
-
-
 --------------------------------------------------------------------------------
 -- Swipe Mechanics - function that is called when player swipes
 --------------------------------------------------------------------------------
@@ -248,7 +246,7 @@ end
 --------------------------------------------------------------------------------
 -- Add gameLoop game listeners
 --------------------------------------------------------------------------------
-local function addGameLoopListeners()
+local function addGameLoopListeners(gui)
 	-- Add object listeners
 	gui.back:addEventListener("touch", swipeMechanics)
 	gui.back:addEventListener("tap", tapMechanic)
@@ -259,7 +257,7 @@ end
 --------------------------------------------------------------------------------
 -- Remove gameLoop game listeners
 --------------------------------------------------------------------------------
-local function removeGameLoopListeners()
+local function removeGameLoopListeners(gui)
 	-- Remove object listeners
 	gui.back:removeEventListener("touch", swipeMechanics)
 	gui.back:removeEventListener("tap", tapMechanic)
@@ -309,7 +307,7 @@ local function loadMap(mapData)
 	-- Create in game options button
 	menu.ingameOptionsbutton(event, gui)
 	-- Add game event listeners
-	addGameLoopListeners()
+	addGameLoopListeners(gui)
 		
 	return player1
 end
@@ -326,7 +324,7 @@ local function clean(event)
 	-- clean out currently loaded sound files
 	sound.soundClean()	
 	-- remove all eventListeners
-	removeGameLoopListeners()
+	removeGameLoopListeners(gui)
 	-- clear collision detections
 	collisionDetection.destroyCollision(player1.imageObject)
 
@@ -475,7 +473,7 @@ local function gameLoopEvents(event)
 		-- Go to in-game option menu
 		menu.ingameMenu(event, player1, player2, gui)
 		-- Remove object listeners
-		removeGameLoopListeners()
+		removeGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
 		gameData.allowMiniMap = false
 		gameData.inGameOptions = false
@@ -487,7 +485,7 @@ local function gameLoopEvents(event)
 		-- Restart physics
 		physics.start()		
 		-- Add object listeners
-		addGameLoopListeners()		
+		addGameLoopListeners(gui)		
 		-- Re-evaluate gameData booleans
 		gameData.allowMiniMap = true
 		gameData.resumeGame = false
