@@ -120,6 +120,10 @@ local function stopChannel3()
 	audio.stopWithDelay(100, {channel = 3})
 end
 
+local function stop()
+	audio.stop()
+end
+
 local function soundClean()
 	if audio.isChannelPlaying(3) or audio.isChannelPlaying(2) or audio.isChannelPlaying(1)then
 		audio.stop()
@@ -151,6 +155,7 @@ sound.stopChannel3 = stopChannel3
 sound.loadMenuSounds = loadMenuSounds
 sound.loadGameSounds = loadGameSounds
 sound.soundClean = soundClean
+sound.stop = stop
 			
 return sound
 -- end of sound.lua
