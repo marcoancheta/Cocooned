@@ -261,8 +261,8 @@ end
 --------------------------------------------------------------------------------
 local function removeGameLoopListeners()
 	-- Remove object listeners
-	gui.front:removeEventListener("touch", swipeMechanics)
-	gui.front:removeEventListener("tap", tapMechanic)
+	gui.back:removeEventListener("touch", swipeMechanics)
+	gui.back:removeEventListener("tap", tapMechanic)
 	Runtime:removeEventListener("accelerometer", controlMovement)
 	Runtime:removeEventListener("enterFrame", speedUp)
 end
