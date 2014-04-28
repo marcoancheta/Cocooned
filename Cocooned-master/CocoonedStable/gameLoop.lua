@@ -274,6 +274,7 @@ local function loadMap(mapData)
 	-- Turn off main menu boolean to turn off snow particles
 	gameData.inMainMenu = false
 	sound.stopChannel3()
+	sound.stop()
 	sound.loadGameSounds()
 	
 	-- Start physics
@@ -308,7 +309,8 @@ local function loadMap(mapData)
 	menu.ingameOptionsbutton(event, gui)
 	-- Add game event listeners
 	addGameLoopListeners(gui)
-		
+	sound.playBGM(sound.backgroundMusic)
+	
 	return player1
 end
 
@@ -391,7 +393,6 @@ local function gameLoopEvents(event)
 		mapData.pane = "LS"
 		
 		loadMap(mapData)		
-		sound.playBGM(sound.backgroundMusic)
 		-- Re-evaluate gameData booleans
 		gameData.selectLevel = false
 	end
