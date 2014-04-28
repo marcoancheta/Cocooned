@@ -23,7 +23,7 @@ local sfx, bgm, narrator
 audio.reserveChannels(3)
 
 -- Channel 1 = SFX, Channel 2 = Narration, Channel 3 = BGM
-audio.setVolume(1, {channel = 1} )
+audio.setVolume(0.5, {channel = 1} )
 audio.setVolume(0.5, {channel = 2} )
 audio.setVolume(0.5, {channel = 3} )
 --------------------------------------------------------------------------------
