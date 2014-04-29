@@ -22,28 +22,6 @@ function M.physicsData(scale)
 		
 		["M"] = {
                     
-                    
-                    
-                    
-                    {
-                    pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
-                    shape = {   -720, -29  ,  -720, 69  ,  -720, 24  }
-                    }
-                    
-                    
-                    
-                     ,
-                    
-                    
-                    {
-                    pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
-                    shape = {   720, 74  ,  720, 344  ,  720, 202  }
-                    }
-                    
-                    
-                    
 		}
 		
 	} }

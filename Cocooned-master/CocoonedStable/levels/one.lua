@@ -26,7 +26,7 @@ local one = {
 	panes = {true,false,false,false,false},
 	playerCount = 1,
 	-- number of wisps in the level
-	wispCount = 0,
+	wispCount = 18,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -124,8 +124,29 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(15, 13)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(13, 12)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(10, 12)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(7, 11)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(5, 12)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(2, 14)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(3, 17)
+		wisp[8].x, wisp[8].y = generate.tilesToPixels(7, 19)
+		wisp[9].x, wisp[9].y = generate.tilesToPixels(10, 18)
+		wisp[10].x, wisp[10].y = generate.tilesToPixels(13, 18)
+		wisp[11].x, wisp[11].y = generate.tilesToPixels(16, 18)
+		wisp[12].x, wisp[12].y = generate.tilesToPixels(19, 19)
+		wisp[13].x, wisp[13].y = generate.tilesToPixels(26, 16)
+		wisp[14].x, wisp[14].y = generate.tilesToPixels(31, 17)
+		wisp[15].x, wisp[15].y = generate.tilesToPixels(36, 13)
+		wisp[16].x, wisp[16].y = generate.tilesToPixels(35, 14)
+		wisp[17].x, wisp[17].y = generate.tilesToPixels(36, 15)
+		wisp[18].x, wisp[18].y = generate.tilesToPixels(37, 14)
+
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(13, 22)
+
+		generate.gWisps(wisp, map, mapData, 1, 18)
 	elseif mapData.pane == "L" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "U" then

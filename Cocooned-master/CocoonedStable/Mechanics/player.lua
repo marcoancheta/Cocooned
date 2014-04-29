@@ -46,7 +46,7 @@ local playerInstance = {
 	curse = 1,
 	maxSpeed = 6,
 	speedConst = 5,
-	defaultSpeed = 10,
+	defaultSpeed = 7,
 	radius = 38, --default radius
 	
 	-- Booleans
