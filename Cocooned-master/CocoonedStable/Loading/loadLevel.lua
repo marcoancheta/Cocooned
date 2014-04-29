@@ -60,7 +60,7 @@ local deleteClosure = function() return loading.deleteLoading() end
 --------------------------------------------------------------------------------
 local function drawPane(mapData)
 	local displayX = 1460
-	local displayY = 864
+	local displayY = 860
 	
 	local levelBG = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/bg/" .. mapData.pane .. ".png", displayX, displayY)
 		  levelBG.x = display.contentCenterX
