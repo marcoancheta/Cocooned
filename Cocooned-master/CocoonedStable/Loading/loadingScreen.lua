@@ -18,7 +18,7 @@ local displayY = 864
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function loadingInit(loadGroup)
+local function loadingInit()
 	if gameData.levelComplete == true then 
 		loadingBG = display.newImageRect('mapdata/art/background/screens/levelComplete.png', displayX, displayY)
 	elseif gameData.gameEnd == true then
