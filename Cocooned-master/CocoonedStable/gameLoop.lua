@@ -312,6 +312,8 @@ local function loadMap(mapData)
 	sound.stop()
 	sound.playBGM(sound.backgroundMusic)
 	
+	snow.levelSnow(mapData)
+	
 	return player1
 end
 

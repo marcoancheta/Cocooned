@@ -145,7 +145,9 @@ local function createLevel(mapData, player1)
 	-- destroy loading screen
 	timer.performWithDelay(2000, deleteClosure)
 
-
+	-- check if player has finished level
+	levelFinished.checkWin(player1, gui.front, mapData)
+	
 	-- reutrn gui and miniMap
 	return gui, miniMapDisplay
 end

@@ -82,8 +82,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			
 	-- Check which pane
 	if mapData.pane == "LS" then
-		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(8, 16)
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(8, 8)		
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(8, 16)
+		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(8, 8)		
 		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(21, 8)
 		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(32, 7)
 		objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(33, 15)
@@ -121,7 +121,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	
 	-- destroy the unused objects
 	generate.destroyObjects(LS, rune, wisp, water, wall, objects)
-	-- set which panes are avaiable for player
+	-- set which panes are available for player
 	map.panes = LS.panes
 end
 

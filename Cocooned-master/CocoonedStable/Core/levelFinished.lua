@@ -27,7 +27,7 @@ local function checkWin(player, map, mapData)
 	--print("checking win", player.inventory.runeSize-1, map.itemGoal, mapData.pane)
 	--TODO: Inventory
 	-- check if rune count is same with rune goal count
-	if tonumber(player.inventory.runeSize)-1 == tonumber(map.itemGoal) then
+	if player.inventory.runeSize-1 == map.itemGoal or map.itemGoal == 0 then
 
 		-- check if player is in Main pane, if so, change exit portal to moving
 		--if mapData.pane == "M" then
