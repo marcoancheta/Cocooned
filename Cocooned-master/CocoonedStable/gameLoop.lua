@@ -311,9 +311,7 @@ local function loadMap(mapData)
 	addGameLoopListeners(gui)
 	sound.stop()
 	sound.playBGM(sound.backgroundMusic)
-	
-	snow.levelSnow(mapData)
-	
+		
 	return player1
 end
 
@@ -377,9 +375,17 @@ local function gameLoopEvents(event)
 
 	-- Activate snow particle effect if in main menu
 	if gameData.inMainMenu then
-		snow.makeSnow(event)
+		snow.makeSnow(event, mapData)
 	end
-		
+	
+	--[[
+	if gameData.ingame then
+		snow.gameSnow(event, mapData)
+	end
+	]]-- 
+	
+	--print(gameData.ingame)
+	
 	--[[	
 	if mapData.levelNum == "LS" then
 		if gui.back[1] then
@@ -411,6 +417,7 @@ local function gameLoopEvents(event)
 		--cutSceneSystem.cutScene("1", gui)
 		
 		-- Re-evaluate gameData booleans
+		gameData.ingame = true
 		gameData.allowPaneSwitch = true
 		gameData.allowMiniMap = true
 		gameData.gameStart = false
