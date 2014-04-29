@@ -70,35 +70,6 @@ end
 
 
 --------------------------------------------------------------------------------
--- Play Sounds (SFX, Narration, BGM)
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
--- Sound Effects Music [Channel: 1]
-local function playSound(name)
-	sfx = audio.play(name, {channel = 1, loops = 0})
-	print("play sound:", name)
-	
-	return sfx
-end
-
--- Narration/Ball rolling [Channel: 2]
-local function playNarration(name)
-	narrator = audio.play(name, {channel = 2, loops=0})
-	print("play narration:", name)
-	
-	return narrator
-end
-
--- Background Music [Channel: 3]
-local function playBGM(name)
-	bgm = audio.play(name, {channel = 3, loops=-1})
-	print("play BGM:", name)
-	
-	return bgm
-end
-
---------------------------------------------------------------------------------
 -- Pause & Stop Sounds
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
@@ -109,7 +80,7 @@ local function pauseSound(chan)
 end
 
 local function stopChannel1()
-	audio.stopWithDelay(100, {channel = 1})
+	audio.stop(1)
 end
 
 local function stopChannel2()
@@ -124,6 +95,40 @@ local function stop()
 	audio.stop()
 end
 
+--------------------------------------------------------------------------------
+-- Play Sounds (SFX, Narration, BGM)
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+-- Sound Effects Music [Channel: 1]
+local function playSound(name)
+	sfx = audio.play(name, {channel = 1, loops = 0})
+	print("play sound:", name)
+	
+	return sfx
+end
+
+-- Narration/Ball rolling [Channel: 2]
+local function playNarration(name)
+	narrator = audio.play(name, {channel = 2, loops=0, onComplete=stopChannel1})
+	print("play narration:", name)
+	
+	return narrator
+end
+
+-- Background Music [Channel: 3]
+local function playBGM(name)
+	bgm = audio.play(name, {channel = 3, loops=-1})
+	print("play BGM:", name)
+	
+	return bgm
+end
+
+--------------------------------------------------------------------------------
+-- Clean out sounds
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function soundClean()
 	if audio.isChannelPlaying(3) or audio.isChannelPlaying(2) or audio.isChannelPlaying(1)then
 		audio.stop()
