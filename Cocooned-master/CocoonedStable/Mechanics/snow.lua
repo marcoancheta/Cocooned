@@ -9,7 +9,7 @@
 -- Variables
 --------------------------------------------------------------------------------
 local levelNames = require("utils.levelNames")
-local gameData = require("core.gameData")
+local gameData = require("Core.gameData")
 
 local function removeFlake(target)
     target:removeSelf()
