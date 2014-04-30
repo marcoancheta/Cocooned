@@ -86,7 +86,7 @@ local function onAccelerate(event, player)
 		yGrav = -event.xGravity
 	else
 		yGrav = 0
-		sound.stopChannel(2)
+		sound.stopChannel2()
 	end
 		
 	if yGrav < highestygrav then

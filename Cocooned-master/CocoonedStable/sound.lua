@@ -84,7 +84,8 @@ local function stopChannel1()
 end
 
 local function stopChannel2()
-	audio.stopWithDelay(100, {channel = 2})
+	--audio.stopWithDelay(100, {channel = 2})
+	audio.stop(2)
 end
 
 local function stopChannel3()
