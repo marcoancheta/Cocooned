@@ -34,10 +34,13 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			if collideObject.name == "water" then
 				-- disabled collision
 				event.contact.isEnabled = false
+				gameData.inWater = true
+				print("colliding water")
 			else
 				event.contact.isEnabled = true
 			end	
 		end
+				
 		
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
 			local col = require("Objects." .. collideObject.func)
@@ -74,36 +77,13 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				--if collideObject.collType == "wall" then
 					--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
 				--end
-				
+								
 			elseif event.phase == "ended" then				  
 				--if the player shook, and the collision with water ended
 				if collideObject.name ~= "water" and collideObject.name ~= "wall" and string.sub(collideObject.name,1,12) ~= "fixedIceberg" then
-					-- set players movement to inWater
-					gameData.inWater = false
 					--player.imageObject.linearDamping = 1.25
 				elseif string.sub(collideObject.name,1,12) == "fixedIceberg" then
 					gameData.onIceberg = false
-				end
-			end
-			
-			if collideObject.name == "water" then
-				local col = require("Objects." .. collideObject.func)
-				--event.contact.isEnabled = true
-				col.collide(collideObject, player, event, mapData, map, gui)
-				gameData.inWater = true
-			
-				local distX = (collideObject.x - imageObject.x)
-				local distY = (collideObject.y - imageObject.y)
-				local distance = math.sqrt((distX*distX) + (distY*distY))			
-				print("dist", distance)
-				
-				local objectSize = (imageObject.contentWidth/2) + (collideObject.contentWidth/2)
-				
-				if distance < objectSize then
-					player.imageObject:setLinearVelocity(0, 0)
-					gameData.inWater = true
-				else
-					gameData.inWater = false
 				end
 			end
 		end

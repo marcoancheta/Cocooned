@@ -18,6 +18,7 @@ local gameData = require("Core.gameData")
 local function collide(collideObject, player, event, mapData, map, gui)
 	if event.contact then
 		event.contact.isEnabled = false
+		--print(event.contact.name)
 	end
 	--collideObject.isSensor = true
 	
