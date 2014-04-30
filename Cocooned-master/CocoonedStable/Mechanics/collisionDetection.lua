@@ -63,7 +63,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				-- if the object is a solid, call it's function
 				if collideObject.collType == "solid" or collideObject.name == "water" then
 					local col = require("Objects." .. collideObject.func)
-					event.contact.isEnabled = true
+					--event.contact.isEnabled = true
 					col.collide(collideObject, player, event, mapData, map, gui)
 				elseif collideObject.collType == "passThru" and collideObject.name ~= "water" then
 					local col = require("Objects." .. collideObject.func)
@@ -80,9 +80,15 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				if collideObject.name ~= "water" and collideObject.name ~= "wall" and string.sub(collideObject.name,1,12) ~= "fixedIceberg" then
 					-- set players movement to inWater
 					gameData.inWater = false
-					player.imageObject.linearDamping = 1.25
+					--player.imageObject.linearDamping = 1.25
 				elseif string.sub(collideObject.name,1,12) == "fixedIceberg" then
 					gameData.onIceberg = false
+				end
+				
+				if collideObject.name == "water" then
+					local col = require("Objects." .. collideObject.func)
+					--event.contact.isEnabled = true
+					col.collide(collideObject, player, event, mapData, map, gui)
 				end
 			end
 			
