@@ -448,13 +448,12 @@ local function gameLoopEvents(event)
 	------------------------
 	--[[ LEVEL COMPLETE ]]--
 	if gameData.levelComplete then
-		loadingScreen.loadingInit()
 		-- clean
 		clean(event)
+		loadingScreen.deleteLoading()
 		-- apply booleans
 		gameData.selectLevel = true
 		gameData.levelComplete = false
-		loadingScreen.deleteLoading()
 	end
 	
 	-------------------
