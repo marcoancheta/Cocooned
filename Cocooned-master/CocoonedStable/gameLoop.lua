@@ -57,6 +57,9 @@ local paneTransition = require("Loading.paneTransition")
 -- Cut Scene System (cutSceneSystem.lua)
 local cutSceneSystem = require("Loading.cutSceneSystem")
 
+--Array that holds all switch wall and free icebergs
+local accelObjects = require("Objects.accelerometerObjects")
+
 -- Particle effect
 local snow = require("Mechanics.snow")
 
@@ -192,37 +195,6 @@ local function speedUp(event)
 			player1.xGrav = player1.xGrav*player1.curse
 			player1.yGrav = player1.yGrav*player1.curse
 			movement.moveAndAnimate(event, player1)
-
-			if gameData.gRune == true then
-				for check = 1, gui.front.numChildren do
-		  			local currObject = gui.front[check]
-		  			local length = string.len(currObject.name)
-		  			local name = string.sub(currObject.name, 1, length - 1)
-		  			if name == "switchWall" or (name == "fixedIceberg" and currObject.movement == "free") then
-		  				if gameData.onIceberg == true then
-			  				local velY = 0
-			  				local velX = 0
-			  				if player1.yGrav<0 then
-			  					velY = -40
-			  				elseif player1.yGrav > 0 then
-			  					velY = 40
-			  				end
-			  				if player1.xGrav<0 then
-			  					velX = -40
-			  				elseif player1.xGrav > 0 then
-			  					velX = 40
-			  				end
-	  						
-	  						currObject:setLinearVelocity(velX, velY)
-	  						--currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
-	  					else
-	  						currObject:setLinearVelocity(0, 0)
-	  					end
-
-		  			end
-	  			end
-	  		end
-
 			--[[
 			local ballPt = {}
 			ballPt.x = player1.imageObject.x
@@ -377,6 +349,31 @@ local function gameLoopEvents(event)
 	if gameData.inMainMenu then
 		snow.makeSnow(event, mapData)
 	end
+
+	if gameData.gRune == true and gameData.isShowingMiniMap == false then
+		for check = 1, #accelObjects.switchWallAndIceberg do
+  			local currObject = accelObjects.switchWallAndIceberg[check]
+			if gameData.onIceberg == true or currObject.name == "switchWall" then
+  				local velY = 0
+  				local velX = 0
+  				if player1.yGrav<0 then
+  					velY = -40
+  				elseif player1.yGrav > 0 then
+  					velY = 40
+  				end
+  				if player1.xGrav<0 then
+  					velX = -40
+  				elseif player1.xGrav > 0 then
+  					velX = 40
+  				end
+					currObject:setLinearVelocity(velX, velY)
+					--currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
+			else
+				currObject:setLinearVelocity(0, 0)
+			end
+		end
+	end
+
 	
 	--[[
 	if gameData.ingame then

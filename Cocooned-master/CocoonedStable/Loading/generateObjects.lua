@@ -15,6 +15,8 @@ local moveableObject = require("Loading.moveableObject")
 local windEmitterMechanic = require("Mechanics.windEmitter")
 
 local physicsData = require("Loading.physicsData")
+--Array that holds all switch wall and free icebergs
+local accelObjects = require("Objects.accelerometerObjects")
 --------------------------------------------------------------------------------
 -- generate wisps functions
 --------------------------------------------------------------------------------
@@ -63,10 +65,16 @@ local function gObjects(level, objects, map, mapData, runes)
 				objects[name ..j].collType = "passThru"
 			else
 				objects[name .. j].func = name .. "Collision"
-				if name ~= "fixedIceberg" then
+				if name == "fixedIceberg" then
+					if objects[name .. j].movement == "free" then -- do not merge into above if statement because not all objects have a movement property
+						physics.addBody(objects[name ..j], "static", {bounce = 0, filter = {groupIndex = -1 }})
+						table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+					end
+				elseif name == "switchWall" then
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
+					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
 				else
-					physics.addBody(objects[name ..j], "static", {bounce = 0, filter = {groupIndex = -1 }})
+					physics.addBody(objects[name ..j], "static", {bounce = 0})
 				end				
 				objects[name ..j].collType = "passThru"
 			end
