@@ -101,7 +101,7 @@ local function onAccelerate(event, player)
 		local ball = player.imageObject		
 		accelPlayer[1] = player
 		player.shook = true
-		ball:applyLinearImpulse(-xGrav * 0.15, -yGrav * 0.15, ball.x, ball.y)
+		ball:applyLinearImpulse(-xGrav * 0.05, -yGrav * 0.05, ball.x, ball.y)
 		--timer.performWithDelay(100, cancelDeathTimer)
 	elseif gameData.inWater == false then
 		--sound.playNarration(sound.soundEffects[7])
