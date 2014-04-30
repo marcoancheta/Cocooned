@@ -14,40 +14,19 @@ local generate = require("Loading.generateObjects")
 local widget = require("widget")
 local memory = require("memory")
 
-
 local menuGroup
 --local player1, player2 = nil
 
 --------------------------------------------------------------------------------
 -- Create Sound Options system
 --------------------------------------------------------------------------------
---[[
-local function onSwitchPress(event)
-	switch = event.target
-	print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
-	if switch.isOn then
-		gameData.BGM = true
-		print(gameData.BGM)
-	elseif switch.isOn == false then
-		gameData.BGM = false
-		print(gameData.BGM)
-	end
+local function sfxController(event)
+	sound.setVolume(1, event.value)
 end
 
-local function soundOptions(event)
-	-- Create the widget
-	local onOffSwitch = widget.newSwitch
-	{
-		left = 250,
-		top = 200,
-		style = "onOff",
-		id = "onOffSwitch",
-		isOn=true, 
-		isAnimated=true,
-		onPress = onSwitchPress
-	}
+local function bgmController(event)
+	sound.setVolume(3, event.value)
 end
-]]--
 
 --------------------------------------------------------------------------------
 -- Button events - function that holds button functionality
@@ -224,6 +203,8 @@ end
 --------------------------------------------------------------------------------
 local function options(event)
 	print("In Options")
+	local sfxVal = (gameData.sfxVolume*10)
+	local bgmVal = (gameData.bgmVolume*10)
 	
 	-- Create new menu display group
 	menuGroup = display.newGroup()
@@ -234,13 +215,19 @@ local function options(event)
 		-- Add Main Menu button
 		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
 		-- Create onScreen text objects
-		[3] = display.newText("OPTIONS", 350, 150, native.Systemfont, 103),
+		[3] = display.newText("OPTIONS", 350, 100, native.Systemfont, 103),
 		-- Debug toggle object
 		[4] = widget.newSwitch{x = 500, y = display.contentCenterY + 50, 
 							   style = "onOff", id = "onOffSwitch", 
 							   onPress = buttonPressed},
 		-- Debug text
 		[5] = display.newText("Debug Mode: ", 350, 150, native.Systemfont, 52),
+		-- Sound controller (SFX[6] - BGM[7])
+		[6] = widget.newSlider{orientation="horizontal", width=200, value = sfxVal, listener=sfxController},
+		[7] = widget.newSlider{orientation="horizontal", width=200, value = bgmVal, listener=bgmController},
+		-- Sound text
+		[8] = display.newText("SFX Volume: ", 350, 150, native.Systemfont, 52),
+		[9] = display.newText("BGM Volume: ", 350, 150, native.Systemfont, 52),
 	}
 		
 	for i=1, #menuObjects do
@@ -268,6 +255,20 @@ local function options(event)
 			-- Debug text
 			menuObjects[i].x = 300
 			menuObjects[i].y = display.contentCenterY + 50
+			menuObjects[i]:setFillColor(0, 0, 0)
+		elseif i==6 then
+			menuObjects[i].x = 300
+			menuObjects[i].y = display.contentCenterY
+		elseif i==7 then
+			menuObjects[i].x = 300
+			menuObjects[i].y = display.contentCenterY - 100
+		elseif i==8 then
+			menuObjects[i].x = 300
+			menuObjects[i].y = display.contentCenterY - 50
+			menuObjects[i]:setFillColor(0, 0, 0)
+		elseif i==9 then
+			menuObjects[i].x = 300
+			menuObjects[i].y = display.contentCenterY - 150
 			menuObjects[i]:setFillColor(0, 0, 0)
 		end
 		

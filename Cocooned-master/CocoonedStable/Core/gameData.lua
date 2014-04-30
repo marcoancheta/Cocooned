@@ -44,6 +44,10 @@ local gameData = {
 	
 	locked = false,
 	
+	-- Sound values
+	sfxVolume = 5,
+	bgmVolume = 5,
+	
 	-- mapData global
 	mapData = {
 		levelNum = 1,

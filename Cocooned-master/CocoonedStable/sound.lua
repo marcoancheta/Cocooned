@@ -68,6 +68,21 @@ local function loadGameSounds()
 	return soundEffects
 end
 
+--------------------------------------------------------------------------------
+-- Sound controller
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+local function setVolume(chan, int)
+	local sim = (int/10)
+	audio.setVolume(sim, { channel=chan })
+	
+	if chan == 1 then
+		gameData.sfxVolume = sim
+	elseif chan == 3 then
+		gameData.bgmVolume = sim
+	end
+end
 
 --------------------------------------------------------------------------------
 -- Pause & Stop Sounds
@@ -172,6 +187,7 @@ end
 sound.playSound = playSound
 sound.playNarration = playNarration
 sound.playBGM = playBGM
+sound.setVolume = setVolume
 sound.resumeSound = resumeSound
 sound.pauseSound = pauseSound
 sound.stopChannel = stopChannel
