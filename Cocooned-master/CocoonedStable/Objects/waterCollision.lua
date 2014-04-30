@@ -24,9 +24,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if gameData.onIceberg == false then
 		-- reset player's aura and movement
 		player:changeColor("white")
+		player.imageObject:setLinearVelocity(0, 0)
 		--player.movement ="inWater"
 		gameData.inWater = true
-		player.imageObject.linearDamping = 8
+		--player.imageObject.linearDamping = 8
 	end
 end
 

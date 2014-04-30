@@ -95,7 +95,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				local objectSize = (imageObject.contentWidth/2) + (collideObject.contentWidth/2)
 				
 				if distance < objectSize then
-					player.imageObject.linearDamping = 10
+					player.imageObject:setLinearVelocity(0, 0)
 					gameData.inWater = true
 				else
 					gameData.inWater = false
