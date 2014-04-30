@@ -95,6 +95,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				local objectSize = (imageObject.contentWidth/2) + (collideObject.contentWidth/2)
 				
 				if distance < objectSize then
+					player.imageObject.linearDamping = 1.25
 					gameData.inWater = true
 				else
 					gameData.inWater = false
@@ -105,7 +106,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 
 	-- add event listener to collision detection and pre collision detection
 	imageObject.collision = onLocalCollision
-	Runtime:addEventListener("collision", imageObject)
+	imageObject:addEventListener("collision", imageObject)
 	imageObject:addEventListener( "preCollision")
 end
 
@@ -117,7 +118,7 @@ end
 -- changes the collision detection for all objects in new pane
 local function changeCollision(player, mapData, map) 
 	-- remove old collision detection event listeners
-	Runtime:removeEventListener("collision", player.imageObject)
+	player.imageObject:removeEventListener("collision", player.imageObject)
 	player.imageObject:removeEventListener("preCollision")
 
 	-- create new collision detection event listeners
@@ -131,7 +132,7 @@ end
 --------------------------------------------------------------------------------
 local function destroyCollision(imageObject)
 	if imageObject then
-		Runtime:removeEventListener("collision", imageObject)
+		imageObject:removeEventListener("collision", imageObject)
 		imageObject:removeEventListener("preCollision")
 	end
 end
