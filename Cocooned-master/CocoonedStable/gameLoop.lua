@@ -283,7 +283,7 @@ local function loadMap(mapData)
 	
 	-- Initialize player(s)
 	player1 = player.create()
-	system.setAccelerometerInterval(30)
+	--system.setAccelerometerInterval(30)
 
 	-- Create player/ball object to map
 	ball = display.newSprite(sheetOptions.playerSheet, spriteOptions.player)
