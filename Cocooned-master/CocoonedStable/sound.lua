@@ -128,9 +128,10 @@ end
 
 -- Narration/Ball rolling [Channel: 2]
 local function playNarration(name)
+	audio.setVolume(0.5, { channel=2 })
 	narrator = audio.play(name, {channel = 2, loops=0, onComplete=stopChannel1})
 	print("play narration:", name)
-	
+	audio.fadeOut(narrator)
 	return narrator
 end
 
