@@ -72,7 +72,7 @@ local function onAccelerate(event, player)
 		xGrav = -event.yGravity
 	else
 		xGrav = 0
-		sound.pauseSound(1)
+		sound.pauseSound(2)
 	end
 
 	-- Y gravity change
@@ -86,7 +86,7 @@ local function onAccelerate(event, player)
 		yGrav = -event.xGravity
 	else
 		yGrav = 0
-		sound.stopChannel2()
+		sound.pauseSound(2)
 	end
 		
 	if yGrav < highestygrav then
@@ -104,12 +104,13 @@ local function onAccelerate(event, player)
 		ball:applyLinearImpulse(-xGrav * 0.15, -yGrav * 0.15, ball.x, ball.y)
 		--timer.performWithDelay(100, cancelDeathTimer)
 	elseif gameData.inWater == false then
-		sound.playNarration(sound.soundEffects[7])
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav
+		-- ball rolling sound
+		sound.playNarration(sound.soundEffects[7])
 	else
-		sound.pauseSound(1)
+		--sound.pauseSound(2)
 		physicsParam.xGrav = 0
 		physicsParam.yGrav = 0
 	end

@@ -24,7 +24,7 @@ audio.reserveChannels(3)
 
 -- Channel 1 = SFX, Channel 2 = Narration, Channel 3 = BGM
 audio.setVolume(0.5, {channel = 1} )
-audio.setVolume(0.5, {channel = 2} )
+audio.setVolume(1, {channel = 2} )
 audio.setVolume(0.5, {channel = 3} )
 --------------------------------------------------------------------------------
 -- Load Sounds (Menu, In-Game)
@@ -59,7 +59,7 @@ local function loadGameSounds()
 	-- Wall collision
 	sound.soundEffects[6] = audio.loadSound("sounds/wallHit.wav")
 	-- Snow "ballin" [Note: this is a steam]
-	sound.soundEffects[7] = audio.loadStream("sounds/rollSnow.wav")
+	sound.soundEffects[7] = audio.loadSound("sounds/snowrolling.wav")
 	-- Pick up "key" (used for wisps)
 	sound.soundEffects[8] = audio.loadSound("sounds/wispPickup.wav")
 	-- Ice Cracking (NEEDS TO BE RE-ENCODED)

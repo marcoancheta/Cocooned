@@ -192,7 +192,6 @@ local function speedUp(event)
 			player1.xGrav = player1.xGrav*player1.curse
 			player1.yGrav = player1.yGrav*player1.curse
 			movement.moveAndAnimate(event, player1)
-
 			if gameData.gRune == true then
 				for check = 1, gui.front.numChildren do
 		  			local currObject = gui.front[check]
