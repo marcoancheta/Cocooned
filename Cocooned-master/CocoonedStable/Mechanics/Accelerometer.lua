@@ -54,7 +54,7 @@ end
 --------------------------------------------------------------------------------
 local function onAccelerate(event, player)
 	-- Print escape path
-	print(player.escape)
+	--print(player.escape)
 		
 	-- Accelerometer Tilt Events	
 	local xGrav = 0
