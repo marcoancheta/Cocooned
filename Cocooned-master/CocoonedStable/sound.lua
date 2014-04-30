@@ -24,7 +24,7 @@ audio.reserveChannels(3)
 
 -- Channel 1 = SFX, Channel 2 = Narration, Channel 3 = BGM
 audio.setVolume(0.5, {channel = 1} )
-audio.setVolume(0.5, {channel = 2} )
+audio.setVolume(1, {channel = 2} )
 audio.setVolume(0.5, {channel = 3} )
 --------------------------------------------------------------------------------
 -- Load Sounds (Menu, In-Game)
@@ -59,7 +59,7 @@ local function loadGameSounds()
 	-- Wall collision
 	sound.soundEffects[6] = audio.loadSound("sounds/wallHit.wav")
 	-- Snow "ballin" [Note: this is a steam]
-	sound.soundEffects[7] = audio.loadStream("sounds/rollSnow.wav")
+	sound.soundEffects[7] = audio.loadSound("sounds/rolling.wav")
 	-- Pick up "key" (used for wisps)
 	sound.soundEffects[8] = audio.loadSound("sounds/wispPickup.wav")
 	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
@@ -74,23 +74,41 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function pauseSound(chan)
-	audio.pause(chan)
-	print("pause sound on channel:", chan)
+local function resumeSound(int)
+	if int == 1 then
+		audio.resume(sfx)
+	elseif int == 2 then
+		audio.resume(narrator)
+	elseif int == 3 then
+		audio.resume(bgm)
+	end
 end
 
-local function stopChannel1()
-	audio.stop(1)
+local function pauseSound(int)
+	if int == 1 then
+		audio.pause(sfx)
+	elseif int == 2 then
+		audio.pause(narrator)
+	elseif int == 3 then
+		audio.pause(bgm)
+	end
 end
 
-local function stopChannel2()
-	audio.stopWithDelay(100, {channel = 2})
+-- Stop specific channel
+local function stopChannel(int)
+	-- SFX
+	if int == 1 then
+		audio.stop(sfx)
+	-- Narration/Ball Rolling
+	elseif int == 2 then
+		audio.stop(narrator)
+	-- BGM
+	elseif int == 3 then
+		audio.stopWithDelay(100, {channel = 3})
+	end
 end
 
-local function stopChannel3()
-	audio.stopWithDelay(100, {channel = 3})
-end
-
+-- Stop all channels
 local function stop()
 	audio.stop()
 end
@@ -110,9 +128,10 @@ end
 
 -- Narration/Ball rolling [Channel: 2]
 local function playNarration(name)
+	audio.setVolume(0.5, { channel=2 })
 	narrator = audio.play(name, {channel = 2, loops=0, onComplete=stopChannel1})
 	print("play narration:", name)
-	
+	audio.fadeOut(narrator)
 	return narrator
 end
 
@@ -152,11 +171,10 @@ end
 --------------------------------------------------------------------------------
 sound.playSound = playSound
 sound.playNarration = playNarration
-sound.pauseSound = pauseSound
 sound.playBGM = playBGM
-sound.stopChannel1 = stopChannel1
-sound.stopChannel2 = stopChannel2
-sound.stopChannel3 = stopChannel3
+sound.resumeSound = resumeSound
+sound.pauseSound = pauseSound
+sound.stopChannel = stopChannel
 sound.loadMenuSounds = loadMenuSounds
 sound.loadGameSounds = loadGameSounds
 sound.soundClean = soundClean
