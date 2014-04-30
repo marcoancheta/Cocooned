@@ -73,7 +73,7 @@ local function onAccelerate(event, player)
 		xGrav = -event.yGravity
 	else
 		xGrav = 0
-		sound.stopSound(2)
+		--sound.stopSound(2)
 	end
 
 	-- Y gravity change
@@ -87,7 +87,7 @@ local function onAccelerate(event, player)
 		yGrav = -event.xGravity
 	else
 		yGrav = 0
-		sound.stopSound(2)
+		--sound.stopSound(2)
 	end
 		
 	if yGrav < highestygrav then
