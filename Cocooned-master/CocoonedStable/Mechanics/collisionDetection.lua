@@ -29,16 +29,18 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		-- if the object is a passThru, calls it's collide function
 	    local collideObject = event.other
 				
-		--let the ball go through water
-		if collideObject.name == "water" then
-			-- disabled collision
-			event.contact.isEnabled = false
-			gameData.inWater = true
-		else
-			if event.contact then
-				event.contact.isEnabled = true
+		if event.contact then
+			--let the ball go through water
+			if collideObject.name == "water" then
+				-- disabled collision
+				event.contact.isEnabled = false
+				gameData.inWater = true
+			else
+				if event.contact then
+					event.contact.isEnabled = true
+				end
 			end
-		end		
+		end
 		
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
 			local col = require("Objects." .. collideObject.func)
