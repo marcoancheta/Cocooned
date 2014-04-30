@@ -4,6 +4,7 @@
 -- movement.lua
 --------------------------------------------------------------------------------
 local sound = require("sound")
+local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -58,10 +59,10 @@ local function moveAndAnimate(event, currPlayer)
 		
 		currPlayer.xForce = xForce
 		currPlayer.yForce = yForce
-		currPlayer.imageObject:applyForce(xForce, yForce,currPlayer.imageObject.x,currPlayer.imageObject.y)
-		--if vy == 0 or vx == 0 then
-		--	sound.pauseSound(event, sound.rollSnowSound)
-		--end
+		
+		if gameData.inWater == false then
+			currPlayer.imageObject:applyForce(xForce, yForce,currPlayer.imageObject.x,currPlayer.imageObject.y)
+		end
 		
 		if speed > 1125 then
 			currPlayer.imageObject:play()
