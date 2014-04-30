@@ -159,6 +159,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg2"].movement = "fixed" 
 		objects["fixedIceberg3"].movement = "fixed" 
 				
+		objects["blueAura1"].isVisible = false
+		objects["blueAura1"].isBodyActive = false
+				
 		generate.gWisps(wisp, map, mapData, 1, 16)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)

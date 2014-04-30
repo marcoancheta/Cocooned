@@ -30,14 +30,14 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	    local collideObject = event.other
 				
 		--let the ball go through water
-		if collideObject.name == "water" then
-			-- disabled collision
-			event.contact.isEnabled = false
-		else
-			if event.contact then
+		if event.contact then
+			if collideObject.name == "water" then
+				-- disabled collision
+				event.contact.isEnabled = false
+			else
 				event.contact.isEnabled = true
-			end
-		end		
+			end	
+		end
 		
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
 			local col = require("Objects." .. collideObject.func)
@@ -83,6 +83,12 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			elseif string.sub(collideObject.name,1,12) == "fixedIceberg" then
 				gameData.onIceberg = false
 			end
+			
+			local pythaX = (collideObject.x - imageObject.x)
+			local pythaY = (collideObject.y - imageObject.y)
+			local pythagorean = math.sqrt((pythaX*pythaX) + (pythaY*pythaY))
+			
+			print("pythagorean", pythagorean)
 		end
 	end
 
