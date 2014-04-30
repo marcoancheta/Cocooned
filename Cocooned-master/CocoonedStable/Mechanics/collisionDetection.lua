@@ -35,6 +35,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				-- disabled collision
 				event.contact.isEnabled = false
 				gameData.inWater = true
+				imageObject:setLinearVelocity(0, 0)
 				print("colliding water")
 			else
 				event.contact.isEnabled = true

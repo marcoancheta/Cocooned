@@ -377,10 +377,6 @@ local function gameLoopEvents(event)
 		snow.makeSnow(event, mapData)
 	end
 	
-	if gameData.inWater then
-		player1.imageObject:setLinearVelocity(0, 0)
-	end
-	
 	--[[
 	if gameData.ingame then
 		snow.gameSnow(event, mapData)

@@ -26,8 +26,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		player:changeColor("white")
 		player.imageObject:setLinearVelocity(0, 0)
 		--player.movement ="inWater"
-		gameData.inWater = true
-		player.imageObject.linearDamping = 8
+		--gameData.inWater = true
+		--player.imageObject.linearDamping = 8
 	end
 end
 
