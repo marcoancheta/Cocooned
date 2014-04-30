@@ -69,7 +69,7 @@ local function drawPane(mapData)
 	
 	if mapData.levelNum ~= "LS" then
 		levelBG.func = "shoreCollision"
-		levelBG.collType = "passThru"
+		--levelBG.collType = "passThru"
 		physics.addBody(levelBG, "static", physicsData.getFloor(mapData.levelNum):get(mapData.pane))
 	end
 	

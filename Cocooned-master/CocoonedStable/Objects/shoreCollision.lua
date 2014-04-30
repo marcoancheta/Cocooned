@@ -16,10 +16,10 @@ local gameData = require("Core.gameData")
 -- Updated by: Andrew moved event.contact.isenabled to precollision
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	event.contact.isEnabled = false
-	print(event.contact.name)
+	--event.contact.isEnabled = false
+	print(collideObject.name)
 
-	--collideObject.isSensor = true
+	collideObject.isSensor = true
 	
 	gameData.inWater = false
 end

@@ -34,15 +34,18 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			if collideObject.name == "water" then
 				-- disabled collision
 				event.contact.isEnabled = false
-				gameData.inWater = true
 				imageObject:setLinearVelocity(0, 0)
-				print("colliding water")
-			else
-				event.contact.isEnabled = true
-			end	
+				local col = require("Objects." .. collideObject.func)
+				col.collide(collideObject, player, event, mapData, map, gui)
+				--print("colliding water")
+			--else
+			--	event.contact.isEnabled = true
+			elseif collideObject.name == "background" and gameData.inWater == false then
+				event.contact.isEnabled = false
+			end
 		end
 				
-		
+		--[[
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
 			local col = require("Objects." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)
@@ -53,6 +56,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			local col = require("Objects." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)
 	    end
+		]]--
 	end
 
 	--function for collision detection
@@ -65,11 +69,16 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			-- when collision began, do this
 			if event.phase == "began" then
 				-- if the object is a solid, call it's function
-				if collideObject.collType == "solid" or collideObject.name == "water" then
+				if collideObject.collType == "solid" then
 					local col = require("Objects." .. collideObject.func)
 					--event.contact.isEnabled = true
 					col.collide(collideObject, player, event, mapData, map, gui)
 				elseif collideObject.collType == "passThru" and collideObject.name ~= "water" then
+					local col = require("Objects." .. collideObject.func)
+					col.collide(collideObject, player, event, mapData, map, gui)
+				end
+			  
+				if collideObject.name == "background" and gameData.inWater then
 					local col = require("Objects." .. collideObject.func)
 					col.collide(collideObject, player, event, mapData, map, gui)
 				end
