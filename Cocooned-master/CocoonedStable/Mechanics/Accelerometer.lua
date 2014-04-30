@@ -64,6 +64,7 @@ local function onAccelerate(event, player)
 	-- X gravity change
 	if event.yInstant > 0.1 then
 		xGrav = -event.yInstant
+		sound.playNarration(sound.soundEffects[7])
 	elseif event.yInstant < -0.1 then
 		xGrav = -event.yInstant
 	elseif event.yGravity > 0.1 then
@@ -72,7 +73,7 @@ local function onAccelerate(event, player)
 		xGrav = -event.yGravity
 	else
 		xGrav = 0
-		sound.pauseSound(2)
+		sound.stopSound(2)
 	end
 
 	-- Y gravity change
@@ -86,7 +87,7 @@ local function onAccelerate(event, player)
 		yGrav = -event.xGravity
 	else
 		yGrav = 0
-		sound.pauseSound(2)
+		sound.stopSound(2)
 	end
 		
 	if yGrav < highestygrav then
@@ -107,9 +108,6 @@ local function onAccelerate(event, player)
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav
-		-- ball rolling sound
-		sound.resumeSound(2)
-		sound.playNarration(sound.soundEffects[7])
 	else
 		--sound.pauseSound(2)
 		physicsParam.xGrav = 0
