@@ -217,7 +217,7 @@ local function options(event)
 		-- Create onScreen text objects
 		[3] = display.newText("OPTIONS", 350, 100, native.Systemfont, 103),
 		-- Debug toggle object
-		[4] = widget.newSwitch{x = 500, y = display.contentCenterY + 50, 
+		[4] = widget.newSwitch{x = 500, y = display.contentCenterY + 100, 
 							   style = "onOff", id = "onOffSwitch", 
 							   onPress = buttonPressed},
 		-- Debug text
@@ -228,6 +228,8 @@ local function options(event)
 		-- Sound text
 		[8] = display.newText("SFX Volume: ", 350, 150, native.Systemfont, 52),
 		[9] = display.newText("BGM Volume: ", 350, 150, native.Systemfont, 52),
+		[10] = display.newText("0                    100", 350, 150, native.Systemfont, 40),
+		[11] = display.newText("0                    100", 350, 150, native.Systemfont, 40)
 	}
 		
 	for i=1, #menuObjects do
@@ -254,21 +256,35 @@ local function options(event)
 		elseif i==5 then
 			-- Debug text
 			menuObjects[i].x = 300
-			menuObjects[i].y = display.contentCenterY + 50
+			menuObjects[i].y = display.contentCenterY + 100
 			menuObjects[i]:setFillColor(0, 0, 0)
 		elseif i==6 then
+			-- SFX Volume Slider
 			menuObjects[i].x = 300
 			menuObjects[i].y = display.contentCenterY
 		elseif i==7 then
+			-- BGM Volume Slider
 			menuObjects[i].x = 300
 			menuObjects[i].y = display.contentCenterY - 100
 		elseif i==8 then
+			-- SFX Volume Text
 			menuObjects[i].x = 300
 			menuObjects[i].y = display.contentCenterY - 50
 			menuObjects[i]:setFillColor(0, 0, 0)
 		elseif i==9 then
+			-- BGM Volume Text
 			menuObjects[i].x = 300
 			menuObjects[i].y = display.contentCenterY - 150
+			menuObjects[i]:setFillColor(0, 0, 0)
+		elseif i==10 then
+			-- Sound [0-100] Text
+			menuObjects[i].x = 320
+			menuObjects[i].y = display.contentCenterY - 100
+			menuObjects[i]:setFillColor(0, 0, 0)
+		elseif i==11 then
+			-- Sound [0-100] Text
+			menuObjects[i].x = 320
+			menuObjects[i].y = display.contentCenterY
 			menuObjects[i]:setFillColor(0, 0, 0)
 		end
 		
