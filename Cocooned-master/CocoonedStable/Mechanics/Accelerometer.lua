@@ -105,7 +105,7 @@ local function onAccelerate(event, player)
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav
-	else
+	elseif gameData.inWater == true then
 		--sound.pauseSound(2)
 		physicsParam.xGrav = 0
 		physicsParam.yGrav = 0

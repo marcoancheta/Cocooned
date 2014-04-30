@@ -84,15 +84,14 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				elseif string.sub(collideObject.name,1,12) == "fixedIceberg" then
 					gameData.onIceberg = false
 				end
-				
-				if collideObject.name == "water" then
-					local col = require("Objects." .. collideObject.func)
-					--event.contact.isEnabled = true
-					col.collide(collideObject, player, event, mapData, map, gui)
-				end
 			end
 			
 			if collideObject.name == "water" then
+				local col = require("Objects." .. collideObject.func)
+				--event.contact.isEnabled = true
+				col.collide(collideObject, player, event, mapData, map, gui)
+				gameData.inWater = true
+			
 				local distX = (collideObject.x - imageObject.x)
 				local distY = (collideObject.y - imageObject.y)
 				local distance = math.sqrt((distX*distX) + (distY*distY))			
