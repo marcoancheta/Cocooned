@@ -108,6 +108,7 @@ local function onAccelerate(event, player)
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav
 		-- ball rolling sound
+		sound.resumeSound(2)
 		sound.playNarration(sound.soundEffects[7])
 	else
 		--sound.pauseSound(2)

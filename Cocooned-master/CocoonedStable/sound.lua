@@ -74,24 +74,41 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function pauseSound(chan)
-	audio.pause(chan)
-	print("pause sound on channel:", chan)
+local function resumeSound(int)
+	if int == 1 then
+		audio.resume(sfx)
+	elseif int == 2 then
+		audio.resume(narrator)
+	elseif int == 3 then
+		audio.resume(bgm)
+	end
 end
 
-local function stopChannel1()
-	audio.stop(1)
+local function pauseSound(int)
+	if int == 1 then
+		audio.pause(sfx)
+	elseif int == 2 then
+		audio.pause(narrator)
+	elseif int == 3 then
+		audio.pause(bgm)
+	end
 end
 
-local function stopChannel2()
-	--audio.stopWithDelay(100, {channel = 2})
-	audio.stop(2)
+-- Stop specific channel
+local function stopChannel(int)
+	-- SFX
+	if int == 1 then
+		audio.stop(sfx)
+	-- Narration/Ball Rolling
+	elseif int == 2 then
+		audio.stop(narrator)
+	-- BGM
+	elseif int == 3 then
+		audio.stopWithDelay(100, {channel = 3})
+	end
 end
 
-local function stopChannel3()
-	audio.stopWithDelay(100, {channel = 3})
-end
-
+-- Stop all channels
 local function stop()
 	audio.stop()
 end
@@ -153,11 +170,10 @@ end
 --------------------------------------------------------------------------------
 sound.playSound = playSound
 sound.playNarration = playNarration
-sound.pauseSound = pauseSound
 sound.playBGM = playBGM
-sound.stopChannel1 = stopChannel1
-sound.stopChannel2 = stopChannel2
-sound.stopChannel3 = stopChannel3
+sound.resumeSound = resumeSound
+sound.pauseSound = pauseSound
+sound.stopChannel = stopChannel
 sound.loadMenuSounds = loadMenuSounds
 sound.loadGameSounds = loadGameSounds
 sound.soundClean = soundClean
