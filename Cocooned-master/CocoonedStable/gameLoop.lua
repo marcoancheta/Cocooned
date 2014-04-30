@@ -318,7 +318,7 @@ local function clean(event)
 	
 	ball:removeSelf()
 	ball = nil
-	
+	accelObjects.switchWallAndIceberg = nil
 	--miniMap:removeSelf()
 	--miniMap = nil
 		

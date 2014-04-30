@@ -52,6 +52,7 @@ end
 -- finalizing objects in pane
 local function gObjects(level, objects, map, mapData, runes)
 	-- goes down object list and sets all their properties
+	accelObjects.switchWallAndIceberg = {}
 	for i = 1, #objectNames do
 		-- save name of object
 		local name = objectNames[i]
