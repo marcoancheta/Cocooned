@@ -167,8 +167,8 @@ local function controlMovement(event)
 		player1.xGrav = physicsParam.xGrav
 		player1.yGrav = physicsParam.yGrav
 		
-		print(player1.xGrav)
-		print(player1.yGrav)
+		--print(player1.xGrav)
+		--print(player1.yGrav)
 	end
 	
 	if gameData.debugMode then
