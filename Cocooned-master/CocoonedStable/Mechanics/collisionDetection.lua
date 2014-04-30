@@ -40,8 +40,8 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				--print("colliding water")
 			--else
 			--	event.contact.isEnabled = true
-			elseif collideObject.name == "background" and gameData.inWater == false then
-				event.contact.isEnabled = false
+			elseif collideObject.name == "background" then
+				collideObject.isSensor = false
 			end
 		end
 				
