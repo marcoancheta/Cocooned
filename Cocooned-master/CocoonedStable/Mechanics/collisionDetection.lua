@@ -57,44 +57,55 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		-- save the collide object
 		local collideObject = event.other
 
-		-- when collision began, do this
-		if event.phase == "began" then
-			-- if the object is a solid, call it's function
-			if collideObject.collType == "solid" or collideObject.name == "water" then
-				local col = require("Objects." .. collideObject.func)
-				event.contact.isEnabled = true
-				col.collide(collideObject, player, event, mapData, map, gui)
-			elseif collideObject.collType == "passThru" and collideObject.name ~= "water" then
-				local col = require("Objects." .. collideObject.func)
-				col.collide(collideObject, player, event, mapData, map, gui)
+		if collideObject then
+			-- when collision began, do this
+			if event.phase == "began" then
+				-- if the object is a solid, call it's function
+				if collideObject.collType == "solid" or collideObject.name == "water" then
+					local col = require("Objects." .. collideObject.func)
+					event.contact.isEnabled = true
+					col.collide(collideObject, player, event, mapData, map, gui)
+				elseif collideObject.collType == "passThru" and collideObject.name ~= "water" then
+					local col = require("Objects." .. collideObject.func)
+					col.collide(collideObject, player, event, mapData, map, gui)
+				end
+			  
+				-- create particle effect
+				--if collideObject.collType == "wall" then
+					--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
+				--end
+				
+			elseif event.phase == "ended" then				  
+				--if the player shook, and the collision with water ended
+				if collideObject.name ~= "water" and collideObject.name ~= "wall" and string.sub(collideObject.name,1,12) ~= "fixedIceberg" then
+					-- set players movement to inWater
+					gameData.inWater = false
+					player.imageObject.linearDamping = 1.25
+				elseif string.sub(collideObject.name,1,12) == "fixedIceberg" then
+					gameData.onIceberg = false
+				end
 			end
-		  
-			-- create particle effect
-			--if collideObject.collType == "wall" then
-				--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
-			--end
 			
-		elseif event.phase == "ended" then				  
-			--if the player shook, and the collision with water ended
-			if collideObject.name ~= "water" and collideObject.name ~= "wall" and string.sub(collideObject.name,1,12) ~= "fixedIceberg" then
-				-- set players movement to inWater
-				gameData.inWater = false
-				player.imageObject.linearDamping = 1.25
-			elseif string.sub(collideObject.name,1,12) == "fixedIceberg" then
-				gameData.onIceberg = false
+			if collideObject.name == "water" then
+				local distX = (collideObject.x - imageObject.x)
+				local distY = (collideObject.y - imageObject.y)
+				local distance = math.sqrt((distX*distX) + (distY*distY))			
+				print("dist", distance)
+				
+				local objectSize = (imageObject.contentWidth/2) + (collideObject.contentWidth/2)
+				
+				if distance < objectSize then
+					gameData.inWater = true
+				else
+					gameData.inWater = false
+				end
 			end
-			
-			local pythaX = (collideObject.x - imageObject.x)
-			local pythaY = (collideObject.y - imageObject.y)
-			local pythagorean = math.sqrt((pythaX*pythaX) + (pythaY*pythaY))
-			
-			print("pythagorean", pythagorean)
 		end
 	end
 
 	-- add event listener to collision detection and pre collision detection
 	imageObject.collision = onLocalCollision
-	imageObject:addEventListener("collision", imageObject)
+	Runtime:addEventListener("collision", imageObject)
 	imageObject:addEventListener( "preCollision")
 end
 
@@ -106,7 +117,7 @@ end
 -- changes the collision detection for all objects in new pane
 local function changeCollision(player, mapData, map) 
 	-- remove old collision detection event listeners
-	player.imageObject:removeEventListener("collision", player.imageObject)
+	Runtime:removeEventListener("collision", player.imageObject)
 	player.imageObject:removeEventListener("preCollision")
 
 	-- create new collision detection event listeners
@@ -120,7 +131,7 @@ end
 --------------------------------------------------------------------------------
 local function destroyCollision(imageObject)
 	if imageObject then
-		imageObject:removeEventListener("collision", imageObject)
+		Runtime:removeEventListener("collision", imageObject)
 		imageObject:removeEventListener("preCollision")
 	end
 end
