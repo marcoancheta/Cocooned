@@ -63,9 +63,9 @@ local function moveAndAnimate(event, currPlayer)
 		currPlayer.imageObject:applyForce(xForce, yForce,currPlayer.imageObject.x,currPlayer.imageObject.y)
 		sound.playNarration(sound.soundEffects[7])
 		
-		--if vy == 0 or vx == 0 then
-		--	sound.pauseSound(event, sound.rollSnowSound)
-		--end
+		if vy == 0 or vx == 0 then
+			sound.stopChannel(2)
+		end
 		
 		if speed > 1125 then
 			currPlayer.imageObject:play()
