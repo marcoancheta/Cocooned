@@ -64,7 +64,6 @@ local function onAccelerate(event, player)
 	-- X gravity change
 	if event.yInstant > 0.1 then
 		xGrav = -event.yInstant
-		sound.playNarration(sound.soundEffects[7])
 	elseif event.yInstant < -0.1 then
 		xGrav = -event.yInstant
 	elseif event.yGravity > 0.1 then
@@ -108,6 +107,7 @@ local function onAccelerate(event, player)
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav
+		sound.playNarration(sound.soundEffects[7])
 	else
 		--sound.pauseSound(2)
 		physicsParam.xGrav = 0
