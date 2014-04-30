@@ -27,8 +27,10 @@ local function moveAndAnimate(event, currPlayer)
 		--print("moving")				
 		local yForce = 0
 		local xForce = 0
+		
 		currPlayer.xGrav = currPlayer.xGrav * (currPlayer.speedConst)
 		currPlayer.yGrav = currPlayer.yGrav * (currPlayer.speedConst)
+		
 		if currPlayer.xGrav <= currPlayer.maxSpeed then
 			if currPlayer.xGrav>= currPlayer.maxSpeed*-1 then
 				xForce = currPlayer.xGrav/currPlayer.maxSpeed
@@ -59,6 +61,8 @@ local function moveAndAnimate(event, currPlayer)
 		currPlayer.xForce = xForce
 		currPlayer.yForce = yForce
 		currPlayer.imageObject:applyForce(xForce, yForce,currPlayer.imageObject.x,currPlayer.imageObject.y)
+		sound.playNarration(sound.soundEffects[7])
+		
 		--if vy == 0 or vx == 0 then
 		--	sound.pauseSound(event, sound.rollSnowSound)
 		--end
