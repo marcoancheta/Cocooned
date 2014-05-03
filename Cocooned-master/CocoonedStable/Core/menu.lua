@@ -13,9 +13,19 @@ local sound = require("sound")
 local generate = require("Loading.generateObjects")
 local widget = require("widget")
 local memory = require("memory")
+local snow = require("Mechanics.snow")
 
 local menuGroup
 --local player1, player2 = nil
+-- Create onScreen text object
+--[[
+local playerText = {
+	--player's current speed
+	[2] = display.newText(player.speedConst, 1150, 380, native.Systemfont, 69)
+	--player's linear damping
+	[3] = display.newText(player.imageObject.linearDamping, 1150, 225, native.Systemfont, 69)
+}	
+]]--
 
 --------------------------------------------------------------------------------
 -- Create Sound Options system
@@ -29,37 +39,62 @@ local function bgmController(event)
 end
 
 --------------------------------------------------------------------------------
+-- Clean menu system
+--------------------------------------------------------------------------------
+local function clean()
+	menuGroup:removeSelf()
+	menuGroup = nil
+end
+
+--------------------------------------------------------------------------------
+-- Player Accelerometer Controls
+--------------------------------------------------------------------------------
+--[[
+local function playerAC(int)
+	if player1 ~= nil then
+		player1.imageObject.linearDamping = player1.imageObject.linearDamping + int
+			
+		if player2.isActive then
+			player2.imageObject.linearDamping = player2.imageObject.linearDamping + int
+		end
+		--player's linear damping
+		playerText = display.newText(player1.imageObject.linearDamping, 350, 100, native.Systemfont, 103)
+		playerText:setFillColor(0, 0, 0)
+		playerText:toFront()
+	end
+end
+]]--
+
+
+--------------------------------------------------------------------------------
 -- Button events - function that holds button functionality
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function buttonPressed(event)
 	sound.playSound(sound.soundEffects[1])
-
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then
 		-- Remove menuGroup
-		menuGroup:removeSelf()
-		menuGroup = nil
+		clean()
 		-- User pressed play, set gameActive to true
+		gameData.inMainMenu = false
 		gameData.selectLevel = true		
 	--[[ Options button pressed ]]--
 	elseif event.target.name == "optionButton" then	
 		-- Remove menuGroup
-		menuGroup:removeSelf()
-		menuGroup = nil
+		clean()
+		snow.meltSnow()
 		-- Call to options display
+		gameData.inMainMenu = false
 		gameData.inOptions = true		
-		
 	--[[ Back to Main button pressed ]]--
 	elseif event.target.name == "BacktoMain" then
 		print("Back to Main Menu")
 		-- Remove menuGroup		
-		menuGroup:removeSelf()
-		menuGroup = nil
+		clean()
 		-- Go back to menu
-		gameData.menuOn = true
-		
+		gameData.menuOn = true		
 	--[[ Debug switch button pressed ]]--
 	elseif event.target.name == "debugSwitch" then
 		local switch = event.target		
@@ -68,80 +103,32 @@ local function buttonPressed(event)
 		else
 			gameData.debugMode = false
 		end
-		memory.toggle()
-		
+		memory.toggle()		
 	--[[ Back to Main from In-Game button pressed ]]--
 	elseif event.target.name == "gotoMain" then
 		print("Back to Main Menu")	
-		menuGroup:removeSelf()
-		menuGroup = nil
-		gameData.gameEnd = true
-		
+		clean()
+		gameData.gameEnd = true		
 	--[[ In game options button pressed ]]--	
 	elseif event.target.name == "inGameOptionsBTN" then
 		print("In game options")			
-		gameData.inGameOptions = true	
-		
+		gameData.inGameOptions = true		
 	--[[ Resume In-Game button pressed ]]--
 	elseif event.target.name == "Resume" then
 		print("Resume game")
-		menuGroup:removeSelf()
-		menuGroup = nil
-		gameData.resumeGame = true
-		
+		clean()
+		gameData.resumeGame = true		
 	--[[ Increase or decrease speed ]]--
+	--[[
 	elseif event.target.name == "plusButton" then
-		--[[
-		if player1 ~= nil then
-			player1.speedConst = player1.speedConst +1
-			player1.maxSpeed = player1.maxSpeed +1
-			
-			if player2.isActive then
-				player2.speedConst = player2.speedConst +1
-				player2.maxSpeed = player2.maxSpeed +1
-			end
-			--player's current speed
-			groupText[2].text = player1.speedConst		
-		end
-		]]--
+		playerAC(1)
 	elseif event.target.name == "minusButton" then
-		--[[
-		if player1 ~= nil then
-			player1.speedConst = player1.speedConst -1
-			player1.maxSpeed = player1.maxSpeed -1
-			
-			if player2.isActive then
-				player2.speedConst = player2.speedConst -1
-				player2.maxSpeed = player2.maxSpeed -1
-			end
-			--player's current speed
-			groupText[2].text = player1.speedConst
-		end
-		]]--
+		playerAC(-1)
 	elseif event.target.name == "plusButtonDamping" then
-		--[[
-		if player1 ~= nil then
-			player1.imageObject.linearDamping = player1.imageObject.linearDamping +.25
-			
-			if player2.isActive then
-				player2.imageObject.linearDamping = player2.imageObject.linearDamping +.25
-			end
-			--player's linear damping
-			groupText[3].text = player1.imageObject.linearDamping
-		end
-		]]--
+		playerAC(.25)
 	elseif event.target.name == "minusButtonDamping" then
-		--[[
-		if player1 ~= nil then
-			player1.imageObject.linearDamping = player1.imageObject.linearDamping -.25
-			
-			if player2.isActive then
-				player2.imageObject.linearDamping = player2.imageObject.linearDamping -.25
-			end
-			--player's linear damping
-			groupText[3].text = player1.imageObject.linearDamping
-		end
-		]]--
+		playerAC(-.25)
+	]]--
 	end
 end
 
@@ -354,19 +341,12 @@ local function ingameMenu(event, gui)
 		[5] = display.newImageRect("mapdata/art/buttons/plus.png", 100, 100),
 		-- Minus button	#2
 		[6] = display.newImageRect("mapdata/art/buttons/minus.png", 100, 100),
-		-- Pluss button #2
-		[7] = display.newImageRect("mapdata/art/buttons/plus.png", 100, 100)
+		-- Plus button #2
+		[7] = display.newImageRect("mapdata/art/buttons/plus.png", 100, 100),
+		-- Pause text object
+		[8] = display.newText("PAUSED", 1155, 100, native.Systemfont, 69)
 	}
-	
-	-- Create onScreen text object
-	local groupText = {
-		[1] = display.newText("PAUSED", 1155, 100, native.Systemfont, 69),
-		--player's current speed
-		--[2] = display.newText(player.speedConst, 1150, 380, native.Systemfont, 69)
-		--player's linear damping
-		--[3] = display.newText(player.imageObject.linearDamping, 1150, 225, native.Systemfont, 69)
-	}	
-			
+		
 	-- Assign position		
 	menuObjects[1].x = display.contentCenterX
 	menuObjects[1].y = display.contentCenterY	
@@ -399,17 +379,7 @@ local function ingameMenu(event, gui)
 		-- Add everything to menuGroup
 		menuGroup:insert(menuObjects[i])
 	end
-	
-	for i=1, #groupText do
-		if i >= 2 then
-			groupText[i]:setFillColor(0, 0, 0)
-		else
-			groupText[i]:setFillColor(1, 0, 0)
-		end
-		-- Add everything to menuGroup
-		menuGroup:insert(groupText[i])
-	end
-	
+		
 	return menuGroup
 end
 

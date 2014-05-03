@@ -59,6 +59,8 @@ local cutSceneSystem = require("Loading.cutSceneSystem")
 
 --Array that holds all switch wall and free icebergs
 local accelObjects = require("Objects.accelerometerObjects")
+-- Timer
+local gameTimer = require("utils.timer")
 
 -- Particle effect
 local snow = require("Mechanics.snow")
@@ -245,8 +247,8 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
-	-- Turn off main menu boolean to turn off snow particles
-	gameData.inMainMenu = false
+	snow.meltSnow()
+	
 	sound.stopChannel(3)
 	sound.loadGameSounds()
 	
@@ -283,6 +285,10 @@ local function loadMap(mapData)
 	addGameLoopListeners(gui)
 	sound.stop()
 	sound.playBGM(sound.backgroundMusic)
+	
+	if mapData.levelNum ~= "LS" then
+		gameTimer.preGame(gui)
+	end
 		
 	return player1
 end
@@ -457,6 +463,7 @@ local function gameLoopEvents(event)
 	--[[ MAIN MENU ]]--
 	if gameData.menuOn then
 		-- Go to main menu
+		snow.new()
 		menu.mainMenu(event)
 		mapDataDefault()
 		-- Re-evaluate gameData booleans

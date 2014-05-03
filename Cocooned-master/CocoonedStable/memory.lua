@@ -12,10 +12,10 @@ local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
 -- debug text object
 local textObject = {
-		display.newText("mem",  10, 720, native.systemFont, 48),
-		display.newText("text", 10, 780, native.systemFont, 48),
-		display.newText("fps", 10, 80, native.systemFont, 48),
-		display.newText("Memory Stable", 10, 30, native.systemFont, 48),
+		display.newText("",  10, 720, native.systemFont, 48),
+		display.newText("", 10, 780, native.systemFont, 48),
+		display.newText("", 10, 80, native.systemFont, 48),
+		display.newText("", 10, 30, native.systemFont, 48),
 		display.newText("", 600, 200, native.systemFont, 72)
 }
 

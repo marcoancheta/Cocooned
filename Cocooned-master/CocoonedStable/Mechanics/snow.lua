@@ -10,6 +10,18 @@
 --------------------------------------------------------------------------------
 local levelNames = require("utils.levelNames")
 local gameData = require("Core.gameData")
+local fGroup
+
+local function new()
+	fGroup = display.newGroup()
+end
+
+local function meltSnow()
+	transition.cancel()
+	fGroup:removeSelf()
+	fGroup = nil
+end
+
 
 local function removeFlake(target)
     target:removeSelf()
@@ -18,12 +30,19 @@ end
 
 local function spawnSnowFlake()
     local flake = display.newCircle(0,0,5)
+	flake.name = "flake"
     flake.x = math.random(display.contentWidth)
     flake.y = -2
     local wind = math.random(80) - 40
-    local snowTrans = transition.to(flake,{time=math.random(10000) + 3000, y = display.contentHeight + 2, x = flake.x + wind, onComplete=removeFlake})
+    flake.trans = transition.to(flake,{time=math.random(10000) + 3000, 
+										y = display.contentHeight, 
+										x = flake.x + wind, 
+										onComplete=removeFlake})
+										
+	return flake
 end
 
+--[[
 local function levelSnow(mapData)
 	local level = require("levels." .. levelNames[mapData.levelNum])
 	local xPos = {math.random(display.contentWidth), -math.random(display.contentWidth), math.random(display.contentWidth)}
@@ -48,26 +67,36 @@ local function levelSnow(mapData)
 		end
 	end
 end
+]]--
 
 local function makeSnow(event, mapData)
+	local temp
     if math.random(10) == 1 then -- adjust speed here by making the random number higher or lower
-		spawnSnowFlake()
+		temp = spawnSnowFlake()
+		fGroup:insert(temp)
+		fGroup:toFront()
 	end	
+	
 	return true
 end
 
+--[[
 local function gameSnow(event, mapData)
 	if math.random(10) == 1 then -- adjust speed here by making the random number higher or lower
 		levelSnow(mapData)
 	end	
 	return true
 end
-
+]]--
 
 local snow = {
 	makeSnow = makeSnow,
+	--[[
 	levelSnow = levelSnow,
-	gameSnow = gameSnow
+	gameSnow = gameSnow,
+	]]--
+	new = new,
+	meltSnow = meltSnow
 }
 
 return snow

@@ -20,7 +20,7 @@ local generate = require("Loading.generateObjects")
 local physicsData = require("Loading.physicsData")
 -- Goals (goals.lua)
 local goals = require("Core.goals")
-
+-- Mini-map (miniMap.lua)
 local miniMapMechanic = require("Mechanics.miniMap")
 
 --------------------------------------------------------------------------------
@@ -31,15 +31,6 @@ local miniMapMechanic = require("Mechanics.miniMap")
 -- set variables for loading screen
 local loaded = 0
 local level = 0 
-
--- holds the level name for loading
-local levelNames = {
-	["LS"] = "LS",
-	["1"] = "one",
-	["2"] = "two",
-	["3"] = "three",
-	["4"] = "four"
-}
 
 local ballPos = {
 	["LS"] = {["x"]=21,["y"]=15},
@@ -79,13 +70,7 @@ local function drawPane(mapData)
 		  levelWall.name = "walls"
 	
 	physics.addBody(levelWall, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
-	
-	--[[local function repeatTrans()
-		transition.to(levelBG, {time=1000, x=levelBG.x+0.5, onComplete=repeatTrans})
-	end
-	repeatTrans()
-	]]--
-	
+		
 	return levelBG, levelWall
 end
 
@@ -147,7 +132,7 @@ local function createLevel(mapData, player1)
 
 	-- check if player has finished level
 	levelFinished.checkWin(player1, gui.front, mapData)
-	
+		
 	-- reutrn gui and miniMap
 	return gui, miniMapDisplay
 end
