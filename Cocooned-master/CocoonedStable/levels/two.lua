@@ -24,7 +24,7 @@ local two = {
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
 	panes = {true,false,false,false,false},
-	timer = 30,
+	timer = 90,
 	playerCount = 1,
 	-- number of wisps in the level
 	wispCount = 6,
