@@ -9,6 +9,8 @@
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
+local sound = require("sound")
+
 local function collide(collideObject, player, event, mapData, map, gui)
 	--player = player
 	event.contact.isEnabled = false

@@ -59,7 +59,7 @@ local function loadGameSounds()
 	-- Wall collision
 	sound.soundEffects[6] = audio.loadSound("sounds/wallHit.wav")
 	-- Snow "ballin" [Note: this is a steam]
-	sound.soundEffects[7] = audio.loadSound("sounds/rolling.wav")
+	sound.soundEffects[7] = nil--audio.loadSound("sounds/rolling.wav")
 	-- Pick up "key" (used for wisps)
 	sound.soundEffects[8] = audio.loadSound("sounds/wispPickup.wav")
 	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
@@ -114,12 +114,15 @@ local function stopChannel(int)
 	-- SFX
 	if int == 1 then
 		audio.stop(sfx)
+		print("stop sound:", sfx)
 	-- Narration/Ball Rolling
 	elseif int == 2 then
 		audio.stop(narrator)
+		print("stop sound:", narrator)
 	-- BGM
 	elseif int == 3 then
 		audio.stopWithDelay(100, {channel = 3})
+		print("stop sound:", int)
 	end
 end
 

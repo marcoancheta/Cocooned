@@ -36,7 +36,7 @@ end
 local function preGame(gui)
 	counterText.x = display.contentCenterX
 	counterText.y = display.contentCenterY
-	counterText:setTextColor(255, 255, 255)
+	counterText:setFillColor(255, 255, 255)
 	theTimer = timer.performWithDelay(1000, counterFunc, counter)
 	theTimer.params = {guiParam = gui}
 	

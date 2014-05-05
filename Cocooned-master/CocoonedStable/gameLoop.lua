@@ -42,6 +42,10 @@ local memory = require("memory")
 local loadingScreen = require("Loading.loadingScreen")
 -- Custom Camera (camera.lua)
 local cameraMechanic = require("camera")
+-- Save Game (saveGame.lua)
+local saveGame = require("Loading.saveGame")
+-- Load Game (loadGame.lua)
+local loadGame = require("Loading.loadGame")
 
 --[[ Load in game mechanics begin here ]]--
 -- Touch mechanics (touchMechanic.lua)
@@ -98,6 +102,7 @@ local count = 0
 
 local players = {}
 local linePts = {}
+local gameState = {}
 
 local camera;
 
@@ -287,6 +292,8 @@ local function loadMap(mapData)
 	sound.playBGM(sound.backgroundMusic)
 	
 	if mapData.levelNum ~= "LS" then
+		sound.stopChannel(3)
+		sound.stop()
 		gameTimer.preGame(gui)
 	end
 		
@@ -381,15 +388,19 @@ local function gameLoopEvents(event)
 	end
 
 	
-	--[[
-	if gameData.ingame then
-		snow.gameSnow(event, mapData)
-	end
-	]]-- 
+	--if gameData.ingame then
+		--gameData.player = player1.imageObject
+		
+		--gameState.player = gameData.player
+		
+		--snow.gameSnow(event, mapData)
+		--saveGame.gameSave(gameState, "game.json")
+	--end
 	
+	
+	--[[
 	--print(gameData.ingame)
 	
-	--[[	
 	if mapData.levelNum == "LS" then
 		if gui.back[1] then
 			-- Set Camera to Ball
@@ -405,7 +416,8 @@ local function gameLoopEvents(event)
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		
-		loadMap(mapData)		
+		loadMap(mapData)
+		sound.playBGM(sound.backgroundMusic)		
 		-- Re-evaluate gameData booleans
 		gameData.selectLevel = false
 	end
@@ -463,6 +475,7 @@ local function gameLoopEvents(event)
 	--[[ MAIN MENU ]]--
 	if gameData.menuOn then
 		-- Go to main menu
+		loadGame.gameLoad("game.json")
 		snow.new()
 		menu.mainMenu(event)
 		mapDataDefault()

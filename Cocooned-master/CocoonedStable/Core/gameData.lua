@@ -54,6 +54,10 @@ local gameData = {
 		pane = "M",
 		version = 0
 	},
+	
+	-- player data (gameLoop - player1.imageObject)
+	player = nil,
+	playerName = ""
 }
 
 return gameData
