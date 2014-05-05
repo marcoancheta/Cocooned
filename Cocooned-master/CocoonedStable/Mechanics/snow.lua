@@ -18,8 +18,11 @@ end
 
 local function meltSnow()
 	transition.cancel()
-	fGroup:removeSelf()
-	fGroup = nil
+	
+	if fGroup then
+		fGroup:removeSelf()
+		fGroup = nil
+	end
 end
 
 
