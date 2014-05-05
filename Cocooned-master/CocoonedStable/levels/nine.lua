@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocofourdgame.com/)
--- four.lua
+-- nine.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -16,14 +16,14 @@ local gameData = require("Core.gameData")
 local generate = require("Loading.generateObjects")
 
 --------------------------------------------------------------------------------
--- Level four Variables
+-- Level nine Variables
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local four = { 
+local nine = { 
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
-	panes = {true,false,false,false,true},
+	panes = {true,false,true,true,true},
 	playerCount = 1,
 	-- number of wisps in the level
 	wispCount = 23,
@@ -31,7 +31,7 @@ local four = {
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
 	["M"] = {
-		["blueAura"] = 1,
+		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -42,7 +42,7 @@ local four = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1,
+		["exitPortal"] = 0,
 		["enemy"] = 0,
 		["fixedIceberg"] = 1
 	},
@@ -76,7 +76,7 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 2
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -92,7 +92,7 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 1
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -106,9 +106,9 @@ local four = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0, 
+		["exitPortal"] = 1, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 3
+		["fixedIceberg"] = 1
 	}
 }
 
@@ -127,7 +127,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 
-	if mapData.pane == "L" then
+	if mapData.pane == "M" then
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 17)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 15)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 13)
@@ -147,22 +147,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(25, 17)
-		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(25, 10)
-		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(25, 10)
-		objects["fixedIceberg2"].eX, objects["fixedIceberg2"].eY = generate.tilesToPixels(4, 10)
-		objects["fixedIceberg3"].x, objects["fixedIceberg3"].y = generate.tilesToPixels(10, 10)
-		objects["fixedIceberg3"].eX, objects["fixedIceberg3"].eY = generate.tilesToPixels(10, 5)
-		objects["fixedIceberg1"].time = 7000
-		objects["fixedIceberg2"].time = 11000
-		objects["fixedIceberg3"].time = 3800
-		objects["fixedIceberg1"].movement = "fixed" 
-		objects["fixedIceberg2"].movement = "fixed" 
-		objects["fixedIceberg3"].movement = "fixed" 
+		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(25, 10) 
+		objects["fixedIceberg1"].movement = "free" 
 				
 		generate.gWisps(wisp, map, mapData, 1, 16)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
-	elseif mapData.pane == "M" then
+	elseif mapData.pane == "L" then
 		wisp[17].x, wisp[17].y = generate.tilesToPixels(22, 13)
 		wisp[18].x, wisp[18].y = generate.tilesToPixels(25, 10)
 		wisp[19].x, wisp[19].y = generate.tilesToPixels(18, 10)
@@ -171,40 +162,71 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[22].x, wisp[22].y = generate.tilesToPixels(10, 12)
 		wisp[23].x, wisp[23].y = generate.tilesToPixels(7, 12)
 
-		rune[2].x, rune[2].y = generate.tilesToPixels(11, 1)			
+		rune[2].x, rune[2].y = generate.tilesToPixels(30, 15)			
 		rune[2].isVisible = true
 
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(6, 8)
-		objects["fixedIceberg1"].time = 3800 --not needed if free
-		objects["fixedIceberg1"].movement = "free" --fixed or free
+		objects["fish11"]:setSequence("move")
+		objects["fish11"]:play()
 
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(13, 1)
+		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(12, 2)
+ 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(12, 11)
+ 		--objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(22, 11)
+ 		--objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(22, 2)
+ 		objects["fish11"].time = 675
+ 		--objects["fish12"].time = 675
+
+		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(38, 15)
+		objects["fixedIceberg2"].time = 3800 --not needed if free
+		objects["fixedIceberg2"].movement = "free" --fixed or free
 
 		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(2, 12)
-		generate.gAuraWalls(map, mapData, "blueWall")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 3)
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 17, 23)
 
 	elseif mapData.pane == "U" then
-		print("You shouldn't be in here...")
+		
+		wisp[24].x, wisp[24].y = generate.tilesToPixels(7, 12)
+
+		rune[4].x, rune[4].y = generate.tilesToPixels(20, 15)			
+		rune[2].isVisible = true
+
+		objects["fixedIceberg3"].x, objects["fixedIceberg3"].y = generate.tilesToPixels(35, 5)
+		objects["fixedIceberg3"].time = 3800 --not needed if free
+		objects["fixedIceberg3"].movement = "free" --fixed or free
+
+		objects["fixedIceberg4"].x, objects["fixedIceberg4"].y = generate.tilesToPixels(18, 12)
+		objects["fixedIceberg4"].time = 3800 --not needed if free
+		objects["fixedIceberg4"].movement = "free" --fixed or free
+
+		generate.gWater(map, mapData)
+		generate.gWisps(wisp, map, mapData, 24, 24)
+	elseif mapData.pane == "R" then
+		wisp[25].x, wisp[25].y = generate.tilesToPixels(7, 12)
+
+		-- Break objects rune 
+		--rune[4].x, rune[4].y = generate.tilesToPixels(20, 15)			
+		--rune[2].isVisible = true
+
+		objects["fixedIceberg5"].x, objects["fixedIceberg5"].y = generate.tilesToPixels(20, 18)
+		objects["fixedIceberg5"].time = 3800 --not needed if free
+		objects["fixedIceberg5"].movement = "free" --fixed or free
+		
+		generate.gWater(map, mapData)
+		generate.gWisps(wisp, map, mapData, 25, 25)
 	elseif mapData.pane == "D" then
-		print("You shouldn't be in here...")
-	elseif mapData.pane == "L" then
 		print("You shouldn't be in here...")
 	end
 
 	-- generates all objects in pane when locations are set
-	generate.gObjects(four, objects, map, mapData, rune)
+	generate.gObjects(nine, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
-	mObjects = generate.gMObjects(four, objects, map, mapData)
+	mObjects = generate.gMObjects(nine, objects, map, mapData)
 	-- destroy the unused objects
-	generate.destroyObjects(four, rune, wisp, water, wall, objects)
+	generate.destroyObjects(nine, rune, wisp, water, wall, objects)
 
 	-- set which panes are avaiable for player
-	map.front.panes = four.panes
+	map.front.panes = nine.panes
 	map.front.itemGoal = 1
 end
 
@@ -250,8 +272,8 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-four.load = load
-four.destroyAll = destroyAll
+nine.load = load
+nine.destroyAll = destroyAll
 
-return four
--- end of four.lua
+return nine
+-- end of nine.lua

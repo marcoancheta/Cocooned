@@ -35,7 +35,7 @@ local five = {
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
-		["fish1"] = 2,
+		["fish1"] = 1,
 		["fish2"] = 0,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
@@ -141,12 +141,15 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 4.5)
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(15, 20)
 
+		objects["fish11"]:setSequence("move")
+		objects["fish11"]:play()
+
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(12, 2)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(12, 11)
- 		objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(22, 11)
- 		objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(22, 2)
+ 		--objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(22, 11)
+ 		--objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(22, 2)
  		objects["fish11"].time = 675
- 		objects["fish12"].time = 675
+ 		--objects["fish12"].time = 675
 
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(3, 8)
 		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(3, 21)

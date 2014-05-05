@@ -72,7 +72,15 @@ spriteOptions = {
 	["wolf"] = {
 		{frames = {1,2,3,4,5,6,7,8}, name = "move", time = 300},
 		{frames = {1}, name = "still", time = 250}
-	}
+	},
+	["fish1"] = {
+		{frames = {1,2,3,4,5}, name = "move", time = 300},
+		{frames = {3}, name = "still", time = 250}
+	}, 
+	["fish2"] = {
+		{frames = {1,2,3,4,5}, name = "move", time = 300},
+		{frames = {3}, name = "still", time = 250}
+}
 }
 
 --------------------------------------------------------------------------------
@@ -92,7 +100,11 @@ sheetOptions = {
 	wolfSheet = graphics.newImageSheet("mapdata/art/animation/wolfSheet.png", 
 				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8}),
 	paneSheet = graphics.newImageSheet("mapdata/art/animation/snowAnimation.png", 
-				 {width = 1440, height = 891, sheetContentWidth = 7200, sheetContentHeight = 4081, numFrames = 20}),		 
+				 {width = 1440, height = 891, sheetContentWidth = 7200, sheetContentHeight = 4081, numFrames = 20}),
+	fish1Sheet = graphics.newImageSheet("mapdata/art/animation/fish1sheet.png", 
+				 {width = 72, height = 72, sheetContentWidth = 360, sheetContentHeight = 72, numFrames = 5}),
+	fish2Sheet = graphics.newImageSheet("mapdata/art/animation/fish2sheet.png", 
+				 {width = 72, height = 72, sheetContentWidth = 360, sheetContentHeight = 72, numFrames = 5}),			 		 
 }
 
 --------------------------------------------------------------------------------
@@ -115,4 +127,3 @@ objectNames = {
 	[12] = "switchWall",
 	[13] = "fixedIceberg"
 }
-

@@ -73,7 +73,7 @@ local function drawGoals(gui)
 	-- Initial rune x-coordinate
 	local xCoord = 720
 	-- Goal text displayer
-	local text = "Collect runes: "
+	local text = "Select level: "
 	-- Load rune file locations
 	local runeLoc = {
 		[1] = "mapdata/art/runes/blueRune.png",

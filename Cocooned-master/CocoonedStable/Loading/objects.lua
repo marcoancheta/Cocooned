@@ -75,6 +75,10 @@ local function init()
 				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
 	sheetList["wolf"] = graphics.newImageSheet("mapdata/art/animation/wolfSheet.png", 
 				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8})
+	sheetList["fish1"] = graphics.newImageSheet("mapdata/art/animation/fish1sheet.png", 
+				 {width = 72, height = 72, sheetContentWidth = 360, sheetContentHeight = 72, numFrames = 5})
+	sheetList["fish2"] = graphics.newImageSheet("mapdata/art/animation/fish2sheet.png", 
+				 {width = 72, height = 72, sheetContentWidth = 468, sheetContentHeight = 72, numFrames = 5})
 	
 	return true
 end
