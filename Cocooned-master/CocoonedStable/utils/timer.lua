@@ -14,19 +14,18 @@ local gameTimer = {}
 local theTimer
 
 local counter = 5
-local counterText = display.newText(counter, 0, 0, native.systemFontBold, 150)
 
 local function counterFunc(event)
 	local params = event.source.params
 
 	if counter > 1 then
 		counter = counter - 1
-		counterText.text = counter
+		params.counterParam.text = counter
 		params.guiParam.middle.alpha = 0.3
 		params.guiParam.back.alpha = 0.3
 		physics.pause()
 	elseif counter == 1 then
-		counterText:removeSelf()
+		params.counterParam:removeSelf()
 		params.guiParam.middle.alpha = 1
 		params.guiParam.back.alpha = 1
 		physics.start()
@@ -34,11 +33,12 @@ local function counterFunc(event)
 end
 
 local function preGame(gui)
+	local counterText = display.newText(counter, 0, 0, native.systemFontBold, 150)
 	counterText.x = display.contentCenterX
 	counterText.y = display.contentCenterY
 	counterText:setFillColor(255, 255, 255)
 	theTimer = timer.performWithDelay(1000, counterFunc, counter)
-	theTimer.params = {guiParam = gui}
+	theTimer.params = {guiParam = gui, counterParam = counterText}
 	
 	gui.front:insert(counterText)
 end
