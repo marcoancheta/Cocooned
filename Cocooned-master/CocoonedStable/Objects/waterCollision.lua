@@ -9,6 +9,7 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
+local sound = require("sound")
 
 --------------------------------------------------------------------------------
 -- Collide Function - function for water collision
@@ -22,6 +23,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	--sound.playSound(sound.soundEffects[4])	
 	
 	if gameData.onIceberg == false then
+		-- play sound
+	    sound.playSound(sound.soundEffects[4])
 		-- reset player's aura and movement
 		player:changeColor("white")
 		--player.movement ="inWater"

@@ -5,6 +5,8 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
+local sound = require("sound")
+
 --------------------------------------------------------------------------------
 -- Collide Function - function for white wall collision
 --------------------------------------------------------------------------------
@@ -12,6 +14,8 @@
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	if player.color == 'white' then
+		-- play sound
+	    sound.playSound(sound.soundEffects[6])
 		event.contact.isEnabled = false
 	end
 end

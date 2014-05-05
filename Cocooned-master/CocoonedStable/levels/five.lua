@@ -141,8 +141,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 4.5)
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(15, 20)
 
-		objects["fish11"]:setSequence("move")
-		objects["fish11"]:play()
+		--objects["fish11"]:setSequence("move")
+		--objects["fish11"]:play()
 
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(12, 2)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(12, 11)

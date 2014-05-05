@@ -26,7 +26,7 @@ local nine = {
 	panes = {true,false,true,true,true},
 	playerCount = 1,
 	-- number of wisps in the level
-	wispCount = 23,
+	wispCount = 25,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -211,7 +211,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg5"].x, objects["fixedIceberg5"].y = generate.tilesToPixels(20, 18)
 		objects["fixedIceberg5"].time = 3800 --not needed if free
 		objects["fixedIceberg5"].movement = "free" --fixed or free
-		
+
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 25, 25)
 	elseif mapData.pane == "D" then
