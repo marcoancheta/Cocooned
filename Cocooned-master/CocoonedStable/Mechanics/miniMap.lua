@@ -13,6 +13,9 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
 
+-- variable for determine which pane to show
+local paneSpot = {"M", "L", "R", "D", "U"}
+
 --------------------------------------------------------------------------------
 -- create miniMap - function that creats miniMap display
 --------------------------------------------------------------------------------
@@ -27,15 +30,13 @@ local function createMiniMap(mapData, map)
 	
 	-- set miniMap pane images
 	if mapData.levelNum ~= "LS" then
-		miniMapTable[1] = display.newCircle(1, 1, 1)
-		miniMapTable[2] = display.newCircle(1, 1, 1)
-		miniMapTable[3] = display.newCircle(1, 1, 1)
-		miniMapTable[4] = display.newCircle(1, 1, 1)
-		miniMapTable[5] = display.newCircle(1, 1, 1)	
-	end
-
-	for i=1, #miniMapTable do
-		miniMapTable[i].alpha = 0
+		for i=1, 5 do
+			if map.panes[i] == true then
+				miniMapTable[i] = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/".. paneSpot[i] .. ".png")--display.newCircle(1, 1, 1)
+			else
+				miniMapTable[i] = display.newCircle(1, 1, 1)
+			end
+		end
 	end
 		
 	-- create background image

@@ -136,7 +136,7 @@ local function tapScreen(event, miniMap, mapData, physics, gui, player)
 			physics.pause()
 
 			-- update minimap pane images
-			miniMapMechanic.updateMiniMap(mapData.pane, miniMap, gui, player, player2)
+			--miniMapMechanic.updateMiniMap(mapData.pane, miniMap, gui, player, player2)
 
 			-- save current pane for later check
 			tempPane2 = mapData.pane
