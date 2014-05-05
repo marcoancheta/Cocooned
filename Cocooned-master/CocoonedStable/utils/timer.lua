@@ -33,10 +33,13 @@ local function counterFunc(event)
 end
 
 local function preGame(gui)
-	local counterText = display.newText(counter, 0, 0, native.systemFontBold, 150)
+	counter = 5
+	
+	local counterText = display.newText(counter, 0, 0, native.systemFontBold, 150)		
 	counterText.x = display.contentCenterX
 	counterText.y = display.contentCenterY
 	counterText:setFillColor(255, 255, 255)
+	
 	theTimer = timer.performWithDelay(1000, counterFunc, counter)
 	theTimer.params = {guiParam = gui, counterParam = counterText}
 	
