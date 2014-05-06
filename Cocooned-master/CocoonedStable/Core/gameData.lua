@@ -41,6 +41,7 @@ local gameData = {
 	levelComplete = false,
 	onIceberg = false,
 	gRune = false,
+	preGame = nil,
 	
 	locked = false,
 	

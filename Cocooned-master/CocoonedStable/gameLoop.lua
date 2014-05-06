@@ -281,8 +281,7 @@ local function loadMap(mapData)
 	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui, gui.back[1])
 	-- Create in game options button
 	menu.ingameOptionsbutton(event, gui)
-	-- Add game event listeners
-	addGameLoopListeners(gui)
+
 	sound.stop()
 	sound.playBGM(sound.backgroundMusic)
 	
@@ -381,12 +380,16 @@ local function gameLoopEvents(event)
 		end
 	end
 
-	
-	--[[
-	if gameData.ingame then
-		snow.gameSnow(event, mapData)
+	if gameData.preGame == false then
+		-- Add game event listeners
+		addGameLoopListeners(gui)
+		gameData.ingame = true
+		gameData.preGame = nil
 	end
-	]]-- 
+
+	--if gameData.ingame then
+		--snow.gameSnow(event, mapData)
+	--end
 	
 	--print(gameData.ingame)
 	
@@ -406,7 +409,9 @@ local function gameLoopEvents(event)
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		
-		loadMap(mapData)		
+		loadMap(mapData)
+		-- Add game event listeners
+		addGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
 		gameData.selectLevel = false
 	end
@@ -421,7 +426,7 @@ local function gameLoopEvents(event)
 		--cutSceneSystem.cutScene("1", gui)
 				
 		-- Re-evaluate gameData booleans
-		gameData.ingame = true
+		gameData.preGame = true
 		gameData.allowPaneSwitch = true
 		gameData.allowMiniMap = true
 		gameData.gameStart = false
@@ -464,6 +469,7 @@ local function gameLoopEvents(event)
 	--[[ MAIN MENU ]]--
 	if gameData.menuOn then
 		-- Go to main menu
+		gameData.gameTime = 0
 		snow.new()
 		menu.mainMenu(event)
 		mapDataDefault()

@@ -25,7 +25,7 @@ local function gameCountFunct(event)
 		if gameData.gameTime < 10 then
 			textObj:setFillColor(1,0,0)
 		end
-		
+			
 		clockFormat = os.date("!%M:%S", gameData.gameTime)
 		textObj.text = clockFormat
 		print(gameData.gameTime)
@@ -65,13 +65,23 @@ local function counterFunc(event)
 		params.guiParam.back.alpha = 0.3
 		physics.pause()
 	elseif counter == 0 then
+		-- Change 0 to "START"
 		params.counterParam.text = "START!"
 	elseif counter == -1 then
+		-- Remove timer text
+		if params.counterParam then
+			params.counterParam:removeSelf()
+		end		
+		-- Revert background alphas
 		params.guiParam.middle.alpha = 1
 		params.guiParam.back.alpha = 1
-		physics.start()
+		-- Start physics/Add listeners in gameLoop
+		physics.start()		
+		gameData.preGame = false
+		-- Clean up timer
 		timer.cancel(theTimer)
 		theTimer = nil
+		-- Call in game timer
 		inGame(params.guiParam, params.mapDataParam)
 	end
 	print(counter)
