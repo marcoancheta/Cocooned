@@ -52,7 +52,7 @@ local function inGame(gui, mapData)
 	theTimer = timer.performWithDelay(100, gameCountFunct, gameData.gameTime+1)
 	theTimer.params = {counterParam = counterText}
 	
-	gui.front:insert(counterText)
+	gui:insert(counterText)
 end
 
 local function counterFunc(event)
@@ -67,7 +67,6 @@ local function counterFunc(event)
 	elseif counter == 0 then
 		params.counterParam.text = "START!"
 	elseif counter == -1 then
-		params.counterParam:removeSelf()
 		params.guiParam.middle.alpha = 1
 		params.guiParam.back.alpha = 1
 		physics.start()

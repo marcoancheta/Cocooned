@@ -20,10 +20,10 @@ local sound = require("sound")
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function endAnimation( event )
-  if ( event.phase == "ended" ) then
-    local thisSprite = event.target  --"event.target" references the sprite
-    thisSprite:removeSelf()  --play the new sequence; it won't play automatically!
-  end
+	if ( event.phase == "ended" ) then
+		local thisSprite = event.target  --"event.target" references the sprite
+		thisSprite:removeSelf()  --play the new sequence; it won't play automatically!
+	end
 end
 
 --------------------------------------------------------------------------------
