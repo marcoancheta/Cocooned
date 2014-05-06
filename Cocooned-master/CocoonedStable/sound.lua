@@ -34,7 +34,7 @@ audio.setVolume(0.5, {channel = 3} )
 local function loadMenuSounds()
 	-- BGM
 	-- Current place holder: 13-Servants of the Mountain-FFX Piano Collections
-	sound.backgroundMusic = audio.loadStream("sounds/ServantsoftheMountain.mp3")
+	sound.backgroundMusic = audio.loadStream("sounds/music/ServantsoftheMountain.mp3")
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	
@@ -44,7 +44,7 @@ end
 local function loadGameSounds()
 	-- BGM
 	-- Current place holder: To Zanarkand-FFX Piano Collections
-	sound.backgroundMusic = audio.loadStream("sounds/ToZanarkand.mp3")
+	sound.backgroundMusic = audio.loadStream("sounds/music/ToZanarkand.mp3")
 
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
