@@ -41,6 +41,7 @@ local function inGame(gui, mapData)
 	local level = require("levels." .. levelNames[mapData.levelNum])
 
 	gameData.gameTime = level.timer
+	numWisp = level.wispCount
 	
 	clockFormat = os.date("!%M:%S", gameData.gameTime)
 	
@@ -49,7 +50,7 @@ local function inGame(gui, mapData)
 	counterText.y = 50
 	counterText:setFillColor(0, 0, 0)
 	
-	theTimer = timer.performWithDelay(100, gameCountFunct, gameData.gameTime+1)
+	theTimer = timer.performWithDelay(100, gameCountFunct, gameData.gameTime+numWisp)
 	theTimer.params = {counterParam = counterText}
 	
 	gui:insert(counterText)
