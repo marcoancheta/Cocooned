@@ -13,7 +13,7 @@ local sound = require("sound")
 local generate = require("Loading.generateObjects")
 local widget = require("widget")
 local memory = require("memory")
-local snow = require("Mechanics.snow")
+local snow = require("utils.snow")
 
 local menuGroup
 --local player1, player2 = nil

@@ -54,6 +54,8 @@ local gameData = {
 		pane = "M",
 		version = 0
 	},
+	
+	gameTime = 0
 }
 
 return gameData

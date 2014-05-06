@@ -63,7 +63,7 @@ local accelObjects = require("Objects.accelerometerObjects")
 local gameTimer = require("utils.timer")
 
 -- Particle effect
-local snow = require("Mechanics.snow")
+local snow = require("utils.snow")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -287,7 +287,8 @@ local function loadMap(mapData)
 	sound.playBGM(sound.backgroundMusic)
 	
 	if mapData.levelNum ~= "LS" then
-		gameTimer.preGame(gui)
+		print(mapData.levelNum)
+		gameTimer.preGame(gui, mapData)
 	end
 		
 	return player1
@@ -418,7 +419,7 @@ local function gameLoopEvents(event)
 		mapData = gameData.mapData
 		loadMap(mapData)
 		--cutSceneSystem.cutScene("1", gui)
-		
+				
 		-- Re-evaluate gameData booleans
 		gameData.ingame = true
 		gameData.allowPaneSwitch = true
@@ -440,7 +441,7 @@ local function gameLoopEvents(event)
 	--[[ Restart level ]]--
 	if gameData.levelRestart == true then
 		-- Clean
-		clean(event)
+		--clean(event)
 		-- Reset current pane to middle
 		mapData.pane = "M"
 		-- Apply booleans
@@ -509,7 +510,9 @@ local function gameLoopEvents(event)
 end
 
 local gameLoop = {
-	gameLoopEvents = gameLoopEvents
+	gameLoopEvents = gameLoopEvents,
+	addGameLoopListeners = addGameLoopListeners,
+	removeGameLoopListeners = removeGameLoopListeners
 }
 
 return gameLoop

@@ -10,18 +10,18 @@
 --------------------------------------------------------------------------------
 local levelNames = require("utils.levelNames")
 local gameData = require("Core.gameData")
-local fGroup
+local snowGroup
 
 local function new()
-	fGroup = display.newGroup()
+	snowGroup = display.newGroup()
 end
 
 local function meltSnow()
 	transition.cancel()
 	
-	if fGroup then
-		fGroup:removeSelf()
-		fGroup = nil
+	if snowGroup then
+		snowGroup:removeSelf()
+		snowGroup = nil
 	end
 end
 
@@ -76,8 +76,8 @@ local function makeSnow(event, mapData)
 	local temp
     if math.random(10) == 1 then -- adjust speed here by making the random number higher or lower
 		temp = spawnSnowFlake()
-		fGroup:insert(temp)
-		fGroup:toFront()
+		snowGroup:insert(temp)
+		snowGroup:toFront()
 	end	
 	
 	return true

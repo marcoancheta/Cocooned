@@ -24,6 +24,7 @@ local two = {
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
 	panes = {true,false,false,false,false},
+	timer = 60,
 	playerCount = 1,
 	-- number of wisps in the level
 	wispCount = 6,
@@ -132,7 +133,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[4].x, rune[4].y = generate.tilesToPixels(4.5, 4.5)			
 		rune[4].isVisible = true
 		
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 6)
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(15, 8)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(26, 8)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(28, 9)
 		wisp[4].x, wisp[4].y = generate.tilesToPixels(30, 9)
