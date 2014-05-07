@@ -49,6 +49,8 @@ local function endCountFunc(event)
 		overlay.alpha = 0
 		overlay:removeSelf()
 		overlay = nil
+		-- Start physics
+		physics.start()
 		-- Send boolean to gameLoop
 		gameData.levelRestart = true
 	end
@@ -184,8 +186,6 @@ end
 -- Pre-game timer function 
 --------------------------------------------------------------------------------
 local function preGame(gui, mapData)
-	-- pause physics
-	physics.pause()
 	-- counter = desired time + 2 sec (from loading).
 	counter = 5	
 	-- Create text object

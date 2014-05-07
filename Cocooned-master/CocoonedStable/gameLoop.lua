@@ -287,6 +287,8 @@ local function loadMap(mapData)
 	
 	if mapData.levelNum ~= "LS" then
 		print(mapData.levelNum)
+		-- pause physics
+		physics.pause()
 		gameTimer.preGame(gui, mapData)
 	end
 		
