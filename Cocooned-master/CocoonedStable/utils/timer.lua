@@ -31,7 +31,7 @@ local function endCountFunc(event)
 	if counter > 1 then
 		physics.pause()
 		wolfTrans = transition.to(params.wolfParam, {time=100, x=params.wolfParam.x-50})
-		textTrans = transition.to(params.counterParam, {time=2500, x=display.contentCenterX - 300})
+		textTrans = transition.to(params.counterParam, {time=2500, x=display.contentCenterX-350})
 	elseif counter == 0 then
 		transition.cancel(wolfTrans)
 		-- Clean up wolf
