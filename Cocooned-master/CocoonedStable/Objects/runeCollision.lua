@@ -12,7 +12,7 @@
 --------------------------------------------------------------------------------
 local levelFinished = require("Core.levelFinished")
 local gameData = require("Core.gameData")
-local sound = require("sound")'
+local sound = require("sound")
 local animation = require("Core.animation")
 
 --------------------------------------------------------------------------------
