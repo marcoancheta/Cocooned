@@ -132,6 +132,7 @@ local function inGame(gui, mapData)
 	counterText.x = display.contentCenterX
 	counterText.y = 50
 	counterText:setFillColor(0, 0, 0)
+	counterText.name = "timer"
 	
 	theTimer = timer.performWithDelay(100, gameCountFunct, gameData.gameTime*wispCounter)
 	theTimer.params = {guiParam = gui, counterParam = counterText}
