@@ -12,7 +12,8 @@
 --------------------------------------------------------------------------------
 local levelFinished = require("Core.levelFinished")
 local gameData = require("Core.gameData")
-local sound = require("sound")
+local sound = require("sound")'
+local animation = require("Core.animation")
 
 --------------------------------------------------------------------------------
 -- End Animation -- function that ends animation for collecting rune
@@ -43,13 +44,13 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	player:addRune(collideObject)
 
 	-- create rune animation collection sprite and play it
-	local runeCollide = display.newSprite(sheetOptions.runeSheet, spriteOptions.runeAnimation)
+	local runeCollide = display.newSprite(animation.sheetOptions.runeSheet, animation.spriteOptions.runeAnimation)
 	runeCollide.x, runeCollide.y = collideObject.x - 45, collideObject.y
 	runeCollide:setSequence("move")
 	runeCollide:play()
 
 	-- Create animation for the ball shrinking 
-	--local playerShrink = display.newSprite(sheetOptions.shrinkSheet, spriteOptions.shrinkAnimation)
+	--local playerShrink = display.newSprite(animation.sheetOptions.shrinkSheet, spriteOptions.shrinkAnimation)
 	--playerShrink.x, playerShrink.y = collideObject.x - 45, collideObject.y
 	--playerShrink:setSequence("move")
 
@@ -65,7 +66,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	elseif collideObject.name == "purpleRune" then
 		collideObject:removeSelf()
 		-- Create animation for the ball shrinking 
-		local playerShrink = display.newSprite(sheetOptions.shrinkSheet, spriteOptions.shrinkAnimation)
+		local playerShrink = display.newSprite(animation.sheetOptions.shrinkSheet, animation.spriteOptions.shrinkAnimation)
 		playerShrink.x, playerShrink.y = collideObject.x, collideObject.y
 		playerShrink:setSequence("move")
 		playerShrink:play()

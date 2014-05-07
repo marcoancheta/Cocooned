@@ -261,7 +261,7 @@ local function loadMap(mapData)
 	system.setAccelerometerInterval(30)
 
 	-- Create player/ball object to map
-	ball = display.newSprite(sheetOptions.playerSheet, spriteOptions.player)
+	ball = display.newSprite(animation.sheetOptions.playerSheet, animation.spriteOptions.player)
 
 	-- set name and animation sequence for ball
 	ball.name = "player"

@@ -12,7 +12,7 @@
 --------------------------------------------------------------------------------
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
-
+local animation = require("Core.animation")
 local physicsData = require("Loading.physicsData")
 
 -- holds the level name for loading
@@ -91,7 +91,7 @@ end
 local function createAnimations(count, name, objectList)
 	for i = 1, count do
 		--print(name)
-		objectList[name .. i] = display.newSprite(sheetList[name], spriteOptions[name])
+		objectList[name .. i] = display.newSprite(sheetList[name], animation.spriteOptions[name])
 		objectList[name .. i].name = name .. i
 		objectList[name .. i]:setSequence("move")
 		objectList[name .. i]:play()
@@ -135,11 +135,11 @@ local function createObjects(objectNumbers, mapData)
 	
 	-- call function to animate objects
 	for i = 1, 5 do
-		createAnimations(objectNumbers[mapData.pane][objectNames[i]], objectNames[i], objects)
+		createAnimations(objectNumbers[mapData.pane][animation.objectNames[i]], animation.objectNames[i], objects)
 	end
 	-- call function that creates sprites
 	for i = 6, 13 do
-		createSprites(objectNumbers[mapData.pane][objectNames[i]], objectNames[i], objects)
+		createSprites(objectNumbers[mapData.pane][animation.objectNames[i]], animation.objectNames[i], objects)
 	end
 
 	-- return object and wisp list

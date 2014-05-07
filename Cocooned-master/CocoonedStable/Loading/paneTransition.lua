@@ -84,7 +84,7 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 		
 	print("playing transition")
 	-- play pane switch transition and move to front
-	transPic = display.newSprite(sheetOptions.paneSheet, spriteOptions.paneSwitch)
+	transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.spriteOptions.paneSwitch)
 	--transPic:scale(1.25, 1.25)
 	transPic.x, transPic.y = generate.tilesToPixels(21, 10)
 	transPic:setSequence("move")

@@ -13,7 +13,7 @@
 local moveableObject = require("Loading.moveableObject")
 -- wind emmiter object class (windEmitter.lua)
 local windEmitterMechanic = require("Mechanics.windEmitter")
-
+local animation = require("Core.animation")
 local physicsData = require("Loading.physicsData")
 --Array that holds all switch wall and free icebergs
 local accelObjects = require("Objects.accelerometerObjects")
@@ -53,9 +53,9 @@ end
 local function gObjects(level, objects, map, mapData, runes)
 	-- goes down object list and sets all their properties
 	accelObjects.switchWallAndIceberg = {}
-	for i = 1, #objectNames do
+	for i = 1, #animation.objectNames do
 		-- save name of object
-		local name = objectNames[i]
+		local name = animation.objectNames[i]
 		
 		-- go down list and set properties
 		for j = 1, level[mapData.pane][name] do
