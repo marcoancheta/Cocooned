@@ -9,10 +9,10 @@ local generate = require("Loading.generateObjects")
 ---------------------
 -- Local variables
 ---------------------
-local play
+local play, cancel
 local rune = {}
 local textObject = {}
-
+local playerTemp
 --------------------------------------------------------------------------------
 -- destroyGoals - Destroy it all!
 --------------------------------------------------------------------------------
@@ -47,17 +47,33 @@ local function tapOnce(event)
 		-- Destroy goals map
 		destroyGoals()	
 		gameData.gameStart = true
+	elseif event.target.name == "cancelButton" then
+		--
+		textObject[1].alpha = 0
+		textObject[2].alpha  = 0
+		play.alpha = 0
+		cancel.alpha = 0
+		for i=1, 5 do
+			rune[1].isVisible = false
+		end
+		playerTemp.curse = 1
 	end		
 end
 
 local function onPlay()
+	textObject[1].alpha = 0.5
+	textObject[2].alpha  = 1
 	play.alpha = 1
 	play:addEventListener("tap", tapOnce)
+	cancel.alpha = 1
+	cancel:addEventListener("tap", tapOnce)
 end
 
 local function hidePlay()
-	play.alpha = 0.2
+	play.alpha = 0
 	play:removeEventListener("tap", tapOnce)
+	cancel.alpha = 0
+	cancel:addEventListener("tap", tapOnce)
 end
 
 --------------------------------------------------------------------------------
@@ -65,10 +81,13 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function drawGoals(gui)
+local function drawGoals(gui, player)
 	-- Reinitialize arrays
 	textObject = {}
 	rune = {}
+
+	print(player.name)
+	playerTemp = player
 
 	-- Initial rune x-coordinate
 	local xCoord = 720
@@ -102,23 +121,31 @@ local function drawGoals(gui)
 	textObject[1]:setStrokeColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 	textObject[1]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 	textObject[1].strokeWidth = 15
-	textObject[1].alpha = 0.5
+	textObject[1].alpha = 0
 
 	textObject[2] = display.newText(text, 700, 85, nativeSystemfont, 55)
 	textObject[2]:setFillColor(0,0,0)
 	textObject[2].anchorX = 21
+	textObject[2].alpha = 0
 	
 	-- Create play button
 	play = display.newImage("mapdata/art/buttons/sil_kipcha.png")
 	play.x, play.y = generate.tilesToPixels(5, 4)
 	play:scale(1.5, 1.5)
-	play.alpha = 0.2
+	play.alpha = 0
 	play.name = "playButton"
+
+	cancel = display.newImage("mapdata/art/buttons/sil_kipcha.png")
+	cancel.x, cancel.y = generate.tilesToPixels(35, 4)
+	cancel:scale(1.5, 1.5)
+	cancel.alpha = 0
+	cancel.name = "cancelButton"
 			
 	-- insert objects to display group
 	gui.front:insert(textObject[1])
 	gui.front:insert(textObject[2])
 	gui.front:insert(play)
+	gui.front:insert(cancel)
 end
 
 --------------------------------------------------------------------------------

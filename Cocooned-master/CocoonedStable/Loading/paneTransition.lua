@@ -16,6 +16,8 @@ local collisionDetection = require("Mechanics.collisionDetection")
 -- Generate Objects (generateObjects.lua)
 local generate = require("Loading.generateObjects")
 
+local animation = require("Core.animation")
+
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------

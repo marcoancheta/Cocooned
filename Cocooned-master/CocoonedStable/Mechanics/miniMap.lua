@@ -14,7 +14,7 @@
 local gameData = require("Core.gameData")
 
 -- variable for determine which pane to show
-local paneSpot = {"M", "L", "R", "D", "U"}
+local paneSpot = {"M", "D", "U", "R", "L"}
 
 --------------------------------------------------------------------------------
 -- create miniMap - function that creats miniMap display

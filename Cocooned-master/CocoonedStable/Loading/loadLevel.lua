@@ -118,7 +118,7 @@ local function createLevel(mapData, player1)
 	-- Level selector exclusive
 	if mapData.levelNum == "LS" then
 		-- load in goals
-		goals.drawGoals(gui)
+		goals.drawGoals(gui, player1)
 	end
 	----------------------------
 

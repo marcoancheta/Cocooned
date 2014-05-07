@@ -34,7 +34,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	end
 	
 	local function temp()		
-		local timer = timer.performWithDelay(1000, resume);
 	end
 									
 	for i=0, 5 do		
@@ -45,7 +44,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				goals.onPlay()			
 				goals.findGoals(selectLevel, gui)
 				gameData.mapData = selectLevel
-				local trans = transition.to(player.imageObject, {time=1000, x=collideObject.x, y=collideObject.y-15, onComplete = temp} )
+				player.curse = 0
+				player.xGrav = 0
+				player.yGrav = 0
+				local trans = transition.to(player.imageObject, {time=1000, x=collideObject.x, y=collideObject.y, onComplete = temp} )
 			end
 		else
 			goals.hidePlay()
