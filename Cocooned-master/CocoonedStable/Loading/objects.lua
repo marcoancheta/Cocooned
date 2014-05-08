@@ -57,7 +57,7 @@ local function init()
 
 	-- Set properties and add physics to runes
 	for i=1, #rune do
-		physics.addBody(rune[i], "dynamic", {bounce=0})
+		physics.addBody(rune[i], "dynamic", {bounce=0, filter = {groupIndex = -1 }})
 		rune[i].isVisible = false
 		rune[i].isSensor = true
 		rune[i].collectable = true

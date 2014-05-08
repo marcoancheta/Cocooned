@@ -67,10 +67,8 @@ local function gObjects(level, objects, map, mapData, runes)
 			else
 				objects[name .. j].func = name .. "Collision"
 				if name == "fixedIceberg" then
-					if objects[name .. j].movement == "free" then -- do not merge into above if statement because not all objects have a movement property
-						physics.addBody(objects[name ..j], "static", {bounce = 0, filter = {groupIndex = -1 }})
-						table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
-					end
+					physics.addBody(objects[name ..j], "static", {bounce = 0, filter = {groupIndex = -1 }})
+					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
 				elseif name == "switchWall" then
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
 					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
