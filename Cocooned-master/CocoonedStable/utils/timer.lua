@@ -61,9 +61,12 @@ end
 -- End Game Counter Function
 --------------------------------------------------------------------------------
 local function endGame(gui)
+	-- Create local wolfAnimation sprite
 	local wolfAnim = display.newSprite(animation.sheetOptions.wolfSheet, animation.spriteOptions.wolf)	
+		  -- Start wolf off-screen
 		  wolfAnim.x = display.contentCenterX + 600
 		  wolfAnim.y = display.contentCenterY
+		  -- Enlarge the size of the wolf
 		  wolfAnim:scale(3, 3)
 		  wolfAnim:setSequence("move")
 		  wolfAnim:play()
@@ -98,23 +101,26 @@ end
 -- Game Counter Listener [for in-game purposes]
 --------------------------------------------------------------------------------
 local function gameCountFunct(event)
+	-- Load in passed parameters from inGame()
 	local params = event.source.params
+	-- Localize event paramater
 	local textObj = params.counterParam
-	
+	-- Subtract one second from global gameTimer
 	gameData.gameTime = gameData.gameTime - 1
-	
+	-- While gameTimer is greater than 0
 	if gameData.gameTime > 0 then
 		if gameData.gameTime < 10 then
 			textObj:setFillColor(1,0,0)
 		end
-			
+		-- Format gameTimer to time-stamp	
 		clockFormat = os.date("!%M:%S", gameData.gameTime)
 		textObj.text = clockFormat
-		print(gameData.gameTime)
 	elseif gameData.gameTime == 0 then
+		-- clean everything
 		textObj:removeSelf()
 		timer.cancel(theTimer)
 		theTimer = nil
+		-- run end game timer/transition
 		endGame(params.guiParam)
 	end
 end
@@ -123,20 +129,26 @@ end
 -- In-Game Timer Function
 --------------------------------------------------------------------------------
 local function inGame(gui, mapData)
+	-- load in level file according to mapData.levelNumber
 	local level = require("levels." .. levelNames[mapData.levelNum])
-	gameData.gameTime = level.timer
+	-- Make global gameTimer = level default timer
+	gameData.defaultTime = level.timer
+	gameData.gameTime = gameData.defaultTime
+	print("gameData.defaultTime", gameData.defaultTime)
+	-- Create local wispCounter = level wisp amount
 	local wispCounter = level.wispCount
+	-- Format gameTimer to time-stamp
 	clockFormat = os.date("!%M:%S", gameData.gameTime)
-	
+	-- Create counter text object for game timer
 	local counterText = display.newText(clockFormat, 0, 0, native.systemFontBold, 100)
 	counterText.x = display.contentCenterX
 	counterText.y = 50
 	counterText:setFillColor(0, 0, 0)
 	counterText.name = "timer"
-	
-	theTimer = timer.performWithDelay(100, gameCountFunct, gameData.gameTime*wispCounter)
+	-- Initialize & run timer
+	theTimer = timer.performWithDelay(1000, gameCountFunct, gameData.gameTime*wispCounter)
 	theTimer.params = {guiParam = gui, counterParam = counterText}
-	
+	-- Insert text object to gui.front
 	gui.front:insert(counterText)
 end
 
@@ -150,12 +162,8 @@ local function counterFunc(event)
 	-- While counter is greater than 0
 	if counter > 0 then
 		params.counterParam.text = counter
+		-- Slowly fade in overlay image
 		overlay.alpha = overlay.alpha - 0.05
-		
-		if params.guiParam.middle.alpha ~= 1 then
-			params.guiParam.middle.alpha = params.guiParam.middle.alpha + 0.3
-			params.guiParam.back.alpha = params.guiParam.back.alpha + 0.3
-		end
 	elseif counter == 0 then
 		-- Change 0 to "START"
 		params.counterParam.text = "START!"
@@ -180,7 +188,7 @@ local function counterFunc(event)
 		-- Call in game timer
 		inGame(params.guiParam, params.mapDataParam)
 	end
-	print(counter)
+	--print(counter)
 end
 
 --------------------------------------------------------------------------------

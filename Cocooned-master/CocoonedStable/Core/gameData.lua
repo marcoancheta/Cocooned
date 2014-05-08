@@ -56,7 +56,9 @@ local gameData = {
 		version = 0
 	},
 	
-	gameTime = 0
+	-- Game values
+	gameTime = 0,
+	defaultTime = 0
 }
 
 return gameData
