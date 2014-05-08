@@ -4,25 +4,40 @@
 -- energyCollision.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
--- Variables
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
 local sound = require("sound")
 local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
+-- Variables
+--------------------------------------------------------------------------------
+local plusTime
+
+--------------------------------------------------------------------------------
+-- removeObj(target) - Auto deletes plusTime text object when it reaches its destination
+--------------------------------------------------------------------------------
+local function removeObj(target)
+	target:removeSelf()
+	target = nil
+end
+
+--------------------------------------------------------------------------------
 -- Collide Function - remove wisp object if collected
 --------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	sound.playSound(sound.soundEffects[8])
+	-- Disable wisp object collision to allow player to pass thru
 	event.contact.isEnabled = false
-	
+	-- Play wisp sound effect
+	sound.playSound(sound.soundEffects[8])	
+	-- Created text object for wisp collision
+	plusTime = display.newText("+:05", collideObject.x, collideObject.y, native.systemFontBold, 55)
+	plusTime:setFillColor(0,0,0)
+	plusTime:toFront()
+	-- Initialize and run transition for plusTime text object
+	local wordTrans = transition.to(plusTime, {time=1000, y=collideObject.y-50, onComplete=removeObj})
+	-- Add 5 seconds to global gameTimer
 	gameData.gameTime = gameData.gameTime + 5
-	
+	-- Add wisp into player's inventory
 	player:addInventory(collideObject)
+	-- Delete wisp
  	collideObject:removeSelf()
  	collideObject = nil
 end
@@ -30,7 +45,7 @@ end
 --------------------------------------------------------------------------------
 -- FInish Up
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: D
 --------------------------------------------------------------------------------
 local energyCollision = {
 	collide = collide

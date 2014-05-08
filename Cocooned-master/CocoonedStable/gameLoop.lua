@@ -387,14 +387,13 @@ local function gameLoopEvents(event)
 		addGameLoopListeners(gui)
 		gameData.ingame = true
 		gameData.preGame = nil
+		snow.new()
 	end
 
-	--if gameData.ingame then
-		--snow.gameSnow(event, mapData)
-	--end
-	
-	--print(gameData.ingame)
-	
+	if gameData.ingame then
+		snow.gameSnow(event, mapData)
+	end
+		
 	--[[	
 	if mapData.levelNum == "LS" then
 		if gui.back[1] then
@@ -440,6 +439,7 @@ local function gameLoopEvents(event)
 		--sound.soundClean()
 		clean(event)	
 		-- set booleans
+		gameData.ingame = false
 		gameData.menuOn = true
 		gameData.gameEnd = false
 	end
@@ -452,6 +452,7 @@ local function gameLoopEvents(event)
 		-- Reset current pane to middle
 		mapData.pane = "M"
 		-- Apply booleans
+		gameData.ingame = false
 		gameData.gameStart = true
 		gameData.levelRestart = false
 	end

@@ -36,9 +36,9 @@ local function movePanes(event)
 
 	-- update new miniMap
 	--miniMapMechanic.updateMiniMap(params.tempPane, params.miniMap, params.gui, params.player1)
-	print("nameB: " .. params.gui.back.numChildren)
-	print("nameM: " .. params.gui.middle.numChildren)
-	print("nameF: " .. params.gui.front.numChildren)
+	--print("nameB: " .. params.gui.back.numChildren)
+	--print("nameM: " .. params.gui.middle.numChildren)
+	--print("nameF: " .. params.gui.front.numChildren)
 
 	-- delete everything on map
 	objects.destroy(params.mapData)
@@ -128,10 +128,10 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	-- depending on which direction, rotate the pane switch transition
 	if direction == "right" then
 		transPic:scale(2,2)
-		transPic.rotation = -90
+		transPic.rotation = 90
 	elseif direction == "left" then
 		transPic:scale(2,2)
-		transPic.rotation = 90
+		transPic.rotation = -90
 	elseif direction == "up" then
 		transPic.rotation = 180
 	elseif direction == "down" then
