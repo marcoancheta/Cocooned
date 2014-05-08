@@ -89,13 +89,6 @@ local function onAccelerate(event, player)
 		--sound.stopChannel(2)
 	end
 		
-	if yGrav < highestygrav then
-		highestygrav = yGrav
-	end
-	if xGrav < highestxgrav then
-		highestxgrav = xGrav
-	end
-		
 	-- Accelerometer Shake Event
 	if event.isShake and gameData.inWater == true then	
 		local ball = player.imageObject		
@@ -103,7 +96,7 @@ local function onAccelerate(event, player)
 		player.shook = true
 		ball:applyLinearImpulse(-xGrav * 0.1, -yGrav * 0.1, ball.x, ball.y)
 		--timer.performWithDelay(100, cancelDeathTimer)
-	elseif gameData.inWater == false then
+	elseif gameData.inWater == false or gameData.onIceberg == true then
 		--sound.playNarration(sound.soundEffects[7])
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav
