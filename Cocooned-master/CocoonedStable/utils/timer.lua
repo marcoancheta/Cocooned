@@ -115,7 +115,6 @@ local function gameCountFunct(event)
 		-- Format gameTimer to time-stamp	
 		clockFormat = os.date("!%M:%S", gameData.gameTime)
 		textObj.text = clockFormat
-		--print(gameData.gameTime)
 	elseif gameData.gameTime == 0 then
 		-- clean everything
 		textObj:removeSelf()
@@ -134,6 +133,8 @@ local function inGame(gui, mapData)
 	local level = require("levels." .. levelNames[mapData.levelNum])
 	-- Make global gameTimer = level default timer
 	gameData.gameTime = level.timer
+	gameData.defaultTime = level.timer
+	print("gameData.defaultTime", gameData.defaultTime)
 	-- Create local wispCounter = level wisp amount
 	local wispCounter = level.wispCount
 	-- Format gameTimer to time-stamp

@@ -26,15 +26,18 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- Disable wisp object collision to allow player to pass thru
 	event.contact.isEnabled = false
 	-- Play wisp sound effect
+	sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[8])	
 	-- Created text object for wisp collision
-	plusTime = display.newText("+:05", collideObject.x, collideObject.y, native.systemFontBold, 55)
+	plusTime = display.newText("+:01", collideObject.x, collideObject.y, native.systemFontBold, 55)
 	plusTime:setFillColor(0,0,0)
 	plusTime:toFront()
 	-- Initialize and run transition for plusTime text object
 	local wordTrans = transition.to(plusTime, {time=1000, y=collideObject.y-50, onComplete=removeObj})
-	-- Add 5 seconds to global gameTimer
-	gameData.gameTime = gameData.gameTime + 5
+	-- Add 1 second to global gameTimer
+	if gameData.defaultTime > gameData.gameTime then
+		gameData.gameTime = gameData.gameTime + 1
+	end
 	-- Add wisp into player's inventory
 	player:addInventory(collideObject)
 	-- Delete wisp
