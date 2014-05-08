@@ -115,7 +115,7 @@ local function levelSnow(mapData)
 		flake.x = xPos[3]
 		flake.y = yPos[3]
 		-- Send & receive directional coordinates
-		local formula, xDir, yDir = calcSnowDir(flake)
+		local xDir, yDir = calcSnowDir(flake)
 		-- Apply transition to global variable
 		snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
 										y = yDir[3], x = xDir[3], onComplete=removeFlake})
@@ -127,7 +127,7 @@ local function levelSnow(mapData)
 		flake.x = xPos[2]
 		flake.y = yPos[2]
 		-- Send & receive directional coordinates
-		local formula, xDir, yDir = calcSnowDir(flake)
+		local xDir, yDir = calcSnowDir(flake)
 		-- Apply transition to global variable
 		snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
 										y = yDir[2], x = xDir[2], onComplete=removeFlake})
@@ -139,7 +139,7 @@ local function levelSnow(mapData)
 		flake.x = xPos[4]
 		flake.y = yPos[4]
 		-- Send & receive directional coordinates
-		local formula, xDir, yDir = calcSnowDir(flake)
+		local xDir, yDir = calcSnowDir(flake)
 		-- Apply transition to global variable
 		snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
 										y = yDir[4], x = xDir[4], onComplete=removeFlake})
@@ -151,7 +151,7 @@ local function levelSnow(mapData)
 		flake.x = xPos[5]
 		flake.y = yPos[5]
 		-- Send & receive directional coordinates
-		local formula, xDir, yDir = calcSnowDir(flake)
+		local xDir, yDir = calcSnowDir(flake)
 		-- Apply transition to global variable
 		snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
 										y = yDir[5], x = xDir[5], onComplete=removeFlake})
