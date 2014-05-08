@@ -132,8 +132,8 @@ local function inGame(gui, mapData)
 	-- load in level file according to mapData.levelNumber
 	local level = require("levels." .. levelNames[mapData.levelNum])
 	-- Make global gameTimer = level default timer
-	gameData.gameTime = level.timer
 	gameData.defaultTime = level.timer
+	gameData.gameTime = gameData.defaultTime
 	print("gameData.defaultTime", gameData.defaultTime)
 	-- Create local wispCounter = level wisp amount
 	local wispCounter = level.wispCount
