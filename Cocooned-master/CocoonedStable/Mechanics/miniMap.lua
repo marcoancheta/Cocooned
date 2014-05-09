@@ -56,8 +56,8 @@ local function createMiniMap(mapData, map)
 		local mapX, mapY = 720, 432
 		if i == 2 then mapY = mapY + 240
 		elseif i == 3 then mapY = mapY - 240
-		elseif i == 4 then mapX = mapX - 400
-		elseif i == 5 then mapX = mapX + 400
+		elseif i == 4 then mapX = mapX + 400
+		elseif i == 5 then mapX = mapX - 400
 		end
 		-- set location and scale
 		miniMapTable[i].x, miniMapTable[i].y = mapX, mapY
@@ -203,11 +203,11 @@ local function moveMiniMap(miniMap, mapData, gui, event)
 	-- check where player has tapped
 	-- and move current pane highlight to where player has tapped
 	if event.y > 312 and event.y < 552 then
-		if gui.front.panes[5] == true and event.x > 920  then
-			miniMap[2].x = 1120
-			miniMap[2].y = 432
-		elseif gui.front.panes[4] == true and event.x < 520 then
+		if gui.front.panes[5] == true and event.x < 520  then
 			miniMap[2].x = 320
+			miniMap[2].y = 432
+		elseif gui.front.panes[4] == true and event.x > 920 then
+			miniMap[2].x = 1120
 			miniMap[2].y = 432
 		elseif event.x < 920 and event.x > 520 then
 			miniMap[2].x = 720
