@@ -97,23 +97,24 @@ local function endGame(gui)
 	gui.front:insert(counterText)
 end
 
+local i = 0
 --------------------------------------------------------------------------------
 -- Game Counter Listener [for in-game purposes]
 --------------------------------------------------------------------------------
 local function gameCountFunct(event)
+	i = i+1
+	print("call game timer: ", i)
 	-- Load in passed parameters from inGame()
 	local params = event.source.params
 	-- Localize event paramater
 	local textObj = params.counterParam
-	-- Subtract one second from global gameTimer
-	if gameData.defaultTime >= gameData.gameTime then
-		gameData.gameTime = gameData.gameTime - 1
-	end
 	-- While gameTimer is greater than 0
 	if gameData.gameTime > 0 then
 		if gameData.gameTime < 10 then
 			textObj:setFillColor(1,0,0)
 		end
+		-- Subtract one second from global gameTimer
+		gameData.gameTime = gameData.gameTime - 1
 		-- Format gameTimer to time-stamp	
 		clockFormat = os.date("!%M:%S", gameData.gameTime)
 		textObj.text = clockFormat
@@ -198,7 +199,7 @@ end
 --------------------------------------------------------------------------------
 local function preGame(gui, mapData)
 	-- counter = desired time + 2 sec (from loading).
-	counter = 5	
+	counter = 4
 	-- Create text object
 	local counterText = display.newText(counter, 0, 0, native.systemFontBold, 150)
 	-- Center text object

@@ -304,6 +304,8 @@ end
 local function clean(event)
 	-- stop physics
 	physics.stop()
+	-- clean snow
+	snow.meltSnow()
 	-- clean out currently loaded sound files
 	sound.soundClean()	
 	-- remove all eventListeners
