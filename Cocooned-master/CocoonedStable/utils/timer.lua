@@ -18,6 +18,22 @@ local clockFormat
 local counter = 0
 
 --------------------------------------------------------------------------------
+-- Pause Timer Event
+--------------------------------------------------------------------------------
+local function pauseTimer()
+	local pause = timer.pause(theTimer)
+	print("Time remaining is: ", pause)
+end
+
+--------------------------------------------------------------------------------
+-- Pause Timer Event
+--------------------------------------------------------------------------------
+local function resumeTimer()
+	local resume = timer.resume(theTimer)
+	print("Resume time is: ", resume)
+end
+
+--------------------------------------------------------------------------------
 -- End Game Timer Listener
 --------------------------------------------------------------------------------
 local function endCountFunc(event)
@@ -120,9 +136,14 @@ local function gameCountFunct(event)
 		textObj.text = clockFormat
 	elseif gameData.gameTime == 0 then
 		-- clean everything
-		textObj:removeSelf()
-		timer.cancel(theTimer)
-		theTimer = nil
+		if textObj then
+			textObj:removeSelf()
+			textObj = nil
+		end
+		if theTimer then
+			timer.cancel(theTimer)
+			theTimer = nil
+		end
 		-- run end game timer/transition
 		endGame(params.guiParam)
 	end
@@ -199,7 +220,7 @@ end
 --------------------------------------------------------------------------------
 local function preGame(gui, mapData)
 	-- counter = desired time + 2 sec (from loading).
-	counter = 4
+	counter = 5
 	-- Create text object
 	local counterText = display.newText(counter, 0, 0, native.systemFontBold, 150)
 	-- Center text object
@@ -221,5 +242,8 @@ end
 
 gameTimer.preGame = preGame
 gameTimer.inGame = inGame
+gameTimer.pauseTimer = pauseTimer
+gameTimer.resumeTimer = resumeTimer
+gameTimer.theTimer = theTimer
 
 return gameTimer

@@ -60,7 +60,7 @@ local function swipeScreen(event, mapData, miniMap, map)
 	if gameData.isShowingMiniMap ~= true then
 		-- if event touch is ended, check which way was swiped 
 		-- change pane is possible'
-		print(mapData.pane)
+		--print(mapData.pane)
 		if "ended" == phase or "cancelled" == phase then
 			-- check which pane player is in and do that functionality
 			if mapData.pane == "M" then

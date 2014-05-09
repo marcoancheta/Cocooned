@@ -61,7 +61,6 @@ local cutSceneSystem = require("Loading.cutSceneSystem")
 local accelObjects = require("Objects.accelerometerObjects")
 -- Timer
 local gameTimer = require("utils.timer")
-
 -- Particle effect
 local snow = require("utils.snow")
 
@@ -248,7 +247,7 @@ end
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
 	snow.meltSnow()
-	
+
 	sound.stopChannel(3)
 	sound.loadGameSounds()
 	
@@ -306,6 +305,7 @@ local function clean(event)
 	physics.stop()
 	-- clean snow
 	snow.meltSnow()
+	
 	-- clean out currently loaded sound files
 	sound.soundClean()	
 	-- remove all eventListeners
@@ -401,17 +401,17 @@ local function gameLoopEvents(event)
 		
 	-------------------------
 	--[[ PRE-GAME LOADER ]]--
-	if gameData.preGame == false then
-		-- Add game event listeners
-		addGameLoopListeners(gui)
+	if gameData.preGame == true then
 		-- Switch to in game loop
 		gameData.ingame = true
+		snow.new()
+		-- Clear out pre-game
+		gameData.preGame = false
 		-- Turn on pane switching and mini map
 		gameData.allowPaneSwitch = true
 		gameData.allowMiniMap = true
-		-- Clear out pre-game
-		gameData.preGame = nil
-		snow.new()
+		-- Add game event listeners
+		addGameLoopListeners(gui)
 	end
 
 	-------------------------
@@ -424,9 +424,7 @@ local function gameLoopEvents(event)
 	--[[ PLAYER IN WATER ]]--
 	if gameData.inWater then
 		-- Turn on pane switching and mini map
-		gameData.allowPaneSwitch = true
-		gameData.allowMiniMap = true
-		gameData.inWater = nil
+		gameData.allowPaneSwitch = false
 	end
 		
 	---------------------------
@@ -507,7 +505,10 @@ local function gameLoopEvents(event)
 		gameData.gameTime = 0
 		snow.new()
 		menu.mainMenu(event)
-		mapDataDefault()
+		mapDataDefault()		
+		if gameTimer.theTimer then
+			timer.cancel(gameTimer.theTimer)
+		end		
 		-- Re-evaluate gameData booleans
 		gameData.inMainMenu = true
 		gameData.menuOn = false
@@ -528,12 +529,18 @@ local function gameLoopEvents(event)
 	--[[ IN-GAME OPTIONS ]]--
 	if gameData.inGameOptions then
 		physics.pause()
+		-- Pause gameTimer
+		gameTimer.pauseTimer()
 		-- Go to in-game option menu
 		menu.ingameMenu(event, player1, player2, gui)
+		-- Cancel snow timer
+		transition.cancel()
 		-- Remove object listeners
 		removeGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
+		gameData.ingame = false
 		gameData.allowMiniMap = false
+		gameData.allowPaneSwitch = false
 		gameData.inGameOptions = false
 	end
 	
@@ -541,10 +548,14 @@ local function gameLoopEvents(event)
 	--[[ RESUME GAME ]]--		
 	if gameData.resumeGame then
 		-- Restart physics
-		physics.start()		
+		physics.start()
+		-- Resume gameTimer
+		gameTimer.resumeTimer()			
 		-- Add object listeners
 		addGameLoopListeners(gui)		
 		-- Re-evaluate gameData booleans
+		gameData.ingame = true
+		gameData.allowPaneSwitch = true
 		gameData.allowMiniMap = true
 		gameData.resumeGame = false
 	end

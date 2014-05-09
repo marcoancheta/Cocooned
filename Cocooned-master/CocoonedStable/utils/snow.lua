@@ -94,71 +94,73 @@ local function levelSnow(mapData)
 	local snowBall
 	
 	-- Transition snowBall according to pane name
-	if mapData.pane == "M" then	
-		for i=1, #level.panes do
-			-- Check if all neighbouring panes exist
-			if level.panes[i+1] then
-				-- Create a new temp flake
-				local flake = display.newCircle(0,0,5)
-				flake.x = xPos[i+1]
-				flake.y = yPos[i+1]
-				-- Send & receive directional coordinates
-				local xDir, yDir = calcSnowDir(flake)				
-				-- Apply transition to global variable
-				snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
-													y = yDir[i+1], x = xDir[i+1], onComplete=removeFlake})													
-				-- Pass flake into snowBall for return
-				snowBall = flake
+	if gameData.ingame then
+		if mapData.pane == "M" then	
+			for i=1, #level.panes do
+				-- Check if all neighbouring panes exist
+				if level.panes[i+1] then
+					-- Create a new temp flake
+					local flake = display.newCircle(0,0,5)
+					flake.x = xPos[i+1]
+					flake.y = yPos[i+1]
+					-- Send & receive directional coordinates
+					local xDir, yDir = calcSnowDir(flake)				
+					-- Apply transition to global variable
+					snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
+														y = yDir[i+1], x = xDir[i+1], onComplete=removeFlake})													
+					-- Pass flake into snowBall for return
+					snowBall = flake
+				end
 			end
+		elseif mapData.pane == "D" then
+			-- Create a new temp flake
+			local flake = display.newCircle(0,0,5)
+			flake.x = xPos[3]
+			flake.y = yPos[3]
+			-- Send & receive directional coordinates
+			local xDir, yDir = calcSnowDir(flake)
+			-- Apply transition to global variable
+			snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
+											y = yDir[3], x = xDir[3], onComplete=removeFlake})
+			-- Pass flake into snowBall for return
+			snowBall = flake
+		elseif mapData.pane == "U" then
+			-- Create a new temp flake
+			local flake = display.newCircle(0,0,5)
+			flake.x = xPos[2]
+			flake.y = yPos[2]
+			-- Send & receive directional coordinates
+			local xDir, yDir = calcSnowDir(flake)
+			-- Apply transition to global variable
+			snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
+											y = yDir[2], x = xDir[2], onComplete=removeFlake})
+			-- Pass flake into snowBall for return
+			snowBall = flake
+		elseif mapData.pane == "L" then
+			-- Create a new temp flake
+			local flake = display.newCircle(0,0,5)
+			flake.x = xPos[4]
+			flake.y = yPos[4]
+			-- Send & receive directional coordinates
+			local xDir, yDir = calcSnowDir(flake)
+			-- Apply transition to global variable
+			snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
+											y = yDir[4], x = xDir[4], onComplete=removeFlake})
+			-- Pass flake into snowBall for return
+			snowBall = flake
+		elseif mapData.pane == "R" then
+			-- Create a new temp flake
+			local flake = display.newCircle(0,0,5)
+			flake.x = xPos[5]
+			flake.y = yPos[5]
+			-- Send & receive directional coordinates
+			local xDir, yDir = calcSnowDir(flake)
+			-- Apply transition to global variable
+			snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
+											y = yDir[5], x = xDir[5], onComplete=removeFlake})
+			-- Pass flake into snowBall for return
+			snowBall = flake
 		end
-	elseif mapData.pane == "D" then
-		-- Create a new temp flake
-		local flake = display.newCircle(0,0,5)
-		flake.x = xPos[3]
-		flake.y = yPos[3]
-		-- Send & receive directional coordinates
-		local xDir, yDir = calcSnowDir(flake)
-		-- Apply transition to global variable
-		snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
-										y = yDir[3], x = xDir[3], onComplete=removeFlake})
-		-- Pass flake into snowBall for return
-		snowBall = flake
-	elseif mapData.pane == "U" then
-		-- Create a new temp flake
-		local flake = display.newCircle(0,0,5)
-		flake.x = xPos[2]
-		flake.y = yPos[2]
-		-- Send & receive directional coordinates
-		local xDir, yDir = calcSnowDir(flake)
-		-- Apply transition to global variable
-		snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
-										y = yDir[2], x = xDir[2], onComplete=removeFlake})
-		-- Pass flake into snowBall for return
-		snowBall = flake
-	elseif mapData.pane == "L" then
-		-- Create a new temp flake
-		local flake = display.newCircle(0,0,5)
-		flake.x = xPos[4]
-		flake.y = yPos[4]
-		-- Send & receive directional coordinates
-		local xDir, yDir = calcSnowDir(flake)
-		-- Apply transition to global variable
-		snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
-										y = yDir[4], x = xDir[4], onComplete=removeFlake})
-		-- Pass flake into snowBall for return
-		snowBall = flake
-	elseif mapData.pane == "R" then
-		-- Create a new temp flake
-		local flake = display.newCircle(0,0,5)
-		flake.x = xPos[5]
-		flake.y = yPos[5]
-		-- Send & receive directional coordinates
-		local xDir, yDir = calcSnowDir(flake)
-		-- Apply transition to global variable
-		snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
-										y = yDir[5], x = xDir[5], onComplete=removeFlake})
-		-- Pass flake into snowBall for return
-		snowBall = flake
 	end
 	
 	return snowBall
