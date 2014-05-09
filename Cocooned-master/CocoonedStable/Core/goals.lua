@@ -53,8 +53,8 @@ local function tapOnce(event)
 		textObject[2].alpha  = 0
 		play.alpha = 0
 		cancel.alpha = 0
-		for i=1, 5 do
-			rune[1].isVisible = false
+		for i=1, #rune do
+			rune[i].isVisible = false
 		end
 		playerTemp.curse = 1
 	end		
