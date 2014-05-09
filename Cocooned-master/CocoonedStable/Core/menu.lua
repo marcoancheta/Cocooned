@@ -296,7 +296,7 @@ local function ingameOptionsbutton(event, gui)
 	-- Scale image size
 	--ingameOptions.anchorX = 0
 	--ingameOptions.anchorY = 1
-	ingameOptions.x = display.contentCenterX + 600
+	ingameOptions.x = display.contentCenterX + 650
 	ingameOptions.y = display.contentCenterY - 350
 	ingameOptions.name = "inGameOptionsBTN"	
 	ingameOptions:addEventListener("tap", buttonPressed)

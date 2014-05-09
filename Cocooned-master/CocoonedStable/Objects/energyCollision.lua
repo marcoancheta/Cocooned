@@ -35,8 +35,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- Initialize and run transition for plusTime text object
 	local wordTrans = transition.to(plusTime, {time=1000, y=collideObject.y-50, onComplete=removeObj})
 	-- Add 1 second to global gameTimer
-	if gameData.defaultTime > gameData.gameTime then
-		gameData.gameTime = gameData.gameTime + 1
+	if gameData.gameTime < (gameData.defaultTime-2) then
+		local tempTime = gameData.gameTime
+		gameData.gameTime = tempTime + 2
 	end
 	-- Add wisp into player's inventory
 	player:addInventory(collideObject)

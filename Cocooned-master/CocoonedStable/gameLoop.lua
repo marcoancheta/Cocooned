@@ -346,15 +346,30 @@ end
 -- Updated by: Derrick 
 --------------------------------------------------------------------------------
 local function gameLoopEvents(event)
+	--[[	
+	if mapData.levelNum == "LS" then
+		if gui.back[1] then
+			-- Set Camera to Ball
+			gui.back[1].setCameraFocus(ball)
+			gui.back[1].setTrackingLevel(0.1)
+		end
+	end
+	]]--
+		
+
 	-- Run monitorMemory from open to close.
 	if gameData.debugMode then
+		-- Memory monitor
 		memory.monitorMem()
+		-- Water boolean
 		memory.inWater()
+		-- Show physics bodies
 		physics.setDrawMode("hybrid")
 	end
 
 	-- Activate snow particle effect if in main menu
 	if gameData.inMainMenu then
+		-- Draws snow every second
 		snow.makeSnow(event, mapData)
 	end
 
@@ -381,28 +396,36 @@ local function gameLoopEvents(event)
 			end
 		end
 	end
-
+		
+	-------------------------
+	--[[ PRE-GAME LOADER ]]--
 	if gameData.preGame == false then
 		-- Add game event listeners
 		addGameLoopListeners(gui)
+		-- Switch to in game loop
 		gameData.ingame = true
+		-- Turn on pane switching and mini map
+		gameData.allowPaneSwitch = true
+		gameData.allowMiniMap = true
+		-- Clear out pre-game
 		gameData.preGame = nil
 		snow.new()
 	end
 
+	-------------------------
+	--[[ IN-GAME LOADER ]]--
 	if gameData.ingame then
 		snow.gameSnow(event, mapData)
 	end
 		
-	--[[	
-	if mapData.levelNum == "LS" then
-		if gui.back[1] then
-			-- Set Camera to Ball
-			gui.back[1].setCameraFocus(ball)
-			gui.back[1].setTrackingLevel(0.1)
-		end
+	-------------------------
+	--[[ PLAYER IN WATER ]]--
+	if gameData.inWater then
+		-- Turn on pane switching and mini map
+		gameData.allowPaneSwitch = true
+		gameData.allowMiniMap = true
+		gameData.inWater = nil
 	end
-	]]--
 		
 	---------------------------
 	--[[ START LVL SELECTOR]]--
@@ -428,8 +451,7 @@ local function gameLoopEvents(event)
 				
 		-- Re-evaluate gameData booleans
 		gameData.preGame = true
-		gameData.allowPaneSwitch = true
-		gameData.allowMiniMap = true
+		-- Switch off this loop
 		gameData.gameStart = false
 	end
 		
@@ -438,9 +460,13 @@ local function gameLoopEvents(event)
 	if gameData.gameEnd then
 		--sound.soundClean()
 		clean(event)	
-		-- set booleans
+		-- Switch off game booleans
 		gameData.ingame = false
+		gameData.inWater = false
+		gameData.onIceberg = false
+		-- Go to menu
 		gameData.menuOn = true
+		-- Switch off this loop
 		gameData.gameEnd = false
 	end
 	
@@ -451,9 +477,13 @@ local function gameLoopEvents(event)
 		--clean(event)
 		-- Reset current pane to middle
 		mapData.pane = "M"
-		-- Apply booleans
+		-- Switch off game booleans
 		gameData.ingame = false
+		gameData.inWater = false
+		gameData.onIceberg = false
+		-- Start game
 		gameData.gameStart = true
+		-- Switch off this loop
 		gameData.levelRestart = false
 	end
 		

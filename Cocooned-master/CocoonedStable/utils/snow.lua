@@ -40,8 +40,10 @@ end
 -- removeFlake(target) - Delete snow object if target has been reached
 --------------------------------------------------------------------------------
 local function removeFlake(target)
-	target:removeSelf()
-	target = nil
+	if target then
+		target:removeSelf()
+		target = nil
+	end
 end
 
 --------------------------------------------------------------------------------

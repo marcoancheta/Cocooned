@@ -135,9 +135,9 @@ local function drawGoals(gui, player)
 	play.alpha = 0
 	play.name = "playButton"
 
-	cancel = display.newImage("mapdata/art/buttons/sil_kipcha.png")
-	cancel.x, cancel.y = generate.tilesToPixels(35, 4)
-	cancel:scale(1.5, 1.5)
+	cancel = display.newImage("mapdata/art/buttons/cancel.png")
+	cancel.x, cancel.y = generate.tilesToPixels(35, 21)
+	cancel:scale(1, 1)
 	cancel.alpha = 0
 	cancel.name = "cancelButton"
 			

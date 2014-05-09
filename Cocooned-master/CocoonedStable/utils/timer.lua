@@ -106,7 +106,9 @@ local function gameCountFunct(event)
 	-- Localize event paramater
 	local textObj = params.counterParam
 	-- Subtract one second from global gameTimer
-	gameData.gameTime = gameData.gameTime - 1
+	if gameData.defaultTime >= gameData.gameTime then
+		gameData.gameTime = gameData.gameTime - 1
+	end
 	-- While gameTimer is greater than 0
 	if gameData.gameTime > 0 then
 		if gameData.gameTime < 10 then
