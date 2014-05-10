@@ -36,8 +36,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- set collision to false
 	event.contact.isEnabled = false
 
-	-- play sound
-	sound.playSound(sound.soundEffects[5])
+	-- play sound (commenting out in favor of adding in different rune sounds)
+	--sound.playSound(sound.soundEffects[5])
 
 	-- add rune to inventory
 	player:addInventory(collideObject)
@@ -54,14 +54,17 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	--playerShrink.x, playerShrink.y = collideObject.x - 45, collideObject.y
 	--playerShrink:setSequence("move")
 
-	-- check which rune was collected and activate ability
+	-- check which rune was collected, activate ability, and play specific sound
 	if collideObject.name == "blueRune" then
 		player:breakWalls(map)
+		sound.playSound(sound.soundEffects[9])
 	elseif collideObject.name == "pinkRune" then
-		player:slowTime(gui.front)		
+		player:slowTime(gui.front)
+    sound.playSound(sound.soundEffects[10])
 	elseif collideObject.name == "greenRune" then
 		gameData.gRune = true
 		player:moveWalls(gui)
+		sound.playSound(sound.soundEffects[11])
 	elseif collideObject.name == "yellowRune" then
 	elseif collideObject.name == "purpleRune" then
 		collideObject:removeSelf()

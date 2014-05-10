@@ -127,6 +127,7 @@ local function swipeMechanics(event)
 		if "ended" == event.phase and mapData.pane ~= tempPane then
 			-- play snow transition effect
 			--TODO: does player need to be pased in?
+			sound.playSound(sound.soundEffects[3])
 			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
 		end
 	end
@@ -148,6 +149,7 @@ local function tapMechanic(event)
 		-- check if pane is different from current one, if so, switch panes
 		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
 			-- play snow transition effect
+			sound.playSound(sound.soundEffects[3])
 			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
 		end
 	end

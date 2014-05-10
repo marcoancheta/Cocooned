@@ -68,6 +68,12 @@ local function loadGameSounds()
 	sound.soundEffects[7] = audio.loadSound("sounds/rollSnow.wav")
 	-- Pick up "key" (used for wisps)
 	sound.soundEffects[8] = audio.loadSound("sounds/wispPickup.wav")
+	-- Wall Breaking Rune Pickup
+	sound.soundEffects[9] = audio.loadSound("sounds/runePickupWallBreak.wav")
+	-- Time Slowing Rune Pickup
+	sound.soundEffects[10] = audio.loadSound("sounds/runePickupTimeSlow.wav")
+	-- Movable walls Rune Pickup
+	sound.soundEffects[11] = audio.loadSound("sounds/runePickupMovableWalls.wav")
 	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
 	--sound.soundEffects[9] = audio.loadSound("sounds/ice_cracking.wav")
 	
