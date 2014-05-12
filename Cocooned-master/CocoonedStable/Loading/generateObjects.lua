@@ -32,6 +32,7 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	wisp[i].func = "energyCollision"
 	   	wisp[i].collectable = true
 	   	wisp[i].name = "wisp" .. i
+	   	wisp[i]:toFront()
 
 	   	-- insert wisp into map display group
 		if mapData.levelNum ~= "LS" then
@@ -40,7 +41,6 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 
 		-- add physics body for wisp for collision
 		physics.addBody(wisp[i], "static", {bounce=0})
-
 	end
 end
 
@@ -79,8 +79,8 @@ local function gObjects(level, objects, map, mapData, runes)
 			end
 			
 			-- add object to map display group
-			map.front:insert(objects[name .. j])				
-
+			map.front:insert(objects[name .. j])
+			objects[name .. j]:toBack()
 		end
 	end
 
@@ -122,6 +122,7 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i].object.moveable = true
 
 		-- start moving object
+		map.front:insert(objects["fish1" .. i])
 		mObjects[i]:startTransition(mObjects[i].object)
 	end
 
@@ -151,6 +152,7 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i].object.moveable = true
 
 		-- start moving object
+		map.front:insert(objects["fish2" .. i-offset])
 		mObjects[i]:startTransition(mObjects[i].object)
 	end
 
@@ -217,6 +219,8 @@ local function gMObjects(level, objects, map, mapData)
 			mObjects[i].object.moveable = true
 
 			-- start moving object
+			map.front:insert(objects["fixedIceberg" .. i-offset])
+			objects["fixedIceberg" .. i-offset]:toBack()
 			mObjects[i]:startTransition(mObjects[i].object)
 		end
 		-- return object table

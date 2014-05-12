@@ -134,7 +134,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(10, 12)
 		wisp[4].x, wisp[4].y = generate.tilesToPixels(15, 12)
 		-- Right three wisps
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(20, 12)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(31, 12)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(25, 12)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(30, 12)
 
@@ -145,9 +145,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(22, 19)
  		objects["fish21"].eX, objects["fish21"].eY = generate.tilesToPixels(26, 4)
  		objects["fish21"].x, objects["fish21"].y = generate.tilesToPixels(26, 19)
- 		objects["fish11"].time = 375
- 		objects["fish12"].time = 375
- 		objects["fish21"].time = 375
+ 		objects["fish11"].time = 1375
+ 		objects["fish12"].time = 1375
+ 		objects["fish21"].time = 1375
 		
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(35, 12)

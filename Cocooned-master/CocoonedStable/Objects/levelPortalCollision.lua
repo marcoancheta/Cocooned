@@ -34,7 +34,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	end
 	
 	local function temp(target)
-		if gameData.levelSelector then
+		if gameData.inLevelSelector then
 			target:setLinearVelocity(0,0)
 		end
 	end

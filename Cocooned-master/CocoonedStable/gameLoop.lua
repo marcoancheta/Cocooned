@@ -437,6 +437,7 @@ local function gameLoopEvents(event)
 		addGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
 		gameData.selectLevel = false
+		gameData.inLevelSelector = true
 	end
 	
 	-----------------------
