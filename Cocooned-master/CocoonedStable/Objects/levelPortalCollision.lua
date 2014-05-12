@@ -34,7 +34,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	end
 	
 	local function temp()
-		player.imageObject:setLinearVelocity(0,0)
+		if player then
+			player.imageObject:setLinearVelocity(0,0)
+		end
 	end
 									
 	for i=0, 5 do		
