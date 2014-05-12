@@ -357,8 +357,7 @@ local function gameLoopEvents(event)
 		end
 	end
 	]]--
-		
-
+	
 	-- Run monitorMemory from open to close.
 	if gameData.debugMode then
 		-- Memory monitor
@@ -401,12 +400,12 @@ local function gameLoopEvents(event)
 		
 	-------------------------
 	--[[ PRE-GAME LOADER ]]--
-	if gameData.preGame == true then
+	if gameData.preGame == false then
 		-- Switch to in game loop
 		gameData.ingame = true
 		snow.new()
 		-- Clear out pre-game
-		gameData.preGame = false
+		gameData.preGame = nil
 		-- Turn on pane switching and mini map
 		gameData.allowPaneSwitch = true
 		gameData.allowMiniMap = true

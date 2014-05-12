@@ -33,9 +33,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		event.other.isSensor = false
 	end
 	
-	local function temp()
-		if player then
-			player.imageObject:setLinearVelocity(0,0)
+	local function temp(target)
+		if gameData.levelSelector then
+			target:setLinearVelocity(0,0)
 		end
 	end
 									
@@ -50,7 +50,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				player.curse = 0
 				player.xGrav = 0
 				player.yGrav = 0
-				local trans = transition.to(player.imageObject, {time=500, x=collideObject.x, y=collideObject.y, onComplete = temp} )
+				local trans = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y, onComplete = temp} )
 			end
 		else
 			goals.hidePlay()
