@@ -404,8 +404,10 @@ local function gameLoopEvents(event)
 	end
 	
 	if gameData.inLevelSelector then
-		shadowCircle.x = ball.x
-		shadowCircle.y = ball.y
+		if shadowCircle and ball then
+			shadowCircle.x = ball.x
+			shadowCircle.y = ball.y
+		end
 	end
 		
 	-------------------------
@@ -428,8 +430,10 @@ local function gameLoopEvents(event)
 	-- Runtime event.
 	if gameData.ingame then
 		snow.gameSnow(event, mapData)
-		shadowCircle.x = ball.x
-		shadowCircle.y = ball.y
+		if shadowCircle and ball then
+			shadowCircle.x = ball.x
+			shadowCircle.y = ball.y
+		end
 	end
 		
 	-------------------------
