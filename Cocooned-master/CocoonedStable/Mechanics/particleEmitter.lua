@@ -125,7 +125,7 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
         -- set particle image
         particle = display.newCircle(ex, ey, 5)
         inGFXGroup:insert(particle)
-
+        particle:toBack()
         -- particle:scale(0.5,0.5)
         --physics.addBody(particle)
         -- particle:applyTorque( 50 )
