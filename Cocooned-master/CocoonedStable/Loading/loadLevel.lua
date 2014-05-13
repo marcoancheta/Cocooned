@@ -22,6 +22,8 @@ local physicsData = require("Loading.physicsData")
 local goals = require("Core.goals")
 -- Mini-map (miniMap.lua)
 local miniMapMechanic = require("Mechanics.miniMap")
+-- Snow (snow.lua)
+local snow = require("utils.snow")
 
 --------------------------------------------------------------------------------
 -- Variables - variables for loading panes
@@ -144,6 +146,10 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function changePane(gui, mapData, player, miniMap)
+	-- Delete old snow
+	snow.meltSnow()
+	snow.new()
+
 	-- load in wall collision
 	local levelBG, levelWalls = drawPane(mapData)
 	

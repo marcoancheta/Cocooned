@@ -25,6 +25,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	
 	if gameData.onIceberg == false then
 		-- play sound
+		sound.stopChannel(1)
 	    sound.playSound(sound.soundEffects[4])
 	    local splashAnim = display.newSprite(animation.sheetOptions.splashSheet, animation.spriteOptions.splash)	
 		  -- Start wolf off-screen

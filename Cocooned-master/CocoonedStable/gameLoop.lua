@@ -99,6 +99,7 @@ local players = {}
 local linePts = {}
 
 local camera;
+local groupObj
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -415,12 +416,14 @@ local function gameLoopEvents(event)
 
 	-------------------------
 	--[[ IN-GAME LOADER ]]--
+	-- Runtime event.
 	if gameData.ingame then
 		snow.gameSnow(event, mapData)
 	end
 		
 	-------------------------
 	--[[ PLAYER IN WATER ]]--
+	-- Runtime event.
 	if gameData.inWater then
 		-- Turn on pane switching and mini map
 		gameData.allowPaneSwitch = false
@@ -502,6 +505,8 @@ local function gameLoopEvents(event)
 	--[[ MAIN MENU ]]--
 	if gameData.menuOn then
 		-- Go to main menu
+		menu.clean()
+		gameData.updateOptions = false
 		gameData.gameTime = 0
 		snow.new()
 		menu.mainMenu(event)
@@ -514,13 +519,22 @@ local function gameLoopEvents(event)
 		gameData.menuOn = false
 	end
 	
+	-----------------------------
+	--[[ UPDATE OPTIONS MENU ]]--
+	-- Runtime event.
+	if gameData.updateOptions then
+		menu.update(groupObj)
+	end
+	
 	----------------------
 	--[[ OPTIONS MENU ]]--	
 	if gameData.inOptions then
-		sound.stopChannel(3)
+		-- Clean up snow
+		snow.meltSnow()
 		-- Go to options menu
-		menu.options(event)																																																																						
+		groupObj = menu.options(event)																																																																						
 		-- Re-evaluate gameData booleans
+		gameData.updateOptions = true
 		gameData.inMainMenu = false
 		gameData.inOptions = false		
 	end

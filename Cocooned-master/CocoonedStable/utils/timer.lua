@@ -70,7 +70,7 @@ local function endCountFunc(event)
 		-- Send boolean to gameLoop
 		gameData.levelRestart = true
 	end
-	print(counter)
+	print("Time left: ", counter)
 end
 
 --------------------------------------------------------------------------------
@@ -119,7 +119,6 @@ local i = 0
 --------------------------------------------------------------------------------
 local function gameCountFunct(event)
 	i = i+1
-	print("call game timer: ", i)
 	-- Load in passed parameters from inGame()
 	local params = event.source.params
 	-- Localize event paramater

@@ -28,10 +28,10 @@ end
 --------------------------------------------------------------------------------
 local function meltSnow()
 	if snowGroup then
+		transition.cancel()
 		snowGroup:removeSelf()
 		snowGroup = nil
 		wind = nil
-		transition.cancel(snowTrans)
 		snowTrans = nil
 	end
 end
@@ -55,11 +55,11 @@ local function spawnSnowFlake()
 	-- Create a new temp flake
     local flake = display.newCircle(0,0,5)
 	flake.name = "flake"
-    flake.x = math.random(display.contentWidth)
+    flake.x = math.random(0, display.contentWidth)
     flake.y = -2
 	-- Apply transition to global variable
     flake.trans = transition.to(flake,{time=math.random(5000) + 3000, 
-										y = display.contentHeight, 
+										y = math.random(display.contentHeight-20, display.contentHeight), 
 										x = flake.x + wind, 
 										onComplete=removeFlake})										
 	return flake
@@ -69,13 +69,15 @@ end
 -- calcSnowDir(snowFlake) - Math for in-game snow algorithm
 --------------------------------------------------------------------------------
 local function calcSnowDir(snowflake)
-	--	  formula = {Down, Up, Left, Right}
-	local formula = {(snowflake.x + wind), (snowflake.x + wind), (snowflake.y - wind), (snowflake.y + wind)}
-	-- 	   Dir = {Middle, Down, Up, Left, Right)
-	local xDir = {0, formula[1], formula[2], 1240, 200}
-	local yDir = {0, 200, 660, formula[3], formula[4]}
-	
-	return xDir, yDir
+	if snowflake then
+		--	  formula = {Down, Up, Left, Right}
+		local formula = {(snowflake.x + wind), (snowflake.x + wind), (snowflake.y - wind), (snowflake.y + wind)}
+		-- 	   Dir = {Middle, Down, Up, Left, Right)
+		local xDir = {0, formula[1], formula[2], 1240, 200}
+		local yDir = {0, 200, 660, formula[3], formula[4]}
+		
+		return xDir, yDir
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -177,7 +179,7 @@ local function makeSnow(event, mapData)
 		temp = spawnSnowFlake()
 		snowGroup:insert(temp)
 		snowGroup:toFront()
-	end	
+	end
 	
 	return true
 end

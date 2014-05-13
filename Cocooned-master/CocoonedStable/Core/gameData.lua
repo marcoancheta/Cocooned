@@ -22,6 +22,7 @@ local gameData = {
 	inGameOptions = false,
 	inOptions = false,
 	inMainMenu = false,
+	updateOptions = false,
 	
 	-- Level Selector Booleans
 	selectLevel = false,

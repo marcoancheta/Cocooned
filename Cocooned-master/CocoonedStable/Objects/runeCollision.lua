@@ -37,6 +37,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
 
 	-- play sound
+	sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[5])
 
 	-- add rune to inventory
