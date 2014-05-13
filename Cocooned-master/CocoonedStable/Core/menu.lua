@@ -77,8 +77,13 @@ end
 local function update(objGroup)
 	if objGroup then
 		if gameData.updateOptions then
-			objGroup[10].text = gameData.bgmVolume * 10
-			objGroup[11].text = gameData.sfxVolume * 10
+			if objGroup.name == "optGroup" then
+				objGroup[10].text = gameData.bgmVolume * 10
+				objGroup[11].text = gameData.sfxVolume * 10
+			elseif objGroup.name == "igoptGroup" then
+				objGroup[9].text = gameData.bgmVolume * 10
+				objGroup[10].text = gameData.sfxVolume * 10
+			end
 		else
 			objGroup:removeSelf()
 			objGroup = nil
@@ -239,6 +244,8 @@ local function options(event)
 		[11] = display.newText(gameData.bgmVolume*10, 350, 150, native.Systemfont, 40)
 	}
 	
+	menuObjects.name = "optGroup"
+	
 	-- Options background image
 	menuObjects[1].x = display.contentCenterX
 	menuObjects[1].y = display.contentCenterY
@@ -359,6 +366,18 @@ local function ingameMenu(event, gui)
 		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
 		-- Add Resume game button
 		[3] = display.newImageRect("mapdata/art/buttons/resume.png", 400, 150),
+		-- Pause text object
+		[4] = display.newText("PAUSED", display.contentCenterX, 100, native.Systemfont, 103),
+		-- Sound controller (SFX[6] - BGM[7])
+		[5] = widget.newSlider{orientation="horizontal", width=350, height=400, value = sfxVal, listener=sfxController},
+		[6] = widget.newSlider{orientation="horizontal", width=350, height=400, value = bgmVal, listener=bgmController},
+		-- Sound text
+		[7] = display.newText("Sound Volume: ", 350, 150, native.Systemfont, 52),
+		[8] = display.newText("Music Volume: ", 350, 150, native.Systemfont, 52),
+		-- Pre-store location in array for value text
+		[9] = display.newText(gameData.sfxVolume*10, 350, 150, native.Systemfont, 40),
+		[10] = display.newText(gameData.bgmVolume*10, 350, 150, native.Systemfont, 40)
+		--[[
 		-- Minus button	#1
 		[4] = display.newImageRect("mapdata/art/buttons/minus.png", 100, 100),
 		-- Plus button	#1
@@ -367,17 +386,40 @@ local function ingameMenu(event, gui)
 		[6] = display.newImageRect("mapdata/art/buttons/minus.png", 100, 100),
 		-- Plus button #2
 		[7] = display.newImageRect("mapdata/art/buttons/plus.png", 100, 100),
-		-- Pause text object
-		[8] = display.newText("PAUSED", 1155, 100, native.Systemfont, 69)
+		]]--
 	}
+	
+	menuObjects.name = "igoptGroup"
 		
 	-- Assign position		
 	menuObjects[1].x = display.contentCenterX
-	menuObjects[1].y = display.contentCenterY	
+	menuObjects[1].y = display.contentCenterY
+	menuObjects[1].alpha = 0.9
+	
 	menuObjects[2].x = display.contentCenterX + 450
 	menuObjects[2].y = display.contentCenterY + 150		
 	menuObjects[3].x = display.contentCenterX + 450
-	menuObjects[3].y = display.contentCenterY + 315
+	menuObjects[3].y = display.contentCenterY + 315	
+	-- SFX Volume Slider
+	menuObjects[5].x = 125
+	menuObjects[5].y = display.contentCenterY
+	-- BGM Volume Slider
+	menuObjects[6].x = 125
+	menuObjects[6].y = display.contentCenterY - 100
+	-- SFX Volume Text
+	menuObjects[7].x = 125
+	menuObjects[7].y = display.contentCenterY - 50
+	-- BGM Volume Text
+	menuObjects[8].x = 125
+	menuObjects[8].y = display.contentCenterY - 150
+	-- Sound [0-100] Text
+	menuObjects[9].x = 520
+	menuObjects[9].y = display.contentCenterY - 100
+	-- Sound [0-100] Text
+	menuObjects[10].x = 520
+	menuObjects[10].y = display.contentCenterY
+
+	--[[
 	menuObjects[4].x = display.contentCenterX + 325
 	menuObjects[4].y = display.contentCenterY - 175	
 	menuObjects[5].x = display.contentCenterX + 575
@@ -386,6 +428,7 @@ local function ingameMenu(event, gui)
 	menuObjects[6].y = display.contentCenterY - 20		
 	menuObjects[7].x = display.contentCenterX + 575
 	menuObjects[7].y = display.contentCenterY - 20	
+	]]--
 	
 	-- Flip background image (horizontal)
 	menuObjects[1]:scale(-1, 1)
@@ -396,7 +439,14 @@ local function ingameMenu(event, gui)
 		menuObjects[i].name = menuNames[i-1]
 		menuObjects[i].anchorX = 0.5
 		menuObjects[i].anchorY = 0.5
-		menuObjects[i]:setFillColor(0, 0, 1)
+		
+		if (i==4) or (i >=7) then
+			menuObjects[i]:setFillColor(0, 0, 0)
+		end
+		
+		if (i > 4 and i <= 8) then
+			menuObjects[i].anchorX = 0
+		end
 		
 		-- add event listeners to buttons
 		menuObjects[i]:addEventListener("tap", buttonPressed)
@@ -404,7 +454,7 @@ local function ingameMenu(event, gui)
 		menuGroup:insert(menuObjects[i])
 	end
 		
-	return menuGroup
+	return menuObjects
 end
 
 --------------------------------------------------------------------------------
