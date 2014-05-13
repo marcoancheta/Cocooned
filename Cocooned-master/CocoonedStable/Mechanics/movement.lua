@@ -76,6 +76,7 @@ local function moveAndAnimate(event, currPlayer, gui)
 			currPlayer.imageObject:applyForce(xForce, yForce,currPlayer.imageObject.x,currPlayer.imageObject.y)
 		end
 
+		-- snow trail particle effect
 		local velX, velY = currPlayer.imageObject:getLinearVelocity()
 
 		if velX ~= 0 and velY ~= 0 then
