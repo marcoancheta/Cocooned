@@ -21,16 +21,20 @@ local counter = 0
 -- Pause Timer Event
 --------------------------------------------------------------------------------
 local function pauseTimer()
-	local pause = timer.pause(theTimer)
-	print("Time remaining is: ", pause)
+	if theTimer then
+		local pause = timer.pause(theTimer)
+		print("Time remaining is: ", pause)
+	end
 end
 
 --------------------------------------------------------------------------------
 -- Pause Timer Event
 --------------------------------------------------------------------------------
 local function resumeTimer()
-	local resume = timer.resume(theTimer)
-	print("Resume time is: ", resume)
+	if theTimer then
+		local resume = timer.resume(theTimer)
+		print("Resume time is: ", resume)
+	end
 end
 
 --------------------------------------------------------------------------------

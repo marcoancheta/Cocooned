@@ -544,15 +544,18 @@ local function gameLoopEvents(event)
 	if gameData.inGameOptions then
 		physics.pause()
 		-- Pause gameTimer
-		gameTimer.pauseTimer()
+		if mapData.levelNum ~= "LS" then
+			gameTimer.pauseTimer()
+		end
 		-- Go to in-game option menu
-		menu.ingameMenu(event, player1, player2, gui)
+		groupObj = menu.ingameMenu(event, player1, player2, gui)
 		-- Cancel snow timer
 		transition.cancel()
 		-- Remove object listeners
 		removeGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
 		gameData.ingame = false
+		gameData.updateOptions = true
 		gameData.allowMiniMap = false
 		gameData.allowPaneSwitch = false
 		gameData.inGameOptions = false
