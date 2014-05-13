@@ -116,8 +116,13 @@ local function createLevel(mapData, player1)
 	local levelBG, levelWalls = drawPane(mapData)
 
 	-- Add objects to its proper groups
-	gui.back:insert(levelBG)
-	gui.middle:insert(levelWalls)
+	gui.back:insert(levelBG)	
+	if mapData.levelNum ~= "LS" then
+		gui.middle:insert(levelWalls)
+	elseif mapData.levelNum == "LS" then
+		gui.front:insert(levelWalls)
+	end
+	
 	-- Load in objects
 	objects.main(mapData, gui) -- gui.front = map
 	-- Load in player
