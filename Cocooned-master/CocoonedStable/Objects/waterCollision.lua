@@ -11,7 +11,6 @@ local animation = require("Core.animation")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local splashAnim
 
 --------------------------------------------------------------------------------
 -- Clean Function - function for deleting all local variables
@@ -38,7 +37,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		-- play sound
 		sound.stopChannel(1)
 	    sound.playSound(sound.soundEffects[4])
-	    splashAnim = display.newSprite(animation.sheetOptions.splashSheet, animation.spriteOptions.splash)	
+		local splashAnim = display.newSprite(animation.sheetOptions.splashSheet, animation.spriteOptions.splash)	
 		-- Start wolf off-screen
 		splashAnim.x = player.imageObject.x
 		splashAnim.y = player.imageObject.y
