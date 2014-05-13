@@ -439,8 +439,10 @@ local function gameLoopEvents(event)
 		-- Add game event listeners
 		addGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
+		gameData.allowMiniMap = false
+		gameData.allowPaneSwitch = false
 		gameData.selectLevel = false
-		gameData.inLevelSelector = true
+		--gameData.inLevelSelector = true
 	end
 	
 	-----------------------
