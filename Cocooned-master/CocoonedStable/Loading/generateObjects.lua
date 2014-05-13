@@ -64,6 +64,8 @@ local function gObjects(level, objects, map, mapData, runes)
 				objects[name .. j].func = "levelPortalCollision"
 				physics.addBody(objects[name ..j], "static", {bounce = 0})
 				objects[name ..j].collType = "passThru"
+				-- add object to map display group
+				map.middle:insert(objects[name .. j])
 			else
 				objects[name .. j].func = name .. "Collision"
 				if name == "fixedIceberg" then
@@ -76,10 +78,10 @@ local function gObjects(level, objects, map, mapData, runes)
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
 				end				
 				objects[name ..j].collType = "passThru"
+				-- add object to map display group
+				map.front:insert(objects[name .. j])
 			end
 			
-			-- add object to map display group
-			map.front:insert(objects[name .. j])
 			objects[name .. j]:toBack()
 		end
 	end

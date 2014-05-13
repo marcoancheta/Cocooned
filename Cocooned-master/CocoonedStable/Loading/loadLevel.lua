@@ -114,30 +114,24 @@ local function createLevel(mapData, player1)
 		
 	-- Load in map
 	local levelBG, levelWalls = drawPane(mapData)
-
+	-- Load in objects
+	objects.main(mapData, gui) -- gui.front = map
+	-- Load in player	
+	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
+	
 	-- Add objects to its proper groups
 	gui.back:insert(levelBG)	
 	if mapData.levelNum ~= "LS" then
 		gui.middle:insert(levelWalls)
+		gui.front:insert(player1.imageObject) -- in-game objects also draws here.
 	elseif mapData.levelNum == "LS" then
+		----------------------------
+		-- Level selector exclusive
+		gui.middle:insert(player1.imageObject)
 		gui.front:insert(levelWalls)
-	end
-	
-	-- Load in objects
-	objects.main(mapData, gui) -- gui.front = map
-	-- Load in player
-	
-	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
-	
-	----------------------------
-	-- Level selector exclusive
-	if mapData.levelNum == "LS" then
 		-- load in goals
 		goals.drawGoals(gui, player1)
 	end
-	----------------------------
-
-	gui.front:insert(player1.imageObject) -- in-game objects also draws here.
 	
 	-- create miniMap for level
 	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, gui.front)
