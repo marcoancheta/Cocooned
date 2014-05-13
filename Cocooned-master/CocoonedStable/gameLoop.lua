@@ -196,7 +196,7 @@ local function speedUp(event)
 		if player1 ~= nil then
 			player1.xGrav = player1.xGrav*player1.curse
 			player1.yGrav = player1.yGrav*player1.curse
-			movement.moveAndAnimate(event, player1)
+			movement.moveAndAnimate(event, player1, gui.middle)
 			--[[
 			local ballPt = {}
 			ballPt.x = player1.imageObject.x

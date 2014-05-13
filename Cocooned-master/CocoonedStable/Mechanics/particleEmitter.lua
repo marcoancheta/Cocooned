@@ -44,6 +44,7 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
   customEmitter.colorB = nil
   customEmitter.isactive = true
   customEmitter.particale = nil
+  customEmitter.na = nil
   
   --------------------------------------------------------------------------------
   -- VecFromAngleFixed - function that gets angle and velcity of particle
@@ -89,6 +90,10 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
     customEmitter.colorG = green or -1
     customEmitter.colorB = blue  or -1
   end
+
+  function customEmitter:setAngle(angle)
+    na = angle
+  end
   
   --------------------------------------------------------------------------------
   -- Emit - function that emits particles
@@ -98,8 +103,10 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
   function customEmitter:emit(inGFXGroup, ex, ey, physics)
     if (self.isactive and ex) then
       local radrange = self.radiusRange
-      local mod_radrange = radrange * 0.3      
-      local na = Random(0,359)
+      local mod_radrange = radrange * 0.3 
+      if na == nil then
+        na = Random(0,359)
+      end     
       local rr = Random(radrange - mod_radrange, radrange + mod_radrange)      
       local nvx,nvy = self:VecFromAngleFixed(na, rr)
       nvx = nvx + ex
@@ -109,14 +116,16 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
       
       -- set particle image and set properties
       if(self.particleImage) then
-        particle = display.newImage("mapdata/art/animation/particle.png")        
+        particle = display.newImage(particleImage)        
         particle.x = ex
         particle.y = ey
         particle.rotation = na
         particle:setFillColor(self.colorR, self.colorG, self.colorB)
       else
         -- set particle image
-        particle = display.newImage("mapdata/art/animation/particle.png") 
+        particle = display.newCircle(ex, ey, 5)
+        inGFXGroup:insert(particle)
+
         -- particle:scale(0.5,0.5)
         --physics.addBody(particle)
         -- particle:applyTorque( 50 )

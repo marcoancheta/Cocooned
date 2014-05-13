@@ -5,6 +5,8 @@
 --------------------------------------------------------------------------------
 local sound = require("sound")
 local gameData = require("Core.gameData")
+local particle_lib = require("Mechanics.particleEmitter")
+
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -13,13 +15,23 @@ local gameData = require("Core.gameData")
 local highestSpeed = 0
 local count = 0
 
+local duration = 500
+local speed = 10
+local density = 1
+local range = 50
+local thickness = 100
+
+local snowEmitter = emitterLib:createEmitter(range, thickness, duration, 1, 0, nil, nil, nil)
+
+local levelGroup = display.newGroup()
+
 --------------------------------------------------------------------------------
 -- Move and Animate - function that moves player object and animates it
 --------------------------------------------------------------------------------
 -- Updated by: Derrick - cleaned up loops
 -- Last update: Andrew added the force put on a player for use with moveable walls
 --------------------------------------------------------------------------------
-local function moveAndAnimate(event, currPlayer)
+local function moveAndAnimate(event, currPlayer, gui)
 	--print(currPlayer)
 	local vx, vy = currPlayer.imageObject:getLinearVelocity()
 	local speed = math.sqrt((vy*vy)+(vx*vx))
@@ -63,7 +75,18 @@ local function moveAndAnimate(event, currPlayer)
 		if gameData.inWater == false then
 			currPlayer.imageObject:applyForce(xForce, yForce,currPlayer.imageObject.x,currPlayer.imageObject.y)
 		end
-		
+
+		local velX, velY = currPlayer.imageObject:getLinearVelocity()
+
+		if velX ~= 0 and velY ~= 0 then
+			local angle = math.atan2(velX, velY)*(180/math.pi)
+			local offSet = math.random(-15, 15)
+			snowEmitter:setAngle(angle + offSet)
+			local offSet1 = math.random(-10, 10)
+			local offSet2 = math.random(-10, 10)
+			snowEmitter:emit(gui, currPlayer.imageObject.x + offSet1, currPlayer.imageObject.y + offSet2)
+		end
+
 		if speed > 1125 then
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = 2.5
