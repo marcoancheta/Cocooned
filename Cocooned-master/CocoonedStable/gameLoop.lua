@@ -442,7 +442,7 @@ local function gameLoopEvents(event)
 		gameData.allowMiniMap = false
 		gameData.allowPaneSwitch = false
 		gameData.selectLevel = false
-		--gameData.inLevelSelector = true
+		gameData.inLevelSelector = true
 	end
 	
 	-----------------------
