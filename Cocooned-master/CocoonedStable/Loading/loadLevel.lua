@@ -67,10 +67,18 @@ local function drawPane(mapData)
 		physics.addBody(levelBG, "static", physicsData.getFloor(mapData.levelNum):get(mapData.pane))
 	end
 	
-	local levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)
-		  levelWall.x = display.contentCenterX
-		  levelWall.y = display.contentCenterY
-		  levelWall.name = "walls"
+	local levelWall
+	if mapData.levelNum ~= "LS" then
+		levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)
+		levelWall.x = display.contentCenterX
+		levelWall.y = display.contentCenterY
+	elseif mapData.levelNum == "LS" then
+		levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)
+		levelWall.x = display.contentCenterX
+		levelWall.y = display.contentCenterY
+	end
+		  
+	levelWall.name = "walls"
 	
 	physics.addBody(levelWall, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
 		
@@ -108,8 +116,13 @@ local function createLevel(mapData, player1)
 	local levelBG, levelWalls = drawPane(mapData)
 
 	-- Add objects to its proper groups
-	gui.back:insert(levelBG)
-	gui.middle:insert(levelWalls)
+	gui.back:insert(levelBG)	
+	if mapData.levelNum ~= "LS" then
+		gui.middle:insert(levelWalls)
+	elseif mapData.levelNum == "LS" then
+		gui.front:insert(levelWalls)
+	end
+	
 	-- Load in objects
 	objects.main(mapData, gui) -- gui.front = map
 	-- Load in player
