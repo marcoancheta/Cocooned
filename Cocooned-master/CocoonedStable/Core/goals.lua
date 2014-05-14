@@ -163,6 +163,10 @@ local function findGoals(mapData, gui)
 	local tempData = mapData.levelNum
 		
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
+	if tempData then
+		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
+	end
+	--[[
 	if tempData == "1" then
 		--runeAmount = 1
 		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
@@ -176,7 +180,7 @@ local function findGoals(mapData, gui)
 		--runeAmount = 1
 		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
 	end
-	
+	]]--
 	--[[
 	if rune then
 		for i=1, #rune do
