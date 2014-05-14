@@ -74,6 +74,10 @@ local function loadGameSounds()
 	sound.soundEffects[10] = audio.loadSound("sounds/runePickupTimeSlow.wav")
 	-- Movable walls Rune Pickup
 	sound.soundEffects[11] = audio.loadSound("sounds/runePickupMovableWalls.wav")
+	-- New Aura Pickup - pending review to replace old sound
+  sound.soundEffects[12] = audio.loadSound("sounds/auraPickupNew.wav")
+  -- New rolling sound - pending review to replace old rolling sound
+  sound.soundEffects[13] = audio.loadSound("sounds/rolling.wav")
 	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
 	--sound.soundEffects[9] = audio.loadSound("sounds/ice_cracking.wav")
 	

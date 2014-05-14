@@ -16,7 +16,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	player:changeColor('blue')
 
 	-- play sound
-	sound.playSound(sound.soundEffects[2])
+	sound.playSound(sound.soundEffects[12])
 	
 	--local closure = function() return player:changeColor('white') end
 	--timer1 = timer.performWithDelay( 10000, closure, 1)

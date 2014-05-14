@@ -15,7 +15,7 @@ local sound = require("sound")
 local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
 	-- play sound
-	sound.playSound(sound.soundEffects[2])
+	sound.playSound(sound.soundEffects[12])
 
 	player:changeColor('white')
 

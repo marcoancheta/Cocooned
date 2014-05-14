@@ -23,7 +23,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	--sound.playSound(event, sound.auraPickupSound)
 	--player = player
 	-- play sound
-	sound.playSound(sound.soundEffects[2])
+	sound.playSound(sound.soundEffects[12])
 	event.contact.isEnabled = false
 	player:changeColor('green')
 	--local closure = function() return player:changeColor('white') end
