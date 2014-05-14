@@ -28,7 +28,7 @@ end
 --------------------------------------------------------------------------------
 local function meltSnow()
 	if snowGroup then
-		transition.cancel()
+		transition.cancel(snowTrans)
 		snowGroup:removeSelf()
 		snowGroup = nil
 		wind = nil
