@@ -86,7 +86,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		if mapData.world == "A" then
 			-- Place World "A" portals.
 			objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 15)
-			objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(14, 12)		
+			objects["exitPortal6"].x, objects["exitPortal6"].y = generate.tilesToPixels(14, 12)		
 			objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(20.5, 11)
 			objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(28, 12)
 			objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(31, 15)
@@ -102,7 +102,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 				end
 			end
 			-- Place World "B" portals.
-			objects["exitPortal6"].x, objects["exitPortal6"].y = generate.tilesToPixels(10, 15)
+			objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(10, 15)
 			objects["exitPortal7"].x, objects["exitPortal7"].y = generate.tilesToPixels(14, 12)		
 			objects["exitPortal8"].x, objects["exitPortal8"].y = generate.tilesToPixels(20.5, 11)
 			objects["exitPortal9"].x, objects["exitPortal9"].y = generate.tilesToPixels(28, 12)
