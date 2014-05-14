@@ -77,7 +77,7 @@ local locks
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
-	locks = {}
+	--locks = {}
 	objectList = objects
 			
 	-- Check which pane
@@ -115,9 +115,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- generate all moveable objects in pane when locations are set
 	mObjects = generate.gMObjects(LS, objects, map, mapData)
 	
-	for i=1, #locks do
+	--[[for i=1, #locks do
 		locks[i]:toFront()
 	end
+	]]--
 	
 	-- destroy the unused objects
 	generate.destroyObjects(LS, rune, wisp, water, wall, objects)

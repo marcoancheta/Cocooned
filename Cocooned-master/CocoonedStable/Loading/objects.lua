@@ -128,7 +128,7 @@ local function createObjects(objectNumbers, mapData)
 		
 	-- create all wisps in level
 	for i=1, tonumber(objectNumbers.wispCount) do
-		wisp[i] = display.newImage("mapdata/art/wisp/wisp2.png")
+		wisp[i] = display.newImage("mapdata/art/wisp/wisp.png")
 		wisp[i].isVisible = false
 		wisp[i].x, wisp[i].y = 100, 100
 	end	

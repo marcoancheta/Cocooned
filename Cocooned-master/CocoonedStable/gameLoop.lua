@@ -439,6 +439,7 @@ local function gameLoopEvents(event)
 		-- Add game event listeners
 		addGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
+		gameData.inWater = false
 		gameData.allowMiniMap = false
 		gameData.allowPaneSwitch = false
 		gameData.selectLevel = false
@@ -455,6 +456,7 @@ local function gameLoopEvents(event)
 		--cutSceneSystem.cutScene("1", gui)
 				
 		-- Re-evaluate gameData booleans
+		gameData.inWater = false
 		gameData.preGame = true
 		-- Switch off this loop
 		gameData.gameStart = false

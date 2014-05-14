@@ -146,9 +146,11 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
         nv = nil
         ex = nil
         ey = nil
-        eTrans = nil 
-        particle:removeSelf()
-        particle = nil
+        eTrans = nil
+		if particle then
+			particle:removeSelf()
+			particle = nil
+		end
       end})
     end
   end 
