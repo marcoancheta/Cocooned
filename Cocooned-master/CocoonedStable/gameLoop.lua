@@ -474,7 +474,7 @@ local function gameLoopEvents(event)
 		--cutSceneSystem.cutScene("1", gui)
 				
 		-- Re-evaluate gameData booleans
-		gameData.levelSelector = false
+		gameData.inLevelSelector = false
 		gameData.inWater = false
 		gameData.preGame = true
 		-- Switch off this loop
