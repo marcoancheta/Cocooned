@@ -10,7 +10,7 @@ local generate = require("Loading.generateObjects")
 -- Local variables
 ---------------------
 local play, cancel
-local rune = {}
+--local rune = {}
 local textObject = {}
 local playerTemp
 --------------------------------------------------------------------------------
@@ -19,20 +19,21 @@ local playerTemp
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function destroyGoals()
-	print("Destroyed goalie")
+	--print("Destroyed goalie")
 			
 	for i=1, #textObject do
 		display.remove(textObject[i])
 	end
 	
-	for i=1, #rune do
+	--[[for i=1, #rune do
 		display.remove(rune[i])
 	end
+	]]--
 	
 	play:removeSelf()
 	play = nil;
 	
-	rune = nil;
+	--rune = nil;
 	textObject = nil;
 end
 
@@ -61,7 +62,7 @@ local function tapOnce(event)
 end
 
 local function onPlay()
-	textObject[1].alpha = 0.5
+	textObject[1].alpha = 0.8
 	textObject[2].alpha  = 1
 	play.alpha = 1
 	play:addEventListener("tap", tapOnce)
@@ -84,16 +85,15 @@ end
 local function drawGoals(gui, player)
 	-- Reinitialize arrays
 	textObject = {}
-	rune = {}
+	--rune = {}
 
 	print(player.name)
 	playerTemp = player
 
-	-- Initial rune x-coordinate
-	local xCoord = 720
 	-- Goal text displayer
-	local text = "Select level: "
+	local text = "Level: "
 	-- Load rune file locations
+	--[[
 	local runeLoc = {
 		[1] = "mapdata/art/runes/blueRune.png",
 		[2] = "mapdata/art/runes/greenRune.png",
@@ -101,20 +101,8 @@ local function drawGoals(gui, player)
 		[4] = "mapdata/art/runes/purpleRune.png",
 		[5] = "mapdata/art/runes/yellowRune.png"
 	}
-		
-	-- Load runes
-	for i=1, #runeLoc do
-		rune[i] = display.newImage(runeLoc[i])
-		rune[i].x = xCoord + 10
-		rune[i].y = 90
-		xCoord = xCoord + 50
-		
-		-- Hide runes (visually)
-		rune[i].isVisible = false
-		-- Insert to display group
-		gui.front:insert(rune[i])
-	end
-		
+	]]--
+	
 	-- create outer text box rectangle
 	textObject[1] = display.newRect(740, 52, 1500, 125)
 	textObject[1].x, textObject[1].y = generate.tilesToPixels(20, 3)
@@ -123,9 +111,9 @@ local function drawGoals(gui, player)
 	textObject[1].strokeWidth = 15
 	textObject[1].alpha = 0
 
-	textObject[2] = display.newText(text, 700, 85, nativeSystemfont, 55)
+	textObject[2] = display.newText(text, display.contentCenterX, 85, nativeSystemfont, 72)
 	textObject[2]:setFillColor(0,0,0)
-	textObject[2].anchorX = 21
+	--textObject[2].anchorX = 1
 	textObject[2].alpha = 0
 	
 	-- Create play button
@@ -146,6 +134,23 @@ local function drawGoals(gui, player)
 	gui.front:insert(textObject[2])
 	gui.front:insert(play)
 	gui.front:insert(cancel)
+	
+	-- Load runes
+	-- Initial rune x-coordinate
+	--[[
+	local xCoord = textObject[2].x + 280
+	for i=1, #runeLoc do
+		rune[i] = display.newImage(runeLoc[i])
+		rune[i].x = xCoord + 50
+		rune[i].y = 90
+		xCoord = xCoord + 50
+		
+		-- Hide runes (visually)
+		rune[i].isVisible = false
+		-- Insert to display group
+		gui.front:insert(rune[i])
+	end
+	]]--
 end
 
 --------------------------------------------------------------------------------
@@ -154,28 +159,34 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function findGoals(mapData, gui)
-	local runeAmount = 0
+	--local runeAmount = 0
 	local tempData = mapData.levelNum
 		
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData == "1" then
-		runeAmount = 1
+		--runeAmount = 1
+		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
 	elseif tempData == "2" then
-		runeAmount = 1
+		--runeAmount = 3
+		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
 	elseif tempData == "3" then
-		runeAmount = 3
+		--runeAmount = 1
+		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
 	elseif tempData == "4" then
-		runeAmount = 4
+		--runeAmount = 1
+		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
 	end
-		
+	
+	--[[
 	if rune then
 		for i=1, #rune do
 			rune[i].isVisible = false
 		end
-		for i=1, runeAmount do
-			rune[i].isVisible = true
+		if runeAmount then
+			rune[runeAmount].isVisible = true
 		end
 	end
+	]]--
 end
 
 local goals = {
