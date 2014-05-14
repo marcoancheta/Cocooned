@@ -49,7 +49,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		player:changeColor("white")
 		--player.movement ="inWater"
 		gameData.inWater = true
-		player.imageObject.linearDamping = 8
+		--player.imageObject.linearDamping = 8
 		-- Create timer to remove splashAnimation
 		local timer = timer.performWithDelay(600, clean)
 		timer.params = {splashParams = splashAnim}

@@ -340,7 +340,7 @@ local function clean(event)
 	--miniMap = nil
 		
 	gui:removeSelf()
-	gui = nil
+	--gui = nil
 		
 	playerSheet = nil
 
@@ -452,7 +452,6 @@ local function gameLoopEvents(event)
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		mapData.world = "A"
-		
 		loadMap(mapData)
 		-- Add game event listeners
 		addGameLoopListeners(gui)
