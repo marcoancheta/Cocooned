@@ -79,6 +79,7 @@ local timeCount = 0
 
 -- Initialize map data
 local mapData = {
+	world = "A",
 	levelNum = 1,
 	pane = "M",
 	version = 0

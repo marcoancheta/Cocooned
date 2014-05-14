@@ -53,6 +53,7 @@ local gameData = {
 	
 	-- mapData global
 	mapData = {
+		world = "A",
 		levelNum = 1,
 		pane = "M",
 		version = 0

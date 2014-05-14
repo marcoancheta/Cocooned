@@ -51,7 +51,7 @@ local LS = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 5,
+		["exitPortal"] = 15,
 		["enemy"] = 0,
 		["fixedIceberg"] = 0
 	},
@@ -82,13 +82,47 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			
 	-- Check which pane
 	if mapData.pane == "LS" then
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 15)
-		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(14, 12)		
-		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(20.5, 11)
-		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(28, 12)
-		objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(31, 15)
+		if mapData.world == "A" then
+			-- Place World "A" portals.
+			objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 15)
+			objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(14, 12)		
+			objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(20.5, 11)
+			objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(28, 12)
+			objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(31, 15)
+			-- Hide all portals between 6-15.
+			for i=6, LS["LS"]["exitPortal"] do
+				objects["exitPortal" ..i.. ""].isVisible = false
+			end
+		elseif mapData.world == "B" then	
+			-- Hide all portals between 1-5 and 11-15.
+			for i=1, LS["LS"]["exitPortal"] do
+				if (i > 0 and i < 6) or (i > 10) then
+					objects["exitPortal" ..i.. ""].isVisible = false
+				end
+			end
+			-- Place World "B" portals.
+			objects["exitPortal6"].x, objects["exitPortal6"].y = generate.tilesToPixels(10, 15)
+			objects["exitPortal7"].x, objects["exitPortal7"].y = generate.tilesToPixels(14, 12)		
+			objects["exitPortal8"].x, objects["exitPortal8"].y = generate.tilesToPixels(20.5, 11)
+			objects["exitPortal9"].x, objects["exitPortal9"].y = generate.tilesToPixels(28, 12)
+			objects["exitPortal10"].x, objects["exitPortal10"].y = generate.tilesToPixels(31, 15)
+		elseif mapData.world == "C" then
+			-- Hide all portals between 1-10.
+			for i=1, LS["LS"]["exitPortal"] do
+				if (i < 10) then
+					objects["exitPortal" ..i.. ""].isVisible = false
+				end
+			end
+			-- Place World "C" portals.
+			objects["exitPortal11"].x, objects["exitPortal11"].y = generate.tilesToPixels(10, 15)
+			objects["exitPortal12"].x, objects["exitPortal12"].y = generate.tilesToPixels(14, 12)		
+			objects["exitPortal13"].x, objects["exitPortal13"].y = generate.tilesToPixels(20.5, 11)
+			objects["exitPortal14"].x, objects["exitPortal14"].y = generate.tilesToPixels(28, 12)
+			objects["exitPortal15"].x, objects["exitPortal15"].y = generate.tilesToPixels(31, 15)
+		end
 		
-		for i=1, 5 do
+		-- Play animation for all portals
+		for i=1, LS["LS"]["exitPortal"] do
 			objects["exitPortal" ..i.. ""]:setSequence("move")
 			objects["exitPortal" ..i.. ""]:play()
 			objects["exitPortal" ..i.. ""]:scale(2, 2)
