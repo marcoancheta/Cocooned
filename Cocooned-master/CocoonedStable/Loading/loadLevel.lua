@@ -133,10 +133,10 @@ local function createLevel(mapData, player1)
 	-- Add objects to its proper groups
 	gui.back:insert(levelBG)	
 	if mapData.levelNum ~= "LS" then
-		gui.middle:insert(levelWalls)
 		if shadowCirc ~= nil then
 			gui.middle:insert(shadowCirc)
 		end
+		gui.middle:insert(levelWalls)
 		gui.front:insert(player1.imageObject) -- in-game objects also draws here.
 	elseif mapData.levelNum == "LS" then
 		----------------------------

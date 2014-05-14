@@ -130,7 +130,9 @@ local function gameCountFunct(event)
 	-- While gameTimer is greater than 0
 	if gameData.gameTime > 0 then
 		if gameData.gameTime < 10 then
-			textObj:setFillColor(1,0,0)
+			if textObj then
+				textObj:setFillColor(1,0,0)
+			end
 		end
 		-- Subtract one second from global gameTimer
 		gameData.gameTime = gameData.gameTime - 1

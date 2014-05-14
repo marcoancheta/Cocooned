@@ -69,7 +69,7 @@ end
 -- calcSnowDir(snowFlake) - Math for in-game snow algorithm
 --------------------------------------------------------------------------------
 local function calcSnowDir(snowflake)
-	if snowflake then
+	if snowflake and wind then
 		--	  formula = {Down, Up, Left, Right}
 		local formula = {(snowflake.x + wind), (snowflake.x + wind), (snowflake.y - wind), (snowflake.y + wind)}
 		-- 	   Dir = {Middle, Down, Up, Left, Right)
