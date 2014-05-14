@@ -28,7 +28,7 @@ end
 --------------------------------------------------------------------------------
 local function meltSnow()
 	if snowGroup then
-		transition.cancel()
+		transition.cancel(snowTrans)
 		snowGroup:removeSelf()
 		snowGroup = nil
 		wind = nil
@@ -108,10 +108,12 @@ local function levelSnow(mapData)
 					flake.x = xPos[i+1]
 					flake.y = yPos[i+1]
 					-- Send & receive directional coordinates
-					local xDir, yDir = calcSnowDir(flake)				
+					local x_Dir, y_Dir = calcSnowDir(flake)				
 					-- Apply transition to global variable
-					snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
-														y = yDir[i+1], x = xDir[i+1], onComplete=removeFlake})													
+					if x_Dir and y_Dir then
+						snowTrans = transition.to(flake,{time=math.random(5000) + 3000, 
+															y = y_Dir[i+1], x = x_Dir[i+1], onComplete=removeFlake})													
+					end
 					-- Pass flake into snowBall for return
 					snowBall = flake
 				end
