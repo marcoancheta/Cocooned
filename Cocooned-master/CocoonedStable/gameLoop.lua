@@ -428,6 +428,8 @@ local function gameLoopEvents(event)
 	-- Runtime event.
 	if gameData.ingame then
 		snow.gameSnow(event, mapData)
+		shadowCircle.x = ball.x
+		shadowCircle.y = ball.y
 	end
 		
 	-------------------------
@@ -465,6 +467,7 @@ local function gameLoopEvents(event)
 		--cutSceneSystem.cutScene("1", gui)
 				
 		-- Re-evaluate gameData booleans
+		gameData.levelSelector = false
 		gameData.inWater = false
 		gameData.preGame = true
 		-- Switch off this loop
