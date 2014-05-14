@@ -98,7 +98,7 @@ local function levelSnow(mapData)
 	local snowBall
 	
 	-- Transition snowBall according to pane name
-	if gameData.ingame then
+	if gameData.ingame and gameData.inLevelSelector ~= true then
 		if mapData.pane == "M" then	
 			for i=1, #level.panes do
 				-- Check if all neighbouring panes exist
