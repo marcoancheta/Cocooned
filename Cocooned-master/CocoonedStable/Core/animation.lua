@@ -81,8 +81,8 @@ local animation = {
 			{frames = {1,2,3,4,5}, name = "move", time = 300},
 			{frames = {3}, name = "still", time = 250}
 		},
-		splash = {
-			{frames = {1,2,3,4,5,6,7,8}, name = "move", time = 300},
+		["splash"] = {
+			{frames = {1,2,3,4,5,6,7,8}, name = "move", time = 600, start=1, count=8, loopCount=1},
 			{frames = {3}, name = "still", time = 250}
 		}
 	},
@@ -109,8 +109,9 @@ local animation = {
 					 {width = 72, height = 72, sheetContentWidth = 360, sheetContentHeight = 72, numFrames = 5}),
 		fish2Sheet = graphics.newImageSheet("mapdata/art/animation/fish2sheet.png", 
 					 {width = 72, height = 72, sheetContentWidth = 360, sheetContentHeight = 72, numFrames = 5}),
-		splashSheet = graphics.newImageSheet("mapdata/art/animation/splashSheet.png",
-					 {width = 160, height = 20, sheetContentWidth = 1280, sheetContentHeight = 160, numFrames = 8}),
+		splashSheet = graphics.newImageSheet("mapdata/art/animation/splashSheet.png", 
+					 {width = 160, height = 150, sheetContentWidth = 1280, sheetContentHeight = 150, numFrames = 8})
+
 	},
 
 	--------------------------------------------------------------------------------

@@ -17,7 +17,7 @@ local animation = require("Core.animation")
 --------------------------------------------------------------------------------
 local function clean(event)
 	local params = event.source.params
-	
+	print("clean")
 	if params.splashParams then
 		params.splashParams:removeSelf()
 		params.splashParams = nil
@@ -42,19 +42,17 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		splashAnim.x = player.imageObject.x
 		splashAnim.y = player.imageObject.y
 		-- Enlarge the size of the splash
-		-- splashAnim:scale(1, 3)
+		--splashAnim:scale(1, 3)
 		splashAnim:setSequence("move")
 		splashAnim:play()
-		-- Create timer to remove splashAnimation
-		local timer = timer.performWithDelay(500, clean)
-		timer.params = {splashParams = splashAnim}
 		-- reset player's aura and movement
 		player:changeColor("white")
 		--player.movement ="inWater"
 		gameData.inWater = true
 		player.imageObject.linearDamping = 8
-		--splashAnim:removeSelf()
-		--splashAnim = nil
+		-- Create timer to remove splashAnimation
+		local timer = timer.performWithDelay(600, clean)
+		timer.params = {splashParams = splashAnim}
 	end
 end
 

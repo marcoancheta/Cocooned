@@ -143,14 +143,12 @@ function emitterLib:createEmitter(radiusRange, thickness, particleDuration, init
       
       -- move particle and destroy it once finish point is reached
       local eTrans = transition.to(particle, {time = self.particleDuration, x = nvx, y = nvy, alpha = self.endAlpha, transition = easing.outQuad, onComplete=function()
-        nv = nil
-        ex = nil
-        ey = nil
-        eTrans = nil
-		if particle then
+			nv = nil
+			ex = nil
+			ey = nil
+			eTrans = nil
 			particle:removeSelf()
 			particle = nil
-		end
       end})
     end
   end 
