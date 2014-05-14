@@ -72,7 +72,7 @@ local function endCountFunc(event)
 		-- Start physics
 		physics.start()
 		-- Send boolean to gameLoop
-		gameData.levelRestart = true
+		gameData.selectLevel = true
 	end
 	print("Time left: ", counter)
 end

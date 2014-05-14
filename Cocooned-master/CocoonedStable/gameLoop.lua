@@ -217,6 +217,7 @@ end
 --------------------------------------------------------------------------------
 local function mapDataDefault()
 	mapData.levelNum = 1
+	mapData.world = "A"
 	mapData.pane = "M"
 	mapData.version = 0
 end
@@ -450,6 +451,7 @@ local function gameLoopEvents(event)
 	if gameData.selectLevel then
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
+		mapData.world = "A"
 		
 		loadMap(mapData)
 		-- Add game event listeners
