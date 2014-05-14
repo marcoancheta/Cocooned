@@ -24,6 +24,8 @@ local goals = require("Core.goals")
 local miniMapMechanic = require("Mechanics.miniMap")
 -- Snow (snow.lua)
 local snow = require("utils.snow")
+-- GameData (gameData.lua)
+local gameData = require("Core.gameData")
 
 --------------------------------------------------------------------------------
 -- Variables - variables for loading panes
@@ -111,22 +113,37 @@ local function createLevel(mapData, player1)
 	loading.loadingInit() --initializes loading screen assets and displays them on top
 	loaded = 0 -- current loading checkpoint, max is 6
 	level = mapData.levelNum
-		
+	
 	-- Load in map
 	local levelBG, levelWalls = drawPane(mapData)
 	-- Load in objects
 	objects.main(mapData, gui) -- gui.front = map
 	-- Load in player	
 	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
+	-- Create ball shadow
+	local shadowCirc
+	if gameData.shadow == true then
+		shadowCirc = display.newCircle(player1.imageObject.x, player1.imageObject.y, 43)
+		shadowCirc:setFillColor(86*0.0039216,72*0.0039216,92*0.0039216)
+		shadowCirc.alpha = 0.5
+	else
+		shadowCirc = nil
+	end
 	
 	-- Add objects to its proper groups
 	gui.back:insert(levelBG)	
 	if mapData.levelNum ~= "LS" then
 		gui.middle:insert(levelWalls)
+		if shadowCirc ~= nil then
+			gui.middle:insert(shadowCirc)
+		end
 		gui.front:insert(player1.imageObject) -- in-game objects also draws here.
 	elseif mapData.levelNum == "LS" then
 		----------------------------
 		-- Level selector exclusive
+		if shadowCirc ~= nil then
+			gui.middle:insert(shadowCirc)
+		end
 		gui.middle:insert(player1.imageObject)
 		gui.front:insert(levelWalls)
 		-- load in goals
@@ -144,7 +161,7 @@ local function createLevel(mapData, player1)
 	levelFinished.checkWin(player1, gui.front, mapData)
 		
 	-- reutrn gui and miniMap
-	return gui, miniMapDisplay
+	return gui, miniMapDisplay, shadowCirc
 end
 
 --------------------------------------------------------------------------------

@@ -99,7 +99,8 @@ local players = {}
 local linePts = {}
 
 local camera;
-local groupObj
+local groupObj;
+local shadowCircle;
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -276,7 +277,7 @@ local function loadMap(mapData)
 	player1.imageObject = ball
 		
 	-- Load in map
-	gui, miniMap = loadLevel.createLevel(mapData, player1)
+	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, player1)
 	-- Start mechanics
 	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui, gui.back[1])
 	-- Create in game options button
@@ -326,6 +327,9 @@ local function clean(event)
 	-- destroy player instance
 	player1.imageObject:removeSelf()
 	player1.imageObject = nil
+	
+	shadowCircle:removeSelf()
+	shadowCircle = nil
 	
 	ball:removeSelf()
 	ball = nil
@@ -397,6 +401,11 @@ local function gameLoopEvents(event)
 				currObject:setLinearVelocity(0, 0)
 			end
 		end
+	end
+	
+	if gameData.inLevelSelector then
+		shadowCircle.x = ball.x
+		shadowCircle.y = ball.y
 	end
 		
 	-------------------------
