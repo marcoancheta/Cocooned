@@ -24,6 +24,17 @@ local selectWorld = {
 local world = {"A", "B", "C"}
 
 --------------------------------------------------------------------------------
+-- Transition listener function
+--------------------------------------------------------------------------------
+local function temp(target)
+	if gameData.inWorldSelector then
+		target:setLinearVelocity(0,0)
+		gameData.selectLevel = true
+		gameData.inWorldSelector = false
+	end
+end
+
+--------------------------------------------------------------------------------
 -- Collide Function - end game if exit portal is active
 --------------------------------------------------------------------------------
 -- Updated by: D
@@ -31,13 +42,6 @@ local world = {"A", "B", "C"}
 local function collide(collideObject, player, event, mapData, map, gui)
 	-- Disable portal collision
 	event.other.isSensor = true
-		
-	local function temp(target)
-		if gameData.inWorldSelector then
-			target:setLinearVelocity(0,0)
-			gameData.selectLevel = true
-		end
-	end
 									
 	for i=1, 3 do		
 		if collideObject.name == "exitPortal" ..i.. "" then

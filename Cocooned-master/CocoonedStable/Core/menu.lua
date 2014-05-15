@@ -268,7 +268,7 @@ local function options(event)
 	end
 	
 	menuObjects[4].anchorX = 0
-	menuObjects[4].x = 400
+	menuObjects[4].x = display.contentCenterX - 200
 	menuObjects[4].y = display.contentCenterY + 100
 	menuObjects[4].name = "debugSwitch"
 

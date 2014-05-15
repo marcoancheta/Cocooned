@@ -473,6 +473,7 @@ local function gameLoopEvents(event)
 	---------------------------
 	--[[ START LVL SELECTOR]]--
 	if gameData.selectLevel then
+		clean(event)
 		if gameData.debugMode then
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
@@ -488,7 +489,6 @@ local function gameLoopEvents(event)
 		gameData.inWater = false
 		gameData.allowMiniMap = false
 		gameData.allowPaneSwitch = false
-		gameData.inWorldSelector = false
 		gameData.inLevelSelector = true
 		-- Switch off this loop
 		gameData.selectLevel = false

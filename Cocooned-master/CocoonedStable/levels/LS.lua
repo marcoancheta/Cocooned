@@ -15,6 +15,7 @@ local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
 local generate = require("Loading.generateObjects")
 local movement = require("Mechanics.movement")
+local goals = require("Core.goals")
 
 --------------------------------------------------------------------------------
 -- Level One Variables

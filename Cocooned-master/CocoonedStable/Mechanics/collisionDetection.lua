@@ -56,7 +56,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 
 	--function for collision detection
 	-- when an object collides, call its own collide function
-	function onLocalCollision(self, event)
+	function imageObject:onLocalCollision(self, event)
 		-- save the collide object
 		local collideObject = event.other
 

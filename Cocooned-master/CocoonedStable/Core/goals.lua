@@ -72,6 +72,7 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function onPlay()
+	print("SHOW PLAY")
 	textObject[1].isVisible = true
 	textObject[2].isVisible = true
 	textObject[1].alpha = 0.8
@@ -175,11 +176,10 @@ local function findGoals(mapData, gui)
 	--local runeAmount = 0
 	local tempData = tonumber(mapData.levelNum)
 	
-	local levelNames = {"Avalon", "Cittàgazze", "Lake Wobegon",
-						"Waterdeep", "Rivendell", "Middle Earth",
-						"Cabot Cove", "R'lyeh", "Gormenghast", 
-						"Emerald City",	"Kakariko Village", "Middlemarch", 
-						"Castle Rock", "Middlemarch", "Santa Teresa"}
+	-- Different than levelNames.lua
+	local levelNames = {"Avalon", "Cittàgazze", "Lake Wobegon", "Waterdeep", "Rivendell", 
+						"Middle Earth", "Cabot Cove", "R'lyeh", "Gormenghast", "Emerald City",	
+						"Kakariko Village", "Middlemarch", "Castle Rock", "Middlemarch", "Santa Teresa"}
 	
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData then

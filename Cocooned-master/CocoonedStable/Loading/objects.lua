@@ -17,15 +17,6 @@ local physicsData = require("Loading.physicsData")
 
 -- holds the level name for loading
 local levelNames = require("utils.levelNames")
---[[local levelNames = {
-	["LS"] = "LS",
-	["1"] = "one",
-	["2"] = "two",
-	["3"] = "three",
-	["4"] = "four",
-	["5"] = "five"
-}
-]]--
 
 -- local variable for that holds "level".lua
 local level
