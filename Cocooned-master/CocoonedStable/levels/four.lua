@@ -200,7 +200,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	elseif mapData.pane == "L" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
-		ends
+		end
 	end
 
 	-- generates all objects in pane when locations are set
