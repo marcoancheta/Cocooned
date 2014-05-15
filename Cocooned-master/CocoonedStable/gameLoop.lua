@@ -216,6 +216,7 @@ end
 -- Reset mapData to default settings
 --------------------------------------------------------------------------------
 local function mapDataDefault()
+	mapData.world = gameData.mapData.world
 	mapData.levelNum = 1
 	mapData.pane = "M"
 	mapData.version = 0
