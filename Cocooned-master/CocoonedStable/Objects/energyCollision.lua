@@ -24,8 +24,8 @@ end
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	-- Disable wisp object collision to allow player to pass thru
-	--event.contact.isEnabled = false
-	collideObject.isSensor = true
+	event.contact.isEnabled = false
+	--collideObject.isSensor = true
 	-- Play wisp sound effect
 	sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[8])	

@@ -176,6 +176,7 @@ end
 local function changePane(gui, mapData, player, miniMap)
 	-- Delete old snow
 	snow.meltSnow()
+	transition.cancel()
 	snow.new()
 
 	-- load in wall collision

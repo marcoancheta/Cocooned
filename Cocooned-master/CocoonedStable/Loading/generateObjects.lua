@@ -40,7 +40,7 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 		end
 
 		-- add physics body for wisp for collision
-		physics.addBody(wisp[i], "static", physicsData.getObject("wisp"):get("wisp"))
+		physics.addBody(wisp[i], "static", {bounce=0})
 	end
 end
 
