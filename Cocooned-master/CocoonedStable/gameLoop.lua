@@ -290,7 +290,7 @@ local function loadMap(mapData)
 	sound.stop()
 	sound.playBGM(sound.backgroundMusic)
 	
-	if mapData.levelNum ~= "LS" then
+	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 		if gameData.debugMode then
 			print(mapData.levelNum)
 		end
@@ -380,6 +380,15 @@ local function update(event)
 		menu.update(groupObj)
 	end
 
+	-- World Selector Runtime Event.
+	if gameData.inWorldSelector then
+		-- Draw shadow under ball
+		if shadowCircle and ball then
+			shadowCircle.x = ball.x
+			shadowCircle.y = ball.y
+		end
+	end
+	
 	-- Level Selector Runtime Event.
 	if gameData.inLevelSelector then
 		-- Draw shadow under ball
@@ -479,6 +488,7 @@ local function gameLoopEvents(event)
 		gameData.inWater = false
 		gameData.allowMiniMap = false
 		gameData.allowPaneSwitch = false
+		gameData.inWorldSelector = false
 		gameData.inLevelSelector = true
 		-- Switch off this loop
 		gameData.selectLevel = false

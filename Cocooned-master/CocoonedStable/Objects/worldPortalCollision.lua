@@ -31,15 +31,11 @@ local world = {"A", "B", "C"}
 local function collide(collideObject, player, event, mapData, map, gui)
 	-- Disable portal collision
 	event.other.isSensor = true
-	
-	local function resume()
-		-- Enable portal collision
-		event.other.isSensor = false
-	end
-	
+		
 	local function temp(target)
 		if gameData.inWorldSelector then
 			target:setLinearVelocity(0,0)
+			gameData.selectLevel = true
 		end
 	end
 									
@@ -50,11 +46,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			player.curse = 0
 			player.xGrav = 0
 			player.yGrav = 0
-			local trans = transition.to(player.imageObject, {time=1000, x=collideObject.x, y=collideObject.y, alpha=0.5, onComplete = temp} )
+			local trans = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y, onComplete = temp} )
 		end
 	end
-
-
 end
 
 --------------------------------------------------------------------------------

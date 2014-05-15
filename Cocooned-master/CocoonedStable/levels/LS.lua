@@ -82,9 +82,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			
 	-- Check which pane
 	if mapData.pane == "LS" then
-		if gameData.debugMode then
-			print(mapData.world)
-		end
+		print(mapData.world)
 		if mapData.world == "A" then
 			-- Place World "A" portals.
 			objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 15)

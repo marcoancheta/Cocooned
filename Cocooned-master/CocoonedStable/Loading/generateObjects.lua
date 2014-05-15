@@ -66,6 +66,12 @@ local function gObjects(level, objects, map, mapData, runes)
 				objects[name ..j].collType = "passThru"
 				-- add object to map display group
 				map.middle:insert(objects[name .. j])
+			elseif mapData.levelNum == "world" then
+				objects[name .. j].func = "worldPortalCollision"
+				physics.addBody(objects[name ..j], "static", {bounce = 0})
+				objects[name ..j].collType = "passThru"
+				-- add object to map display group
+				map.middle:insert(objects[name .. j])
 			else
 				objects[name .. j].func = name .. "Collision"
 				if name == "fixedIceberg" then
