@@ -456,6 +456,7 @@ local function gameLoopEvents(event)
 		if gameData.debugMode then
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
+		mapData.world = gameData.mapData.world
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		loadMap(mapData)

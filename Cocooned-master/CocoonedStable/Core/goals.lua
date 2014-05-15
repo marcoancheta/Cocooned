@@ -118,13 +118,13 @@ local function drawGoals(gui, player)
 	
 	-- Create play button
 	play = display.newImage("mapdata/art/buttons/sil_kipcha.png")
-	play.x, play.y = generate.tilesToPixels(5, 4)
+	play.x, play.y = generate.tilesToPixels(5, 20)
 	play:scale(1.5, 1.5)
 	play.alpha = 0
 	play.name = "playButton"
 
 	cancel = display.newImage("mapdata/art/buttons/cancel.png")
-	cancel.x, cancel.y = generate.tilesToPixels(35, 21)
+	cancel.x, cancel.y = generate.tilesToPixels(35, 20)
 	cancel:scale(1, 1)
 	cancel.alpha = 0
 	cancel.name = "cancelButton"
@@ -160,11 +160,19 @@ end
 --------------------------------------------------------------------------------
 local function findGoals(mapData, gui)
 	--local runeAmount = 0
-	local tempData = mapData.levelNum
-		
+	local tempData = tonumber(mapData.levelNum)
+	
+	local levelNames = {"Lake Wobegon", "Atlantis", "Skull Island",
+						"Jurassic Park", "Rivendell", "Middle Earth",
+						"Zion", "Gothem", "Astropolis", "Emerald City",
+						"South Park", "Bedrock", "Castle Rock", "King's Landing",
+						"Kakariko Village", "Avalon", "Waterdeep", "Cittàgazze",
+						"Middlemarch", "Cabot Cove", "Avonlea", "Gormenghast", 
+						"Temple of Doom", "Santa Teresa", "R'lyeh"}
+	
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData then
-		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
+		textObject[2].text = levelNames[tempData] --" | Time:"
 	end
 	--[[
 	if tempData == "1" then
