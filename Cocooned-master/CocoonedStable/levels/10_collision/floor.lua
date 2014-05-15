@@ -20,22 +20,22 @@ function M.physicsData(scale)
 	local physics = { data =
 	{ 
 		
-		["B-5-1"] = {
+		["L"] = {
                     
 		}
 		
 		, 
-		["B-5-2"] = {
+		["M"] = {
                     
 		}
 		
 		, 
-		["B-5-3"] = {
+		["R"] = {
                     
 		}
 		
 		, 
-		["B-5-4"] = {
+		["U"] = {
                     
 		}
 		

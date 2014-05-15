@@ -23,7 +23,7 @@ local generate = require("Loading.generateObjects")
 local seven = { 
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
-	panes = {true,false,true,true,true},
+	panes = {true,false,false,true,true},
 	timer = 300,
 	playerCount = 1,
 	-- number of wisps in the level
@@ -185,7 +185,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 17, 23)
 
-	elseif mapData.pane == "U" then
+	elseif mapData.pane == "R" then
 		
 		wisp[24].x, wisp[24].y = generate.tilesToPixels(7, 12)
 
@@ -202,19 +202,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 24, 24)
-	elseif mapData.pane == "R" then
-		wisp[25].x, wisp[25].y = generate.tilesToPixels(7, 12)
+	elseif mapData.pane == "U" then
 
-		-- Break objects rune 
-		--rune[4].x, rune[4].y = generate.tilesToPixels(20, 15)			
-		--rune[2].isVisible = true
-
-		objects["fixedIceberg5"].x, objects["fixedIceberg5"].y = generate.tilesToPixels(20, 18)
-		objects["fixedIceberg5"].time = 3800 --not needed if free
-		objects["fixedIceberg5"].movement = "free" --fixed or free
-
-		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 25, 25)
 	elseif mapData.pane == "D" then
 		print("You shouldn't be in here...")
 	end
