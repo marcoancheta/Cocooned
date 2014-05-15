@@ -449,6 +449,7 @@ local function gameLoopEvents(event)
 	---------------------------
 	--[[ START LVL SELECTOR]]--
 	if gameData.selectLevel then
+		mapData.world = gameData.mapData.world
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		loadMap(mapData)
