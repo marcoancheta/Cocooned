@@ -15,6 +15,7 @@ local goals = require("Core.goals")
 --------------------------------------------------------------------------------
 -- Local mapData array clone
 local selectLevel = {
+	world = gameData.mapData.world,
 	levelNum = 0,
 	pane = "M",
 	version = 0
