@@ -352,24 +352,13 @@ local function clean(event)
 	-- call objects-destroy
 	objects.destroy(mapData)
 end
-
 --------------------------------------------------------------------------------
--- Core Game Loop - Runtime:addEventListener called in main.lua
+-- Update (Runtime) - Functions that need to run non-stop during their events
 --------------------------------------------------------------------------------
 -- Updated by: Derrick 
 --------------------------------------------------------------------------------
-local function gameLoopEvents(event)
-	--[[	
-	if mapData.levelNum == "LS" then
-		if gui.back[1] then
-			-- Set Camera to Ball
-			gui.back[1].setCameraFocus(ball)
-			gui.back[1].setTrackingLevel(0.1)
-		end
-	end
-	]]--
-	
-	-- Run monitorMemory from open to close.
+local function update(event)
+	-- Debug Runtime Event.
 	if gameData.debugMode then
 		-- Memory monitor
 		memory.monitorMem()
@@ -379,12 +368,52 @@ local function gameLoopEvents(event)
 		physics.setDrawMode("hybrid")
 	end
 
-	-- Activate snow particle effect if in main menu
+	-- Main Menu Runtime Event.
 	if gameData.inMainMenu then
+		-- Activate snow particle effect if in main menu
 		-- Draws snow every second
 		snow.makeSnow(event, mapData)
 	end
+	
+	-- Options Menu Runtime Event.
+	if gameData.updateOptions then
+		menu.update(groupObj)
+	end
 
+	-- Level Selector Runtime Event.
+	if gameData.inLevelSelector then
+		-- Draw shadow under ball
+		if shadowCircle and ball then
+			shadowCircle.x = ball.x
+			shadowCircle.y = ball.y
+		end
+	end
+	
+	-- In-Game Runtime Event.
+	if gameData.ingame then
+		snow.gameSnow(event, mapData)
+		if shadowCircle and ball then
+			shadowCircle.x = ball.x
+			shadowCircle.y = ball.y
+		end
+	end
+		
+	-- In-Water Runtime Event.
+	if gameData.inWater then
+		-- Turn on pane switching and mini map
+		gameData.allowPaneSwitch = false
+	end
+end
+
+--------------------------------------------------------------------------------
+-- Core Game Loop - Runtime:addEventListener called in main.lua
+--------------------------------------------------------------------------------
+-- Updated by: Derrick 
+--------------------------------------------------------------------------------
+local function gameLoopEvents(event)
+	-- Runtime functions
+	update(event)
+	
 	if gameData.gRune == true and gameData.isShowingMiniMap == false then
 		for check = 1, #accelObjects.switchWallAndIceberg do
   			local currObject = accelObjects.switchWallAndIceberg[check]
@@ -409,45 +438,27 @@ local function gameLoopEvents(event)
 		end
 	end
 	
-	if gameData.inLevelSelector then
-		if shadowCircle and ball then
-			shadowCircle.x = ball.x
-			shadowCircle.y = ball.y
+	-----------------------------
+	--[[ START WORLD SELECTOR]]--
+	if gameData.selectWorld then
+		if gameData.debugMode then
+			print("gameData.mapData.world", gameData.mapData.world)
 		end
-	end
-		
-	-------------------------
-	--[[ PRE-GAME LOADER ]]--
-	if gameData.preGame == false then
-		-- Switch to in game loop
-		gameData.ingame = true
-		snow.new()
-		-- Clear out pre-game
-		gameData.preGame = nil
-		-- Turn on pane switching and mini map
-		gameData.allowPaneSwitch = true
-		gameData.allowMiniMap = true
+		-- Reset mapData to level select default
+		mapData.world = gameData.mapData.world
+		mapData.levelNum = "world"
+		mapData.pane = "world"
+		-- Load map
+		loadMap(mapData)
 		-- Add game event listeners
 		addGameLoopListeners(gui)
-	end
-
-	-------------------------
-	--[[ IN-GAME LOADER ]]--
-	-- Runtime event.
-	if gameData.ingame then
-		snow.gameSnow(event, mapData)
-		if shadowCircle and ball then
-			shadowCircle.x = ball.x
-			shadowCircle.y = ball.y
-		end
-	end
-		
-	-------------------------
-	--[[ PLAYER IN WATER ]]--
-	-- Runtime event.
-	if gameData.inWater then
-		-- Turn on pane switching and mini map
+		-- Re-evaluate gameData booleans
+		gameData.inWater = false
+		gameData.allowMiniMap = false
 		gameData.allowPaneSwitch = false
+		gameData.inWorldSelector = true
+		-- Switch off this loop
+		gameData.selectWorld = false
 	end
 		
 	---------------------------
@@ -456,9 +467,11 @@ local function gameLoopEvents(event)
 		if gameData.debugMode then
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
+		-- Reset mapData to level select default
 		mapData.world = gameData.mapData.world
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
+		-- Load map
 		loadMap(mapData)
 		-- Add game event listeners
 		addGameLoopListeners(gui)
@@ -466,8 +479,9 @@ local function gameLoopEvents(event)
 		gameData.inWater = false
 		gameData.allowMiniMap = false
 		gameData.allowPaneSwitch = false
-		gameData.selectLevel = false
 		gameData.inLevelSelector = true
+		-- Switch off this loop
+		gameData.selectLevel = false
 	end
 	
 	-----------------------
@@ -478,7 +492,9 @@ local function gameLoopEvents(event)
 		end
 		
 		clean(event)
+		-- Set mapData to player's gameData mapData
 		mapData = gameData.mapData
+		-- Load in map with new mapData
 		loadMap(mapData)
 		--cutSceneSystem.cutScene("1", gui)
 				
@@ -488,6 +504,21 @@ local function gameLoopEvents(event)
 		gameData.preGame = true
 		-- Switch off this loop
 		gameData.gameStart = false
+	end
+	
+	-------------------------
+	--[[ PRE-GAME LOADER ]]--
+	if gameData.preGame == false then
+		-- Switch to in game loop
+		gameData.ingame = true
+		snow.new()
+		-- Turn on pane switching and mini map
+		gameData.allowPaneSwitch = true
+		gameData.allowMiniMap = true
+		-- Clear out pre-game
+		gameData.preGame = nil
+		-- Add game event listeners
+		addGameLoopListeners(gui)
 	end
 		
 	----------------------
@@ -530,6 +561,7 @@ local function gameLoopEvents(event)
 		loadingScreen.deleteLoading()
 		-- apply booleans
 		gameData.selectLevel = true
+		-- Switch off this loop
 		gameData.levelComplete = false
 	end
 	
@@ -548,16 +580,10 @@ local function gameLoopEvents(event)
 		end		
 		-- Re-evaluate gameData booleans
 		gameData.inMainMenu = true
+		-- Switch off this loop
 		gameData.menuOn = false
 	end
-	
-	-----------------------------
-	--[[ UPDATE OPTIONS MENU ]]--
-	-- Runtime event.
-	if gameData.updateOptions then
-		menu.update(groupObj)
-	end
-	
+		
 	----------------------
 	--[[ OPTIONS MENU ]]--	
 	if gameData.inOptions then
@@ -568,6 +594,7 @@ local function gameLoopEvents(event)
 		-- Re-evaluate gameData booleans
 		gameData.updateOptions = true
 		gameData.inMainMenu = false
+		-- Switch off this loop
 		gameData.inOptions = false		
 	end
 	
@@ -590,6 +617,7 @@ local function gameLoopEvents(event)
 		gameData.updateOptions = true
 		gameData.allowMiniMap = false
 		gameData.allowPaneSwitch = false
+		-- Switch off this loop
 		gameData.inGameOptions = false
 	end
 	
@@ -606,8 +634,19 @@ local function gameLoopEvents(event)
 		gameData.ingame = true
 		gameData.allowPaneSwitch = true
 		gameData.allowMiniMap = true
+		-- Switch off this loop
 		gameData.resumeGame = false
 	end
+	
+	--[[	
+	if mapData.levelNum == "LS" then
+		if gui.back[1] then
+			-- Set Camera to Ball
+			gui.back[1].setCameraFocus(ball)
+			gui.back[1].setTrackingLevel(0.1)
+		end
+	end
+	]]--
 end
 
 local gameLoop = {

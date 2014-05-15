@@ -26,6 +26,8 @@ local gameData = {
 	shadow = true,
 	
 	-- Level Selector Booleans
+	selectWorld = false,
+	inWorldSelector = false,
 	selectLevel = false,
 	inLevelSelector = false,
 	
