@@ -171,8 +171,10 @@ local function controlMovement(event)
 		player1.xGrav = physicsParam.xGrav
 		player1.yGrav = physicsParam.yGrav
 		
-		--print(player1.xGrav)
-		--print(player1.yGrav)
+		if gameData.debugMode then
+			print(player1.xGrav)
+			print(player1.yGrav)
+		end
 	end
 	
 	if gameData.debugMode then
@@ -289,7 +291,9 @@ local function loadMap(mapData)
 	sound.playBGM(sound.backgroundMusic)
 	
 	if mapData.levelNum ~= "LS" then
-		print(mapData.levelNum)
+		if gameData.debugMode then
+			print(mapData.levelNum)
+		end
 		-- pause physics
 		physics.pause()
 		gameTimer.preGame(gui, mapData)
@@ -449,7 +453,9 @@ local function gameLoopEvents(event)
 	---------------------------
 	--[[ START LVL SELECTOR]]--
 	if gameData.selectLevel then
-		print("gameData.mapData.world", gameData.mapData.world)
+		if gameData.debugMode then
+			print("gameData.mapData.world", gameData.mapData.world)
+		end
 		mapData.levelNum = "LS"
 		mapData.pane = "LS"
 		loadMap(mapData)
@@ -466,7 +472,10 @@ local function gameLoopEvents(event)
 	-----------------------
 	--[[ START GAMEPLAY]]--
 	if gameData.gameStart then
-		print("start game")
+		if gameData.debugMode then
+			print("start game")
+		end
+		
 		clean(event)
 		mapData = gameData.mapData
 		loadMap(mapData)

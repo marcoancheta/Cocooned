@@ -216,7 +216,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 25, 25)
 	elseif mapData.pane == "D" then
-		print("You shouldn't be in here...")
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	end
 
 	-- generates all objects in pane when locations are set
@@ -256,7 +258,9 @@ local function destroyAll()
 		wall[i] = nil
 	end
 
-	print("destroying objects", #mObjects)
+	if gameData.debugMode then
+		print("destroying objects", #mObjects)
+	end
 	-- destroy all moveable objects and stop moving them
 	for i=1, #mObjects do
 		if mObjects[i].moveable == true then
