@@ -29,7 +29,7 @@ local function createMiniMap(mapData, map)
 	local miniMap = display.newGroup()
 	
 	-- set miniMap pane images
-	if mapData.levelNum ~= "LS" then
+	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 		for i=1, 5 do
 			if map.panes[i] == true then
 				miniMapTable[i] = display.newImage("mapdata/art/background/" .. mapData.levelNum .. "/".. paneSpot[i] .. ".png")--display.newCircle(1, 1, 1)
@@ -84,7 +84,7 @@ local function createMiniMap(mapData, map)
 
 	-- set panes not in use to invisible
 	for m = 1,5 do
-		if mapData.levelNum ~= "LS" then
+		if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 			if map.panes[m] == false then
 				miniMap[m+2].isVisible = false
 			end

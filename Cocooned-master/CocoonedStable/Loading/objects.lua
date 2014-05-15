@@ -155,6 +155,7 @@ local function main(mapData, map)
 	-- call initialize function to initialize all objects and sprite sheets
 	init()
 	-- get which level lua, player is in
+	print(mapData.levelNum)
 	level = require("levels." .. levelNames[mapData.levelNum])
 	-- get objects and wisps list and create them
 	objects, wisp, water, wall, auraWall = createObjects(level, mapData)

@@ -37,17 +37,26 @@ local loaded = 0
 local level = 0 
 
 local ballPos = {
+	["world"] = {["x"]=21,["y"]=15},
 	["LS"] = {["x"]=21,["y"]=15},
+	-- A
 	["1"]  = {["x"]=20, ["y"]=14},
 	["2"]  = {["x"]=20,["y"]=10},
 	["3"]  = {["x"]=5, ["y"]=20},
 	["4"]  = {["x"]=22, ["y"]=22},
 	["5"]  = {["x"]=4, ["y"]=4},
+	-- B
 	["6"]  = {["x"]=20, ["y"]=14},
 	["7"]  = {["x"]=4, ["y"]=4},
 	["8"]  = {["x"]=20, ["y"]=15},
 	["9"]  = {["x"]=4, ["y"]=4},
-	["10"]  = {["x"]=4, ["y"]=4}
+	["10"]  = {["x"]=4, ["y"]=4},
+	-- C
+	["11"]  = {["x"]=20, ["y"]=14},
+	["12"]  = {["x"]=20,["y"]=14},
+	["13"]  = {["x"]=20, ["y"]=14},
+	["14"]  = {["x"]=20, ["y"]=14},
+	["15"]  = {["x"]=20, ["y"]=14},
 }
 
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
@@ -62,28 +71,36 @@ local function drawPane(mapData)
 	local displayX = 1460
 	local displayY = 860
 	
-	local levelBG = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/bg/" .. mapData.pane .. ".png", displayX, displayY)
-		  levelBG.x = display.contentCenterX
-		  levelBG.y = display.contentCenterY
-		  levelBG.name = "background"
-	
-	if mapData.levelNum ~= "LS" then
+	local levelBG
+	local levelWall	
+		
+	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
+		-- In-Game levels load in
+		levelBG = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/bg/" .. mapData.pane .. ".png", displayX, displayY)	
+		levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)		
+		-- Add shores for in-game levels
 		levelBG.func = "shoreCollision"
 		levelBG.collType = "passThru"
 		physics.addBody(levelBG, "static", physicsData.getFloor(mapData.levelNum):get(mapData.pane))
-	end
-	
-	local levelWall
-	if mapData.levelNum ~= "LS" then
-		levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)
-		levelWall.x = display.contentCenterX
-		levelWall.y = display.contentCenterY
 	elseif mapData.levelNum == "LS" then
+		-- Level selector level load in
+		-- File Location: mapdata/art/background/LS/(WORLD_HERE)/bg/LS.png
+		levelBG = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/" ..mapData.world.. "/bg/" .. mapData.pane .. ".png", displayX, displayY)
+		-- File Location: mapdata/art/background/LS/(WORLD_HERE)/wall/LS.png
+		levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/" ..mapData.world.. "/wall/" .. mapData.pane .. ".png", displayX, displayY)
+	elseif mapData.levelNum == "world" then
+		-- World selector load in
+		-- File Location: mapdata/art/background/world/bg/world.png
+		levelBG = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/bg/" .. mapData.pane .. ".png", displayX, displayY)
+		-- File Location: mapdata/art/background/world/wall/world.png
 		levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)
-		levelWall.x = display.contentCenterX
-		levelWall.y = display.contentCenterY
 	end
-		  
+
+	levelBG.x = display.contentCenterX
+	levelBG.y = display.contentCenterY
+	levelBG.name = "background"
+	levelWall.x = display.contentCenterX
+	levelWall.y = display.contentCenterY
 	levelWall.name = "walls"
 	
 	physics.addBody(levelWall, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
@@ -136,13 +153,13 @@ local function createLevel(mapData, player1)
 	
 	-- Add objects to its proper groups
 	gui.back:insert(levelBG)	
-	if mapData.levelNum ~= "LS" then
+	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 		if shadowCirc ~= nil then
 			gui.middle:insert(shadowCirc)
 		end
 		gui.middle:insert(levelWalls)
 		gui.front:insert(player1.imageObject) -- in-game objects also draws here.
-	elseif mapData.levelNum == "LS" then
+	elseif mapData.levelNum == "LS" or mapData.levelNum == "world" then
 		----------------------------
 		-- Level selector exclusive
 		if shadowCirc ~= nil then
@@ -150,8 +167,11 @@ local function createLevel(mapData, player1)
 		end
 		gui.middle:insert(player1.imageObject)
 		gui.front:insert(levelWalls)
-		-- load in goals
-		goals.drawGoals(gui, player1)
+		
+		if gameData.selectLevel then
+			-- load in goals
+			goals.drawGoals(gui, player1)
+		end
 	end
 	
 	-- create miniMap for level

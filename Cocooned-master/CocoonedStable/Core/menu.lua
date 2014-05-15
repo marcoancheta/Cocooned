@@ -104,7 +104,7 @@ local function buttonPressed(event)
 		clean()
 		-- User pressed play, set gameActive to true
 		gameData.inMainMenu = false
-		gameData.selectLevel = true		
+		gameData.selectWorld = true		
 	--[[ Options button pressed ]]--
 	elseif event.target.name == "optionButton" then	
 		-- Remove menuGroup
