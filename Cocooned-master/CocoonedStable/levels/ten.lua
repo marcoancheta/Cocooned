@@ -93,7 +93,7 @@ local ten = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 1
+		["fixedIceberg"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -107,9 +107,9 @@ local ten = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1, 
+		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 1
+		["fixedIceberg"] = 0
 	}
 }
 
@@ -166,25 +166,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[2].x, rune[2].y = generate.tilesToPixels(30, 15)			
 		rune[2].isVisible = true
 
-		objects["fish11"]:setSequence("move")
-		objects["fish11"]:play()
-
-		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(12, 2)
- 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(12, 11)
- 		--objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(22, 11)
- 		--objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(22, 2)
- 		objects["fish11"].time = 675
- 		--objects["fish12"].time = 675
-
-		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(38, 15)
-		objects["fixedIceberg2"].time = 3800 --not needed if free
-		objects["fixedIceberg2"].movement = "free" --fixed or free
-
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 3)
-		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 17, 23)
-
 	elseif mapData.pane == "U" then
 		
 		wisp[24].x, wisp[24].y = generate.tilesToPixels(7, 12)
@@ -204,14 +185,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWisps(wisp, map, mapData, 24, 24)
 	elseif mapData.pane == "R" then
 		wisp[25].x, wisp[25].y = generate.tilesToPixels(7, 12)
-
-		-- Break objects rune 
-		--rune[4].x, rune[4].y = generate.tilesToPixels(20, 15)			
-		--rune[2].isVisible = true
-
-		objects["fixedIceberg5"].x, objects["fixedIceberg5"].y = generate.tilesToPixels(20, 18)
-		objects["fixedIceberg5"].time = 3800 --not needed if free
-		objects["fixedIceberg5"].movement = "free" --fixed or free
 
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 25, 25)

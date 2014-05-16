@@ -164,7 +164,7 @@ local function findGoals(mapData, gui)
 	
 	local levelNames = {"Lake Wobegon", "Atlantis", "Skull Island",
 						"Jurassic Park", "Rivendell", "Middle Earth",
-						"Zion", "Gothem", "Astropolis", "Emerald City",
+						"Zion", "Fish Hell", "Astropolis", "Emerald City",
 						"South Park", "Bedrock", "Castle Rock", "King's Landing",
 						"Kakariko Village", "Avalon", "Waterdeep", "Cittàgazze",
 						"Middlemarch", "Cabot Cove", "Avonlea", "Gormenghast", 

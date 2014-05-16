@@ -130,10 +130,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	if mapData.pane == "R" then
 		-- Fish1 Set
-		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(4, 13)
-		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(4, 4)
-		objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(13, 13)
-		objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(13, 3)		
+		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(4, 4)
+		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(4, 13)
+		objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(13, 3)
+		objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(13, 13)		
 
 		-- Fish2 Set
 		objects["fish21"].x, objects["fish21"].y = generate.tilesToPixels(9, 15)
