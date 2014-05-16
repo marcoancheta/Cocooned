@@ -100,7 +100,7 @@ local nine = {
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
-		["fish1"] = 0,
+		["fish1"] = 1,
 		["fish2"] = 0,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
@@ -140,9 +140,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[9].x, wisp[9].y = generate.tilesToPixels(26, 18)
 		wisp[10].x, wisp[10].y = generate.tilesToPixels(28, 20)
 		wisp[11].x, wisp[11].y = generate.tilesToPixels(30, 22)
-		wisp[12].x, wisp[12].y = generate.tilesToPixels(8, 10)
-		wisp[13].x, wisp[13].y = generate.tilesToPixels(6, 10)
-		wisp[14].x, wisp[14].y = generate.tilesToPixels(4, 10)
+		wisp[12].x, wisp[12].y = generate.tilesToPixels(32, 10)
+		wisp[13].x, wisp[13].y = generate.tilesToPixels(31, 12)
+		wisp[14].x, wisp[14].y = generate.tilesToPixels(30, 10)
 		wisp[15].x, wisp[15].y = generate.tilesToPixels(15, 4)
 		wisp[16].x, wisp[16].y = generate.tilesToPixels(13, 3)
 		wisp[17].x, wisp[17].y = generate.tilesToPixels(17, 3)
@@ -151,14 +151,14 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Iceberg
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(10, 15)
 		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(38, 1) 
-		objects["fixedIceberg1"].time = 5000
+		objects["fixedIceberg1"].time = 5500
 		objects["fixedIceberg1"].movement = "fixed" 
 				
 		generate.gWisps(wisp, map, mapData, 1, 17)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
-		wisp[17].x, wisp[17].y = generate.tilesToPixels(22, 13)
+		--wisp[17].x, wisp[17].y = generate.tilesToPixels(22, 13)
 		wisp[18].x, wisp[18].y = generate.tilesToPixels(25, 10)
 		wisp[19].x, wisp[19].y = generate.tilesToPixels(18, 10)
 		wisp[20].x, wisp[20].y = generate.tilesToPixels(16, 12)
@@ -169,9 +169,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[2].x, rune[2].y = generate.tilesToPixels(30, 15)			
 		rune[2].isVisible = true
 
-		objects["fish11"]:setSequence("move")
-		objects["fish11"]:play()
-
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(12, 2)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(12, 11)
  		--objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(22, 11)
@@ -180,13 +177,14 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		--objects["fish12"].time = 675
 
 		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(38, 15)
-		objects["fixedIceberg2"].time = 3800 --not needed if free
-		objects["fixedIceberg2"].movement = "free" --fixed or free
+		objects["fixedIceberg2"].eX, objects["fixedIceberg2"].eY = generate.tilesToPixels(4, 10)
+		objects["fixedIceberg2"].time = 11000
+		objects["fixedIceberg2"].movement = "fixed" 
 
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 3)
 		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 17, 23)
+		generate.gWisps(wisp, map, mapData, 18, 23)
 
 	elseif mapData.pane == "U" then
 		
