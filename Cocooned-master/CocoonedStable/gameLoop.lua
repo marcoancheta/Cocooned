@@ -122,12 +122,8 @@ local shadowCircle;
 --------------------------------------------------------------------------------
 local function swipeMechanics(event)
 	if gameData.debugMode then
-<<<<<<< HEAD
-		tilesXY = generate.tilesToPixels(event.x, event.y)
-		print("Player Swipe Positions:", "x=" .. tilesXY/30, "y=" .. tilesXY/30)
-=======
-		print("Player Swipe Positions:", "x=" .. event.x, "y=" .. event.y)
->>>>>>> origin/master
+		local tilesX, tilesY = generate.pixelsToTiles(event.x, event.y)
+		print("Player Swipe Positions:", "x=" .. tilesX, "y=" .. tilesY)
 	end
 
 	if gameData.allowMiniMap then
@@ -148,22 +144,6 @@ local function swipeMechanics(event)
 	end
 end
 
-local function pixelsToTilesX( Tx)
-	local x = Tx
-	--tprint.assert((x ~= nil) and (y ~= nil), "Missing argument(s).")
-	x = x + 0.5
-	x = (x / 36)
-	return x
-end
-
-local function pixelsToTilesY( Ty)
-	local y = Ty
-	--tprint.assert((x ~= nil) and (y ~= nil), "Missing argument(s).")
-	y = y + 0.5
-	y = (y / 36)
-	return y
-end
-
 --------------------------------------------------------------------------------
 -- Tap Mechanics - function that is called when player taps
 --------------------------------------------------------------------------------
@@ -171,13 +151,8 @@ end
 --------------------------------------------------------------------------------
 local function tapMechanic(event)
 	if gameData.debugMode then
-<<<<<<< HEAD
-		local gamePixelsX = pixelsToTilesX(event.x)
-		local gamePixelsY = pixelsToTilesY(event.y)
-		print("Game pixels x: " .. gamePixelsX .. "y: " .. gamePixelsY)
-=======
-		print("Player Tap Positions:", "x=" .. event.x, "y=" .. event.y)
->>>>>>> origin/master
+		local tilesX, tilesY = generate.pixelsToTiles(event.x, event.y)
+		print("Tap position:",  "x = " .. tilesX, "y= " .. tilesY)
 	end
 
 	if gameData.allowMiniMap then

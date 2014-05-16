@@ -176,21 +176,11 @@ local function findGoals(mapData, gui)
 	--local runeAmount = 0
 	local tempData = tonumber(mapData.levelNum)
 	
-<<<<<<< HEAD
-	local levelNames = {"Lake Wobegon", "Atlantis", "Skull Island",
-						"Jurassic Park", "Rivendell", "Middle Earth",
-						"Zion", "Fish Hell", "Astropolis", "Emerald City",
-						"South Park", "Bedrock", "Castle Rock", "King's Landing",
-						"Kakariko Village", "Avalon", "Waterdeep", "Cittàgazze",
-						"Middlemarch", "Cabot Cove", "Avonlea", "Gormenghast", 
-						"Temple of Doom", "Santa Teresa", "R'lyeh"}
-=======
 	-- Different than levelNames.lua
 	local levelNames = {"Avalon", "Cittàgazze", "Lake Wobegon", "Waterdeep", "Rivendell", 
 						"Middle Earth", "Cabot Cove", "R'lyeh", "Gormenghast", "Emerald City",	
 						"Kakariko Village", "Middlemarch", "Castle Rock", "Middlemarch", "Santa Teresa"}
->>>>>>> origin/master
-	
+
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData then
 		textObject[2].text = levelNames[tempData] --" | Time:"
