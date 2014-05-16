@@ -611,6 +611,7 @@ local function gameLoopEvents(event)
 	--[[ IN-GAME OPTIONS ]]--
 	if gameData.inGameOptions then
 		physics.pause()
+		menu.cleanInGameOptions()
 		-- Pause gameTimer
 		if mapData.levelNum ~= "LS" then
 			gameTimer.pauseTimer()
@@ -635,6 +636,8 @@ local function gameLoopEvents(event)
 	if gameData.resumeGame then
 		-- Restart physics
 		physics.start()
+		-- Create in game options button
+		menu.ingameOptionsbutton(event, gui)
 		-- Resume gameTimer
 		gameTimer.resumeTimer()			
 		-- Add object listeners

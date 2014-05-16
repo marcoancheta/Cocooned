@@ -17,6 +17,7 @@ local snow = require("utils.snow")
 
 local menuGroup
 local menuObjects = nil
+local ingameOptions
 
 widget.setTheme("widget_theme_ios")
 --local player1, player2 = nil
@@ -49,6 +50,13 @@ local function clean()
 		menuGroup:removeSelf()
 		menuGroup = nil
 		menuObjects = nil
+	end
+end
+
+local function cleanInGameOptions()
+	if ingameOptions then
+		ingameOptions:removeSelf()
+		ingameOptions = nil
 	end
 end
 
@@ -249,6 +257,7 @@ local function options(event)
 	-- Options background image
 	menuObjects[1].x = display.contentCenterX
 	menuObjects[1].y = display.contentCenterY
+	menuObjects[1].alpha = 0.6
 
 	-- Main Menu button
 	menuObjects[2].x = 325
@@ -322,7 +331,7 @@ local function ingameOptionsbutton(event, gui)
 	local cY = display.contentCenterY
 
 	-- Add in-game options image (option_wheel.png)
-	local ingameOptions = display.newImageRect("mapdata/art/buttons/option_wheel.png", 90, 90, true)
+	ingameOptions = display.newImageRect("mapdata/art/buttons/option_wheel.png", 90, 90, true)
 
 	-- Scale image size
 	--ingameOptions.anchorX = 0
@@ -394,7 +403,7 @@ local function ingameMenu(event, gui)
 	-- Assign position		
 	menuObjects[1].x = display.contentCenterX
 	menuObjects[1].y = display.contentCenterY
-	menuObjects[1].alpha = 0.9
+	menuObjects[1].alpha = 0.6
 	
 	menuObjects[2].x = display.contentCenterX + 450
 	menuObjects[2].y = display.contentCenterY + 150		
@@ -465,6 +474,7 @@ end
 local menu = {
 	--soundOptions = soundOptions,
 	clean = clean,
+	cleanInGameOptions = cleanInGameOptions,
 	mainMenu = mainMenu,
 	options = options,
 	update = update,
