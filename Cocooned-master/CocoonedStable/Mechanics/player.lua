@@ -231,7 +231,7 @@ end
 function playerInstance:unshrink()
 	self.small = false
 	local delayShrink = function() return changeBack( self.imageObject ) end
-	timer.performWithDelay(20, delayShrink)
+	timer.performWithDelay(100, delayShrink)
 end
 
 
@@ -275,7 +275,7 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:breakWalls(map)
 	self.breakable = true
-	local timer = timer.performWithDelay(10, changeType)
+	local timer = timer.performWithDelay(100, changeType)
 		  timer.params = {param1 = map}
 end
 
@@ -285,7 +285,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:moveWalls(gui)
-	local timer = timer.performWithDelay(10, changeBodyType)
+	local timer = timer.performWithDelay(100, changeBodyType)
 		  timer.params = {param1 = gui}
 end
 

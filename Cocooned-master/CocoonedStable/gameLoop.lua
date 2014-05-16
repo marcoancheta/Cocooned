@@ -117,6 +117,10 @@ local shadowCircle;
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function swipeMechanics(event)
+	if gameData.debugMode then
+		print("Player Swipe Positions:", "x=" .. event.x, "y=" .. event.y)
+	end
+
 	if gameData.allowMiniMap then
 		count = count + 1
 		-- save temp pane for later check
@@ -141,6 +145,10 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function tapMechanic(event)
+	if gameData.debugMode then
+		print("Player Tap Positions:", "x=" .. event.x, "y=" .. event.y)
+	end
+
 	if gameData.allowMiniMap then
 		-- save current pane for later use
 		tempPane = mapData.pane

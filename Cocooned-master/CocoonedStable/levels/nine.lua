@@ -129,29 +129,32 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Check which pane
 
 	if mapData.pane == "M" then
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 17)
-		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 15)
-		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 13)
-		wisp[4].x, wisp[4].y = generate.tilesToPixels(25, 10)
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(22, 10)
-		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 10)
-		wisp[7].x, wisp[7].y = generate.tilesToPixels(18, 10)
-		wisp[8].x, wisp[8].y = generate.tilesToPixels(16, 10)
-		wisp[9].x, wisp[9].y = generate.tilesToPixels(14, 10)
-		wisp[10].x, wisp[10].y = generate.tilesToPixels(12, 10)
-		wisp[11].x, wisp[11].y = generate.tilesToPixels(10, 10)
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 22)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(12, 20)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(14, 18)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(16, 20)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(18, 23)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 23)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(22, 21)
+		wisp[8].x, wisp[8].y = generate.tilesToPixels(24, 20)
+		wisp[9].x, wisp[9].y = generate.tilesToPixels(26, 18)
+		wisp[10].x, wisp[10].y = generate.tilesToPixels(28, 20)
+		wisp[11].x, wisp[11].y = generate.tilesToPixels(30, 22)
 		wisp[12].x, wisp[12].y = generate.tilesToPixels(8, 10)
 		wisp[13].x, wisp[13].y = generate.tilesToPixels(6, 10)
 		wisp[14].x, wisp[14].y = generate.tilesToPixels(4, 10)
-		wisp[15].x, wisp[15].y = generate.tilesToPixels(10, 8)
-		wisp[16].x, wisp[16].y = generate.tilesToPixels(10, 6)
+		wisp[15].x, wisp[15].y = generate.tilesToPixels(15, 4)
+		wisp[16].x, wisp[16].y = generate.tilesToPixels(13, 3)
+		wisp[17].x, wisp[17].y = generate.tilesToPixels(17, 3)
 
 
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(25, 17)
-		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(25, 10) 
-		objects["fixedIceberg1"].movement = "free" 
+		-- Iceberg
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(10, 15)
+		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(38, 1) 
+		objects["fixedIceberg1"].time = 5000
+		objects["fixedIceberg1"].movement = "fixed" 
 				
-		generate.gWisps(wisp, map, mapData, 1, 16)
+		generate.gWisps(wisp, map, mapData, 1, 17)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then

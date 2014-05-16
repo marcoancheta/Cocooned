@@ -79,8 +79,11 @@ local function collide(collideObject, player, event, mapData, map, gui)
  	collideObject:removeSelf()
 
 
- 	-- check if player has reached level goal
- 	levelFinished.checkWin(player, gui.front, mapData)
+ 	if gui then
+		-- check if player has reached level goal
+		levelFinished.checkWin(player, gui.front, mapData)
+	end
+
 end
 
 --------------------------------------------------------------------------------
