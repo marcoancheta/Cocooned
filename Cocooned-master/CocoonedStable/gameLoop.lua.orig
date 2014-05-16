@@ -33,7 +33,7 @@ local sound = require("sound")
 -- Player variables/files (player.lua)
 local player = require("Mechanics.player")
 -- Object variables/files (objects.lua)
-local objects = require("Loading.objects")
+local objects = require("Objects.objects")
 -- miniMap display functions
 --local miniMapMechanic = require("Mechanics.miniMap")
 -- memory checker (memory.lua)
@@ -66,7 +66,7 @@ local gameTimer = require("utils.timer")
 -- Particle effect
 local snow = require("utils.snow")
 -- generator for objects (generateObjects.lua)
-local generate = require("Loading.generateObjects")
+--local generate = require("Loading.generateObjects")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
