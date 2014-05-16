@@ -49,7 +49,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		player.curse = 0
 		player.xGrav = 0
 		player.yGrav = 0
+<<<<<<< HEAD:Cocooned-master/CocoonedStable/Objects/waterCollision.lua
 
+=======
+>>>>>>> origin/master:Cocooned-master/CocoonedStable/Objects/collision/waterCollision.lua
 		-- reset player's aura and movement
 		player:changeColor("white")
 		--player.movement ="inWater"

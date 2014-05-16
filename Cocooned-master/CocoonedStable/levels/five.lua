@@ -13,7 +13,7 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
-local generate = require("Loading.generateObjects")
+local generate = require("Objects.generateObjects")
 
 --------------------------------------------------------------------------------
 -- Level five Variables
@@ -130,7 +130,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	if mapData.pane == "M" then
 		
 		-- Pink rune
-		rune[3].x, rune[3].y = generate.tilesToPixels(4, 17)			
+		rune[3].x, rune[3].y = generate.tilesToPixels(4, 17)	
+		--rune[3].x, rune[3].y = generate.tilesToPixels(4.5, 4.5)			
 		rune[3].isVisible = true
 		
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 6)
@@ -140,6 +141,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[5].x, wisp[5].y = generate.tilesToPixels(24, 17)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 19)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 4.5)
+		--wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 17)
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(15, 20)
 
 		--objects["fish11"]:setSequence("move")

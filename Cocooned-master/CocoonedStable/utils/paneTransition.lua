@@ -8,13 +8,13 @@
 -- miniMap display functions
 local miniMapMechanic = require("Mechanics.miniMap")
 -- Object variables/files (objects.lua)
-local objects = require("Loading.objects")
+local objects = require("Objects.objects")
 -- Load level function (loadLevel.lua)
 local loadLevel = require("Loading.loadLevel")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("Mechanics.collisionDetection")
 -- Generate Objects (generateObjects.lua)
-local generate = require("Loading.generateObjects")
+local generate = require("Objects.generateObjects")
 
 local animation = require("Core.animation")
 

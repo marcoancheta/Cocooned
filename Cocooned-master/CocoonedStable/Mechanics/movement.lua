@@ -5,7 +5,7 @@
 --------------------------------------------------------------------------------
 local sound = require("sound")
 local gameData = require("Core.gameData")
-local particle_lib = require("Mechanics.particleEmitter")
+local particle_lib = require("utils.particleEmitter")
 
 --------------------------------------------------------------------------------
 -- Variables

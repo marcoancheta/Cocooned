@@ -41,7 +41,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	sound.playSound(sound.soundEffects[5])
 
 	-- add rune to inventory
-	player:addInventory(collideObject)
+	--player:addInventory(collideObject)
 	player:addRune(collideObject)
 
 	-- create rune animation collection sprite and play it
@@ -78,12 +78,19 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- remove rune
  	collideObject:removeSelf()
 
+<<<<<<< HEAD:Cocooned-master/CocoonedStable/Objects/runeCollision.lua
 
  	if gui then
 		-- check if player has reached level goal
 		levelFinished.checkWin(player, gui.front, mapData)
 	end
 
+=======
+	if gui then
+		-- check if player has reached level goal
+		levelFinished.checkWin(player, gui.front, mapData)
+	end
+>>>>>>> origin/master:Cocooned-master/CocoonedStable/Objects/collision/runeCollision.lua
 end
 
 --------------------------------------------------------------------------------
