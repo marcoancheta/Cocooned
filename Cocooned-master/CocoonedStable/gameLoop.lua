@@ -334,7 +334,6 @@ local function clean(event)
 	player1.imageObject:removeSelf()
 	player1.imageObject = nil
 	
-	shadowCircle:removeSelf()
 	shadowCircle = nil
 	
 	ball:removeSelf()
