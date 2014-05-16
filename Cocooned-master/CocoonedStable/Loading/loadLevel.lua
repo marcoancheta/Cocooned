@@ -47,7 +47,7 @@ local ballPos = {
 	["7"]  = {["x"]=4, ["y"]=4},
 	["8"]  = {["x"]=1, ["y"]=12},
 	["9"]  = {["x"]=20, ["y"]=20},
-	["10"]  = {["x"]=4, ["y"]=4}
+	["10"]  = {["x"]=20, ["y"]=12}
 }
 
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end

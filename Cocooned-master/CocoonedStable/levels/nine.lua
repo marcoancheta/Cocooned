@@ -152,8 +152,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[2].isVisible = true
 
 		-- Iceberg
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(25, 4)
-		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(25, 1) 
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(14, 13)
+		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(36, 2) 
 		objects["fixedIceberg1"].time = 5500
 		objects["fixedIceberg1"].movement = "fixed" 
 				
