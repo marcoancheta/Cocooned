@@ -544,7 +544,8 @@ local function gameLoopEvents(event)
 	--[[ END GAMEPLAY ]]--
 	if gameData.gameEnd then
 		--sound.soundClean()
-		clean(event)	
+		clean(event)
+		inventory.inventoryInstance:destroy()
 		-- Switch off game booleans
 		gameData.ingame = false
 		gameData.inWater = false
@@ -560,6 +561,7 @@ local function gameLoopEvents(event)
 	if gameData.levelRestart == true then
 		-- Clean
 		--clean(event)
+		inventory.inventoryInstance:destroy()
 		-- Reset current pane to middle
 		mapData.pane = "M"
 		-- Switch off game booleans
