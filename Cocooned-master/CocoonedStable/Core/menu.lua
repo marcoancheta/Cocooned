@@ -10,7 +10,7 @@
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
 local sound = require("sound")
-local generate = require("Loading.generateObjects")
+local generate = require("Objects.generateObjects")
 local widget = require("widget")
 local memory = require("memory")
 local snow = require("utils.snow")

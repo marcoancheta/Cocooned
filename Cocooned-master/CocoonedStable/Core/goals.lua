@@ -5,7 +5,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
-local generate = require("Loading.generateObjects")
+local generate = require("Objects.generateObjects")
 ---------------------
 -- Local variables
 ---------------------

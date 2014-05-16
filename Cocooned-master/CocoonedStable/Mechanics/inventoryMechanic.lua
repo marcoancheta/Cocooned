@@ -37,6 +37,7 @@ end
 function inventoryInstance:resetRunes()
 	self.runeSize = 1
 end
+
 --------------------------------------------------------------------------------
 -- New - function that creates a new iventory table
 --------------------------------------------------------------------------------
@@ -50,19 +51,17 @@ end
 -- Destroy - function that destroys inventory table
 --------------------------------------------------------------------------------
 function inventoryInstance:destroy()
-
 	-- set all items in inventory to nil to remove
 	for i = 1, #self.items do
-			self.items[i] = nil
+		self.items[i] = nil
 	end
 	self.size = nil
 
 	-- set all runes in inventory to nil to remove
 	for i = 1, #self.runes do
-			self.runes[i] = nil
+		self.runes[i] = nil
 	end
 	self.runeSize = nil
-
 end
 
 --------------------------------------------------------------------------------

@@ -10,9 +10,9 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- moveable object class that creates moveable objects (moveableObject.lua)
-local moveableObject = require("Loading.moveableObject")
+local moveableObject = require("Objects.moveableObject")
 -- wind emmiter object class (windEmitter.lua)
-local windEmitterMechanic = require("Mechanics.windEmitter")
+local windEmitterMechanic = require("utils.windEmitter")
 local animation = require("Core.animation")
 local physicsData = require("Loading.physicsData")
 --Array that holds all switch wall and free icebergs

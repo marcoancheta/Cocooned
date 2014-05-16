@@ -15,7 +15,7 @@ local gameData = require("Core.gameData")
 -- miniMap Mechanic (miniMap.lua)
 local miniMapMechanic = require("Mechanics.miniMap")
 -- variable for miniMap mechanic for previous tap time
-local particle_lib = require("Mechanics.touchParticles")
+local particle_lib = require("utils.touchParticles")
 
 local tapTime = 0
 local canSwipe = true
