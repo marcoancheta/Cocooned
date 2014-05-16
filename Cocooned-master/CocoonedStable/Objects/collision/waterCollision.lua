@@ -49,7 +49,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		player.curse = 0
 		player.xGrav = 0
 		player.yGrav = 0
-
+		
 		-- reset player's aura and movement
 		player:changeColor("white")
 		--player.movement ="inWater"

@@ -13,7 +13,7 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
-local generate = require("Loading.generateObjects")
+local generate = require("Objects.generateObjects")
 
 --------------------------------------------------------------------------------
 -- Level nine Variables

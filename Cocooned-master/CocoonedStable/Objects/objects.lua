@@ -17,15 +17,6 @@ local physicsData = require("Loading.physicsData")
 
 -- holds the level name for loading
 local levelNames = require("utils.levelNames")
---[[local levelNames = {
-	["LS"] = "LS",
-	["1"] = "one",
-	["2"] = "two",
-	["3"] = "three",
-	["4"] = "four",
-	["5"] = "five"
-}
-]]--
 
 -- local variable for that holds "level".lua
 local level
@@ -130,7 +121,7 @@ local function createObjects(objectNumbers, mapData)
 	for i=1, tonumber(objectNumbers.wispCount) do
 		wisp[i] = display.newImage("mapdata/art/wisp/wisp.png")
 		wisp[i].isVisible = false
-		wisp[i].x, wisp[i].y = 100, 100
+		wisp[i].x, wisp[i].y = 0, 0
 	end	
 	
 	-- call function to animate objects
@@ -155,6 +146,7 @@ local function main(mapData, map)
 	-- call initialize function to initialize all objects and sprite sheets
 	init()
 	-- get which level lua, player is in
+	print(mapData.levelNum)
 	level = require("levels." .. levelNames[mapData.levelNum])
 	-- get objects and wisps list and create them
 	objects, wisp, water, wall, auraWall = createObjects(level, mapData)

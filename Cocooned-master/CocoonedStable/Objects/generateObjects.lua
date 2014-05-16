@@ -10,11 +10,12 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- moveable object class that creates moveable objects (moveableObject.lua)
-local moveableObject = require("Loading.moveableObject")
+local moveableObject = require("Objects.moveableObject")
 -- wind emmiter object class (windEmitter.lua)
-local windEmitterMechanic = require("Mechanics.windEmitter")
+local windEmitterMechanic = require("utils.windEmitter")
 local animation = require("Core.animation")
 local physicsData = require("Loading.physicsData")
+local inventory = require("Mechanics.inventoryMechanic")
 --Array that holds all switch wall and free icebergs
 local accelObjects = require("Objects.accelerometerObjects")
 --------------------------------------------------------------------------------
@@ -34,13 +35,18 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	wisp[i].name = "wisp" .. i
 	   	wisp[i]:toFront()
 
-	   	-- insert wisp into map display group
-		if mapData.levelNum ~= "LS" then
-			map.front:insert(wisp[i])
+		for j=1, i do
+			if inventory.inventoryInstance.items[j] ~= wisp[i].name then
+				-- insert wisp into map display group
+				if mapData.levelNum ~= "LS" then
+					map.front:insert(wisp[i])
+				end
+				-- add physics body for wisp for collision
+				physics.addBody(wisp[i], "static", {bounce=0})
+			else
+				wisp[i].isVisible = false
+			end
 		end
-
-		-- add physics body for wisp for collision
-		physics.addBody(wisp[i], "static", {bounce=0})
 	end
 end
 
@@ -66,7 +72,13 @@ local function gObjects(level, objects, map, mapData, runes)
 				objects[name ..j].collType = "passThru"
 				-- add object to map display group
 				map.middle:insert(objects[name .. j])
-			else
+			elseif mapData.levelNum == "world" then
+				objects[name .. j].func = "worldPortalCollision"
+				physics.addBody(objects[name ..j], "static", {bounce = 0})
+				objects[name ..j].collType = "passThru"
+				-- add object to map display group
+				map.middle:insert(objects[name .. j])
+			elseif mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 				objects[name .. j].func = name .. "Collision"
 				if name == "fixedIceberg" then
 					physics.addBody(objects[name ..j], "static", {bounce = 0, filter = {groupIndex = -1 }})
@@ -82,15 +94,21 @@ local function gObjects(level, objects, map, mapData, runes)
 				map.front:insert(objects[name .. j])
 			end
 			
-			objects[name .. j]:toBack()
+			--objects[name .. j]:toBack()
 		end
 	end
 
 	-- goes down rune list and adds runes that are visible in pane
 	for i = 1, #runes do
-		-- check if rune is visible and if so, add to map display group
-		if runes[i].isVisible == true then
-			map.front:insert(runes[i])
+		for j=1, i do
+			if inventory.inventoryInstance.runes[j] ~= runes[i].name then
+				-- check if rune is visible and if so, add to map display group
+				if runes[i].isVisible == true then
+					map.front:insert(runes[i])
+				end
+			else
+				runes[i].isVisible = false
+			end
 		end
 	end
 end

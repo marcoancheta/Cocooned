@@ -5,7 +5,6 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- mechanic creates an inventory table for players
-
 --------------------------------------------------------------------------------
 -- Inventory Instance - inventory object table
 --------------------------------------------------------------------------------
@@ -15,7 +14,6 @@ local inventoryInstance = {
 	runes = {},
 	runeSize = 1
 }
-
 
 --------------------------------------------------------------------------------
 -- Add Item - function that adds item name to inventory table
@@ -30,7 +28,7 @@ end
 -- Add Rune - function that adds rune name to inventory table
 --------------------------------------------------------------------------------
 function inventoryInstance:addRune(item, map)
-	self.runes[self.size] = item.name
+	self.runes[self.runeSize] = item.name
 	print("add inventory", #self.runes, item.name)
 	self.runeSize = self.runeSize + 1
 end
@@ -39,6 +37,7 @@ end
 function inventoryInstance:resetRunes()
 	self.runeSize = 1
 end
+
 --------------------------------------------------------------------------------
 -- New - function that creates a new iventory table
 --------------------------------------------------------------------------------
@@ -52,19 +51,17 @@ end
 -- Destroy - function that destroys inventory table
 --------------------------------------------------------------------------------
 function inventoryInstance:destroy()
-
 	-- set all items in inventory to nil to remove
 	for i = 1, #self.items do
-			self.items[i] = nil
+		self.items[i] = nil
 	end
 	self.size = nil
 
 	-- set all runes in inventory to nil to remove
 	for i = 1, #self.runes do
-			self.runes[i] = nil
+		self.runes[i] = nil
 	end
 	self.runeSize = nil
-
 end
 
 --------------------------------------------------------------------------------
@@ -80,7 +77,8 @@ end
 -- Finish Up
 --------------------------------------------------------------------------------
 local inventoryMechanic = {
-	createInventory = createInventory
+	createInventory = createInventory,
+	inventoryInstance = inventoryInstance
 }
 
 -- return inventoryMechanic.lua

@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- one.lua
+-- LS.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -13,8 +13,9 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
-local generate = require("Loading.generateObjects")
+local generate = require("Objects.generateObjects")
 local movement = require("Mechanics.movement")
+local goals = require("Core.goals")
 
 --------------------------------------------------------------------------------
 -- Level One Variables
@@ -82,9 +83,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			
 	-- Check which pane
 	if mapData.pane == "LS" then
-		if gameData.debugMode then
-			print(mapData.world)
-		end
+		print(mapData.world)
 		if mapData.world == "A" then
 			-- Place World "A" portals.
 			objects["exitPortal6"].x, objects["exitPortal6"].y = generate.tilesToPixels(10, 15)
@@ -213,4 +212,4 @@ LS.load = load
 LS.destroyAll = destroyAll
 
 return LS
--- end of one.lua
+-- end of LS.lua

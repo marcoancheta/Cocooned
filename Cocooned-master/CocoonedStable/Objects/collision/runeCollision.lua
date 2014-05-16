@@ -41,7 +41,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	sound.playSound(sound.soundEffects[5])
 
 	-- add rune to inventory
-	player:addInventory(collideObject)
+	--player:addInventory(collideObject)
 	player:addRune(collideObject)
 
 	-- create rune animation collection sprite and play it
