@@ -56,6 +56,8 @@ local collisionDetection = require("Mechanics.collisionDetection")
 local paneTransition = require("utils.paneTransition")
 -- Cut Scene System (cutSceneSystem.lua)
 local cutSceneSystem = require("Loading.cutSceneSystem")
+-- Player inventory
+local inventory = require("Mechanics.inventoryMechanic")
 
 --Array that holds all switch wall and free icebergs
 local accelObjects = require("Objects.accelerometerObjects")
@@ -514,7 +516,7 @@ local function gameLoopEvents(event)
 		-- Load in map with new mapData
 		loadMap(mapData)
 		--cutSceneSystem.cutScene("1", gui)
-				
+		snow.new()
 		-- Re-evaluate gameData booleans
 		gameData.inLevelSelector = false
 		gameData.inWater = false
@@ -574,10 +576,12 @@ local function gameLoopEvents(event)
 	--[[ LEVEL COMPLETE ]]--
 	if gameData.levelComplete then
 		-- clean
-		clean(event)
-		loadingScreen.deleteLoading()
+		--clean(event)
+		snow.meltSnow()
+		inventory.inventoryInstance:destroy()
 		-- apply booleans
 		gameData.selectLevel = true
+		loadingScreen.deleteLoading()
 		-- Switch off this loop
 		gameData.levelComplete = false
 	end

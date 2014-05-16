@@ -121,7 +121,7 @@ local function createObjects(objectNumbers, mapData)
 	for i=1, tonumber(objectNumbers.wispCount) do
 		wisp[i] = display.newImage("mapdata/art/wisp/wisp.png")
 		wisp[i].isVisible = false
-		wisp[i].x, wisp[i].y = 100, 100
+		wisp[i].x, wisp[i].y = 0, 0
 	end	
 	
 	-- call function to animate objects
