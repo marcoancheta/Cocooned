@@ -178,19 +178,19 @@ end
 local function controlMovement(event)
 	-- if miniMap isn't showing, move player
 	if gameData.isShowingMiniMap == false and gameData.gameEnd == false then
-		for i = 1, gui.playerCount do
+		--for i = 1, gui.playerCount do
 			-- call accelerometer to get data
-			physicsParam = accelerometer.onAccelerate(event, players[i])
+			physicsParam = accelerometer.onAccelerate(event, player1)
 			
 			-- set player's X and Y gravity times the player's curse
-			players[i].xGrav = physicsParam.xGrav
-			players[i].yGrav = physicsParam.yGrav
+			player1.xGrav = physicsParam.xGrav
+			player1.yGrav = physicsParam.yGrav
 			
 			if gameData.debugMode then
-				print(players[i].xGrav)
-				print(players[i].yGrav)
+				print(player1.xGrav)
+				print(player1.yGrav)
 			end
-		end
+		--end
 		
 	end
 	
@@ -215,11 +215,11 @@ end
 local function speedUp(event)
 	if gameData.isShowingMiniMap == false then
 
-		for i = 1, gui.playerCount do
-			if players[i] ~= nil then
-			players[i].xGrav = players[i].xGrav*players[i].curse
-			players[i].yGrav = players[i].yGrav*players[i].curse
-			movement.moveAndAnimate(event, players[i], gui.middle)
+		--for i = 1, gui.playerCount do
+			if player1 ~= nil then
+			player1.xGrav = player1.xGrav*player1.curse
+			player1.yGrav = player1.yGrav*player1.curse
+			movement.moveAndAnimate(event, player1, gui.middle)
 			--[[
 			local ballPt = {}
 			ballPt.x = player1.imageObject.x
@@ -230,7 +230,7 @@ local function speedUp(event)
 			--table.remove(linePts, 1);
 			]]--
 			end
-		end
+		--end
 	end
 end
 
@@ -316,6 +316,15 @@ local function loadMap(mapData)
 	for i = 1, gui.playerCount do
 		collisionDetection.createCollisionDetection(players[i].imageObject, player1, mapData, gui, gui.back[1])
 	end
+
+	if gui.playerCount == 1 then
+		ball2:removeSelf()
+		player2.imageObject:removeSelf()
+		player2.imageObject = nil
+		ball2:removeSelf()
+		ball2 = nil
+	end
+
 	-- Create in game options button
 	menu.ingameOptionsbutton(event, gui)
 
@@ -351,7 +360,12 @@ local function clean(event)
 	-- remove all eventListeners
 	removeGameLoopListeners(gui)
 	-- clear collision detections
-	collisionDetection.destroyCollision(player1.imageObject)
+	for i = 1, gui.playerCount do
+		collisionDetection.destroyCollision(players[i].imageObject)
+	end
+
+	table.remove(players)
+	table.remove(players)
 
 	player1:resetRune()
 
@@ -361,6 +375,8 @@ local function clean(event)
 		linePts = {}
 	end
 	]]--
+
+
 	
 	-- destroy player instance
 	player1.imageObject:removeSelf()

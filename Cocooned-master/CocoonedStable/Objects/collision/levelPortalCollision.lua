@@ -22,15 +22,6 @@ local selectLevel = {
 }
 
 --------------------------------------------------------------------------------
--- Transition listener function
---------------------------------------------------------------------------------
-local function temp(target)
-	if gameData.inLevelSelector then
-		target:setLinearVelocity(0,0)
-	end
-end
-
---------------------------------------------------------------------------------
 -- Collide Function - end game if exit portal is active
 --------------------------------------------------------------------------------
 -- Updated by: D
@@ -39,6 +30,17 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- Disable portal collision
 	event.other.isSensor = true
 	goals.drawGoals(gui, player)
+
+	local function resume()
+		-- Enable portal collision
+		event.other.isSensor = false
+	end
+
+	local function temp(target)
+		if gameData.inLevelSelector then
+			target:setLinearVelocity(0,0)
+		end
+	end
 									
 	for i=1, 15 do
 		if collideObject.name == "exitPortal" ..i.. "" then

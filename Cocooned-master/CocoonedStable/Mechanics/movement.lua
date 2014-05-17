@@ -79,6 +79,7 @@ local function moveAndAnimate(event, currPlayer, gui)
 		-- snow trail particle effect
 		local velX, velY = currPlayer.imageObject:getLinearVelocity()
 
+		--[[
 		if velX ~= 0 and velY ~= 0 then
 			local angle = math.atan2(velX, velY)*(180/math.pi)
 			local offSet = math.random(-15, 15)
@@ -87,6 +88,7 @@ local function moveAndAnimate(event, currPlayer, gui)
 			local offSet2 = math.random(-10, 10)
 			snowEmitter:emit(gui, currPlayer.imageObject.x + offSet1, currPlayer.imageObject.y + offSet2)
 		end
+		]]--
 
 		if speed > 1125 then
 			currPlayer.imageObject:play()
