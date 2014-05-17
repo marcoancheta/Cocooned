@@ -41,7 +41,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	sound.playSound(sound.soundEffects[5])
 
 	-- add rune to inventory
-	player:addInventory(collideObject)
+	--player:addInventory(collideObject)
 	player:addRune(collideObject)
 
 	-- create rune animation collection sprite and play it
@@ -78,9 +78,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- remove rune
  	collideObject:removeSelf()
 
-
- 	-- check if player has reached level goal
- 	levelFinished.checkWin(player, gui.front, mapData)
+ 	if gui then
+		-- check if player has reached level goal
+		levelFinished.checkWin(player, gui.front, mapData)
+	end
 end
 
 --------------------------------------------------------------------------------

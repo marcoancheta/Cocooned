@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- one.lua
+-- LS.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -13,8 +13,9 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
-local generate = require("Loading.generateObjects")
+local generate = require("Objects.generateObjects")
 local movement = require("Mechanics.movement")
+local goals = require("Core.goals")
 
 --------------------------------------------------------------------------------
 -- Level One Variables
@@ -31,7 +32,8 @@ local LS = {
 	waterCount = 0,
 	wallCount = 0,
 	auraWallCount = 0,
-	playerCount = 1,
+	playerCount = 1,,
+	playerPos = {{["x"]=21,["y"]=15}},
 	-- mapData clone
 	-- LS.levelNum || LS.pane || LS.version
 	levelNum = 0,
@@ -83,9 +85,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			
 	-- Check which pane
 	if mapData.pane == "LS" then
-		if gameData.debugMode then
-			print(mapData.world)
-		end
+		print(mapData.world)
 		if mapData.world == "A" then
 			-- Place World "A" portals.
 			objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 15)
@@ -104,7 +104,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 					objects["exitPortal" ..i.. ""].isVisible = false
 				end
 			end
-			-- Place World "B" portals.
+			-- Place World "B" portals.			
 			objects["exitPortal6"].x, objects["exitPortal6"].y = generate.tilesToPixels(10, 15)
 			objects["exitPortal7"].x, objects["exitPortal7"].y = generate.tilesToPixels(14, 12)		
 			objects["exitPortal8"].x, objects["exitPortal8"].y = generate.tilesToPixels(20.5, 11)
@@ -214,4 +214,4 @@ LS.load = load
 LS.destroyAll = destroyAll
 
 return LS
--- end of one.lua
+-- end of LS.lua

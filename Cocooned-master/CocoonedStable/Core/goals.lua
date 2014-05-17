@@ -5,7 +5,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
-local generate = require("Loading.generateObjects")
+local generate = require("Objects.generateObjects")
 ---------------------
 -- Local variables
 ---------------------
@@ -13,6 +13,7 @@ local play, cancel
 --local rune = {}
 local textObject = {}
 local playerTemp
+
 --------------------------------------------------------------------------------
 -- destroyGoals - Destroy it all!
 --------------------------------------------------------------------------------
@@ -20,18 +21,22 @@ local playerTemp
 --------------------------------------------------------------------------------
 local function destroyGoals()
 	--print("Destroyed goalie")
-			
-	for i=1, #textObject do
-		display.remove(textObject[i])
-	end
 	
+	if textObject then	
+		for i=1, #textObject do
+			display.remove(textObject[i])
+		end
+	end
+		
 	--[[for i=1, #rune do
 		display.remove(rune[i])
 	end
 	]]--
 	
-	play:removeSelf()
-	play = nil;
+	if play then
+		play:removeSelf()
+		play = nil;
+	end
 	
 	--rune = nil;
 	textObject = nil;
@@ -50,10 +55,10 @@ local function tapOnce(event)
 		gameData.gameStart = true
 	elseif event.target.name == "cancelButton" then
 		--
-		textObject[1].alpha = 0
-		textObject[2].alpha  = 0
-		play.alpha = 0
-		cancel.alpha = 0
+		textObject[1].isVisible = false
+		textObject[2].isVisible = false
+		play.isVisible = false
+		cancel.isVisible = false
 		--for i=1, #rune do
 		--	rune[i].isVisible = false
 		--end
@@ -61,22 +66,31 @@ local function tapOnce(event)
 	end		
 end
 
+--------------------------------------------------------------------------------
+-- Button Listeners
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function onPlay()
+	print("SHOW PLAY")
+	textObject[1].isVisible = true
+	textObject[2].isVisible = true
 	textObject[1].alpha = 0.8
-	textObject[2].alpha  = 1
-	play.alpha = 1
+	textObject[2].alpha = 1
+	play.isVisible = true
 	play:addEventListener("tap", tapOnce)
-	cancel.alpha = 1
+	cancel.isVisible = true
 	cancel:addEventListener("tap", tapOnce)
 end
 
 local function hidePlay()
-	play.alpha = 0
+	textObject[1].isVisible = false
+	textObject[2].isVisible = false
+	play.isVisible = false
 	play:removeEventListener("tap", tapOnce)
-	cancel.alpha = 0
-	cancel:addEventListener("tap", tapOnce)
+	cancel.isVisible = false
+	cancel:removeEventListener("tap", tapOnce)
 end
-
 --------------------------------------------------------------------------------
 -- drawGoals - Draw/Insert Objects
 --------------------------------------------------------------------------------
@@ -109,24 +123,24 @@ local function drawGoals(gui, player)
 	textObject[1]:setStrokeColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 	textObject[1]:setFillColor(167*0.00392156862, 219*0.00392156862, 216*0.00392156862)
 	textObject[1].strokeWidth = 15
-	textObject[1].alpha = 0
+	textObject[1].isVisible = false
 
 	textObject[2] = display.newText(text, display.contentCenterX, 85, nativeSystemfont, 72)
 	textObject[2]:setFillColor(0,0,0)
 	--textObject[2].anchorX = 1
-	textObject[2].alpha = 0
+	textObject[2].isVisible = false
 	
 	-- Create play button
 	play = display.newImage("mapdata/art/buttons/sil_kipcha.png")
 	play.x, play.y = generate.tilesToPixels(5, 20)
 	play:scale(1.5, 1.5)
-	play.alpha = 0
+	play.isVisible = false
 	play.name = "playButton"
 
 	cancel = display.newImage("mapdata/art/buttons/cancel.png")
 	cancel.x, cancel.y = generate.tilesToPixels(35, 20)
 	cancel:scale(1, 1)
-	cancel.alpha = 0
+	cancel.isVisible = false
 	cancel.name = "cancelButton"
 			
 	-- insert objects to display group
@@ -162,18 +176,17 @@ local function findGoals(mapData, gui)
 	--local runeAmount = 0
 	local tempData = tonumber(mapData.levelNum)
 	
-	local levelNames = {"Lake Wobegon", "Atlantis", "Skull Island",
-						"Jurassic Park", "Rivendell", "Middle Earth",
-						"Zion", "Gothem", "Astropolis", "Emerald City",
-						"South Park", "Bedrock", "Castle Rock", "King's Landing",
-						"Kakariko Village", "Avalon", "Waterdeep", "Cittàgazze",
-						"Middlemarch", "Cabot Cove", "Avonlea", "Gormenghast", 
-						"Temple of Doom", "Santa Teresa", "R'lyeh"}
-	
+	-- Different than levelNames.lua
+	local levelNames = {"Avalon", "Cittàgazze", "Lake Wobegon", "Waterdeep", "Rivendell", 
+						"Middle Earth", "Cabot Cove", "R'lyeh", "Gormenghast", "Emerald City",	
+						"Kakariko Village", "Middlemarch", "Castle Rock", "Middlemarch", "Santa Teresa"}
+
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData then
 		textObject[2].text = levelNames[tempData] --" | Time:"
 	end
+	
+	
 	--[[
 	if tempData == "1" then
 		--runeAmount = 1

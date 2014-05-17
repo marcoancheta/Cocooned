@@ -5,6 +5,7 @@
 --------------------------------------------------------------------------------
 -- holds the level name for loading
 local levelNames = {
+	["world"] = "world",
 	["LS"] = "LS",
 	["1"] = "one",
 	["2"] = "two",
@@ -15,7 +16,12 @@ local levelNames = {
 	["7"] = "seven", 
 	["8"] = "eight", 
 	["9"] = "nine", 
-	["10"] = "ten"
+	["10"] = "ten",
+	["11"] = "eleven",
+	["12"] = "twelve",
+	["13"] = "thirteen",
+	["14"] = "fourteen",
+	["15"] = "fifteen",
 }
 
 return levelNames

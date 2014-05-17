@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- worldPortalCollision.lua
+-- levelPortalCollision.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local sound = require("sound")
@@ -14,14 +14,21 @@ local goals = require("Core.goals")
 -- Updated by: D
 --------------------------------------------------------------------------------
 -- Local mapData array clone
-local selectWorld = {
+local selectLevel = {
 	world = gameData.mapData.world,
 	levelNum = 0,
 	pane = "M",
 	version = 0
 }
--- Local world array
-local world = {"A", "B", "C"}
+
+--------------------------------------------------------------------------------
+-- Transition listener function
+--------------------------------------------------------------------------------
+local function temp(target)
+	if gameData.inLevelSelector then
+		target:setLinearVelocity(0,0)
+	end
+end
 
 --------------------------------------------------------------------------------
 -- Collide Function - end game if exit portal is active
@@ -31,40 +38,34 @@ local world = {"A", "B", "C"}
 local function collide(collideObject, player, event, mapData, map, gui)
 	-- Disable portal collision
 	event.other.isSensor = true
-	
-	local function resume()
-		-- Enable portal collision
-		event.other.isSensor = false
-	end
-	
-	local function temp(target)
-		if gameData.inWorldSelector then
-			target:setLinearVelocity(0,0)
-		end
-	end
+	goals.drawGoals(gui, player)
 									
-	for i=1, 3 do		
+	for i=1, 15 do
 		if collideObject.name == "exitPortal" ..i.. "" then
-			selectWorld.world = world[i]				
-			gameData.mapData.world = selectWorld.world
+			selectLevel.world = gameData.mapData.world
+			selectLevel.levelNum = ""..i..""
+			selectLevel.pane = "M"		
+			-- Run goals
+			goals.onPlay()			
+			goals.findGoals(selectLevel, gui)
+			-- Transfer selectLevel values to gameData.mapData
+			gameData.mapData = selectLevel
 			player.curse = 0
 			player.xGrav = 0
 			player.yGrav = 0
-			local trans = transition.to(player.imageObject, {time=1000, x=collideObject.x, y=collideObject.y, alpha=0.5, onComplete = temp} )
+			local trans = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y, onComplete = temp} )
 		end
 	end
-
-
 end
 
 --------------------------------------------------------------------------------
 -- Finish Up
 --------------------------------------------------------------------------------
--- Updated by: D
+-- Updated by: Marco
 --------------------------------------------------------------------------------
-local worldPortalCollision = {
+local levelPortalCollision = {
 	collide = collide
 }
 
-return worldPortalCollision
--- end of worldPortalCollision.lua
+return levelPortalCollision
+-- end of levelPortalCollision.lua

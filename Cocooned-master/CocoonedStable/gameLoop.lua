@@ -33,7 +33,7 @@ local sound = require("sound")
 -- Player variables/files (player.lua)
 local player = require("Mechanics.player")
 -- Object variables/files (objects.lua)
-local objects = require("Loading.objects")
+local objects = require("Objects.objects")
 -- miniMap display functions
 --local miniMapMechanic = require("Mechanics.miniMap")
 -- memory checker (memory.lua)
@@ -53,9 +53,11 @@ local movement = require("Mechanics.movement")
 -- Collision Detection (collisionDetection.lua)
 local collisionDetection = require("Mechanics.collisionDetection")
 -- Pane Transitions (paneTransition.lua)
-local paneTransition = require("Loading.paneTransition")
+local paneTransition = require("utils.paneTransition")
 -- Cut Scene System (cutSceneSystem.lua)
 local cutSceneSystem = require("Loading.cutSceneSystem")
+-- Player inventory
+local inventory = require("Mechanics.inventoryMechanic")
 
 --Array that holds all switch wall and free icebergs
 local accelObjects = require("Objects.accelerometerObjects")
@@ -63,6 +65,8 @@ local accelObjects = require("Objects.accelerometerObjects")
 local gameTimer = require("utils.timer")
 -- Particle effect
 local snow = require("utils.snow")
+-- generator for objects (generateObjects.lua)
+local generate = require("Loading.generateObjects")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -117,6 +121,11 @@ local shadowCircle;
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function swipeMechanics(event)
+	if gameData.debugMode then
+		local tilesX, tilesY = generate.pixelsToTiles(event.x, event.y)
+		print("Player Swipe Positions:", "x=" .. tilesX, "y=" .. tilesY)
+	end
+
 	if gameData.allowMiniMap then
 		count = count + 1
 		-- save temp pane for later check
@@ -141,6 +150,11 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function tapMechanic(event)
+	if gameData.debugMode then
+		local tilesX, tilesY = generate.pixelsToTiles(event.x, event.y)
+		print("Tap position:",  "x = " .. tilesX, "y= " .. tilesY)
+	end
+
 	if gameData.allowMiniMap then
 		-- save current pane for later use
 		tempPane = mapData.pane
@@ -308,7 +322,7 @@ local function loadMap(mapData)
 	sound.stop()
 	sound.playBGM(sound.backgroundMusic)
 	
-	if mapData.levelNum ~= "LS" then
+	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 		if gameData.debugMode then
 			print(mapData.levelNum)
 		end
@@ -352,7 +366,6 @@ local function clean(event)
 	player1.imageObject:removeSelf()
 	player1.imageObject = nil
 	
-	shadowCircle:removeSelf()
 	shadowCircle = nil
 	
 	ball:removeSelf()
@@ -398,6 +411,15 @@ local function update(event)
 		menu.update(groupObj)
 	end
 
+	-- World Selector Runtime Event.
+	if gameData.inWorldSelector then
+		-- Draw shadow under ball
+		if shadowCircle and ball then
+			shadowCircle.x = ball.x
+			shadowCircle.y = ball.y
+		end
+	end
+	
 	-- Level Selector Runtime Event.
 	if gameData.inLevelSelector then
 		-- Draw shadow under ball
@@ -482,6 +504,7 @@ local function gameLoopEvents(event)
 	---------------------------
 	--[[ START LVL SELECTOR]]--
 	if gameData.selectLevel then
+		clean(event)
 		if gameData.debugMode then
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
@@ -515,7 +538,7 @@ local function gameLoopEvents(event)
 		-- Load in map with new mapData
 		loadMap(mapData)
 		--cutSceneSystem.cutScene("1", gui)
-				
+		snow.new()
 		-- Re-evaluate gameData booleans
 		gameData.inLevelSelector = false
 		gameData.inWater = false
@@ -543,7 +566,8 @@ local function gameLoopEvents(event)
 	--[[ END GAMEPLAY ]]--
 	if gameData.gameEnd then
 		--sound.soundClean()
-		clean(event)	
+		clean(event)
+		inventory.inventoryInstance:destroy()
 		-- Switch off game booleans
 		gameData.ingame = false
 		gameData.inWater = false
@@ -559,6 +583,7 @@ local function gameLoopEvents(event)
 	if gameData.levelRestart == true then
 		-- Clean
 		--clean(event)
+		inventory.inventoryInstance:destroy()
 		-- Reset current pane to middle
 		mapData.pane = "M"
 		-- Switch off game booleans
@@ -575,10 +600,12 @@ local function gameLoopEvents(event)
 	--[[ LEVEL COMPLETE ]]--
 	if gameData.levelComplete then
 		-- clean
-		clean(event)
-		loadingScreen.deleteLoading()
+		--clean(event)
+		snow.meltSnow()
+		inventory.inventoryInstance:destroy()
 		-- apply booleans
 		gameData.selectLevel = true
+		loadingScreen.deleteLoading()
 		-- Switch off this loop
 		gameData.levelComplete = false
 	end
@@ -620,6 +647,7 @@ local function gameLoopEvents(event)
 	--[[ IN-GAME OPTIONS ]]--
 	if gameData.inGameOptions then
 		physics.pause()
+		menu.cleanInGameOptions()
 		-- Pause gameTimer
 		if mapData.levelNum ~= "LS" then
 			gameTimer.pauseTimer()
@@ -644,6 +672,8 @@ local function gameLoopEvents(event)
 	if gameData.resumeGame then
 		-- Restart physics
 		physics.start()
+		-- Create in game options button
+		menu.ingameOptionsbutton(event, gui)
 		-- Resume gameTimer
 		gameTimer.resumeTimer()			
 		-- Add object listeners

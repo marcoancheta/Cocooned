@@ -13,7 +13,7 @@
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
-local generate = require("Loading.generateObjects")
+local generate = require("Objects.generateObjects")
 
 --------------------------------------------------------------------------------
 -- Level four Variables
@@ -199,7 +199,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
 		end
-	elseif mapData.pane == "L" then
+	elseif mapData.pane == "R" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
 		end
