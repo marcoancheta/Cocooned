@@ -164,17 +164,20 @@ end
 local function controlMovement(event)
 	-- if miniMap isn't showing, move player
 	if gameData.isShowingMiniMap == false and gameData.gameEnd == false then
-		-- call accelerometer to get data
-		physicsParam = accelerometer.onAccelerate(event, player1)
-		
-		-- set player's X and Y gravity times the player's curse
-		player1.xGrav = physicsParam.xGrav
-		player1.yGrav = physicsParam.yGrav
-		
-		if gameData.debugMode then
-			print(player1.xGrav)
-			print(player1.yGrav)
+		for i = 1, gui.playerCount do
+			-- call accelerometer to get data
+			physicsParam = accelerometer.onAccelerate(event, players[i])
+			
+			-- set player's X and Y gravity times the player's curse
+			players[i].xGrav = physicsParam.xGrav
+			players[i].yGrav = physicsParam.yGrav
+			
+			if gameData.debugMode then
+				print(players[i].xGrav)
+				print(players[i].yGrav)
+			end
 		end
+		
 	end
 	
 	if gameData.debugMode then
@@ -197,10 +200,12 @@ end
 --------------------------------------------------------------------------------
 local function speedUp(event)
 	if gameData.isShowingMiniMap == false then
-		if player1 ~= nil then
-			player1.xGrav = player1.xGrav*player1.curse
-			player1.yGrav = player1.yGrav*player1.curse
-			movement.moveAndAnimate(event, player1, gui.middle)
+
+		for i = 1, gui.playerCount do
+			if players[i] ~= nil then
+			players[i].xGrav = players[i].xGrav*players[i].curse
+			players[i].yGrav = players[i].yGrav*players[i].curse
+			movement.moveAndAnimate(event, players[i], gui.middle)
 			--[[
 			local ballPt = {}
 			ballPt.x = player1.imageObject.x
@@ -210,6 +215,7 @@ local function speedUp(event)
 			trails.drawTrail(event)
 			--table.remove(linePts, 1);
 			]]--
+			end
 		end
 	end
 end
@@ -264,26 +270,38 @@ local function loadMap(mapData)
 	-- Initialize player(s)
 	player1 = player.create()
 	system.setAccelerometerInterval(30)
+	player2 = player.create()
+	table.insert(players, 1, player1)
+	table.insert(players, 2, player2)
 
 	-- Create player/ball object to map
 	ball = display.newSprite(animation.sheetOptions.playerSheet, animation.spriteOptions.player)
+	ball2 = display.newSprite(animation.sheetOptions.playerSheet, animation.spriteOptions.player)
 
 	-- set name and animation sequence for ball
 	ball.name = "player"
 	ball:setSequence("move")
+	ball2.name = "player"
+	ball:setSequence("move")
 
 	-- add physics to ball
-	physics.addBody(ball, {radius = 38, bounce = .25})
 	physics.setGravity(0,0)
+	physics.addBody(ball, {radius = 38, bounce = .25})
 	ball.linearDamping = 1.25
 	ball.density = .3
+	physics.addBody(ball2, {radius = 38, bounce = .25})
+	ball2.linearDamping = 1.25
+	ball2.density = .3
 	
 	player1.imageObject = ball
+	player2.imageObject = ball2
 		
 	-- Load in map
-	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, player1)
+	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players)
 	-- Start mechanics
-	collisionDetection.createCollisionDetection(player1.imageObject, player1, mapData, gui, gui.back[1])
+	for i = 1, gui.playerCount do
+		collisionDetection.createCollisionDetection(players[i].imageObject, player1, mapData, gui, gui.back[1])
+	end
 	-- Create in game options button
 	menu.ingameOptionsbutton(event, gui)
 

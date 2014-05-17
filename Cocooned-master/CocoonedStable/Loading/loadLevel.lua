@@ -96,7 +96,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function createLevel(mapData, player1)
+local function createLevel(mapData, players)
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
 		
@@ -123,11 +123,19 @@ local function createLevel(mapData, player1)
 	-- Load in objects
 	objects.main(mapData, gui) -- gui.front = map
 	-- Load in player	
-	player1.imageObject.x, player1.imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
+	if level ~= "LS" then
+		for i = 1, gui.playerCount do
+			print(i .. " " .. players[i].name)
+			players[i].imageObject.x, players[i].imageObject.y = generate.tilesToPixels(gui.playerPos[i]["x"], gui.playerPos[i]["y"])
+		end
+	else
+		players[1].imageObject.x, players[1].imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
+	end
+	
 	-- Create ball shadow
 	local shadowCirc
 	if gameData.shadow == true then
-		shadowCirc = display.newCircle(player1.imageObject.x, player1.imageObject.y, 43)
+		shadowCirc = display.newCircle(players[1].imageObject.x, players[1].imageObject.y, 43)
 		shadowCirc:setFillColor(86*0.0039216,72*0.0039216,92*0.0039216)
 		shadowCirc.alpha = 0.5
 	else
@@ -141,17 +149,20 @@ local function createLevel(mapData, player1)
 			gui.middle:insert(shadowCirc)
 		end
 		gui.middle:insert(levelWalls)
-		gui.front:insert(player1.imageObject) -- in-game objects also draws here.
+		for i = 1, gui.playerCount do
+			gui.front:insert(players[i].imageObject)
+		end
+		--gui.front:insert(player1.imageObject) -- in-game objects also draws here.
 	elseif mapData.levelNum == "LS" then
 		----------------------------
 		-- Level selector exclusive
 		if shadowCirc ~= nil then
 			gui.middle:insert(shadowCirc)
 		end
-		gui.middle:insert(player1.imageObject)
+		gui.middle:insert(players[1].imageObject)
 		gui.front:insert(levelWalls)
 		-- load in goals
-		goals.drawGoals(gui, player1)
+		goals.drawGoals(gui, players[1])
 	end
 	
 	-- create miniMap for level
@@ -162,7 +173,7 @@ local function createLevel(mapData, player1)
 	timer.performWithDelay(2000, deleteClosure)
 
 	-- check if player has finished level
-	levelFinished.checkWin(player1, gui.front, mapData)
+	levelFinished.checkWin(players[1], gui.front, mapData)
 		
 	-- reutrn gui and miniMap
 	return gui, miniMapDisplay, shadowCirc

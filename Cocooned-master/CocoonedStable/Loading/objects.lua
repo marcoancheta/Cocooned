@@ -156,6 +156,9 @@ local function main(mapData, map)
 	init()
 	-- get which level lua, player is in
 	level = require("levels." .. levelNames[mapData.levelNum])
+
+	map.playerCount = level.playerCount
+	map.playerPos = level.playerPos
 	-- get objects and wisps list and create them
 	objects, wisp, water, wall, auraWall = createObjects(level, mapData)
 	-- load in which pane player is in

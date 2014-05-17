@@ -31,6 +31,7 @@ local LS = {
 	waterCount = 0,
 	wallCount = 0,
 	auraWallCount = 0,
+	playerCount = 1,
 	-- mapData clone
 	-- LS.levelNum || LS.pane || LS.version
 	levelNum = 0,
