@@ -15,11 +15,13 @@ local gameData = {
 	
 	-- Game Loop Booleans
 	gameStart = false,
+	gameScore = false,
 	gameEnd = false,
-	ingame = false,
+	ingame = 0,
 	resumeGame = false,
 	menuOn = true,	
 	inGameOptions = false,
+	gameOptions = false,
 	inOptions = false,
 	inMainMenu = false,
 	updateOptions = false,
@@ -27,9 +29,9 @@ local gameData = {
 	
 	-- Level Selector Booleans
 	selectWorld = false,
-	inWorldSelector = false,
+	inWorldSelector = 0,
 	selectLevel = false,
-	inLevelSelector = false,
+	inLevelSelector = 0,
 	
 	-- Touch interface booleans
 	allowTouch = false,

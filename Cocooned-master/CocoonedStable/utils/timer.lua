@@ -18,12 +18,22 @@ local clockFormat
 local counter = 0
 
 --------------------------------------------------------------------------------
+-- Cancel Timer Event
+--------------------------------------------------------------------------------
+local function cancelTimer()
+	if theTimer then
+		local cancel = timer.cancel(theTimer)
+		print("[TIMER CANCEL] Time remaining is: ", gameData.gameTime)
+	end
+end
+
+--------------------------------------------------------------------------------
 -- Pause Timer Event
 --------------------------------------------------------------------------------
 local function pauseTimer()
 	if theTimer then
 		local pause = timer.pause(theTimer)
-		print("Time remaining is: ", pause)
+		print("[TIMER PAUSED] Time remaining is: ", gameData.gameTime)
 	end
 end
 
@@ -33,7 +43,7 @@ end
 local function resumeTimer()
 	if theTimer then
 		local resume = timer.resume(theTimer)
-		print("Resume time is: ", resume)
+		print("Resume time is: ", gameData.gameTime)
 	end
 end
 
@@ -64,7 +74,7 @@ local function endCountFunc(event)
 			params.counterParam:removeSelf()
 		end
 		-- Clean up timer
-		timer.cancel(theTimer)
+		cancelTimer()
 		theTimer = nil
 		overlay.alpha = 0
 		overlay:removeSelf()
@@ -146,7 +156,7 @@ local function gameCountFunct(event)
 			textObj = nil
 		end
 		if theTimer then
-			timer.cancel(theTimer)
+			cancelTimer()
 			theTimer = nil
 		end
 		-- run end game timer/transition
@@ -212,7 +222,7 @@ local function counterFunc(event)
 		physics.start()		
 		gameData.preGame = false
 		-- Clean up timer
-		timer.cancel(theTimer)
+		cancelTimer()
 		theTimer = nil
 		-- Call in game timer
 		inGame(params.guiParam, params.mapDataParam)
@@ -247,6 +257,7 @@ end
 
 gameTimer.preGame = preGame
 gameTimer.inGame = inGame
+gameTimer.cancelTimer = cancelTimer
 gameTimer.pauseTimer = pauseTimer
 gameTimer.resumeTimer = resumeTimer
 gameTimer.theTimer = theTimer

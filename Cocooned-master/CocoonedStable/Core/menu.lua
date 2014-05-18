@@ -49,7 +49,10 @@ local function clean()
 	if menuGroup then
 		menuGroup:removeSelf()
 		menuGroup = nil
-		menuObjects = nil
+		
+		for i=1, #menuObjects do
+			menuObjects = nil
+		end
 	end
 end
 
@@ -141,15 +144,40 @@ local function buttonPressed(event)
 	elseif event.target.name == "gotoMain" then
 		print("Back to Main Menu")	
 		clean()
+		gameData.gameOptions = false
 		gameData.gameEnd = true		
 	--[[ In game options button pressed ]]--	
 	elseif event.target.name == "inGameOptionsBTN" then
-		print("In game options")			
+		print("In game options")
+		
+		if gameData.inWorldSelector == 1 then
+			gameData.inWorldSelector = -1
+		elseif gameData.inLevelSelector == 1 then
+			gameData.inLevelSelector = -1
+		elseif gameData.ingame == 1 then
+			gameData.ingame = -1
+		end
+		
+		gameData.gameOptions = true		
+		gameData.allowMiniMap = false
+		gameData.allowPaneSwitch = false			
 		gameData.inGameOptions = true		
 	--[[ Resume In-Game button pressed ]]--
 	elseif event.target.name == "Resume" then
 		print("Resume game")
 		clean()
+		gameData.gameOptions = false
+
+		if gameData.inWorldSelector == -1 then
+			gameData.inWorldSelector = 1
+		elseif gameData.inLevelSelector == -1 then
+			gameData.inLevelSelector = 1
+		elseif gameData.ingame == -1 then
+			gameData.ingame = 1
+			gameData.allowPaneSwitch = true
+			gameData.allowMiniMap = true
+		end
+				
 		gameData.resumeGame = true		
 	--[[ Increase or decrease speed ]]--
 	--[[
@@ -202,7 +230,7 @@ local function mainMenu(event)
 				menuObjects[i].name = "optionButton"
 				--menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
 				menuObjects[i]:setFillColor(0,0,0,0.01) 			
-			end			
+			end
 			-- add event listener for new game and options only
 			menuObjects[i]:addEventListener("tap", buttonPressed)
 		else

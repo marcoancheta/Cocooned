@@ -161,6 +161,9 @@ local function createLevel(mapData, player1)
 		end
 		gui.middle:insert(levelWalls)
 		gui.front:insert(player1.imageObject) -- in-game objects also draws here.
+		
+		-- check if player has finished level
+		levelFinished.checkWin(player1, gui.front, mapData)
 	elseif mapData.levelNum == "LS" or mapData.levelNum == "world" then
 		----------------------------
 		-- Level selector exclusive
@@ -177,9 +180,6 @@ local function createLevel(mapData, player1)
 	
 	-- destroy loading screen
 	timer.performWithDelay(2000, deleteClosure)
-
-	-- check if player has finished level
-	levelFinished.checkWin(player1, gui.front, mapData)
 		
 	-- reutrn gui and miniMap
 	return gui, miniMapDisplay, shadowCirc
