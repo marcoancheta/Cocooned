@@ -5,8 +5,9 @@
 --------------------------------------------------------------------------------
 local sound = require("sound")
 local gameData = require("Core.gameData")
-local particle_lib = require("utils.particleEmitter")
-
+-- variable for miniMap mechanic for previous tap time
+--local particle_lib = require("Mechanics.auraEmitter")
+local Random = math.random
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -14,15 +15,12 @@ local particle_lib = require("utils.particleEmitter")
 --------------------------------------------------------------------------------
 local highestSpeed = 0
 local count = 0
+local speed = 0
 
-local duration = 500
-local speed = 10
-local density = 1
-local range = 50
-local thickness = 100
-
-local snowEmitter = emitterLib:createEmitter(range, thickness, duration, 1, 0, nil, nil, nil)
-
+local duration = 1000
+local density = 3
+local range = 12
+--local auraEmitter = auraEmitterLib:createEmitter(range, duration, 1, 0, nil, nil, nil)
 local levelGroup = display.newGroup()
 
 --------------------------------------------------------------------------------
@@ -31,7 +29,7 @@ local levelGroup = display.newGroup()
 -- Updated by: Derrick - cleaned up loops
 -- Last update: Andrew added the force put on a player for use with moveable walls
 --------------------------------------------------------------------------------
-local function moveAndAnimate(event, currPlayer, gui)
+local function moveAndAnimate(event, currPlayer) --, physics
 	--print(currPlayer)
 	local vx, vy = currPlayer.imageObject:getLinearVelocity()
 	local speed = math.sqrt((vy*vy)+(vx*vx))
@@ -75,19 +73,7 @@ local function moveAndAnimate(event, currPlayer, gui)
 		if gameData.inWater == false then
 			currPlayer.imageObject:applyForce(xForce, yForce,currPlayer.imageObject.x,currPlayer.imageObject.y)
 		end
-
-		-- snow trail particle effect
-		local velX, velY = currPlayer.imageObject:getLinearVelocity()
-
-		if velX ~= 0 and velY ~= 0 then
-			local angle = math.atan2(velX, velY)*(180/math.pi)
-			local offSet = math.random(-15, 15)
-			snowEmitter:setAngle(angle + offSet)
-			local offSet1 = math.random(-10, 10)
-			local offSet2 = math.random(-10, 10)
-			snowEmitter:emit(gui, currPlayer.imageObject.x + offSet1, currPlayer.imageObject.y + offSet2)
-		end
-
+		
 		if speed > 1125 then
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = 2.5
@@ -111,43 +97,19 @@ local function moveAndAnimate(event, currPlayer, gui)
 	else
 		currPlayer.imageObject:pause()
 	end
-
-	
-
-	if (vx > 30 or vy > 30) and currPlayer.movement == "accel" then
+	-- if player has a ball aura, emit aura particles
+	if currPlayer.color ~= "white" then
+		--auraEmitter:moveParticles()		
+	end
+	--rotate player based on velocity if player is moving, else rotate based on accelerometer
+	if (vx > 10 or vy > 10) and currPlayer.movement == "accel" then
 		currPlayer:rotate(vx, vy)
 	elseif(currPlayer.xGrav ~= 0 or currPlayer.yGrav ~= 0) then
 		currPlayer:rotate(currPlayer.xGrav, currPlayer.yGrav)
 	end
-	
-	--change timescale of animation in relation to speed of ball
-	--[[if currPlayer.movement == "accel" then
-		if speed > 1125 then
-			currPlayer.imageObject:play()
-			currPlayer.imageObject.timeScale = 2.5
-		elseif speed > 600 then
-			--local delay = timer.performWithDelay(4000, sound.playEventSound, 0)
-			--delay.params = {params1 = event, params2 = sound.rollSnowSound}
-			currPlayer.imageObject:play()
-			currPlayer.imageObject.timeScale = 2
-		elseif speed > 300 then
-			currPlayer.imageObject:play()
-			currPlayer.imageObject.timeScale = 1.5
-		elseif speed > 30 then
-			currPlayer.imageObject:play()
-			currPlayer.imageObject.timeScale = .5
-		elseif speed > 5 then
-			currPlayer.imageObject:play()
-			currPlayer.imageObject.timeScale = .25
-		else
-			currPlayer.imageObject:pause()
-		end
-		
-	else
-		currPlayer.imageObject:pause()
-	end]]--
+	--keep field updated to players location
+	--currPlayer.field.x = currPlayer.imageObject.x; currPlayer.field.y = currPlayer.imageObject.y
 end
-
 
 --------------------------------------------------------------------------------
 -- Finish Up
