@@ -69,6 +69,8 @@ local snow = require("utils.snow")
 local generate = require("Loading.generateObjects")
 -- Win screen loop
 local win = require("Core.win")
+-- High score
+local highScore = require("Core.highScore")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -454,8 +456,9 @@ local function gameLoopEvents(event)
   				elseif player1.xGrav > 0 then
   					velX = 40
   				end
-					currObject:setLinearVelocity(velX, velY)
-					--currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
+				
+				currObject:setLinearVelocity(velX, velY)
+				--currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
 			else
 				currObject:setLinearVelocity(0, 0)
 			end
@@ -627,7 +630,18 @@ local function gameLoopEvents(event)
 	
 	-------------------
 	--[[ MAIN MENU ]]--
-	if gameData.menuOn then
+	if gameData.menuOn then		
+		--[[
+		for i=1, #highScore.scoreTable do
+			if highScore.scoreTable[i] then
+				for j=1, #highScore.scoreTable[i] do
+					print("highScore.scoreTable["..i.."]", highScore.scoreTable[i][j])
+				end
+			end
+			print("LOADED: ", highScore.scoreTable[i])
+		end
+		]]--
+		
 		-- Go to main menu
 		menu.clean()
 		gameData.updateOptions = false

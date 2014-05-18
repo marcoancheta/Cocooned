@@ -57,6 +57,7 @@ local function clean()
 			scoreObj[i] = nil
 		end
 	end
+	
 end
 
 --------------------------------------------------------------------------------
@@ -101,9 +102,9 @@ local function runWinner(mapData, gui)
 	-- Create "HIGHSCORES" text
 	highText = display.newText("HIGHSCORES", display.contentCenterX, 80, native.systemFontBold, 82)
 
-	highScore.loadScore()
+	local tables = highScore.loadScore()
+	highScore.scoreTable = tables
 	highScore.updateScore(mapData, gui, score)
-	highScore.saveScore()
 	highScore.counter = 0
 	
 	-- Restart Level button
@@ -155,7 +156,6 @@ local function listener(target)
 	scoreObj[3].alpha = 0
 	
 	local fade = function() local endTrans = transition.to(scoreObj[3], {time=2000, alpha=0}) end
-	
 	local trans = transition.to(scoreObj[3], {time=2000, alpha=1, onComplete=fade})
 	
 	-- Called from showScore transition:
