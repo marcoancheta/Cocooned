@@ -79,6 +79,7 @@ local function main()
 		rcorona.startServer(8181)
 	end
 		
+		
 	Runtime:addEventListener("enterFrame", gameLoop.gameLoopEvents)
 	Runtime:addEventListener("memoryWarning", memory.handleLowMemory)
 end
