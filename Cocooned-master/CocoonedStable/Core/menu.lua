@@ -88,13 +88,13 @@ end
 local function update(objGroup)
 	if objGroup then
 		if gameData.updateOptions then
-			if objGroup.name == "optGroup" then
+			--if objGroup.name == "optGroup" then
 				objGroup[10].text = gameData.bgmVolume * 10
 				objGroup[11].text = gameData.sfxVolume * 10
-			elseif objGroup.name == "igoptGroup" then
-				objGroup[9].text = gameData.bgmVolume * 10
-				objGroup[10].text = gameData.sfxVolume * 10
-			end
+			--elseif objGroup.name == "igoptGroup" then
+				--objGroup[10].text = gameData.bgmVolume * 10
+				--objGroup[11].text = gameData.sfxVolume * 10
+			--end
 		else
 			objGroup:removeSelf()
 			objGroup = nil
@@ -140,45 +140,75 @@ local function buttonPressed(event)
 			gameData.debugMode = false
 		end
 		memory.toggle()		
-	--[[ Back to Main from In-Game button pressed ]]--
-	elseif event.target.name == "gotoMain" then
-		print("Back to Main Menu")	
-		clean()
-		gameData.gameOptions = false
-		gameData.gameEnd = true		
 	--[[ In game options button pressed ]]--	
 	elseif event.target.name == "inGameOptionsBTN" then
 		print("In game options")
 		
+		-- gameData.inWorldSelector||inLevelSelector||ingame
+		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
 		if gameData.inWorldSelector == 1 then
 			gameData.inWorldSelector = -1
 		elseif gameData.inLevelSelector == 1 then
 			gameData.inLevelSelector = -1
 		elseif gameData.ingame == 1 then
+			-- pause snow
+			snow.pauseSnow()
 			gameData.ingame = -1
+			-- disable pane switch and mini map
+			gameData.allowMiniMap = false
+			gameData.allowPaneSwitch = false
 		end
 		
-		gameData.gameOptions = true		
-		gameData.allowMiniMap = false
-		gameData.allowPaneSwitch = false			
+		gameData.gameOptions = true					
 		gameData.inGameOptions = true		
+	--[[ Back to Main from In-Game button pressed ]]--
+	elseif event.target.name == "gotoMain" then
+		print("Back to Main Menu")	
+		-- clean out
+		clean()		
+		-- gameData.inWorldSelector||inLevelSelector||ingame
+		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
+		if gameData.inWorldSelector == -1 then
+			gameData.inWorldSelector = 0
+		elseif gameData.inLevelSelector == -1 then
+			gameData.inLevelSelector = 0
+		elseif gameData.ingame == -1 then
+			gameData.ingame = 0
+			-- turn off pane switch and minimap
+			gameData.allowPaneSwitch = false
+			gameData.allowMiniMap = false
+		end
+		gameData.gameOptions = false
+		gameData.gameEnd = true		
 	--[[ Resume In-Game button pressed ]]--
 	elseif event.target.name == "Resume" then
 		print("Resume game")
 		clean()
-		gameData.gameOptions = false
-
+		
+		-- gameData.inWorldSelector||inLevelSelector||ingame
+		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
 		if gameData.inWorldSelector == -1 then
 			gameData.inWorldSelector = 1
 		elseif gameData.inLevelSelector == -1 then
 			gameData.inLevelSelector = 1
 		elseif gameData.ingame == -1 then
+			-- resume snow transition
+			snow.resumeSnow()
 			gameData.ingame = 1
+			-- turn pane switch and mini map back on
 			gameData.allowPaneSwitch = true
 			gameData.allowMiniMap = true
 		end
-				
+		
+		gameData.gameOptions = false
 		gameData.resumeGame = true		
+	elseif event.target.name == "restart" then
+		clean()
+						
+		gameData.gameOptions = false
+		gameData.gameEnd = true
+	end
+	
 	--[[ Increase or decrease speed ]]--
 	--[[
 	elseif event.target.name == "plusButton" then
@@ -190,7 +220,6 @@ local function buttonPressed(event)
 	elseif event.target.name == "minusButtonDamping" then
 		playerAC(-.25)
 	]]--
-	end
 end
 
 --------------------------------------------------------------------------------
@@ -390,10 +419,13 @@ local function ingameMenu(event, gui)
 	local menuNames = {
 		[1] = "gotoMain",
 		[2] = "Resume",
-		[3] = "minusButtonDamping",
-		[4] = "plusButtonDamping",
-		[5] = "minusButton",
-		[6] = "plusButton"
+		[3] = "restart"
+		--[[
+		[4] = "minusButtonDamping",
+		[5] = "plusButtonDamping",
+		[6] = "minusButton",
+		[7] = "plusButton"
+		]]--
 	}
 	
 	menuObjects = {
@@ -403,17 +435,20 @@ local function ingameMenu(event, gui)
 		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
 		-- Add Resume game button
 		[3] = display.newImageRect("mapdata/art/buttons/resume.png", 400, 150),
+		-- Add Restart game button
+		[4] = display.newImageRect("mapdata/art/buttons/restart.png", 400, 150),
 		-- Pause text object
-		[4] = display.newText("PAUSED", display.contentCenterX, 100, native.Systemfont, 103),
+		[5] = display.newText("PAUSED", display.contentCenterX, 100, native.Systemfont, 103),
 		-- Sound controller (SFX[6] - BGM[7])
-		[5] = widget.newSlider{orientation="horizontal", width=350, height=400, value = sfxVal, listener=sfxController},
-		[6] = widget.newSlider{orientation="horizontal", width=350, height=400, value = bgmVal, listener=bgmController},
+		[6] = widget.newSlider{orientation="horizontal", width=350, height=400, value = sfxVal, listener=sfxController},
+		[7] = widget.newSlider{orientation="horizontal", width=350, height=400, value = bgmVal, listener=bgmController},
 		-- Sound text
-		[7] = display.newText("Sound Volume: ", 350, 150, native.Systemfont, 52),
-		[8] = display.newText("Music Volume: ", 350, 150, native.Systemfont, 52),
+		[8] = display.newText("Sound Volume: ", 350, 150, native.Systemfont, 52),
+		[9] = display.newText("Music Volume: ", 350, 150, native.Systemfont, 52),
 		-- Pre-store location in array for value text
-		[9] = display.newText(gameData.sfxVolume*10, 350, 150, native.Systemfont, 40),
-		[10] = display.newText(gameData.bgmVolume*10, 350, 150, native.Systemfont, 40)
+		[10] = display.newText(gameData.sfxVolume*10, 350, 150, native.Systemfont, 40),
+		[11] = display.newText(gameData.bgmVolume*10, 350, 150, native.Systemfont, 40),
+
 		--[[
 		-- Minus button	#1
 		[4] = display.newImageRect("mapdata/art/buttons/minus.png", 100, 100),
@@ -428,44 +463,41 @@ local function ingameMenu(event, gui)
 	
 	menuObjects.name = "igoptGroup"
 		
-	-- Assign position		
+	-- Assign position for:
+	-- Menu Background
 	menuObjects[1].x = display.contentCenterX
 	menuObjects[1].y = display.contentCenterY
 	menuObjects[1].alpha = 0.6
-	
+	-- Main Menu Button
 	menuObjects[2].x = display.contentCenterX + 450
-	menuObjects[2].y = display.contentCenterY + 150		
+	menuObjects[2].y = display.contentCenterY + 300
+	-- Resume game button
 	menuObjects[3].x = display.contentCenterX + 450
-	menuObjects[3].y = display.contentCenterY + 315	
+	menuObjects[3].y = display.contentCenterY - 50
+	-- Restart button
+	menuObjects[4].x = display.contentCenterX + 450
+	menuObjects[4].y = display.contentCenterY + 125	
+	-- Paused text
+	--menuObjects[5].x = display.contentCenterX
+	--menuObjects[5].x = display.contentCenterY
 	-- SFX Volume Slider
-	menuObjects[5].x = 125
-	menuObjects[5].y = display.contentCenterY
-	-- BGM Volume Slider
 	menuObjects[6].x = 125
-	menuObjects[6].y = display.contentCenterY - 100
-	-- SFX Volume Text
+	menuObjects[6].y = display.contentCenterY
+	-- BGM Volume Slider
 	menuObjects[7].x = 125
-	menuObjects[7].y = display.contentCenterY - 50
-	-- BGM Volume Text
+	menuObjects[7].y = display.contentCenterY - 100
+	-- SFX Volume Text
 	menuObjects[8].x = 125
-	menuObjects[8].y = display.contentCenterY - 150
-	-- Sound [0-100] Text
-	menuObjects[9].x = 520
-	menuObjects[9].y = display.contentCenterY - 100
-	-- Sound [0-100] Text
+	menuObjects[8].y = display.contentCenterY - 50
+	-- BGM Volume Text 
+	menuObjects[9].x = 125
+	menuObjects[9].y = display.contentCenterY - 150
+	-- Sound [0-100] Text (SFX)
 	menuObjects[10].x = 520
-	menuObjects[10].y = display.contentCenterY
-
-	--[[
-	menuObjects[4].x = display.contentCenterX + 325
-	menuObjects[4].y = display.contentCenterY - 175	
-	menuObjects[5].x = display.contentCenterX + 575
-	menuObjects[5].y = display.contentCenterY - 175
-	menuObjects[6].x = display.contentCenterX + 325
-	menuObjects[6].y = display.contentCenterY - 20		
-	menuObjects[7].x = display.contentCenterX + 575
-	menuObjects[7].y = display.contentCenterY - 20	
-	]]--
+	menuObjects[10].y = display.contentCenterY - 100
+	-- Sound [0-100] Text (BGM)
+	menuObjects[11].x = 520
+	menuObjects[11].y = display.contentCenterY
 	
 	-- Flip background image (horizontal)
 	menuObjects[1]:scale(-1, 1)
@@ -477,16 +509,21 @@ local function ingameMenu(event, gui)
 		menuObjects[i].anchorX = 0.5
 		menuObjects[i].anchorY = 0.5
 		
-		if (i==4) or (i >=7) then
+		-- Assign black color
+		-- i=5 (PAUSED TEXT); i >= 8 (Sound/Volume Text)
+		if (i==5) or (i >=8) then
 			menuObjects[i]:setFillColor(0, 0, 0)
 		end
 		
-		if (i > 4 and i <= 8) then
+		if (i > 5 and i <= 11) then
 			menuObjects[i].anchorX = 0
 		end
 		
 		-- add event listeners to buttons
-		menuObjects[i]:addEventListener("tap", buttonPressed)
+		if (i > 1) and (i < 8) then
+			menuObjects[i]:addEventListener("tap", buttonPressed)
+		end
+		
 		-- Add everything to menuGroup
 		menuGroup:insert(menuObjects[i])
 	end

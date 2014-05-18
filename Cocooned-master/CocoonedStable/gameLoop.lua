@@ -489,6 +489,7 @@ local function gameLoopEvents(event)
 	--[[ START LVL SELECTOR]]--
 	if gameData.selectLevel then
 		clean(event)
+		
 		if gameData.debugMode then
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
@@ -599,16 +600,27 @@ local function gameLoopEvents(event)
 	--[[ END GAMEPLAY ]]--
 	if gameData.gameEnd then
 		--sound.soundClean()
-		clean(event)
-		inventory.inventoryInstance:clear()
 		-- Switch off game booleans
-		gameData.ingame = 0
-		gameData.inLevelSelector = 0
-		gameData.inWorldSelector = 0
-		gameData.inWater = false
-		gameData.onIceberg = false
-		-- Go to menu
-		gameData.menuOn = true
+		if gameData.ingame == -1 then
+			inventory.inventoryInstance:clear()
+			gameData.ingame = 0
+			gameData.inWater = false
+			gameData.onIceberg = false
+			gameData.gameStart = true
+		elseif gameData.inLevelSelector == -1 then
+			gameData.inLevelSelector = 0
+			gameData.selectLevel = true
+		elseif gameData.inWorldSelector == -1 then
+			clean(event)
+			gameData.inWorldSelector = 0
+			gameData.selectWorld = true
+		else
+			clean(event)
+			snow.meltSnow()
+			-- Go to menu
+			gameData.menuOn = true
+		end
+		
 		-- Switch off this loop
 		gameData.gameEnd = false
 	end
@@ -659,7 +671,7 @@ local function gameLoopEvents(event)
 		-- Go to in-game option menu
 		groupObj = menu.ingameMenu(event, player1, player2, gui)
 		-- Cancel snow timer
-		snow.meltSnow()
+		--snow.meltSnow()
 		-- Remove object listeners
 		removeGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
