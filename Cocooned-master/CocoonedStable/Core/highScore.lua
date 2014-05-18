@@ -5,6 +5,7 @@
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
 local inventory = require("Mechanics.inventoryMechanic")
+local json = require("json")
 --------------------------------------------------------------------------------
 -- holds the level name for loading
 local highScore = {	
@@ -47,7 +48,7 @@ local function init(gui)
 	scoreTextOptions.maxDigits = 6
 	
 	-- Predetermine score file name for save and load
-	highScore.filename = "scorefile.txt"
+	highScore.filename = "scorefile.json"
 	-- Preset scoreText format
 	highScore.format = "%" .. zero .. scoreTextOptions.maxDigits .. "d"
 	-- Create 4 instances of scoreText object
@@ -64,36 +65,6 @@ local function init(gui)
 end
 
 --------------------------------------------------------------------------------
--- loadScore - load highScores from device root.
---------------------------------------------------------------------------------
-local function loadScore()
-	-- Initialize "scorefile.txt" file path
-	local path = system.pathForFile(highScore.filename, system.DocumentsDirectory)
-	-- Initialize file contents
-	local contents = ""	
-	-- Locally store file
-	local file = io.open(path, "r")
-	
-	-- Check if file exists
-	if file then
-		-- Read in and locally store file contents
-		local contents = file:read("*a")
-		-- Overwrite default scoreTable with new one
-		if contents then
-			scoreTable = contents
-		end
-		-- Close file
-		io.close(file)
-		return scoreTable
-	else
-		-- Throw error into console
-		print("Error: File - '" ..highScore.filename.. "' - could not be used to load scores.")		
-	end
-	
-	return nil
-end
-
---------------------------------------------------------------------------------
 -- saveScore - Save highScores to device root.
 --------------------------------------------------------------------------------
 local function saveScore()
@@ -104,14 +75,9 @@ local function saveScore()
 
 	-- Check if file exists
 	if file then
-		-- Local temp storage of highScore table
-		local contents = tostring(highScore.scoreTable)
-		-- Debug mode only
-		if gameData.debugMode then
-			print("contents", contents)
-		end
-		-- Write to file
-		file:write(contents)
+		-- Local temp storage of highScore table		
+		local contents = json.encode(highScore.scoreTable)
+		file:write(contents)	
 		-- Close file when writing is completed
 		io.close(file)
 		return true
@@ -120,6 +86,36 @@ local function saveScore()
 		print("Error: File - '" ..highScore.filename.. "' - could not be used to save scores.")		
 		return false
 	end
+end
+
+--------------------------------------------------------------------------------
+-- loadScore - load highScores from device root.
+--------------------------------------------------------------------------------
+local function loadScore()
+	-- Initialize "scorefile.txt" file path
+	local path = system.pathForFile(highScore.filename, system.DocumentsDirectory)
+	-- Initialize file contents
+	local contents = ""	
+	-- Locally store file
+	local file = io.open(path, "r")
+	-- Create temp table
+	local tempTable = {}
+	
+	-- Check if file exists
+	if file then
+		-- Read in and locally store file contents
+		local contents = file:read("*a")
+		-- Overwrite default scoreTable with new one
+		--scoreTable = contents
+		tempTable = json.decode(contents)
+		-- Close file
+		io.close(file)	
+		return tempTable
+	else
+		-- Throw error into console
+		print("Error: File - '" ..highScore.filename.. "' - could not be used to load scores.")
+	end	
+	return nil
 end
 
 --------------------------------------------------------------------------------

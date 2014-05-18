@@ -69,6 +69,8 @@ local snow = require("utils.snow")
 local generate = require("Loading.generateObjects")
 -- Win screen loop
 local win = require("Core.win")
+-- High score
+local highScore = require("Core.highScore")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -454,8 +456,9 @@ local function gameLoopEvents(event)
   				elseif player1.xGrav > 0 then
   					velX = 40
   				end
-					currObject:setLinearVelocity(velX, velY)
-					--currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
+				
+				currObject:setLinearVelocity(velX, velY)
+				--currObject:setLinearVelocity(player1.xGrav*player1.speedConst, player1.yGrav*player1.speedConst)
 			else
 				currObject:setLinearVelocity(0, 0)
 			end
@@ -489,6 +492,7 @@ local function gameLoopEvents(event)
 	--[[ START LVL SELECTOR]]--
 	if gameData.selectLevel then
 		clean(event)
+		
 		if gameData.debugMode then
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
@@ -599,23 +603,45 @@ local function gameLoopEvents(event)
 	--[[ END GAMEPLAY ]]--
 	if gameData.gameEnd then
 		--sound.soundClean()
-		clean(event)
-		inventory.inventoryInstance:clear()
 		-- Switch off game booleans
-		gameData.ingame = 0
-		gameData.inLevelSelector = 0
-		gameData.inWorldSelector = 0
-		gameData.inWater = false
-		gameData.onIceberg = false
-		-- Go to menu
-		gameData.menuOn = true
+		if gameData.ingame == -1 then
+			inventory.inventoryInstance:clear()
+			gameData.ingame = 0
+			gameData.inWater = false
+			gameData.onIceberg = false
+			gameData.gameStart = true
+		elseif gameData.inLevelSelector == -1 then
+			gameData.inLevelSelector = 0
+			gameData.selectLevel = true
+		elseif gameData.inWorldSelector == -1 then
+			clean(event)
+			gameData.inWorldSelector = 0
+			gameData.selectWorld = true
+		else
+			clean(event)
+			snow.meltSnow()
+			-- Go to menu
+			gameData.menuOn = true
+		end
+		
 		-- Switch off this loop
 		gameData.gameEnd = false
 	end
 	
 	-------------------
 	--[[ MAIN MENU ]]--
-	if gameData.menuOn then
+	if gameData.menuOn then		
+		--[[
+		for i=1, #highScore.scoreTable do
+			if highScore.scoreTable[i] then
+				for j=1, #highScore.scoreTable[i] do
+					print("highScore.scoreTable["..i.."]", highScore.scoreTable[i][j])
+				end
+			end
+			print("LOADED: ", highScore.scoreTable[i])
+		end
+		]]--
+		
 		-- Go to main menu
 		menu.clean()
 		gameData.updateOptions = false
@@ -659,7 +685,7 @@ local function gameLoopEvents(event)
 		-- Go to in-game option menu
 		groupObj = menu.ingameMenu(event, player1, player2, gui)
 		-- Cancel snow timer
-		snow.meltSnow()
+		--snow.meltSnow()
 		-- Remove object listeners
 		removeGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans

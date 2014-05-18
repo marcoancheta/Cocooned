@@ -38,6 +38,20 @@ local function meltSnow()
 end
 
 --------------------------------------------------------------------------------
+-- snow.pauseSnow() - pause snow transition
+--------------------------------------------------------------------------------
+local function pauseSnow()
+	transition.pause(snowTrans)
+end
+
+--------------------------------------------------------------------------------
+-- snow.resumeSnow() - resume snow transition
+--------------------------------------------------------------------------------
+local function resumeSnow()
+	transition.resume(snowTrans)
+end
+
+--------------------------------------------------------------------------------
 -- removeFlake(target) - Delete snow object if target has been reached
 --------------------------------------------------------------------------------
 local function removeFlake(target)
@@ -201,7 +215,7 @@ end
 local function gameSnow(event, mapData)
 	if math.random(10) == 1 then -- adjust speed here by making the random number higher or lower
 		temp = levelSnow(mapData)
-		if temp then
+		if temp and snowGroup then
 			snowGroup:insert(temp)
 			snowGroup:toFront()
 		end
@@ -215,6 +229,8 @@ end
 local snow = {
 	new = new,
 	meltSnow = meltSnow,
+	pauseSnow = pauseSnow,
+	resumeSnow = resumeSnow,
 	makeSnow = makeSnow,
 	gameSnow = gameSnow
 }
