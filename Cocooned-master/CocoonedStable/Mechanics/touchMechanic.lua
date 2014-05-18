@@ -143,7 +143,7 @@ end
 --------------------------------------------------------------------------------
 local function tapScreen(event, miniMap, mapData, physics, gui, player) 
 	-- if tapped twice, show miniMap or if showing, hide it
-	if event.numTaps >= 2 then
+	if event.numTaps >= 1 then
 		-- show miniMap 
 		if gameData.isShowingMiniMap == false then
 			-- pause physics when miniMap is shown

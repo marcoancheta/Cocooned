@@ -197,7 +197,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
 		end
-	elseif mapData.pane == "L" then
+	elseif mapData.pane == "R" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
 		end

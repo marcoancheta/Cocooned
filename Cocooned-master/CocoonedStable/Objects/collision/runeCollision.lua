@@ -78,7 +78,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- remove rune
  	collideObject:removeSelf()
 
-	if gui then
+ 	if gui then
 		-- check if player has reached level goal
 		levelFinished.checkWin(player, gui.front, mapData)
 	end

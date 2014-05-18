@@ -65,6 +65,10 @@ local accelObjects = require("Objects.accelerometerObjects")
 local gameTimer = require("utils.timer")
 -- Particle effect
 local snow = require("utils.snow")
+-- generator for objects (generateObjects.lua)
+local generate = require("Loading.generateObjects")
+-- Win screen loop
+local win = require("Core.win")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -120,7 +124,8 @@ local shadowCircle;
 --------------------------------------------------------------------------------
 local function swipeMechanics(event)
 	if gameData.debugMode then
-		print("Player Swipe Positions:", "x=" .. event.x, "y=" .. event.y)
+		local tilesX, tilesY = generate.pixelsToTiles(event.x, event.y)
+		print("Player Swipe Positions:", "x=" .. tilesX, "y=" .. tilesY)
 	end
 
 	if gameData.allowMiniMap then
@@ -148,7 +153,8 @@ end
 --------------------------------------------------------------------------------
 local function tapMechanic(event)
 	if gameData.debugMode then
-		print("Player Tap Positions:", "x=" .. event.x, "y=" .. event.y)
+		local tilesX, tilesY = generate.pixelsToTiles(event.x, event.y)
+		print("Tap position:",  "x = " .. tilesX, "y= " .. tilesY)
 	end
 
 	if gameData.allowMiniMap then
@@ -353,7 +359,7 @@ local function clean(event)
 	--miniMap = nil
 		
 	gui:removeSelf()
-	--gui = nil
+	gui = nil
 		
 	playerSheet = nil
 
@@ -390,7 +396,7 @@ local function update(event)
 	end
 
 	-- World Selector Runtime Event.
-	if gameData.inWorldSelector then
+	if gameData.inWorldSelector == 1 then
 		-- Draw shadow under ball
 		if shadowCircle and ball then
 			shadowCircle.x = ball.x
@@ -399,7 +405,7 @@ local function update(event)
 	end
 	
 	-- Level Selector Runtime Event.
-	if gameData.inLevelSelector then
+	if gameData.inLevelSelector == 1 then
 		-- Draw shadow under ball
 		if shadowCircle and ball then
 			shadowCircle.x = ball.x
@@ -408,7 +414,7 @@ local function update(event)
 	end
 	
 	-- In-Game Runtime Event.
-	if gameData.ingame then
+	if gameData.ingame == 1 then
 		snow.gameSnow(event, mapData)
 		if shadowCircle and ball then
 			shadowCircle.x = ball.x
@@ -455,7 +461,7 @@ local function gameLoopEvents(event)
 			end
 		end
 	end
-	
+		
 	-----------------------------
 	--[[ START WORLD SELECTOR]]--
 	if gameData.selectWorld then
@@ -474,7 +480,7 @@ local function gameLoopEvents(event)
 		gameData.inWater = false
 		gameData.allowMiniMap = false
 		gameData.allowPaneSwitch = false
-		gameData.inWorldSelector = true
+		gameData.inWorldSelector = 1
 		-- Switch off this loop
 		gameData.selectWorld = false
 	end
@@ -498,7 +504,7 @@ local function gameLoopEvents(event)
 		gameData.inWater = false
 		gameData.allowMiniMap = false
 		gameData.allowPaneSwitch = false
-		gameData.inLevelSelector = true
+		gameData.inLevelSelector = 1
 		-- Switch off this loop
 		gameData.selectLevel = false
 	end
@@ -518,7 +524,7 @@ local function gameLoopEvents(event)
 		--cutSceneSystem.cutScene("1", gui)
 		snow.new()
 		-- Re-evaluate gameData booleans
-		gameData.inLevelSelector = false
+		gameData.inLevelSelector = 0
 		gameData.inWater = false
 		gameData.preGame = true
 		-- Switch off this loop
@@ -529,7 +535,7 @@ local function gameLoopEvents(event)
 	--[[ PRE-GAME LOADER ]]--
 	if gameData.preGame == false then
 		-- Switch to in game loop
-		gameData.ingame = true
+		gameData.ingame = 1
 		snow.new()
 		-- Turn on pane switching and mini map
 		gameData.allowPaneSwitch = true
@@ -540,32 +546,16 @@ local function gameLoopEvents(event)
 		addGameLoopListeners(gui)
 	end
 		
-	----------------------
-	--[[ END GAMEPLAY ]]--
-	if gameData.gameEnd then
-		--sound.soundClean()
-		clean(event)
-		inventory.inventoryInstance:destroy()
-		-- Switch off game booleans
-		gameData.ingame = false
-		gameData.inWater = false
-		gameData.onIceberg = false
-		-- Go to menu
-		gameData.menuOn = true
-		-- Switch off this loop
-		gameData.gameEnd = false
-	end
-	
 	-----------------------
 	--[[ Restart level ]]--
 	if gameData.levelRestart == true then
 		-- Clean
 		--clean(event)
-		inventory.inventoryInstance:destroy()
+		inventory.inventoryInstance:clear()
 		-- Reset current pane to middle
 		mapData.pane = "M"
 		-- Switch off game booleans
-		gameData.ingame = false
+		gameData.ingame = 0
 		gameData.inWater = false
 		gameData.onIceberg = false
 		-- Start game
@@ -579,13 +569,48 @@ local function gameLoopEvents(event)
 	if gameData.levelComplete then
 		-- clean
 		--clean(event)
+		gameData.ingame = 0
 		snow.meltSnow()
-		inventory.inventoryInstance:destroy()
+		gameTimer.pauseTimer()
+		physics.pause()
 		-- apply booleans
-		gameData.selectLevel = true
-		loadingScreen.deleteLoading()
+		gameData.gameScore = true
 		-- Switch off this loop
 		gameData.levelComplete = false
+	end
+	
+	--------------------
+	--[[ GAME SCORE ]]--
+	if gameData.gameScore then
+		win.init(gui)
+		win.showScore(mapData, gui)
+		--loadingScreen.deleteLoading()
+		-- Turn off pane switching and mini map
+		menu.cleanInGameOptions()
+		-- Remove object listeners
+		removeGameLoopListeners(gui)
+		-- Apply booleans
+		gameData.allowPaneSwitch = false
+		gameData.allowMiniMap = false
+		gameData.gameScore = false
+	end
+	
+	----------------------
+	--[[ END GAMEPLAY ]]--
+	if gameData.gameEnd then
+		--sound.soundClean()
+		clean(event)
+		inventory.inventoryInstance:clear()
+		-- Switch off game booleans
+		gameData.ingame = 0
+		gameData.inLevelSelector = 0
+		gameData.inWorldSelector = 0
+		gameData.inWater = false
+		gameData.onIceberg = false
+		-- Go to menu
+		gameData.menuOn = true
+		-- Switch off this loop
+		gameData.gameEnd = false
 	end
 	
 	-------------------
@@ -595,12 +620,13 @@ local function gameLoopEvents(event)
 		menu.clean()
 		gameData.updateOptions = false
 		gameData.gameTime = 0
+		gameData.ingame = 0
+		gameData.inLevelSelector = 0
+		gameData.inWorldSelector = 0
 		snow.new()
 		menu.mainMenu(event)
 		mapDataDefault()		
-		if gameTimer.theTimer then
-			timer.cancel(gameTimer.theTimer)
-		end		
+		gameTimer.cancelTimer()
 		-- Re-evaluate gameData booleans
 		gameData.inMainMenu = true
 		-- Switch off this loop
@@ -633,14 +659,11 @@ local function gameLoopEvents(event)
 		-- Go to in-game option menu
 		groupObj = menu.ingameMenu(event, player1, player2, gui)
 		-- Cancel snow timer
-		transition.cancel()
+		snow.meltSnow()
 		-- Remove object listeners
 		removeGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
-		gameData.ingame = false
 		gameData.updateOptions = true
-		gameData.allowMiniMap = false
-		gameData.allowPaneSwitch = false
 		-- Switch off this loop
 		gameData.inGameOptions = false
 	end
@@ -655,11 +678,7 @@ local function gameLoopEvents(event)
 		-- Resume gameTimer
 		gameTimer.resumeTimer()			
 		-- Add object listeners
-		addGameLoopListeners(gui)		
-		-- Re-evaluate gameData booleans
-		gameData.ingame = true
-		gameData.allowPaneSwitch = true
-		gameData.allowMiniMap = true
+		addGameLoopListeners(gui)
 		-- Switch off this loop
 		gameData.resumeGame = false
 	end

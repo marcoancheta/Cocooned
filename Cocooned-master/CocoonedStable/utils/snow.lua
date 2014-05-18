@@ -15,6 +15,7 @@ local snowGroup
 local snowTrans
 local wind
 
+
 --------------------------------------------------------------------------------
 -- snow.new() - Re-initialize snowGroup
 --------------------------------------------------------------------------------
@@ -53,15 +54,15 @@ end
 --------------------------------------------------------------------------------
 local function spawnSnowFlake()
 	-- Create a new temp flake
-    local flake = display.newCircle(0,0,5)
+	local flake = display.newCircle(0,0,5)
 	flake.name = "flake"
     flake.x = math.random(0, display.contentWidth)
     flake.y = -2
 	-- Apply transition to global variable
     flake.trans = transition.to(flake,{time=math.random(5000) + 3000, 
-										y = math.random(display.contentHeight-20, display.contentHeight), 
+										y = math.random(display.contentHeight-50, display.contentHeight-10), 
 										x = flake.x + wind, 
-										onComplete=removeFlake})										
+										onComplete=removeFlake})									
 	return flake
 end
 
@@ -98,7 +99,7 @@ local function levelSnow(mapData)
 	local snowBall
 	
 	-- Transition snowBall according to pane name
-	if gameData.ingame and gameData.inLevelSelector ~= true then
+	if gameData.ingame and gameData.inLevelSelector ~= 1 then
 		if mapData.pane == "M" then	
 			for i=1, #level.panes do
 				-- Check if all neighbouring panes exist
@@ -185,7 +186,7 @@ end
 --------------------------------------------------------------------------------
 local function makeSnow(event, mapData)
 	local temp
-    if math.random(10) == 1 then -- adjust speed here by making the random number higher or lower
+    if math.random(15) == 1 then -- adjust speed here by making the random number higher or lower
 		temp = spawnSnowFlake()
 		snowGroup:insert(temp)
 		snowGroup:toFront()
