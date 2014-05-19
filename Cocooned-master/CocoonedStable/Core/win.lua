@@ -169,7 +169,7 @@ end
 --------------------------------------------------------------------------------
 local function showScore(mapData, gui)
 	-- Temporarily store mapData and gui
-	tempData = mapData
+	tempDataw = mapData
 	tempGui = gui	
 	-- Draw "WINNER" at the top of the screen 	
 	highText = display.newText("WINNER!", display.contentCenterX, 80, native.systemFontBold, 82)
@@ -178,7 +178,7 @@ local function showScore(mapData, gui)
 	count = (temp*0.01)
 	score = (temp + (gameData.gameTime * 100))
 	-- Draw wisp for score transition
-	local wisp = display.newImage("mapData/art/wisp/whisp.png")
+	local wisp = display.newImage("mapdata/art/wisp/whisp.png")
 	wisp.x, wisp.y = generate.tilesToPixels(20, 7)
 	-- Draw player ball for score transition
 	scoreObj[1] = display.newImage("mapdata/art/ball/ball1.png")
