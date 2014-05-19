@@ -26,7 +26,7 @@ local five = {
 	panes = {true,false,false,false,true},
 	timer = 200,
 	playerCount = 1,
-	playerPos = {	 {["x"]=4, ["y"]=4},
+	playerPos = {	 {["x"]=6, ["y"]=6},
 
 				},
 	-- number of wisps in the level
@@ -46,7 +46,7 @@ local five = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0,
+		["exitPortal"] = 1,
 		["enemy"] = 0,
 		["fixedIceberg"] = 1
 	},
@@ -131,13 +131,17 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
+
+		objects["exitPortal1"]:setSequence("still")
+		-- Should be at 4,4
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(1, 1)
 		
 		-- Pink rune
-		rune[3].x, rune[3].y = generate.tilesToPixels(4, 17)	
+		rune[3].x, rune[3].y = generate.tilesToPixels(2, 2)	
 		--rune[3].x, rune[3].y = generate.tilesToPixels(4.5, 4.5)			
 		rune[3].isVisible = true
 		
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 6)
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(4, 4)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(17, 7)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 7)
 		wisp[4].x, wisp[4].y = generate.tilesToPixels(30, 15)
