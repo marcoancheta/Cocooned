@@ -369,7 +369,7 @@ local function clean(event)
 	end
 
 	table.remove(players)
-	table.remove(players)
+	--table.remove(players)
 
 	player1:resetRune()
 	
