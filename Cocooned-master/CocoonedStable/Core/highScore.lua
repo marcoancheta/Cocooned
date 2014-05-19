@@ -114,9 +114,10 @@ local function loadScore()
 		return tempTable
 	else
 		saveScore()
-		loadScore()
+		tempTable = loadScore()
 		-- Throw error into console
 		print("Error: File - '" ..highScore.filename.. "' - could not be used to load scores.")
+		return tempTable
 	end	
 	return nil
 end
