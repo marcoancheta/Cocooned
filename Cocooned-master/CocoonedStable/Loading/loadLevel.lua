@@ -183,8 +183,11 @@ local function createLevel(mapData, players)
 		end
 		gui.middle:insert(players[1].imageObject)
 		gui.front:insert(levelWalls)
-		-- load in goals
-		goals.drawGoals(gui, players[1])
+		
+		if mapData.levelNum == "LS" then
+			-- load in goals
+			goals.drawGoals(gui, players[1])
+		end
 	end
 	
 	-- create miniMap for level
