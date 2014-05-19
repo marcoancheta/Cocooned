@@ -28,7 +28,7 @@ local selectLevel = {
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	-- Disable portal collision
-	event.other.isSensor = true
+	--event.other.isSensor = true
 	goals.drawGoals(gui, player)
 
 	local function resume()

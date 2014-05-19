@@ -15,7 +15,7 @@ local loadLevel = require("Loading.loadLevel")
 local collisionDetection = require("Mechanics.collisionDetection")
 -- Generate Objects (generateObjects.lua)
 local generate = require("Objects.generateObjects")
-
+local snow = require("utils.snow")
 local animation = require("Core.animation")
 
 --------------------------------------------------------------------------------
@@ -53,6 +53,11 @@ local function movePanes(event)
 			params.gui.front[i]:removeSelf()
 		end
 	end
+	
+	-- Clean snow on screen
+	snow.meltSnow()
+	-- Re-initialize snow
+	snow.new()
 	
 	---------------------------------------------------
 	-- Play "character" teleportation animation here --

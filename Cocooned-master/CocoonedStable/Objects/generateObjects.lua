@@ -36,6 +36,7 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	wisp[i]:toFront()
 
 		for j=1, i do
+			-- check if wisp(s) exist inside player objects inventory
 			if inventory.inventoryInstance.items[j] ~= wisp[i].name then
 				-- insert wisp into map display group
 				if mapData.levelNum ~= "LS" then
@@ -101,6 +102,7 @@ local function gObjects(level, objects, map, mapData, runes)
 	-- goes down rune list and adds runes that are visible in pane
 	for i = 1, #runes do
 		for j=1, i do
+			-- check if rune(s) exist inside player rune inventory
 			if inventory.inventoryInstance.runes[j] ~= runes[i].name then
 				-- check if rune is visible and if so, add to map display group
 				if runes[i].isVisible == true then
