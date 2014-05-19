@@ -134,11 +134,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		objects["exitPortal1"]:setSequence("still")
 		-- Should be at 4,4
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(1, 1)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(4, 4)
 		
 		-- Pink rune
-		rune[3].x, rune[3].y = generate.tilesToPixels(2, 2)	
-		--rune[3].x, rune[3].y = generate.tilesToPixels(4.5, 4.5)			
+		--rune[3].x, rune[3].y = generate.tilesToPixels(2, 2)	
+		rune[3].x, rune[3].y = generate.tilesToPixels(4.5, 4.5)			
 		rune[3].isVisible = true
 		
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(4, 4)
@@ -147,8 +147,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[4].x, wisp[4].y = generate.tilesToPixels(30, 15)
 		wisp[5].x, wisp[5].y = generate.tilesToPixels(24, 17)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 19)
-		wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 4.5)
-		--wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 17)
+		--wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 4.5)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 17)
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(15, 20)
 
 		--objects["fish11"]:setSequence("move")
@@ -194,7 +194,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		objects["exitPortal1"]:setSequence("still")
 		-- Should be at 4,4
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(1, 1)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(4, 4)
 
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 9, 17)
