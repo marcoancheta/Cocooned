@@ -114,11 +114,7 @@ local function loadScore()
 		return tempTable
 	else
 		saveScore()
-<<<<<<< HEAD
-		loadScore()
-=======
 		tempTable = loadScore()
->>>>>>> origin/Derrick
 		-- Throw error into console
 		print("Error: File - '" ..highScore.filename.. "' - could not be used to load scores.")
 		return tempTable
