@@ -15,6 +15,8 @@ local inventoryInstance = {
 	runeSize = 1
 }
 
+local wispAmount = 0
+
 --------------------------------------------------------------------------------
 -- Add Item - function that adds item name to inventory table
 --------------------------------------------------------------------------------
@@ -22,6 +24,7 @@ function inventoryInstance:addItem(item, map)
 	self.items[self.size] = item.name
 	print("add inventory", #self.items, item.name)
 	self.size = self.size + 1
+	wispAmount = self.size
 end
 
 --------------------------------------------------------------------------------
@@ -46,6 +49,18 @@ function inventoryInstance:new (o)
 	setmetatable(o, self)
     self.__index = self
 	return o
+end
+
+--------------------------------------------------------------------------------
+-- Clear - function that clears inventory table
+--------------------------------------------------------------------------------
+function inventoryInstance:clear()
+	-- set all items in inventory to nil to remove
+	self.items = {}
+	self.size = 1
+	-- set all runes in inventory to nil to remove
+	self.runes = {}
+	self.runeSize = 1
 end
 
 --------------------------------------------------------------------------------
@@ -79,7 +94,8 @@ end
 --------------------------------------------------------------------------------
 local inventoryMechanic = {
 	createInventory = createInventory,
-	inventoryInstance = inventoryInstance
+	inventoryInstance = inventoryInstance,
+	wispAmount = wispAmount
 }
 
 -- return inventoryMechanic.lua

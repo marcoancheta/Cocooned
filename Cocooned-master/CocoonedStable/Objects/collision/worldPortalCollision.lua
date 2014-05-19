@@ -30,7 +30,7 @@ local function temp(target)
 	if gameData.inWorldSelector then
 		target:setLinearVelocity(0,0)
 		gameData.selectLevel = true
-		gameData.inWorldSelector = false
+		gameData.inWorldSelector = 0
 	end
 end
 

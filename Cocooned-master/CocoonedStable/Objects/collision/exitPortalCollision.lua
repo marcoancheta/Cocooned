@@ -22,13 +22,22 @@ local complete = function()	gameData.levelComplete = true; end
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
-	--gameData.levelComplete = true
+	event.other.isSensor = true
 	
-	if collideObject.sequence == "move" then
-		print("exiting")
+	player.curse = 0
+	player.xGrav = 0
+	player.yGrav = 0
+	player.imageObject:setLinearVelocity(0,0)
+	
+	if gameData.gameTime > 0 then
+		print("Win gameData.gameTime", gameData.gameTime)
+	end
+	
+	--if collideObject.sequence == "move" then
+		--print("exiting")
 		local transPortal = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
 		gameData.gRune = false 
-	end
+	--end
 	
 	--[[
 	if collideObject.sequence == "move" and player.deathTimer == nil then

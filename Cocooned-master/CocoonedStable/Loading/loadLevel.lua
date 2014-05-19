@@ -172,6 +172,9 @@ local function createLevel(mapData, players)
 			gui.front:insert(players[i].imageObject)
 		end
 		--gui.front:insert(player1.imageObject) -- in-game objects also draws here.
+		
+		-- check if player has finished level
+		levelFinished.checkWin(players[1], gui.front, mapData)
 	elseif mapData.levelNum == "LS" or mapData.levelNum == "world" then
 		----------------------------
 		-- Level selector exclusive

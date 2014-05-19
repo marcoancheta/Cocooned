@@ -6,6 +6,7 @@
 --------------------------------------------------------------------------------
 local sound = require("sound")
 local gameData = require("Core.gameData")
+local highScore = require("Core.highScore")
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -43,6 +44,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	end
 	-- Add wisp into player's inventory
 	player:addInventory(collideObject)
+	highScore.addScore(1)
 	-- Delete wisp
  	collideObject:removeSelf()
  	collideObject = nil

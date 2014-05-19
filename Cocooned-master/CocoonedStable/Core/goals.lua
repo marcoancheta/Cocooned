@@ -48,22 +48,24 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function tapOnce(event)
-	-- Kipcha Play button detection
-	if event.target.name == "playButton" then	
-		-- Destroy goals map
-		destroyGoals()	
-		gameData.gameStart = true
-	elseif event.target.name == "cancelButton" then
-		--
-		textObject[1].isVisible = false
-		textObject[2].isVisible = false
-		play.isVisible = false
-		cancel.isVisible = false
-		--for i=1, #rune do
-		--	rune[i].isVisible = false
-		--end
-		playerTemp.curse = 1
-	end		
+	if gameData.gameOptions ~= true then
+		-- Kipcha Play button detection
+		if event.target.name == "playButton" then	
+			-- Destroy goals map
+			destroyGoals()	
+			gameData.gameStart = true
+		elseif event.target.name == "cancelButton" then
+			--
+			textObject[1].isVisible = false
+			textObject[2].isVisible = false
+			play.isVisible = false
+			cancel.isVisible = false
+			--for i=1, #rune do
+			--	rune[i].isVisible = false
+			--end
+			playerTemp.curse = 1
+		end
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -183,6 +185,7 @@ local function findGoals(mapData, gui)
 
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData then
+		print(tempData)
 		textObject[2].text = levelNames[tempData] --" | Time:"
 	end
 	
