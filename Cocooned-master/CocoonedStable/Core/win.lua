@@ -143,13 +143,13 @@ local function delay(event)
 	-- Clean
 	clean()
 	-- Run winner
-	runWinner(tempData, tempGui)
+	runWinner(params.mapParam, params.guiParam)
 end
 
 --------------------------------------------------------------------------------
 -- listener - Transition listener
 --------------------------------------------------------------------------------
-local function listener(target)
+local function listener(target, mapData, gui)
 	-- Show time remaining
 	scoreObj[3] = display.newText("Time Left: " ..os.date("!%M:%S", gameData.gameTime), display.contentCenterX, 80, native.systemFontBold, 72)
 	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(20, 7)
@@ -161,7 +161,7 @@ local function listener(target)
 	-- Called from showScore transition:
 	-- Delay 3 seconds to show high score
 	tempTimer = timer.performWithDelay(5000, delay)
-	tempTimer.params = {targetParam = target}
+	tempTimer.params = {targetParam = target, mapParam = mapData, guiParam = gui}
 end
 
 --------------------------------------------------------------------------------
@@ -190,7 +190,7 @@ local function showScore(mapData, gui)
 	-- If amount of wisps is greater than 0, run transition
 	if count > 0 then
 		-- run transition for 1.5 seconds
-		local wispTran = transition.to(wisp, {time=1500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete=listener})
+		local wispTran = transition.to(wisp, {time=1500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete= function(wisp) listener(wisp, mapData, gui) end})
 	end
 end
 
