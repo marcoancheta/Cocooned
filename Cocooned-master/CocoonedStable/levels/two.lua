@@ -25,9 +25,8 @@ local two = {
 	-- { Middle, Down, Up, Right, Left }
 	panes = {true,false,false,false,false},
 	timer = 60,
-	playerCount = 2,
+	playerCount = 1,
 	playerPos = {	{["x"]=20,["y"]=10},
-					{["x"]=15,["y"]=10}
 				},
 	-- number of wisps in the level
 	wispCount = 6,

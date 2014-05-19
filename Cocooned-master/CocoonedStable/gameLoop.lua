@@ -372,7 +372,8 @@ local function clean(event)
 	table.remove(players)
 
 	player1:resetRune()
-
+	
+	inventory.inventoryInstance:clear()
 	--[[
 	if linePts then
 		linePts = nil

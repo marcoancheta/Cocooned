@@ -190,7 +190,7 @@ local function showScore(mapData, gui)
 	-- If amount of wisps is greater than 0, run transition
 	if count > 0 then
 		-- run transition for 1.5 seconds
-		local wispTran = transition.to(wisp, {time=1500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete= function(wisp) listener(wisp, mapData, gui) end})
+		local wispTran = transition.to(wisp, {time=500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete= function(wisp) listener(wisp, mapData, gui) end})
 	end
 end
 
