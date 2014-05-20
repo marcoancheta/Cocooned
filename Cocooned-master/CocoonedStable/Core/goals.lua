@@ -13,6 +13,7 @@ local play, cancel
 --local rune = {}
 local textObject = {}
 local playerTemp
+local levelPortalObject
 
 --------------------------------------------------------------------------------
 -- destroyGoals - Destroy it all!
@@ -35,11 +36,20 @@ local function destroyGoals()
 	
 	if play then
 		play:removeSelf()
-		play = nil;
+		play = nil
+		
+	end
+	if cancel then
+		cancel:removeSelf()
+		cancel = nil
 	end
 	
 	--rune = nil;
-	textObject = nil;
+	textObject = nil
+end
+
+local function reenablePortal()
+	levelPortalObject.isSensor = false
 end
 
 --------------------------------------------------------------------------------
@@ -55,7 +65,8 @@ local function tapOnce(event)
 			destroyGoals()	
 			gameData.gameStart = true
 		elseif event.target.name == "cancelButton" then
-			--
+			print("HIT CANCEL BUTTON!!!!")
+
 			textObject[1].isVisible = false
 			textObject[2].isVisible = false
 			play.isVisible = false
@@ -64,6 +75,8 @@ local function tapOnce(event)
 			--	rune[i].isVisible = false
 			--end
 			playerTemp.curse = 1
+			destroyGoals()
+			timer.performWithDelay(1500, reenablePortal)
 		end
 	end
 end
@@ -73,7 +86,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function onPlay()
+local function onPlay(object)
 	print("SHOW PLAY")
 	textObject[1].isVisible = true
 	textObject[2].isVisible = true
@@ -83,6 +96,7 @@ local function onPlay()
 	play:addEventListener("tap", tapOnce)
 	cancel.isVisible = true
 	cancel:addEventListener("tap", tapOnce)
+	levelPortalObject = object
 end
 
 local function hidePlay()
@@ -99,6 +113,7 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function drawGoals(gui, player)
+	destroyGoals()
 	-- Reinitialize arrays
 	textObject = {}
 	--rune = {}

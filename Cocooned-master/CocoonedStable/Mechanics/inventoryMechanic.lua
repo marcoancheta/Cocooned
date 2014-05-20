@@ -39,6 +39,7 @@ end
 
 function inventoryInstance:resetRunes()
 	self.runeSize = 1
+	self.size = 1
 end
 
 --------------------------------------------------------------------------------

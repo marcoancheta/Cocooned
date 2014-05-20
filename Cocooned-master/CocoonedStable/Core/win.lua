@@ -143,13 +143,13 @@ local function delay(event)
 	-- Clean
 	clean()
 	-- Run winner
-	runWinner(tempData, tempGui)
+	runWinner(params.mapParam, params.guiParam)
 end
 
 --------------------------------------------------------------------------------
 -- listener - Transition listener
 --------------------------------------------------------------------------------
-local function listener(target)
+local function listener(target, mapData, gui)
 	-- Show time remaining
 	scoreObj[3] = display.newText("Time Left: " ..os.date("!%M:%S", gameData.gameTime), display.contentCenterX, 80, native.systemFontBold, 72)
 	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(20, 7)
@@ -161,7 +161,7 @@ local function listener(target)
 	-- Called from showScore transition:
 	-- Delay 3 seconds to show high score
 	tempTimer = timer.performWithDelay(5000, delay)
-	tempTimer.params = {targetParam = target}
+	tempTimer.params = {targetParam = target, mapParam = mapData, guiParam = gui}
 end
 
 --------------------------------------------------------------------------------
@@ -169,7 +169,7 @@ end
 --------------------------------------------------------------------------------
 local function showScore(mapData, gui)
 	-- Temporarily store mapData and gui
-	tempData = mapData
+	tempDataw = mapData
 	tempGui = gui	
 	-- Draw "WINNER" at the top of the screen 	
 	highText = display.newText("WINNER!", display.contentCenterX, 80, native.systemFontBold, 82)
@@ -178,7 +178,7 @@ local function showScore(mapData, gui)
 	count = (temp*0.01)
 	score = (temp + (gameData.gameTime * 100))
 	-- Draw wisp for score transition
-	local wisp = display.newImage("mapData/art/wisp/whisp.png")
+	local wisp = display.newImage("mapdata/art/wisp/whisp.png")
 	wisp.x, wisp.y = generate.tilesToPixels(20, 7)
 	-- Draw player ball for score transition
 	scoreObj[1] = display.newImage("mapdata/art/ball/ball1.png")
@@ -190,8 +190,14 @@ local function showScore(mapData, gui)
 	-- If amount of wisps is greater than 0, run transition
 	if count > 0 then
 		-- run transition for 1.5 seconds
-		local wispTran = transition.to(wisp, {time=1500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete=listener})
+		local wispTran = transition.to(wisp, {time=500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete= function(wisp) listener(wisp, mapData, gui) end})
+		-- if not wisp collected, just show time left
+	elseif count == 0 then
+		wisp.alpha = 0
+		listener(wisp, mapData, gui)
+
 	end
+
 end
 
 win.init = init

@@ -26,6 +26,8 @@ local one = {
 	panes = {true,false,false,false,false},
 	timer = 30,
 	playerCount = 1,
+	playerPos = {	{["x"]=20,["y"]=14},
+				},
 	-- number of wisps in the level
 	wispCount = 18,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -145,8 +147,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[18].x, wisp[18].y = generate.tilesToPixels(37, 14)
 
 		objects["exitPortal1"]:setSequence("still")
-		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(15, 22.5)
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 12)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(15, 22.5)
+		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 12)
 
 		generate.gWisps(wisp, map, mapData, 1, 18)
 	elseif mapData.pane == "L" then

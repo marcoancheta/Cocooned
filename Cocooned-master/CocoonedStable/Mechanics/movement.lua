@@ -89,7 +89,6 @@ local function moveAndAnimate(event, currPlayer, gui) --, physics
  			snowEmitter:emit(gui, currPlayer.imageObject.x + offSet1, currPlayer.imageObject.y + offSet2)
  		end
 
-
 		if speed > 1125 then
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = 2.5

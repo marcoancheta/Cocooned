@@ -80,6 +80,7 @@ local function saveScore()
 		file:write(contents)	
 		-- Close file when writing is completed
 		io.close(file)
+		
 		return true
 	else
 		-- Throw error into console
@@ -112,8 +113,11 @@ local function loadScore()
 		io.close(file)	
 		return tempTable
 	else
+		saveScore()
+		tempTable = loadScore()
 		-- Throw error into console
 		print("Error: File - '" ..highScore.filename.. "' - could not be used to load scores.")
+		return tempTable
 	end	
 	return nil
 end
@@ -141,10 +145,10 @@ local function updateScore(mapData, gui, score)
 		local levelString = tostring(mapData.levelNum)
 		
 		-- Debug mode only
-		if gameData.debugMode then
+		--if gameData.debugMode then
 			print("levelString", levelString)
-			print("highScore.scoreTable[levelString][1]", highScore.scoreTable[levelString][1])
-		end
+			print("highScore.scoreTable[levelString]", highScore.scoreTable[levelString])
+		--end
 				
 		-- Check if scoreTable exists for level
 		if highScore.scoreTable[levelString] then

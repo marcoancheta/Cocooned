@@ -40,7 +40,7 @@ local sheetList = {}
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function init()
-	
+	print("in init")
 	-- Load runes
 	rune[1] = display.newImage("mapdata/art/runes/blueRune.png")
 	rune[2] = display.newImage("mapdata/art/runes/greenRune.png")
@@ -119,6 +119,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function createObjects(objectNumbers, mapData)
+	print("creating object")
 	-- declare wisp and object list
 	local wisp = {}
 	local objects = {}
@@ -149,18 +150,23 @@ end
 --------------------------------------------------------------------------------
 -- Object - Main
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function main(mapData, map)
+	print("are you even going inside here")
 	-- call initialize function to initialize all objects and sprite sheets
 	init()
 	-- get which level lua, player is in
 	level = require("levels." .. levelNames[mapData.levelNum])
+
+	map.playerCount = level.playerCount
+	map.playerPos = level.playerPos
+	print("player count: " .. map.playerCount)
 	-- get objects and wisps list and create them
 	objects, wisp, water, wall, auraWall = createObjects(level, mapData)
 	-- load in which pane player is in
 	level.load(mapData, map, rune, objects, wisp, water, wall, auraWall)
-	
+	print("the fuck")
 end
 
 

@@ -30,6 +30,10 @@ local world = {
 	waterCount = 0,
 	wallCount = 0,
 	auraWallCount = 0,
+	playerCount = 1,
+	playerPos = {	{["x"]=21,["y"]=15},
+
+				},
 	
 	-- mapData clone
 	-- world.levelNum || world.pane || world.version
@@ -65,13 +69,12 @@ local bg
 --------------------------------------------------------------------------------
 -- load pane function
 --------------------------------------------------------------------------------
--- Updated by: D
+-- Updated by: Derrick
 --------------------------------------------------------------------------------
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
-			
 	-- Check which pane
 	if mapData.pane == "world" then
 		if gameData.debugMode then
@@ -80,6 +83,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		-- Place World Portals.
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14, 12)
+
 		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(20.5, 11)
 		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(31, 15)
 		

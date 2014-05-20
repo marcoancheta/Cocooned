@@ -26,6 +26,8 @@ local two = {
 	panes = {true,false,false,false,false},
 	timer = 60,
 	playerCount = 1,
+	playerPos = {	{["x"]=20,["y"]=10},
+				},
 	-- number of wisps in the level
 	wispCount = 6,
 	-- number of objects in each pane (M,D,U,R,L)
