@@ -11,8 +11,13 @@
 local floor = math.floor
 local atan2 = math.atan2
 local pi = math.pi
+local auraDuration = 1000
+local auraDensity = 3
+local auraRange = 12
+local auraEmitter = nil
 -- inventory mechanic (inventoryMechanic.lua)
 local inventoryMechanic = require("Mechanics.inventoryMechanic")
+local particle_lib = require("Mechanics.auraEmitter")
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
 local sound = require("sound")
@@ -79,12 +84,13 @@ end
 --------------------------------------------------------------------------------
 -- Change Back - player function that changes image object back to normal size
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeBack(player)
 	physics.removeBody(player)
 	player:scale(2,2)
 	physics.addBody(player, {radius = 36, bounce = .25, density = 0.3})
+	auraEmitter:changeRadius(25)
 	physics.setGravity(0,0)
 	--player.linearDamping = 1.25
 	--player.density = .3
@@ -93,12 +99,13 @@ end
 --------------------------------------------------------------------------------
 -- Change Size - player function that shrinks the player image object
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeSize(player)
 	physics.removeBody(player)
 	player:scale(0.5,0.5)
 	physics.addBody(player, {radius = 15, bounce = .25, density = 0.1}) --, density = 0.7})
+	auraEmitter:changeRadius(-25)
 	physics.setGravity(0,0)
 	--player.linearDamping = 1.25
 end
@@ -174,7 +181,7 @@ end
 --------------------------------------------------------------------------------
 -- Change Color - player function that changes player's color
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Andrew
 --------------------------------------------------------------------------------
 function playerInstance:changeColor(color)
 	local colors ={
@@ -183,11 +190,39 @@ function playerInstance:changeColor(color)
 		['green'] = {0.5,1,0.5},
 		['blue'] = {0.5,0.5,1}
 	}
-		
-	--print(self.color)
     self.color = color
     c = colors[color]
     self.imageObject:setFillColor(c[1],c[2],c[3])
+    if auraEmitter == nil then
+    	auraEmitter=auraEmitterLib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20)
+    end
+end
+
+--------------------------------------------------------------------------------
+-- Update aura - updates location and color of aura
+--------------------------------------------------------------------------------
+-- Updated by: Andrew
+--------------------------------------------------------------------------------
+function playerInstance:updateAura()
+	if auraEmitter ~= nil then
+		if self.color ~= "white" then
+			auraEmitter:moveParticles(self.imageObject.x, self.imageObject.y, self.color)
+		else
+			auraEmitter:hideParticles()
+		end
+	end
+end
+
+--------------------------------------------------------------------------------
+-- Delete Aura - deletes aura
+--------------------------------------------------------------------------------
+-- Updated by: Andrew
+--------------------------------------------------------------------------------
+function playerInstance:deleteAura()
+	if auraEmitter ~= nil then
+			auraEmitter:destroy()
+			auraEmitter=nil
+	end
 end
 
 --------------------------------------------------------------------------------

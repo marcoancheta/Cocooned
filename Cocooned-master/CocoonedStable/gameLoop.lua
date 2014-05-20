@@ -136,13 +136,11 @@ local function swipeMechanics(event)
 		tempPane = mapData.pane
 
 		-- call swipe mechanic and get new Pane
-		--TODO: ask why player1 is passed in
 		touch.swipeScreen(event, mapData, miniMap, gui.front)
 		
 		-- if touch ended then change map if pane is switched
 		if "ended" == event.phase and mapData.pane ~= tempPane then
 			-- play snow transition effect
-			--TODO: does player need to be pased in?
 			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
 		end
 	end
@@ -348,6 +346,7 @@ local function clean(event)
 	end
 	]]--
 	
+	player1:deleteAura()
 	-- destroy player instance
 	player1.imageObject:removeSelf()
 	player1.imageObject = nil
@@ -365,7 +364,6 @@ local function clean(event)
 		
 	playerSheet = nil
 
-	--TODO: move player 2 sheet into gameloop?
 	-- call objects-destroy
 	objects.destroy(mapData)
 end

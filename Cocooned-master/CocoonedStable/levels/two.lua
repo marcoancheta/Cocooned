@@ -127,7 +127,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	if mapData.pane == "M" then
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(28, 6)
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(16, 10)
 		
 		-- Pink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(4.5, 4.5)			
