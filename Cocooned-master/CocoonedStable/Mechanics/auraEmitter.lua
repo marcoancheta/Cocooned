@@ -88,9 +88,8 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer,
         randRange = true
       end
     end
-    randRange=false
     local p=emit(randX, randY, currPlayer, radiusRange, initAlpha, endAlpha, particleDuration)
-    transition.to(p, {time=Random(300, 5000), alpha = 0})
+    p.transition = transition.to(particle, {time=Random(300, 5000), alpha = 0})
     table.insert(customEmitter.particles, p)
     --p.isVisible = false
   end
@@ -133,6 +132,10 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer,
   function customEmitter:destroy()
     self:Deactivate()
     for i=1, self.particleNum do
+      if self.particles[i].transition ~= nil then
+        self.particles[i].transition.cancel()
+        self.particles[i].transition = nil
+      end
       self.particles[i]:removeSelf()
       self.particles[i] = nil
     end
@@ -166,7 +169,7 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer,
       local c = colors[color]
       if particle.alpha == 0 then
         particle.alpha = 1
-        transition.to(particle, {time=Random(300, 5000), alpha = 0})
+        particle.transition = transition.to(particle, {time=Random(300, 5000), alpha = 0})
       end
     end
   end
