@@ -458,6 +458,9 @@ local function update(event)
 	if gameData.inWater then
 		-- Turn on pane switching and mini map
 		gameData.allowPaneSwitch = false
+	elseif gameData.inWater == false then
+		gameData.allowPaneSwitch = true
+		gameData.inWater = nil
 	end
 end
 
