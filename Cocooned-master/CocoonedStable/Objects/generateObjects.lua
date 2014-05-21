@@ -36,7 +36,7 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	wisp[i]:toFront()
 
 		for j=1, i do
-			print("i: " ..i.., "j: " ..j)
+			print("i: " ..i.. "j: " ..j)
 			-- check if wisp(s) exist inside player objects inventory
 			if inventory.inventoryInstance.items[j] ~= wisp[i].name then
 				-- insert wisp into map display group
