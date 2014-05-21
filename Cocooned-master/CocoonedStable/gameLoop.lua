@@ -84,6 +84,7 @@ local mapPanes
 local t = 1
 local timeCheck = 1
 local timeCount = 0
+local  physicsParam
 
 -- Initialize map data
 local mapData = {
@@ -101,6 +102,10 @@ local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 
 local textObject = display.newText("", 600, 400, native.systemFont, 72)
+
+local accelValueX = display.newText("", 600, 10, native.systemFont, 32)
+
+local accelValueY = display.newText("", 600, 60, native.systemFont, 32)
 		
 local count = 0
 
@@ -206,6 +211,17 @@ local function controlMovement(event)
 		else
 			textObject:toBack()
 		end
+
+		accelValueX.text = string.sub(tostring(physicsParam.xGrav),1,4)
+		accelValueX.x = display.contentCenterX
+		accelValueX.y = 10
+		accelValueX:setFillColor(1,0,0)
+		accelValueX:toFront()
+		accelValueY.text = string.sub(tostring(physicsParam.yGrav),1,4)
+		accelValueY.x = display.contentCenterX
+		accelValueY.y = 60
+		accelValueY:setFillColor(1,0,0)
+		accelValueY:toFront()
 	end
 end
 
