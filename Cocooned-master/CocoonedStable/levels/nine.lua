@@ -160,7 +160,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg1"].time = 5500
 		objects["fixedIceberg1"].movement = "fixed" 
 				
-		generate.gWisps(wisp, map, mapData, 1, 17)
+		generate.gWisps(wisp, map, mapData, 1, 17, nine.wispCount)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
@@ -245,7 +245,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 3)
 		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 18, 23)
+		generate.gWisps(wisp, map, mapData, 18, 23, nine.wispCount)
 
 	elseif mapData.pane == "U" then
 		
@@ -263,7 +263,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg4"].movement = "free" --fixed or free
 
 		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 24, 24)
+		generate.gWisps(wisp, map, mapData, 24, 24, nine.wispCount)
 	elseif mapData.pane == "R" then
 		-- Wisps
 		wisp[25].x, wisp[25].y = generate.tilesToPixels(33, 1)
@@ -296,7 +296,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg2"].movement = "fixed"
 
 		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 25, 35)
+		generate.gWisps(wisp, map, mapData, 25, 35, nine.wispCount)
 	elseif mapData.pane == "D" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")

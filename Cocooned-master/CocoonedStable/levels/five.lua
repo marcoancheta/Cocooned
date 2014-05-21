@@ -154,7 +154,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg1"].movement = "fixed"
 		
 		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 1, 7)
+		generate.gWisps(wisp, map, mapData, 1, 7, five.wispCount)
 
 	elseif mapData.pane == "R" then
 		if gameData.debugMode then
@@ -183,7 +183,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(4, 4)
 
 		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 9, 16)
+		generate.gWisps(wisp, map, mapData, 9, 16, five.wispCount)
 	end
 
 	-- generates all objects in pane when locations are set

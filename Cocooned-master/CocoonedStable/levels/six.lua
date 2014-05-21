@@ -167,7 +167,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[18].x, wisp[18].y = generate.tilesToPixels(39.5, 8)
 		wisp[19].x, wisp[19].y = generate.tilesToPixels(39, 10)
 
-		generate.gWisps(wisp, map, mapData, 1, 19)
+		generate.gWisps(wisp, map, mapData, 1, 19, six.wispCount)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Exit portals
@@ -186,14 +186,20 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[29].x, wisp[29].y = generate.tilesToPixels(38, 7)
 		wisp[30].x, wisp[30].y = generate.tilesToPixels(38, 9)
 
-		generate.gWisps(wisp, map, mapData, 20, 30)
+		generate.gWisps(wisp, map, mapData, 20, 30, six.wispCount)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
-		print("You shouldn't be in here...")
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	elseif mapData.pane == "D" then
-		print("You shouldn't be in here...")
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	elseif mapData.pane == "L" then
-		print("You shouldn't be in here...")
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	end
 
 	-- generates all objects in pane when locations are set
