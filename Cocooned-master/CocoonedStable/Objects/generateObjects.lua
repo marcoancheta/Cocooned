@@ -45,6 +45,7 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 				-- add physics body for wisp for collision
 				physics.addBody(wisp[i], "static", {bounce=0})
 			else
+				print(i)
 				wisp[i].isVisible = false
 			end
 		end
