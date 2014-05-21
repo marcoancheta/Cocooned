@@ -65,11 +65,11 @@ local function movePanes(event)
 	-- Play "character" teleportation animation here --
 	---------------------------------------------------
 	-- load new map pane
-	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
+	params.gui = loadLevel.changePane(params.gui, params.mapData, params.players, params.miniMap)
 
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
-	collisionDetection.changeCollision(params.player1, params.mapData, params.gui, params.map)
+	collisionDetection.changeCollision(params.players, params.mapData, params.gui, params.map)
 end
 
 --------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function playTransition(tempPane, miniMap, mapData, gui, player1)
+local function playTransition(tempPane, miniMap, mapData, gui, players)
 	gameData.allowPaneSwitch = false
 	gameData.allowTouch = false
 	
@@ -178,7 +178,7 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 		  moveTrans.params = { tempPane = tempPane, 
 								miniMap = miniMap, 
 									gui = gui, 
-								player1 = player1, 
+								players = players, 
 								mapData = mapData  }
 end
 
