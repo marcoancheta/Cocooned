@@ -189,10 +189,10 @@ local function controlMovement(event)
 			players[i].xGrav = physicsParam.xGrav
 			players[i].yGrav = physicsParam.yGrav
 			
-			if gameData.debugMode then
+			--[[if gameData.debugMode then
 				print("players[i].xGrav", players[i].xGrav)
 				print("players[i].yGrav", players[i].yGrav)
-			end
+			end]]--
 		end
 		
 	end
