@@ -22,7 +22,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	--collideObject.isSensor = true
 	
 	gameData.inWater = false
-	gameData.allowPaneSwitch = true
 end
 
 --------------------------------------------------------------------------------
