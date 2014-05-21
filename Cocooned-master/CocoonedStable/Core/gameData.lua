@@ -11,7 +11,7 @@
 --------------------------------------------------------------------------------
 local gameData = {
 	-- toggle debug mode
-	debugMode = false,
+	debugMode = true,
 	
 	-- Game Loop Booleans
 	gameStart = false,

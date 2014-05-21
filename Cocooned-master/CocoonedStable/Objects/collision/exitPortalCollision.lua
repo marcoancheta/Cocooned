@@ -25,8 +25,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
 	event.other.isSensor = true
 	
-	
-	
 	if gameData.gameTime > 0 then
 		print("Win gameData.gameTime", gameData.gameTime)
 	end

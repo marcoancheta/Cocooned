@@ -26,9 +26,7 @@ local six = {
 	panes = {true,false,false,true,false},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {	 {["x"]=20, ["y"]=14},
-
-				},
+	playerPos = {{["x"]=25, ["y"]=14}},
 	-- number of wisps in the level
 	wispCount = 30,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -39,8 +37,8 @@ local six = {
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
-		["fish1"] = 0,
-		["fish2"] = 0,
+		["fish1"] = 2,
+		["fish2"] = 2,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -87,14 +85,14 @@ local six = {
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
-		["fish1"] = 2,
-		["fish2"] = 2,
+		["fish1"] = 0,
+		["fish2"] = 0,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0, 
+		["exitPortal"] = 1, 
 		["enemy"] = 0,
 		["fixedIceberg"] = 0
 	},	
@@ -131,7 +129,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 
-	if mapData.pane == "R" then
+	if mapData.pane == "M" then
 		-- Fish1 Set
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(4, 4)
 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(4, 13)
@@ -145,7 +143,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fish22"].eX, objects["fish22"].eY = generate.tilesToPixels(18, 3)
 
 		-- Rune 
-		rune[2].x, rune[2].y = generate.tilesToPixels(25, 14)			
+		rune[2].x, rune[2].y = generate.tilesToPixels(4, 21)			
 		rune[2].isVisible = true
 
 		-- Wisps
@@ -170,8 +168,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[19].x, wisp[19].y = generate.tilesToPixels(39, 10)
 
 		generate.gWisps(wisp, map, mapData, 1, 19)
-
-	elseif mapData.pane == "M" then
+		generate.gWater(map, mapData)
+	elseif mapData.pane == "R" then
 		-- Exit portals
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 5)
@@ -189,7 +187,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[30].x, wisp[30].y = generate.tilesToPixels(38, 9)
 
 		generate.gWisps(wisp, map, mapData, 20, 30)
-
+		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then

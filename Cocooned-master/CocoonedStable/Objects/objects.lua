@@ -99,7 +99,7 @@ local function createSprites(count, name, objectList)
 	for i = 1, count do
 		objectList[name .. i] = display.newImage("mapdata/art/objects/" .. name .. ".png")
 		objectList[name .. i].name = name .. i
-		print(name)
+		print("Sprite name", name)
 	end
 	return true
 end

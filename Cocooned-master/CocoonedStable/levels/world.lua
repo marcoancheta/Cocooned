@@ -31,9 +31,7 @@ local world = {
 	wallCount = 0,
 	auraWallCount = 0,
 	playerCount = 1,
-	playerPos = {	{["x"]=21,["y"]=15},
-
-				},
+	playerPos = {{["x"]=21,["y"]=15}},
 	
 	-- mapData clone
 	-- world.levelNum || world.pane || world.version

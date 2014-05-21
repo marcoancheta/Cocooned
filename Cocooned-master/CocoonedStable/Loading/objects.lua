@@ -153,7 +153,6 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function main(mapData, map)
-	print("are you even going inside here")
 	-- call initialize function to initialize all objects and sprite sheets
 	init()
 	-- get which level lua, player is in
@@ -166,7 +165,6 @@ local function main(mapData, map)
 	objects, wisp, water, wall, auraWall = createObjects(level, mapData)
 	-- load in which pane player is in
 	level.load(mapData, map, rune, objects, wisp, water, wall, auraWall)
-	print("the fuck")
 end
 
 

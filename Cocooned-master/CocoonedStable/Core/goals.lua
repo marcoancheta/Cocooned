@@ -118,7 +118,7 @@ local function drawGoals(gui, player)
 	textObject = {}
 	--rune = {}
 
-	print(player.name)
+	print("player.name", player.name)
 	playerTemp = player
 
 	-- Goal text displayer

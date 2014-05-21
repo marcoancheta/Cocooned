@@ -17,6 +17,7 @@ local collisionDetection = require("Mechanics.collisionDetection")
 local generate = require("Objects.generateObjects")
 local snow = require("utils.snow")
 local animation = require("Core.animation")
+local gameData = require("Core.gameData")
 
 --------------------------------------------------------------------------------
 -- Variables
@@ -77,9 +78,14 @@ end
 --------------------------------------------------------------------------------
 local function endTransition(event)
 	-- set sequence to stop and remove it
-	transPic:setSequence("stop")
-	transPic:removeSelf()
-	transPic = nil
+	if transPic then
+		transPic:setSequence("stop")
+		transPic:removeSelf()
+		transPic = nil
+	end
+	
+	gameData.allowTouch = true
+	gameData.allowPaneSwitch = true
 end
 
 --------------------------------------------------------------------------------
@@ -88,6 +94,15 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function playTransition(tempPane, miniMap, mapData, gui, player1)
+	gameData.allowPaneSwitch = false
+	gameData.allowTouch = false
+	
+	if transPic then
+		transPic:setSequence("stop")
+		transPic:removeSelf()
+		transPic = nil
+	end
+	
 	print("playing transition")
 	-- play pane switch transition and move to front
 	transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.spriteOptions.paneSwitch)
