@@ -70,7 +70,7 @@ local animation = {
 			{frames = {1}, name = "still", time = 250}
 		},
 		["wolf"] = {
-			{frames = {1,2,3,4,5,6,7,8}, name = "move", time = 300},
+			{frames = {1,2,3,4,5,6,7,8}, name = "move", time = 600},
 			{frames = {1}, name = "still", time = 250}
 		},
 		["fish1"] = {
