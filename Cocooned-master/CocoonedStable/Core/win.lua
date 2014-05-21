@@ -151,7 +151,7 @@ end
 --------------------------------------------------------------------------------
 local function listener(target, mapData, gui)
 	-- Show time remaining
-	scoreObj[3] = display.newText("Time Left: " ..os.date("!%M:%S", gameData.gameTime), display.contentCenterX, 80, native.systemFontBold, 72)
+	scoreObj[3] = display.newText("Time left: " ..os.date("!%M:%S", gameData.gameTime), display.contentCenterX, 80, native.systemFontBold, 72)
 	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(20, 7)
 	scoreObj[3].alpha = 0
 	
