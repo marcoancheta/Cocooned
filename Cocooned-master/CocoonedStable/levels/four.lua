@@ -26,12 +26,7 @@ local four = {
 	panes = {true,false,false,false,true},
 	timer = 180,
 	playerCount = 1,
-<<<<<<< HEAD
 	playerPos = {{["x"]=21, ["y"]=22}},
-=======
-	playerPos = {	{["x"]=22, ["y"]=22},
-				},
->>>>>>> origin/master
 	-- number of wisps in the level
 	wispCount = 23,
 	-- number of objects in each pane (M,D,U,R,L)
