@@ -129,8 +129,19 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
+<<<<<<< HEAD
 		-- Pink rune	
 		rune[3].x, rune[3].y = generate.tilesToPixels(15, 20)			
+=======
+
+		objects["exitPortal1"]:setSequence("still")
+		-- Should be at 4,4
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(1, 1)
+		
+		-- Pink rune
+		rune[3].x, rune[3].y = generate.tilesToPixels(3, 19)	
+		--rune[3].x, rune[3].y = generate.tilesToPixels(4.5, 4.5)			
+>>>>>>> origin/master
 		rune[3].isVisible = true
 		
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(17, 7)

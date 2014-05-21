@@ -100,7 +100,7 @@ local function runWinner(mapData, gui)
 	init(gui)
 	textObj = highScore.init(gui)
 	-- Create "HIGHSCORES" text
-	highText = display.newText("HIGHSCORES", display.contentCenterX, 80, native.systemFontBold, 82)
+	highText = display.newText("HIGH SCORES", display.contentCenterX, 80, native.systemFontBold, 82)
 
 	local tables = highScore.loadScore()
 	highScore.scoreTable = tables
@@ -172,7 +172,7 @@ local function showScore(mapData, gui)
 	tempDataw = mapData
 	tempGui = gui	
 	-- Draw "WINNER" at the top of the screen 	
-	highText = display.newText("WINNER!", display.contentCenterX, 80, native.systemFontBold, 82)
+	highText = display.newText("Level Complete!", display.contentCenterX, 80, native.systemFontBold, 82)
 	-- Calculate player's score
 	local temp = highScore.calcScore(mapData, gui)
 	count = (temp*0.01)
