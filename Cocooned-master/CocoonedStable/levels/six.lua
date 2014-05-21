@@ -167,17 +167,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[18].x, wisp[18].y = generate.tilesToPixels(39.5, 8)
 		wisp[19].x, wisp[19].y = generate.tilesToPixels(39, 10)
 
-<<<<<<< HEAD
 		generate.gWisps(wisp, map, mapData, 1, 19, six.wispCount)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
-=======
-		generate.gWisps(wisp, map, mapData, 1, 19)
-		generate.gWater(map, mapData)
-
-
-	elseif mapData.pane == "M" then
->>>>>>> origin/master
 		-- Exit portals
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 5)

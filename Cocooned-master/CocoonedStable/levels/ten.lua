@@ -177,14 +177,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWisps(wisp, map, mapData, 18, 29, ten.wispCount)
 
 	elseif mapData.pane == "U" then
-<<<<<<< HEAD
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
 		end
-=======
-		generate.gWater(map, mapData)
-
->>>>>>> origin/master
 	elseif mapData.pane == "R" then
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(15, 15)

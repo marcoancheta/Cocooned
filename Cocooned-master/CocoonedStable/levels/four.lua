@@ -186,12 +186,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["blueAura1"]:play()
 		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(13, 1)
 
-<<<<<<< HEAD
-	
-=======
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(2, 12)
->>>>>>> origin/master
 		generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 17, 23, four.wispCount)
