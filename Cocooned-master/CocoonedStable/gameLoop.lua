@@ -129,7 +129,7 @@ local function swipeMechanics(event)
 		print("Player Swipe Positions:", "x=" .. tilesX, "y=" .. tilesY)
 	end
 
-	if gameData.allowMiniMap then
+	if gameData.allowPaneSwitch then
 		count = count + 1
 		-- save temp pane for later check
 		tempPane = mapData.pane
@@ -356,8 +356,7 @@ local function clean(event)
 	-- stop physics
 	physics.stop()
 	-- clean snow
-	snow.meltSnow()
-	
+	snow.meltSnow()	
 	-- clean out currently loaded sound files
 	sound.soundClean()	
 	-- remove all eventListeners
@@ -368,19 +367,16 @@ local function clean(event)
 	end
 
 	table.remove(players)
-	--table.remove(players)
 
-	player1:resetRune()
-	
+	player1:resetRune()	
 	inventory.inventoryInstance:clear()
+	
 	--[[
 	if linePts then
 		linePts = nil
 		linePts = {}
 	end
 	]]--
-
-
 	
 	-- destroy player instance
 	player1.imageObject:removeSelf()
