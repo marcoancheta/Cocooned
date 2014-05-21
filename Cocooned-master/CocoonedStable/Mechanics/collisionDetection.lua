@@ -101,13 +101,13 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- changes the collision detection for all objects in new pane
-local function changeCollision(player, mapData, map) 
+local function changeCollision(player, mapData, gui, map) 
 	-- remove old collision detection event listeners
 	player.imageObject:removeEventListener("collision", player.imageObject)
 	player.imageObject:removeEventListener("preCollision")
 
 	-- create new collision detection event listeners
-	createCollisionDetection(player.imageObject, player, mapData, map, gui)
+	createCollisionDetection(player.imageObject, player, mapData, gui, map)
 end
 
 --------------------------------------------------------------------------------

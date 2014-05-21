@@ -69,7 +69,7 @@ local function movePanes(event)
 
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
-	collisionDetection.changeCollision(params.player1, params.mapData, params.map)
+	collisionDetection.changeCollision(params.player1, params.mapData, params.gui, params.map)
 end
 
 --------------------------------------------------------------------------------
