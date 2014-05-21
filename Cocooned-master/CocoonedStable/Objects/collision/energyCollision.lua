@@ -18,6 +18,11 @@ local plusTime
 local function removeObj(target)
 	target:removeSelf()
 	target = nil
+	plusTime = nil
+	
+	if target then
+		display.remove(target)
+	end
 end
 
 --------------------------------------------------------------------------------
