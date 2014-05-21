@@ -130,21 +130,19 @@ local function swipeMechanics(event)
 	end
 
 	if gameData.allowPaneSwitch then
-		for i = 1, gui.playerCount do
-			count = count + 1
-			-- save temp pane for later check
-			tempPane = mapData.pane
+		count = count + 1
+		-- save temp pane for later check
+		tempPane = mapData.pane
 
-			-- call swipe mechanic and get new Pane
-			--TODO: ask why player1 is passed in
-			touch.swipeScreen(event, mapData, miniMap, gui.front)
-			
-			-- if touch ended then change map if pane is switched
-			if "ended" == event.phase and mapData.pane ~= tempPane then
-				-- play snow transition effect
-				--TODO: does player need to be pased in?
-				paneTransition.playTransition(tempPane, miniMap, mapData, gui, players[i])
-			end
+		-- call swipe mechanic and get new Pane
+		--TODO: ask why player1 is passed in
+		touch.swipeScreen(event, mapData, miniMap, gui.front)
+		
+		-- if touch ended then change map if pane is switched
+		if "ended" == event.phase and mapData.pane ~= tempPane then
+			-- play snow transition effect
+			--TODO: does player need to be pased in?
+			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
 		end
 	end
 end
@@ -161,18 +159,16 @@ local function tapMechanic(event)
 	end
 
 	if gameData.allowMiniMap then
-		for i = 1, gui.playerCount do
-			-- save current pane for later use
-			tempPane = mapData.pane
+		-- save current pane for later use
+		tempPane = mapData.pane
 
-			-- call function for tap screen
-			touch.tapScreen(event, miniMap, mapData, physics, gui, players[i])
+		-- call function for tap screen
+		touch.tapScreen(event, miniMap, mapData, physics, gui, player1)
 
-			-- check if pane is different from current one, if so, switch panes
-			if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
-				-- play snow transition effect
-				paneTransition.playTransition(tempPane, miniMap, mapData, gui, players[i])
-			end
+		-- check if pane is different from current one, if so, switch panes
+		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
+			-- play snow transition effect
+			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
 		end
 	end
 end

@@ -209,7 +209,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function changePane(gui, mapData, players, miniMap)
+local function changePane(gui, mapData, player, miniMap)
 	-- Delete old snow
 	snow.meltSnow()
 	transition.cancel()
@@ -224,14 +224,12 @@ local function changePane(gui, mapData, players, miniMap)
 	objects.main(mapData, gui)
 
 	-- if player is small, set player size back to normal
-	for i = 1, gui.playerCount do
-		if players[i].small == true then
-			players[i]:unshrink()
-		end
+	if player.small == true then
+		player:unshrink()
 	end
 
 	-- check if player has finished level
-	levelFinished.checkWin(players[1], gui.front, mapData)
+	levelFinished.checkWin(player, gui.front, mapData)
 	
 	-- return new pane
 	return gui
