@@ -51,7 +51,7 @@ local function movePanes(event)
 	end
 	for i = params.gui.front.numChildren, 1, -1 do
 		if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
-			print("params.gui.front[i]", params.gui.front[i])
+			print("params.gui.front[i]", params.gui.front[i].name)
 			params.gui.front[i]:removeSelf()
 		end
 	end
