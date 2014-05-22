@@ -9,35 +9,62 @@
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Andrew
 --------------------------------------------------------------------------------
 require("physics")
 math.randomseed(os.time())
 
 auraEmitterLib = {}
+local auraGroup
  
 local Random = math.random
 local msqrt = math.sqrt
 local Rad = math.rad
 local Sin = math.sin
 local Cos = math.cos
+local pi = math.pi
 local colors ={
             ['white'] = {1,1,1},
             ['red'] = {1,0.5,0.5}, 
             ['green'] = {0.5,1,0.5},
             ['blue'] = {0.5,0.5,1}
           }
-
+--------------------------------------------------------------------------------
+-- Emit - function that emits particles
+--------------------------------------------------------------------------------
+-- Updated by: Andrew
+--------------------------------------------------------------------------------
+function emit(ex, ey, player, radiusRange, initAlpha, endAlpha, particleDuration)
+    local particle = nil
+    -- set particle circle
+    particle = display.newCircle(ex, ey, 5)
+    --set a random starting position
+    particle.iDegreeRotation = Random(0, 359)
+    --set a random speed
+    particle.speed = Random(1, 8)
+    --calculate the random radius given to the particle
+    particle.rad=msqrt(((player.imageObject.x-ex)*(player.imageObject.x-ex))+((player.imageObject.y-ey)*(player.imageObject.y-ey)))
+    --insert and place particle
+    auraGroup:insert(particle)
+    particle:toFront()
+    particle.x = ex
+    particle.y = ey
+    particle.alpha = initAlpha
+    local c = colors[player.color]
+    particle:setFillColor( c[1], c[2], c[3])
+    return particle
+end 
 
 --------------------------------------------------------------------------------
 -- Create Emitter - function that creates particle emitter
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Andrew
 --------------------------------------------------------------------------------
-function auraEmitterLib:createEmitter(radiusRange, particleDuration, initAlpha, endAlpha, inParticleImage, inParticleImageWidth, inParticleImageHeight)
+function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer, initAlpha, endAlpha, inParticleImage, inParticleImageWidth, inParticleImageHeight, particleNum)
+  auraGroup = display.newGroup()
   local customEmitter = {}
-  local particles = {}
-   
+  customEmitter.particles = {} 
+  customEmitter.particleNum = particleNum 
   customEmitter.radiusRange = radiusRange
   customEmitter.particleDuration = particleDuration
   customEmitter.initAlpha = initAlpha
@@ -47,12 +74,13 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, initAlpha, 
   customEmitter.particleImageHeight = inParticleImageHeight
   customEmitter.isactive = true
   customEmitter.particle = nil
-  for i=1, 20 do
+  --emit particles, since they will just be reused
+  for i=1, particleNum do
     local randX 
     local randY
     local randRange = false
-    local maxDist = 30
-    local minDist = 10
+    local maxDist = 40
+    local minDist = 25
     while randRange == false do
       randY =Random(currPlayer.imageObject.y - maxDist, currPlayer.imageObject.y + maxDist)
       randX =Random(currPlayer.imageObject.x - maxDist, currPlayer.imageObject.x + maxDist)
@@ -60,33 +88,17 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, initAlpha, 
         randRange = true
       end
     end
-    randRange=false
-    p=emit(levelGroup, randX, randY, currPlayer, physics)
-    particles.append(p)
+    local p=emit(randX, randY, currPlayer, radiusRange, initAlpha, endAlpha, particleDuration)
+    p.transition = transition.to(particle, {time=Random(300, 5000), alpha = 0})
+    table.insert(customEmitter.particles, p)
+    --p.isVisible = false
   end
 
-
-  
-  --------------------------------------------------------------------------------
-  -- VecFromAngleFixed - function that gets angle and velcity of particle
-  --------------------------------------------------------------------------------
-  -- Updated by: Marco
-  --------------------------------------------------------------------------------
-  function customEmitter:VecFromAngleFixed(inAngle, inVelocity)
-    local vx = Cos(Rad(inAngle+90))
-    local vy = Sin(Rad(inAngle+90))
-
-    if(inVelocity ~= nil)then
-      vx = vx * inVelocity
-      vy = vy * inVelocity
-    end
-    return vx,vy
-  end
 
   --------------------------------------------------------------------------------
   -- Activate - function that starts emitter
   --------------------------------------------------------------------------------
-  -- Updated by: Marco
+  -- Updated by: Andrew
   --------------------------------------------------------------------------------
   function customEmitter:Activate()
     self.isactive = true
@@ -95,7 +107,7 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, initAlpha, 
   --------------------------------------------------------------------------------
   -- Deactivate - function that stops emitter from emitting particles
   --------------------------------------------------------------------------------
-  -- Updated by: Marco
+  -- Updated by: Andrew
   --------------------------------------------------------------------------------
   function customEmitter:Deactivate()
     self.isactive = false
@@ -104,7 +116,7 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, initAlpha, 
   --------------------------------------------------------------------------------
   -- Set Color - function that sets color of particle
   --------------------------------------------------------------------------------
-  -- Updated by: Marco
+  -- Updated by: Andrew
   --------------------------------------------------------------------------------
   function customEmitter:setColor(red, green, blue)  
     customEmitter.colorR = red or -1
@@ -115,77 +127,63 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, initAlpha, 
   --------------------------------------------------------------------------------
   -- Destroy - destroys particle emitter
   --------------------------------------------------------------------------------
-  -- Updated by: Marco
+  -- Updated by: Andrew
   --------------------------------------------------------------------------------
-  function customEmitter:Destroy()
+  function customEmitter:destroy()
     self:Deactivate()
+    for i=1, self.particleNum do
+      if self.particles[i].transition ~= nil then
+        self.particles[i].transition.cancel()
+        self.particles[i].transition = nil
+      end
+      self.particles[i]:removeSelf()
+      self.particles[i] = nil
+    end
+    auraGroup:removeSelf()
+    auraGroup = nil
     self = nil
   end
 
-  function customEmitter:moveParticles()
-    local circleD = 320
-    local circle = display.newCircle(display.contentWidth/2,display.contentHeight/2,circleD)
-    circle:setReferencePoint(display.CenterReferencePoint)
-    local circleC = math.pi * circleD
-
-
-
+  --------------------------------------------------------------------------------
+  -- Hide Particle - hides particles when they aren't being used
+  --------------------------------------------------------------------------------
+  -- Updated by: Andrew
+  --------------------------------------------------------------------------------
+  function customEmitter:hideParticles()
+    for i=1, self.particleNum do
+      self.particles[i].isVisible = false
+    end
+  end
 
   --------------------------------------------------------------------------------
-  -- Emit - function that emits particles
+  -- Move Particle - updates particles color, alpha, and location
   --------------------------------------------------------------------------------
-  -- Updated by: Marco
+  -- Updated by: Andrew
   --------------------------------------------------------------------------------
-  function emit(inGFXGroup, ex, ey, player, physics)
-      local radrange = self.radiusRange
-      local mod_radrange = radrange * .3      
-      local na = Random(0,359)
-      local rr = Random(radrange - mod_radrange, radrange + mod_radrange)      
-      local nvx,nvy = self:VecFromAngleFixed(na, rr)
-      nvx = nvx + ex
-      nvy = nvy + ey
-      
-      local particle = nil
-      -- set particle circle
-      particle = display.newCircle(ex, ey, 5)
-      particle.x = ex
-      particle.y = ey
-      particle.alpha = self.initAlpha
-      local c = colors[player.color]
-      particle:setFillColor( c[1], c[2], c[3])
-      
-      -- move particle and destroy it once finish point is reached
-      physics.addBody(particle)
-      particle.isSensor = true
-      local distanceJoint = physics.newJoint( "distance", particle, player.field, particle.x, particle.y, player.field.x, player.field.y )
-      distanceJoint.frequency = 5
-      distanceJoint.dampingRatio = .1
-      distanceJoint.length = math.sqrt((player.field.y-particle.y)*(player.field.y-particle.y) + (player.field.y-particle.y)*(player.field.y-particle.y))
-      if (player.field.y-particle.y) >= 0 then
-        particle:applyForce( .8, 0, particle.x, particle.y )
-      else
-        particle:applyForce( -.8, 0, particle.x, particle.y )
+  function customEmitter:moveParticles(playerX, playerY, color) 
+    for i=1, self.particleNum do
+      local particle = self.particles[i]
+      particle.isVisible = true
+      particle.x, particle.y = playerX + particle.rad * Cos( particle.iDegreeRotation * pi / 180 ), playerY + particle.rad * Sin( particle.iDegreeRotation * pi / 180 )
+      particle.iDegreeRotation = particle.iDegreeRotation+particle.speed
+      local c = colors[color]
+      if particle.alpha == 0 then
+        particle.alpha = 1
+        particle.transition = transition.to(particle, {time=Random(300, 5000), alpha = 0})
       end
-      particle.name = "auraParticle"
-      particle.collType = "passThru"
-      particle.func = "auraParticleCollision"
-      local eTrans = transition.to(particle, {time = self.particleDuration, alpha = self.endAlpha, transition = easing.outQuad, onComplete=function()
-        nvx = nil
-        nvy = nil
-        nv = nil
-        na = nil
-        ex = nil
-        ey = nil
-        eTrans = nil
-        distanceJoint:removeSelf()
-        distanceJoint=nil
-        particle:removeSelf()
-        particle = nil
-      end})
-      return particle
-  end 
--- end of particleEmitter.lua
+    end
+  end
+  --------------------------------------------------------------------------------
+  -- Change radius- changes the radius of the particles for when the ball changes size
+  --------------------------------------------------------------------------------
+  -- Updated by: Andrew
+  --------------------------------------------------------------------------------
+  function customEmitter:changeRadius(addBy)
+    for i=1, self.particleNum do
+      local particle = self.particles[i]
+      particle.rad = particle.rad+addBy
+    end
+  end
   
   return customEmitter
-end
 end
