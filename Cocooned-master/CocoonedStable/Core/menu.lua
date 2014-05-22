@@ -204,9 +204,8 @@ local function buttonPressed(event)
 		gameData.resumeGame = true		
 	elseif event.target.name == "restart" then
 		clean()
-						
 		gameData.gameOptions = false
-		gameData.levelRestart = true
+		gameData.gameEnd = true
 	end
 	
 	--[[ Increase or decrease speed ]]--

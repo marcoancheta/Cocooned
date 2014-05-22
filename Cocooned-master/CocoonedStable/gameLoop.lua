@@ -500,6 +500,7 @@ local function gameLoopEvents(event)
 			print("In World Selector")
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
+				
 		-- Reset mapData to level select default
 		mapData.world = gameData.mapData.world
 		mapData.levelNum = "world"
@@ -554,6 +555,10 @@ local function gameLoopEvents(event)
 		clean(event)
 		-- Set mapData to player's gameData mapData
 		mapData = gameData.mapData
+		mapData.pane = "M"
+		print("mapData.world", mapData.world)
+		print("mapData.levelNum", mapData.levelNum)
+		print("mapData.pane", mapData.pane)
 		-- Load in map with new mapData
 		loadMap(mapData)
 		--cutSceneSystem.cutScene("1", gui)
@@ -593,16 +598,14 @@ local function gameLoopEvents(event)
 		end
 	
 		-- Clean
-		--clean(event)
-		inventory.inventoryInstance:clear()
 		-- Reset current pane to middle
-		mapData.pane = "M"
-		-- Switch off game booleans
 		gameData.ingame = 0
-		gameData.inWater = false
-		gameData.onIceberg = false
+		inventory.inventoryInstance:clear()
 		-- Start game
 		gameData.gameStart = true
+		-- Switch off game booleans
+		gameData.inWater = false
+		gameData.onIceberg = false
 		-- Switch off this loop
 		gameData.levelRestart = false
 	end
