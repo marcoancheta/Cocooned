@@ -26,9 +26,7 @@ local nine = {
 	panes = {true,false,true,true,true},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {	 {["x"]=18, ["y"]=20},
-
-				},
+	playerPos = {{["x"]=18, ["y"]=20},},
 	-- number of wisps in the level
 	wispCount = 35,
 	-- number of objects in each pane (M,D,U,R,L)

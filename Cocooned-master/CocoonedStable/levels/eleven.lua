@@ -26,9 +26,7 @@ local eleven = {
 	panes = {true,false,false,true,false},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {	 {["x"]=4, ["y"]=4},
-
-				},
+	playerPos = {{["x"]=4, ["y"]=4},},
 	-- number of wisps in the level
 	wispCount = 39,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -163,11 +161,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWisps(wisp, map, mapData, 1, 23)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
-	elseif mapData.pane == "L" then
-
-
-	elseif mapData.pane == "U" then
-
 	elseif mapData.pane == "R" then
 		-- Wisps
 		wisp[24].x, wisp[24].y = generate.tilesToPixels(5, 15)
@@ -208,8 +201,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 24, 39)
 
-
-
+	elseif mapData.pane == "L" then
+		print("You shouldn't be in here...")
+	elseif mapData.pane == "U" then
+		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
 		print("You shouldn't be in here...")
 	end
