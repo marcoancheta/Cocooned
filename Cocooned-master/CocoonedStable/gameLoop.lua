@@ -58,7 +58,6 @@ local paneTransition = require("utils.paneTransition")
 local cutSceneSystem = require("Loading.cutSceneSystem")
 -- Player inventory
 local inventory = require("Mechanics.inventoryMechanic")
-
 --Array that holds all switch wall and free icebergs
 local accelObjects = require("Objects.accelerometerObjects")
 -- Timer
@@ -130,19 +129,17 @@ local function swipeMechanics(event)
 		print("Player Swipe Positions:", "x=" .. tilesX, "y=" .. tilesY)
 	end
 
-	if gameData.allowMiniMap then
+	if gameData.allowPaneSwitch then
 		count = count + 1
 		-- save temp pane for later check
 		tempPane = mapData.pane
 
 		-- call swipe mechanic and get new Pane
-		--TODO: ask why player1 is passed in
 		touch.swipeScreen(event, mapData, miniMap, gui.front)
 		
 		-- if touch ended then change map if pane is switched
 		if "ended" == event.phase and mapData.pane ~= tempPane then
 			-- play snow transition effect
-			--TODO: does player need to be pased in?
 			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
 		end
 	end
@@ -190,10 +187,10 @@ local function controlMovement(event)
 			players[i].xGrav = physicsParam.xGrav
 			players[i].yGrav = physicsParam.yGrav
 			
-			if gameData.debugMode then
-				print(players[i].xGrav)
-				print(players[i].yGrav)
-			end
+			--[[if gameData.debugMode then
+				print("players[i].xGrav", players[i].xGrav)
+				print("players[i].yGrav", players[i].yGrav)
+			end]]--
 		end
 		
 	end
@@ -337,7 +334,7 @@ local function loadMap(mapData)
 	
 	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 		if gameData.debugMode then
-			print(mapData.levelNum)
+			print("mapData.levelNum", mapData.levelNum)
 		end
 		-- pause physics
 		physics.pause()
@@ -357,8 +354,7 @@ local function clean(event)
 	-- stop physics
 	physics.stop()
 	-- clean snow
-	snow.meltSnow()
-	
+	snow.meltSnow()	
 	-- clean out currently loaded sound files
 	sound.soundClean()	
 	-- remove all eventListeners
@@ -369,20 +365,18 @@ local function clean(event)
 	end
 
 	table.remove(players)
-	--table.remove(players)
 
-	player1:resetRune()
-	
+	player1:resetRune()	
 	inventory.inventoryInstance:clear()
+	
 	--[[
 	if linePts then
 		linePts = nil
 		linePts = {}
 	end
 	]]--
-
-
 	
+	player1:deleteAura()
 	-- destroy player instance
 	player1.imageObject:removeSelf()
 	player1.imageObject = nil
@@ -400,7 +394,6 @@ local function clean(event)
 		
 	playerSheet = nil
 
-	--TODO: move player 2 sheet into gameloop?
 	-- call objects-destroy
 	objects.destroy(mapData)
 end
@@ -504,8 +497,10 @@ local function gameLoopEvents(event)
 	--[[ START WORLD SELECTOR]]--
 	if gameData.selectWorld then
 		if gameData.debugMode then
+			print("In World Selector")
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
+				
 		-- Reset mapData to level select default
 		mapData.world = gameData.mapData.world
 		mapData.levelNum = "world"
@@ -529,8 +524,10 @@ local function gameLoopEvents(event)
 		clean(event)
 		
 		if gameData.debugMode then
+			print("In Level Selector")
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
+		
 		-- Reset mapData to level select default
 		mapData.world = gameData.mapData.world
 		mapData.levelNum = "LS"
@@ -554,10 +551,11 @@ local function gameLoopEvents(event)
 		if gameData.debugMode then
 			print("start game")
 		end
-		
+			
 		clean(event)
 		-- Set mapData to player's gameData mapData
 		mapData = gameData.mapData
+		mapData.pane = "M"
 		-- Load in map with new mapData
 		loadMap(mapData)
 		--cutSceneSystem.cutScene("1", gui)
@@ -573,6 +571,10 @@ local function gameLoopEvents(event)
 	-------------------------
 	--[[ PRE-GAME LOADER ]]--
 	if gameData.preGame == false then
+		if gameData.debugMode then
+			print("In Pre-game")
+		end
+		
 		-- Switch to in game loop
 		gameData.ingame = 1
 		snow.new()
@@ -588,17 +590,19 @@ local function gameLoopEvents(event)
 	-----------------------
 	--[[ Restart level ]]--
 	if gameData.levelRestart == true then
+		if gameData.debugMode then
+			print("Restarting Level...")
+		end
+	
 		-- Clean
-		--clean(event)
-		inventory.inventoryInstance:clear()
 		-- Reset current pane to middle
-		mapData.pane = "M"
-		-- Switch off game booleans
 		gameData.ingame = 0
-		gameData.inWater = false
-		gameData.onIceberg = false
+		inventory.inventoryInstance:clear()
 		-- Start game
 		gameData.gameStart = true
+		-- Switch off game booleans
+		gameData.inWater = false
+		gameData.onIceberg = false
 		-- Switch off this loop
 		gameData.levelRestart = false
 	end
@@ -606,6 +610,10 @@ local function gameLoopEvents(event)
 	------------------------
 	--[[ LEVEL COMPLETE ]]--
 	if gameData.levelComplete then
+		if gameData.debugMode then
+			print("Level completed...")
+		end
+	
 		-- clean
 		--clean(event)
 		gameData.ingame = 0
@@ -613,7 +621,12 @@ local function gameLoopEvents(event)
 		gameTimer.pauseTimer()
 		physics.pause()
 		-- apply booleans
-		gameData.gameScore = true
+		gameData.allowPaneSwitch = false
+		gameData.allowMiniMap = false
+		gameData.gameScore = true	
+		if gameData.debugMode then
+			print("Going to game score...")
+		end
 		-- Switch off this loop
 		gameData.levelComplete = false
 	end
@@ -621,6 +634,10 @@ local function gameLoopEvents(event)
 	--------------------
 	--[[ GAME SCORE ]]--
 	if gameData.gameScore then
+		if gameData.debugMode then
+			print("Game score...")
+		end
+	
 		win.init(gui)
 		win.showScore(mapData, gui)
 		--loadingScreen.deleteLoading()
@@ -637,6 +654,10 @@ local function gameLoopEvents(event)
 	----------------------
 	--[[ END GAMEPLAY ]]--
 	if gameData.gameEnd then
+		if gameData.debugMode then
+			print("Ending game...")
+		end
+	
 		--sound.soundClean()
 		-- Switch off game booleans
 		if gameData.ingame == -1 then
@@ -666,16 +687,9 @@ local function gameLoopEvents(event)
 	-------------------
 	--[[ MAIN MENU ]]--
 	if gameData.menuOn then		
-		--[[
-		for i=1, #highScore.scoreTable do
-			if highScore.scoreTable[i] then
-				for j=1, #highScore.scoreTable[i] do
-					print("highScore.scoreTable["..i.."]", highScore.scoreTable[i][j])
-				end
-			end
-			print("LOADED: ", highScore.scoreTable[i])
-		end
-		]]--
+		if gameData.debugMode then
+			print("Main menu on...")
+		end		
 		
 		-- Go to main menu
 		menu.clean()
@@ -697,6 +711,10 @@ local function gameLoopEvents(event)
 	----------------------
 	--[[ OPTIONS MENU ]]--	
 	if gameData.inOptions then
+		if gameData.debugMode then
+			print("In options menu...")
+		end
+	
 		-- Clean up snow
 		snow.meltSnow()
 		-- Go to options menu
@@ -711,6 +729,9 @@ local function gameLoopEvents(event)
 	-------------------------
 	--[[ IN-GAME OPTIONS ]]--
 	if gameData.inGameOptions then
+		if gameData.debugMode then
+			print("In game options menu...")
+		end
 		physics.pause()
 		menu.cleanInGameOptions()
 		-- Pause gameTimer
@@ -732,14 +753,21 @@ local function gameLoopEvents(event)
 	---------------------
 	--[[ RESUME GAME ]]--		
 	if gameData.resumeGame then
-		-- Restart physics
-		physics.start()
+		if gameData.debugMode then
+			print("Resume game...")
+			print("gameTimer.loopLoc", gameTimer.loopLoc)	
+		end
+				
+		if gameTimer.loopLoc == 0 or gameTimer.loopLoc == 2 then
+			-- Restart physics
+			physics.start()		
+			-- Add object listeners
+			addGameLoopListeners(gui)
+		end
 		-- Create in game options button
 		menu.ingameOptionsbutton(event, gui)
 		-- Resume gameTimer
-		gameTimer.resumeTimer()			
-		-- Add object listeners
-		addGameLoopListeners(gui)
+		gameTimer.resumeTimer()	
 		-- Switch off this loop
 		gameData.resumeGame = false
 	end

@@ -31,9 +31,7 @@ local world = {
 	wallCount = 0,
 	auraWallCount = 0,
 	playerCount = 1,
-	playerPos = {	{["x"]=21,["y"]=15},
-
-				},
+	playerPos = {{["x"]=21,["y"]=15}},
 	
 	-- mapData clone
 	-- world.levelNum || world.pane || world.version
@@ -82,12 +80,12 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		end
 
 		-- Place World Portals.
-		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(17, 12) --(11, 15)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(11, 15) --(17, 12)
 		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(20.5, 11)
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(31, 15)
+		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(31, 15)
 		
 		-- Corona Simulator Accel Coordinates:
-		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14, 12)	
+		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(14, 12)	
 		
 		-- Play animation for all world portals
 		for i=1, world["world"]["exitPortal"] do

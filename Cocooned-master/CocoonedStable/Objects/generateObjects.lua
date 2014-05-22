@@ -24,7 +24,7 @@ local accelObjects = require("Objects.accelerometerObjects")
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
-local function gWisps(wisp, map, mapData, startIndex, endIndex)
+local function gWisps(wisp, map, mapData, startIndex, endIndex, wispCount)
 	
 	for i=startIndex, endIndex do
 		-- set properties of wisps
@@ -35,9 +35,10 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex)
 	   	wisp[i].name = "wisp" .. i
 	   	wisp[i]:toFront()
 
-		for j=1, i do
+		for j=1, wispCount do
 			-- check if wisp(s) exist inside player objects inventory
 			if inventory.inventoryInstance.items[j] ~= wisp[i].name then
+				--print("i: " ..i.. "j: " ..j)
 				-- insert wisp into map display group
 				if mapData.levelNum ~= "LS" then
 					map.front:insert(wisp[i])

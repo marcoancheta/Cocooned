@@ -154,7 +154,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[2].x, rune[2].y = generate.tilesToPixels(3, 21)			
 		rune[2].isVisible = true
 
-		generate.gWisps(wisp, map, mapData, 1, 17)
+		generate.gWisps(wisp, map, mapData, 1, 17, ten.wispCount)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
@@ -174,10 +174,12 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[2].x, rune[2].y = generate.tilesToPixels(30, 15)			
 		rune[2].isVisible = true
 
-		generate.gWisps(wisp, map, mapData, 18, 29)
+		generate.gWisps(wisp, map, mapData, 18, 29, ten.wispCount)
 
 	elseif mapData.pane == "U" then
-
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	elseif mapData.pane == "R" then
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(15, 15)
@@ -199,9 +201,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		-- Exit portal
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(19, 12)
+		generate.gWater(map, mapData)
+
 
 	elseif mapData.pane == "D" then
-		print("You shouldn't be in here...")
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	end
 
 	-- generates all objects in pane when locations are set

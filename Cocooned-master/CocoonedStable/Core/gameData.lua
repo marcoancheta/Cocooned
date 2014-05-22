@@ -14,6 +14,7 @@ local gameData = {
 	debugMode = false,
 	
 	-- Game Loop Booleans
+	preGame = nil,
 	gameStart = false,
 	gameScore = false,
 	gameEnd = false,
@@ -47,7 +48,6 @@ local gameData = {
 	levelComplete = false,
 	onIceberg = false,
 	gRune = false,
-	preGame = nil,
 	
 	locked = false,
 	

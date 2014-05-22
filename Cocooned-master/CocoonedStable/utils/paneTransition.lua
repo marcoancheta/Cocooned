@@ -17,6 +17,7 @@ local collisionDetection = require("Mechanics.collisionDetection")
 local generate = require("Objects.generateObjects")
 local snow = require("utils.snow")
 local animation = require("Core.animation")
+local gameData = require("Core.gameData")
 
 --------------------------------------------------------------------------------
 -- Variables
@@ -50,6 +51,7 @@ local function movePanes(event)
 	end
 	for i = params.gui.front.numChildren, 1, -1 do
 		if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
+			print("params.gui.front[i]", params.gui.front[i].name)
 			params.gui.front[i]:removeSelf()
 		end
 	end
@@ -67,7 +69,7 @@ local function movePanes(event)
 
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
-	collisionDetection.changeCollision(params.player1, params.mapData, params.map)
+	collisionDetection.changeCollision(params.player1, params.mapData, params.gui, params.map)
 end
 
 --------------------------------------------------------------------------------
@@ -77,9 +79,14 @@ end
 --------------------------------------------------------------------------------
 local function endTransition(event)
 	-- set sequence to stop and remove it
-	transPic:setSequence("stop")
-	transPic:removeSelf()
-	transPic = nil
+	if transPic then
+		transPic:setSequence("stop")
+		transPic:removeSelf()
+		transPic = nil
+	end
+	
+	gameData.allowTouch = true
+	gameData.allowPaneSwitch = true
 end
 
 --------------------------------------------------------------------------------
@@ -88,6 +95,15 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function playTransition(tempPane, miniMap, mapData, gui, player1)
+	gameData.allowPaneSwitch = false
+	gameData.allowTouch = false
+	
+	if transPic then
+		transPic:setSequence("stop")
+		transPic:removeSelf()
+		transPic = nil
+	end
+	
 	print("playing transition")
 	-- play pane switch transition and move to front
 	transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.spriteOptions.paneSwitch)

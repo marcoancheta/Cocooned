@@ -26,8 +26,7 @@ local four = {
 	panes = {true,false,false,false,true},
 	timer = 180,
 	playerCount = 1,
-	playerPos = {	{["x"]=2, ["y"]=16},
-				},
+	playerPos = {{["x"]=21, ["y"]=22}},
 	-- number of wisps in the level
 	wispCount = 23,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -45,7 +44,7 @@ local four = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1,
+		["exitPortal"] = 0,
 		["enemy"] = 0,
 		["fixedIceberg"] = 1
 	},
@@ -109,7 +108,7 @@ local four = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0, 
+		["exitPortal"] = 1, 
 		["enemy"] = 0,
 		["fixedIceberg"] = 3
 	}
@@ -148,7 +147,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[15].x, wisp[15].y = generate.tilesToPixels(10, 8)
 		wisp[16].x, wisp[16].y = generate.tilesToPixels(10, 6)
 
-
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(25, 17)
 		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(25, 10)
 		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(25, 10)
@@ -161,8 +159,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg1"].movement = "fixed" 
 		objects["fixedIceberg2"].movement = "fixed" 
 		objects["fixedIceberg3"].movement = "fixed" 
+		
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14.5, 3)
 				
-		generate.gWisps(wisp, map, mapData, 1, 16)
+		generate.gWisps(wisp, map, mapData, 1, 16, four.wispCount)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "M" then
@@ -174,7 +175,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[22].x, wisp[22].y = generate.tilesToPixels(10, 12)
 		wisp[23].x, wisp[23].y = generate.tilesToPixels(7, 12)
 
-		rune[2].x, rune[2].y = generate.tilesToPixels(2, 12)			
+		rune[2].x, rune[2].y = generate.tilesToPixels(12, 1)			
 		rune[2].isVisible = true
 
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(6, 8)
@@ -185,11 +186,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["blueAura1"]:play()
 		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(13, 1)
 
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(2, 10)
 		generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 17, 23)
+		generate.gWisps(wisp, map, mapData, 17, 23, four.wispCount)
 
 	elseif mapData.pane == "U" then
 		if gameData.debugMode then

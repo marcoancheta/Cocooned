@@ -7,7 +7,6 @@ local sound = require("sound")
 local gameData = require("Core.gameData")
 local particle_lib = require("utils.particleEmitter")
 -- variable for miniMap mechanic for previous tap time
---local particle_lib = require("Mechanics.auraEmitter")
 local Random = math.random
 --------------------------------------------------------------------------------
 -- Variables
@@ -25,13 +24,6 @@ local range = 50
 local thickness = 100
 
 local snowEmitter = emitterLib:createEmitter(range, thickness, duration, 1, 0, nil, nil, nil)
- 
-
---local duration = 1000
---local density = 3
---local range = 12
---local auraEmitter = auraEmitterLib:createEmitter(range, duration, 1, 0, nil, nil, nil)
-local levelGroup = display.newGroup()
 
 --------------------------------------------------------------------------------
 -- Move and Animate - function that moves player object and animates it
@@ -41,6 +33,7 @@ local levelGroup = display.newGroup()
 --------------------------------------------------------------------------------
 local function moveAndAnimate(event, currPlayer, gui) --, physics
 	--print(currPlayer)
+	
 	local vx, vy = currPlayer.imageObject:getLinearVelocity()
 	local speed = math.sqrt((vy*vy)+(vx*vx))
 	
@@ -119,18 +112,15 @@ local function moveAndAnimate(event, currPlayer, gui) --, physics
 	else
 		currPlayer.imageObject:pause()
 	end
-	-- if player has a ball aura, emit aura particles
-	if currPlayer.color ~= "white" then
-		--auraEmitter:moveParticles()		
-	end
+	-- if player has an aura, show aura particles else hide it
+	currPlayer:updateAura()
+
 	--rotate player based on velocity if player is moving, else rotate based on accelerometer
 	if (vx > 10 or vy > 10) and currPlayer.movement == "accel" then
 		currPlayer:rotate(vx, vy)
 	elseif(currPlayer.xGrav ~= 0 or currPlayer.yGrav ~= 0) then
 		currPlayer:rotate(currPlayer.xGrav, currPlayer.yGrav)
 	end
-	--keep field updated to players location
-	--currPlayer.field.x = currPlayer.imageObject.x; currPlayer.field.y = currPlayer.imageObject.y
 end
 
 --------------------------------------------------------------------------------
