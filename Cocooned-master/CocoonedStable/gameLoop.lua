@@ -556,9 +556,6 @@ local function gameLoopEvents(event)
 		-- Set mapData to player's gameData mapData
 		mapData = gameData.mapData
 		mapData.pane = "M"
-		print("mapData.world", mapData.world)
-		print("mapData.levelNum", mapData.levelNum)
-		print("mapData.pane", mapData.pane)
 		-- Load in map with new mapData
 		loadMap(mapData)
 		--cutSceneSystem.cutScene("1", gui)
@@ -756,15 +753,19 @@ local function gameLoopEvents(event)
 	if gameData.resumeGame then
 		if gameData.debugMode then
 			print("Resume game...")
+			print("gameTimer.loopLoc", gameTimer.loopLoc)	
 		end
-		-- Restart physics
-		physics.start()
+				
+		if gameTimer.loopLoc == 0 or gameTimer.loopLoc == 2 then
+			-- Restart physics
+			physics.start()		
+			-- Add object listeners
+			addGameLoopListeners(gui)
+		end
 		-- Create in game options button
 		menu.ingameOptionsbutton(event, gui)
 		-- Resume gameTimer
-		gameTimer.resumeTimer()			
-		-- Add object listeners
-		addGameLoopListeners(gui)
+		gameTimer.resumeTimer()	
 		-- Switch off this loop
 		gameData.resumeGame = false
 	end

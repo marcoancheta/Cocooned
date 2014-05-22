@@ -10,7 +10,8 @@ local animation = require("Core.animation")
 --------------------------------------------------------------------------------
 -- Variables - variables for loading panes
 --------------------------------------------------------------------------------
-local gameTimer = {}
+local gameTimer = {
+		loopLoc = 0, }
 
 local overlay
 local theTimer
@@ -125,6 +126,8 @@ local function endGame(gui)
 	gui.front:insert(overlay)
 	gui.front:insert(wolfAnim)
 	gui.front:insert(counterText)
+	-- loopLoc = 3 = endGame timer
+	gameTimer.loopLoc = 3
 end
 
 local i = 0
@@ -189,6 +192,8 @@ local function inGame(gui, mapData)
 	theTimer.params = {guiParam = gui, counterParam = counterText}
 	-- Insert text object to gui.front
 	gui.front:insert(counterText)
+	-- loopLoc = 2 = inGame timer
+	gameTimer.loopLoc = 2
 end
 
 --------------------------------------------------------------------------------
@@ -205,7 +210,7 @@ local function counterFunc(event)
 		overlay.alpha = overlay.alpha - 0.05
 	elseif counter == 0 then
 		-- Change 0 to "START"
-		params.counterParam.text = "START!"
+		params.counterParam.text = "START"
 		params.guiParam.middle.alpha = 1
 		params.guiParam.back.alpha = 1
 		overlay.alpha = overlay.alpha - 0.05
@@ -253,6 +258,8 @@ local function preGame(gui, mapData)
 	overlay.alpha = 0.8
 	gui.front:insert(overlay)
 	gui.front:insert(counterText)
+	-- loopLoc = 1 = preGame timer
+	gameTimer.loopLoc = 1
 end
 
 gameTimer.preGame = preGame
