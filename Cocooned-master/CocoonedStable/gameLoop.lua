@@ -621,6 +621,8 @@ local function gameLoopEvents(event)
 		gameTimer.pauseTimer()
 		physics.pause()
 		-- apply booleans
+		gameData.allowPaneSwitch = false
+		gameData.allowMiniMap = false
 		gameData.gameScore = true	
 		if gameData.debugMode then
 			print("Going to game score...")
