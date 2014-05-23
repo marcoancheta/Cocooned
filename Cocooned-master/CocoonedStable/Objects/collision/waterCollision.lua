@@ -51,8 +51,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		player.yGrav = 0
 
 		-- reset player's aura and movement
-		local color = "white"	
-		player:changeColor(color, gui)
+		player:changeColor("white")
 		--player.movement ="inWater"
 		gameData.inWater = true
 		player.imageObject.linearDamping = 8

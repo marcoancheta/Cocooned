@@ -21,15 +21,15 @@ local complete = function()	gameData.levelComplete = true; end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map, gui)		
+local function collide(collideObject, player, event, mapData, map, gui)
+	event.contact.isEnabled = false
+	event.other.isSensor = true
+	
+	if gameData.gameTime > 0 then
+		print("Win gameData.gameTime", gameData.gameTime)
+	end
+	
 	if collideObject.sequence == "move" then
-		event.contact.isEnabled = false
-		event.other.isSensor = true
-		
-		if gameData.gameTime > 0 then
-			print("Win gameData.gameTime", gameData.gameTime)
-		end
-		
 		player.curse = 0
 		player.xGrav = 0
 		player.yGrav = 0

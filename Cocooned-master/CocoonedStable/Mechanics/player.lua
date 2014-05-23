@@ -21,7 +21,6 @@ local particle_lib = require("Mechanics.auraEmitter")
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
 local sound = require("sound")
-local aura
 
 --------------------------------------------------------------------------------
 -- Player Instance - player instance table that holds all properties
@@ -184,20 +183,18 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
-function playerInstance:changeColor(color, gui)
+function playerInstance:changeColor(color)
 	local colors ={
 		['white'] = {1,1,1},
-		['red'] = {238*0.0039216,81*0.0039216,88*0.0039216}, 
-        ['green'] = {71*0.0039216,224*0.0039216,89*0.0039216},
-        ['blue'] = {57*0.0039216,197*0.0039216,202*0.0039216}
+		['red'] = {1,0.5,0.5}, 
+		['green'] = {0.5,1,0.5},
+		['blue'] = {0.5,0.5,1}
 	}
-	
     self.color = color
     c = colors[color]
     self.imageObject:setFillColor(c[1],c[2],c[3])
-    
-	if auraEmitter == nil then
-    	auraEmitter = particle_lib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
+    if auraEmitter == nil then
+    	auraEmitter=auraEmitterLib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20)
     end
 end
 
@@ -223,8 +220,8 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:deleteAura()
 	if auraEmitter ~= nil then
-		auraEmitter:destroy()
-		auraEmitter=nil
+			auraEmitter:destroy()
+			auraEmitter=nil
 	end
 end
 
