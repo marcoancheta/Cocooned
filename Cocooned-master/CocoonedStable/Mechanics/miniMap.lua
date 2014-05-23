@@ -215,10 +215,10 @@ local function moveMiniMap(miniMap, mapData, gui, event)
 		end
 	elseif event.x < 920 and event.x > 520 then
 		if gui.front.panes[2] == true and event.y < 552  then
-			miniMap[2].y = 672
+			miniMap[2].y = 192
 			miniMap[2].x = 720
 		elseif gui.front.panes[3] == true and event.y> 312 then
-			miniMap[2].y = 192
+			miniMap[2].y = 672
 			miniMap[2].x = 720
 		end
 	end
