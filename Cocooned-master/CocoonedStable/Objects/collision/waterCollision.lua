@@ -30,11 +30,11 @@ end
 -- Updated by: Andrew moved event.contact.isenabled to precollision
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	--event.contact.isEnabled = true
-	
 	-- If player is not on top of iceberg
 	if gameData.onIceberg == false then
-		gameData.allowPaneSwitch = false
+		collideObject.isSensor = true
+		print("PLAYER NAME", player.name)
+
 		-- play sound
 		sound.stopChannel(1)
 	    sound.playSound(sound.soundEffects[4])
@@ -46,16 +46,17 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		--splashAnim:scale(1, 3)
 		splashAnim:setSequence("move")
 		splashAnim:play()
+		
 		player.curse = 0
 		player.xGrav = 0
 		player.yGrav = 0
-
-		-- reset player's aura and movement
+		
 		local color = "white"	
 		player:changeColor(color, gui)
+		
 		--player.movement ="inWater"
 		gameData.inWater = true
-		player.imageObject.linearDamping = 8
+		player.imageObject.linearDamping = 3
 		-- Create timer to remove splashAnimation
 		local timer = timer.performWithDelay(600, clean)
 		timer.params = {splashParams = splashAnim}

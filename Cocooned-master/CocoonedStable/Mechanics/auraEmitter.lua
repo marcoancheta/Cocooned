@@ -115,7 +115,7 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer,
 	-- Updated by: Andrew
 	--------------------------------------------------------------------------------
 	function customEmitter:Deactivate()
-		self.isactive = creat
+		self.isactive = false
 	end
   
 	--------------------------------------------------------------------------------
