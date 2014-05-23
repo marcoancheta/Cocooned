@@ -23,7 +23,7 @@ local generate = require("Objects.generateObjects")
 local thirteen = { 
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
-	panes = {true,true,true,true,true},
+	panes = {true,false,true,true,true},
 	timer = 300,
 	playerCount = 1,
 	playerPos = {	 {["x"]=20, ["y"]=15},
@@ -37,7 +37,7 @@ local thirteen = {
 	["M"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
-		["greenAura"] = 0,
+		["greenAura"] = 4,
 		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
@@ -85,10 +85,10 @@ local thirteen = {
 	["R"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
-		["greenAura"] = 0,
+		["greenAura"] = 1,
 		["wolf"] = 0,
-		["fish1"] = 0,
-		["fish2"] = 0,
+		["fish1"] = 2,
+		["fish2"] = 1,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -101,7 +101,7 @@ local thirteen = {
 	["L"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
-		["greenAura"] = 0,
+		["greenAura"] = 2,
 		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
@@ -135,21 +135,40 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Wisps
 		--wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 17)
 
- 		-- Runes
- 		rune[2].x, rune[2].y = generate.tilesToPixels(2, 21)			
-		rune[2].isVisible = true
+		-- Auras
+		objects["greenAura1"]:setSequence("move")
+ 		objects["greenAura1"]:play()
+ 		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(3, 20)
+
+ 		objects["greenAura2"]:setSequence("move")
+ 		objects["greenAura2"]:play()
+ 		objects["greenAura2"].x, objects["greenAura2"].y = generate.tilesToPixels(37, 20)
+
+ 		objects["greenAura3"]:setSequence("move")
+ 		objects["greenAura3"]:play()
+ 		objects["greenAura3"].x, objects["greenAura3"].y = generate.tilesToPixels(36, 2)
 
 		-- Exit portal
  		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(2, 11)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 2)
 				
 		--generate.gWisps(wisp, map, mapData, 1, 25)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		-- Runes
- 		rune[2].x, rune[2].y = generate.tilesToPixels(2, 2)			
+ 		rune[2].x, rune[2].y = generate.tilesToPixels(4, 1)			
 		rune[2].isVisible = true
+
+		-- Auras
+		objects["greenAura1"]:setSequence("move")
+ 		objects["greenAura1"]:play()
+ 		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(2, 20)
+
+ 		-- Auras
+		objects["greenAura2"]:setSequence("move")
+ 		objects["greenAura2"]:play()
+ 		objects["greenAura2"].x, objects["greenAura2"].y = generate.tilesToPixels(8, 3)
 
 	elseif mapData.pane == "U" then
 		-- Runes
@@ -165,7 +184,29 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["redAura1"].x, objects["redAura1"].y = generate.tilesToPixels(24, 10)
 
 	elseif mapData.pane == "R" then
+		-- Runes
+ 		rune[2].x, rune[2].y = generate.tilesToPixels(1, 12)			
+		rune[2].isVisible = true
 
+		-- Fish 
+		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(12, 4)
+ 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(12, 18)
+ 		objects["fish11"].time = 675
+
+ 		-- Fish 
+		objects["fish21"].x, objects["fish21"].y = generate.tilesToPixels(20, 17)
+ 		objects["fish21"].eX, objects["fish21"].eY = generate.tilesToPixels(20, 4)
+ 		objects["fish21"].time = 675
+
+ 		-- Fish 
+		objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(29, 3)
+ 		objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(29, 17)
+ 		objects["fish12"].time = 675
+
+		-- Auras
+		objects["greenAura1"]:setSequence("move")
+ 		objects["greenAura1"]:play()
+ 		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(2, 2)
 	elseif mapData.pane == "D" then
 		objects["blueAura1"]:setSequence("move")
  		objects["blueAura1"]:play()
