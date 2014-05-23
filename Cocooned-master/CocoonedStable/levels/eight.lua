@@ -163,8 +163,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish22"].time = 675
 
  		-- Runes
- 		rune[2].x, rune[2].y = generate.tilesToPixels(37, 3)			
-		rune[2].isVisible = true
+ 		rune[3].x, rune[3].y = generate.tilesToPixels(37, 3)			
+		rune[3].isVisible = true
 
 		rune[4].x, rune[4].y = generate.tilesToPixels(37, 21)			
 		rune[4].isVisible = true
