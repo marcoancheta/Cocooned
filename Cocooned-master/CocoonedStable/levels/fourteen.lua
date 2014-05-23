@@ -148,7 +148,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		-- Runes
- 		rune[2].x, rune[2].y = generate.tilesToPixels(2, 21)			
+ 		rune[2].x, rune[2].y = generate.tilesToPixels(2, 2)			
 		rune[2].isVisible = true
 
 	elseif mapData.pane == "U" then
