@@ -28,23 +28,14 @@ local function destroyGoals()
 			display.remove(textObject[i])
 		end
 	end
-		
-	--[[for i=1, #rune do
-		display.remove(rune[i])
-	end
-	]]--
-	
 	if play then
 		play:removeSelf()
-		play = nil
-		
+		play = nil		
 	end
 	if cancel then
 		cancel:removeSelf()
 		cancel = nil
 	end
-	
-	--rune = nil;
 	textObject = nil
 end
 
@@ -113,26 +104,14 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function drawGoals(gui, player)
-	destroyGoals()
 	-- Reinitialize arrays
 	textObject = {}
-	--rune = {}
 
 	print("player.name", player.name)
 	playerTemp = player
 
 	-- Goal text displayer
 	local text = "Level: "
-	-- Load rune file locations
-	--[[
-	local runeLoc = {
-		[1] = "mapdata/art/runes/blueRune.png",
-		[2] = "mapdata/art/runes/greenRune.png",
-		[3] = "mapdata/art/runes/pinkRune.png",
-		[4] = "mapdata/art/runes/purpleRune.png",
-		[5] = "mapdata/art/runes/yellowRune.png"
-	}
-	]]--
 	
 	-- create outer text box rectangle
 	textObject[1] = display.newRect(740, 52, 1500, 125)
@@ -165,23 +144,6 @@ local function drawGoals(gui, player)
 	gui.front:insert(textObject[2])
 	gui.front:insert(play)
 	gui.front:insert(cancel)
-	
-	-- Load runes
-	-- Initial rune x-coordinate
-	--[[
-	local xCoord = textObject[2].x + 280
-	for i=1, #runeLoc do
-		rune[i] = display.newImage(runeLoc[i])
-		rune[i].x = xCoord + 50
-		rune[i].y = 90
-		xCoord = xCoord + 50
-		
-		-- Hide runes (visually)
-		rune[i].isVisible = false
-		-- Insert to display group
-		gui.front:insert(rune[i])
-	end
-	]]--
 end
 
 --------------------------------------------------------------------------------
@@ -203,37 +165,10 @@ local function findGoals(mapData, gui)
 		print(tempData)
 		textObject[2].text = levelNames[tempData] --" | Time:"
 	end
-	
-	
-	--[[
-	if tempData == "1" then
-		--runeAmount = 1
-		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
-	elseif tempData == "2" then
-		--runeAmount = 3
-		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
-	elseif tempData == "3" then
-		--runeAmount = 1
-		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
-	elseif tempData == "4" then
-		--runeAmount = 1
-		textObject[2].text = "Level: " .. tempData .. ""--" | Time:"
-	end
-	]]--
-	--[[
-	if rune then
-		for i=1, #rune do
-			rune[i].isVisible = false
-		end
-		if runeAmount then
-			rune[runeAmount].isVisible = true
-		end
-	end
-	]]--
 end
 
 local goals = {
--- Pass into globals
+	-- Pass into globals
 	drawGoals = drawGoals,
 	findGoals = findGoals,
 	destroyGoals = destroyGoals,

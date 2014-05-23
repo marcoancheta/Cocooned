@@ -12,7 +12,7 @@
 local gameData = require("Core.gameData")
 
 local sound = {
-	backgroundMusic = nil,
+	backgroundMusic = {},
 	soundEffects = {},
 }
 local name
@@ -34,7 +34,7 @@ audio.setVolume(0.5, {channel = 3} )
 local function loadMenuSounds()
 	-- BGM
 	-- Menu Music 
-	sound.backgroundMusic = audio.loadStream("sounds/music/Soliloquy.mp3") -- or FallOfArcana.mp3
+	sound.backgroundMusic[1] = audio.loadStream("sounds/music/Soliloquy.mp3") -- or FallOfArcana.mp3
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	
@@ -42,15 +42,14 @@ local function loadMenuSounds()
 end
 
 local function loadGameSounds()
+	print("LOADED SOUNDS");print("LOADED SOUNDS");print("LOADED SOUNDS");print("LOADED SOUNDS")
 	-- BGM
 	-- World 1 music 
-	sound.backgroundMusic = audio.loadStream("sounds/music/Soliloquy.mp3")
-
+	sound.backgroundMusic[1] = audio.loadStream("sounds/music/FallOfArcana.mp3")
 	-- World 2 music
-	-- sound.backgroundMusic = audio.loadStream("sounds/music/ArtemisMenu.mp3")
-
+	sound.backgroundMusic[2] = audio.loadStream("sounds/music/ArtemisMenu.mp3")
 	-- World 3 music
-	-- sound.backgroundMusic = audio.loadStream("sounds/music/Spiritwatcher.mp3")
+	sound.backgroundMusic[3] = audio.loadStream("sounds/music/Spiritwatcher.mp3")
 
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
@@ -71,7 +70,7 @@ local function loadGameSounds()
 	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
 	--sound.soundEffects[9] = audio.loadSound("sounds/ice_cracking.wav")
 	
-	return soundEffects
+	return backgroundMusic, soundEffects
 end
 
 --------------------------------------------------------------------------------
@@ -174,15 +173,19 @@ local function soundClean()
 		audio.stop()
 	end	
 	
-	for i=1, #sound.soundEffects do		
-		audio.dispose(sound.soundEffects[i])
-		sound.soundEffects[i] = nil
-		--print(sound.soundEffects[i])
+	if sound.soundEffects then
+		for i=1, #sound.soundEffects do		
+			audio.dispose(sound.soundEffects[i])
+			sound.soundEffects[i] = nil
+			--print(sound.soundEffects[i])
+		end
 	end
 	
 	if sound.backgroundMusic then
-		audio.dispose(sound.backgroundMusic)		
-		sound.backgroundMusic = nil
+		for i=1, #sound.backgroundMusic do		
+			audio.dispose(sound.backgroundMusic[i])		
+			sound.backgroundMusic[i] = nil
+		end
 	end
 end
 --------------------------------------------------------------------------------

@@ -166,6 +166,7 @@ local function buttonPressed(event)
 		print("Back to Main Menu")	
 		-- clean out
 		clean()		
+		sound.soundClean()
 		-- gameData.inWorldSelector||inLevelSelector||ingame
 		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
 		if gameData.inWorldSelector == -1 then
@@ -231,7 +232,7 @@ local function mainMenu(event)
 	if audio.isChannelPlaying(3) == false then
 		print(audio.isChannelPlaying(3))
 		sound.loadMenuSounds()
-		sound.playBGM(sound.backgroundMusic)
+		sound.playBGM(sound.backgroundMusic[1])
 	end
 			
 	-- Create new menu display group

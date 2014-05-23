@@ -274,9 +274,6 @@ end
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
 	snow.meltSnow()
-
-	sound.stopChannel(3)
-	sound.loadGameSounds()
 	
 	-- Start physics
 	physics.start()
@@ -328,9 +325,6 @@ local function loadMap(mapData)
 
 	-- Create in game options button
 	menu.ingameOptionsbutton(event, gui)
-
-	sound.stop()
-	sound.playBGM(sound.backgroundMusic)
 	
 	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 		if gameData.debugMode then
@@ -354,9 +348,7 @@ local function clean(event)
 	-- stop physics
 	physics.stop()
 	-- clean snow
-	snow.meltSnow()	
-	-- clean out currently loaded sound files
-	sound.soundClean()	
+	snow.meltSnow()		
 	-- remove all eventListeners
 	removeGameLoopListeners(gui)
 	-- clear collision detections
@@ -686,7 +678,7 @@ local function gameLoopEvents(event)
 	
 	-------------------
 	--[[ MAIN MENU ]]--
-	if gameData.menuOn then		
+	if gameData.menuOn then
 		if gameData.debugMode then
 			print("Main menu on...")
 		end		
