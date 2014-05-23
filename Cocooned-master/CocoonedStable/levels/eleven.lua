@@ -26,9 +26,7 @@ local eleven = {
 	panes = {true,false,false,true,false},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {	 {["x"]=4, ["y"]=4},
-
-				},
+	playerPos = {{["x"]=4, ["y"]=4},},
 	-- number of wisps in the level
 	wispCount = 39,
 	-- number of objects in each pane (M,D,U,R,L)

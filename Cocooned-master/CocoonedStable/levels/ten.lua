@@ -26,7 +26,7 @@ local ten = {
 	panes = {true,true,false,true,true},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {{["x"]=4, ["y"]=4},},
+	playerPos = {{["x"]=10, ["y"]=4},},
 	-- number of wisps in the level
 	wispCount = 29,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -78,7 +78,7 @@ local ten = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 2
+		["fixedIceberg"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -153,8 +153,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[2].isVisible = true
 
 		generate.gWisps(wisp, map, mapData, 1, 17, ten.wispCount)
-		--generate.gAuraWalls(map, mapData, "blueWall")
-		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		wisp[18].x, wisp[18].y = generate.tilesToPixels(3, 6)
 		wisp[19].x, wisp[19].y = generate.tilesToPixels(4, 5)
@@ -169,15 +167,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[28].x, wisp[28].y = generate.tilesToPixels(16, 21)
 		wisp[29].x, wisp[29].y = generate.tilesToPixels(15, 19)
 
-		rune[2].x, rune[2].y = generate.tilesToPixels(30, 15)			
-		rune[2].isVisible = true
-
 		generate.gWisps(wisp, map, mapData, 18, 29, ten.wispCount)
-
 	elseif mapData.pane == "U" then
-		if gameData.debugMode then
-			print("You shouldn't be in here...")
-		end
+		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(15, 15)
@@ -200,8 +192,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(19, 12)
 		generate.gWater(map, mapData)
-
-
 	elseif mapData.pane == "D" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
