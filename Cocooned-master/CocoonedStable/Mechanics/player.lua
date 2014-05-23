@@ -138,7 +138,7 @@ local function changeBodyType(event)
 	local params = event.source.params
 	for check = 1, params.param1.front.numChildren do
 		local currObject = params.param1.front[check]
-		if  string.sub(currObject.name,1,10) == "switchWall" or (string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
+		if  string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
 			params.param1.front[check].bodyType = "dynamic"
  			params.param1.front[check].isFixedRotation = true
 		end
@@ -195,7 +195,6 @@ function playerInstance:changeColor(color, gui)
     self.color = color
     c = colors[color]
     self.imageObject:setFillColor(c[1],c[2],c[3])
-	print("change color", color)
     
 	if auraEmitter == nil then
     	auraEmitter = particle_lib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)

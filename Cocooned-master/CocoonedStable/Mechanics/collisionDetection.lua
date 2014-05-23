@@ -33,8 +33,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			--let the ball go through water
 			if collideObject.name == "water" then
 				-- disabled collision
-				local col = require("Objects.collision." .. collideObject.func)
-				col.collide(collideObject, player, event, mapData, map, gui)
 				event.contact.isEnabled = false
 				gameData.inWater = true
 			else
@@ -64,11 +62,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 
 		-- when collision began, do this
 		if event.phase == "began" then
-			if collideObject.name == "water" then
-				local col = require("Objects.collision." .. collideObject.func)
-				col.collide(collideObject, player, event, mapData, map, gui)
-			end
-		
 			-- if the object is a solid, call it's function
 			if collideObject.collType == "solid" or collideObject.name == "water" then
 				local col = require("Objects.collision." .. collideObject.func)
