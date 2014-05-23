@@ -11,9 +11,11 @@ local sound = require("sound")
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	--player = player
 	event.contact.isEnabled = false
-	player:changeColor('blue')
+	
+	local color = "blue"
+	
+	player:changeColor(color, gui)
 
 	-- play sound
 	sound.playSound(sound.soundEffects[2])
