@@ -20,19 +20,21 @@ function M.physicsData(scale)
 	local physics = { data =
 	{ 
 		
-		["L"] = { {
+		["L"] = {{
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
-                    shape = {0}
-                    }                
+                    shape = {   639, -396  ,  632, -409  ,  667, -430  ,  688, -430  }
+                    }
+
 		}
 		
 		, 
-		["M"] = {    {
+		["M"] = {{
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
-                    shape = {0}
-                    }         
+                    shape = {   639, -396  ,  632, -409  ,  667, -430  ,  688, -430  }
+                    }
+
 		}
 		
 		, 
