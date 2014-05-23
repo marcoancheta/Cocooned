@@ -23,7 +23,8 @@ local function clean(event)
 		params.splashParams = nil
 	end
 	
-	params.playerParams.imageObject.linearDamping = 0
+	--params.playerParams.imageObject.linearDamping = 0
+	--params.collideParams.isSensor = false
 end
 
 --------------------------------------------------------------------------------
@@ -58,10 +59,11 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		
 		--player.movement ="inWater"
 		gameData.inWater = true
-		player.imageObject.linearDamping = 5
+		--player.imageObject.linearDamping = 5
 		-- Create timer to remove splashAnimation
 		local timer = timer.performWithDelay(600, clean)
-		timer.params = {splashParams = splashAnim, playerParams = player}
+		timer.params = {splashParams = splashAnim, playerParams = player,
+						collideParams = collideObject}
 	end
 end
 

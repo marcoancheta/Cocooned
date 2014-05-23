@@ -446,6 +446,7 @@ local function update(event)
 		
 	-- In-Water Runtime Event.
 	if gameData.inWater then
+		ball.linearDamping = 5
 		-- Turn on pane switching and mini map
 		gameData.allowPaneSwitch = false
 	end
