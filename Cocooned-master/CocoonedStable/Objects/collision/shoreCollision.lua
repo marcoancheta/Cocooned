@@ -20,7 +20,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		event.contact.isEnabled = false
 	end
 	--collideObject.isSensor = true
-	player.imageObject.linearDamping = 0
+	
 	gameData.inWater = false
 	gameData.allowPaneSwitch = true
 end
