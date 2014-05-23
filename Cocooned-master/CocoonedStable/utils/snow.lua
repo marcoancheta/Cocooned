@@ -98,7 +98,7 @@ end
 --------------------------------------------------------------------------------
 -- levelSnow(mapData) - Create and transit snow object for in game
 --------------------------------------------------------------------------------
-local function levelSnow(mapData)
+local function levelSnow(mapData, gui)
 	-- load in level file according to mapData.levelNumber
 	local level = require("levels." .. levelNames[mapData.levelNum])
 	-- 	   Coordinate table
@@ -109,8 +109,6 @@ local function levelSnow(mapData)
 	--			  Right[5]	(-2, math.random(display.contentHeight)}
 	local xPos = {0, math.random(display.contentWidth), math.random(display.contentWidth), display.contentWidth, -2}
 	local yPos = {0, -2, display.contentHeight, math.random(display.contentHeight), math.random(display.contentHeight)}
-	-- Create local snowBall temp variable (snowBall gets returned)
-	local snowBall
 	
 	-- Transition snowBall according to pane name
 	if gameData.ingame and gameData.inLevelSelector ~= 1 then
@@ -119,7 +117,7 @@ local function levelSnow(mapData)
 				-- Check if all neighbouring panes exist
 				if level.panes[i+1] then
 					-- Create a new temp flake
-					local flake = display.newCircle(0,0,5)
+								local flake = display.newCircle(0,0,5)
 					flake.x = xPos[i+1]
 					flake.y = yPos[i+1]
 					-- Send & receive directional coordinates
@@ -130,10 +128,10 @@ local function levelSnow(mapData)
 															y = yDir[i+1], x = xDir[i+1], onComplete=removeFlake})													
 					end
 					-- Pass flake into snowBall for return
-					snowBall = flake
+					gui.front:insert(flake)					
 				end
 			end
-		elseif mapData.pane == "D" then
+		elseif mapData.pane == "U" then
 			-- Create a new temp flake
 			local flake = display.newCircle(0,0,5)
 			flake.x = xPos[3]
@@ -146,8 +144,8 @@ local function levelSnow(mapData)
 												y = yDir[3], x = xDir[3], onComplete=removeFlake})
 			end
 			-- Pass flake into snowBall for return
-			snowBall = flake
-		elseif mapData.pane == "U" then
+			gui.front:insert(flake)
+		elseif mapData.pane == "D" then
 			-- Create a new temp flake
 			local flake = display.newCircle(0,0,5)
 			flake.x = xPos[2]
@@ -160,7 +158,7 @@ local function levelSnow(mapData)
 												y = yDir[2], x = xDir[2], onComplete=removeFlake})
 			end
 			-- Pass flake into snowBall for return
-			snowBall = flake
+			gui.front:insert(flake)
 		elseif mapData.pane == "L" then
 			-- Create a new temp flake
 			local flake = display.newCircle(0,0,5)
@@ -174,7 +172,7 @@ local function levelSnow(mapData)
 												y = yDir[4], x = xDir[4], onComplete=removeFlake})
 			end
 			-- Pass flake into snowBall for return
-			snowBall = flake
+			gui.front:insert(flake)
 		elseif mapData.pane == "R" then
 			-- Create a new temp flake
 			local flake = display.newCircle(0,0,5)
@@ -188,11 +186,9 @@ local function levelSnow(mapData)
 												y = yDir[5], x = xDir[5], onComplete=removeFlake})
 			end
 			-- Pass flake into snowBall for return
-			snowBall = flake
+			gui.front:insert(flake)
 		end
 	end
-	
-	return snowBall
 end
 
 --------------------------------------------------------------------------------
@@ -212,13 +208,9 @@ end
 --------------------------------------------------------------------------------
 -- snow.gameSnow() - Algorithm for snow particle in game
 --------------------------------------------------------------------------------
-local function gameSnow(event, mapData)
+local function gameSnow(event, mapData, gui)
 	if math.random(10) == 1 then -- adjust speed here by making the random number higher or lower
-		temp = levelSnow(mapData)
-		if temp and snowGroup then
-			snowGroup:insert(temp)
-			snowGroup:toFront()
-		end
+		levelSnow(mapData, gui)
 	end	
 	return true
 end

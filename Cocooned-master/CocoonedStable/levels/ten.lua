@@ -22,13 +22,11 @@ local generate = require("Objects.generateObjects")
 --------------------------------------------------------------------------------
 local ten = { 
 	-- boolean for which pane is being used
-	-- { Middle, Down, Up, Right, Left }
-	panes = {true,false,true,true,true},
+	-- { Middle, Up, Down, Right, Left }
+	panes = {true,true,false,true,true},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {	 {["x"]=4, ["y"]=4},
-
-				},
+	playerPos = {{["x"]=4, ["y"]=4},},
 	-- number of wisps in the level
 	wispCount = 29,
 	-- number of objects in each pane (M,D,U,R,L)
