@@ -354,7 +354,8 @@ local function loadMap(mapData)
 		end
 		-- pause physics
 		physics.pause()
-		gameTimer.preGame(gui, mapData)
+		cutSceneSystem.cutScene(gui, mapData)
+		--gameTimer.preGame(gui, mapData)
 	end
 		
 	return player1
@@ -571,8 +572,9 @@ local function gameLoopEvents(event)
 		-- Set mapData to player's gameData mapData
 		mapData = gameData.mapData
 		-- Load in map with new mapData
+
+		
 		loadMap(mapData)
-		--cutSceneSystem.cutScene("1", gui)
 		snow.new()
 		-- Re-evaluate gameData booleans
 		gameData.inLevelSelector = 0
