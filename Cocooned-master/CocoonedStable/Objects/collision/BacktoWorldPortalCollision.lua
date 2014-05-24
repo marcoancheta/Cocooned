@@ -33,7 +33,7 @@ end
 -- Updated by: D
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)									
-	if collideObject.name == "worldPortal" ..i.. "" then
+	if collideObject.name == "worldPortal1" then
 		-- Disable portal collision
 		event.other.isSensor = true
 		player.curse = 0

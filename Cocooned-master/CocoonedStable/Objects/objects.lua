@@ -127,11 +127,11 @@ local function createObjects(objectNumbers, mapData)
 	end	
 	
 	-- call function to animate objects
-	for i = 1, 5 do
+	for i = 1, 6 do
 		createAnimations(objectNumbers[mapData.pane][animation.objectNames[i]], animation.objectNames[i], objects)
 	end
 	-- call function that creates sprites
-	for i = 6, 13 do
+	for i = 7, 14 do
 		createSprites(objectNumbers[mapData.pane][animation.objectNames[i]], animation.objectNames[i], objects)
 	end
 

@@ -129,15 +129,15 @@ local animation = {
 		[3] = "greenAura",
 		[4] = "wolf",
 		[5] = "exitPortal",
-		[6] = "fish1",
-		[7] = "fish2",
-		[8] = "blueTotem",
-		[9] = "redTotem",
-		[10] = "greenTotem",
-		[11] = "switch",
-		[12] = "switchWall",
-		[13] = "fixedIceberg",
-		[14] = "worldPortal"
+		[6] = "worldPortal",
+		[7] = "fish1",
+		[8] = "fish2",
+		[9] = "blueTotem",
+		[10] = "redTotem",
+		[11] = "greenTotem",
+		[12] = "switch",
+		[13] = "switchWall",
+		[14] = "fixedIceberg"
 	}
 }
 
