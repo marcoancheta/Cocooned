@@ -110,15 +110,15 @@ local function runWinner(mapData, gui)
 	-- Restart Level button
 	scoreObj[1] = display.newImageRect("mapdata/art/buttons/restart.png", 200, 200)
 	scoreObj[1].name = "restart"
-	scoreObj[1].x, scoreObj[1].y = generate.tilesToPixels(34, 18)
+	scoreObj[1].x, scoreObj[1].y = generate.tilesToPixels(34, 20)
 	-- Level Selector button
 	scoreObj[2] = display.newImageRect("mapdata/art/buttons/select.png", 200, 200)
 	scoreObj[2].name = "select"
-	scoreObj[2].x, scoreObj[2].y = generate.tilesToPixels(34, 15)
+	scoreObj[2].x, scoreObj[2].y = generate.tilesToPixels(34, 10)
 	-- Main Menu button
 	scoreObj[3] = display.newImageRect("mapdata/art/buttons/main.png", 200, 200)
 	scoreObj[3].name = "quit"
-	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(34, 21)
+	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(15, 21)
 			
 	gui.front:insert(highText)
 	
