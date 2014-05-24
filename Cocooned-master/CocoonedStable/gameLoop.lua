@@ -261,8 +261,10 @@ end
 --------------------------------------------------------------------------------
 local function removeGameLoopListeners(gui)
 	-- Remove object listeners
-	gui.back:removeEventListener("touch", swipeMechanics)
-	gui.back:removeEventListener("tap", tapMechanic)
+	if gui then
+		gui.back:removeEventListener("touch", swipeMechanics)
+		gui.back:removeEventListener("tap", tapMechanic)
+	end
 	Runtime:removeEventListener("accelerometer", controlMovement)
 	Runtime:removeEventListener("enterFrame", speedUp)
 end
@@ -356,20 +358,12 @@ local function clean(event)
 		collisionDetection.destroyCollision(players[i].imageObject)
 	end
 
-	table.remove(players)
-
-	player1:resetRune()	
 	inventory.inventoryInstance:clear()
 	
-	--[[
-	if linePts then
-		linePts = nil
-		linePts = {}
-	end
-	]]--
-	
-	player1:deleteAura()
 	-- destroy player instance
+	table.remove(players)
+	player1:resetRune()	
+	player1:deleteAura()
 	player1.imageObject:removeSelf()
 	player1.imageObject = nil
 	
@@ -488,6 +482,12 @@ local function gameLoopEvents(event)
 	-----------------------------
 	--[[ START WORLD SELECTOR]]--
 	if gameData.selectWorld then
+	
+		if gameData.inLevelSelector == 1 then
+			clean(event)
+			gameData.inLevelSelector = 0
+		end		
+		
 		if gameData.debugMode then
 			print("In World Selector")
 			print("gameData.mapData.world", gameData.mapData.world)

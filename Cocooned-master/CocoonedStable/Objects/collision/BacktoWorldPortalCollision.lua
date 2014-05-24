@@ -21,9 +21,8 @@ local goals = require("Core.goals")
 --------------------------------------------------------------------------------
 local function temp(target)
 	if gameData.inWorldSelector then
-		target:setLinearVelocity(0,0)
+		goals.destroyGoals()
 		gameData.selectWorld = true
-		gameData.inLevelSelector = 0
 	end
 end
 
@@ -36,9 +35,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if collideObject.name == "worldPortal1" then
 		-- Disable portal collision
 		event.other.isSensor = true
-		player.curse = 0
-		player.xGrav = 0
-		player.yGrav = 0
 		local trans = transition.to(player.imageObject, {time=500, x=collideObject.x, y=collideObject.y, onComplete = temp} )
 	end
 end
