@@ -34,7 +34,7 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex, wispCount)
 	   	wisp[i].collectable = true
 	   	wisp[i].name = "wisp" .. i
 	   	wisp[i]:toFront()
-
+	
 		for j=1, wispCount do
 			-- check if wisp(s) exist inside player objects inventory
 			if inventory.inventoryInstance.items[j] ~= wisp[i].name then
