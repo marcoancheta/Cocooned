@@ -23,7 +23,7 @@ local generate = require("Objects.generateObjects")
 local thirteen = { 
 	-- boolean for which pane is being used
 	-- { Middle, Down, Up, Right, Left }
-	panes = {true,false,true,true,true},
+	panes = {true,true,true,true,true},
 	timer = 300,
 	playerCount = 1,
 	playerPos = {	 {["x"]=20, ["y"]=15},
