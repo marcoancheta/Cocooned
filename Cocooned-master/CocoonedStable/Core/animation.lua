@@ -69,6 +69,10 @@ local animation = {
 			{frames = {5, 4, 3, 2}, name = "move", time = 500}, 
 			{frames = {1}, name = "still", time = 250}
 		},
+		["worldPortal"] = {
+			{frames = {5, 4, 3, 2}, name = "move", time = 500}, 
+			{frames = {1}, name = "still", time = 250}
+		},
 		["wolf"] = {
 			{frames = {1,2,3,4,5,6,7,8}, name = "move", time = 600},
 			{frames = {1}, name = "still", time = 250}
@@ -132,7 +136,8 @@ local animation = {
 		[10] = "greenTotem",
 		[11] = "switch",
 		[12] = "switchWall",
-		[13] = "fixedIceberg"
+		[13] = "fixedIceberg",
+		[14] = "worldPortal"
 	}
 }
 

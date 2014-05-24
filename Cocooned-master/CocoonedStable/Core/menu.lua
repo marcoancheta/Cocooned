@@ -300,9 +300,24 @@ local function options(event)
 	if gameData.debugMode then
 		print("In Options")
 	end
+	
+	-- Image sheet options and declaration
+	local options = {
+		frames = {
+			{ x=0, y=0, width=9, height=64 },
+			{ x=35, y=0, width=9, height=64 },
+			{ x=112, y=0, width=9, height=64 },
+			{ x=120, y=0, width=292, height=64 },
+			{ x=420, y=0, width=64, height=64 }
+		},
+		sheetContentWidth = 464,
+		sheetContentHeight = 64
+	}
+	
+	local sliderSheet = graphics.newImageSheet("mapData/art/slider/sliderSheet.png", options )
 		
-	--local sfxVal = (gameData.sfxVolume*10)
-	--local bgmVal = (gameData.bgmVolume*10)
+	local sfxVal = (gameData.sfxVolume*10)
+	local bgmVal = (gameData.bgmVolume*10)
 	
 	-- Create new menu display group
 	menuGroup = display.newGroup()
@@ -320,8 +335,14 @@ local function options(event)
 		-- Debug text
 		[5] = display.newText("Debug Mode: ", 350, 150, "Teacher_A", 52),
 		-- Sound controller (SFX[6] - BGM[7])
-		[6] = widget.newSlider{orientation="horizontal", width=350, height=400, value = sfxVal, listener=sfxController},
-		[7] = widget.newSlider{orientation="horizontal", width=350, height=400, value = bgmVal, listener=bgmController},
+		[6] = widget.newSlider{sheet = sliderSheet, leftFrame = 1, middleFrame = 2, rightFrame = 3, fillFrame = 4,
+								frameWidth = 38, frameHeight = 64, handleFrame = 5, handleWidth = 64, handleHeight = 64,
+								orientation="horizontal", width=375, height=1000, value = sfxVal, 
+								listener=sfxController},
+		[7] = widget.newSlider{sheet = sliderSheet, leftFrame = 1, middleFrame = 2, rightFrame = 3, fillFrame = 4,
+								frameWidth = 36, frameHeight = 64, handleFrame = 5, handleWidth = 64, handleHeight = 64,
+								orientation="horizontal", width=375, height=1000, value = bgmVal, 
+								listener=bgmController},
 		-- Sound text
 		[8] = display.newText("Sound Volume: ", 350, 150, "Teacher_A", 52),
 		[9] = display.newText("Music Volume: ", 350, 150, "Teacher_A", 52),
@@ -359,13 +380,13 @@ local function options(event)
 	end
 	
 	menuObjects[4].x = display.contentCenterX + 200
-	menuObjects[4].y = display.contentCenterY + 50
+	menuObjects[4].y = display.contentCenterY + 75
 	menuObjects[4].name = "debugSwitch"
 
 	-- Debug text
 	--menuObjects[4].anchorX = 0
 	menuObjects[5].x = display.contentCenterX
-	menuObjects[5].y = display.contentCenterY + 50
+	menuObjects[5].y = display.contentCenterY + 75
 	menuObjects[5]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)	
 	-- SFX Volume Slider
 	menuObjects[6].x = display.contentCenterX

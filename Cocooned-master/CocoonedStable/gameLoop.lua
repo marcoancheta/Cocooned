@@ -65,7 +65,7 @@ local gameTimer = require("utils.timer")
 -- Particle effect
 local snow = require("utils.snow")
 -- generator for objects (generateObjects.lua)
-local generate = require("Loading.generateObjects")
+local generate = require("Objects.generateObjects")
 -- Win screen loop
 local win = require("Core.win")
 -- High score

@@ -69,9 +69,17 @@ local function gObjects(level, objects, map, mapData, runes)
 		for j = 1, level[mapData.pane][name] do
 			-- set properties and add to physics group
 			if mapData.levelNum == "LS" then
-				objects[name .. j].func = "levelPortalCollision"
-				physics.addBody(objects[name ..j], "static", {bounce = 0})
-				objects[name ..j].collType = "passThru"
+				-- Exit portals and other objects
+				if name ~= "worldPortal" then
+					objects[name .. j].func = "levelPortalCollision"
+					physics.addBody(objects[name ..j], "static", {bounce = 0})
+					objects[name ..j].collType = "passThru"
+				-- Back to world-portal
+				elseif name == "worldPortal" then
+					objects[name .. j].func = "BacktoWorldPortalCollision"
+					physics.addBody(objects[name ..j], "static", {bounce = 0})
+					objects[name ..j].collType = "passThru"
+				end
 				-- add object to map display group
 				map.middle:insert(objects[name .. j])
 			elseif mapData.levelNum == "world" then
@@ -82,15 +90,19 @@ local function gObjects(level, objects, map, mapData, runes)
 				map.middle:insert(objects[name .. j])
 			elseif mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 				objects[name .. j].func = name .. "Collision"
+				-- Fixed iceberg
 				if name == "fixedIceberg" then
 					physics.addBody(objects[name ..j], "static", {bounce = 0, filter = {groupIndex = -1 }})
 					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+				-- Switch wall
 				elseif name == "switchWall" then
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
 					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+				-- Everything else
 				else
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
-				end				
+				end	
+				
 				objects[name ..j].collType = "passThru"
 				-- add object to map display group
 				map.front:insert(objects[name .. j])

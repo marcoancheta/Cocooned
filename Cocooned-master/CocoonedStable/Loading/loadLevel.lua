@@ -104,8 +104,7 @@ local function drawPane(mapData)
 	levelBG.name = "background"
 	levelWall.x = display.contentCenterX
 	levelWall.y = display.contentCenterY
-	levelWall.name = "walls"
-	
+	levelWall.name = "walls"	
 		
 	return levelBG, levelWall
 end

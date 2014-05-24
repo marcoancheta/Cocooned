@@ -64,6 +64,8 @@ local function init()
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})				 
 	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet.png", 
 				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
+	sheetList["worldPortal"] = graphics.newImageSheet("mapdata/art/animation/worldPortalSheet.png", 
+				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
 	sheetList["wolf"] = graphics.newImageSheet("mapdata/art/animation/wolfSheet.png", 
 				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8})
 	sheetList["fish1"] = graphics.newImageSheet("mapdata/art/animation/fish1sheet.png", 

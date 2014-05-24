@@ -55,7 +55,8 @@ local world = {
 		["switchWall"] = 0,
 		["exitPortal"] = 3,
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0,
 	},
 }
 
