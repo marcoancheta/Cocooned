@@ -26,8 +26,7 @@ local one = {
 	panes = {true,false,false,false,false},
 	timer = 30,
 	playerCount = 1,
-	playerPos = {	{["x"]=20,["y"]=14},
-				},
+	playerPos = {{["x"]=20,["y"]=14}},
 	-- number of wisps in the level
 	wispCount = 18,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -139,8 +138,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[10].x, wisp[10].y = generate.tilesToPixels(13, 18)
 		wisp[11].x, wisp[11].y = generate.tilesToPixels(16, 18)
 		wisp[12].x, wisp[12].y = generate.tilesToPixels(19, 19)
-		wisp[13].x, wisp[13].y = generate.tilesToPixels(26, 16)
-		wisp[14].x, wisp[14].y = generate.tilesToPixels(31, 17)
+		wisp[13].x, wisp[13].y = generate.tilesToPixels(21, 18)
+		wisp[14].x, wisp[14].y = generate.tilesToPixels(23, 17)
 		wisp[15].x, wisp[15].y = generate.tilesToPixels(36, 13)
 		wisp[16].x, wisp[16].y = generate.tilesToPixels(35, 14)
 		wisp[17].x, wisp[17].y = generate.tilesToPixels(36, 15)
@@ -150,7 +149,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(15, 22.5)
 		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 12)
 
-		generate.gWisps(wisp, map, mapData, 1, 18)
+		generate.gWisps(wisp, map, mapData, 1, 18, one.wispCount)
 	elseif mapData.pane == "L" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")

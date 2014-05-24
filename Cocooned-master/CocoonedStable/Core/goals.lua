@@ -118,7 +118,7 @@ local function drawGoals(gui, player)
 	textObject = {}
 	--rune = {}
 
-	print(player.name)
+	print("player.name", player.name)
 	playerTemp = player
 
 	-- Goal text displayer
@@ -195,7 +195,7 @@ local function findGoals(mapData, gui)
 	
 	-- Different than levelNames.lua
 	local levelNames = {"Avalon", "Cittàgazze", "Lake Wobegon", "Waterdeep", "Rivendell", 
-						"Middle Earth", "Cabot Cove", "R'lyeh", "Gormenghast", "Emerald City",	
+						"Middle Earth", "Cabot Cove", "Fish Hell", "Gormenghast", "Emerald City",	
 						"Kakariko Village", "Middlemarch", "Castle Rock", "Middlemarch", "Santa Teresa"}
 
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)

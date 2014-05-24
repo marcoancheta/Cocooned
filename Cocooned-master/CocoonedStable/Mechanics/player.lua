@@ -231,7 +231,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:totemRepel(collideObject)
-	print((self.imageObject.x - collideObject.x)/175)
+	--print((self.imageObject.x - collideObject.x)/175)
 	self.imageObject:applyLinearImpulse((self.imageObject.x - collideObject.x)/175, (self.imageObject.y - collideObject.y)/175, self.imageObject.x, self.imageObject.y) 
 	self.imageObject.angularVelocity = 0
 end

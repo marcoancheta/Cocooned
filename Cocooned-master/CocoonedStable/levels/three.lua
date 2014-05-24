@@ -26,9 +26,7 @@ local three = {
 	panes = {true,false,false,false,false},
 	timer = 60,
 	playerCount = 1,
-	playerPos = {	 {["x"]=5, ["y"]=20},
-
-				},
+	playerPos = {{["x"]=5, ["y"]=20}},
 	-- number of wisps in the level
 	wispCount = 7,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -155,7 +153,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(35, 12)
 
-		generate.gWisps(wisp, map, mapData, 1, 7)
+		generate.gWisps(wisp, map, mapData, 1, 7, three.wispCount)
 	elseif mapData.pane == "L" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")

@@ -25,6 +25,7 @@ function inventoryInstance:addItem(item, map)
 	print("add inventory", #self.items, item.name)
 	self.size = self.size + 1
 	wispAmount = self.size
+	print("self.size", self.size)
 end
 
 --------------------------------------------------------------------------------

@@ -26,9 +26,7 @@ local eight = {
 	panes = {true,false,false,false,false},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {	 {["x"]=20, ["y"]=15},
-
-				},
+	playerPos = {{["x"]=20, ["y"]=15},},
 	-- number of wisps in the level
 	wispCount = 25,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -227,20 +225,25 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(37, 12)
 				
-		generate.gWisps(wisp, map, mapData, 1, 25)
+		generate.gWisps(wisp, map, mapData, 1, 25, eight.wispCount)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
-		print("You shouldn't be in here...")
-
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	elseif mapData.pane == "U" then
-		print("You shouldn't be in here...")
-
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	elseif mapData.pane == "R" then
-		print("You shouldn't be in here...")
-
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	elseif mapData.pane == "D" then
-		print("You shouldn't be in here...")
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	end
 
 	-- generates all objects in pane when locations are set

@@ -26,11 +26,9 @@ local five = {
 	panes = {true,false,false,false,true},
 	timer = 200,
 	playerCount = 1,
-	playerPos = {	 {["x"]=6, ["y"]=6},
-
-				},
+	playerPos = {{["x"]=4.5, ["y"]=4.5},},
 	-- number of wisps in the level
-	wispCount = 17,
+	wispCount = 16,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -46,7 +44,7 @@ local five = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1,
+		["exitPortal"] = 0,
 		["enemy"] = 0,
 		["fixedIceberg"] = 1
 	},
@@ -131,28 +129,17 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
-
-		objects["exitPortal1"]:setSequence("still")
-		-- Should be at 4,4
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(1, 1)
-		
-		-- Pink rune
-		rune[3].x, rune[3].y = generate.tilesToPixels(2, 2)	
-		--rune[3].x, rune[3].y = generate.tilesToPixels(4.5, 4.5)			
+		-- Pink rune	
+		rune[3].x, rune[3].y = generate.tilesToPixels(15, 20)			
 		rune[3].isVisible = true
 		
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(4, 4)
-		wisp[2].x, wisp[2].y = generate.tilesToPixels(17, 7)
-		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 7)
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(17, 7)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 7)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(32, 10)
 		wisp[4].x, wisp[4].y = generate.tilesToPixels(30, 15)
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(24, 17)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(23, 16)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 19)
-		wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 4.5)
-		--wisp[7].x, wisp[7].y = generate.tilesToPixels(4.5, 17)
-		wisp[8].x, wisp[8].y = generate.tilesToPixels(15, 20)
-
-		--objects["fish11"]:setSequence("move")
-		--objects["fish11"]:play()
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(35, 14)
 
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(12, 2)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(12, 11)
@@ -167,7 +154,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg1"].movement = "fixed"
 		
 		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 1, 8)
+		generate.gWisps(wisp, map, mapData, 1, 7, five.wispCount)
 
 	elseif mapData.pane == "R" then
 		if gameData.debugMode then
@@ -182,22 +169,21 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			print("You shouldn't be in here...")
 		end
 	elseif mapData.pane == "L" then
-		wisp[9].x, wisp[9].y = generate.tilesToPixels(5, 7)
-		wisp[10].x, wisp[10].y = generate.tilesToPixels(11, 10)
-		wisp[11].x, wisp[11].y = generate.tilesToPixels(30, 14)
-		wisp[12].x, wisp[12].y = generate.tilesToPixels(32, 18)
-		wisp[13].x, wisp[13].y = generate.tilesToPixels(27, 10)
-		wisp[14].x, wisp[14].y = generate.tilesToPixels(22, 8)
-		wisp[15].x, wisp[15].y = generate.tilesToPixels(36, 20)
-		wisp[16].x, wisp[16].y = generate.tilesToPixels(13, 15)	
-		wisp[17].x, wisp[17].y = generate.tilesToPixels(17, 11)	
+		wisp[8].x, wisp[8].y = generate.tilesToPixels(5, 7)
+		wisp[9].x, wisp[9].y = generate.tilesToPixels(11, 10)
+		wisp[10].x, wisp[10].y = generate.tilesToPixels(30, 14)
+		wisp[11].x, wisp[11].y = generate.tilesToPixels(32, 18)
+		wisp[12].x, wisp[12].y = generate.tilesToPixels(27, 10)
+		wisp[13].x, wisp[13].y = generate.tilesToPixels(22, 8)
+		wisp[14].x, wisp[14].y = generate.tilesToPixels(36, 20)
+		wisp[15].x, wisp[15].y = generate.tilesToPixels(13, 15)	
+		wisp[16].x, wisp[16].y = generate.tilesToPixels(17, 11)	
 
 		objects["exitPortal1"]:setSequence("still")
-		-- Should be at 4,4
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(1, 1)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(4, 4)
 
 		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 9, 17)
+		generate.gWisps(wisp, map, mapData, 9, 16, five.wispCount)
 	end
 
 	-- generates all objects in pane when locations are set

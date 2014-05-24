@@ -18,6 +18,7 @@ local plusTime
 local function removeObj(target)
 	target:removeSelf()
 	target = nil
+	plusTime = nil
 end
 
 --------------------------------------------------------------------------------
@@ -34,7 +35,12 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- Created text object for wisp collision
 	plusTime = display.newText("+:01", collideObject.x, collideObject.y, native.systemFontBold, 55)
 	plusTime:setFillColor(0,0,0)
-	plusTime:toFront()
+	plusTime.name = "plusTime"
+	
+	if gui then
+		gui.front:insert(plusTime)
+	end
+	
 	-- Initialize and run transition for plusTime text object
 	local wordTrans = transition.to(plusTime, {time=1000, y=collideObject.y-50, onComplete=removeObj})
 	-- Add 1 second to global gameTimer
