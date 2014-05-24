@@ -78,6 +78,8 @@ local function loadGameSounds()
   sound.soundEffects[12] = audio.loadSound("sounds/auraPickupNew.wav")
   -- New rolling sound - pending review to replace old rolling sound
   sound.soundEffects[13] = audio.loadSound("sounds/rolling.wav")
+  -- Rushing water sound - pending review to replace ice cracking sound
+  sound.soundEffects[14] = audio.loadSound("sounds/rushingWater.wav")
 	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
 	--sound.soundEffects[9] = audio.loadSound("sounds/ice_cracking.wav")
 	
