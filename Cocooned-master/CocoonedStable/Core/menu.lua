@@ -19,7 +19,7 @@ local menuGroup
 local menuObjects = nil
 local ingameOptions
 
-widget.setTheme("widget_theme_ios")
+--widget.setTheme("widget_theme_ios")
 --local player1, player2 = nil
 -- Create onScreen text object
 --[[
