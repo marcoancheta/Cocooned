@@ -46,7 +46,7 @@ local three = {
 		["switchWall"] = 0,
 		["exitPortal"] = 1,
 		["enemy"] = 0,
-		["fixedIceberg"] = 0,,
+		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
 	},
 	["D"] = {
@@ -62,7 +62,7 @@ local three = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0,,
+		["enemy"] = 0,
 		["worldPortal"] = 0
 	},
 	["U"] = {
@@ -78,7 +78,7 @@ local three = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0,,
+		["enemy"] = 0,
 		["worldPortal"] = 0
 	},
 	["R"] = {
@@ -94,7 +94,7 @@ local three = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0,,
+		["enemy"] = 0,
 		["worldPortal"] = 0
 	},	
 	["L"] = {
@@ -110,7 +110,7 @@ local three = {
 		["switch"] = 0,
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
-		["enemy"] = 0,,
+		["enemy"] = 0,
 		["worldPortal"] = 0
 	}
 }
