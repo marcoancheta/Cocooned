@@ -110,7 +110,7 @@ local function runWinner(mapData, gui)
 	-- Restart Level button
 	scoreObj[1] = display.newImageRect("mapdata/art/buttons/restart.png", 200, 200)
 	scoreObj[1].name = "restart"
-	scoreObj[1].x, scoreObj[1].y = generate.tilesToPixels(34, 20)
+	scoreObj[1].x, scoreObj[1].y = generate.tilesToPixels(34, 18)
 	-- Level Selector button
 	scoreObj[2] = display.newImageRect("mapdata/art/buttons/select.png", 200, 200)
 	scoreObj[2].name = "select"
@@ -118,7 +118,7 @@ local function runWinner(mapData, gui)
 	-- Main Menu button
 	scoreObj[3] = display.newImageRect("mapdata/art/buttons/main.png", 200, 200)
 	scoreObj[3].name = "quit"
-	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(15, 21)
+	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(8, 18)
 			
 	gui.front:insert(highText)
 	
@@ -159,7 +159,7 @@ local function listener(target, mapData, gui)
 	local trans = transition.to(scoreObj[3], {time=2000, alpha=1, onComplete=fade})
 	
 	-- Called from showScore transition:
-	-- Delay 3 seconds to show high score
+	-- Delay 5 seconds to show high score
 	tempTimer = timer.performWithDelay(5000, delay)
 	tempTimer.params = {targetParam = target, mapParam = mapData, guiParam = gui}
 end
@@ -189,9 +189,9 @@ local function showScore(mapData, gui)
 	scoreObj[2].x, scoreObj[2].y = generate.tilesToPixels(20, 20)
 	-- If amount of wisps is greater than 0, run transition
 	if count > 0 then
-		-- run transition for 1.5 seconds
-		local wispTran = transition.to(wisp, {time=500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete= function(wisp) listener(wisp, mapData, gui) end})
-		-- if not wisp collected, just show time left
+		-- run transition for 0.5 seconds
+		local wispTran = transition.to(wisp, {time=500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete= function(wisp) listener(wisp, mapData, gui) end})		
+	-- if not wisp collected, just show time left
 	elseif count == 0 then
 		wisp.alpha = 0
 		listener(wisp, mapData, gui)
