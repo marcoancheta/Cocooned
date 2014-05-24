@@ -112,14 +112,14 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		elseif mapData.world == "C" then
 			-- Hide all portals between 1-10.
 			for i=1, LS["LS"]["exitPortal"] do
-				if (i < 10) then
+				if (i < 11) then
 					objects["exitPortal" ..i.. ""].isVisible = false
 					objects["exitPortal" ..i.. ""].isBodyActive = false
 				end
 			end
 			-- Place World "C" portals.
-			objects["exitPortal12"].x, objects["exitPortal12"].y = generate.tilesToPixels(10, 15)
-			objects["exitPortal11"].x, objects["exitPortal11"].y = generate.tilesToPixels(14, 12)		
+			objects["exitPortal11"].x, objects["exitPortal11"].y = generate.tilesToPixels(10, 15)
+			objects["exitPortal12"].x, objects["exitPortal12"].y = generate.tilesToPixels(14, 12)		
 			objects["exitPortal13"].x, objects["exitPortal13"].y = generate.tilesToPixels(20.5, 11)
 			objects["exitPortal14"].x, objects["exitPortal14"].y = generate.tilesToPixels(28, 12)
 			objects["exitPortal15"].x, objects["exitPortal15"].y = generate.tilesToPixels(31, 15)

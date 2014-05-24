@@ -314,7 +314,7 @@ local function options(event)
 		sheetContentHeight = 64
 	}
 	
-	local sliderSheet = graphics.newImageSheet("mapData/art/slider/sliderSheet.png", options )
+	local sliderSheet = graphics.newImageSheet("mapdata/art/slider/sliderSheet.png", options )
 		
 	local sfxVal = (gameData.sfxVolume*10)
 	local bgmVal = (gameData.bgmVolume*10)
