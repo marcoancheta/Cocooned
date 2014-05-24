@@ -80,10 +80,12 @@ local function main()
 	end
 	
 	-- FONT CHECK
+	--[[
 	local fonts = native.getFontNames()
 	for i,fontname in ipairs(fonts) do
 		print(fonts[i])
 	end
+	]]--
 	-- END FONT CHECK
 		
 	Runtime:addEventListener("enterFrame", gameLoop.gameLoopEvents)

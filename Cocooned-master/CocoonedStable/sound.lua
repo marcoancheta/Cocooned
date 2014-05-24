@@ -42,7 +42,9 @@ local function loadMenuSounds()
 end
 
 local function loadGameSounds()
-	print("LOADED SOUNDS");print("LOADED SOUNDS");print("LOADED SOUNDS");print("LOADED SOUNDS")
+	if gameData.debugMode then
+		print("LOADED SOUNDS")
+	end
 	-- BGM
 	-- World 1 music 
 	sound.backgroundMusic[1] = audio.loadStream("sounds/music/FallOfArcana.mp3")
@@ -124,6 +126,7 @@ local function stopChannel(int)
 		audio.stop(narrator)
 	-- BGM
 	elseif int == 3 then
+		audio.fade(bgm)
 		audio.stopWithDelay(100, {channel = 3})
 	end
 end
@@ -150,8 +153,9 @@ end
 local function playNarration(name)
 	audio.setVolume(0.5, { channel=2 })
 	narrator = audio.play(name, {channel = 2, loops=0, onComplete=stopChannel1})
-	print("play narration:", name)
 	audio.fadeOut(narrator)
+	print("play narration:", name)
+	
 	return narrator
 end
 

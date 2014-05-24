@@ -69,7 +69,7 @@ local deleteClosure = function() return loading.deleteLoading() end
 --------------------------------------------------------------------------------
 local function drawPane(mapData)
 	local displayX = 1460
-	local displayY = 860
+	local displayY = 840
 	
 	local levelBG
 	local levelWall	

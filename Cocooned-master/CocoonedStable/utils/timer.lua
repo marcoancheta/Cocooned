@@ -103,7 +103,7 @@ local function endGame(gui)
 		  wolfAnim:play()
 
 	-- Create overlay object
-	overlay = display.newRect(display.contentCenterX, display.contentCenterY, 1460, 860)
+	overlay = display.newRect(display.contentCenterX, display.contentCenterY, 1460, 840)
 	overlay:setFillColor(0,0,0)
 	
 	-- Set counter value
@@ -247,7 +247,7 @@ local function preGame(gui, mapData)
 	counterText.x = display.contentCenterX
 	counterText.y = display.contentCenterY
 	-- Create overlay object
-	overlay = display.newRect(display.contentCenterX, display.contentCenterY, 1460, 860)
+	overlay = display.newRect(display.contentCenterX, display.contentCenterY, 1460, 840)
 	overlay:setFillColor(1,1,1)
 	-- Set color to black
 	counterText:setFillColor(0, 0, 0)	

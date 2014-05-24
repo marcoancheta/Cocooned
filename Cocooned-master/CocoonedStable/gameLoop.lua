@@ -743,7 +743,7 @@ local function gameLoopEvents(event)
 		-- Remove object listeners
 		removeGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
-		gameData.updateOptions = true
+		--gameData.updateOptions = true
 		-- Switch off this loop
 		gameData.inGameOptions = false
 	end

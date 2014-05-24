@@ -127,15 +127,13 @@ local function drawGoals(gui, player)
 	textObject[2].isVisible = false
 	
 	-- Create play button
-	play = display.newImage("mapdata/art/buttons/sil_kipcha.png")
-	play.x, play.y = generate.tilesToPixels(5, 20)
-	play:scale(1.5, 1.5)
+	play = display.newImageRect("mapdata/art/buttons/play.png", 250, 250)
+	play.x, play.y  = generate.tilesToPixels(36, 19)
 	play.isVisible = false
 	play.name = "playButton"
 
 	cancel = display.newImage("mapdata/art/buttons/cancel.png")
-	cancel.x, cancel.y = generate.tilesToPixels(35, 20)
-	cancel:scale(1, 1)
+	cancel.x, cancel.y = generate.tilesToPixels(6, 20)
 	cancel.isVisible = false
 	cancel.name = "cancelButton"
 			
