@@ -40,7 +40,7 @@ local function init(gui)
 	
 	-- Score Font and Size
 	scoreTextOptions.fontSize = 72
-	scoreTextOptions.font = native.systemFontBold
+	scoreTextOptions.font = "Teacher_A"
 	-- Score Text Object Positions
 	scoreTextOptions.x = display.contentCenterX
 	scoreTextOptions.y = 150

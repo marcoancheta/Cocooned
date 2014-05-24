@@ -22,7 +22,7 @@ local movement = require("Mechanics.movement")
 --------------------------------------------------------------------------------
 local world = { 
 	-- boolean for which pane is being used
-	-- { Middle, Down, Up, Right, Left }
+	-- { Middle, Up, Down, Right, Left }}
 	panes = {true,false,false,false,false},
 	
 	-- number of wisps in the level

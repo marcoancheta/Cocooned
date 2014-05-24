@@ -33,7 +33,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[8])	
 	-- Created text object for wisp collision
-	plusTime = display.newText("+:01", collideObject.x, collideObject.y, native.systemFontBold, 55)
+	plusTime = display.newText("+:01", collideObject.x, collideObject.y, "Teacher_A", 55)
 	plusTime:setFillColor(0,0,0)
 	plusTime.name = "plusTime"
 	

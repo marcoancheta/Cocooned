@@ -110,7 +110,7 @@ local function endGame(gui)
 	counter = 30
 	
 	-- Create text object
-	local counterText = display.newText("Time's Up!", 0, 0, native.systemFontBold, 150)
+	local counterText = display.newText("Time's Up!", 0, 0, "Teacher_A", 150)
 	-- Center text object
 	counterText.x = wolfAnim.x + 600
 	counterText.y = wolfAnim.y
@@ -182,7 +182,7 @@ local function inGame(gui, mapData)
 	-- Format gameTimer to time-stamp
 	clockFormat = os.date("!%M:%S", gameData.gameTime)
 	-- Create counter text object for game timer
-	local counterText = display.newText(clockFormat, 0, 0, native.systemFontBold, 100)
+	local counterText = display.newText(clockFormat, 0, 0, "Teacher_A", 100)
 	counterText.x = display.contentCenterX
 	counterText.y = 50
 	counterText:setFillColor(0, 0, 0)
@@ -242,7 +242,7 @@ local function preGame(gui, mapData)
 	-- counter = desired time + 2 sec (from loading).
 	counter = 5
 	-- Create text object
-	local counterText = display.newText(counter, 0, 0, native.systemFontBold, 150)
+	local counterText = display.newText(counter, 0, 0, "Teacher_A", 150)
 	-- Center text object
 	counterText.x = display.contentCenterX
 	counterText.y = display.contentCenterY

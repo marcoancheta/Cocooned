@@ -25,9 +25,9 @@ widget.setTheme("widget_theme_ios")
 --[[
 local playerText = {
 	--player's current speed
-	[2] = display.newText(player.speedConst, 1150, 380, native.Systemfont, 69)
+	[2] = display.newText(player.speedConst, 1150, 380, "Teacher_A", 69)
 	--player's linear damping
-	[3] = display.newText(player.imageObject.linearDamping, 1150, 225, native.Systemfont, 69)
+	[3] = display.newText(player.imageObject.linearDamping, 1150, 225, "Teacher_A", 69)
 }	
 ]]--
 
@@ -75,7 +75,7 @@ local function playerAC(int)
 			player2.imageObject.linearDamping = player2.imageObject.linearDamping + int
 		end
 		--player's linear damping
-		playerText = display.newText(player1.imageObject.linearDamping, 350, 100, native.Systemfont, 103)
+		playerText = display.newText(player1.imageObject.linearDamping, 350, 100, "Teacher_A", 103)
 		playerText:setFillColor(0, 0, 0)
 		playerText:toFront()
 	end
@@ -292,21 +292,21 @@ local function options(event)
 		-- Add Main Menu button
 		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
 		-- Create onScreen text objects
-		[3] = display.newText("OPTIONS", display.contentCenterX, 100, native.Systemfont, 103),
+		[3] = display.newText("OPTIONS", display.contentCenterX, 100, "Teacher_A", 103),
 		-- Debug toggle object
 		[4] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
 							   onPress = buttonPressed},
 		-- Debug text
-		[5] = display.newText("Debug Mode: ", 350, 150, native.Systemfont, 52),
+		[5] = display.newText("Debug Mode: ", 350, 150, "Teacher_A", 52),
 		-- Sound controller (SFX[6] - BGM[7])
 		[6] = widget.newSlider{orientation="horizontal", width=350, height=400, value = sfxVal, listener=sfxController},
 		[7] = widget.newSlider{orientation="horizontal", width=350, height=400, value = bgmVal, listener=bgmController},
 		-- Sound text
-		[8] = display.newText("Sound Volume: ", 350, 150, native.Systemfont, 52),
-		[9] = display.newText("Music Volume: ", 350, 150, native.Systemfont, 52),
+		[8] = display.newText("Sound Volume: ", 350, 150, "Teacher_A", 52),
+		[9] = display.newText("Music Volume: ", 350, 150, "Teacher_A", 52),
 		-- Pre-store location in array for value text
-		[10] = display.newText(gameData.sfxVolume*10, 350, 150, native.Systemfont, 40),
-		[11] = display.newText(gameData.bgmVolume*10, 350, 150, native.Systemfont, 40)
+		[10] = display.newText(gameData.sfxVolume*10, 350, 150, "Teacher_A", 40),
+		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40)
 	}
 	
 	menuObjects.name = "optGroup"
@@ -438,16 +438,16 @@ local function ingameMenu(event, gui)
 		-- Add Restart game button
 		[4] = display.newImageRect("mapdata/art/buttons/restart.png", 400, 150),
 		-- Pause text object
-		[5] = display.newText("PAUSED", display.contentCenterX, 100, native.Systemfont, 103),
+		[5] = display.newText("PAUSED", display.contentCenterX, 100, "Teacher_A", 103),
 		-- Sound controller (SFX[6] - BGM[7])
 		[6] = widget.newSlider{orientation="horizontal", width=350, height=400, value = sfxVal, listener=sfxController},
 		[7] = widget.newSlider{orientation="horizontal", width=350, height=400, value = bgmVal, listener=bgmController},
 		-- Sound text
-		[8] = display.newText("Sound Volume: ", 350, 150, native.Systemfont, 52),
-		[9] = display.newText("Music Volume: ", 350, 150, native.Systemfont, 52),
+		[8] = display.newText("Sound Volume: ", 350, 150, "Teacher_A", 52),
+		[9] = display.newText("Music Volume: ", 350, 150, "Teacher_A", 52),
 		-- Pre-store location in array for value text
-		[10] = display.newText(gameData.sfxVolume*10, 350, 150, native.Systemfont, 40),
-		[11] = display.newText(gameData.bgmVolume*10, 350, 150, native.Systemfont, 40),
+		[10] = display.newText(gameData.sfxVolume*10, 350, 150, "Teacher_A", 40),
+		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40),
 
 		--[[
 		-- Minus button	#1

@@ -22,7 +22,7 @@ local generate = require("Objects.generateObjects")
 --------------------------------------------------------------------------------
 local eight = { 
 	-- boolean for which pane is being used
-	-- { Middle, Down, Up, Right, Left }
+	-- { Middle, Up, Down, Right, Left }
 	panes = {true,false,false,false,false},
 	timer = 300,
 	playerCount = 1,

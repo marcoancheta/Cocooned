@@ -223,7 +223,7 @@ local function gMObjects(level, objects, map, mapData)
 		offset = offset + level[mapData.pane]["wolf"]
 	end
 
-	-- create moveable fish2 obects
+	-- create moveable iceberg objects
 	for i = 1+offset, level[mapData.pane]["fixedIceberg"]+offset do
 		if objects["fixedIceberg" .. i-offset].movement == "fixed" then
 			-- create moveable object and set name
@@ -240,6 +240,7 @@ local function gMObjects(level, objects, map, mapData)
 			mObjects[i].object.time = time
 			mObjects[i].object.stop = false
 			mObjects[i].object.moveable = true
+			mObjects[i].object.name = "iceberg"
 
 			-- start moving object
 			map.front:insert(objects["fixedIceberg" .. i-offset])

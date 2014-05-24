@@ -78,7 +78,13 @@ local function main()
 		local rcorona = require("rcorona")
 		rcorona.startServer(8181)
 	end
-		
+	
+	-- FONT CHECK
+	local fonts = native.getFontNames()
+	for i,fontname in ipairs(fonts) do
+		print(fonts[i])
+	end
+	-- END FONT CHECK
 		
 	Runtime:addEventListener("enterFrame", gameLoop.gameLoopEvents)
 	Runtime:addEventListener("memoryWarning", memory.handleLowMemory)

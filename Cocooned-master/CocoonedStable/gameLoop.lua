@@ -99,7 +99,7 @@ local line
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 
-local textObject = display.newText("", 600, 400, native.systemFont, 72)
+local textObject = display.newText("", 600, 400, "Teacher_A", 72)
 		
 local count = 0
 
@@ -695,6 +695,12 @@ local function gameLoopEvents(event)
 		mapDataDefault()		
 		gameTimer.cancelTimer()
 		-- Re-evaluate gameData booleans
+		gameData.inWater = false
+		gameData.onIceberg = false
+		gameData.allowPaneSwitch = false
+		gameData.allowMiniMap = false
+		gameData.isShowingMiniMap = false
+		-- Run main menu runtime event
 		gameData.inMainMenu = true
 		-- Switch off this loop
 		gameData.menuOn = false

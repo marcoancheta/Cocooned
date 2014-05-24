@@ -22,13 +22,11 @@ local generate = require("Objects.generateObjects")
 --------------------------------------------------------------------------------
 local fourteen = { 
 	-- boolean for which pane is being used
-	-- { Middle, Down, Up, Right, Left }
+	-- { Middle, Up, Down, Right, Left }
 	panes = {true,true,true,true,true},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {	 {["x"]=20, ["y"]=15},
-
-				},
+	playerPos = {{["x"]=20, ["y"]=15},},
 	-- number of wisps in the level
 	wispCount = 0,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -134,7 +132,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	if mapData.pane == "M" then
 		-- Wisps
 		--wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 17)
-
  		-- Runes
  		rune[2].x, rune[2].y = generate.tilesToPixels(2, 21)			
 		rune[2].isVisible = true

@@ -12,11 +12,11 @@ local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
 -- debug text object
 local textObject = {
-		display.newText("",  10, 720, native.systemFont, 48),
-		display.newText("", 10, 780, native.systemFont, 48),
-		display.newText("", 10, 80, native.systemFont, 48),
-		display.newText("", 10, 30, native.systemFont, 48),
-		display.newText("", 600, 200, native.systemFont, 72)
+		display.newText("",  10, 720, "Teacher_A", 48),
+		display.newText("", 10, 780, "Teacher_A", 48),
+		display.newText("", 10, 80, "Teacher_A", 48),
+		display.newText("", 10, 30, "Teacher_A", 48),
+		display.newText("", 600, 200, "Teacher_A", 72)
 }
 
 local prevTextMem = 0
