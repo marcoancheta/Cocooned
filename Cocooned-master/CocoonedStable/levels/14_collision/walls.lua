@@ -725,7 +725,8 @@ function M.physicsData(scale)
                     shape = {   562, -30  ,  572, 16  ,  560, -7  }
                     }
                     
-               
+                    
+                    
                      ,
                     
                     
@@ -1508,7 +1509,6 @@ function M.physicsData(scale)
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
                     shape = {   687, 355  ,  699, 275  ,  721, 248  ,  723, 432  }
                     }
-<<<<<<< HEAD
                     
                     
                     
@@ -1541,8 +1541,6 @@ function M.physicsData(scale)
                     
                     
                     
-=======
->>>>>>> ee0cf2d54edcae238674bcea1592f8fd9aa5977d
 		}
 		
 	} }
