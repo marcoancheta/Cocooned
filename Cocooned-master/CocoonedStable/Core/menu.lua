@@ -206,7 +206,7 @@ local function buttonPressed(event)
 		clean()
 						
 		gameData.gameOptions = false
-		gameData.gameEnd = true
+		gameData.levelRestart = true
 	end
 	
 	--[[ Increase or decrease speed ]]--
