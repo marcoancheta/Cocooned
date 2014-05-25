@@ -87,7 +87,6 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function onPlay(object)
-	print("SHOW PLAY")
 	textObject[1].isVisible = true
 	textObject[2].isVisible = true
 	textObject[1].alpha = 0.8
@@ -118,7 +117,6 @@ local function drawGoals(gui, player)
 	textObject = {}
 	--rune = {}
 
-	print("player.name", player.name)
 	playerTemp = player
 
 	-- Goal text displayer

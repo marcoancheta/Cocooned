@@ -6,6 +6,7 @@
 local sound = require("sound")
 local gameData = require("Core.gameData")
 local particle_lib = require("utils.particleEmitter")
+local utilMath = require("utils.utilMath")
 -- variable for miniMap mechanic for previous tap time
 local Random = math.random
 --------------------------------------------------------------------------------
@@ -24,6 +25,8 @@ local range = 50
 local thickness = 100
 
 local snowEmitter = emitterLib:createEmitter(range, thickness, duration, 1, 0, nil, nil, nil)
+
+local cCheck1, cCheck2
 
 --------------------------------------------------------------------------------
 -- Move and Animate - function that moves player object and animates it
@@ -74,12 +77,20 @@ local function moveAndAnimate(event, currPlayer, gui) --, physics
 		currPlayer.yForce = yForce
 		
 		if gameData.inWater == false then
+			--print("out of water and moving")
 			currPlayer.imageObject:applyForce(xForce, yForce,currPlayer.imageObject.x,currPlayer.imageObject.y)
 		end
 		
 		-- snow trail particle effect
  		local velX, velY = currPlayer.imageObject:getLinearVelocity()
- 
+ 		--print("player moving at " .. velX .. ", " .. velY)
+
+ 		if currPlayer.shook and math.abs(velX) < 20 and math.abs(velY) < 20 then
+ 			--print("reset dat SHIET!")
+ 			currPlayer.shook = false
+ 		end
+ 		
+ 		--[[
  		if velX ~= 0 and velY ~= 0 then
  			local angle = math.atan2(velX, velY)*(180/math.pi)
  			local offSet = math.random(-15, 15)
@@ -88,6 +99,7 @@ local function moveAndAnimate(event, currPlayer, gui) --, physics
  			local offSet2 = math.random(-10, 10)
  			snowEmitter:emit(gui, currPlayer.imageObject.x + offSet1, currPlayer.imageObject.y + offSet2)
  		end
+ 		]]
 
 		if speed > 1125 then
 			currPlayer.imageObject:play()

@@ -595,6 +595,7 @@ local function gameLoopEvents(event)
 		-- Clean
 		--clean(event)
 		inventory.inventoryInstance:clear()
+		collisionDetection.resetCollision()
 		-- Reset current pane to middle
 		mapData.pane = "M"
 		-- Switch off game booleans

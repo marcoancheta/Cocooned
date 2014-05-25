@@ -31,6 +31,7 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex, wispCount)
 		wisp[i].speed = 50
 	   	wisp[i].isVisible = true
 	   	wisp[i].func = "energyCollision"
+	   	wisp[i].collType = "passThru"
 	   	wisp[i].collectable = true
 	   	wisp[i].name = "wisp" .. i
 	   	wisp[i]:toFront()
@@ -83,7 +84,8 @@ local function gObjects(level, objects, map, mapData, runes)
 			elseif mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 				objects[name .. j].func = name .. "Collision"
 				if name == "fixedIceberg" then
-					physics.addBody(objects[name ..j], "static", {bounce = 0, filter = {groupIndex = -1 }})
+
+					physics.addBody(objects[name ..j], "static", physicsData.getObject(name):get(name))
 					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
 				elseif name == "switchWall" then
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
@@ -95,7 +97,6 @@ local function gObjects(level, objects, map, mapData, runes)
 				-- add object to map display group
 				map.front:insert(objects[name .. j])
 			end
-			
 			--objects[name .. j]:toBack()
 		end
 	end
@@ -227,6 +228,8 @@ local function gMObjects(level, objects, map, mapData)
 	for i = 1+offset, level[mapData.pane]["fixedIceberg"]+offset do
 		if objects["fixedIceberg" .. i-offset].movement == "fixed" then
 			-- create moveable object and set name
+			objects["fixedIceberg" .. i-offset].collType = "solid"
+			objects["fixedIceberg" .. i-offset].isSensor = true
 			mObjects[i] = moveableObject.create()
 			mObjects[i].object = objects["fixedIceberg" .. i-offset]
 			mObjects[i].moveable = true
@@ -304,11 +307,13 @@ local function gWater(map, mapData, direction)
 	water.alpha = 0
 	water.name = "water"
 	water.func = "waterCollision"
+	water.collType = "passThru"
 	--water.escape = "right"
 	water.x = display.contentCenterX
 	water.y = display.contentCenterY
 	
 	physics.addBody(water, "static", physicsData.getWater(mapData.levelNum):get(mapData.pane))
+	water.isSensor = true
 
 	map.front:insert(water)
 end
@@ -349,6 +354,16 @@ local function tilesToPixels( Tx, Ty)
 	return x, y
 end
 
+local function pixelsToTiles(Tx, Ty)
+	local x, y = Tx, Ty	
+	-- X changes
+	x = ((x*0.02777)+ 0.5)
+	-- Y changes
+	y = ((y*0.02777)+ 0.5)
+	-- Return x (first), then y (second)
+	return x, y
+end
+
 --------------------------------------------------------------------------------
 -- Finish Up
 --------------------------------------------------------------------------------
@@ -362,7 +377,8 @@ generateObjects = {
 	gWalls = gWalls,
 	gAuraWalls = gAuraWalls,
 	destroyObjects = destroyObjects,
-	tilesToPixels = tilesToPixels
+	tilesToPixels = tilesToPixels,
+	pixelsToTiles = pixelsToTiles
 }
 
 return generateObjects

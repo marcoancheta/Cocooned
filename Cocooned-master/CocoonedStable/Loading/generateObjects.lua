@@ -345,9 +345,9 @@ end
 local function pixelsToTiles(Tx, Ty)
 	local x, y = Tx, Ty	
 	-- X changes
-	x = ((x + 0.5)*0.02777)
+	x = ((x*0.02777)+ 0.5)
 	-- Y changes
-	y = ((y + 0.5)*0.02777)
+	y = ((y*0.02777)+ 0.5)
 	-- Return x (first), then y (second)
 	return x, y
 end

@@ -20,9 +20,14 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		event.contact.isEnabled = false
 	end
 	--collideObject.isSensor = true
-	
-	gameData.inWater = false
-	gameData.allowPaneSwitch = true
+	--[[
+	if player.lastPositionSaved then
+		gameData.inWater = false
+		gameData.allowPaneSwitch = true
+	else
+		gameData.allowPaneSwitch = false
+	end
+	]]
 end
 
 --------------------------------------------------------------------------------

@@ -20,56 +20,72 @@
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
 
+--------------------------------------------------------------------------------
+-- Collision Detection - reset the counters for water collision
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function resetCollision()
+	local waterCol = require("Objects.collision.waterCollision")
+	local fixedIcebergCol = require("Objects.collision.fixedIcebergCollision")
+
+	waterCol.reset()
+	fixedIcebergCol.reset()
+end
+
 -- creates the collision detection for that pane
 local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	
+	resetCollision()
+
 	-- function for pre collision 
 	-- before the object collides, call its own collide function
 	function imageObject:preCollision(event)
 		-- if the object is a passThru, calls it's collide function
 	    local collideObject = event.other
-				
+			
+		--[[
 		if event.contact then
 			--let the ball go through water
 			if collideObject.name == "water" then
+				if gameData.inWater == false  and player.lastPositionSaved == false then
+					print("saving last position")
+					player.lastPositionX = imageObject.x
+					player.lastPositionY = imageObject.y
+					player.lastPositionSaved = true
+				end
 				-- disabled collision
 				event.contact.isEnabled = false
 				gameData.inWater = true
-			else
-				if event.contact then
-					event.contact.isEnabled = true
-				end
 			end
 		end
+		]]--
 		
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
 			local col = require("Objects.collision." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)
 	    end
-
+	    --[[
 	    -- if the object is a solid, call it's collide function
 	    if collideObject.collType == "solid" or collideObject.collectable == true or collideObject.name == "wind" then
 			local col = require("Objects.collision." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)
 	    end
+	    ]]
 	end
 
 	--function for collision detection
 	-- when an object collides, call its own collide function
-	function imageObject:onLocalCollision(self, event)
+	local function onLocalCollision(self, event)
 		-- save the collide object
 		local collideObject = event.other
 
 		-- when collision began, do this
 		if event.phase == "began" then
 			-- if the object is a solid, call it's function
-			if collideObject.collType == "solid" or collideObject.name == "water" then
+			if (collideObject.collType == "solid" and collideObject.name ~= "walls") or (collideObject.name == "water") then
 				local col = require("Objects.collision." .. collideObject.func)
-				event.contact.isEnabled = true
-				col.collide(collideObject, player, event, mapData, map, gui)
-			elseif collideObject.collType == "passThru" and collideObject.name ~= "water" then
-				local col = require("Objects.collision." .. collideObject.func)
-				col.collide(collideObject, player, event, mapData, map, gui)
+				col.collide(collideObject, player, event, mapData, map, gui)	
 			end
 		  
 			-- create particle effect
@@ -81,10 +97,17 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			--if the player shook, and the collision with water ended
 			if collideObject.name ~= "water" and collideObject.name ~= "wall" and string.sub(collideObject.name,1,12) ~= "fixedIceberg" then
 				-- set players movement to inWater
-				gameData.inWater = false
 				player.imageObject.linearDamping = 1.25
-			elseif string.sub(collideObject.name,1,12) == "fixedIceberg" then
-				gameData.onIceberg = false
+			elseif collideObject.collType == "solid" then
+				local col = require("Objects.collision." .. collideObject.func)
+				col.collide(collideObject, player, event, mapData, map, gui)	
+			elseif collideObject.name == "water" then
+				local col = require("Objects.collision." .. collideObject.func)
+				col.collide(collideObject, player, event, mapData, map, gui)
+			end
+		else
+			if collideObject.name == "water" then
+				--print("still colliding with water")
 			end
 		end
 	end
@@ -92,8 +115,10 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	-- add event listener to collision detection and pre collision detection
 	imageObject.collision = onLocalCollision
 	imageObject:addEventListener("collision", imageObject)
-	imageObject:addEventListener( "preCollision")
+	imageObject:addEventListener("preCollision")
 end
+
+
 
 --------------------------------------------------------------------------------
 -- Collision Detection - change the collision detection
@@ -107,6 +132,7 @@ local function changeCollision(player, mapData, gui, map)
 	player.imageObject:removeEventListener("preCollision")
 
 	-- create new collision detection event listeners
+	resetCollision()
 	createCollisionDetection(player.imageObject, player, mapData, gui, map)
 end
 
@@ -116,11 +142,14 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function destroyCollision(imageObject)
+	resetCollision()
 	if imageObject then
 		imageObject:removeEventListener("collision", imageObject)
 		imageObject:removeEventListener("preCollision")
 	end
 end
+
+
 
 --------------------------------------------------------------------------------
 -- Finish up
@@ -130,7 +159,8 @@ end
 local collisionDetection = {
 	createCollisionDetection = createCollisionDetection,
 	changeCollision = changeCollision,
-	destroyCollision = destroyCollision
+	destroyCollision = destroyCollision,
+	resetCollision = resetCollision
 }
 
 return collisionDetection

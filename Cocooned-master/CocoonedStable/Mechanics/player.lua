@@ -53,6 +53,11 @@ local playerInstance = {
 	speedConst = 5,
 	defaultSpeed = 7,
 	radius = 38, --default radius
+
+	--waterEscape variables
+	lastPositionX = nil,
+	lastPositionY = nil,
+	lastPositionSaved = false,
 	
 	-- Booleans
 	deathTimer = nil,

@@ -158,7 +158,7 @@ end
 
 -- Background Music [Channel: 3]
 local function playBGM(name)
-	bgm = audio.play(name, {channel = 3, loops=-1})
+	--bgm = audio.play(name, {channel = 3, loops=-1})
 	print("play BGM:", name)
 	
 	return bgm

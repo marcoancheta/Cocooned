@@ -6,7 +6,16 @@
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
 local sound = require("sound")
+local physics = require("physics")
+local generate = require("Objects.generateObjects")
+local uMath = require("utils.utilMath")
 --NOTE: to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
+
+local rayCastCheck = display.newGroup()
+local rayCastDistanceCheck = display.newGroup()
+
+local lastPointCheck = display.newGroup()
+local lastPointDistanceCheck = display.newGroup()
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -25,7 +34,13 @@ local accelPlayer = {
 	[2] = nil
 }
 
-
+local function emptyGroup(displayGroup)
+	if displayGroup.numChildren > 0 then
+		for i = displayGroup.numChildren, 1, -1 do
+			displayGroup[i]:removeSelf()
+		end
+	end
+end
 
 --------------------------------------------------------------------------------
 -- Cancel Death Timer - function that cancels end game from being changed
@@ -92,12 +107,142 @@ local function onAccelerate(event, player)
 	end
 		
 	-- Accelerometer Shake Event
-	if event.isShake and gameData.inWater == true then	
+	if event.isShake and gameData.inWater == true and player.shook == false then
+		--print(" IM FUCKING SHAKING NIGGA!!! ")
+		
+		emptyGroup(rayCastCheck)
+		emptyGroup(rayCastDistanceCheck)
+		emptyGroup(lastPointCheck)
+		emptyGroup(lastPointDistanceCheck)
+
+		local lastPoint = display.newCircle(player.lastPositionX, player.lastPositionY, 10)
+		lastPoint:setFillColor(0,0,1)
+		rayCastDistanceCheck:insert(lastPoint)
+
+		local useLastPoint = true
+
+		if lastPoint.x == -100 and lastPoint.y == -100 then useLastPoint = false end
+		--print("Player last position at : " .. player.lastPositionX .. ", " .. player.lastPositionY)
+
 		local ball = player.imageObject		
+		local degree = 0
+		local distanceCheck = 50
+		local shoreFound = false
+		local rotation = 36
+		local degreeAdd = 10
+		local foreverCheck = 0
+
+		while  shoreFound == false do
+			foreverCheck = foreverCheck + 1
+			for i = 1, rotation do
+				local x = ball.x + (distanceCheck * math.cos(degree * (math.pi/180)))
+				local y = ball.y + (distanceCheck * math.sin(degree * (math.pi/180)))
+				local checkCircle = display.newCircle(x, y, 5)
+				checkCircle:setFillColor(0,1,0)
+				checkCircle.name = "check"
+				rayCastDistanceCheck:insert(checkCircle)
+				rayCastDistanceCheck:toFront()
+
+				local hits = physics.rayCast(ball.x, ball.y, x, y, "sorted")
+				if ( hits ) then
+				    -- Output all the results.
+				    for i,v in ipairs(hits)
+				    do
+				    	if v.object.name ~= "water" and v.object.name ~= "walls" then
+					    	local pointC = display.newCircle(v.position.x, v.position.y, 10)
+					    	pointC:setFillColor(1,0,0)
+					    	pointC.name = v.object.name
+					    	rayCastCheck:insert(pointC)
+					    	rayCastCheck:toFront()
+					    end
+				        
+				    end					
+				else
+				    -- There's no hit.
+				end
+				
+				degree = degree + degreeAdd
+			end
+			if(distanceCheck >= 200) then
+				degreeAdd = 5
+				rotation = 72
+			end
+			degree = 0
+
+			for i = 1, rayCastCheck.numChildren do
+				if useLastPoint then
+					local pointToSafety = uMath.distance(lastPoint, rayCastCheck[i])
+					--print("checking distance: " .. pointToSafety)
+					if math.abs(pointToSafety) < 80 then
+						shoreFound = true
+						break
+					end
+				end
+			end
+			distanceCheck = distanceCheck + 25
+			if foreverCheck > 20 then
+				--print("you just hit a forever loop, we getting out of here!!")
+				break
+			end
+			if shoreFound ~= true then
+				emptyGroup(rayCastDistanceCheck)
+				emptyGroup(rayCastCheck)
+			end
+		end
+		rayCastCheck:toFront()
+		--print("display group has " .. rayCastCheck.numChildren .. " objects")
+
+		local choosePoint = 0
+		local minDist = math.huge
+		for i = 1, rayCastCheck.numChildren do
+			local dist
+			if useLastPoint then
+				dist = uMath.distance(rayCastCheck[i], lastPoint)
+				--print("Hit: " .. i .. " " .. rayCastCheck[i].name .. " at position " .. rayCastCheck[i].x .. ", " .. rayCastCheck[i].y .. " distance: " .. dist)
+				
+			else
+				dist = uMath.distance(rayCastCheck[i], ball)
+				--print("Hit: " .. i .. " " .. rayCastCheck[i].name .. " at position " .. rayCastCheck[i].x .. ", " .. rayCastCheck[i].y .. " distance: " .. dist)
+			end
+			if dist < minDist then
+				minDist = dist
+				choosePoint = i
+			end
+		end	
+
+		--print("Go to point : " .. choosePoint .. " at " .. rayCastCheck[choosePoint].x .. ", " .. rayCastCheck[choosePoint].y .. "with distance of " .. minDist)
+		rayCastCheck[choosePoint]:setFillColor(0,0,0)
+		rayCastCheck[choosePoint]:toFront()
+
+		local pushDistance = uMath.distance(ball, rayCastCheck[choosePoint])
+		local straightDistance = uMath.distance(ball, lastPoint)
+
+		local chooseDistance = pushDistance
+		local chooseLocation = rayCastCheck[choosePoint]
+
+		if pushDistance > straightDistance and useLastPoint then
+			chooseLocation = lastPoint
+			chooseDistance = straightDistance
+		end
+
+		local deltaX, deltaY = 0,0
+		deltaX = chooseLocation.x - ball.x
+		deltaY = chooseLocation.y - ball.y
+
+		local angleX = math.acos(deltaX/chooseDistance)
+		local angleY = math.asin(deltaY/chooseDistance)
+
+		local jumpDirectionX, jumpDirectionY = 0,0
+		jumpDirectionX = 20 * math.cos(angleX)
+		jumpDirectionY = 20 * math.sin(angleY)
+
+		--print("push player in " .. jumpDirectionX .. ", " .. jumpDirectionY)
 		accelPlayer[1] = player
 		player.shook = true
-		ball:applyLinearImpulse(-xGrav * 0.1, -yGrav * 0.1, ball.x, ball.y)
-		--timer.performWithDelay(100, cancelDeathTimer)
+		--ball:applyForce(jumpDirectionX, jumpDirectionY, ball.x, ball.y)
+		ball.linearDamping = 0
+		ball:setLinearVelocity(deltaX*3, deltaY*3)
+		--transition.to(ball, {time = 200, x = lastPoint.x, y = lastPoint.y})
 	elseif gameData.inWater == false or gameData.onIceberg == true then
 		--sound.playNarration(sound.soundEffects[7])
 		-- offset the gravity to return

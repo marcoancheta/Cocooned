@@ -6,11 +6,15 @@
 local gameData = require("Core.gameData")
 local sound = require("sound")
 local animation = require("Core.animation")
+local uMath = require("utils.utilMath")
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
+local waterCount = 0
+local waterCheck
+local waterShadow
 
 --------------------------------------------------------------------------------
 -- Clean Function - function for deleting all local variables
@@ -30,10 +34,84 @@ end
 -- Updated by: Andrew moved event.contact.isenabled to precollision
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	--event.contact.isEnabled = true
-	
+	if(event.phase == "began") then
+		
+		--print("##############  I just collided with water ###############")
+		if (gameData.onIceberg == false) then
+			gameData.inWater = true
+			
+			--print("==================== began collided with water, count: " .. waterCount .. " ===================")
+
+			if(waterCount == 0) then
+				player.lastPositionX = player.imageObject.x
+				player.lastPositionY = player.imageObject.y
+				
+
+				player.lastPositionSaved = true
+				player.imageObject.linearDamping = 3
+				if (waterCheck) then
+					waterCheck:removeSelf()
+				end
+				local vx, vy = player.imageObject:getLinearVelocity()
+				--print("entry velocity is " .. vx .. ", " .. vy)
+
+
+				local xf = player.imageObject.x + vx
+				local yf = player.imageObject.y + vy
+
+				local distance = uMath.distanceXY(player.imageObject.x, player.imageObject.y, xf, yf)
+
+				local moveX = 100 * math.cos(math.acos(vx/distance))
+				local moveY = 100 * math.sin(math.asin(vy/distance))
+
+				xf = player.imageObject.x + moveX
+				yf = player.imageObject.y + moveY
+
+				--print("player is at " .. player.imageObject.x .. ", " .. player.imageObject.y)
+				--print("move the player to this point: " .. xf .. ", " .. yf)
+
+				transition.to(player.imageObject, {time = 200, x = xf, y = yf})
+				player.imageObject:setLinearVelocity(0,0)
+
+				waterCheck = display.newCircle(xf,yf,10)
+				waterCheck:setFillColor(1,1,1)
+				waterCheck:toFront()
+				--print("create dat shadow")
+				if waterShadow then
+					waterShadow:removeSelf()
+					waterShadow = nil
+				end
+				waterShadow = display.newCircle(player.lastPositionX, player.lastPositionY, 38)
+				waterShadow.alpha = 0.75
+				waterShadow:setFillColor(0,0,0)
+				waterShadow:toFront()
+			end
+			waterCount = waterCount + 1
+		end
+	elseif event.phase == "ended"  then
+		if (gameData.onIceberg == false) then
+			if(waterCount > 0) then
+				waterCount = waterCount - 1
+				player.shook = false
+				--print("==================== ended collided with water, count: " .. waterCount .. " ===================")
+			end
+			if ( waterCount == 0 ) then
+				--print("==================== OUT ended collided with water, count: " .. waterCount .. " ===================")
+				player.shook = false
+				gameData.inWater = false
+				player.lastPositionSaved = false
+				player.imageObject:setLinearVelocity(0,0)
+				player.imageObject.linearDamping = 1.25
+			end
+		end
+	end
+	if gameData.onIceberg then
+		--print(" @@@@@@@@@@@@@@@ still on an iceberg")
+	else
+		--print(" $$$$$$$$$$$$$$$ not on an iceberg")
+	end
 	-- If player is not on top of iceberg
-	if gameData.onIceberg == false then
+	--[[if gameData.onIceberg == false then
 		gameData.allowPaneSwitch = false
 		-- play sound
 		sound.stopChannel(1)
@@ -59,6 +137,11 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		local timer = timer.performWithDelay(600, clean)
 		timer.params = {splashParams = splashAnim}
 	end
+	]]
+end
+
+local function reset()
+	waterCount = 0
 end
 
 --------------------------------------------------------------------------------
@@ -67,7 +150,9 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local waterCollision = {
-	collide = collide
+	collide = collide,
+	reset = reset,
+	waterCount = waterCount
 }
 
 return waterCollision
