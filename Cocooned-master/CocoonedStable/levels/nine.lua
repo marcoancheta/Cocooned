@@ -101,13 +101,8 @@ local nine = {
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
-<<<<<<< HEAD
 		["fish1"] = 5,
 		["fish2"] = 5,
-=======
-		["fish1"] = 0,
-		["fish2"] = 0,
->>>>>>> 9e0d28e6667422424dddfe4e5182f0fea17d1be1
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -174,7 +169,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[22].x, wisp[22].y = generate.tilesToPixels(10, 12)
 		wisp[23].x, wisp[23].y = generate.tilesToPixels(7, 12)
 
-<<<<<<< HEAD
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(7, 11)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(2, 11)
@@ -223,8 +217,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish25"].time = 675
 		objects["fish25"]:rotate(90)
 
-=======
->>>>>>> 9e0d28e6667422424dddfe4e5182f0fea17d1be1
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(39, 16)
 		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(28, 18)
 		objects["fixedIceberg1"].time = 11000
