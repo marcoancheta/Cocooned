@@ -26,9 +26,7 @@ local ten = {
 	panes = {true,false,true,true,true},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {	 {["x"]=4, ["y"]=4},
-
-				},
+	playerPos = {{["x"]=4, ["y"]=4},},
 	-- number of wisps in the level
 	wispCount = 29,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -176,10 +174,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		generate.gWisps(wisp, map, mapData, 18, 29, ten.wispCount)
 
-	elseif mapData.pane == "U" then
-		if gameData.debugMode then
-			print("You shouldn't be in here...")
-		end
 	elseif mapData.pane == "R" then
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(15, 15)
@@ -205,6 +199,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 
 	elseif mapData.pane == "D" then
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
+	elseif mapData.pane == "U" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
 		end
