@@ -37,6 +37,8 @@ local function moveforward(obj)
 	if obj.stop ~= true then
 		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
 		if obj.name ~= "iceberg" then
+			sound.stopChannel(1)
+			sound.playSound(sound.soundEffects[13])
 			obj:rotate(180)
 		end
 	end
@@ -54,6 +56,8 @@ function moveBackward(obj)
 	if obj.stop ~= true then
 		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveforward})
 		if obj.name ~= "iceberg" then
+			sound.stopChannel(1)
+			sound.playSound(sound.soundEffects[13])
 			obj:rotate(180)
 		end
 	end

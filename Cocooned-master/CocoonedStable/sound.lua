@@ -37,6 +37,8 @@ local function loadMenuSounds()
 	sound.backgroundMusic[1] = audio.loadStream("sounds/music/Soliloquy.mp3") -- or FallOfArcana.mp3
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
+	-- Snow "ballin" [Note: this is a steam]
+	sound.soundEffects[2] = audio.loadSound("sounds/rolling.wav")
 	
 	return backgroundMusic, soundEffects
 end
@@ -77,6 +79,8 @@ local function loadGameSounds()
 	sound.soundEffects[11] = audio.loadSound("sounds/runePickupMovableWalls.wav")
 	--Level exit portal sound
 	sound.soundEffects[12] = audio.loadSound("sounds/enterPortal.wav")
+	--Fish sound
+	sound.soundEffects[13] = audio.loadSound("sounds/fish.wav")
 	
 	return backgroundMusic, soundEffects
 end
@@ -158,8 +162,7 @@ end
 -- Narration/Ball rolling [Channel: 2]
 local function playNarration(name)
 	audio.setVolume(0.5, { channel=2 })
-	narrator = audio.play(name, {channel = 2, loops=0, onComplete=stopChannel1})
-	audio.fadeOut(narrator)
+	narrator = audio.play(name, {channel = 2, loops=0})
 	print("play narration:", name)
 	
 	return narrator
