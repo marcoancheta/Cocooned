@@ -206,10 +206,8 @@ local function buttonPressed(event)
 		clean()
 						
 		gameData.gameOptions = false
-		gameData.gameEnd = true
-	elseif event.target.name == "calibrateAccel" then						
-		gameData.xOff = false
-		gameData.yOff = true
+		gameData.levelRestart = true
+
 	end
 	
 	--[[ Increase or decrease speed ]]--

@@ -81,7 +81,7 @@ local nine = {
 		["fixedIceberg"] = 2
 	},
 	["R"] = {
-		["blueAura"] = 1,
+		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -134,22 +134,22 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(12, 20)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(14, 18)
 		wisp[4].x, wisp[4].y = generate.tilesToPixels(16, 20)
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(18, 23)
-		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 23)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(18, 22)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 22)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(22, 21)
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(24, 20)
 		wisp[9].x, wisp[9].y = generate.tilesToPixels(26, 18)
 		wisp[10].x, wisp[10].y = generate.tilesToPixels(28, 20)
 		wisp[11].x, wisp[11].y = generate.tilesToPixels(30, 22)
 		wisp[12].x, wisp[12].y = generate.tilesToPixels(32, 10)
-		wisp[13].x, wisp[13].y = generate.tilesToPixels(31, 12)
+		wisp[13].x, wisp[13].y = generate.tilesToPixels(34, 12)
 		wisp[14].x, wisp[14].y = generate.tilesToPixels(30, 10)
 		wisp[15].x, wisp[15].y = generate.tilesToPixels(15, 4)
 		wisp[16].x, wisp[16].y = generate.tilesToPixels(13, 3)
 		wisp[17].x, wisp[17].y = generate.tilesToPixels(17, 3)
 
  		-- Rune 
- 		rune[2].x, rune[2].y = generate.tilesToPixels(25, 11)			
+ 		rune[2].x, rune[2].y = generate.tilesToPixels(32, 11)			
 		rune[2].isVisible = true
 
 		-- Iceberg
@@ -159,7 +159,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg1"].movement = "fixed" 
 				
 		generate.gWisps(wisp, map, mapData, 1, 17, nine.wispCount)
-		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		--wisp[17].x, wisp[17].y = generate.tilesToPixels(22, 13)
@@ -205,7 +204,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[24].x, wisp[24].y = generate.tilesToPixels(7, 12)
 
 		rune[4].x, rune[4].y = generate.tilesToPixels(20, 15)			
-		rune[2].isVisible = true
+		rune[4].isVisible = true
 
 		objects["fixedIceberg3"].x, objects["fixedIceberg3"].y = generate.tilesToPixels(35, 5)
 		objects["fixedIceberg3"].time = 3800 --not needed if free
@@ -265,7 +264,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	-- set which panes are avaiable for player
 	map.front.panes = nine.panes
-	map.front.itemGoal = 1
+	map.front.itemGoal = 2
 end
 
 --------------------------------------------------------------------------------
