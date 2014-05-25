@@ -176,12 +176,12 @@ local function tapScreen(event, miniMap, mapData, physics, gui, player)
 			-- return saved tempPane2
 			return tempPane2
 		end
-	-- else, tapped once, do functionality for miniMap if it is showing
+	--[[-- else, tapped once, do functionality for miniMap if it is showing
 	else
 		if gameData.isShowingMiniMap == true then
 			-- call miniMap move function
 			mapData.pane = miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
-		end
+		end]]--
 	end
 
 	-- return new MapData.pane
