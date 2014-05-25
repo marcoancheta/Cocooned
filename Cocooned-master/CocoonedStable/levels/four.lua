@@ -22,7 +22,7 @@ local generate = require("Objects.generateObjects")
 --------------------------------------------------------------------------------
 local four = { 
 	-- boolean for which pane is being used
-	-- { Middle, Down, Up, Right, Left }
+	-- { Middle, Up, Down, Right, Left }
 	panes = {true,false,false,false,true},
 	timer = 180,
 	playerCount = 1,
@@ -46,7 +46,8 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0,
 		["enemy"] = 0,
-		["fixedIceberg"] = 1
+		["fixedIceberg"] = 1,
+		["worldPortal"] = 0
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -62,7 +63,8 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -78,7 +80,8 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -94,7 +97,8 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -110,7 +114,8 @@ local four = {
 		["switchWall"] = 0,
 		["exitPortal"] = 1, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 3
+		["fixedIceberg"] = 3,
+		["worldPortal"] = 0
 	}
 }
 
@@ -147,13 +152,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[15].x, wisp[15].y = generate.tilesToPixels(10, 8)
 		wisp[16].x, wisp[16].y = generate.tilesToPixels(10, 6)
 
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(18, 18)
-		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(18, 22)
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(25, 17)
+		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(25, 10)
 		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(25, 10)
 		objects["fixedIceberg2"].eX, objects["fixedIceberg2"].eY = generate.tilesToPixels(4, 10)
 		objects["fixedIceberg3"].x, objects["fixedIceberg3"].y = generate.tilesToPixels(10, 10)
 		objects["fixedIceberg3"].eX, objects["fixedIceberg3"].eY = generate.tilesToPixels(10, 5)
-		objects["fixedIceberg1"].time = 3000
+		objects["fixedIceberg1"].time = 7000
 		objects["fixedIceberg2"].time = 11000
 		objects["fixedIceberg3"].time = 3800
 		objects["fixedIceberg1"].movement = "fixed" 

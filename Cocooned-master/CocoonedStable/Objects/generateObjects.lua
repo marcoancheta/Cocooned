@@ -35,7 +35,7 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex, wispCount)
 	   	wisp[i].collectable = true
 	   	wisp[i].name = "wisp" .. i
 	   	wisp[i]:toFront()
-
+	
 		for j=1, wispCount do
 			-- check if wisp(s) exist inside player objects inventory
 			if inventory.inventoryInstance.items[j] ~= wisp[i].name then
@@ -70,9 +70,17 @@ local function gObjects(level, objects, map, mapData, runes)
 		for j = 1, level[mapData.pane][name] do
 			-- set properties and add to physics group
 			if mapData.levelNum == "LS" then
-				objects[name .. j].func = "levelPortalCollision"
-				physics.addBody(objects[name ..j], "static", {bounce = 0})
-				objects[name ..j].collType = "passThru"
+				-- Exit portals and other objects
+				if name ~= "worldPortal" then
+					objects[name .. j].func = "levelPortalCollision"
+					physics.addBody(objects[name ..j], "static", {bounce = 0})
+					objects[name ..j].collType = "passThru"
+				-- Back to world-portal
+				elseif name == "worldPortal" then
+					objects[name .. j].func = "BacktoWorldPortalCollision"
+					physics.addBody(objects[name ..j], "static", {bounce = 0})
+					objects[name ..j].collType = "passThru"
+				end
 				-- add object to map display group
 				map.middle:insert(objects[name .. j])
 			elseif mapData.levelNum == "world" then
@@ -83,19 +91,26 @@ local function gObjects(level, objects, map, mapData, runes)
 				map.middle:insert(objects[name .. j])
 			elseif mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 				objects[name .. j].func = name .. "Collision"
+				-- Fixed iceberg
 				if name == "fixedIceberg" then
 
 					physics.addBody(objects[name ..j], "static", physicsData.getObject(name):get(name))
+					--physics.addBody(objects[name .. j], "static", {bounce = 0})
 					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+				-- Switch wall
 				elseif name == "switchWall" then
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
 					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+				-- Everything else
 				else
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
-				end				
-				objects[name ..j].collType = "passThru"
+				end	
+				
+				objects[name .. j].collType = "solid"
+				objects[name .. j].isSensor = true
 				-- add object to map display group
 				map.front:insert(objects[name .. j])
+				print("creating " .. objects[name .. j].name)
 			end
 			--objects[name .. j]:toBack()
 		end
@@ -224,7 +239,7 @@ local function gMObjects(level, objects, map, mapData)
 		offset = offset + level[mapData.pane]["wolf"]
 	end
 
-	-- create moveable fish2 obects
+	-- create moveable iceberg objects
 	for i = 1+offset, level[mapData.pane]["fixedIceberg"]+offset do
 		if objects["fixedIceberg" .. i-offset].movement == "fixed" then
 			-- create moveable object and set name
@@ -243,6 +258,7 @@ local function gMObjects(level, objects, map, mapData)
 			mObjects[i].object.time = time
 			mObjects[i].object.stop = false
 			mObjects[i].object.moveable = true
+			mObjects[i].object.name = "iceberg"
 
 			-- start moving object
 			map.front:insert(objects["fixedIceberg" .. i-offset])
@@ -354,16 +370,13 @@ local function tilesToPixels( Tx, Ty)
 	return x, y
 end
 
-local function pixelsToTiles(Tx, Ty)
-	local x, y = Tx, Ty	
-	-- X changes
-	x = ((x*0.02777)+ 0.5)
-	-- Y changes
-	y = ((y*0.02777)+ 0.5)
-	-- Return x (first), then y (second)
+local function pixelsToTiles( Tx, Ty)
+	local x, y = Tx, Ty
+	--tprint.assert((x ~= nil) and (y ~= nil), "Missing argument(s).")
+	x, y = (x * 0.027778), (y * 0.027778)
+	x, y = x + 0.5, y + 0.5
 	return x, y
 end
-
 --------------------------------------------------------------------------------
 -- Finish Up
 --------------------------------------------------------------------------------

@@ -27,10 +27,8 @@ local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
 local function resetCollision()
 	local waterCol = require("Objects.collision.waterCollision")
-	local fixedIcebergCol = require("Objects.collision.fixedIcebergCollision")
 
 	waterCol.reset()
-	fixedIcebergCol.reset()
 end
 
 -- creates the collision detection for that pane
@@ -62,6 +60,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		]]--
 		
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
+	    	print("in here 1")
 			local col = require("Objects.collision." .. collideObject.func)
 			col.collide(collideObject, player, event, mapData, map, gui)
 	    end
@@ -93,9 +92,11 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
 			--end
 			
-		elseif event.phase == "ended" then				  
+		elseif event.phase == "ended" then	
+			print("finish collide with " .. collideObject.name)			  
 			--if the player shook, and the collision with water ended
-			if collideObject.name ~= "water" and collideObject.name ~= "wall" and string.sub(collideObject.name,1,12) ~= "fixedIceberg" then
+			if collideObject.name ~= "water" and collideObject.name ~= "walls" and collideObject.name ~= "iceberg" then
+				print("i went in here")
 				-- set players movement to inWater
 				player.imageObject.linearDamping = 1.25
 			elseif collideObject.collType == "solid" then

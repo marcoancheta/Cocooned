@@ -19,6 +19,13 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if event.contact then
 		event.contact.isEnabled = false
 	end
+
+	if event.phase == "began" then
+		player.onLand = true
+	elseif event.phase == "ended" then
+		player.onLand = false
+	end
+
 	--collideObject.isSensor = true
 	--[[
 	if player.lastPositionSaved then

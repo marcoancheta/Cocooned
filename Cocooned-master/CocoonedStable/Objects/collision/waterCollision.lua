@@ -43,6 +43,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			--print("==================== began collided with water, count: " .. waterCount .. " ===================")
 
 			if(waterCount == 0) then
+				gameData.allowPaneSwitch = false
 				player.lastPositionX = player.imageObject.x
 				player.lastPositionY = player.imageObject.y
 				
@@ -70,8 +71,31 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				--print("player is at " .. player.imageObject.x .. ", " .. player.imageObject.y)
 				--print("move the player to this point: " .. xf .. ", " .. yf)
 
-				transition.to(player.imageObject, {time = 200, x = xf, y = yf})
+				distance = uMath.distanceXY(player.imageObject.x, player.imageObject.y, xf, yf)
+
+				local deltaX, deltaY = 0,0
+				deltaX = xf - player.imageObject.x
+				deltaY = yf - player.imageObject.y
+
+				local angleX = math.acos(deltaX/distance)
+				local angleY = math.asin(deltaY/distance)
+
+				local jumpDirectionX, jumpDirectionY = 0,0
+				jumpDirectionX = 10 * math.cos(angleX)
+				jumpDirectionY = 10 * math.sin(angleY)
+
 				player.imageObject:setLinearVelocity(0,0)
+				player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
+
+				local function stopPlayer()
+					print(">>>>>>>>>>>>> STOPPED DAT NIGGA")
+					player.imageObject:setLinearVelocity(0,0)
+				end
+
+				timer.performWithDelay(500, stopPlayer)
+
+				--transition.to(player.imageObject, {time = 200, x = xf, y = yf})
+				--player.imageObject:setLinearVelocity(0,0)
 
 				waterCheck = display.newCircle(xf,yf,10)
 				waterCheck:setFillColor(1,1,1)
@@ -93,15 +117,16 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			if(waterCount > 0) then
 				waterCount = waterCount - 1
 				player.shook = false
-				--print("==================== ended collided with water, count: " .. waterCount .. " ===================")
+				print("==================== ended collided with water, count: " .. waterCount .. " ===================")
 			end
-			if ( waterCount == 0 ) then
-				--print("==================== OUT ended collided with water, count: " .. waterCount .. " ===================")
+			if ( waterCount == 0 ) and player.onLand then
+				print("==================== OUT ended collided with water, count: " .. waterCount .. " ===================")
 				player.shook = false
 				gameData.inWater = false
 				player.lastPositionSaved = false
 				player.imageObject:setLinearVelocity(0,0)
 				player.imageObject.linearDamping = 1.25
+				player.allowPaneSwitch = true
 			end
 		end
 	end

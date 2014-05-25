@@ -58,6 +58,7 @@ local playerInstance = {
 	lastPositionX = nil,
 	lastPositionY = nil,
 	lastPositionSaved = false,
+	onLand = true,
 	
 	-- Booleans
 	deathTimer = nil,

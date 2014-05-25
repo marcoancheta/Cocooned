@@ -41,6 +41,7 @@ local function moveAndAnimate(event, currPlayer, gui) --, physics
 	local speed = math.sqrt((vy*vy)+(vx*vx))
 	
 	if currPlayer.movement == "accel" then
+			
 		--print("moving")				
 		local yForce = 0
 		local xForce = 0

@@ -7,6 +7,7 @@ local highScore = require("Core.highScore")
 local generate = require("Objects.generateObjects")
 local gameData = require("Core.gameData")
 local menu = require("Core.menu")
+local font = require("utils.font")
 --------------------------------------------------------------------------------
 -- Class
 local win = {}
@@ -86,9 +87,11 @@ local function tap(event)
 	elseif event.target.name == "restart" then
 		gameData.levelRestart = true
 		clean()
+		--[[
 	elseif event.target.name == "quit" then
 		gameData.gameEnd = true
 		clean()
+		]]--
 	end
 end
 
@@ -100,7 +103,7 @@ local function runWinner(mapData, gui)
 	init(gui)
 	textObj = highScore.init(gui)
 	-- Create "HIGHSCORES" text
-	highText = display.newText("HIGH SCORES", display.contentCenterX, 80, native.systemFontBold, 82)
+	highText = display.newText("HIGH SCORES", display.contentCenterX, 80,font.TEACHERA, 82)
 
 	local tables = highScore.loadScore()
 	highScore.scoreTable = tables
@@ -108,18 +111,18 @@ local function runWinner(mapData, gui)
 	highScore.counter = 0
 	
 	-- Restart Level button
-	scoreObj[1] = display.newImage("mapdata/art/buttons/restart.png")
+	scoreObj[1] = display.newImageRect("mapdata/art/buttons/restart.png", 200, 200)
 	scoreObj[1].name = "restart"
-	scoreObj[1].x, scoreObj[1].y = generate.tilesToPixels(34, 15)
+	scoreObj[1].x, scoreObj[1].y = generate.tilesToPixels(8, 18)
 	-- Level Selector button
-	scoreObj[2] = display.newImage("mapdata/art/buttons/select.png")
+	scoreObj[2] = display.newImageRect("mapdata/art/buttons/levelselect.png", 200, 200)
 	scoreObj[2].name = "select"
 	scoreObj[2].x, scoreObj[2].y = generate.tilesToPixels(34, 18)
 	-- Main Menu button
-	scoreObj[3] = display.newImage("mapdata/art/buttons/main.png")
+	--[[scoreObj[3] = display.newImageRect("mapdata/art/buttons/main.png", 200, 200)
 	scoreObj[3].name = "quit"
-	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(34, 21)
-			
+	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(8, 18)
+	]]--	
 	gui.front:insert(highText)
 	
 	for i=1, #scoreObj do
@@ -151,7 +154,7 @@ end
 --------------------------------------------------------------------------------
 local function listener(target, mapData, gui)
 	-- Show time remaining
-	scoreObj[3] = display.newText("Time left: " ..os.date("!%M:%S", gameData.gameTime), display.contentCenterX, 80, native.systemFontBold, 72)
+	scoreObj[3] = display.newText("Time left: " ..os.date("!%M:%S", gameData.gameTime), display.contentCenterX, 80,font.TEACHERA, 72)
 	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(20, 7)
 	scoreObj[3].alpha = 0
 	
@@ -159,7 +162,7 @@ local function listener(target, mapData, gui)
 	local trans = transition.to(scoreObj[3], {time=2000, alpha=1, onComplete=fade})
 	
 	-- Called from showScore transition:
-	-- Delay 3 seconds to show high score
+	-- Delay 5 seconds to show high score
 	tempTimer = timer.performWithDelay(5000, delay)
 	tempTimer.params = {targetParam = target, mapParam = mapData, guiParam = gui}
 end
@@ -172,7 +175,7 @@ local function showScore(mapData, gui)
 	tempDataw = mapData
 	tempGui = gui	
 	-- Draw "WINNER" at the top of the screen 	
-	highText = display.newText("Level Complete!", display.contentCenterX, 80, native.systemFontBold, 82)
+	highText = display.newText("Level Complete!", display.contentCenterX, 80, font.TEACHERA, 82)
 	-- Calculate player's score
 	local temp = highScore.calcScore(mapData, gui)
 	count = (temp*0.01)
@@ -185,13 +188,13 @@ local function showScore(mapData, gui)
 	scoreObj[1]:scale(2, 2)
 	scoreObj[1].x, scoreObj[1].y = generate.tilesToPixels(20, 15)
 	-- Show player's score
-	scoreObj[2] = display.newText("Score: " ..score, display.contentCenterX, 80, native.systemFontBold, 82)
+	scoreObj[2] = display.newText("Score: " ..score, display.contentCenterX, 80,font.TEACHERA, 82)
 	scoreObj[2].x, scoreObj[2].y = generate.tilesToPixels(20, 20)
 	-- If amount of wisps is greater than 0, run transition
 	if count > 0 then
-		-- run transition for 1.5 seconds
-		local wispTran = transition.to(wisp, {time=500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete= function(wisp) listener(wisp, mapData, gui) end})
-		-- if not wisp collected, just show time left
+		-- run transition for 0.5 seconds
+		local wispTran = transition.to(wisp, {time=500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete= function(wisp) listener(wisp, mapData, gui) end})		
+	-- if not wisp collected, just show time left
 	elseif count == 0 then
 		wisp.alpha = 0
 		listener(wisp, mapData, gui)

@@ -7,10 +7,12 @@
 local gameData = require("Core.gameData")
 local levelNames = require("utils.levelNames")
 local animation = require("Core.animation")
+local font = require("utils.font")
 --------------------------------------------------------------------------------
 -- Variables - variables for loading panes
 --------------------------------------------------------------------------------
-local gameTimer = {}
+local gameTimer = {
+		loopLoc = 0, }
 
 local overlay
 local theTimer
@@ -102,14 +104,14 @@ local function endGame(gui)
 		  wolfAnim:play()
 
 	-- Create overlay object
-	overlay = display.newRect(display.contentCenterX, display.contentCenterY, 1460, 860)
+	overlay = display.newRect(display.contentCenterX, display.contentCenterY, 1460, 840)
 	overlay:setFillColor(0,0,0)
 	
 	-- Set counter value
 	counter = 30
 	
 	-- Create text object
-	local counterText = display.newText("Time's Up!", 0, 0, native.systemFontBold, 150)
+	local counterText = display.newText("Time's Up!", 0, 0, font.TEACHERA, 150)
 	-- Center text object
 	counterText.x = wolfAnim.x + 600
 	counterText.y = wolfAnim.y
@@ -125,6 +127,8 @@ local function endGame(gui)
 	gui.front:insert(overlay)
 	gui.front:insert(wolfAnim)
 	gui.front:insert(counterText)
+	-- loopLoc = 3 = endGame timer
+	gameTimer.loopLoc = 3
 end
 
 local i = 0
@@ -179,7 +183,7 @@ local function inGame(gui, mapData)
 	-- Format gameTimer to time-stamp
 	clockFormat = os.date("!%M:%S", gameData.gameTime)
 	-- Create counter text object for game timer
-	local counterText = display.newText(clockFormat, 0, 0, native.systemFontBold, 100)
+	local counterText = display.newText(clockFormat, 0, 0, font.TEACHERA, 100)
 	counterText.x = display.contentCenterX
 	counterText.y = 50
 	counterText:setFillColor(0, 0, 0)
@@ -189,6 +193,8 @@ local function inGame(gui, mapData)
 	theTimer.params = {guiParam = gui, counterParam = counterText}
 	-- Insert text object to gui.front
 	gui.front:insert(counterText)
+	-- loopLoc = 2 = inGame timer
+	gameTimer.loopLoc = 2
 end
 
 --------------------------------------------------------------------------------
@@ -205,7 +211,7 @@ local function counterFunc(event)
 		overlay.alpha = overlay.alpha - 0.05
 	elseif counter == 0 then
 		-- Change 0 to "START"
-		params.counterParam.text = "START!"
+		params.counterParam.text = "START"
 		params.guiParam.middle.alpha = 1
 		params.guiParam.back.alpha = 1
 		overlay.alpha = overlay.alpha - 0.05
@@ -237,12 +243,12 @@ local function preGame(gui, mapData)
 	-- counter = desired time + 2 sec (from loading).
 	counter = 5
 	-- Create text object
-	local counterText = display.newText(counter, 0, 0, native.systemFontBold, 150)
+	local counterText = display.newText(counter, 0, 0, font.TEACHERA, 150)
 	-- Center text object
 	counterText.x = display.contentCenterX
 	counterText.y = display.contentCenterY
 	-- Create overlay object
-	overlay = display.newRect(display.contentCenterX, display.contentCenterY, 1460, 860)
+	overlay = display.newRect(display.contentCenterX, display.contentCenterY, 1460, 840)
 	overlay:setFillColor(1,1,1)
 	-- Set color to black
 	counterText:setFillColor(0, 0, 0)	
@@ -253,6 +259,8 @@ local function preGame(gui, mapData)
 	overlay.alpha = 0.8
 	gui.front:insert(overlay)
 	gui.front:insert(counterText)
+	-- loopLoc = 1 = preGame timer
+	gameTimer.loopLoc = 1
 end
 
 gameTimer.preGame = preGame

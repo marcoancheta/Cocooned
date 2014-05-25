@@ -148,7 +148,7 @@ local function onAccelerate(event, player)
 				    -- Output all the results.
 				    for i,v in ipairs(hits)
 				    do
-				    	if v.object.name ~= "water" and v.object.name ~= "walls" then
+				    	if v.object.name == "background" or v.object.name == "iceberg" then
 					    	local pointC = display.newCircle(v.position.x, v.position.y, 10)
 					    	pointC:setFillColor(1,0,0)
 					    	pointC.name = v.object.name
@@ -241,7 +241,10 @@ local function onAccelerate(event, player)
 		player.shook = true
 		--ball:applyForce(jumpDirectionX, jumpDirectionY, ball.x, ball.y)
 		ball.linearDamping = 0
+		--local function pushDatNigga()
 		ball:setLinearVelocity(deltaX*3, deltaY*3)
+		--end
+		--timer.performWithDelay(2000, pushDatNigga)
 		--transition.to(ball, {time = 200, x = lastPoint.x, y = lastPoint.y})
 	elseif gameData.inWater == false or gameData.onIceberg == true then
 		--sound.playNarration(sound.soundEffects[7])

@@ -53,6 +53,7 @@ local function init()
 		rune[i].isSensor = true
 		rune[i].collectable = true
 		rune[i].func = "runeCollision"
+		rune[i].collType = "solid"
 	end
 	
 	-- load object sprite sheets
@@ -63,6 +64,8 @@ local function init()
 	sheetList["blueAura"] = graphics.newImageSheet("mapdata/art/animation/blueAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})				 
 	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet.png", 
+				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
+	sheetList["worldPortal"] = graphics.newImageSheet("mapdata/art/animation/worldPortalSheet.png", 
 				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
 	sheetList["wolf"] = graphics.newImageSheet("mapdata/art/animation/wolfSheet.png", 
 				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8})
@@ -124,11 +127,11 @@ local function createObjects(objectNumbers, mapData)
 	end	
 	
 	-- call function to animate objects
-	for i = 1, 5 do
+	for i = 1, 6 do
 		createAnimations(objectNumbers[mapData.pane][animation.objectNames[i]], animation.objectNames[i], objects)
 	end
 	-- call function that creates sprites
-	for i = 6, 13 do
+	for i = 7, 14 do
 		createSprites(objectNumbers[mapData.pane][animation.objectNames[i]], animation.objectNames[i], objects)
 	end
 

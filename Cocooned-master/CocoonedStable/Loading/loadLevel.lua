@@ -69,7 +69,7 @@ local deleteClosure = function() return loading.deleteLoading() end
 --------------------------------------------------------------------------------
 local function drawPane(mapData)
 	local displayX = 1460
-	local displayY = 860
+	local displayY = 840
 	
 	local levelBG
 	local levelWall	
@@ -80,9 +80,10 @@ local function drawPane(mapData)
 		levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)		
 		-- Add shores for in-game levels
 		levelBG.func = "shoreCollision"
-		levelBG.collType = "passThru"
+		levelBG.collType = "solid"
 		physics.addBody(levelBG, "static", physicsData.getFloor(mapData.levelNum):get(mapData.pane))
 		physics.addBody(levelWall, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
+		levelBG.isSensor = true
 	elseif mapData.levelNum == "LS" then
 		-- Level selector level load in
 		-- File Location: mapdata/art/background/LS/(WORLD_HERE)/bg/LS.png
@@ -104,8 +105,7 @@ local function drawPane(mapData)
 	levelBG.name = "background"
 	levelWall.x = display.contentCenterX
 	levelWall.y = display.contentCenterY
-	levelWall.name = "walls"
-	
+	levelWall.name = "walls"	
 		
 	return levelBG, levelWall
 end
