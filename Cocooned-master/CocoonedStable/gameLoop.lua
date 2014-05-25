@@ -269,6 +269,10 @@ local function removeGameLoopListeners(gui)
 	Runtime:removeEventListener("enterFrame", speedUp)
 end
 
+
+local function startPhys(event)
+	physics.start();
+end
 --------------------------------------------------------------------------------
 -- Load Map - loads start of level
 --------------------------------------------------------------------------------
@@ -336,7 +340,8 @@ local function loadMap(mapData)
 		physics.pause()
 		gameTimer.preGame(gui, mapData)
 	end
-		
+	physics.pause()
+	local physicTimer=timer.performWithDelay( 3000, startPhys)
 	return player1
 end
 

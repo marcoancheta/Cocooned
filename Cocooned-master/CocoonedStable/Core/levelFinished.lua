@@ -25,7 +25,7 @@ local levelFinished = {}
 local function checkWin(player, map, mapData)
 	-- debug for checking win
 	--print("checking win", player.inventory.runeSize-1, map.itemGoal, mapData.pane)
-	--TODO: Inventory
+
 	-- check if rune count is same with rune goal count
 	if player.inventory.runeSize-1 == map.itemGoal or map.itemGoal == 0 then
 
