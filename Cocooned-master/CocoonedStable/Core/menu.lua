@@ -108,6 +108,7 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function buttonPressed(event)
+	sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[1])
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then
@@ -224,15 +225,16 @@ local function buttonPressed(event)
 		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
 		if gameData.inWorldSelector == -1 then
 			gameData.inWorldSelector = 0
-			gameData.selectWorld = true	
+			gameData.selectWorld = true
 		elseif gameData.inLevelSelector == -1 then
 			gameData.inLevelSelector = 0
-			gameData.selectLevel = true	
+			gameData.selectLevel = true			
 		elseif gameData.ingame == -1 then
 			gameData.ingame = 0
 			-- turn off pane switch and minimap
 			gameData.allowPaneSwitch = false
 			gameData.allowMiniMap = false
+			gameData.selectLevel = true
 		end
 	end
 end

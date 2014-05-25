@@ -70,6 +70,8 @@ local generate = require("Objects.generateObjects")
 local win = require("Core.win")
 -- High score
 local highScore = require("Core.highScore")
+-- Font
+local font = require("utils.font")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -99,7 +101,7 @@ local line
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 
-local textObject = display.newText("", 600, 400, "Teacher_A", 72)
+local textObject = display.newText("", 600, 400, font.TEACHERA, 72)
 		
 local count = 0
 

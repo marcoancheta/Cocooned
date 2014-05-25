@@ -7,6 +7,7 @@
 local sound = require("sound")
 local gameData = require("Core.gameData")
 local highScore = require("Core.highScore")
+local font = require("utils.font")
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -33,7 +34,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[8])	
 	-- Created text object for wisp collision
-	plusTime = display.newText("+:01", collideObject.x, collideObject.y, "Teacher_A", 55)
+	plusTime = display.newText("+:01", collideObject.x, collideObject.y, font.TEACHERA, 55)
 	plusTime:setFillColor(0,0,0)
 	plusTime.name = "plusTime"
 	

@@ -97,7 +97,7 @@ local function createMiniMap(mapData, map)
 
 	-- set inventory text
 	--[[
-	local inventoryText = display.newText("Inventory:", 280, 180, "Teacher_A", 48)
+	local inventoryText = display.newText("Inventory:", 280, 180, font.TEACHERA, 48)
 	inventoryText:setFillColor(0,0,0)
 	inventoryDisplay:insert(inventoryText)
 
