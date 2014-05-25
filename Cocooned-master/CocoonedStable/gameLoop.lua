@@ -690,6 +690,7 @@ local function gameLoopEvents(event)
 		--sound.soundClean()
 		-- Switch off game booleans
 		if gameData.ingame == -1 then
+			miniMap.clean()
 			inventory.inventoryInstance:clear()
 			gameData.ingame = 0
 			gameData.inWater = false

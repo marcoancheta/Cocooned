@@ -15,9 +15,20 @@ local gameData = require("Core.gameData")
 
 -- variable for determine which pane to show
 local paneSpot = {"M", "U", "D", "R", "L"}
+local miniMap
 
 --------------------------------------------------------------------------------
--- create miniMap - function that creats miniMap display
+-- clear miniMap - function that clears miniMap display
+--------------------------------------------------------------------------------
+local function clean()
+	if miniMap then
+		miniMap:removeSelf()
+		miniMap = nil
+	end
+end
+
+--------------------------------------------------------------------------------
+-- create miniMap - function that creates miniMap display
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
@@ -26,7 +37,7 @@ local function createMiniMap(mapData, map)
 	local miniMapTable = {}
 	
 	-- create new mini map display group
-	local miniMap = display.newGroup()
+	miniMap = display.newGroup()
 	
 	-- set miniMap pane images
 	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
@@ -269,6 +280,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local miniMap = {
+	clean = clean,
 	createMiniMap = createMiniMap,
 	updateMiniMap = updateMiniMap,
 	moveMiniMap = moveMiniMap,
