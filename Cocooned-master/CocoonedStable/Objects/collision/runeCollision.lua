@@ -57,10 +57,16 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 	-- check which rune was collected and activate ability
 	if collideObject.name == "blueRune" then
+		sound.stopChannel(1)
+		sound.playSound(sound.soundEffects[9])
 		player:breakWalls(map)
 	elseif collideObject.name == "pinkRune" then
+		sound.stopChannel(1)
+		sound.playSound(sound.soundEffects[10])
 		player:slowTime(gui.front)		
 	elseif collideObject.name == "greenRune" then
+		sound.stopChannel(1)
+		sound.playSound(sound.soundEffects[11])
 		gameData.gRune = true
 		player:moveWalls(gui)
 	elseif collideObject.name == "yellowRune" then

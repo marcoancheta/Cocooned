@@ -37,6 +37,8 @@ local function loadMenuSounds()
 	sound.backgroundMusic[1] = audio.loadStream("sounds/music/Soliloquy.mp3") -- or FallOfArcana.mp3
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
+	-- Snow "ballin" [Note: this is a steam]
+	sound.soundEffects[2] = audio.loadSound("sounds/rolling.wav")
 	
 	return backgroundMusic, soundEffects
 end
@@ -54,23 +56,31 @@ local function loadGameSounds()
 	sound.backgroundMusic[3] = audio.loadStream("sounds/music/Spiritwatcher.mp3")
 
 	-- Menu buttons click
-	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
-	-- Aura
-	sound.soundEffects[2] = audio.loadSound("sounds/auraPickup.wav")
+	sound.soundEffects[1] = audio.loadSound("sounds/menuButton.wav")
+	-- New Aura Pickup - pending review to replace old sound
+	sound.soundEffects[2] = audio.loadSound("sounds/auraPickupNew.wav")
 	-- Wind (pane transition)
 	sound.soundEffects[3] = audio.loadSound("sounds/wind.wav")
 	-- Water splash
 	sound.soundEffects[4] = audio.loadSound("sounds/splash.wav")
-	-- Rune pickup
-	sound.soundEffects[5] = audio.loadSound("sounds/runePickup.wav")
+    -- Rushing water sound - pending review to replace ice cracking sound
+	sound.soundEffects[5] = audio.loadSound("sounds/rushingWater.wav")
 	-- Wall collision
 	sound.soundEffects[6] = audio.loadSound("sounds/wallHit.wav")
 	-- Snow "ballin" [Note: this is a steam]
-	sound.soundEffects[7] = audio.loadSound("sounds/rollSnow.wav")
+	sound.soundEffects[7] = audio.loadSound("sounds/rolling.wav")
 	-- Pick up "key" (used for wisps)
 	sound.soundEffects[8] = audio.loadSound("sounds/wispPickup.wav")
-	-- Ice Cracking (NEEDS TO BE RE-ENCODED)
-	--sound.soundEffects[9] = audio.loadSound("sounds/ice_cracking.wav")
+	-- Wall Breaking Rune Pickup
+	sound.soundEffects[9] = audio.loadSound("sounds/runePickupWallBreak.wav")
+	-- Time Slowing Rune Pickup
+	sound.soundEffects[10] = audio.loadSound("sounds/runePickupTimeSlow.wav")
+	-- Movable walls Rune Pickup
+	sound.soundEffects[11] = audio.loadSound("sounds/runePickupMovableWalls.wav")
+	--Level exit portal sound
+	sound.soundEffects[12] = audio.loadSound("sounds/enterPortal.wav")
+	--Fish sound
+	sound.soundEffects[13] = audio.loadSound("sounds/fish.wav")
 	
 	return backgroundMusic, soundEffects
 end
@@ -152,8 +162,7 @@ end
 -- Narration/Ball rolling [Channel: 2]
 local function playNarration(name)
 	audio.setVolume(0.5, { channel=2 })
-	narrator = audio.play(name, {channel = 2, loops=0, onComplete=stopChannel1})
-	audio.fadeOut(narrator)
+	narrator = audio.play(name, {channel = 2, loops=0})
 	print("play narration:", name)
 	
 	return narrator

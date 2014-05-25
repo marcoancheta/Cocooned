@@ -211,6 +211,7 @@ local function controlMovement(event)
 			textObject:toBack()
 		end
 
+		--[[
 		accelValueX.text = string.sub(tostring(physicsParam.xGrav),1,4)
 		accelValueX.x = display.contentCenterX
 		accelValueX.y = 10
@@ -221,6 +222,7 @@ local function controlMovement(event)
 		accelValueY.y = 60
 		accelValueY:setFillColor(1,0,0)
 		accelValueY:toFront()
+		]]--
 	end
 end
 
@@ -287,51 +289,51 @@ end
 
 
 local function startPhys(event)
+	-- Start physics
 	physics.start()
+	-- Reapply curse
 	player1.curse = 1
 	player2.curse = 1
 end
+
 --------------------------------------------------------------------------------
 -- Load Map - loads start of level
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
-	snow.meltSnow()
-	
+	-- Increase accelerometer response interval
+	system.setAccelerometerInterval(30)
+	-- Clear snow
+	snow.meltSnow()	
 	-- Start physics
 	physics.start()
-	physics.setScale(45)
-	
+	physics.setScale(45)	
 	-- Initialize player(s)
 	player1 = player.create()
-	system.setAccelerometerInterval(30)
 	player2 = player.create()
 	table.insert(players, 1, player1)
 	table.insert(players, 2, player2)
-
 	-- Create player/ball object to map
 	ball = display.newSprite(animation.sheetOptions.playerSheet, animation.spriteOptions.player)
 	ball2 = display.newSprite(animation.sheetOptions.playerSheet, animation.spriteOptions.player)
-
 	-- set name and animation sequence for ball
 	ball.name = "player"
 	ball:setSequence("move")
 	ball2.name = "player"
 	ball:setSequence("move")
-
 	-- add physics to ball
 	physics.setGravity(0,0)
 	physics.addBody(ball, {radius = 38, bounce = .25})
 	ball.linearDamping = 1.25
 	ball.density = .3
+	-- add physics to ball2
 	physics.addBody(ball2, {radius = 38, bounce = .25})
 	ball2.linearDamping = 1.25
 	ball2.density = .3
-	
+	-- Assign balls to their respected player imageObjects
 	player1.imageObject = ball
-	player2.imageObject = ball2
-		
+	player2.imageObject = ball2		
 	-- Load in map
 	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players)
 	-- Start mechanics
@@ -356,13 +358,18 @@ local function loadMap(mapData)
 		end
 		-- pause physics
 		physics.pause()
+		-- Run cut scene algorithm
 		cutSceneSystem.cutScene(gui, mapData)
 		--gameTimer.preGame(gui, mapData)
-	end
+	end	
+	-- Pause physics
 	physics.pause()
+	-- Make players stop moving
 	player1.curse = 0
-	player2.curse = 0
-	local physicTimer=timer.performWithDelay( 2000, startPhys)
+	player2.curse = 0	
+	-- Delay physics restart
+	local physicTimer = timer.performWithDelay(2000, startPhys)
+	
 	return player1
 end
 
@@ -512,6 +519,9 @@ local function gameLoopEvents(event)
 		if gameData.inLevelSelector == 1 then
 			clean(event)
 			gameData.inLevelSelector = 0
+		elseif gameData.inWorldSelector == -1 then
+			gameData.inWorldSelector = 0
+			clean(event)
 		end		
 		
 		if gameData.debugMode then
@@ -680,6 +690,7 @@ local function gameLoopEvents(event)
 		--sound.soundClean()
 		-- Switch off game booleans
 		if gameData.ingame == -1 then
+			miniMap.clean()
 			inventory.inventoryInstance:clear()
 			gameData.ingame = 0
 			gameData.inWater = false

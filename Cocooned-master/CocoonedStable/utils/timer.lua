@@ -8,6 +8,7 @@ local gameData = require("Core.gameData")
 local levelNames = require("utils.levelNames")
 local animation = require("Core.animation")
 local font = require("utils.font")
+local miniMap = require("Mechanics.miniMap")
 --------------------------------------------------------------------------------
 -- Variables - variables for loading panes
 --------------------------------------------------------------------------------
@@ -164,7 +165,13 @@ local function gameCountFunct(event)
 			theTimer = nil
 		end
 		-- run end game timer/transition
+		miniMap.clean()
 		endGame(params.guiParam)
+		gameData.allowMiniMap = false
+		gameData.isShowingMiniMap = false
+		gameData.showMiniMap = false
+		gameData.allowTouch = false
+		gameData.allowPaneSwitch = false
 	end
 end
 

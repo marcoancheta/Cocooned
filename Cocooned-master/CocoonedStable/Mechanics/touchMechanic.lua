@@ -161,8 +161,10 @@ local function tapScreen(event, miniMap, mapData, physics, gui, player)
 
 		-- else, tapped once, do funationality for miniMap if it is showing
 		elseif gameData.isShowingMiniMap == true then
-			-- call miniMap move function
-			miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
+			if gameData.allowPaneSwitch == true then
+				-- call miniMap move function
+				miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
+			end
 			
 			-- start physics
 			physics.start()
@@ -174,12 +176,12 @@ local function tapScreen(event, miniMap, mapData, physics, gui, player)
 			-- return saved tempPane2
 			return tempPane2
 		end
-	-- else, tapped once, do functionality for miniMap if it is showing
+	--[[-- else, tapped once, do functionality for miniMap if it is showing
 	else
 		if gameData.isShowingMiniMap == true then
 			-- call miniMap move function
 			mapData.pane = miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
-		end
+		end]]--
 	end
 
 	-- return new MapData.pane

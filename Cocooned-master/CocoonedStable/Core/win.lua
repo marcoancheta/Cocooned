@@ -139,7 +139,7 @@ local function delay(event)
 	-- Called from listener below
 	local params = event.source.params
 	-- Remove wisps (target = wisps)
-	if params.targetParam then
+	if params.targetParam ~= nil then
 		params.targetParam:removeSelf()
 		params.targetParam = nil
 	end
@@ -181,8 +181,8 @@ local function showScore(mapData, gui)
 	count = (temp*0.01)
 	score = (temp + (gameData.gameTime * 100))
 	-- Draw wisp for score transition
-	local wisp = display.newImage("mapdata/art/wisp/whisp.png")
-	wisp.x, wisp.y = generate.tilesToPixels(20, 7)
+	--local wisp = display.newImage("mapdata/art/wisp/whisp.png")
+	--wisp.x, wisp.y = generate.tilesToPixels(20, 7)
 	-- Draw player ball for score transition
 	scoreObj[1] = display.newImage("mapdata/art/ball/ball1.png")
 	scoreObj[1]:scale(2, 2)
@@ -192,12 +192,19 @@ local function showScore(mapData, gui)
 	scoreObj[2].x, scoreObj[2].y = generate.tilesToPixels(20, 20)
 	-- If amount of wisps is greater than 0, run transition
 	if count > 0 then
+		-- Show time remaining
+		scoreObj[3] = display.newText("Wisps collected: " ..count, display.contentCenterX, 80, font.TEACHERA, 72)
+		scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(20, 7)
+		scoreObj[3].alpha = 0
+		
+		local fade = function() local endTrans = transition.to(scoreObj[3], {time=2500, alpha=0, onComplete = listener(scoreObj[3], mapData, gui)}); end
+		local trans = transition.to(scoreObj[3], {time=2000, alpha=1, onComplete=fade})
 		-- run transition for 0.5 seconds
-		local wispTran = transition.to(wisp, {time=500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete= function(wisp) listener(wisp, mapData, gui) end})		
+		--local wispTran = transition.to(wisp, {time=500, alpha=0, x=scoreObj[1].x, y=scoreObj[1].y, iterations=count, onComplete= function(wisp) listener(wisp, mapData, gui) end})		
 	-- if not wisp collected, just show time left
 	elseif count == 0 then
-		wisp.alpha = 0
-		listener(wisp, mapData, gui)
+		--wisp.alpha = 0
+		listener(nil, mapData, gui)
 
 	end
 

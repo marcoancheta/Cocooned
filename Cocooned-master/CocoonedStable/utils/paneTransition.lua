@@ -18,6 +18,8 @@ local generate = require("Objects.generateObjects")
 local snow = require("utils.snow")
 local animation = require("Core.animation")
 local gameData = require("Core.gameData")
+-- Generate sound
+local sound = require("sound")
 
 --------------------------------------------------------------------------------
 -- Variables
@@ -97,6 +99,9 @@ end
 local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	gameData.allowPaneSwitch = false
 	gameData.allowTouch = false
+	
+	sound.stopChannel(1)
+	sound.playSound(sound.soundEffects[3])
 	
 	if transPic then
 		transPic:setSequence("stop")

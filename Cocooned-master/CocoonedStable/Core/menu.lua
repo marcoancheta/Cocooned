@@ -145,26 +145,28 @@ local function buttonPressed(event)
 		memory.toggle()		
 	--[[ In game options button pressed ]]--	
 	elseif event.target.name == "inGameOptionsBTN" then
-		if gameData.debugMode then
-			print("In game options")
-		end		
-		-- gameData.inWorldSelector||inLevelSelector||ingame
-		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
-		if gameData.inWorldSelector == 1 then
-			gameData.inWorldSelector = -1
-		elseif gameData.inLevelSelector == 1 then
-			gameData.inLevelSelector = -1
-		elseif gameData.ingame == 1 then
-			-- pause snow
-			snow.pauseSnow()
-			gameData.ingame = -1
-			-- disable pane switch and mini map
-			gameData.allowMiniMap = false
-			gameData.allowPaneSwitch = false
+		if gameData.preGame ~= true then
+			if gameData.debugMode then
+				print("In game options")
+			end		
+			-- gameData.inWorldSelector||inLevelSelector||ingame
+			-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
+			if gameData.inWorldSelector == 1 then
+				gameData.inWorldSelector = -1
+			elseif gameData.inLevelSelector == 1 then
+				gameData.inLevelSelector = -1
+			elseif gameData.ingame == 1 then
+				-- pause snow
+				snow.pauseSnow()
+				gameData.ingame = -1
+				-- disable pane switch and mini map
+				gameData.allowMiniMap = false
+				gameData.allowPaneSwitch = false
+			end
+			
+			--gameData.gameOptions = true					
+			gameData.inGameOptions = true
 		end
-		
-		--gameData.gameOptions = true					
-		gameData.inGameOptions = true		
 	--[[ Back to Main from In-Game button pressed ]]--
 	elseif event.target.name == "gotoMain" then
 		if gameData.debugMode then
@@ -210,13 +212,22 @@ local function buttonPressed(event)
 		end
 		
 		--gameData.gameOptions = false
-		gameData.resumeGame = true		
+		gameData.resumeGame = true	
+		
 	elseif event.target.name == "restart" then
 		clean()
 		
-		gameData.gameOptions = false
-		gameData.levelRestart = true
-
+		if gameData.inWorldSelector == -1 then
+			gameData.selectWorld = true
+		elseif gameData.inLevelSelector == -1 then
+			gameData.inLevelSelector = 0
+			gameData.selectLevel = true
+		elseif gameData.ingame == -1 then
+			gameData.levelRestart = true
+		else
+			gameData.levelRestart = true
+		end
+		
 	elseif event.target.name == "level" then
 		if gameData.debugMode then
 			print("Back to Main Menu")
@@ -226,7 +237,6 @@ local function buttonPressed(event)
 		-- gameData.inWorldSelector||inLevelSelector||ingame
 		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
 		if gameData.inWorldSelector == -1 then
-			gameData.inWorldSelector = 0
 			gameData.selectWorld = true
 		elseif gameData.inLevelSelector == -1 then
 			gameData.inLevelSelector = 0
@@ -435,13 +445,13 @@ local function ingameOptionsbutton(event, gui)
 	local cY = display.contentCenterY
 
 	-- Add in-game options image (option_wheel.png)
-	ingameOptions = display.newImageRect("mapdata/art/buttons/option_wheel.png", 90, 90, true)
+	ingameOptions = display.newImageRect("mapdata/art/buttons/option_wheel.png", 150, 150, true)
 
 	-- Scale image size
 	--ingameOptions.anchorX = 0
 	--ingameOptions.anchorY = 1
 	ingameOptions.x = display.contentCenterX + 650
-	ingameOptions.y = display.contentCenterY - 350
+	ingameOptions.y = display.contentCenterY - 330
 	ingameOptions.name = "inGameOptionsBTN"	
 	ingameOptions:addEventListener("tap", buttonPressed)
 	gui.front:insert(ingameOptions)
@@ -514,30 +524,7 @@ local function ingameMenu(event, gui)
 	-- Level select button
 	menuObjects[5].x = display.contentCenterX
 	menuObjects[5].y = display.contentCenterY - 250
-	
-	--[[
-	-- Paused text
-	--menuObjects[5].x = display.contentCenterX
-	--menuObjects[5].x = display.contentCenterY
-	-- SFX Volume Slider
-	menuObjects[6].x = display.contentCenterX
-	menuObjects[6].y = display.contentCenterY
-	-- BGM Volume Slider
-	menuObjects[7].x = display.contentCenterX
-	menuObjects[7].y = display.contentCenterY - 100
-	-- SFX Volume Text
-	menuObjects[8].x = display.contentCenterX
-	menuObjects[8].y = display.contentCenterY - 50
-	-- BGM Volume Text 
-	menuObjects[9].x = display.contentCenterX
-	menuObjects[9].y = display.contentCenterY - 150
-	-- Sound [0-100] Text (SFX)
-	menuObjects[10].x = display.contentCenterX + 250
-	menuObjects[10].y = display.contentCenterY - 100
-	-- Sound [0-100] Text (BGM)
-	menuObjects[11].x = display.contentCenterX + 250
-	menuObjects[11].y = display.contentCenterY
-	]]--
+		
 	-- Flip background image (horizontal)
 	menuGroup:insert(menuObjects[1])
 	
@@ -546,9 +533,22 @@ local function ingameMenu(event, gui)
 		menuObjects[i].name = menuNames[i-1]
 		menuObjects[i].anchorX = 0.5
 		menuObjects[i].anchorY = 0.5
-						
-		-- add event listeners to buttons
-		menuObjects[i]:addEventListener("tap", buttonPressed)
+		
+		-- If in world selector and level selector:
+		-- 		Disable Restart and level select button
+		if gameData.inWorldSelector == -1 or gameData.inLevelSelector == -1 then
+			menuObjects[4].alpha = 0.5
+			menuObjects[5].alpha = 0.5			
+			if i ~= 4 and i ~= 5 then
+				-- add event listeners to buttons
+				menuObjects[i]:addEventListener("tap", buttonPressed)
+			end
+		elseif gameData.ingame == -1 then
+			menuObjects[4].alpha = 1
+			menuObjects[5].alpha = 1
+			-- add event listeners to buttons
+			menuObjects[i]:addEventListener("tap", buttonPressed)
+		end
 		
 		-- Add everything to menuGroup
 		menuGroup:insert(menuObjects[i])

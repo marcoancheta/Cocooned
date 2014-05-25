@@ -18,7 +18,7 @@ local displayY = 864
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function loadingInit()
+local function loadingInit(gui)
 	if gameData.levelComplete == true then 
 		loadingBG = display.newImageRect('mapdata/art/background/screens/levelComplete.png', displayX, displayY)
 	elseif gameData.gameEnd == true then
@@ -29,7 +29,8 @@ local function loadingInit()
 	
 	loadingBG.x = display.contentCenterX
 	loadingBG.y = display.contentCenterY
-	loadingBG:toFront()
+	gui.load:insert(loadingBG)
+	--loadingBG:toFront()
 end
 
 --------------------------------------------------------------------------------
