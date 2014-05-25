@@ -512,6 +512,9 @@ local function gameLoopEvents(event)
 		if gameData.inLevelSelector == 1 then
 			clean(event)
 			gameData.inLevelSelector = 0
+		elseif gameData.inWorldSelector == -1 then
+			gameData.inWorldSelector = 0
+			clean(event)
 		end		
 		
 		if gameData.debugMode then

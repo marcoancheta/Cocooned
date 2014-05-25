@@ -210,13 +210,20 @@ local function buttonPressed(event)
 		end
 		
 		--gameData.gameOptions = false
-		gameData.resumeGame = true		
+		gameData.resumeGame = true	
+		
 	elseif event.target.name == "restart" then
 		clean()
 		
-		gameData.gameOptions = false
-		gameData.levelRestart = true
-
+		if gameData.inWorldSelector == -1 then
+			gameData.selectWorld = true
+		elseif gameData.inLevelSelector == -1 then
+			gameData.inLevelSelector = 0
+			gameData.selectLevel = true
+		elseif gameData.ingame == -1 then
+			gameData.levelRestart = true
+		end
+		
 	elseif event.target.name == "level" then
 		if gameData.debugMode then
 			print("Back to Main Menu")
