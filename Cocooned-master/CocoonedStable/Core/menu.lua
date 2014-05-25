@@ -233,7 +233,6 @@ local function buttonPressed(event)
 		-- gameData.inWorldSelector||inLevelSelector||ingame
 		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
 		if gameData.inWorldSelector == -1 then
-			gameData.inWorldSelector = 0
 			gameData.selectWorld = true
 		elseif gameData.inLevelSelector == -1 then
 			gameData.inLevelSelector = 0
