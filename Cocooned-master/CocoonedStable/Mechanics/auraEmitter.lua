@@ -14,6 +14,8 @@
 require("physics")
 math.randomseed(os.time())
 
+--TODO: fix auraEmitter bugs and put into gui instead of random group
+
 auraEmitterLib = {}
 local auraGroup
  
