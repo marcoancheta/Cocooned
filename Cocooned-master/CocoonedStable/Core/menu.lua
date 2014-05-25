@@ -237,6 +237,8 @@ local function buttonPressed(event)
 			gameData.allowPaneSwitch = false
 			gameData.allowMiniMap = false
 			gameData.selectLevel = true
+		else
+			gameData.selectLevel = true
 		end
 
 	end
