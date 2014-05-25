@@ -160,6 +160,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[23].x, wisp[23].y = generate.tilesToPixels(29, 8)
 		--]]
 
+		-- Pink rune
+		rune[3].x, rune[3].y = generate.tilesToPixels(5, 5)			
+		rune[3].isVisible = true
+
 		-- Exit portal
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(20, 9)
