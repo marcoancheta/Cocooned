@@ -39,18 +39,26 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: D
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map, gui)
-	-- Disable portal collision
-	event.other.isSensor = true
-									
+local function collide(collideObject, player, event, mapData, map, gui)									
 	for i=1, 3 do		
 		if collideObject.name == "exitPortal" ..i.. "" then
+			-- Stop BGM channel
+			sound.stopChannel(3)
+			-- Delete all old sound files
+			sound.soundClean()	
+			-- Load game sound files
+			sound.loadGameSounds()
+			-- Play BGM according to world choice
+			sound.playBGM(sound.backgroundMusic[i])
+			-- Disable portal collision
+			event.other.isSensor = true
 			selectWorld.world = world[i]				
 			gameData.mapData.world = selectWorld.world
 			player.curse = 0
 			player.xGrav = 0
 			player.yGrav = 0
-			local trans = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y, onComplete = temp} )
+			local trans = transition.to(player.imageObject, {time=500, x=collideObject.x, y=collideObject.y, onComplete = temp} )
+		
 		end
 	end
 end

@@ -25,7 +25,7 @@ local goals = require("Core.goals")
 --------------------------------------------------------------------------------
 local LS = { 
 	-- boolean for which pane is being used
-	-- { Middle, Down, Up, Right, Left }
+	-- { Middle, Up, Down, Right, Left }
 	panes = {true,false,false,false,false},
 	-- number of wisps in the level
 	wispCount = 0,
@@ -56,21 +56,14 @@ local LS = {
 		["switchWall"] = 0,
 		["exitPortal"] = 15,
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 1
 	},
 }
 
 -- variable that holds objects of pane for later use
 local objectList
 local mObjectslocal
-local bg
-local locks
-
---------------------------------------------------------------------------------
--- Ball Camera
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 -- load pane function
@@ -98,6 +91,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 				objects["exitPortal" ..i.. ""].isVisible = false
 				objects["exitPortal" ..i.. ""].isBodyActive = false
 			end
+			-- Back to world portal
+			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 20)
 		elseif mapData.world == "B" then	
 			-- Hide all portals between 1-5 and 11-15.
 			for i=1, LS["LS"]["exitPortal"] do
@@ -112,10 +107,12 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			objects["exitPortal8"].x, objects["exitPortal8"].y = generate.tilesToPixels(20.5, 11)
 			objects["exitPortal9"].x, objects["exitPortal9"].y = generate.tilesToPixels(28, 12)
 			objects["exitPortal10"].x, objects["exitPortal10"].y = generate.tilesToPixels(31, 15)
+			-- Back to world portal
+			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 20)
 		elseif mapData.world == "C" then
 			-- Hide all portals between 1-10.
 			for i=1, LS["LS"]["exitPortal"] do
-				if (i < 10) then
+				if (i < 11) then
 					objects["exitPortal" ..i.. ""].isVisible = false
 					objects["exitPortal" ..i.. ""].isBodyActive = false
 				end
@@ -126,6 +123,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			objects["exitPortal13"].x, objects["exitPortal13"].y = generate.tilesToPixels(20.5, 11)
 			objects["exitPortal12"].x, objects["exitPortal12"].y = generate.tilesToPixels(28, 12)
 			objects["exitPortal15"].x, objects["exitPortal15"].y = generate.tilesToPixels(31, 15)
+			-- Back to world portal
+			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 20)
 		end
 		
 		-- Play animation for all portals
@@ -133,22 +132,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			objects["exitPortal" ..i.. ""]:setSequence("move")
 			objects["exitPortal" ..i.. ""]:play()
 			objects["exitPortal" ..i.. ""]:scale(2, 2)
-			
-			--[[
-			-- Level locked display
-			locks[i] = display.newImageRect("mapdata/art/buttons/lock.png", 50, 50, true)
-			locks[i].x = objects["exitPortal" ..i.. ""].x
-			locks[i].y = objects["exitPortal" ..i.. ""].y
-			
-			if i==1 then
-				locks[i].isVisible = true
-				objects["exitPortal" ..i.. ""]:setSequence("still")
-				objects["exitPortal" ..i.. ""].isSensor = true
-			else
-				locks[i].isVisible = false
-			end	
-			]]--
 		end
+		objects["worldPortal1"]:setSequence("move")
+		objects["worldPortal1"]:play()
+		objects["worldPortal1"]:scale(2, 2)
+		
 	end
 	
 	-- generates all objects in pane when locations are set

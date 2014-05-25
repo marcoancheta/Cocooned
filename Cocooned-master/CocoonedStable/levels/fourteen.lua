@@ -4,7 +4,10 @@
 -- fourteen.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Derrick
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -22,6 +25,7 @@ local generate = require("Objects.generateObjects")
 --------------------------------------------------------------------------------
 local fourteen = { 
 	-- boolean for which pane is being used
+<<<<<<< HEAD
 	-- { Middle, Down, Up, Right, Left }
 	panes = {true,true,true,true,true},
 	timer = 300,
@@ -29,6 +33,13 @@ local fourteen = {
 	playerPos = {	 {["x"]=20, ["y"]=15},
 
 				},
+=======
+	-- { Middle, Up, Down, Right, Left }
+	panes = {true,true,true,true,true},
+	timer = 300,
+	playerCount = 1,
+	playerPos = {{["x"]=20, ["y"]=15},},
+>>>>>>> origin/Derrick
 	-- number of wisps in the level
 	wispCount = 0,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -48,7 +59,12 @@ local fourteen = {
 		["switchWall"] = 0,
 		["exitPortal"] = 1,
 		["enemy"] = 0,
+<<<<<<< HEAD
 		["fixedIceberg"] = 0
+=======
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
+>>>>>>> origin/Derrick
 	},
 	["D"] = {
 		["blueAura"] = 1,
@@ -64,7 +80,12 @@ local fourteen = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+<<<<<<< HEAD
 		["fixedIceberg"] = 0
+=======
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
+>>>>>>> origin/Derrick
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -80,7 +101,12 @@ local fourteen = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+<<<<<<< HEAD
 		["fixedIceberg"] = 0
+=======
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
+>>>>>>> origin/Derrick
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -96,7 +122,12 @@ local fourteen = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+<<<<<<< HEAD
 		["fixedIceberg"] = 0
+=======
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
+>>>>>>> origin/Derrick
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -112,7 +143,12 @@ local fourteen = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+<<<<<<< HEAD
 		["fixedIceberg"] = 0
+=======
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
+>>>>>>> origin/Derrick
 	}
 }
 
@@ -135,19 +171,27 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Wisps
 		--wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 17)
 
+<<<<<<< HEAD
  		-- Runes
  		rune[2].x, rune[2].y = generate.tilesToPixels(2, 21)			
 		rune[2].isVisible = true
 
+=======
+>>>>>>> origin/Derrick
 		-- Exit portal
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(2, 11)
 				
+<<<<<<< HEAD
 		--generate.gWisps(wisp, map, mapData, 1, 25)
+=======
+		--generate.gWisps(wisp, map, mapData, 1, 25, fourtween.wispCount)
+>>>>>>> origin/Derrick
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		-- Runes
+<<<<<<< HEAD
  		rune[2].x, rune[2].y = generate.tilesToPixels(2, 2)			
 		rune[2].isVisible = true
 
@@ -156,6 +200,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		rune[2].x, rune[2].y = generate.tilesToPixels(2, 1)			
 		rune[2].isVisible = true
 
+=======
+ 		rune[2].x, rune[2].y = generate.tilesToPixels(2, 21)			
+		rune[2].isVisible = true
+	elseif mapData.pane == "U" then
+>>>>>>> origin/Derrick
 		objects["greenAura1"]:setSequence("move")
  		objects["greenAura1"]:play()
  		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(37, 20)
@@ -163,7 +212,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["redAura1"]:setSequence("move")
  		objects["redAura1"]:play()
  		objects["redAura1"].x, objects["redAura1"].y = generate.tilesToPixels(24, 10)
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Derrick
 	elseif mapData.pane == "R" then
 
 	elseif mapData.pane == "D" then
@@ -181,7 +233,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	-- set which panes are avaiable for player
 	map.front.panes = fourteen.panes
+<<<<<<< HEAD
 	map.front.itemGoal = 2
+=======
+	map.front.itemGoal = 1
+>>>>>>> origin/Derrick
 end
 
 --------------------------------------------------------------------------------

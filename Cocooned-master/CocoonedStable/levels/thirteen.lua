@@ -4,7 +4,10 @@
 -- thirteen.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Derrick
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -22,6 +25,7 @@ local generate = require("Objects.generateObjects")
 --------------------------------------------------------------------------------
 local thirteen = { 
 	-- boolean for which pane is being used
+<<<<<<< HEAD
 	-- { Middle, Down, Up, Right, Left }
 	panes = {true,true,true,true,true},
 	timer = 300,
@@ -31,13 +35,26 @@ local thirteen = {
 				},
 	-- number of wisps in the level
 	wispCount = 0,
+=======
+	-- { Middle, Up, Down, Right, Left }
+	panes = {true,false,false,true,false},
+	timer = 300,
+	playerCount = 1,
+	playerPos = {{["x"]=4, ["y"]=4},},
+	-- number of wisps in the level
+	wispCount = 1,
+>>>>>>> origin/Derrick
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
 	["M"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
+<<<<<<< HEAD
 		["greenAura"] = 4,
+=======
+		["greenAura"] = 0,
+>>>>>>> origin/Derrick
 		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
@@ -46,12 +63,22 @@ local thirteen = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
+<<<<<<< HEAD
 		["exitPortal"] = 1,
 		["enemy"] = 0,
 		["fixedIceberg"] = 0
 	},
 	["D"] = {
 		["blueAura"] = 1,
+=======
+		["exitPortal"] = 0,
+		["enemy"] = 0,
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
+	},
+	["D"] = {
+		["blueAura"] = 0,
+>>>>>>> origin/Derrick
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -64,12 +91,22 @@ local thirteen = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+<<<<<<< HEAD
 		["fixedIceberg"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
 		["redAura"] = 1,
 		["greenAura"] = 1,
+=======
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
+	},
+	["U"] = {
+		["blueAura"] = 0,
+		["redAura"] = 0,
+		["greenAura"] = 0,
+>>>>>>> origin/Derrick
 		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
@@ -80,15 +117,27 @@ local thirteen = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+<<<<<<< HEAD
 		["fixedIceberg"] = 0
+=======
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
+>>>>>>> origin/Derrick
 	},
 	["R"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
+<<<<<<< HEAD
 		["greenAura"] = 1,
 		["wolf"] = 0,
 		["fish1"] = 2,
 		["fish2"] = 1,
+=======
+		["greenAura"] = 0,
+		["wolf"] = 0,
+		["fish1"] = 0,
+		["fish2"] = 0,
+>>>>>>> origin/Derrick
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -96,12 +145,21 @@ local thirteen = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+<<<<<<< HEAD
 		["fixedIceberg"] = 0
+=======
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
+>>>>>>> origin/Derrick
 	},	
 	["L"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
+<<<<<<< HEAD
 		["greenAura"] = 2,
+=======
+		["greenAura"] = 0,
+>>>>>>> origin/Derrick
 		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
@@ -112,7 +170,12 @@ local thirteen = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
+<<<<<<< HEAD
 		["fixedIceberg"] = 0
+=======
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
+>>>>>>> origin/Derrick
 	}
 }
 
@@ -129,6 +192,7 @@ local mObjectslocal
 -- this is where the objects locations are set in each pane
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
+<<<<<<< HEAD
 		-- Check which pane
 
 	if mapData.pane == "M" then
@@ -211,6 +275,22 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["blueAura1"]:setSequence("move")
  		objects["blueAura1"]:play()
  		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(39, 11)
+=======
+	-- Check which pane
+	if mapData.pane == "M" then
+		--generate.gWisps(wisp, map, mapData, 1, 23, thirteen.wispCount)
+		--generate.gAuraWalls(map, mapData, "blueWall")
+		--generate.gWater(map, mapData)
+	elseif mapData.pane == "R" then
+		--generate.gWater(map, mapData)
+		--generate.gWisps(wisp, map, mapData, 24, 39, thirteen.wispCount)
+	elseif mapData.pane == "L" then
+		print("You shouldn't be in here...")
+	elseif mapData.pane == "U" then
+		print("You shouldn't be in here...")
+	elseif mapData.pane == "D" then
+		print("You shouldn't be in here...")
+>>>>>>> origin/Derrick
 	end
 
 	-- generates all objects in pane when locations are set
@@ -222,7 +302,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	-- set which panes are avaiable for player
 	map.front.panes = thirteen.panes
+<<<<<<< HEAD
 	map.front.itemGoal = 2
+=======
+	map.front.itemGoal = 1
+>>>>>>> origin/Derrick
 end
 
 --------------------------------------------------------------------------------

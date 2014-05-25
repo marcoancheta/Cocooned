@@ -4,7 +4,6 @@
 -- eleven.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -22,7 +21,7 @@ local generate = require("Objects.generateObjects")
 --------------------------------------------------------------------------------
 local eleven = { 
 	-- boolean for which pane is being used
-	-- { Middle, Down, Up, Right, Left }
+	-- { Middle, Up, Down, Right, Left }
 	panes = {true,false,false,true,false},
 	timer = 300,
 	playerCount = 1,
@@ -46,7 +45,8 @@ local eleven = {
 		["switchWall"] = 0,
 		["exitPortal"] = 1,
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -62,7 +62,8 @@ local eleven = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -78,7 +79,8 @@ local eleven = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 2,
@@ -94,7 +96,8 @@ local eleven = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -110,7 +113,8 @@ local eleven = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	}
 }
 
@@ -127,7 +131,7 @@ local mObjectslocal
 -- this is where the objects locations are set in each pane
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
-		-- Check which pane
+	-- Check which pane
 
 	if mapData.pane == "M" then
 		--[[
@@ -160,7 +164,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(20, 9)
 
+<<<<<<< HEAD
 		--generate.gWisps(wisp, map, mapData, 1, 23, eleven.wispCount)
+=======
+		generate.gWisps(wisp, map, mapData, 1, 23, eleven.wispCount)
+>>>>>>> origin/Derrick
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
@@ -182,7 +190,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[37].x, wisp[37].y = generate.tilesToPixels(22, 9)
 		wisp[38].x, wisp[38].y = generate.tilesToPixels(24, 11)
 		wisp[39].x, wisp[39].y = generate.tilesToPixels(26, 9)
+<<<<<<< HEAD
 		--]]
+=======
+>>>>>>> origin/Derrick
 
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(30, 17)
@@ -202,8 +213,12 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[2].isVisible = true
 
 		generate.gWater(map, mapData)
+<<<<<<< HEAD
 		--generate.gWisps(wisp, map, mapData, 24, 39)
 
+=======
+		generate.gWisps(wisp, map, mapData, 24, 39, eleven.wispCount)
+>>>>>>> origin/Derrick
 	elseif mapData.pane == "L" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "U" then

@@ -36,7 +36,9 @@ local function moveforward(obj)
 	--print("moveF:", obj.name)
 	if obj.stop ~= true then
 		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
-		obj:rotate(180)
+		if obj.name ~= "iceberg" then
+			obj:rotate(180)
+		end
 	end
 	--
 end
@@ -51,7 +53,9 @@ function moveBackward(obj)
 	--print("moveB:", obj.name)
 	if obj.stop ~= true then
 		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveforward})
-		obj:rotate(180)
+		if obj.name ~= "iceberg" then
+			obj:rotate(180)
+		end
 	end
 	--obj:rotate(180)
 end

@@ -14,7 +14,7 @@
 local gameData = require("Core.gameData")
 
 -- variable for determine which pane to show
-local paneSpot = {"M", "D", "U", "R", "L"}
+local paneSpot = {"M", "U", "D", "R", "L"}
 
 --------------------------------------------------------------------------------
 -- create miniMap - function that creats miniMap display
@@ -54,8 +54,8 @@ local function createMiniMap(mapData, map)
 	-- move miniMap panes depending on which pane it is
 	for i=1, #miniMapTable do
 		local mapX, mapY = 720, 432
-		if i == 2 then mapY = mapY + 240
-		elseif i == 3 then mapY = mapY - 240
+		if i == 2 then mapY = mapY - 240
+		elseif i == 3 then mapY = mapY + 240
 		elseif i == 4 then mapX = mapX + 400
 		elseif i == 5 then mapX = mapX - 400
 		end
@@ -72,9 +72,9 @@ local function createMiniMap(mapData, map)
 	-- set current pane highlight to current pane player is in
 	for m = 3, 7 do
 		if mapData.pane == "U" then
-			miniMap[m].y = miniMap[m].y + 240
-		elseif mapData.pane == "D" then
 			miniMap[m].y = miniMap[m].y - 240
+		elseif mapData.pane == "D" then
+			miniMap[m].y = miniMap[m].y + 240
 		elseif mapData.pane == "L" then
 			miniMap[m].x = miniMap[m].x - 400
 		elseif mapData.pane == "R" then
@@ -97,7 +97,7 @@ local function createMiniMap(mapData, map)
 
 	-- set inventory text
 	--[[
-	local inventoryText = display.newText("Inventory:", 280, 180, native.systemFont, 48)
+	local inventoryText = display.newText("Inventory:", 280, 180, font.TEACHERA, 48)
 	inventoryText:setFillColor(0,0,0)
 	inventoryDisplay:insert(inventoryText)
 
@@ -214,11 +214,11 @@ local function moveMiniMap(miniMap, mapData, gui, event)
 			miniMap[2].y = 432
 		end
 	elseif event.x < 920 and event.x > 520 then
-		if gui.front.panes[2] == true and event.y > 552  then
-			miniMap[2].y = 672
-			miniMap[2].x = 720
-		elseif gui.front.panes[3] == true and event.y < 312 then
+		if gui.front.panes[2] == true and event.y < 552  then
 			miniMap[2].y = 192
+			miniMap[2].x = 720
+		elseif gui.front.panes[3] == true and event.y> 312 then
+			miniMap[2].y = 672
 			miniMap[2].x = 720
 		end
 	end
