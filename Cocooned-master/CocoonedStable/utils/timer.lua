@@ -241,7 +241,7 @@ end
 --------------------------------------------------------------------------------
 local function preGame(gui, mapData)
 	-- counter = desired time + 2 sec (from loading).
-	counter = 5
+	counter = 3
 	-- Create text object
 	local counterText = display.newText(counter, 0, 0, font.TEACHERA, 150)
 	-- Center text object
