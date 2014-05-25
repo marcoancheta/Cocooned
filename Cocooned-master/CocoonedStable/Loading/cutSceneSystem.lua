@@ -21,6 +21,7 @@ local function nextSceneOrDelete()
 		currScene = nil
 		levNum = nil
 		loadingBG = nil
+		loadingBG = {}
 		gameTimer.preGame(lgui, lmapdata)
 		lgui = nil
 		lmapdata = nil
@@ -38,6 +39,7 @@ local function cutScene(gui, mapdata)
 		for i= numberOfScreens[mapdata.levelNum],1,-1 do
 			loadingBG[i] = display.newImage("mapdata/art/cutscenes/OLD/level"..mapdata.levelNum .. "Scene" .. i .. ".png", 700, 432,true )
 		end
+		print("drawing next scene")
 		nextScene = display.newImage("mapdata/art/buttons/play.png", 1200, 732,true )
 		nextScene:scale(.25, .25)
 		nextScene:addEventListener("tap", nextSceneOrDelete)

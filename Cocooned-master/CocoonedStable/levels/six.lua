@@ -148,8 +148,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fish22"].eX, objects["fish22"].eY = generate.tilesToPixels(18, 3)
 
 		-- Rune 
-		rune[2].x, rune[2].y = generate.tilesToPixels(4, 21)			
-		rune[2].isVisible = true
+		rune[3].x, rune[3].y = generate.tilesToPixels(4, 21)			
+		rune[3].isVisible = true
 
 		-- Wisps
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(2, 8)

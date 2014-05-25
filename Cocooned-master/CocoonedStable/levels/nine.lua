@@ -105,13 +105,8 @@ local nine = {
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
-<<<<<<< HEAD
-		["fish1"] = 0,
-		["fish2"] = 0,
-=======
 		["fish1"] = 5,
 		["fish2"] = 5,
->>>>>>> master
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,

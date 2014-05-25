@@ -19,25 +19,7 @@ local M = {}
 function M.physicsData(scale)
 	local physics = { data =
 	{ 
-		
-<<<<<<< HEAD
-		["L"] = {
-                    
-		}
-		
-		, 
-		["M"] = {
-                    
-		}
-		
-		, 
-		["R"] = {
-                    
-		}
-		
-		, 
-		["U"] = {
-=======
+
 		["M"] = {
                     
                     
@@ -336,8 +318,7 @@ function M.physicsData(scale)
                     shape = {   411, -408  ,  372, -433  ,  431, -430  }
                     }
                     
-                    
->>>>>>> origin/Derrick
+                
                     
 		}
 		
