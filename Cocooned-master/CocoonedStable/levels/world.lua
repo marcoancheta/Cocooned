@@ -22,7 +22,7 @@ local movement = require("Mechanics.movement")
 --------------------------------------------------------------------------------
 local world = { 
 	-- boolean for which pane is being used
-	-- { Middle, Down, Up, Right, Left }
+	-- { Middle, Up, Down, Right, Left }}
 	panes = {true,false,false,false,false},
 	
 	-- number of wisps in the level
@@ -55,7 +55,8 @@ local world = {
 		["switchWall"] = 0,
 		["exitPortal"] = 3,
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0,
 	},
 }
 
@@ -80,12 +81,21 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		end
 
 		-- Place World Portals.
+<<<<<<< HEAD
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(11, 15)
 		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(20.5, 11)
 		--objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(31, 15)
 		
 		-- Corona Simulator Accel Coordinates:
 		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(14, 12)	
+=======
+		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(11, 15)
+		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(20.5, 11)
+		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(31, 15)
+		
+		-- Corona Simulator Accel Coordinates:
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14, 12)	
+>>>>>>> ee0cf2d54edcae238674bcea1592f8fd9aa5977d
 		
 		-- Play animation for all world portals
 		for i=1, world["world"]["exitPortal"] do

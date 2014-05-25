@@ -19,15 +19,15 @@ local menuGroup
 local menuObjects = nil
 local ingameOptions
 
-widget.setTheme("widget_theme_ios")
+--widget.setTheme("widget_theme_ios")
 --local player1, player2 = nil
 -- Create onScreen text object
 --[[
 local playerText = {
 	--player's current speed
-	[2] = display.newText(player.speedConst, 1150, 380, native.Systemfont, 69)
+	[2] = display.newText(player.speedConst, 1150, 380, "Teacher_A", 69)
 	--player's linear damping
-	[3] = display.newText(player.imageObject.linearDamping, 1150, 225, native.Systemfont, 69)
+	[3] = display.newText(player.imageObject.linearDamping, 1150, 225, "Teacher_A", 69)
 }	
 ]]--
 
@@ -75,7 +75,7 @@ local function playerAC(int)
 			player2.imageObject.linearDamping = player2.imageObject.linearDamping + int
 		end
 		--player's linear damping
-		playerText = display.newText(player1.imageObject.linearDamping, 350, 100, native.Systemfont, 103)
+		playerText = display.newText(player1.imageObject.linearDamping, 350, 100, "Teacher_A", 103)
 		playerText:setFillColor(0, 0, 0)
 		playerText:toFront()
 	end
@@ -88,12 +88,12 @@ end
 local function update(objGroup)
 	if objGroup then
 		if gameData.updateOptions then
-			--if objGroup.name == "optGroup" then
+			--[[if objGroup.name == "optGroup" then
+				objGroup[9].text = gameData.bgmVolume * 10
+				objGroup[10].text = gameData.sfxVolume * 10
+			elseif objGroup.name == "igoptGroup" then]]--
 				objGroup[10].text = gameData.bgmVolume * 10
 				objGroup[11].text = gameData.sfxVolume * 10
-			--elseif objGroup.name == "igoptGroup" then
-				--objGroup[10].text = gameData.bgmVolume * 10
-				--objGroup[11].text = gameData.sfxVolume * 10
 			--end
 		else
 			objGroup:removeSelf()
@@ -108,6 +108,7 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function buttonPressed(event)
+	sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[1])
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then
@@ -126,7 +127,9 @@ local function buttonPressed(event)
 		gameData.inOptions = true		
 	--[[ Back to Main button pressed ]]--
 	elseif event.target.name == "BacktoMain" then
-		print("Back to Main Menu")
+		if gameData.debugMode then
+			print("Back to Main Menu")
+		end
 		-- Remove menuGroup		
 		clean()
 		-- Go back to menu
@@ -142,8 +145,9 @@ local function buttonPressed(event)
 		memory.toggle()		
 	--[[ In game options button pressed ]]--	
 	elseif event.target.name == "inGameOptionsBTN" then
-		print("In game options")
-		
+		if gameData.debugMode then
+			print("In game options")
+		end		
 		-- gameData.inWorldSelector||inLevelSelector||ingame
 		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
 		if gameData.inWorldSelector == 1 then
@@ -159,13 +163,16 @@ local function buttonPressed(event)
 			gameData.allowPaneSwitch = false
 		end
 		
-		gameData.gameOptions = true					
+		--gameData.gameOptions = true					
 		gameData.inGameOptions = true		
 	--[[ Back to Main from In-Game button pressed ]]--
 	elseif event.target.name == "gotoMain" then
-		print("Back to Main Menu")	
+		if gameData.debugMode then
+			print("Back to Main Menu")
+		end
 		-- clean out
 		clean()		
+		sound.soundClean()
 		-- gameData.inWorldSelector||inLevelSelector||ingame
 		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
 		if gameData.inWorldSelector == -1 then
@@ -178,13 +185,15 @@ local function buttonPressed(event)
 			gameData.allowPaneSwitch = false
 			gameData.allowMiniMap = false
 		end
-		gameData.gameOptions = false
+		--gameData.gameOptions = false
 		gameData.gameEnd = true		
 	--[[ Resume In-Game button pressed ]]--
 	elseif event.target.name == "Resume" then
-		print("Resume game")
-		clean()
-		
+		if gameData.debugMode then
+			print("Resume game")
+		end
+		-- clean out
+		clean()		
 		-- gameData.inWorldSelector||inLevelSelector||ingame
 		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
 		if gameData.inWorldSelector == -1 then
@@ -200,26 +209,45 @@ local function buttonPressed(event)
 			gameData.allowMiniMap = true
 		end
 		
-		gameData.gameOptions = false
-		gameData.resumeGame = true		
+		--gameData.gameOptions = false
+		gameData.resumeGame = true	
+		
 	elseif event.target.name == "restart" then
 		clean()
-						
-		gameData.gameOptions = false
-		gameData.levelRestart = true
+		
+		if gameData.inWorldSelector == -1 then
+			gameData.selectWorld = true
+		elseif gameData.inLevelSelector == -1 then
+			gameData.inLevelSelector = 0
+			gameData.selectLevel = true
+		elseif gameData.ingame == -1 then
+			gameData.levelRestart = true
+		else
+			gameData.levelRestart = true
+		end
+		
+	elseif event.target.name == "level" then
+		if gameData.debugMode then
+			print("Back to Main Menu")
+		end
+		-- clean out
+		clean()
+		-- gameData.inWorldSelector||inLevelSelector||ingame
+		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
+		if gameData.inWorldSelector == -1 then
+			gameData.selectWorld = true
+		elseif gameData.inLevelSelector == -1 then
+			gameData.inLevelSelector = 0
+			gameData.selectLevel = true			
+		elseif gameData.ingame == -1 then
+			gameData.ingame = 0
+			-- turn off pane switch and minimap
+			gameData.allowPaneSwitch = false
+			gameData.allowMiniMap = false
+			gameData.selectLevel = true
+		end
+
 	end
-	
-	--[[ Increase or decrease speed ]]--
-	--[[
-	elseif event.target.name == "plusButton" then
-		playerAC(1)
-	elseif event.target.name == "minusButton" then
-		playerAC(-1)
-	elseif event.target.name == "plusButtonDamping" then
-		playerAC(.25)
-	elseif event.target.name == "minusButtonDamping" then
-		playerAC(-.25)
-	]]--
 end
 
 --------------------------------------------------------------------------------
@@ -228,11 +256,14 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function mainMenu(event)
-	print("In Main Menu")
+	if gameData.debugMode then
+		print("In Main Menu")
+	end
+	
 	if audio.isChannelPlaying(3) == false then
 		print(audio.isChannelPlaying(3))
 		sound.loadMenuSounds()
-		sound.playBGM(sound.backgroundMusic)
+		sound.playBGM(sound.backgroundMusic[1])
 	end
 			
 	-- Create new menu display group
@@ -279,7 +310,25 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function options(event)
-	print("In Options")
+	if gameData.debugMode then
+		print("In Options")
+	end
+	
+	-- Image sheet options and declaration
+	local options = {
+		frames = {
+			{ x=0, y=0, width=9, height=64 },
+			{ x=35, y=0, width=9, height=64 },
+			{ x=112, y=0, width=9, height=64 },
+			{ x=120, y=0, width=292, height=64 },
+			{ x=420, y=0, width=64, height=64 }
+		},
+		sheetContentWidth = 464,
+		sheetContentHeight = 64
+	}
+	
+	local sliderSheet = graphics.newImageSheet("mapdata/art/slider/sliderSheet.png", options )
+		
 	local sfxVal = (gameData.sfxVolume*10)
 	local bgmVal = (gameData.bgmVolume*10)
 	
@@ -287,44 +336,54 @@ local function options(event)
 	menuGroup = display.newGroup()
 	
 	menuObjects = {
+		-- Background Scenery from: http://www.deviantart.com/art/A-House-for-Wendy-455901046
+		[1] = display.newImageRect("mapdata/art/background/screens/scenery.png", 1460, 840),
 		-- Add options background image
-		[1] = display.newImageRect("mapdata/art/background/screens/cocoonedMenu.png", 1460, 860),
+		[2] = display.newImageRect("mapdata/art/background/screens/options.png", 1460, 840),
 		-- Add Main Menu button
-		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
-		-- Create onScreen text objects
-		[3] = display.newText("OPTIONS", display.contentCenterX, 100, native.Systemfont, 103),
-		-- Debug toggle object
+		[3] = display.newImageRect("mapdata/art/buttons/main.png", 250, 250),
+		-- Debug switch
 		[4] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
 							   onPress = buttonPressed},
 		-- Debug text
-		[5] = display.newText("Debug Mode: ", 350, 150, native.Systemfont, 52),
+		[5] = display.newText("Debug Mode: ", 350, 150, "Teacher_A", 52),
 		-- Sound controller (SFX[6] - BGM[7])
-		[6] = widget.newSlider{orientation="horizontal", width=350, height=400, value = sfxVal, listener=sfxController},
-		[7] = widget.newSlider{orientation="horizontal", width=350, height=400, value = bgmVal, listener=bgmController},
+		[6] = widget.newSlider{sheet = sliderSheet, leftFrame = 1, middleFrame = 2, rightFrame = 3, fillFrame = 4,
+								frameWidth = 38, frameHeight = 64, handleFrame = 5, handleWidth = 64, handleHeight = 64,
+								orientation="horizontal", width=375, height=1000, value = sfxVal, 
+								listener=sfxController},
+		[7] = widget.newSlider{sheet = sliderSheet, leftFrame = 1, middleFrame = 2, rightFrame = 3, fillFrame = 4,
+								frameWidth = 36, frameHeight = 64, handleFrame = 5, handleWidth = 64, handleHeight = 64,
+								orientation="horizontal", width=375, height=1000, value = bgmVal, 
+								listener=bgmController},
 		-- Sound text
-		[8] = display.newText("Sound Volume: ", 350, 150, native.Systemfont, 52),
-		[9] = display.newText("Music Volume: ", 350, 150, native.Systemfont, 52),
+		[8] = display.newText("Sound Volume: ", 350, 150, "Teacher_A", 52),
+		[9] = display.newText("Music Volume: ", 350, 150, "Teacher_A", 52),
 		-- Pre-store location in array for value text
-		[10] = display.newText(gameData.sfxVolume*10, 350, 150, native.Systemfont, 40),
-		[11] = display.newText(gameData.bgmVolume*10, 350, 150, native.Systemfont, 40)
+		[10] = display.newText(gameData.sfxVolume*10, 350, 150, "Teacher_A", 40),
+		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40)
 	}
 	
 	menuObjects.name = "optGroup"
 	
-	-- Options background image
+	-- White background back layer
 	menuObjects[1].x = display.contentCenterX
 	menuObjects[1].y = display.contentCenterY
-	menuObjects[1].alpha = 0.6
+	
+	-- Options background image
+	menuObjects[2].x = display.contentCenterX
+	menuObjects[2].y = display.contentCenterY
+	menuObjects[2].alpha = 0.8
 
 	-- Main Menu button
-	menuObjects[2].x = 325
-	menuObjects[2].y = display.contentCenterY + 300
-	menuObjects[2].name = "BacktoMain"
-	menuObjects[2]:addEventListener("tap", buttonPressed)
-	menuObjects[2]:setFillColor(0, 0, 1)
+	menuObjects[3].x = display.contentCenterX
+	menuObjects[3].y = display.contentCenterY + 250
+	menuObjects[3].name = "BacktoMain"
+	menuObjects[3]:addEventListener("tap", buttonPressed)
+
 	
 	-- Options title text
-	menuObjects[3]:setFillColor(0, 0, 0)
+	--menuObjects[3]:setFillColor(0, 0, 0)
 	
 	-- Debug toggle object
 	if gameData.debugMode then
@@ -333,43 +392,37 @@ local function options(event)
 		menuObjects[4]:setState({isOn = false})
 	end
 	
-	menuObjects[4].anchorX = 0
-	menuObjects[4].x = display.contentCenterX - 200
-	menuObjects[4].y = display.contentCenterY + 100
+	menuObjects[4].x = display.contentCenterX + 200
+	menuObjects[4].y = display.contentCenterY + 75
 	menuObjects[4].name = "debugSwitch"
 
 	-- Debug text
-	menuObjects[5].anchorX = 0
-	menuObjects[5].x = 125
-	menuObjects[5].y = display.contentCenterY + 100
-	menuObjects[5]:setFillColor(0, 0, 0)
-	
+	--menuObjects[4].anchorX = 0
+	menuObjects[5].x = display.contentCenterX
+	menuObjects[5].y = display.contentCenterY + 75
+	menuObjects[5]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)	
 	-- SFX Volume Slider
-	menuObjects[6].anchorX = 0
-	menuObjects[6].x = 125
+	menuObjects[6].x = display.contentCenterX
 	menuObjects[6].y = display.contentCenterY
 	-- BGM Volume Slider
-	menuObjects[7].anchorX = 0
-	menuObjects[7].x = 125
+	menuObjects[7].x = display.contentCenterX
 	menuObjects[7].y = display.contentCenterY - 100
 	-- SFX Volume Text
-	menuObjects[8].anchorX = 0
-	menuObjects[8].x = 125
+	menuObjects[8].x = display.contentCenterX
 	menuObjects[8].y = display.contentCenterY - 50
-	menuObjects[8]:setFillColor(0, 0, 0)
+	menuObjects[8]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 	-- BGM Volume Text
-	menuObjects[9].anchorX = 0
-	menuObjects[9].x = 125
+	menuObjects[9].x = display.contentCenterX
 	menuObjects[9].y = display.contentCenterY - 150
-	menuObjects[9]:setFillColor(0, 0, 0)
+	menuObjects[9]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 	-- Sound [0-100] Text
-	menuObjects[10].x = 520
+	menuObjects[10].x = display.contentCenterX + 225
 	menuObjects[10].y = display.contentCenterY - 100
-	menuObjects[10]:setFillColor(0, 0, 0)
+	menuObjects[10]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 	-- Sound [0-100] Text
-	menuObjects[11].x = 520
+	menuObjects[11].x = display.contentCenterX + 225
 	menuObjects[11].y = display.contentCenterY
-	menuObjects[11]:setFillColor(0, 0, 0)
+	menuObjects[11]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 	
 	for i=1, #menuObjects do
 		menuGroup:insert(menuObjects[i])
@@ -388,13 +441,13 @@ local function ingameOptionsbutton(event, gui)
 	local cY = display.contentCenterY
 
 	-- Add in-game options image (option_wheel.png)
-	ingameOptions = display.newImageRect("mapdata/art/buttons/option_wheel.png", 90, 90, true)
+	ingameOptions = display.newImageRect("mapdata/art/buttons/option_wheel.png", 150, 150, true)
 
 	-- Scale image size
 	--ingameOptions.anchorX = 0
 	--ingameOptions.anchorY = 1
 	ingameOptions.x = display.contentCenterX + 650
-	ingameOptions.y = display.contentCenterY - 350
+	ingameOptions.y = display.contentCenterY - 330
 	ingameOptions.name = "inGameOptionsBTN"	
 	ingameOptions:addEventListener("tap", buttonPressed)
 	gui.front:insert(ingameOptions)
@@ -408,56 +461,43 @@ end
 --------------------------------------------------------------------------------
 --local function ingameMenu(event, player, playerTwo, gui)
 local function ingameMenu(event, gui)
-	print("ingameMenu")		
+	if gameData.debugMode then
+		print("ingameMenu")
+	end
 	
 	-- Create new menu display group
 	menuGroup = display.newGroup()
 	
-	--player1 = player
-	--player2 = playerTwo
-	
 	local menuNames = {
 		[1] = "gotoMain",
 		[2] = "Resume",
-		[3] = "restart"
-		--[[
-		[4] = "minusButtonDamping",
-		[5] = "plusButtonDamping",
-		[6] = "minusButton",
-		[7] = "plusButton"
-		]]--
+		[3] = "restart",
+		[4] = "level",
 	}
 	
 	menuObjects = {
 		-- Add options background image
-		[1] = display.newImageRect("mapdata/art/background/screens/cocoonedMenu.png", 1460, 864),
+		[1] = display.newImageRect("mapdata/art/background/screens/pause.png", 1460, 860),
 		-- Add Main Menu button
-		[2] = display.newImageRect("mapdata/art/buttons/main.png", 400, 150),
+		[2] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),
 		-- Add Resume game button
-		[3] = display.newImageRect("mapdata/art/buttons/resume.png", 400, 150),
+		[3] = display.newImageRect("mapdata/art/buttons/play.png", 300, 300),
 		-- Add Restart game button
-		[4] = display.newImageRect("mapdata/art/buttons/restart.png", 400, 150),
+		[4] = display.newImageRect("mapdata/art/buttons/restart.png", 300, 300),
+		-- Add Level select button
+		[5] = display.newImageRect("mapdata/art/buttons/levelselect.png", 300, 300)
+		--[[
 		-- Pause text object
-		[5] = display.newText("PAUSED", display.contentCenterX, 100, native.Systemfont, 103),
+		[5] = display.newText("PAUSED", display.contentCenterX, 100, "Teacher_A", 103),
 		-- Sound controller (SFX[6] - BGM[7])
 		[6] = widget.newSlider{orientation="horizontal", width=350, height=400, value = sfxVal, listener=sfxController},
 		[7] = widget.newSlider{orientation="horizontal", width=350, height=400, value = bgmVal, listener=bgmController},
 		-- Sound text
-		[8] = display.newText("Sound Volume: ", 350, 150, native.Systemfont, 52),
-		[9] = display.newText("Music Volume: ", 350, 150, native.Systemfont, 52),
+		[8] = display.newText("Sound Volume: ", 350, 150, "Teacher_A", 52),
+		[9] = display.newText("Music Volume: ", 350, 150, "Teacher_A", 52),
 		-- Pre-store location in array for value text
-		[10] = display.newText(gameData.sfxVolume*10, 350, 150, native.Systemfont, 40),
-		[11] = display.newText(gameData.bgmVolume*10, 350, 150, native.Systemfont, 40),
-
-		--[[
-		-- Minus button	#1
-		[4] = display.newImageRect("mapdata/art/buttons/minus.png", 100, 100),
-		-- Plus button	#1
-		[5] = display.newImageRect("mapdata/art/buttons/plus.png", 100, 100),
-		-- Minus button	#2
-		[6] = display.newImageRect("mapdata/art/buttons/minus.png", 100, 100),
-		-- Plus button #2
-		[7] = display.newImageRect("mapdata/art/buttons/plus.png", 100, 100),
+		[10] = display.newText(gameData.sfxVolume*10, 350, 150, "Teacher_A", 40),
+		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40),
 		]]--
 	}
 	
@@ -467,40 +507,21 @@ local function ingameMenu(event, gui)
 	-- Menu Background
 	menuObjects[1].x = display.contentCenterX
 	menuObjects[1].y = display.contentCenterY
-	menuObjects[1].alpha = 0.6
+	menuObjects[1].alpha = 1
 	-- Main Menu Button
-	menuObjects[2].x = display.contentCenterX + 450
-	menuObjects[2].y = display.contentCenterY + 300
+	menuObjects[2].x = display.contentCenterX
+	menuObjects[2].y = display.contentCenterY + 250
 	-- Resume game button
 	menuObjects[3].x = display.contentCenterX + 450
-	menuObjects[3].y = display.contentCenterY - 50
+	menuObjects[3].y = display.contentCenterY
 	-- Restart button
-	menuObjects[4].x = display.contentCenterX + 450
-	menuObjects[4].y = display.contentCenterY + 125	
-	-- Paused text
-	--menuObjects[5].x = display.contentCenterX
-	--menuObjects[5].x = display.contentCenterY
-	-- SFX Volume Slider
-	menuObjects[6].x = 125
-	menuObjects[6].y = display.contentCenterY
-	-- BGM Volume Slider
-	menuObjects[7].x = 125
-	menuObjects[7].y = display.contentCenterY - 100
-	-- SFX Volume Text
-	menuObjects[8].x = 125
-	menuObjects[8].y = display.contentCenterY - 50
-	-- BGM Volume Text 
-	menuObjects[9].x = 125
-	menuObjects[9].y = display.contentCenterY - 150
-	-- Sound [0-100] Text (SFX)
-	menuObjects[10].x = 520
-	menuObjects[10].y = display.contentCenterY - 100
-	-- Sound [0-100] Text (BGM)
-	menuObjects[11].x = 520
-	menuObjects[11].y = display.contentCenterY
-	
+	menuObjects[4].x = display.contentCenterX - 450
+	menuObjects[4].y = display.contentCenterY
+	-- Level select button
+	menuObjects[5].x = display.contentCenterX
+	menuObjects[5].y = display.contentCenterY - 250
+		
 	-- Flip background image (horizontal)
-	menuObjects[1]:scale(-1, 1)
 	menuGroup:insert(menuObjects[1])
 	
 	for i=2, #menuObjects do
@@ -509,18 +530,19 @@ local function ingameMenu(event, gui)
 		menuObjects[i].anchorX = 0.5
 		menuObjects[i].anchorY = 0.5
 		
-		-- Assign black color
-		-- i=5 (PAUSED TEXT); i >= 8 (Sound/Volume Text)
-		if (i==5) or (i >=8) then
-			menuObjects[i]:setFillColor(0, 0, 0)
-		end
-		
-		if (i > 5 and i <= 11) then
-			menuObjects[i].anchorX = 0
-		end
-		
-		-- add event listeners to buttons
-		if (i > 1) and (i < 8) then
+		-- If in world selector and level selector:
+		-- 		Disable Restart and level select button
+		if gameData.inWorldSelector == -1 or gameData.inLevelSelector == -1 then
+			menuObjects[4].alpha = 0.5
+			menuObjects[5].alpha = 0.5			
+			if i ~= 4 and i ~= 5 then
+				-- add event listeners to buttons
+				menuObjects[i]:addEventListener("tap", buttonPressed)
+			end
+		elseif gameData.ingame == -1 then
+			menuObjects[4].alpha = 1
+			menuObjects[5].alpha = 1
+			-- add event listeners to buttons
 			menuObjects[i]:addEventListener("tap", buttonPressed)
 		end
 		

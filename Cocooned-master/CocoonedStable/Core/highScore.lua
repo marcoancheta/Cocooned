@@ -5,6 +5,7 @@
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
 local inventory = require("Mechanics.inventoryMechanic")
+local font = require("utils.font")
 local json = require("json")
 --------------------------------------------------------------------------------
 -- holds the level name for loading
@@ -40,7 +41,7 @@ local function init(gui)
 	
 	-- Score Font and Size
 	scoreTextOptions.fontSize = 72
-	scoreTextOptions.font = native.systemFontBold
+	scoreTextOptions.font = font.TEACHERA
 	-- Score Text Object Positions
 	scoreTextOptions.x = display.contentCenterX
 	scoreTextOptions.y = 150
