@@ -167,10 +167,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[4].isVisible = true
 
 		generate.gWater(map, mapData)
-<<<<<<< HEAD
-		generate.gWisps(wisp, map, mapData, 24, 24, seven.wispCount)
-=======
->>>>>>> origin/Derrick
 	elseif mapData.pane == "U" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")

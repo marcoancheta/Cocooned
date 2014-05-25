@@ -26,11 +26,7 @@ local ten = {
 	panes = {true,true,false,true,true},
 	timer = 300,
 	playerCount = 1,
-<<<<<<< HEAD
-	playerPos = {{["x"]=4, ["y"]=4},},
-=======
 	playerPos = {{["x"]=10, ["y"]=4},},
->>>>>>> origin/Derrick
 	-- number of wisps in the level
 	wispCount = 29,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -177,12 +173,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[29].x, wisp[29].y = generate.tilesToPixels(15, 19)
 
 		generate.gWisps(wisp, map, mapData, 18, 29, ten.wispCount)
-<<<<<<< HEAD
-
-=======
-	elseif mapData.pane == "U" then
-		generate.gWater(map, mapData)
->>>>>>> origin/Derrick
 	elseif mapData.pane == "R" then
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(15, 15)
