@@ -6,6 +6,7 @@
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
 local generate = require("Objects.generateObjects")
+local font = require("utils.font")
 ---------------------
 -- Local variables
 ---------------------
@@ -121,7 +122,7 @@ local function drawGoals(gui, player)
 	textObject[1].strokeWidth = 15
 	textObject[1].isVisible = false
 
-	textObject[2] = display.newText(text, display.contentCenterX, 85, "Teacher_A", 72)
+	textObject[2] = display.newText(text, display.contentCenterX, 85, font.TEACHERA, 72)
 	textObject[2]:setFillColor(0,0,0)
 	--textObject[2].anchorX = 1
 	textObject[2].isVisible = false

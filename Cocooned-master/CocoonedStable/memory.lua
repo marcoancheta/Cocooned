@@ -5,6 +5,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
+local font = require("utils.font")
 --------------------------------------------------------------------------------
 -- Memory Check (http://coronalabs.com/blog/2011/08/15/corona-sdk-memory-leak-prevention-101/)
 --------------------------------------------------------------------------------
@@ -12,11 +13,11 @@ local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
 -- debug text object
 local textObject = {
-		display.newText("",  10, 720, "Teacher_A", 48),
-		display.newText("", 10, 780, "Teacher_A", 48),
-		display.newText("", 10, 80, "Teacher_A", 48),
-		display.newText("", 10, 30, "Teacher_A", 48),
-		display.newText("", 600, 200, "Teacher_A", 72)
+		display.newText("",  10, 720, font.TEACHERA, 48),
+		display.newText("", 10, 780, font.TEACHERA, 48),
+		display.newText("", 10, 80, font.TEACHERA, 48),
+		display.newText("", 10, 30, font.TEACHERA, 48),
+		display.newText("", 600, 200, font.TEACHERA, 72)
 }
 
 local prevTextMem = 0

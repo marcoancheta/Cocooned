@@ -7,6 +7,7 @@ local highScore = require("Core.highScore")
 local generate = require("Objects.generateObjects")
 local gameData = require("Core.gameData")
 local menu = require("Core.menu")
+local font = require("utils.font")
 --------------------------------------------------------------------------------
 -- Class
 local win = {}
@@ -100,7 +101,7 @@ local function runWinner(mapData, gui)
 	init(gui)
 	textObj = highScore.init(gui)
 	-- Create "HIGHSCORES" text
-	highText = display.newText("HIGH SCORES", display.contentCenterX, 80, "Teacher_A", 82)
+	highText = display.newText("HIGH SCORES", display.contentCenterX, 80,font.TEACHERA, 82)
 
 	local tables = highScore.loadScore()
 	highScore.scoreTable = tables
@@ -151,7 +152,7 @@ end
 --------------------------------------------------------------------------------
 local function listener(target, mapData, gui)
 	-- Show time remaining
-	scoreObj[3] = display.newText("Time left: " ..os.date("!%M:%S", gameData.gameTime), display.contentCenterX, 80, "Teacher_A", 72)
+	scoreObj[3] = display.newText("Time left: " ..os.date("!%M:%S", gameData.gameTime), display.contentCenterX, 80,font.TEACHERA, 72)
 	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(20, 7)
 	scoreObj[3].alpha = 0
 	
@@ -172,7 +173,7 @@ local function showScore(mapData, gui)
 	tempDataw = mapData
 	tempGui = gui	
 	-- Draw "WINNER" at the top of the screen 	
-	highText = display.newText("Level Complete!", display.contentCenterX, 80, "Teacher_A", 82)
+	highText = display.newText("Level Complete!", display.contentCenterX, 80, font.TEACHERA, 82)
 	-- Calculate player's score
 	local temp = highScore.calcScore(mapData, gui)
 	count = (temp*0.01)
@@ -185,7 +186,7 @@ local function showScore(mapData, gui)
 	scoreObj[1]:scale(2, 2)
 	scoreObj[1].x, scoreObj[1].y = generate.tilesToPixels(20, 15)
 	-- Show player's score
-	scoreObj[2] = display.newText("Score: " ..score, display.contentCenterX, 80, "Teacher_A", 82)
+	scoreObj[2] = display.newText("Score: " ..score, display.contentCenterX, 80,font.TEACHERA, 82)
 	scoreObj[2].x, scoreObj[2].y = generate.tilesToPixels(20, 20)
 	-- If amount of wisps is greater than 0, run transition
 	if count > 0 then
