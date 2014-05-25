@@ -430,13 +430,13 @@ local function ingameOptionsbutton(event, gui)
 	local cY = display.contentCenterY
 
 	-- Add in-game options image (option_wheel.png)
-	ingameOptions = display.newImageRect("mapdata/art/buttons/option_wheel.png", 90, 90, true)
+	ingameOptions = display.newImageRect("mapdata/art/buttons/option_wheel.png", 150, 150, true)
 
 	-- Scale image size
 	--ingameOptions.anchorX = 0
 	--ingameOptions.anchorY = 1
 	ingameOptions.x = display.contentCenterX + 650
-	ingameOptions.y = display.contentCenterY - 350
+	ingameOptions.y = display.contentCenterY - 330
 	ingameOptions.name = "inGameOptionsBTN"	
 	ingameOptions:addEventListener("tap", buttonPressed)
 	gui.front:insert(ingameOptions)
