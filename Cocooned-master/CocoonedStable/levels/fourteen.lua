@@ -147,6 +147,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Runes
  		rune[2].x, rune[2].y = generate.tilesToPixels(2, 21)			
 		rune[2].isVisible = true
+		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		objects["greenAura1"]:setSequence("move")
  		objects["greenAura1"]:play()
@@ -155,8 +156,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["redAura1"]:setSequence("move")
  		objects["redAura1"]:play()
  		objects["redAura1"].x, objects["redAura1"].y = generate.tilesToPixels(24, 10)
+ 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
-
+		generate.gWater(map, mapData)
 	elseif mapData.pane == "D" then
 		objects["blueAura1"]:setSequence("move")
  		objects["blueAura1"]:play()
