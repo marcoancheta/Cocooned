@@ -87,9 +87,11 @@ local function tap(event)
 	elseif event.target.name == "restart" then
 		gameData.levelRestart = true
 		clean()
+		--[[
 	elseif event.target.name == "quit" then
 		gameData.gameEnd = true
 		clean()
+		]]--
 	end
 end
 
@@ -111,16 +113,16 @@ local function runWinner(mapData, gui)
 	-- Restart Level button
 	scoreObj[1] = display.newImageRect("mapdata/art/buttons/restart.png", 200, 200)
 	scoreObj[1].name = "restart"
-	scoreObj[1].x, scoreObj[1].y = generate.tilesToPixels(34, 18)
+	scoreObj[1].x, scoreObj[1].y = generate.tilesToPixels(8, 18)
 	-- Level Selector button
-	scoreObj[2] = display.newImageRect("mapdata/art/buttons/select.png", 200, 200)
+	scoreObj[2] = display.newImageRect("mapdata/art/buttons/levelselect.png", 200, 200)
 	scoreObj[2].name = "select"
-	scoreObj[2].x, scoreObj[2].y = generate.tilesToPixels(34, 10)
+	scoreObj[2].x, scoreObj[2].y = generate.tilesToPixels(34, 18)
 	-- Main Menu button
-	scoreObj[3] = display.newImageRect("mapdata/art/buttons/main.png", 200, 200)
+	--[[scoreObj[3] = display.newImageRect("mapdata/art/buttons/main.png", 200, 200)
 	scoreObj[3].name = "quit"
 	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(8, 18)
-			
+	]]--	
 	gui.front:insert(highText)
 	
 	for i=1, #scoreObj do

@@ -273,7 +273,9 @@ end
 
 
 local function startPhys(event)
-	physics.start();
+	physics.start()
+	player1.curse = 1
+	player2.curse = 1
 end
 --------------------------------------------------------------------------------
 -- Load Map - loads start of level
@@ -343,6 +345,8 @@ local function loadMap(mapData)
 		gameTimer.preGame(gui, mapData)
 	end
 	physics.pause()
+	player1.curse = 0
+	player2.curse = 0
 	local physicTimer=timer.performWithDelay( 3000, startPhys)
 	return player1
 end
