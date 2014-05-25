@@ -16,6 +16,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	player:changeColor('blue')
 
 	-- play sound
+	sound.stopSound(1)
 	sound.playSound(sound.soundEffects[2])
 	
 	--local closure = function() return player:changeColor('white') end
@@ -23,7 +24,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 end
 
 --------------------------------------------------------------------------------
--- FInish Up
+-- Finish Up
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
@@ -32,5 +33,4 @@ local blueAuraCollision = {
 }
 
 return blueAuraCollision
-
 -- end of blueAuraCollision.lua

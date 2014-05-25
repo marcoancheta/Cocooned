@@ -108,6 +108,7 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function buttonPressed(event)
+	sound.stopSound(1)
 	sound.playSound(sound.soundEffects[1])
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then
