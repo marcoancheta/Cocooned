@@ -520,30 +520,7 @@ local function ingameMenu(event, gui)
 	-- Level select button
 	menuObjects[5].x = display.contentCenterX
 	menuObjects[5].y = display.contentCenterY - 250
-	
-	--[[
-	-- Paused text
-	--menuObjects[5].x = display.contentCenterX
-	--menuObjects[5].x = display.contentCenterY
-	-- SFX Volume Slider
-	menuObjects[6].x = display.contentCenterX
-	menuObjects[6].y = display.contentCenterY
-	-- BGM Volume Slider
-	menuObjects[7].x = display.contentCenterX
-	menuObjects[7].y = display.contentCenterY - 100
-	-- SFX Volume Text
-	menuObjects[8].x = display.contentCenterX
-	menuObjects[8].y = display.contentCenterY - 50
-	-- BGM Volume Text 
-	menuObjects[9].x = display.contentCenterX
-	menuObjects[9].y = display.contentCenterY - 150
-	-- Sound [0-100] Text (SFX)
-	menuObjects[10].x = display.contentCenterX + 250
-	menuObjects[10].y = display.contentCenterY - 100
-	-- Sound [0-100] Text (BGM)
-	menuObjects[11].x = display.contentCenterX + 250
-	menuObjects[11].y = display.contentCenterY
-	]]--
+		
 	-- Flip background image (horizontal)
 	menuGroup:insert(menuObjects[1])
 	
@@ -552,9 +529,23 @@ local function ingameMenu(event, gui)
 		menuObjects[i].name = menuNames[i-1]
 		menuObjects[i].anchorX = 0.5
 		menuObjects[i].anchorY = 0.5
-						
-		-- add event listeners to buttons
-		menuObjects[i]:addEventListener("tap", buttonPressed)
+		
+		-- If in world selector and level selector:
+		-- 		Disable Restart and level select button
+		if gameData.inWorldSelector == -1 or gameData.inLevelSelector == -1 then
+			menuObjects[4].alpha = 0.5
+			menuObjects[5].alpha = 0.5			
+			if i ~= 4 and i ~= 5 then
+				-- add event listeners to buttons
+				menuObjects[i]:addEventListener("tap", buttonPressed)
+			end
+		elseif gameData.ingame == -1 then
+			print("TESTING")
+			menuObjects[4].alpha = 1
+			menuObjects[5].alpha = 1
+			-- add event listeners to buttons
+			menuObjects[i]:addEventListener("tap", buttonPressed)
+		end
 		
 		-- Add everything to menuGroup
 		menuGroup:insert(menuObjects[i])
