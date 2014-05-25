@@ -26,7 +26,9 @@ local five = {
 	panes = {true,false,false,false,true},
 	timer = 200,
 	playerCount = 1,
-	playerPos = {{["x"]=4.5, ["y"]=4.5},},
+	playerPos = {	 {["x"]=5, ["y"]=5},
+
+				},
 	-- number of wisps in the level
 	wispCount = 16,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -135,7 +137,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Check which pane
 	if mapData.pane == "M" then
 		-- Pink rune	
-		rune[3].x, rune[3].y = generate.tilesToPixels(15, 20)			
+		rune[3].x, rune[3].y = generate.tilesToPixels(5, 20)			
 		rune[3].isVisible = true
 		
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(17, 7)

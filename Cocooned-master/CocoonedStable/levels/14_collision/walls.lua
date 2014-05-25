@@ -621,9 +621,7 @@ function M.physicsData(scale)
                     shape = {   651, 44  ,  598, 104  ,  635, 26  }
                     }
                     
-                    
-                    
-<<<<<<< HEAD
+               
                      ,
                     
                     
@@ -1406,11 +1404,6 @@ function M.physicsData(scale)
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
                     shape = {   687, 355  ,  699, 275  ,  721, 248  ,  723, 432  }
                     }
-                    
-                    
-                    
-=======
->>>>>>> origin/Derrick
 		}
 		
 	} }

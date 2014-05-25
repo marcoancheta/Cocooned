@@ -174,6 +174,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[22].x, wisp[22].y = generate.tilesToPixels(10, 12)
 		wisp[23].x, wisp[23].y = generate.tilesToPixels(7, 12)
 
+
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(7, 11)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(2, 11)
@@ -221,7 +222,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish25"].eX, objects["fish25"].eY = generate.tilesToPixels(25, 4)
  		objects["fish25"].time = 675
 		objects["fish25"]:rotate(90)
-		
+
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(39, 16)
 		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(28, 18)
 		objects["fixedIceberg1"].time = 1100

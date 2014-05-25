@@ -213,8 +213,10 @@ local function buttonPressed(event)
 		gameData.resumeGame = true		
 	elseif event.target.name == "restart" then
 		clean()
-		--gameData.gameOptions = false
-		gameData.gameEnd = true
+		
+		gameData.gameOptions = false
+		gameData.levelRestart = true
+
 	elseif event.target.name == "level" then
 		if gameData.debugMode then
 			print("Back to Main Menu")
@@ -236,6 +238,7 @@ local function buttonPressed(event)
 			gameData.allowMiniMap = false
 			gameData.selectLevel = true
 		end
+
 	end
 end
 

@@ -85,6 +85,7 @@ local mapPanes
 local t = 1
 local timeCheck = 1
 local timeCount = 0
+local  physicsParam
 
 -- Initialize map data
 local mapData = {
@@ -101,7 +102,9 @@ local line
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 
+
 local textObject = display.newText("", 600, 400, font.TEACHERA, 72)
+
 		
 local count = 0
 
@@ -207,6 +210,17 @@ local function controlMovement(event)
 		else
 			textObject:toBack()
 		end
+
+		accelValueX.text = string.sub(tostring(physicsParam.xGrav),1,4)
+		accelValueX.x = display.contentCenterX
+		accelValueX.y = 10
+		accelValueX:setFillColor(1,0,0)
+		accelValueX:toFront()
+		accelValueY.text = string.sub(tostring(physicsParam.yGrav),1,4)
+		accelValueY.x = display.contentCenterX
+		accelValueY.y = 60
+		accelValueY:setFillColor(1,0,0)
+		accelValueY:toFront()
 	end
 end
 
@@ -342,12 +356,13 @@ local function loadMap(mapData)
 		end
 		-- pause physics
 		physics.pause()
-		gameTimer.preGame(gui, mapData)
+		cutSceneSystem.cutScene(gui, mapData)
+		--gameTimer.preGame(gui, mapData)
 	end
 	physics.pause()
 	player1.curse = 0
 	player2.curse = 0
-	local physicTimer=timer.performWithDelay( 3000, startPhys)
+	local physicTimer=timer.performWithDelay( 2000, startPhys)
 	return player1
 end
 
@@ -560,8 +575,9 @@ local function gameLoopEvents(event)
 		mapData = gameData.mapData
 		mapData.pane = "M"
 		-- Load in map with new mapData
+
+		
 		loadMap(mapData)
-		--cutSceneSystem.cutScene("1", gui)
 		snow.new()
 		-- Re-evaluate gameData booleans
 		gameData.inLevelSelector = 0
