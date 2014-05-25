@@ -364,7 +364,7 @@ local function loadMap(mapData)
 	physics.pause()
 	player1.curse = 0
 	player2.curse = 0
-	local physicTimer=timer.performWithDelay( 2000, startPhys)
+	local physicTimer = timer.performWithDelay( 2000, startPhys)
 	return player1
 end
 

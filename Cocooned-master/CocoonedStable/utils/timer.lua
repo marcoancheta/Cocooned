@@ -239,9 +239,9 @@ end
 --------------------------------------------------------------------------------
 -- Pre-game timer function 
 --------------------------------------------------------------------------------
-local function preGame(gui, mapData)
+local function preGame(gui, mapData, seconds)
 	-- counter = desired time + 2 sec (from loading).
-	counter = 3
+	counter = seconds
 	-- Create text object
 	local counterText = display.newText(counter, 0, 0, font.TEACHERA, 150)
 	-- Center text object

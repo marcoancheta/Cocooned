@@ -19,7 +19,7 @@ local generate = require("Objects.generateObjects")
 -- Arrays
 local scenes = {}
 -- Level number = number of cutscenes
-local numberOfScreens= { ["LS"] = 0, ["1"] = 3,  ["2"] = 0, 
+local numberOfScreens = { ["LS"] = 0, ["1"] = 3,  ["2"] = 0, 
 						 ["3"] = 0,  ["4"] = 0,  ["5"] = 0, 
 						 ["6"] = 0,  ["7"] = 0,  ["8"] = 0, 
 						 ["9"] = 0,  ["10"] = 0, ["11"] = 0, 
@@ -38,27 +38,31 @@ local tempMapData
 local function nextSceneOrDelete(event)
 	--print("nextSceneOrDelete")	
 	
-	-- Delete scene on screen.
-	scenes[currScene]:removeSelf()
-	scenes[currScene] = nil	
+	if scenes[currScene] ~= nil then
+		-- Delete scene on screen.
+		scenes[currScene]:removeSelf()
+		scenes[currScene] = nil	
+	end
 	-- Clear variables if current scene reaches levels' maximum amount of scenes
 	if currScene == numberOfScreens[tempMapData.levelNum] then
+		local counter = 3
 		-- Clear current scene
 		currScene = nil
 		-- Remove event listener from nextScene
-		nextScene:removeEventListener("tap", nextSceneOrDelete)
-		nextScene:removeSelf()
-		nextScene = nil
-		
-		-- Run pregame timer events
-		gameTimer.preGame(tempGui, tempMapData)
-		
+		if nextScene ~= nil then
+			nextScene:removeEventListener("tap", nextSceneOrDelete)
+			nextScene:removeSelf()
+			nextScene = nil	
+		end
 		-- Clear scenes array
 		scenes = nil
 		scenes = {}
+		-- Run pregame timer events
+		gameTimer.preGame(tempGui, tempMapData, counter)
 		-- Clear temporary gui and mapData variables
 		tempGui = nil
 		tempMapData = nil
+		counter = nil
 	else
 		currScene = currScene +1
 	end
@@ -87,8 +91,9 @@ local function cutScene(gui, mapData)
 		nextScene:addEventListener("tap", nextSceneOrDelete)
 		currScene = 1
 	else
-		-- Run pregame timer events
-		gameTimer.preGame(tempGui, tempMapData)
+		local counter = 5
+		gameTimer.preGame(tempGui, tempMapData, counter)
+		counter = nil
 	end
 end
 
