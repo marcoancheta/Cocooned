@@ -30,6 +30,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		event.contact.isEnabled = false
 		event.other.isSensor = true
 	
+
+		sound.stopChannel(1)
+		sound.playSound(sound.soundEffects[12])
+
 		player.curse = 0
 		player.xGrav = 0
 		player.yGrav = 0

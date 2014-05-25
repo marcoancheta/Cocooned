@@ -98,6 +98,9 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	gameData.allowPaneSwitch = false
 	gameData.allowTouch = false
 	
+	sound.stopChannel(1)
+	sound.playSound(sound.soundEffects[3])
+	
 	if transPic then
 		transPic:setSequence("stop")
 		transPic:removeSelf()
