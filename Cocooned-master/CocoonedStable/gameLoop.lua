@@ -211,6 +211,7 @@ local function controlMovement(event)
 			textObject:toBack()
 		end
 
+		--[[
 		accelValueX.text = string.sub(tostring(physicsParam.xGrav),1,4)
 		accelValueX.x = display.contentCenterX
 		accelValueX.y = 10
@@ -221,6 +222,7 @@ local function controlMovement(event)
 		accelValueY.y = 60
 		accelValueY:setFillColor(1,0,0)
 		accelValueY:toFront()
+		]]--
 	end
 end
 
@@ -512,6 +514,9 @@ local function gameLoopEvents(event)
 		if gameData.inLevelSelector == 1 then
 			clean(event)
 			gameData.inLevelSelector = 0
+		elseif gameData.inWorldSelector == -1 then
+			gameData.inWorldSelector = 0
+			clean(event)
 		end		
 		
 		if gameData.debugMode then

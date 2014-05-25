@@ -362,6 +362,15 @@ local function tilesToPixels( Tx, Ty)
 	return x, y
 end
 
+local function pixelsToTiles( Tx, Ty)
+	local x, y = Tx, Ty
+	--tprint.assert((x ~= nil) and (y ~= nil), "Missing argument(s).")
+	x, y = (x * 0.027778), (y * 0.027778)
+	x, y = x + 0.5, y + 0.5
+	return x, y
+end
+
+
 --------------------------------------------------------------------------------
 -- Finish Up
 --------------------------------------------------------------------------------
@@ -375,7 +384,8 @@ generateObjects = {
 	gWalls = gWalls,
 	gAuraWalls = gAuraWalls,
 	destroyObjects = destroyObjects,
-	tilesToPixels = tilesToPixels
+	tilesToPixels = tilesToPixels,
+	pixelsToTiles = pixelsToTiles
 }
 
 return generateObjects
