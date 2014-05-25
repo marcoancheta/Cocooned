@@ -540,7 +540,6 @@ local function ingameMenu(event, gui)
 				menuObjects[i]:addEventListener("tap", buttonPressed)
 			end
 		elseif gameData.ingame == -1 then
-			print("TESTING")
 			menuObjects[4].alpha = 1
 			menuObjects[5].alpha = 1
 			-- add event listeners to buttons
