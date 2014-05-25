@@ -180,7 +180,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[22].x, wisp[22].y = generate.tilesToPixels(10, 12)
 		wisp[23].x, wisp[23].y = generate.tilesToPixels(7, 12)
 
-		rune[2].x, rune[2].y = generate.tilesToPixels(12, 1)			
+		rune[2].x, rune[2].y = generate.tilesToPixels(10, 1.5)			
 		rune[2].isVisible = true
 
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(6, 8)
@@ -189,7 +189,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(13, 1)
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(13, 1.5)
 
 		generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)

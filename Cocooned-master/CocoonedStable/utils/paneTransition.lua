@@ -18,8 +18,8 @@ local generate = require("Objects.generateObjects")
 local snow = require("utils.snow")
 local animation = require("Core.animation")
 local gameData = require("Core.gameData")
+-- Generate sound
 local sound = require("sound")
-
 
 --------------------------------------------------------------------------------
 -- Variables

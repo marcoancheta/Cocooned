@@ -3,7 +3,7 @@
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
 -- moveableObject.lua
 --------------------------------------------------------------------------------
--- lua file that creates moveable objects for pane
+local sound = require("sound")
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------

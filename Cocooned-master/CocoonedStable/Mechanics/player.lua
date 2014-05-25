@@ -110,7 +110,7 @@ end
 local function changeSize(player)
 	physics.removeBody(player)
 	player:scale(0.5,0.5)
-	physics.addBody(player, {radius = 15, bounce = .25, density = 0.1}) --, density = 0.7})
+	physics.addBody(player, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
 	auraEmitter:changeRadius(-25)
 	physics.setGravity(0,0)
 	--player.linearDamping = 1.25
@@ -192,9 +192,9 @@ end
 function playerInstance:changeColor(color)
 	local colors ={
 		['white'] = {1,1,1},
-		['red'] = {1,0.5,0.5}, 
-		['green'] = {0.5,1,0.5},
-		['blue'] = {0.5,0.5,1}
+		['red'] = {255*0.00392156862, 116*0.00392156862, 123*0.00392156862}, 
+		['green'] = {40*0.00392156862, 196*0.00392156862, 58*0.00392156862},
+		['blue'] = {73*0.00392156862, 213*0.00392156862, 218*0.00392156862}
 	}
     self.color = color
     c = colors[color]

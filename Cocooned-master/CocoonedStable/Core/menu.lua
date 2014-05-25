@@ -145,26 +145,28 @@ local function buttonPressed(event)
 		memory.toggle()		
 	--[[ In game options button pressed ]]--	
 	elseif event.target.name == "inGameOptionsBTN" then
-		if gameData.debugMode then
-			print("In game options")
-		end		
-		-- gameData.inWorldSelector||inLevelSelector||ingame
-		-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
-		if gameData.inWorldSelector == 1 then
-			gameData.inWorldSelector = -1
-		elseif gameData.inLevelSelector == 1 then
-			gameData.inLevelSelector = -1
-		elseif gameData.ingame == 1 then
-			-- pause snow
-			snow.pauseSnow()
-			gameData.ingame = -1
-			-- disable pane switch and mini map
-			gameData.allowMiniMap = false
-			gameData.allowPaneSwitch = false
+		if gameData.preGame ~= true then
+			if gameData.debugMode then
+				print("In game options")
+			end		
+			-- gameData.inWorldSelector||inLevelSelector||ingame
+			-- ( 1 = in that scene, -1 = was in that scene, 0 = no longer in that scene
+			if gameData.inWorldSelector == 1 then
+				gameData.inWorldSelector = -1
+			elseif gameData.inLevelSelector == 1 then
+				gameData.inLevelSelector = -1
+			elseif gameData.ingame == 1 then
+				-- pause snow
+				snow.pauseSnow()
+				gameData.ingame = -1
+				-- disable pane switch and mini map
+				gameData.allowMiniMap = false
+				gameData.allowPaneSwitch = false
+			end
+			
+			--gameData.gameOptions = true					
+			gameData.inGameOptions = true
 		end
-		
-		--gameData.gameOptions = true					
-		gameData.inGameOptions = true		
 	--[[ Back to Main from In-Game button pressed ]]--
 	elseif event.target.name == "gotoMain" then
 		if gameData.debugMode then
@@ -244,6 +246,8 @@ local function buttonPressed(event)
 			-- turn off pane switch and minimap
 			gameData.allowPaneSwitch = false
 			gameData.allowMiniMap = false
+			gameData.selectLevel = true
+		else
 			gameData.selectLevel = true
 		end
 
