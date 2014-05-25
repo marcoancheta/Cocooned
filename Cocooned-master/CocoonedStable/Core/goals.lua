@@ -134,7 +134,7 @@ local function drawGoals(gui, player)
 	play.name = "playButton"
 
 	cancel = display.newImageRect("mapdata/art/buttons/cancel.png", 275, 275)
-	cancel.x, cancel.y = generate.tilesToPixels(6, 19)
+	cancel.x, cancel.y = generate.tilesToPixels(5, 19)
 	cancel.isVisible = false
 	cancel.name = "cancelButton"
 			

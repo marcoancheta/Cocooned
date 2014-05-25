@@ -222,6 +222,8 @@ local function buttonPressed(event)
 			gameData.selectLevel = true
 		elseif gameData.ingame == -1 then
 			gameData.levelRestart = true
+		else
+			gameData.levelRestart = true
 		end
 		
 	elseif event.target.name == "level" then

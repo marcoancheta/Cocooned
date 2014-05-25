@@ -211,6 +211,7 @@ local function controlMovement(event)
 			textObject:toBack()
 		end
 
+		--[[
 		accelValueX.text = string.sub(tostring(physicsParam.xGrav),1,4)
 		accelValueX.x = display.contentCenterX
 		accelValueX.y = 10
@@ -221,6 +222,7 @@ local function controlMovement(event)
 		accelValueY.y = 60
 		accelValueY:setFillColor(1,0,0)
 		accelValueY:toFront()
+		]]--
 	end
 end
 
