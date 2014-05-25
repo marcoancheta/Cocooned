@@ -73,11 +73,9 @@ local function cutScene(gui, mapData)
 	tempMapData = mapData
 	
 	--print(mapData.levelNum)	
-	--
 	if numberOfScreens[mapData.levelNum] > 0 then
-		--
 		for i= numberOfScreens[mapData.levelNum], 1, -1 do
-			scenes[i] = display.newImageRect("mapdata/art/cutscenes/OLD/level"..mapData.levelNum .. "Scene" .. i .. ".png", 1460, 864)
+			scenes[i] = display.newImageRect("mapdata/art/cutscenes/OLD/"..mapData.levelNum.."/"..i..".png", 1460, 864)
 			scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
 		end
 		--print("drawing next scene")
