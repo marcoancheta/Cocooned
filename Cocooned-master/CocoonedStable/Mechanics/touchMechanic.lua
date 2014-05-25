@@ -161,8 +161,10 @@ local function tapScreen(event, miniMap, mapData, physics, gui, player)
 
 		-- else, tapped once, do funationality for miniMap if it is showing
 		elseif gameData.isShowingMiniMap == true then
-			-- call miniMap move function
-			miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
+			if gameData.allowPaneSwitch == true then
+				-- call miniMap move function
+				miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
+			end
 			
 			-- start physics
 			physics.start()
