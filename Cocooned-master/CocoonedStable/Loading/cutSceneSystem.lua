@@ -13,6 +13,7 @@
 --------------------------------------------------------------------------------
 local gameTimer = require("utils.timer")
 local generate = require("Objects.generateObjects")
+local loading = require("Loading.loadingScreen")
 --------------------------------------------------------------------------------
 -- Local variables
 --------------------------------------------------------------------------------
@@ -32,12 +33,13 @@ local nextScene
 local tempGui
 local tempMapData
 
+local deleteClosure = function() return loading.deleteLoading() end
+
 --------------------------------------------------------------------------------
 -- nextSceneOrDelete - ?
 --------------------------------------------------------------------------------
 local function nextSceneOrDelete(event)
 	--print("nextSceneOrDelete")	
-	
 	if scenes[currScene] ~= nil then
 		-- Delete scene on screen.
 		scenes[currScene]:removeSelf()
@@ -45,7 +47,7 @@ local function nextSceneOrDelete(event)
 	end
 	-- Clear variables if current scene reaches levels' maximum amount of scenes
 	if currScene == numberOfScreens[tempMapData.levelNum] then
-		local counter = 3
+		loading.loadingInit(tempGui)
 		-- Clear current scene
 		currScene = nil
 		-- Remove event listener from nextScene
@@ -58,11 +60,12 @@ local function nextSceneOrDelete(event)
 		scenes = nil
 		scenes = {}
 		-- Run pregame timer events
-		gameTimer.preGame(tempGui, tempMapData, counter)
+		gameTimer.preGame(tempGui, tempMapData)
 		-- Clear temporary gui and mapData variables
 		tempGui = nil
 		tempMapData = nil
-		counter = nil
+		-- destroy loading screen
+		local loadingTimer = timer.performWithDelay(2000, deleteClosure)
 	else
 		currScene = currScene +1
 	end
@@ -91,9 +94,7 @@ local function cutScene(gui, mapData)
 		nextScene:addEventListener("tap", nextSceneOrDelete)
 		currScene = 1
 	else
-		local counter = 5
-		gameTimer.preGame(tempGui, tempMapData, counter)
-		counter = nil
+		gameTimer.preGame(tempGui, tempMapData)
 	end
 end
 

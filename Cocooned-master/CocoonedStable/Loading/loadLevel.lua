@@ -114,16 +114,18 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function createLevel(mapData, players)
+local function createLevel(mapData, players)	
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
 	gui.name = "main gui"
 		
 	-- Create GUI subgroups
+	gui.load = display.newGroup()
 	gui.front = display.newGroup()
 	gui.middle = display.newGroup()
 	gui.back = display.newGroup()
 
+	gui.load.name = "load"
 	gui.front.name = "front"
 	gui.back.name = "back"
 	gui.middle.name = "middle"
@@ -132,9 +134,11 @@ local function createLevel(mapData, players)
 	gui:insert(gui.back)
 	gui:insert(gui.middle)
 	gui:insert(gui.front)
+	gui:insert(gui.load)
 	
-	loading.loadingInit() --initializes loading screen assets and displays them on top
-	loaded = 0 -- current loading checkpoint, max is 6
+	loading.loadingInit(gui) --initializes loading screen assets and displays them on top
+	--loaded = 0 -- current loading checkpoint, max is 6
+	
 	level = mapData.levelNum
 	
 	-- Load in map
@@ -193,11 +197,11 @@ local function createLevel(mapData, players)
 	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, gui.front)
 		  miniMapDisplay.name = "miniMapName"
 	
-	-- destroy loading screen
-	timer.performWithDelay(2000, deleteClosure)
-
 	-- check if player has finished level
 	levelFinished.checkWin(players[1], gui.front, mapData)
+	
+	-- destroy loading screen
+	local loadingTimer = timer.performWithDelay(2000, deleteClosure)
 		
 	-- reutrn gui and miniMap
 	return gui, miniMapDisplay, shadowCirc
