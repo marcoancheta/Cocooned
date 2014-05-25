@@ -24,7 +24,7 @@ local gameData = require("Core.gameData")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local transPic
+local transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.spriteOptions.paneSwitch)
 local paneSheet
 
 --------------------------------------------------------------------------------
@@ -106,7 +106,9 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	
 	print("playing transition")
 	-- play pane switch transition and move to front
-	transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.spriteOptions.paneSwitch)
+	if transPic == nil then
+		transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.spriteOptions.paneSwitch)
+	end
 	--transPic:scale(1.25, 1.25)
 	transPic.x, transPic.y = generate.tilesToPixels(21, 10)
 	transPic:setSequence("move")
@@ -153,9 +155,10 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 		transPic:scale(2,2)
 		transPic.rotation = -90
 	elseif direction == "up" then
-		transPic.rotation = 180
+		transPic:scale(1.5,1.5)
 	elseif direction == "down" then
-		-- do not change anything for down transition
+		transPic.rotation = 180
+		transPic:scale(1.5,1.5)
 	elseif direction == "rightdown" then
 		transPic:scale(1.5,1.5)
 		transPic.rotation = 45
@@ -172,8 +175,7 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	
 	-- timers for deleting pane image and ending pane switch
 	local endTrans = timer.performWithDelay(1000, endTransition)
-	
-	
+		
 	local moveTrans = timer.performWithDelay(400, movePanes)
 		  moveTrans.params = { tempPane = tempPane, 
 								miniMap = miniMap, 

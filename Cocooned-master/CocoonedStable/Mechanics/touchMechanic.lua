@@ -83,9 +83,9 @@ local function swipeScreen(event, mapData, miniMap, map)
 					mapData.pane = checkPane(map, "L", tempPane, 5) 
 				elseif event.xStart > event.x and swipeLength > swipeLengthY and swipeLength > 150 then
 					mapData.pane = checkPane(map, "R", tempPane, 4) 
-				elseif event.yStart > event.y and swipeLength < swipeLengthY and swipeLengthY > 150 then
-					mapData.pane = checkPane(map, "U", tempPane, 2) 
 				elseif event.yStart < event.y and swipeLength < swipeLengthY and swipeLengthY > 150 then
+					mapData.pane = checkPane(map, "U", tempPane, 2) 
+				elseif event.yStart > event.y and swipeLength < swipeLengthY and swipeLengthY > 150 then
 					mapData.pane = checkPane(map, "D", tempPane, 3) 
 				end
 			elseif mapData.pane == "L" then
@@ -108,7 +108,7 @@ local function swipeScreen(event, mapData, miniMap, map)
 						mapData.pane = checkPane(map, "D", tempPane, 3) 
 					end
 				end
-			elseif mapData.pane == "U" then
+			elseif mapData.pane == "D" then
 				if event.yStart < event.y and swipeLength < swipeLengthY and swipeLength < 150 then
 					mapData.pane = "M"
 				elseif swipeLengthY > 150 and swipeLength > 150 and swipeY > 0 then
@@ -118,7 +118,7 @@ local function swipeScreen(event, mapData, miniMap, map)
 						mapData.pane = checkPane(map, "L", tempPane, 5) 
 					end
 				end
-			elseif mapData.pane == "D" then
+			elseif mapData.pane == "U" then
 				if event.yStart > event.y and swipeLength < swipeLengthY and swipeLength < 150 then
 					mapData.pane = "M"
 				elseif swipeLengthY > 150 and swipeLength > 150 and swipeY < 0 then
@@ -174,9 +174,9 @@ local function tapScreen(event, miniMap, mapData, physics, gui, player)
 			-- return saved tempPane2
 			return tempPane2
 		end
-	-- else, tapped once, do funationality for miniMap if it is showing
+	-- else, tapped once, do functionality for miniMap if it is showing
 	else
-		if gameData.isShowingMiniMap  == true then
+		if gameData.isShowingMiniMap == true then
 			-- call miniMap move function
 			mapData.pane = miniMapMechanic.moveMiniMap(miniMap, mapData, gui, event)
 		end

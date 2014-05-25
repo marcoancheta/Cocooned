@@ -22,11 +22,11 @@ local generate = require("Objects.generateObjects")
 --------------------------------------------------------------------------------
 local nine = { 
 	-- boolean for which pane is being used
-	-- { Middle, Down, Up, Right, Left }
-	panes = {true,false,true,true,true},
+	-- { Middle, Up, Down, Right, Left }
+	panes = {true,true,false,true,true},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {{["x"]=18, ["y"]=20},},
+	playerPos = {{["x"]=20, ["y"]=18}},
 	-- number of wisps in the level
 	wispCount = 35,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -46,7 +46,8 @@ local nine = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0,
 		["enemy"] = 0,
-		["fixedIceberg"] = 1
+		["fixedIceberg"] = 1,
+		["worldPortal"] = 0
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -62,7 +63,8 @@ local nine = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -78,7 +80,8 @@ local nine = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 2
+		["fixedIceberg"] = 2,
+		["worldPortal"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -94,20 +97,16 @@ local nine = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 2
+		["fixedIceberg"] = 2,
+		["worldPortal"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
-<<<<<<< HEAD
 		["fish1"] = 5,
 		["fish2"] = 5,
-=======
-		["fish1"] = 0,
-		["fish2"] = 0,
->>>>>>> 9e0d28e6667422424dddfe4e5182f0fea17d1be1
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -115,7 +114,8 @@ local nine = {
 		["switchWall"] = 0,
 		["exitPortal"] = 1, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 5
+		["fixedIceberg"] = 5,
+		["worldPortal"] = 0
 	}
 }
 
@@ -132,8 +132,8 @@ local mObjectslocal
 -- this is where the objects locations are set in each pane
 local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
-		-- Check which pane
-
+	
+	-- Check which pane
 	if mapData.pane == "M" then
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(10, 22)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(12, 20)
@@ -174,7 +174,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[22].x, wisp[22].y = generate.tilesToPixels(10, 12)
 		wisp[23].x, wisp[23].y = generate.tilesToPixels(7, 12)
 
-<<<<<<< HEAD
+
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(7, 11)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(2, 11)
@@ -223,11 +223,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish25"].time = 675
 		objects["fish25"]:rotate(90)
 
-=======
->>>>>>> 9e0d28e6667422424dddfe4e5182f0fea17d1be1
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(39, 16)
 		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(28, 18)
-		objects["fixedIceberg1"].time = 11000
+		objects["fixedIceberg1"].time = 1100
 		objects["fixedIceberg1"].movement = "fixed"
 
 		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(29, 15)
@@ -262,13 +260,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[4].x, rune[4].y = generate.tilesToPixels(20, 15)			
 		rune[4].isVisible = true
 
-		objects["fixedIceberg3"].x, objects["fixedIceberg3"].y = generate.tilesToPixels(35, 5)
-		objects["fixedIceberg3"].time = 3800 --not needed if free
-		objects["fixedIceberg3"].movement = "free" --fixed or free
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(35, 5)
+		objects["fixedIceberg1"].time = 3800 --not needed if free
+		objects["fixedIceberg1"].movement = "free" --fixed or free
 
-		objects["fixedIceberg4"].x, objects["fixedIceberg4"].y = generate.tilesToPixels(18, 12)
-		objects["fixedIceberg4"].time = 3800 --not needed if free
-		objects["fixedIceberg4"].movement = "free" --fixed or free
+		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(18, 12)
+		objects["fixedIceberg2"].time = 3800 --not needed if free
+		objects["fixedIceberg2"].movement = "free" --fixed or free
 
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 24, 24, nine.wispCount)
@@ -285,12 +283,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[33].x, wisp[33].y = generate.tilesToPixels(30, 20)
 		wisp[34].x, wisp[34].y = generate.tilesToPixels(33, 18)
 		wisp[35].x, wisp[35].y = generate.tilesToPixels(37, 19)
-
-
-		-- Auras
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(19, 7)
 
 		-- Icebergs
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(16, 16)
@@ -330,8 +322,7 @@ end
 --------------------------------------------------------------------------------
 -- destroys all objects in pane
 -- called when switching panes to reset memory usage
-local function destroyAll() 
-
+local function destroyAll()
 	-- destroy all wisps
 	for i=1, #wisp do
 		display.remove(wisp[i])
@@ -351,6 +342,7 @@ local function destroyAll()
 	if gameData.debugMode then
 		print("destroying objects", #mObjects)
 	end
+	
 	-- destroy all moveable objects and stop moving them
 	for i=1, #mObjects do
 		if mObjects[i].moveable == true then

@@ -24,7 +24,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 end
 
 --------------------------------------------------------------------------------
--- FInish Up
+-- Finish Up
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
@@ -33,5 +33,4 @@ local blueAuraCollision = {
 }
 
 return blueAuraCollision
-
 -- end of blueAuraCollision.lua

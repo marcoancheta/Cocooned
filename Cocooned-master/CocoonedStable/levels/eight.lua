@@ -22,11 +22,11 @@ local generate = require("Objects.generateObjects")
 --------------------------------------------------------------------------------
 local eight = { 
 	-- boolean for which pane is being used
-	-- { Middle, Down, Up, Right, Left }
+	-- { Middle, Up, Down, Right, Left }
 	panes = {true,false,false,false,false},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {{["x"]=20, ["y"]=15},}
+	playerPos = {{["x"]=20, ["y"]=15}},
 	-- number of wisps in the level
 	wispCount = 25,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -46,7 +46,8 @@ local eight = {
 		["switchWall"] = 0,
 		["exitPortal"] = 1,
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -62,7 +63,8 @@ local eight = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},
 	["U"] = {
 		["blueAura"] = 0,
@@ -78,7 +80,8 @@ local eight = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},
 	["R"] = {
 		["blueAura"] = 0,
@@ -94,7 +97,8 @@ local eight = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	},	
 	["L"] = {
 		["blueAura"] = 0,
@@ -110,7 +114,8 @@ local eight = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0
+		["fixedIceberg"] = 0,
+		["worldPortal"] = 0
 	}
 }
 
@@ -163,8 +168,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish22"].time = 675
 
  		-- Runes
- 		rune[2].x, rune[2].y = generate.tilesToPixels(37, 3)			
-		rune[2].isVisible = true
+ 		rune[3].x, rune[3].y = generate.tilesToPixels(37, 3)			
+		rune[3].isVisible = true
 
 		rune[4].x, rune[4].y = generate.tilesToPixels(37, 21)			
 		rune[4].isVisible = true

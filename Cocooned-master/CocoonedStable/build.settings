@@ -7,7 +7,7 @@ settings =
             UIApplicationExitsOnSuspend = false,
             UIPrerenderedIcon = true,
             UIStatusBarHidden = true,
-            UIAppFonts = { "AvenirLTStd-Black.otf","SourceCodePro-Black.ttf" },
+            UIAppFonts = {"Teacher_a.ttf","AvenirLTStd-Black.otf","SourceCodePro-Black.ttf" },
             CFBundleIconFiles = { },
             MinimumOSVersion = "5.1.0",
         },

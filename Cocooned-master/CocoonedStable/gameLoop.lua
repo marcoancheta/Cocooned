@@ -65,11 +65,13 @@ local gameTimer = require("utils.timer")
 -- Particle effect
 local snow = require("utils.snow")
 -- generator for objects (generateObjects.lua)
-local generate = require("Loading.generateObjects")
+local generate = require("Objects.generateObjects")
 -- Win screen loop
 local win = require("Core.win")
 -- High score
 local highScore = require("Core.highScore")
+-- Font
+local font = require("utils.font")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -83,6 +85,7 @@ local mapPanes
 local t = 1
 local timeCheck = 1
 local timeCount = 0
+local  physicsParam
 
 -- Initialize map data
 local mapData = {
@@ -99,7 +102,9 @@ local line
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
 
-local textObject = display.newText("", 600, 400, native.systemFont, 72)
+
+local textObject = display.newText("", 600, 400, font.TEACHERA, 72)
+
 		
 local count = 0
 
@@ -205,6 +210,17 @@ local function controlMovement(event)
 		else
 			textObject:toBack()
 		end
+
+		accelValueX.text = string.sub(tostring(physicsParam.xGrav),1,4)
+		accelValueX.x = display.contentCenterX
+		accelValueX.y = 10
+		accelValueX:setFillColor(1,0,0)
+		accelValueX:toFront()
+		accelValueY.text = string.sub(tostring(physicsParam.yGrav),1,4)
+		accelValueY.x = display.contentCenterX
+		accelValueY.y = 60
+		accelValueY:setFillColor(1,0,0)
+		accelValueY:toFront()
 	end
 end
 
@@ -261,12 +277,20 @@ end
 --------------------------------------------------------------------------------
 local function removeGameLoopListeners(gui)
 	-- Remove object listeners
-	gui.back:removeEventListener("touch", swipeMechanics)
-	gui.back:removeEventListener("tap", tapMechanic)
+	if gui then
+		gui.back:removeEventListener("touch", swipeMechanics)
+		gui.back:removeEventListener("tap", tapMechanic)
+	end
 	Runtime:removeEventListener("accelerometer", controlMovement)
 	Runtime:removeEventListener("enterFrame", speedUp)
 end
 
+
+local function startPhys(event)
+	physics.start()
+	player1.curse = 1
+	player2.curse = 1
+end
 --------------------------------------------------------------------------------
 -- Load Map - loads start of level
 --------------------------------------------------------------------------------
@@ -274,9 +298,6 @@ end
 --------------------------------------------------------------------------------
 local function loadMap(mapData)
 	snow.meltSnow()
-
-	sound.stopChannel(3)
-	sound.loadGameSounds()
 	
 	-- Start physics
 	physics.start()
@@ -328,9 +349,6 @@ local function loadMap(mapData)
 
 	-- Create in game options button
 	menu.ingameOptionsbutton(event, gui)
-
-	sound.stop()
-	sound.playBGM(sound.backgroundMusic)
 	
 	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 		if gameData.debugMode then
@@ -338,9 +356,13 @@ local function loadMap(mapData)
 		end
 		-- pause physics
 		physics.pause()
-		gameTimer.preGame(gui, mapData)
+		cutSceneSystem.cutScene(gui, mapData)
+		--gameTimer.preGame(gui, mapData)
 	end
-		
+	physics.pause()
+	player1.curse = 0
+	player2.curse = 0
+	local physicTimer=timer.performWithDelay( 2000, startPhys)
 	return player1
 end
 
@@ -354,9 +376,7 @@ local function clean(event)
 	-- stop physics
 	physics.stop()
 	-- clean snow
-	snow.meltSnow()	
-	-- clean out currently loaded sound files
-	sound.soundClean()	
+	snow.meltSnow()		
 	-- remove all eventListeners
 	removeGameLoopListeners(gui)
 	-- clear collision detections
@@ -364,20 +384,12 @@ local function clean(event)
 		collisionDetection.destroyCollision(players[i].imageObject)
 	end
 
-	table.remove(players)
-
-	player1:resetRune()	
 	inventory.inventoryInstance:clear()
 	
-	--[[
-	if linePts then
-		linePts = nil
-		linePts = {}
-	end
-	]]--
-	
-	player1:deleteAura()
 	-- destroy player instance
+	table.remove(players)
+	player1:resetRune()	
+	player1:deleteAura()
 	player1.imageObject:removeSelf()
 	player1.imageObject = nil
 	
@@ -445,7 +457,7 @@ local function update(event)
 	
 	-- In-Game Runtime Event.
 	if gameData.ingame == 1 then
-		snow.gameSnow(event, mapData)
+		snow.gameSnow(event, mapData, gui)
 		if shadowCircle and ball then
 			shadowCircle.x = ball.x
 			shadowCircle.y = ball.y
@@ -496,10 +508,17 @@ local function gameLoopEvents(event)
 	-----------------------------
 	--[[ START WORLD SELECTOR]]--
 	if gameData.selectWorld then
+	
+		if gameData.inLevelSelector == 1 then
+			clean(event)
+			gameData.inLevelSelector = 0
+		end		
+		
 		if gameData.debugMode then
 			print("In World Selector")
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
+				
 		-- Reset mapData to level select default
 		mapData.world = gameData.mapData.world
 		mapData.levelNum = "world"
@@ -554,9 +573,11 @@ local function gameLoopEvents(event)
 		clean(event)
 		-- Set mapData to player's gameData mapData
 		mapData = gameData.mapData
+		mapData.pane = "M"
 		-- Load in map with new mapData
+
+		
 		loadMap(mapData)
-		--cutSceneSystem.cutScene("1", gui)
 		snow.new()
 		-- Re-evaluate gameData booleans
 		gameData.inLevelSelector = 0
@@ -593,16 +614,14 @@ local function gameLoopEvents(event)
 		end
 	
 		-- Clean
-		--clean(event)
-		inventory.inventoryInstance:clear()
 		-- Reset current pane to middle
-		mapData.pane = "M"
-		-- Switch off game booleans
 		gameData.ingame = 0
-		gameData.inWater = false
-		gameData.onIceberg = false
+		inventory.inventoryInstance:clear()
 		-- Start game
 		gameData.gameStart = true
+		-- Switch off game booleans
+		gameData.inWater = false
+		gameData.onIceberg = false
 		-- Switch off this loop
 		gameData.levelRestart = false
 	end
@@ -621,6 +640,8 @@ local function gameLoopEvents(event)
 		gameTimer.pauseTimer()
 		physics.pause()
 		-- apply booleans
+		gameData.allowPaneSwitch = false
+		gameData.allowMiniMap = false
 		gameData.gameScore = true	
 		if gameData.debugMode then
 			print("Going to game score...")
@@ -684,7 +705,7 @@ local function gameLoopEvents(event)
 	
 	-------------------
 	--[[ MAIN MENU ]]--
-	if gameData.menuOn then		
+	if gameData.menuOn then
 		if gameData.debugMode then
 			print("Main menu on...")
 		end		
@@ -701,6 +722,12 @@ local function gameLoopEvents(event)
 		mapDataDefault()		
 		gameTimer.cancelTimer()
 		-- Re-evaluate gameData booleans
+		gameData.inWater = false
+		gameData.onIceberg = false
+		gameData.allowPaneSwitch = false
+		gameData.allowMiniMap = false
+		gameData.isShowingMiniMap = false
+		-- Run main menu runtime event
 		gameData.inMainMenu = true
 		-- Switch off this loop
 		gameData.menuOn = false
@@ -743,7 +770,7 @@ local function gameLoopEvents(event)
 		-- Remove object listeners
 		removeGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
-		gameData.updateOptions = true
+		--gameData.updateOptions = true
 		-- Switch off this loop
 		gameData.inGameOptions = false
 	end
@@ -753,15 +780,19 @@ local function gameLoopEvents(event)
 	if gameData.resumeGame then
 		if gameData.debugMode then
 			print("Resume game...")
+			print("gameTimer.loopLoc", gameTimer.loopLoc)	
 		end
-		-- Restart physics
-		physics.start()
+				
+		if gameTimer.loopLoc == 0 or gameTimer.loopLoc == 2 then
+			-- Restart physics
+			physics.start()		
+			-- Add object listeners
+			addGameLoopListeners(gui)
+		end
 		-- Create in game options button
 		menu.ingameOptionsbutton(event, gui)
 		-- Resume gameTimer
-		gameTimer.resumeTimer()			
-		-- Add object listeners
-		addGameLoopListeners(gui)
+		gameTimer.resumeTimer()	
 		-- Switch off this loop
 		gameData.resumeGame = false
 	end

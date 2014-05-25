@@ -68,6 +68,7 @@ local function main()
 	-- local GA = require("plugin.gameanalytics")
 	local gameLoop = require("gameLoop")
 	local memory = require("memory")
+	local font = require("utils.font")
 	local textureFilter = "nearest"
 
 	display.setDefault("minTextureFilter", textureFilter)
@@ -78,7 +79,10 @@ local function main()
 		local rcorona = require("rcorona")
 		rcorona.startServer(8181)
 	end
-		
+
+	-- Check font/Setup global font variable
+	--font.check()
+	font.setupFont()
 		
 	Runtime:addEventListener("enterFrame", gameLoop.gameLoopEvents)
 	Runtime:addEventListener("memoryWarning", memory.handleLowMemory)
