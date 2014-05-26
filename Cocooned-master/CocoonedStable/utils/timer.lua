@@ -215,7 +215,7 @@ local function counterFunc(event)
 	if counter > 0 then
 		params.counterParam.text = counter
 		-- Slowly fade in overlay image
-		overlay.alpha = overlay.alpha - 0.05
+		overlay.alpha = overlay.alpha - (counter*0.05)
 	elseif counter == 0 then
 		-- Change 0 to "START"
 		params.counterParam.text = "START"
@@ -246,9 +246,9 @@ end
 --------------------------------------------------------------------------------
 -- Pre-game timer function 
 --------------------------------------------------------------------------------
-local function preGame(gui, mapData)
+local function preGame(gui, mapData, countTimer)
 	-- counter = desired time + 2 sec (from loading).
-	counter = 5
+	counter = countTimer
 	-- Create text object
 	local counterText = display.newText(counter, 0, 0, font.TEACHERA, 150)
 	-- Center text object

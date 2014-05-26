@@ -11,6 +11,7 @@
 local gameData = require("Core.gameData")
 local sound = require("sound")
 local generate = require("Objects.generateObjects")
+local goals = require("Core.goals")
 local widget = require("widget")
 local memory = require("memory")
 local snow = require("utils.snow")
@@ -180,6 +181,7 @@ local function buttonPressed(event)
 		if gameData.inWorldSelector == -1 then
 			gameData.inWorldSelector = 0
 		elseif gameData.inLevelSelector == -1 then
+			goals.destroyGoals()
 			gameData.inLevelSelector = 0
 		elseif gameData.ingame == -1 then
 			gameData.ingame = 0
@@ -345,7 +347,7 @@ local function options(event)
 		-- Add options background image
 		[2] = display.newImageRect("mapdata/art/background/screens/options.png", 1460, 840),
 		-- Add Main Menu button
-		[3] = display.newImageRect("mapdata/art/buttons/main.png", 250, 250),
+		[3] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),
 		-- Debug switch
 		[4] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
 							   onPress = buttonPressed},
@@ -377,7 +379,7 @@ local function options(event)
 	-- Options background image
 	menuObjects[2].x = display.contentCenterX
 	menuObjects[2].y = display.contentCenterY
-	menuObjects[2].alpha = 0.8
+	menuObjects[2].alpha = 0.9
 
 	-- Main Menu button
 	menuObjects[3].x = display.contentCenterX
@@ -483,26 +485,13 @@ local function ingameMenu(event, gui)
 		-- Add options background image
 		[1] = display.newImageRect("mapdata/art/background/screens/pause.png", 1460, 860),
 		-- Add Main Menu button
-		[2] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),
+		[2] = display.newImageRect("mapdata/art/buttons/main.png", 350, 350),
 		-- Add Resume game button
-		[3] = display.newImageRect("mapdata/art/buttons/play.png", 300, 300),
+		[3] = display.newImageRect("mapdata/art/buttons/play.png", 350, 350),
 		-- Add Restart game button
-		[4] = display.newImageRect("mapdata/art/buttons/restart.png", 300, 300),
+		[4] = display.newImageRect("mapdata/art/buttons/restart.png", 350, 350),
 		-- Add Level select button
-		[5] = display.newImageRect("mapdata/art/buttons/levelselect.png", 300, 300)
-		--[[
-		-- Pause text object
-		[5] = display.newText("PAUSED", display.contentCenterX, 100, "Teacher_A", 103),
-		-- Sound controller (SFX[6] - BGM[7])
-		[6] = widget.newSlider{orientation="horizontal", width=350, height=400, value = sfxVal, listener=sfxController},
-		[7] = widget.newSlider{orientation="horizontal", width=350, height=400, value = bgmVal, listener=bgmController},
-		-- Sound text
-		[8] = display.newText("Sound Volume: ", 350, 150, "Teacher_A", 52),
-		[9] = display.newText("Music Volume: ", 350, 150, "Teacher_A", 52),
-		-- Pre-store location in array for value text
-		[10] = display.newText(gameData.sfxVolume*10, 350, 150, "Teacher_A", 40),
-		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40),
-		]]--
+		[5] = display.newImageRect("mapdata/art/buttons/levelselect.png", 350, 350)
 	}
 	
 	menuObjects.name = "igoptGroup"

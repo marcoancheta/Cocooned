@@ -134,7 +134,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- Check which pane
 
 	if mapData.pane == "M" then
-		--[[
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(2, 7)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(2, 10)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(3, 13)
@@ -158,22 +157,17 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[21].x, wisp[21].y = generate.tilesToPixels(30, 13)
 		wisp[22].x, wisp[22].y = generate.tilesToPixels(12, 15)
 		wisp[23].x, wisp[23].y = generate.tilesToPixels(29, 8)
-		--]]
-
-		-- Pink rune
-		rune[3].x, rune[3].y = generate.tilesToPixels(5, 5)			
-		rune[3].isVisible = true
+		
 
 		-- Exit portal
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(20, 9)
-		--generate.gWisps(wisp, map, mapData, 1, 23, eleven.wispCount)
+		generate.gWisps(wisp, map, mapData, 1, 23, eleven.wispCount)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Wisps
-		--[[
-		wisp[24].x, wisp[24].y = generate.tilesToPixels(5, 15)
+		wisp[24].x, wisp[24].y = generate.tilesToPixels(6, 12)
 		wisp[25].x, wisp[25].y = generate.tilesToPixels(7, 7)
 		wisp[26].x, wisp[26].y = generate.tilesToPixels(11, 4)
 		wisp[27].x, wisp[27].y = generate.tilesToPixels(17, 2)
@@ -189,7 +183,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[37].x, wisp[37].y = generate.tilesToPixels(22, 9)
 		wisp[38].x, wisp[38].y = generate.tilesToPixels(24, 11)
 		wisp[39].x, wisp[39].y = generate.tilesToPixels(26, 9)
-		--]]
 		
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(30, 17)
@@ -204,12 +197,12 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["blueAura2"]:play()
 		objects["blueAura2"].x, objects["blueAura2"].y = generate.tilesToPixels(7, 21)
 
-		-- Runes
-		rune[2].x, rune[2].y = generate.tilesToPixels(1, 15)			
-		rune[2].isVisible = true
+		-- Slow time rune
+		rune[3].x, rune[3].y = generate.tilesToPixels(5, 15)			
+		rune[3].isVisible = true
 
 		generate.gWater(map, mapData)
-		--generate.gWisps(wisp, map, mapData, 24, 39, eleven.wispCount)
+		generate.gWisps(wisp, map, mapData, 24, 39, eleven.wispCount)
 	elseif mapData.pane == "L" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "U" then

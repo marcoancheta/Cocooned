@@ -142,6 +142,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[5].x, wisp[5].y = generate.tilesToPixels(30, 18)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(32, 20)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(34, 22)
+
+		-- Shrink rune
+		rune[4].x, rune[4].y = generate.tilesToPixels(4, 21)			
+		rune[4].isVisible = true
 				
 		generate.gWisps(wisp, map, mapData, 1, 7, seven.wispCount)		
 		generate.gAuraWalls(map, mapData, "blueWall")

@@ -104,7 +104,6 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function drawGoals(gui, player)
-	destroyGoals()
 	-- Reinitialize arrays
 	textObject = {}
 

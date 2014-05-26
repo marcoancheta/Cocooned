@@ -183,7 +183,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[2].x, rune[2].y = generate.tilesToPixels(10, 1.5)			
 		rune[2].isVisible = true
 
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(6, 8)
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(10, 5)
 		objects["fixedIceberg1"].time = 3800 --not needed if free
 		objects["fixedIceberg1"].movement = "free" --fixed or free
 
