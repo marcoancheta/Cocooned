@@ -70,27 +70,27 @@ local animation = {
 			{frames = {1}, name = "still", time = 250}
 		},
 		["exitPortal1"] = {
-			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 850}, 
+			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 600}, 
 			{frames = {1}, name = "still", time = 250}
 		},
 		["exitPortal2"] = {
-			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 875}, 
+			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 601}, 
 			{frames = {1}, name = "still", time = 250}
 		},
 		["exitPortal3"] = {
-			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 900}, 
+			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 602}, 
 			{frames = {1}, name = "still", time = 250}
 		},
 		["exitPortal4"] = {
-			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 925}, 
+			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 603}, 
 			{frames = {1}, name = "still", time = 250}
 		},
 		["exitPortal5"] = {
-			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 950}, 
+			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 604}, 
 			{frames = {1}, name = "still", time = 250}
 		},
 		["worldPortal"] = {
-			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 850}, 
+			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 650}, 
 			{frames = {1}, name = "still", time = 250}
 		},
 		["wolf"] = {

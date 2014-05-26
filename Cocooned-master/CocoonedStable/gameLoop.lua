@@ -435,15 +435,7 @@ local function update(event)
 		-- Show physics bodies
 		physics.setDrawMode("hybrid")
 	end
-
-	if mapData.levelNum == "6" then
-		if tutorialShown then
-			local tutorialTextTimer = timer.performWithDelay( 5000,  function() tutorialText = display.newTextBox("Double tap the screen to open up the minimap to switch panes or simply swipe away from the snow.", player.imageObject.x, player.imageObject.y - 50, font.TEACHERA, 15);end)
-			
-			tutorialShown = flase
-		end
-	end
-
+	
 	-- Main Menu Runtime Event.
 	if gameData.inMainMenu then
 		-- Activate snow particle effect if in main menu
@@ -498,6 +490,14 @@ end
 local function gameLoopEvents(event)
 	-- Runtime functions
 	update(event)
+	
+	if mapData.levelNum == "6" then
+		if tutorialShown then
+			local tutorialTextTimer = timer.performWithDelay( 5000,  function() tutorialText = display.newTextBox("Double tap the screen to open up the minimap to switch panes or simply swipe away from the snow.", player.imageObject.x, player.imageObject.y - 50, font.TEACHERA, 15);end)
+			
+			tutorialShown = false
+		end
+	end
 	
 	if gameData.gRune == true and gameData.isShowingMiniMap == false then
 		for check = 1, #accelObjects.switchWallAndIceberg do
