@@ -108,15 +108,14 @@ local function createAnimations(count, name, objectList)
 		if name ~= "exitPortal" then
 			objectList[name .. i] = display.newSprite(sheetList[name], animation.spriteOptions[name])
 		elseif name == "exitPortal" then
-			print(name..i)
 			if i > 5 and i < 11 then
 				local j = i-5
-				objectList[name .. i] = display.newSprite(sheetList[name..j], animation.spriteOptions[name])
+				objectList[name .. i] = display.newSprite(sheetList[name..j], animation.spriteOptions[name..j])
 			elseif i > 10 then
 				local j = i-10
-				objectList[name .. i] = display.newSprite(sheetList[name..j], animation.spriteOptions[name])
+				objectList[name .. i] = display.newSprite(sheetList[name..j], animation.spriteOptions[name..j])
 			else
-				objectList[name .. i] = display.newSprite(sheetList[name..i], animation.spriteOptions[name])
+				objectList[name .. i] = display.newSprite(sheetList[name..i], animation.spriteOptions[name..i])
 			end
 		end
 		
