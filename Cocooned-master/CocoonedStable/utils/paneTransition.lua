@@ -41,19 +41,18 @@ local function movePanes(event)
 	--miniMapMechanic.updateMiniMap(params.tempPane, params.miniMap, params.gui, params.player1)
 	--print("nameB: " .. params.gui.back.numChildren)
 	--print("nameM: " .. params.gui.middle.numChildren)
-	--print("nameF: " .. params.gui.front.numChildren)
+
 
 	-- delete everything on map
 	objects.destroy(params.mapData)
 	for i = params.gui.back.numChildren,1, -1 do
-		params.gui.back[i]:removeSelf();
+		params.gui.back[i]:removeSelf()
 	end
 	for i = params.gui.middle.numChildren, 1, -1 do
 		params.gui.middle[i]:removeSelf()
 	end
 	for i = params.gui.front.numChildren, 1, -1 do
 		if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
-			print("params.gui.front[i]", params.gui.front[i].name)
 			params.gui.front[i]:removeSelf()
 		end
 	end

@@ -258,7 +258,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	-- set which panes are avaiable for player
 	map.front.panes = thirteen.panes
-	map.front.itemGoal = 4
+	map.front.itemGoal = 2
 end
 
 --------------------------------------------------------------------------------
@@ -286,7 +286,6 @@ local function destroyAll()
 		wall[i] = nil
 	end
 
-	print("destroying objects", #mObjects)
 	-- destroy all moveable objects and stop moving them
 	for i=1, #mObjects do
 		if mObjects[i].moveable == true then

@@ -22,12 +22,12 @@ local generate = require("Objects.generateObjects")
 local twelve = { 
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }
-	panes = {true,false,false,true,false},
+	panes = {true,false,false,true,true},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {{["x"]=4, ["y"]=4},},
+	playerPos = {{["x"]=16, ["y"]=12},},
 	-- number of wisps in the level
-	wispCount = 1,
+	wispCount = 0,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -136,11 +136,14 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		--generate.gWisps(wisp, map, mapData, 1, 23, twelve.wispCount)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		--generate.gWater(map, mapData)
+		generate.gAuraWalls(map, mapData, "greenWall")
 	elseif mapData.pane == "R" then
 		--generate.gWater(map, mapData)
 		--generate.gWisps(wisp, map, mapData, 24, 39, twelve.wispCount)
+		generate.gAuraWalls(map, mapData, "greenWall")
+		generate.gAuraWalls(map, mapData, "blueWall")
 	elseif mapData.pane == "L" then
-		print("You shouldn't be in here...")
+		generate.gAuraWalls(map, mapData, "greenWall")
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then

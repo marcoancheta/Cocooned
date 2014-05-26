@@ -31,24 +31,43 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex, wispCount)
 		wisp[i].speed = 50
 	   	wisp[i].isVisible = true
 	   	wisp[i].func = "energyCollision"
+	   	wisp[i].collType = "passThru"
 	   	wisp[i].collectable = true
 	   	wisp[i].name = "wisp" .. i
 	   	wisp[i]:toFront()
+	   	print(" map name : " .. map.front.name)
+	   	
+
+	   	local insertWisp = true
+
+	   	for i = 1, inventory.inventoryInstance.size do
+	   		if inventory.inventoryInstance.items[j] == wisp[i].name then
+	   			insertWisp = false
+	   		end
+	   	end
 	
-		for j=1, wispCount do
-			-- check if wisp(s) exist inside player objects inventory
-			if inventory.inventoryInstance.items[j] ~= wisp[i].name then
-				--print("i: " ..i.. "j: " ..j)
-				-- insert wisp into map display group
-				if mapData.levelNum ~= "LS" then
-					map.front:insert(wisp[i])
-				end
-				-- add physics body for wisp for collision
-				physics.addBody(wisp[i], "static", {bounce=0})
-			else
-				wisp[i].isVisible = false
-			end
+		if insertWisp then
+			physics.addBody(wisp[i], "static", {bounce=0})
+			map.front:insert(wisp[i])
+		else
+			wisp[i].isVisible = false
 		end
+		
+		-- for j=1, wispCount do
+		-- 	-- check if wisp(s) exist inside player objects inventory
+		-- 	if inventory.inventoryInstance.items[j] ~= wisp[i].name then
+		-- 		--print("i: " ..i.. "j: " ..j)
+		-- 		-- insert wisp into map display group
+		-- 		if mapData.levelNum ~= "LS" then
+		-- 			print("insert " .. wisp[i].name)
+		-- 			map.front:insert(wisp[i])
+		-- 		end
+		-- 		-- add physics body for wisp for collision
+		-- 		physics.addBody(wisp[i], "static", {bounce=0})
+		-- 	else
+		-- 		wisp[i].isVisible = false
+		-- 	end
+		-- end
 	end
 end
 
@@ -95,7 +114,8 @@ local function gObjects(level, objects, map, mapData, runes)
 				objects[name .. j].func = name .. "Collision"
 				-- Fixed iceberg
 				if name == "fixedIceberg" then
-					physics.addBody(objects[name ..j], "static", {bounce = 0, filter = {groupIndex = -1 }})
+					physics.addBody(objects[name ..j], "static", physicsData.getObject(name):get(name))
+					--physics.addBody(objects[name .. j], "static", {bounce = 0})
 					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
 				-- Switch wall
 				elseif name == "switchWall" then
@@ -111,11 +131,12 @@ local function gObjects(level, objects, map, mapData, runes)
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
 				end	
 				
-				objects[name ..j].collType = "passThru"
+				objects[name .. j].collType = "solid"
+				objects[name .. j].isSensor = true
 				-- add object to map display group
 				map.front:insert(objects[name .. j])
+				print("creating " .. objects[name .. j].name)
 			end
-			
 			--objects[name .. j]:toBack()
 		end
 	end
@@ -151,6 +172,7 @@ local function gMObjects(level, objects, map, mapData)
 		-- create moveable object and set name
 		mObjects[i] = moveableObject.create()
 		mObjects[i].object = objects["fish1" .. i]
+		mObjects[i].object.isSensor = false
 		mObjects[i].moveable = true
 
 		-- set start and end points where moveable object will transition to
@@ -181,6 +203,7 @@ local function gMObjects(level, objects, map, mapData)
 		-- create moveable object and set name
 		mObjects[i] = moveableObject.create()
 		mObjects[i].object = objects["fish2" .. i-offset]
+		mObjects[i].object.isSensor = false
 		mObjects[i].moveable = true
 
 		-- set start and end points where moveable object will transition to
@@ -247,6 +270,8 @@ local function gMObjects(level, objects, map, mapData)
 	for i = 1+offset, level[mapData.pane]["fixedIceberg"]+offset do
 		if objects["fixedIceberg" .. i-offset].movement == "fixed" then
 			-- create moveable object and set name
+			objects["fixedIceberg" .. i-offset].collType = "solid"
+			objects["fixedIceberg" .. i-offset].isSensor = true
 			mObjects[i] = moveableObject.create()
 			mObjects[i].object = objects["fixedIceberg" .. i-offset]
 			mObjects[i].moveable = true
@@ -325,11 +350,13 @@ local function gWater(map, mapData, direction)
 	water.alpha = 0
 	water.name = "water"
 	water.func = "waterCollision"
+	water.collType = "passThru"
 	--water.escape = "right"
 	water.x = display.contentCenterX
 	water.y = display.contentCenterY
 	
 	physics.addBody(water, "static", physicsData.getWater(mapData.levelNum):get(mapData.pane))
+	water.isSensor = true
 
 	map.front:insert(water)
 end
@@ -377,8 +404,6 @@ local function pixelsToTiles( Tx, Ty)
 	x, y = x + 0.5, y + 0.5
 	return x, y
 end
-
-
 --------------------------------------------------------------------------------
 -- Finish Up
 --------------------------------------------------------------------------------

@@ -53,6 +53,7 @@ local function init()
 		rune[i].isSensor = true
 		rune[i].collectable = true
 		rune[i].func = "runeCollision"
+		rune[i].collType = "solid"
 	end
 	
 	-- load object sprite sheets*
@@ -135,7 +136,6 @@ local function createSprites(count, name, objectList)
 	for i = 1, count do
 		objectList[name .. i] = display.newImage("mapdata/art/objects/" .. name .. ".png")
 		objectList[name .. i].name = name .. i
-		print("Sprite name", name)
 	end
 	return true
 end
