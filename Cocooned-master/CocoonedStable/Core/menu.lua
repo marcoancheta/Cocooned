@@ -11,6 +11,7 @@
 local gameData = require("Core.gameData")
 local sound = require("sound")
 local generate = require("Objects.generateObjects")
+local goals = require("Core.goals")
 local widget = require("widget")
 local memory = require("memory")
 local snow = require("utils.snow")
@@ -180,6 +181,7 @@ local function buttonPressed(event)
 		if gameData.inWorldSelector == -1 then
 			gameData.inWorldSelector = 0
 		elseif gameData.inLevelSelector == -1 then
+			goals.destroyGoals()
 			gameData.inLevelSelector = 0
 		elseif gameData.ingame == -1 then
 			gameData.ingame = 0
