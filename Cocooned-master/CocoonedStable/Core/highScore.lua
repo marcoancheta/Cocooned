@@ -131,6 +131,7 @@ local function drawScore(mapData, gui, score)
 	for i=1, highScore.tableSize do
 		if highScore.scoreText[i] then			
 			highScore.scoreText[i].text = highScore.scoreTable[mapData.levelNum][i]
+			highScore.scoreText[i]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 			--highScore.scoreText[i].text = string.format(highScore.format, highScore.scoreTable[mapData.levelNum][i])
 		end
 	end

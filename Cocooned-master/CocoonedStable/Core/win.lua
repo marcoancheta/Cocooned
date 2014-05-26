@@ -69,9 +69,9 @@ local function init(gui)
 	textObj = {}
 	scoreObj = {}
 	-- Create overlay object
-	overlay = display.newRect(display.contentCenterX, display.contentCenterY, 1460, 860)
-	overlay:setFillColor(0,0,0)
-	overlay.alpha = 0.9
+	overlay = display.newImageRect("mapdata/art/background/screens/levelComplete.png", 1460, 860)
+	overlay.x, overlay.y = display.contentCenterX, display.contentCenterY
+	overlay.alpha = 1
 	-- Add overlay to front layer
 	gui.front:insert(overlay)
 end
@@ -103,7 +103,9 @@ local function runWinner(mapData, gui)
 	init(gui)
 	textObj = highScore.init(gui)
 	-- Create "HIGHSCORES" text
-	highText = display.newText("HIGH SCORES", display.contentCenterX, 80,font.TEACHERA, 82)
+	highText = display.newImageRect("mapdata/art/background/screens/highscore.png", 1460, 860)
+	highText.x, highText.y = display.contentCenterX, display.contentCenterY
+	--highText:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 
 	local tables = highScore.loadScore()
 	highScore.scoreTable = tables
@@ -122,14 +124,14 @@ local function runWinner(mapData, gui)
 	--[[scoreObj[3] = display.newImageRect("mapdata/art/buttons/main.png", 200, 200)
 	scoreObj[3].name = "quit"
 	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(8, 18)
-	]]--	
-	gui.front:insert(highText)
-	
+	]]--		
 	for i=1, #scoreObj do
 		scoreObj[i]:scale(1.5, 1.5)
 		scoreObj[i]:addEventListener("tap", tap)
 		gui.front:insert(scoreObj[i])
 	end
+	
+	gui.front:insert(highText)
 end
 
 --------------------------------------------------------------------------------
@@ -156,10 +158,11 @@ local function listener(target, mapData, gui)
 	-- Show time remaining
 	scoreObj[3] = display.newText("Time left: " ..os.date("!%M:%S", gameData.gameTime), display.contentCenterX, 80,font.TEACHERA, 72)
 	scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(20, 7)
+	scoreObj[3]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 	scoreObj[3].alpha = 0
 	
 	local fade = function() local endTrans = transition.to(scoreObj[3], {time=2000, alpha=0}) end
-	local trans = transition.to(scoreObj[3], {time=2000, alpha=1, onComplete=fade})
+	local trans = transition.to(scoreObj[3], {time=3000, alpha=1, onComplete=fade})
 	
 	-- Called from showScore transition:
 	-- Delay 5 seconds to show high score
@@ -175,7 +178,8 @@ local function showScore(mapData, gui)
 	tempDataw = mapData
 	tempGui = gui	
 	-- Draw "WINNER" at the top of the screen 	
-	highText = display.newText("Level Complete!", display.contentCenterX, 80, font.TEACHERA, 82)
+	highText = display.newImageRect("mapdata/art/background/screens/complete.png", 1460, 860)
+	highText.x, highText.y = display.contentCenterX, display.contentCenterY
 	-- Calculate player's score
 	local temp = highScore.calcScore(mapData, gui)
 	count = (temp*0.01)
@@ -184,17 +188,21 @@ local function showScore(mapData, gui)
 	--local wisp = display.newImage("mapdata/art/wisp/whisp.png")
 	--wisp.x, wisp.y = generate.tilesToPixels(20, 7)
 	-- Draw player ball for score transition
-	scoreObj[1] = display.newImage("mapdata/art/ball/ball1.png")
-	scoreObj[1]:scale(2, 2)
+	scoreObj[1] = display.newImageRect("mapdata/art/ball/ball1.png", 108, 108)
+	scoreObj[1]:scale(1, 1)
 	scoreObj[1].x, scoreObj[1].y = generate.tilesToPixels(20, 15)
+	scoreObj[1].alpha = 0
+	local alphatrans = transition.to(scoreObj[1], {time=4000, alpha=1, onComplete= function() alphatrans=nil; end})
 	-- Show player's score
-	scoreObj[2] = display.newText("Score: " ..score, display.contentCenterX, 80,font.TEACHERA, 82)
+	scoreObj[2] = display.newText("Score: " ..score, display.contentCenterX, 80, font.TEACHERA, 82)
 	scoreObj[2].x, scoreObj[2].y = generate.tilesToPixels(20, 20)
+	scoreObj[2]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 	-- If amount of wisps is greater than 0, run transition
 	if count > 0 then
 		-- Show time remaining
 		scoreObj[3] = display.newText("Wisps collected: " ..count, display.contentCenterX, 80, font.TEACHERA, 72)
 		scoreObj[3].x, scoreObj[3].y = generate.tilesToPixels(20, 7)
+		scoreObj[3]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 		scoreObj[3].alpha = 0
 		
 		local fade = function() local endTrans = transition.to(scoreObj[3], {time=2500, alpha=0, onComplete = listener(scoreObj[3], mapData, gui)}); end
@@ -205,9 +213,9 @@ local function showScore(mapData, gui)
 	elseif count == 0 then
 		--wisp.alpha = 0
 		listener(nil, mapData, gui)
-
 	end
-
+	
+	gui.front:insert(highText)
 end
 
 win.init = init
