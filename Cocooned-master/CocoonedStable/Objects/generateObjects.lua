@@ -359,6 +359,7 @@ local function gWater(map, mapData, direction)
 	water.isSensor = true
 
 	map.front:insert(water)
+	print("i have water for : " .. mapData.levelNum .. ", " .. mapData.pane)
 end
 
 --------------------------------------------------------------------------------

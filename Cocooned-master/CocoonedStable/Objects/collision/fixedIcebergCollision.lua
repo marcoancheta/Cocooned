@@ -19,15 +19,15 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			player.imageObject.linearDamping = 1.25
 		end
 		icebergCount = icebergCount + 1
-		print("~~~~~~~~~~~~~~~~~~~~ On dat iceberg COUNT: " .. icebergCount .. " ~~~~~~~~~~~~~~~~~~~")
+		--print("~~~~~~~~~~~~~~~~~~~~ On dat iceberg COUNT: " .. icebergCount .. " ~~~~~~~~~~~~~~~~~~~")
 
 	elseif event.phase == "ended" then
 		if icebergCount > 0 then
-			print(">>>>>>>>>>>>>>>>> Off dat iceberg COUNT: " .. icebergCount .. " <<<<<<<<<<<<<<<<<<<")
+			--print(">>>>>>>>>>>>>>>>> Off dat iceberg COUNT: " .. icebergCount .. " <<<<<<<<<<<<<<<<<<<")
 			icebergCount = icebergCount - 1
 		end
 		local dist = uMath.distance(player.imageObject, collideObject)
-		print("distance from center: " .. dist)
+		--print("distance from center: " .. dist)
 		if dist > 65 then
 			if shoreCheck then
 				for i = shoreCheck.numChildren, 1, -1 do
@@ -55,6 +55,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 						    	local pointC = display.newCircle(v.position.x, v.position.y, 5)
 						    	pointC:setFillColor(0.18,0.3,0.3)
 						    	pointC.name = v.object.name
+						    	pointC.alpha = 0
 						    	shoreCheck:insert(pointC)
 						    	shoreCheck:toFront()
 						    end
@@ -81,15 +82,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 						player.lastPositionSaved = true
 						player.lastSavePoint = collideObject
 						player.imageObject.linearDamping = 3
-
-						if waterShadow then
-						waterShadow:removeSelf()
-						waterShadow = nil
-						end
-						waterShadow = display.newCircle(player.lastPositionX, player.lastPositionY, 38)
-						waterShadow.alpha = 0.75
-						waterShadow:setFillColor(0,0,0)
-						waterShadow:toFront()
 
 						local vx, vy = player.imageObject:getLinearVelocity()
 						--print("entry velocity is " .. vx .. ", " .. vy)
@@ -126,7 +118,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 						player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
 
 						local function stopPlayer()
-							print(">>>>>>>>>>>>> STOPPED DAT NIGGA")
+							--print(">>>>>>>>>>>>> STOPPED DAT NIGGA")
 							player.imageObject:setLinearVelocity(0,0)
 						end
 
