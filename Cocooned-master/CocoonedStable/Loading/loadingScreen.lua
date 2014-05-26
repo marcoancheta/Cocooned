@@ -31,6 +31,8 @@ local function loadingInit(gui)
 	loadingBG.y = display.contentCenterY
 	gui.load:insert(loadingBG)
 	--loadingBG:toFront()
+	
+	return loadingBG
 end
 
 --------------------------------------------------------------------------------
