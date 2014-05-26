@@ -62,8 +62,8 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		]]--
 		
 	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
-			--local col = require("Objects.collision." .. collideObject.func)
-			--col.collide(collideObject, player, event, mapData, map, gui)
+			local col = require("Objects.collision." .. collideObject.func)
+			col.collide(collideObject, player, event, mapData, map, gui)
 	    end
 	    --[[
 	    -- if the object is a solid, call it's collide function
