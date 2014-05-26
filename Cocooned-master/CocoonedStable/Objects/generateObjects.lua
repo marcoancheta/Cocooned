@@ -74,26 +74,28 @@ local function gObjects(level, objects, map, mapData, runes)
 				if name ~= "worldPortal" then
 					objects[name .. j].func = "levelPortalCollision"
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
-					objects[name ..j].collType = "passThru"
+					objects[name ..j].collType = "solid"
+					objects[name ..j].isSensor = true
 				-- Back to world-portal
 				elseif name == "worldPortal" then
 					objects[name .. j].func = "BacktoWorldPortalCollision"
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
-					objects[name ..j].collType = "passThru"
+					objects[name ..j].collType = "solid"
+					objects[name ..j].isSensor = true
 				end
 				-- add object to map display group
 				map.middle:insert(objects[name .. j])
 			elseif mapData.levelNum == "world" then
 				objects[name .. j].func = "worldPortalCollision"
 				physics.addBody(objects[name ..j], "static", {bounce = 0})
-				objects[name ..j].collType = "passThru"
+				objects[name ..j].collType = "solid"
+				objects[name ..j].isSensor = true
 				-- add object to map display group
 				map.middle:insert(objects[name .. j])
 			elseif mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 				objects[name .. j].func = name .. "Collision"
 				-- Fixed iceberg
 				if name == "fixedIceberg" then
-
 					physics.addBody(objects[name ..j], "static", physicsData.getObject(name):get(name))
 					--physics.addBody(objects[name .. j], "static", {bounce = 0})
 					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
@@ -147,6 +149,7 @@ local function gMObjects(level, objects, map, mapData)
 		-- create moveable object and set name
 		mObjects[i] = moveableObject.create()
 		mObjects[i].object = objects["fish1" .. i]
+		mObjects[i].object.isSensor = false
 		mObjects[i].moveable = true
 
 		-- set start and end points where moveable object will transition to
@@ -177,6 +180,7 @@ local function gMObjects(level, objects, map, mapData)
 		-- create moveable object and set name
 		mObjects[i] = moveableObject.create()
 		mObjects[i].object = objects["fish2" .. i-offset]
+		mObjects[i].object.isSensor = false
 		mObjects[i].moveable = true
 
 		-- set start and end points where moveable object will transition to

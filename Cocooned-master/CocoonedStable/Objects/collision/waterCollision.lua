@@ -13,7 +13,6 @@ local uMath = require("utils.utilMath")
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local waterCount = 0
-local waterCheck
 local waterShadow
 
 --------------------------------------------------------------------------------
@@ -39,10 +38,12 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		--print("##############  I just collided with water ###############")
 		if (gameData.onIceberg == false) then
 			gameData.inWater = true
+
 			
-			--print("==================== began collided with water, count: " .. waterCount .. " ===================")
+			print("==================== began collided with water, count: " .. waterCount .. " ===================")
 
 			if(waterCount == 0) then
+				player:startDeathTimer(mapData)
 				gameData.allowPaneSwitch = false
 				player.lastPositionX = player.imageObject.x
 				player.lastPositionY = player.imageObject.y
@@ -50,9 +51,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 				player.lastPositionSaved = true
 				player.imageObject.linearDamping = 3
-				if (waterCheck) then
-					waterCheck:removeSelf()
-				end
+
 				local vx, vy = player.imageObject:getLinearVelocity()
 				--print("entry velocity is " .. vx .. ", " .. vy)
 
@@ -96,19 +95,14 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 				--transition.to(player.imageObject, {time = 200, x = xf, y = yf})
 				--player.imageObject:setLinearVelocity(0,0)
-
-				waterCheck = display.newCircle(xf,yf,10)
-				waterCheck:setFillColor(1,1,1)
-				waterCheck:toFront()
-				--print("create dat shadow")
 				if waterShadow then
 					waterShadow:removeSelf()
 					waterShadow = nil
 				end
 				waterShadow = display.newCircle(player.lastPositionX, player.lastPositionY, 38)
-				waterShadow.alpha = 0.75
-				waterShadow:setFillColor(0,0,0)
-				waterShadow:toFront()
+				waterShadow.alpha = 0
+				gui.front:insert(waterShadow)
+				player.lastSaveSpot = waterShadow
 			end
 			waterCount = waterCount + 1
 		end
@@ -122,11 +116,12 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			if ( waterCount == 0 ) and player.onLand then
 				print("==================== OUT ended collided with water, count: " .. waterCount .. " ===================")
 				player.shook = false
+				player:stopDeathTimer()
 				gameData.inWater = false
 				player.lastPositionSaved = false
 				player.imageObject:setLinearVelocity(0,0)
 				player.imageObject.linearDamping = 1.25
-				player.allowPaneSwitch = true
+				gameData.allowPaneSwitch = true
 			end
 		end
 	end

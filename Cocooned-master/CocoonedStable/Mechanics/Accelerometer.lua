@@ -14,8 +14,8 @@ local uMath = require("utils.utilMath")
 local rayCastCheck = display.newGroup()
 local rayCastDistanceCheck = display.newGroup()
 
-local lastPointCheck = display.newGroup()
-local lastPointDistanceCheck = display.newGroup()
+-- local lastPointCheck = display.newGroup()
+-- local lastPointDistanceCheck = display.newGroup()
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -112,16 +112,15 @@ local function onAccelerate(event, player)
 		
 		emptyGroup(rayCastCheck)
 		emptyGroup(rayCastDistanceCheck)
-		emptyGroup(lastPointCheck)
-		emptyGroup(lastPointDistanceCheck)
+		-- emptyGroup(lastPointCheck)
+		-- emptyGroup(lastPointDistanceCheck)
 
-		local lastPoint = display.newCircle(player.lastPositionX, player.lastPositionY, 10)
-		lastPoint:setFillColor(0,0,1)
-		rayCastDistanceCheck:insert(lastPoint)
+		local lastPoint = player.lastSaveSpot
 
 		local useLastPoint = true
-
-		if lastPoint.x == -100 and lastPoint.y == -100 then useLastPoint = false end
+		if player.lastSaveSpot.moveable then
+			useLastPoint = false
+		end
 		--print("Player last position at : " .. player.lastPositionX .. ", " .. player.lastPositionY)
 
 		local ball = player.imageObject		
