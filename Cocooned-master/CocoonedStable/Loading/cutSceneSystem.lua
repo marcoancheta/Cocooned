@@ -95,7 +95,7 @@ local function cutScene(gui, mapData)
 		nextScene:addEventListener("tap", nextSceneOrDelete)
 		currScene = 1
 	else
-		local counter = 3
+		local counter = 5
 		gameTimer.preGame(tempGui, tempMapData, counter)
 	end
 end
