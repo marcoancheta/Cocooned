@@ -134,20 +134,22 @@ local function swipeMechanics(event)
 		print("Player Swipe Positions:", "x=" .. tilesX, "y=" .. tilesY)
 	end
 
-	if gameData.allowPaneSwitch then
-		count = count + 1
-		-- save temp pane for later check
-		tempPane = mapData.pane
+	
+	count = count + 1
+	-- save temp pane for later check
+	tempPane = mapData.pane
 
-		-- call swipe mechanic and get new Pane
-		touch.swipeScreen(event, mapData, miniMap, gui.front)
-		
-		-- if touch ended then change map if pane is switched
-		if "ended" == event.phase and mapData.pane ~= tempPane then
-			-- play snow transition effect
+	-- call swipe mechanic and get new Pane
+	touch.swipeScreen(event, mapData, miniMap, gui.front)
+	
+	-- if touch ended then change map if pane is switched
+	if "ended" == event.phase and mapData.pane ~= tempPane then
+		-- play snow transition effect
+		if gameData.allowPaneSwitch then
 			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
 		end
 	end
+	
 end
 
 --------------------------------------------------------------------------------
@@ -171,7 +173,9 @@ local function tapMechanic(event)
 		-- check if pane is different from current one, if so, switch panes
 		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
 			-- play snow transition effect
-			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
+			if gameData.allowPaneSwitch then
+				paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
+			end
 		end
 	end
 end

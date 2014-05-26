@@ -6,22 +6,26 @@ local shoreCheck = display.newGroup()
 local waterShadow
 
 local function collide(collideObject, player, event, mapData, map, gui)
-	print(" in here 2")
 	if event.phase == "began" then
-		print("~~~~~~~~~~~~~~~~~~~~ On dat iceberg ~~~~~~~~~~~~~~~~~~~")
 		gameData.onIceberg = true
 		player.onLand = true
+		player:stopDeathTimer()
 		if gameData.inWater then
 			player.shook = false
 			gameData.inWater = false
-			gameData.allowPaneSwitch = false
+			gameData.allowPaneSwitch = true
 			player.lastPositionSaved = false
 			player.imageObject:setLinearVelocity(0,0)
 			player.imageObject.linearDamping = 1.25
 		end
 		icebergCount = icebergCount + 1
+		print("~~~~~~~~~~~~~~~~~~~~ On dat iceberg COUNT: " .. icebergCount .. " ~~~~~~~~~~~~~~~~~~~")
 
 	elseif event.phase == "ended" then
+		if icebergCount > 0 then
+			print(">>>>>>>>>>>>>>>>> Off dat iceberg COUNT: " .. icebergCount .. " <<<<<<<<<<<<<<<<<<<")
+			icebergCount = icebergCount - 1
+		end
 		local dist = uMath.distance(player.imageObject, collideObject)
 		print("distance from center: " .. dist)
 		if dist > 65 then
@@ -31,10 +35,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 					shoreCheck[i] = nil
 				end
 			end
-			if icebergCount > 0 then
-				print(">>>>>>>>>>>>>>>>> Off dat iceberg <<<<<<<<<<<<<<<<<<<")
-				icebergCount = icebergCount - 1
-			end
+			
 			if icebergCount == 0 then
 
 				gameData.onIceberg = false
@@ -74,9 +75,11 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				if onlyWater then
 					--print(" YOU DROWNING NIGGA!!!")
 					if player.lastPositionSaved == false then
+						player:startDeathTimer(mapData)
 						player.lastPositionX = -100
 						player.lastPositionY = -100
 						player.lastPositionSaved = true
+						player.lastSavePoint = collideObject
 						player.imageObject.linearDamping = 3
 
 						if waterShadow then
@@ -122,6 +125,12 @@ local function collide(collideObject, player, event, mapData, map, gui)
 						player.imageObject:setLinearVelocity(0,0)
 						player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
 
+						local function stopPlayer()
+							print(">>>>>>>>>>>>> STOPPED DAT NIGGA")
+							player.imageObject:setLinearVelocity(0,0)
+						end
+
+						timer.performWithDelay(500, stopPlayer)
 						--local moveIntoWater = transition.to(player.imageObject, {time = 200, x = xf, y = yf})
 
 						player.imageObject:setLinearVelocity(0,0)
