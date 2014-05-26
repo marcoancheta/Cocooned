@@ -35,39 +35,39 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex, wispCount)
 	   	wisp[i].collectable = true
 	   	wisp[i].name = "wisp" .. i
 	   	wisp[i]:toFront()
-	   	print(" map name : " .. map.front.name)
+	 --   	print(" map name : " .. map.front.name)
 	   	
 
-	   	local insertWisp = true
+	 --   	local insertWisp = true
 
-	   	for i = 1, inventory.inventoryInstance.size do
-	   		if inventory.inventoryInstance.items[j] == wisp[i].name then
-	   			insertWisp = false
-	   		end
-	   	end
+	 --   	for j = 1, inventory.inventoryInstance.size do
+	 --   		if inventory.inventoryInstance.items[j] == wisp[i].name then
+	 --   			insertWisp = false
+	 --   		end
+	 --   	end
 	
-		if insertWisp then
-			physics.addBody(wisp[i], "static", {bounce=0})
-			map.front:insert(wisp[i])
-		else
-			wisp[i].isVisible = false
-		end
-		
-		-- for j=1, wispCount do
-		-- 	-- check if wisp(s) exist inside player objects inventory
-		-- 	if inventory.inventoryInstance.items[j] ~= wisp[i].name then
-		-- 		--print("i: " ..i.. "j: " ..j)
-		-- 		-- insert wisp into map display group
-		-- 		if mapData.levelNum ~= "LS" then
-		-- 			print("insert " .. wisp[i].name)
-		-- 			map.front:insert(wisp[i])
-		-- 		end
-		-- 		-- add physics body for wisp for collision
-		-- 		physics.addBody(wisp[i], "static", {bounce=0})
-		-- 	else
-		-- 		wisp[i].isVisible = false
-		-- 	end
+		-- if insertWisp then
+		-- 	physics.addBody(wisp[i], "static", {bounce=0})
+		-- 	map.front:insert(wisp[i])
+		-- else
+		-- 	wisp[i].isVisible = false
 		-- end
+		
+		for j=1, wispCount do
+			-- check if wisp(s) exist inside player objects inventory
+			if inventory.inventoryInstance.items[j] ~= wisp[i].name then
+				--print("i: " ..i.. "j: " ..j)
+				-- insert wisp into map display group
+				if mapData.levelNum ~= "LS" then
+					--print("insert " .. wisp[i].name)
+					map.front:insert(wisp[i])
+				end
+				-- add physics body for wisp for collision
+				physics.addBody(wisp[i], "static", {bounce=0})
+			else
+				wisp[i].isVisible = false
+			end
+		end
 	end
 end
 
