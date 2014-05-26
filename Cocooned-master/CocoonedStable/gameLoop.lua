@@ -101,7 +101,7 @@ local gui
 local line
 local player1, player2 -- create player variables
 local tempPane -- variable that holds current pane player is in for later use
-
+local tutorialText
 
 local textObject = display.newText("", 600, 400, font.TEACHERA, 72)
 
@@ -430,6 +430,14 @@ local function update(event)
 		memory.inWater()
 		-- Show physics bodies
 		physics.setDrawMode("hybrid")
+	end
+
+	if mapData.levelNum == "6" then
+		if tutorialShown then
+			local tutorialTextTimer = timer.performWithDelay( 5000,  function() tutorialText = display.newTextBox("Double tap the screen to open up the minimap to switch panes or simply swipe away from the snow.", player.imageObject.x, player.imageObject.y - 50, font.TEACHERA, 15);end)
+			
+			tutorialShown = flase
+		end
 	end
 
 	-- Main Menu Runtime Event.
