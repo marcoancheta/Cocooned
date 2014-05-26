@@ -40,7 +40,7 @@ local function gWisps(wisp, map, mapData, startIndex, endIndex, wispCount)
 
 	   	local insertWisp = true
 
-	   	for i = 1, inventory.inventoryInstance.items.numChildren do
+	   	for i = 1, inventory.inventoryInstance.size do
 	   		if inventory.inventoryInstance.items[j] == wisp[i].name then
 	   			insertWisp = false
 	   		end
