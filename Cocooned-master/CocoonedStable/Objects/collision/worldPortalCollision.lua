@@ -42,6 +42,9 @@ end
 local function collide(collideObject, player, event, mapData, map, gui)									
 	for i=1, 3 do		
 		if collideObject.name == "exitPortal" ..i.. "" then
+			-- Play portal sound
+			sound.stopChannel(1)
+			sound.playSound(sound.soundEffects[3])
 			-- Stop BGM channel
 			sound.stopChannel(3)
 			-- Delete all old sound files

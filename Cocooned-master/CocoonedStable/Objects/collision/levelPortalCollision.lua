@@ -44,6 +44,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 						
 	for i=1, 15 do
 		if collideObject.name == "exitPortal" ..i.. "" then
+			-- Play level portal sound
+			sound.stopChannel(1)
+			sound.playSound(sound.soundEffects[3])
 			selectLevel.world = gameData.mapData.world
 			selectLevel.levelNum = ""..i..""
 			selectLevel.pane = "M"		

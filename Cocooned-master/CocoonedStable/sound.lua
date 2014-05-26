@@ -39,6 +39,8 @@ local function loadMenuSounds()
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	-- Snow "ballin" [Note: this is a steam]
 	sound.soundEffects[2] = audio.loadSound("sounds/rolling.wav")
+	--Level and world enter portal sound
+	sound.soundEffects[3] = audio.loadSound("sounds/enterWorldPortal.wav")	
 	
 	return backgroundMusic, soundEffects
 end
