@@ -102,7 +102,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				waterShadow = display.newCircle(player.lastPositionX, player.lastPositionY, 38)
 				waterShadow.alpha = 0
 				gui.front:insert(waterShadow)
-				player.lastSaveSpot = waterShadow
+				player.lastSavePoint = waterShadow
 			end
 			waterCount = waterCount + 1
 		end

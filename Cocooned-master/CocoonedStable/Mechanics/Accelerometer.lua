@@ -124,40 +124,40 @@ local function onAccelerate(event, player)
 		end
 		--print("Player last position at : " .. player.lastPositionX .. ", " .. player.lastPositionY)
 
-		local lpDegree = 0
-		if useLastPoint then
+		-- local lpDegree = 0
+		-- if useLastPoint then
 
-			for i = 1, 36 do
-				local x = lastPoint.x + (50 * math.cos(lpDegree * (math.pi/180)))
-				local y = lastPoint.y + (50 * math.sin(lpDegree * (math.pi/180)))
-				local checkCircle = display.newCircle(x, y, 5)
-				checkCircle:setFillColor(1,0,1)
-				checkCircle.name = "check"
-				lastPointDistanceCheck:insert(checkCircle)
-				lastPointDistanceCheck:toFront()
+		-- 	for i = 1, 36 do
+		-- 		local x = lastPoint.x + (50 * math.cos(lpDegree * (math.pi/180)))
+		-- 		local y = lastPoint.y + (50 * math.sin(lpDegree * (math.pi/180)))
+		-- 		-- local checkCircle = display.newCircle(x, y, 5)
+		-- 		-- checkCircle:setFillColor(1,0,1)
+		-- 		-- checkCircle.name = "check"
+		-- 		-- lastPointDistanceCheck:insert(checkCircle)
+		-- 		-- lastPointDistanceCheck:toFront()
 
-				local hits = physics.rayCast(lastPoint.x, lastPoint.y, x, y, "sorted")
-				if ( hits ) then
-				    -- Output all the results.
-				    for i,v in ipairs(hits)
-				    do
-				    	if v.object.name == "background" or v.object.name == "iceberg" then
-					    	local pointC = display.newCircle(v.position.x, v.position.y, 10)
-					    	pointC:setFillColor(1,1,0)
-					    	pointC.name = v.object.name
-					    	lastPointCheck:insert(pointC)
-					    	lastPointCheck:toFront()
-					    end
+		-- 		local hits = physics.rayCast(lastPoint.x, lastPoint.y, x, y, "sorted")
+		-- 		if ( hits ) then
+		-- 		    -- Output all the results.
+		-- 		    for i,v in ipairs(hits)
+		-- 		    do
+		-- 		    	if v.object.name == "background" or v.object.name == "iceberg" then
+		-- 			    	local pointC = display.newCircle(v.position.x, v.position.y, 10)
+		-- 			    	pointC:setFillColor(1,1,0)
+		-- 			    	pointC.name = v.object.name
+		-- 			    	lastPointCheck:insert(pointC)
+		-- 			    	lastPointCheck:toFront()
+		-- 			    end
 				        
-				    end					
-				else
-				    -- There's no hit.
-				end
+		-- 		    end					
+		-- 		else
+		-- 		    -- There's no hit.
+		-- 		end
 				
-				lpDegree = lpDegree + 10
-			end
-		end
-		lastPointCheck:toFront()
+		-- 		lpDegree = lpDegree + 10
+		-- 	end
+		-- end
+		-- lastPointCheck:toFront()
 
 		local ball = player.imageObject		
 		local degree = 0
