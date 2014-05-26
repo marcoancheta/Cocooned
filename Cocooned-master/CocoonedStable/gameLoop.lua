@@ -631,6 +631,9 @@ local function gameLoopEvents(event)
 		--clean(event)
 		inventory.inventoryInstance:clear()
 		collisionDetection.resetCollision()
+		for i = 1, gui.playerCount do
+			players[i]:stopDeathTimer()
+		end
 		-- Reset current pane to middle
 		gameData.ingame = 0
 		inventory.inventoryInstance:clear()

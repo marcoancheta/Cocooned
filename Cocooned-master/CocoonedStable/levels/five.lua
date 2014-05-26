@@ -190,7 +190,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(4, 4)
 
 		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 9, 16, five.wispCount)
+		generate.gWisps(wisp, map, mapData, 8, 16, five.wispCount)
 	end
 
 	-- generates all objects in pane when locations are set

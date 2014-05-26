@@ -115,10 +115,10 @@ local function onAccelerate(event, player)
 		-- emptyGroup(lastPointCheck)
 		-- emptyGroup(lastPointDistanceCheck)
 
-		local lastPoint = player.lastSaveSpot
+		local lastPoint = player.lastSavePoint
 
 		local useLastPoint = true
-		if player.lastSaveSpot.moveable then
+		if player.lastSavePoint.moveable then
 			useLastPoint = false
 		end
 		--print("Player last position at : " .. player.lastPositionX .. ", " .. player.lastPositionY)
@@ -136,11 +136,11 @@ local function onAccelerate(event, player)
 			for i = 1, rotation do
 				local x = ball.x + (distanceCheck * math.cos(degree * (math.pi/180)))
 				local y = ball.y + (distanceCheck * math.sin(degree * (math.pi/180)))
-				local checkCircle = display.newCircle(x, y, 5)
-				checkCircle:setFillColor(0,1,0)
-				checkCircle.name = "check"
-				rayCastDistanceCheck:insert(checkCircle)
-				rayCastDistanceCheck:toFront()
+				-- local checkCircle = display.newCircle(x, y, 5)
+				-- checkCircle:setFillColor(0,1,0)
+				-- checkCircle.name = "check"
+				-- rayCastDistanceCheck:insert(checkCircle)
+				-- rayCastDistanceCheck:toFront()
 
 				local hits = physics.rayCast(ball.x, ball.y, x, y, "sorted")
 				if ( hits ) then
@@ -148,8 +148,9 @@ local function onAccelerate(event, player)
 				    for i,v in ipairs(hits)
 				    do
 				    	if v.object.name == "background" or v.object.name == "iceberg" then
-					    	local pointC = display.newCircle(v.position.x, v.position.y, 10)
-					    	pointC:setFillColor(1,0,0)
+					    	local pointC = display.newCircle(v.position.x, v.position.y, 1)
+					    	--pointC:setFillColor(1,0,0)
+					    	pointC.alpha = 0
 					    	pointC.name = v.object.name
 					    	rayCastCheck:insert(pointC)
 					    	rayCastCheck:toFront()

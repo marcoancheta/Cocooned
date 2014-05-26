@@ -161,6 +161,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 end
 
 local function reset()
+	if waterShadow then
+		waterShadow:removeSelf()
+		waterShadow = nil
+	end
 	waterCount = 0
 end
 
