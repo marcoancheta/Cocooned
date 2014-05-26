@@ -68,7 +68,7 @@ local fifteen = {
 	["U"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
-		["greenAura"] = 0,
+		["greenAura"] = 2,
 		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
@@ -113,7 +113,7 @@ local fifteen = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0,
+		["fixedIceberg"] = 2,
 		["worldPortal"] = 0
 	}
 }
@@ -137,12 +137,55 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		--generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
+		-- Breakable rune
+		rune[4].x, rune[4].y = generate.tilesToPixels(4, 21)			
+		rune[4].isVisible = true
 		--generate.gWater(map, mapData)
 		--generate.gWisps(wisp, map, mapData, 24, 39, fifteen.wispCount)
 	elseif mapData.pane == "L" then
-		print("You shouldn't be in here...")
+		-- FISH GO HERE
+
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(30, 2)
+		objects["fixedIceberg1"].time = 3800 --not needed if free
+		objects["fixedIceberg1"].movement = "free" --fixed or free
+
+		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(37, 8)
+		objects["fixedIceberg2"].time = 3800 --not needed if free
+		objects["fixedIceberg2"].movement = "free" --fixed or free
 	elseif mapData.pane == "U" then
-		print("You shouldn't be in here...")
+		-- FISH GO HERE
+
+		-- Slow time rune
+		rune[3].x, rune[3].y = generate.tilesToPixels(23, 21)			
+		rune[3].isVisible = true
+
+		-- Slow time rune
+		rune[3].x, rune[3].y = generate.tilesToPixels(12, 22)			
+		rune[3].isVisible = true
+
+		-- Slow time rune
+		rune[3].x, rune[3].y = generate.tilesToPixels(35, 22)			
+		rune[3].isVisible = true
+
+		-- Auras 
+		objects["greenAura1"]:setSequence("move")
+		objects["greenAura1"]:play()
+		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(14, 3)
+
+		-- Auras 
+		objects["greenAura2"]:setSequence("move")
+		objects["greenAura2"]:play()
+		objects["greenAura2"].x, objects["greenAura2"].y = generate.tilesToPixels(24, 3)
+
+		-- Shrink rune
+		rune[4].x, rune[4].y = generate.tilesToPixels(33, 9)			
+		rune[4].isVisible = true
+
+		-- Shrink rune
+		rune[4].x, rune[4].y = generate.tilesToPixels(37, 18)			
+		rune[4].isVisible = true
+
+		generate.gAuraWalls(map, mapData, "greenWall")
 	elseif mapData.pane == "D" then
 		print("You shouldn't be in here...")
 	end
