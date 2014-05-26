@@ -36,7 +36,7 @@ local function loadMenuSounds()
 	-- Menu Music 
 	sound.backgroundMusic[1] = audio.loadStream("sounds/music/Soliloquy.mp3") -- or FallOfArcana.mp3
 	-- Menu buttons click
-	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
+	sound.soundEffects[1] = audio.loadSound("sounds/menuButton.wav")
 	-- Snow "ballin" [Note: this is a steam]
 	sound.soundEffects[2] = audio.loadSound("sounds/rolling.wav")
 	--Level and world enter portal sound
