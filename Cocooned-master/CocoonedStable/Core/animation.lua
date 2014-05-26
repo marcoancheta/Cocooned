@@ -66,11 +66,11 @@ local animation = {
 			{frames = {1}, name = "still", time = 250}
 		},
 		["exitPortal"] = {
-			{frames = {5, 4, 3, 2}, name = "move", time = 500}, 
+			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 850}, 
 			{frames = {1}, name = "still", time = 250}
 		},
 		["worldPortal"] = {
-			{frames = {5, 4, 3, 2}, name = "move", time = 500}, 
+			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 850}, 
 			{frames = {1}, name = "still", time = 250}
 		},
 		["wolf"] = {

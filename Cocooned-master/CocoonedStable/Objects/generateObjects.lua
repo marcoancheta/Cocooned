@@ -91,25 +91,25 @@ local function gObjects(level, objects, map, mapData, runes)
 				-- Exit portals and other objects
 				if name ~= "worldPortal" then
 					objects[name .. j].func = "levelPortalCollision"
-					physics.addBody(objects[name ..j], "static", {bounce = 0})
-					objects[name ..j].collType = "solid"
-					objects[name ..j].isSensor = true
+					objects[name ..j]:scale(0.2, 0.2)
+					physics.addBody(objects[name ..j], "static", {bounce = 0, radius=50})
+					objects[name ..j].collType = "passThru"
 				-- Back to world-portal
 				elseif name == "worldPortal" then
 					objects[name .. j].func = "BacktoWorldPortalCollision"
-					physics.addBody(objects[name ..j], "static", {bounce = 0})
-					objects[name ..j].collType = "solid"
-					objects[name ..j].isSensor = true
+					objects[name ..j]:scale(0.2, 0.2)
+					physics.addBody(objects[name ..j], "static", {bounce = 0, radius=50})
+					objects[name ..j].collType = "passThru"
 				end
 				-- add object to map display group
 				map.middle:insert(objects[name .. j])
 			elseif mapData.levelNum == "world" then
 				objects[name .. j].func = "worldPortalCollision"
-				physics.addBody(objects[name ..j], "static", {bounce = 0})
-				objects[name ..j].collType = "solid"
-				objects[name ..j].isSensor = true
+				physics.addBody(objects[name ..j], "static", {bounce = 0, radius=50})
+				objects[name ..j].collType = "passThru"
 				-- add object to map display group
 				map.middle:insert(objects[name .. j])
+				objects[name ..j]:scale(0.2, 0.2)
 			elseif mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
 				objects[name .. j].func = name .. "Collision"
 				-- Fixed iceberg
@@ -120,6 +120,11 @@ local function gObjects(level, objects, map, mapData, runes)
 				-- Switch wall
 				elseif name == "switchWall" then
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
+					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+				-- Exit portal
+				elseif name == "exitPortal" then
+					objects[name ..j]:scale(0.2, 0.2)
+					physics.addBody(objects[name ..j], "static", {bounce = 0, radius=28})
 					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
 				-- Everything else
 				else
