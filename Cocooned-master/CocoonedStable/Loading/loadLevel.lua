@@ -80,9 +80,10 @@ local function drawPane(mapData)
 		levelWall = display.newImageRect("mapdata/art/background/" .. mapData.levelNum .. "/wall/" .. mapData.pane .. ".png", displayX, displayY)		
 		-- Add shores for in-game levels
 		levelBG.func = "shoreCollision"
-		levelBG.collType = "passThru"
+		levelBG.collType = "solid"
 		physics.addBody(levelBG, "static", physicsData.getFloor(mapData.levelNum):get(mapData.pane))
 		physics.addBody(levelWall, "static", physicsData.getData(mapData.levelNum):get(mapData.pane))
+		levelBG.isSensor = true
 	elseif mapData.levelNum == "LS" then
 		-- Level selector level load in
 		-- File Location: mapdata/art/background/LS/(WORLD_HERE)/bg/LS.png
@@ -160,6 +161,7 @@ local function createLevel(mapData, players)
 		shadowCirc = display.newCircle(players[1].imageObject.x, players[1].imageObject.y, 43)
 		shadowCirc:setFillColor(86*0.0039216,72*0.0039216,92*0.0039216)
 		shadowCirc.alpha = 0.5
+		shadowCirc.name = "shadowCirc"
 	else
 		shadowCirc = nil
 	end

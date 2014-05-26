@@ -153,9 +153,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[16].x, wisp[16].y = generate.tilesToPixels(34, 10)
 		wisp[17].x, wisp[17].y = generate.tilesToPixels(31, 6)
 
-		-- Runes
-		rune[2].x, rune[2].y = generate.tilesToPixels(3, 21)			
-		rune[2].isVisible = true
+		-- Shrink rune
+		rune[4].x, rune[4].y = generate.tilesToPixels(3, 21)			
+		rune[4].isVisible = true
 
 		generate.gWisps(wisp, map, mapData, 1, 17, ten.wispCount)
 	elseif mapData.pane == "L" then
@@ -242,7 +242,6 @@ local function destroyAll()
 		wall[i] = nil
 	end
 
-	print("destroying objects", #mObjects)
 	-- destroy all moveable objects and stop moving them
 	for i=1, #mObjects do
 		if mObjects[i].moveable == true then

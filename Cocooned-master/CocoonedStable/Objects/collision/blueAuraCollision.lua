@@ -12,12 +12,14 @@ local sound = require("sound")
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	--player = player
-	event.contact.isEnabled = false
-	player:changeColor('blue')
+	if event.phase == "began" and player.color ~= "blue" then
+		player:changeColor('blue')
 
-	-- play sound
-	sound.stopChannel(1)
-	sound.playSound(sound.soundEffects[2])
+		-- play sound
+		sound.stopChannel(1)
+		sound.playSound(sound.soundEffects[2])
+	end
+	
 	
 	--local closure = function() return player:changeColor('white') end
 	--timer1 = timer.performWithDelay( 10000, closure, 1)

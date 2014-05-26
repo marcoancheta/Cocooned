@@ -28,7 +28,7 @@ local six = {
 	playerCount = 1,
 	playerPos = {{["x"]=25, ["y"]=14}},
 	-- number of wisps in the level
-	wispCount = 30,
+	wispCount = 29,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -161,37 +161,36 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(22, 6)
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(20, 9)
 		wisp[9].x, wisp[9].y = generate.tilesToPixels(22, 10)
-		wisp[10].x, wisp[10].y = generate.tilesToPixels(26, 15)
-		wisp[11].x, wisp[11].y = generate.tilesToPixels(23, 18)
-		wisp[12].x, wisp[12].y = generate.tilesToPixels(20, 20)
-		wisp[13].x, wisp[13].y = generate.tilesToPixels(17, 21)
-		wisp[14].x, wisp[14].y = generate.tilesToPixels(14, 20)
-		wisp[15].x, wisp[15].y = generate.tilesToPixels(11, 21)
-		wisp[16].x, wisp[16].y = generate.tilesToPixels(8, 20)
-		wisp[17].x, wisp[17].y = generate.tilesToPixels(5, 21)
-		wisp[18].x, wisp[18].y = generate.tilesToPixels(39.5, 8)
-		wisp[19].x, wisp[19].y = generate.tilesToPixels(39, 10)
+		wisp[10].x, wisp[10].y = generate.tilesToPixels(23, 18)
+		wisp[11].x, wisp[11].y = generate.tilesToPixels(20, 20)
+		wisp[12].x, wisp[12].y = generate.tilesToPixels(17, 21)
+		wisp[13].x, wisp[13].y = generate.tilesToPixels(14, 20)
+		wisp[14].x, wisp[14].y = generate.tilesToPixels(11, 21)
+		wisp[15].x, wisp[15].y = generate.tilesToPixels(8, 20)
+		wisp[16].x, wisp[16].y = generate.tilesToPixels(5, 21)
+		wisp[17].x, wisp[17].y = generate.tilesToPixels(39.5, 8)
+		wisp[18].x, wisp[18].y = generate.tilesToPixels(39, 10)
 
-		generate.gWisps(wisp, map, mapData, 1, 19, six.wispCount)
+		generate.gWisps(wisp, map, mapData, 1, 18, six.wispCount)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Exit portals
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 5)
 
-		wisp[20].x, wisp[20].y = generate.tilesToPixels(21, 5)
-		wisp[21].x, wisp[21].y = generate.tilesToPixels(24, 6)
-		wisp[22].x, wisp[22].y = generate.tilesToPixels(25, 8.5)
-		wisp[23].x, wisp[23].y = generate.tilesToPixels(24, 11)
-		wisp[24].x, wisp[24].y = generate.tilesToPixels(21, 12.5)
-		wisp[25].x, wisp[25].y = generate.tilesToPixels(18, 11)
-		wisp[26].x, wisp[26].y = generate.tilesToPixels(17, 8.5)
-		wisp[27].x, wisp[27].y = generate.tilesToPixels(18, 6)
-		wisp[28].x, wisp[28].y = generate.tilesToPixels(21, 5)
-		wisp[29].x, wisp[29].y = generate.tilesToPixels(38, 7)
-		wisp[30].x, wisp[30].y = generate.tilesToPixels(38, 9)
+		wisp[19].x, wisp[19].y = generate.tilesToPixels(21, 5)
+		wisp[20].x, wisp[20].y = generate.tilesToPixels(24, 6)
+		wisp[21].x, wisp[21].y = generate.tilesToPixels(25, 8.5)
+		wisp[22].x, wisp[22].y = generate.tilesToPixels(24, 11)
+		wisp[23].x, wisp[23].y = generate.tilesToPixels(21, 12.5)
+		wisp[24].x, wisp[24].y = generate.tilesToPixels(18, 11)
+		wisp[25].x, wisp[25].y = generate.tilesToPixels(17, 8.5)
+		wisp[26].x, wisp[26].y = generate.tilesToPixels(18, 6)
+		wisp[27].x, wisp[27].y = generate.tilesToPixels(21, 5)
+		wisp[28].x, wisp[28].y = generate.tilesToPixels(38, 7)
+		wisp[29].x, wisp[29].y = generate.tilesToPixels(38, 9)
 
-		generate.gWisps(wisp, map, mapData, 20, 30, six.wispCount)
+		generate.gWisps(wisp, map, mapData, 19, 29, six.wispCount)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		if gameData.debugMode then
@@ -244,7 +243,6 @@ local function destroyAll()
 		wall[i] = nil
 	end
 
-	print("destroying objects", #mObjects)
 	-- destroy all moveable objects and stop moving them
 	for i=1, #mObjects do
 		if mObjects[i].moveable == true then

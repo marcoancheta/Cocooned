@@ -117,9 +117,10 @@ local function levelSnow(mapData, gui)
 				-- Check if all neighbouring panes exist
 				if level.panes[i+1] then
 					-- Create a new temp flake
-								local flake = display.newCircle(0,0,5)
+					local flake = display.newCircle(0,0,5)
 					flake.x = xPos[i+1]
 					flake.y = yPos[i+1]
+					flake.name = "flake"
 					-- Send & receive directional coordinates
 					local xDir, yDir = calcSnowDir(flake)				
 					-- Apply transition to global variable
@@ -136,6 +137,7 @@ local function levelSnow(mapData, gui)
 			local flake = display.newCircle(0,0,5)
 			flake.x = xPos[3]
 			flake.y = yPos[3]
+			flake.name = "flake"
 			-- Send & receive directional coordinates
 			local xDir, yDir = calcSnowDir(flake)
 			-- Apply transition to global variable
@@ -150,6 +152,7 @@ local function levelSnow(mapData, gui)
 			local flake = display.newCircle(0,0,5)
 			flake.x = xPos[2]
 			flake.y = yPos[2]
+			flake.name = "flake"
 			-- Send & receive directional coordinates
 			local xDir, yDir = calcSnowDir(flake)
 			-- Apply transition to global variable
@@ -164,6 +167,7 @@ local function levelSnow(mapData, gui)
 			local flake = display.newCircle(0,0,5)
 			flake.x = xPos[4]
 			flake.y = yPos[4]
+			flake.name = "flake"
 			-- Send & receive directional coordinates
 			local xDir, yDir = calcSnowDir(flake)
 			-- Apply transition to global variable
@@ -178,6 +182,7 @@ local function levelSnow(mapData, gui)
 			local flake = display.newCircle(0,0,5)
 			flake.x = xPos[5]
 			flake.y = yPos[5]
+			flake.name = "flake"
 			-- Send & receive directional coordinates
 			local xDir, yDir = calcSnowDir(flake)
 			-- Apply transition to global variable

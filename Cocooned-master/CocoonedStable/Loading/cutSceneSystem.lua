@@ -33,7 +33,7 @@ local nextScene
 local tempGui
 local tempMapData
 
-local deleteClosure = function() return loading.deleteLoading() end
+--local deleteClosure = function() return loading.deleteLoading() end
 
 --------------------------------------------------------------------------------
 -- nextSceneOrDelete - ?
@@ -47,7 +47,7 @@ local function nextSceneOrDelete(event)
 	end
 	-- Clear variables if current scene reaches levels' maximum amount of scenes
 	if currScene == numberOfScreens[tempMapData.levelNum] then
-		loading.loadingInit(tempGui)
+		--loading.loadingInit(tempGui)
 		-- Clear current scene
 		currScene = nil
 		-- Remove event listener from nextScene
@@ -60,12 +60,13 @@ local function nextSceneOrDelete(event)
 		scenes = nil
 		scenes = {}
 		-- Run pregame timer events
-		gameTimer.preGame(tempGui, tempMapData)
+		local counter = 3
+		gameTimer.preGame(tempGui, tempMapData, counter)
+		-- destroy loading screen
+		--local loadingTimer = timer.performWithDelay(2000, deleteClosure)
 		-- Clear temporary gui and mapData variables
 		tempGui = nil
 		tempMapData = nil
-		-- destroy loading screen
-		local loadingTimer = timer.performWithDelay(2000, deleteClosure)
 	else
 		currScene = currScene +1
 	end
@@ -87,14 +88,15 @@ local function cutScene(gui, mapData)
 		end
 		--print("drawing next scene")
 		-- Create nextScene button
-		nextScene = display.newImageRect("mapdata/art/buttons/play.png", 250, 250)
+		nextScene = display.newImageRect("mapdata/art/buttons/next.png", 250, 250)
 		-- map nextScene button to right corner
 		nextScene.x, nextScene.y = generate.tilesToPixels(36, 19)
 		-- Add tap listener to play button
 		nextScene:addEventListener("tap", nextSceneOrDelete)
 		currScene = 1
 	else
-		gameTimer.preGame(tempGui, tempMapData)
+		local counter = 5
+		gameTimer.preGame(tempGui, tempMapData, counter)
 	end
 end
 

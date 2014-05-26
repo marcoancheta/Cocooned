@@ -92,7 +92,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 				objects["exitPortal" ..i.. ""].isBodyActive = false
 			end
 			-- Back to world portal
-			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 22)
+			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 20)
 		elseif mapData.world == "B" then	
 			-- Hide all portals between 1-5 and 11-15.
 			for i=1, LS["LS"]["exitPortal"] do
@@ -108,7 +108,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			objects["exitPortal9"].x, objects["exitPortal9"].y = generate.tilesToPixels(28, 12)
 			objects["exitPortal10"].x, objects["exitPortal10"].y = generate.tilesToPixels(31, 15)
 			-- Back to world portal
-			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 22)
+			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 20)
 		elseif mapData.world == "C" then
 			-- Hide all portals between 1-10.
 			for i=1, LS["LS"]["exitPortal"] do
@@ -124,7 +124,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			objects["exitPortal14"].x, objects["exitPortal14"].y = generate.tilesToPixels(28, 12)
 			objects["exitPortal15"].x, objects["exitPortal15"].y = generate.tilesToPixels(31, 15)
 			-- Back to world portal
-			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 22)
+			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 20)
 		end
 		
 		-- Play animation for all portals
@@ -184,7 +184,6 @@ local function destroyAll()
 		wall[i] = nil
 	end
 
-	print("destroying objects", #mObjects)
 	-- destroy all moveable objects and stop moving them
 	for i=1, #mObjects do
 		if mObjects[i].moveable == true then
