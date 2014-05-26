@@ -232,7 +232,6 @@ local function destroyAll()
 		wall[i] = nil
 	end
 
-	print("destroying objects", #mObjects)
 	-- destroy all moveable objects and stop moving them
 	for i=1, #mObjects do
 		if mObjects[i].moveable == true then

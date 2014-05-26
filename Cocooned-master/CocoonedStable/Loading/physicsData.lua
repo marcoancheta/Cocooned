@@ -36,7 +36,7 @@ end
 
 -- Physics data for objects
 local function getObject(objName)
-	return (require("collision." .. objName .. "")).physicsData(1.0)
+	return (require("Objects.physics." .. objName .. "_collision")).physicsData(1.0)
 end
 
 local physicsData = {

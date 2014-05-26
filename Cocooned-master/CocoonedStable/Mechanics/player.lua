@@ -53,6 +53,13 @@ local playerInstance = {
 	speedConst = 5,
 	defaultSpeed = 7,
 	radius = 38, --default radius
+
+	--waterEscape variables
+	lastPositionX = nil,
+	lastPositionY = nil,
+	lastSavePoint = nil,
+	lastPositionSaved = false,
+	onLand = true,
 	
 	-- Booleans
 	deathTimer = nil,
@@ -126,6 +133,7 @@ local function changeType(event)
 	end
 end
 ]]--
+
 
 
 --------------------------------------------------------------------------------
@@ -333,6 +341,61 @@ function playerInstance:rotate (x,y)
 	transition.cancel('rotation')
 	angle = (floor(atan2(y, x)*( 180 / pi))) 
 	self.imageObject.rotation = angle + 90
+end
+
+--------------------------------------------------------------------------------
+-- Death - player function that kills player and respawns
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+
+
+local function killPlayer(player, mapData)
+	print("so dead " .. player.name)
+	player.lastPositionSaved = false
+	player.shook = false
+	player.onLand = true
+	gameData.inWater = false
+	gameData.allowPaneSwith = true
+	gameData.onIceberg = false
+
+	local waterCol = require("Objects.collision.waterCollision")
+	waterCol.reset()
+
+	player.imageObject.linearDamping = 1.25
+	player.imageObject:setLinearVelocity(0,0)
+	if player.lastPositionX == -100 then
+		player.imageObject.x = player.lastSavePoint.x
+		player.imageObject.y = player.lastSavePoint.y
+		if player.lastSavePoint.moveable then
+			print("this guy is an iceberg")
+		end
+	else
+		player.imageObject.x = player.lastPositionX
+		player.imageObject.y = player.lastPositionY
+	end
+end
+
+--------------------------------------------------------------------------------
+-- Death Timer - player function that kills player if in water for too long
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+function playerInstance:startDeathTimer (mapData)
+	print("Starting TIMER!!!!! HURRY!!")
+	local function passParams() killPlayer(self, mapData) end
+	self.deathTimer = timer.performWithDelay(3000, passParams)
+end
+
+--------------------------------------------------------------------------------
+-- Stop Death Timer - player function that stops player from dying
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+function playerInstance:stopDeathTimer ()
+	if self.deathTimer then
+		timer.cancel(self.deathTimer)
+	end
 end
 
 --------------------------------------------------------------------------------
