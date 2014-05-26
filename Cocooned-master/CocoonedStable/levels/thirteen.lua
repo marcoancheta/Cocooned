@@ -258,7 +258,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	-- set which panes are avaiable for player
 	map.front.panes = thirteen.panes
-	map.front.itemGoal = 4
+	map.front.itemGoal = 2
 end
 
 --------------------------------------------------------------------------------

@@ -94,7 +94,7 @@ local fifteen = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0, 
+		["exitPortal"] = 1, 
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -140,6 +140,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Breakable rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(4, 21)			
 		rune[4].isVisible = true
+
+		-- Exit Portal
+		-- Exit portal
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(21, 11)
 		--generate.gWater(map, mapData)
 		--generate.gWisps(wisp, map, mapData, 24, 39, fifteen.wispCount)
 	elseif mapData.pane == "L" then
@@ -199,7 +204,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	-- set which panes are avaiable for player
 	map.front.panes = fifteen.panes
-	map.front.itemGoal = 1
+	map.front.itemGoal = 2
 end
 
 --------------------------------------------------------------------------------
