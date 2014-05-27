@@ -162,7 +162,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(4, 3)
 
 		generate.gWisps(wisp, map, mapData, 1, 4, thirteen.wispCount)
-		generate.gWater(map, mapData)
 		generate.gAuraWalls(map, mapData, "greenWall")
 
 	elseif mapData.pane == "R" then
@@ -195,7 +194,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(29, 18)
 
 
-		--generate.gWater(map, mapData)
+		generate.gWater(map, mapData)
 		--generate.gWisps(wisp, map, mapData, 24, 39, thirteen.wispCount)
 		generate.gAuraWalls(map, mapData, "greenWall")
 
@@ -227,6 +226,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[3].isVisible = true
 
 		generate.gAuraWalls(map, mapData, "greenWall")
+		generate.gWater(map, mapData)
 
 	elseif mapData.pane == "U" then
 		-- Auras
@@ -243,6 +243,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[3].isVisible = true
 
 		generate.gAuraWalls(map, mapData, "greenWall")
+		generate.gWater(map, mapData)
 
 	elseif mapData.pane == "D" then
 		

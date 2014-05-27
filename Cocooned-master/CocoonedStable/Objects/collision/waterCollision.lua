@@ -30,12 +30,11 @@ end
 --------------------------------------------------------------------------------
 -- Collide Function - function for water collision
 --------------------------------------------------------------------------------
--- Updated by: Andrew moved event.contact.isenabled to precollision
+-- Updated by: Robert James Ford XIII
+-- print("##############  I just collided with water ###############")
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	if(event.phase == "began") then
-		
-		--print("##############  I just collided with water ###############")
 		if (gameData.onIceberg == false) then
 			gameData.inWater = true
 
