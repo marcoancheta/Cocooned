@@ -284,6 +284,7 @@ local function onAccelerate(event, player)
 		ball.linearDamping = 0
 		--local function pushDatNigga()
 		ball:setLinearVelocity(deltaX*3, deltaY*3)
+		ball.alpha = 1
 		--end
 		--timer.performWithDelay(2000, pushDatNigga)
 		--transition.to(ball, {time = 200, x = lastPoint.x, y = lastPoint.y})

@@ -26,8 +26,8 @@ local ten = {
 	panes = {true,true,false,true,true},
 	timer = 300,
 	playerCount = 2,
-	playerPos = {{["x"]=2, ["y"]=5},
-				 {["x"]=25, ["y"]=22},},
+	playerPos = {{["x"]=1.5, ["y"]=22},
+				 {["x"]=28, ["y"]=22},},
 	-- number of wisps in the level
 	wispCount = 29,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -155,8 +155,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[17].x, wisp[17].y = generate.tilesToPixels(31, 6)
 
 		-- Shrink rune
+<<<<<<< HEAD
 		rune[3].x, rune[3].y = generate.tilesToPixels(3, 21)			
 		rune[3].isVisible = true
+=======
+		rune[4].x, rune[4].y = generate.tilesToPixels(3, 15)			
+		rune[4].isVisible = true
+>>>>>>> 36990642c090a1043f2818a435530072022bc104
 
 		generate.gWisps(wisp, map, mapData, 1, 17, ten.wispCount)
 	elseif mapData.pane == "L" then

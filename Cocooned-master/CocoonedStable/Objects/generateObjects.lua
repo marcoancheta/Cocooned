@@ -135,6 +135,7 @@ local function gObjects(level, objects, map, mapData, runes)
 				objects[name .. j].isSensor = true
 				-- add object to map display group
 				map.front:insert(objects[name .. j])
+				objects[name .. j]:toBack()
 			end
 			--objects[name .. j]:toBack()
 		end
