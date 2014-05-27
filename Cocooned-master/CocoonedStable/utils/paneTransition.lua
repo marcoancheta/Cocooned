@@ -109,6 +109,11 @@ local function movePanes(event)
 			degree = degree + 10
 		end
 		distanceCheck = distanceCheck + 30
+		if ( distanceCheck > 300 ) then
+			print("no water or shore found, you should be fine")
+			locationFound = true
+			inwater = false
+		end
 	end
 
 	if inWater then
