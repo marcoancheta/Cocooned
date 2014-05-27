@@ -157,6 +157,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(37, 8)
 		objects["fixedIceberg2"].time = 3800 --not needed if free
 		objects["fixedIceberg2"].movement = "free" --fixed or free
+		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		-- FISH GO HERE
 

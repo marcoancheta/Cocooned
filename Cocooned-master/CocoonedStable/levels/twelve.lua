@@ -137,13 +137,16 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		--generate.gAuraWalls(map, mapData, "blueWall")
 		--generate.gWater(map, mapData)
 		generate.gAuraWalls(map, mapData, "greenWall")
+		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		--generate.gWater(map, mapData)
 		--generate.gWisps(wisp, map, mapData, 24, 39, twelve.wispCount)
 		generate.gAuraWalls(map, mapData, "greenWall")
 		generate.gAuraWalls(map, mapData, "blueWall")
+		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		generate.gAuraWalls(map, mapData, "greenWall")
+		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then
