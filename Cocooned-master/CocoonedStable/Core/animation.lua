@@ -99,6 +99,8 @@ local animation = {
 	sheetOptions = {
 		playerSheet = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite.png", 
 				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9}),
+		playerSheet2 = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite2.png", 
+				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9}),
 		runeSheet = graphics.newImageSheet("mapdata/art/animation/runeAnimation.png", 
 					 {width = 72, height = 72, sheetContentWidth = 432, sheetContentHeight = 216, numFrames = 18}),
 		shrinkSheet = graphics.newImageSheet("mapdata/art/animation/switchPanesSheet.png", 

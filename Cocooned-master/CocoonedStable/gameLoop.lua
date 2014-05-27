@@ -320,7 +320,7 @@ local function loadMap(mapData)
 	table.insert(players, 2, player2)
 	-- Create player/ball object to map
 	ball = display.newSprite(animation.sheetOptions.playerSheet, animation.spriteOptions.player)
-	ball2 = display.newSprite(animation.sheetOptions.playerSheet, animation.spriteOptions.player)
+	ball2 = display.newSprite(animation.sheetOptions.playerSheet2, animation.spriteOptions.player)
 	-- set name and animation sequence for ball
 	ball.name = "player"
 	ball:setSequence("move")
