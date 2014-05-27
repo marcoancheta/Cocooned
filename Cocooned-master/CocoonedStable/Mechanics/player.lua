@@ -359,8 +359,6 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-
-
 local function killPlayer(player, mapData, gui)
 	print("I'm dying in pane " .. mapData.pane)
 	player.lastPositionSaved = false
@@ -374,8 +372,10 @@ local function killPlayer(player, mapData, gui)
 	local waterCol = require("Objects.collision.waterCollision")
 	waterCol.reset()
 
+	player.imageObject.alpha = 1
 	player.imageObject.linearDamping = 1.25
 	player.imageObject:setLinearVelocity(0,0)
+	
 	if player.lastPositionX == -100 then
 		player.imageObject.x = player.lastSavePoint.x
 		player.imageObject.y = player.lastSavePoint.y

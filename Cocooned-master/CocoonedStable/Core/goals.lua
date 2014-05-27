@@ -40,39 +40,6 @@ local function destroyGoals()
 	textObject = nil
 end
 
-local function reenablePortal()
-	levelPortalObject.isSensor = false
-end
-
---------------------------------------------------------------------------------
--- Tap Once - function is called when player1 taps screen
---------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-local function tapOnce(event)
-	if gameData.gameOptions ~= true then
-		-- Kipcha Play button detection
-		if event.target.name == "playButton" then	
-			-- Destroy goals map
-			destroyGoals()	
-			gameData.gameStart = true
-		elseif event.target.name == "cancelButton" then
-			print("HIT CANCEL BUTTON!!!!")
-
-			textObject[1].isVisible = false
-			textObject[2].isVisible = false
-			play.isVisible = false
-			cancel.isVisible = false
-			--for i=1, #rune do
-			--	rune[i].isVisible = false
-			--end
-			playerTemp.curse = 1
-			destroyGoals()
-			timer.performWithDelay(1500, reenablePortal)
-		end
-	end
-end
-
 --------------------------------------------------------------------------------
 -- Button Listeners
 --------------------------------------------------------------------------------
@@ -98,6 +65,36 @@ local function hidePlay()
 	cancel.isVisible = false
 	cancel:removeEventListener("tap", tapOnce)
 end
+
+local function reenablePortal()
+	levelPortalObject.isSensor = false
+end
+--------------------------------------------------------------------------------
+-- Tap Once - function is called when player1 taps screen
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+function tapOnce(event)
+	if gameData.gameOptions ~= true then
+		-- Kipcha Play button detection
+		if event.target.name == "playButton" then	
+			-- Destroy goals map
+			destroyGoals()	
+			gameData.gameStart = true
+		elseif event.target.name == "cancelButton" then
+			print("HIT CANCEL BUTTON!!!!")
+			hidePlay()
+			
+			local portalTimer = timer.performWithDelay(1500, reenablePortal)
+			textObject[1].isVisible = false
+			textObject[2].isVisible = false
+			play.isVisible = false
+			cancel.isVisible = false
+			playerTemp.curse = 1
+		end
+	end
+end
+
 --------------------------------------------------------------------------------
 -- drawGoals - Draw/Insert Objects
 --------------------------------------------------------------------------------

@@ -103,10 +103,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			end
 			-- Place World "B" portals.			
 			objects["exitPortal6"].x, objects["exitPortal6"].y = generate.tilesToPixels(10, 15)
-			objects["exitPortal10"].x, objects["exitPortal10"].y = generate.tilesToPixels(14, 12)		
+			objects["exitPortal7"].x, objects["exitPortal10"].y = generate.tilesToPixels(14, 12)		
 			objects["exitPortal8"].x, objects["exitPortal8"].y = generate.tilesToPixels(20.5, 11)
 			objects["exitPortal9"].x, objects["exitPortal9"].y = generate.tilesToPixels(28, 12)
-			objects["exitPortal7"].x, objects["exitPortal7"].y = generate.tilesToPixels(31, 15)
+			objects["exitPortal10"].x, objects["exitPortal10"].y = generate.tilesToPixels(31, 15)
 			-- Back to world portal
 			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 21.5)
 		elseif mapData.world == "C" then

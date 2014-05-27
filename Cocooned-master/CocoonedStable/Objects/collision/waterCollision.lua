@@ -34,10 +34,9 @@ end
 -- print("##############  I just collided with water ###############")
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	if(event.phase == "began") then
-		if (gameData.onIceberg == false) then
+	if (gameData.onIceberg == false) then
+		if(event.phase == "began") then
 			gameData.inWater = true
-
 			
 			print("==================== began collided with water, count: " .. waterCount .. " ===================")
 
@@ -45,15 +44,13 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				player:startDeathTimer(mapData, miniMap, gui)
 				gameData.allowPaneSwitch = false
 				player.lastPositionX = player.imageObject.x
-				player.lastPositionY = player.imageObject.y
-				
+				player.lastPositionY = player.imageObject.y				
 
 				player.lastPositionSaved = true
 				player.imageObject.linearDamping = 3
 
 				local vx, vy = player.imageObject:getLinearVelocity()
 				--print("entry velocity is " .. vx .. ", " .. vy)
-
 
 				local xf = player.imageObject.x + vx
 				local yf = player.imageObject.y + vy
@@ -91,6 +88,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				end
 
 				timer.performWithDelay(500, stopPlayer)
+				
+				local sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 
 				--transition.to(player.imageObject, {time = 200, x = xf, y = yf})
 				--player.imageObject:setLinearVelocity(0,0)
@@ -106,9 +105,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				player.lastSavePoint.pane = mapData.pane
 			end
 			waterCount = waterCount + 1
-		end
-	elseif event.phase == "ended"  then
-		if (gameData.onIceberg == false) then
+		elseif event.phase == "ended"  then
 			if(waterCount > 0) then
 				waterCount = waterCount - 1
 				player.shook = false
@@ -126,11 +123,13 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			end
 		end
 	end
-	if gameData.onIceberg then
+	
+	
+	--if gameData.onIceberg then
 		--print(" @@@@@@@@@@@@@@@ still on an iceberg")
-	else
+	--else
 		--print(" $$$$$$$$$$$$$$$ not on an iceberg")
-	end
+	--end
 	-- If player is not on top of iceberg
 	--[[if gameData.onIceberg == false then
 		gameData.allowPaneSwitch = false
