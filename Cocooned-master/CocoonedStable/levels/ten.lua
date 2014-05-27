@@ -155,13 +155,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[17].x, wisp[17].y = generate.tilesToPixels(31, 6)
 
 		-- Shrink rune
-<<<<<<< HEAD
-		rune[3].x, rune[3].y = generate.tilesToPixels(3, 21)			
-		rune[3].isVisible = true
-=======
+		rune[4].x, rune[4].y = generate.tilesToPixels(3, 21)			
+		rune[4].isVisible = true
+
 		rune[4].x, rune[4].y = generate.tilesToPixels(3, 15)			
 		rune[4].isVisible = true
->>>>>>> 36990642c090a1043f2818a435530072022bc104
 
 		generate.gWisps(wisp, map, mapData, 1, 17, ten.wispCount)
 	elseif mapData.pane == "L" then
