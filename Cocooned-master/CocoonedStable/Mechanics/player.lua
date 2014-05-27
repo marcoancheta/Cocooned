@@ -98,7 +98,7 @@ end
 local function changeBack(player)
 	physics.removeBody(player)
 	player:scale(2,2)
-	physics.addBody(player, {radius = 36, bounce = .25, density = 0.3})
+	physics.addBody(player, {radius = 38, bounce = .25, density = 0.3})
 	auraEmitter:changeRadius(25)
 	physics.setGravity(0,0)
 	--player.linearDamping = 1.25
@@ -354,8 +354,6 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-
-
 local function killPlayer(player, mapData, gui)
 	print("I'm dying in pane " .. mapData.pane)
 	player.lastPositionSaved = false
@@ -371,6 +369,7 @@ local function killPlayer(player, mapData, gui)
 
 	player.imageObject.linearDamping = 1.25
 	player.imageObject:setLinearVelocity(0,0)
+	
 	if player.lastPositionX == -100 then
 		player.imageObject.x = player.lastSavePoint.x
 		player.imageObject.y = player.lastSavePoint.y
