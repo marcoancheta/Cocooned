@@ -135,7 +135,6 @@ local function gObjects(level, objects, map, mapData, runes)
 				objects[name .. j].isSensor = true
 				-- add object to map display group
 				map.front:insert(objects[name .. j])
-				print("creating " .. objects[name .. j].name)
 			end
 			--objects[name .. j]:toBack()
 		end
@@ -359,7 +358,6 @@ local function gWater(map, mapData, direction)
 	water.isSensor = true
 
 	map.front:insert(water)
-	print("i have water for : " .. mapData.levelNum .. ", " .. mapData.pane)
 end
 
 --------------------------------------------------------------------------------

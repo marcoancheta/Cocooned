@@ -43,7 +43,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			print("==================== began collided with water, count: " .. waterCount .. " ===================")
 
 			if(waterCount == 0) then
-				player:startDeathTimer(mapData)
+				player:startDeathTimer(mapData, miniMap, gui)
 				gameData.allowPaneSwitch = false
 				player.lastPositionX = player.imageObject.x
 				player.lastPositionY = player.imageObject.y
@@ -101,8 +101,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				end
 				waterShadow = display.newCircle(player.lastPositionX, player.lastPositionY, 38)
 				waterShadow.alpha = 0
+				waterShadow.name = "waterShadow"
 				gui.front:insert(waterShadow)
 				player.lastSavePoint = waterShadow
+				player.lastSavePoint.pane = mapData.pane
 			end
 			waterCount = waterCount + 1
 		end

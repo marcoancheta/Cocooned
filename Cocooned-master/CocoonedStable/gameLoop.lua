@@ -337,7 +337,10 @@ local function loadMap(mapData)
 	ball2.density = .3
 	-- Assign balls to their respected player imageObjects
 	player1.imageObject = ball
-	player2.imageObject = ball2		
+	player2.imageObject = ball2	
+	-- Assign players paneTransition mechanic if needed
+	player1.switchPanes = paneTransition
+	player2.switchPanes = paneTransition
 	-- Load in map
 	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players)
 	-- Start mechanics

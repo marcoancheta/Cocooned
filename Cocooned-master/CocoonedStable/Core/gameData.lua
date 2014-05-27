@@ -42,6 +42,9 @@ local gameData = {
 	allowMiniMap = false,
 	showMiniMap = false,
 	isShowingMiniMap = false,
+
+	-- Collision Booleans
+	collOn = true,
 	
 	-- Game Booleans
 	inWater = false,

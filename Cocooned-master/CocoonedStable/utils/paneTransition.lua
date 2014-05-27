@@ -71,6 +71,67 @@ local function movePanes(event)
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
 	collisionDetection.changeCollision(params.player1, params.mapData, params.gui, params.map)
+
+	-- delay collision detection for a little while
+	local function turnCollOn() gameData.collOn = true end
+	timer.performWithDelay(200, turnCollOn)
+
+	-- check if the player has swiped into water
+	local playerPos = params.player1.imageObject
+	local locationFound = false
+	local degree = 0
+	local distanceCheck = 70
+	local inWater = false
+
+	-- use raycasting to see the players surroundings
+	while locationFound == false do
+		for i = 1, 36 do
+			local x = playerPos.x + (distanceCheck * math.cos(degree * (math.pi/180)))
+			local y = playerPos.y + (distanceCheck * math.sin(degree * (math.pi/180)))
+
+			local hits = physics.rayCast(playerPos.x, playerPos.y, x, y, "sorted")
+
+			if (hits) then
+				for i,v in ipairs(hits)
+				do 
+				 	if v.object ~= nil then
+						if v.object.name == "water" then
+							locationFound = true
+							inWater = true
+							break
+						elseif v.object.name == "background" then
+							locationFound = true
+							break
+						end
+					end
+				end
+			end
+			degree = degree + 10
+		end
+		distanceCheck = distanceCheck + 30
+	end
+
+	if inWater then
+		gameData.inWater = true
+		gameData.onLand = false
+		if waterShadow then
+					waterShadow:removeSelf()
+					waterShadow = nil
+		end
+		savePoint = display.newCircle(playerPos.x, playerPos.y , 38)
+		savePoint.alpha = 0
+		savePoint.name = "paneSavePoint"
+		params.player1.lastSavePoint = savePoint
+		params.player1.lastPositionX = savePoint.x
+		params.player1.lastPositionY = savePoint.y
+		params.player1.lastSavePoint.pane = params.tempPane
+		params.player1.miniMap = params.miniMap
+		params.player1.lastPositionSaved = true
+		params.player1:startDeathTimer(params.mapData, params.gui)
+	else
+		print("IM ON LAND!!!")
+	end
+
 end
 
 --------------------------------------------------------------------------------
@@ -98,6 +159,7 @@ end
 local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	gameData.allowPaneSwitch = false
 	gameData.allowTouch = false
+	gameData.collOn = false
 	
 	sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[3])

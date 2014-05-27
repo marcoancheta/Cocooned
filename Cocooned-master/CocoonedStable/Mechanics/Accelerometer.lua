@@ -117,6 +117,11 @@ local function onAccelerate(event, player)
 
 
 		local lastPoint = player.lastSavePoint
+		if lastPoint == nil then
+			print("I DONT EVEN HAVE A LAST POINT")
+		else
+			print("I died on pane : " .. lastPoint.pane)
+		end
 
 		local useLastPoint = true
 		if player.lastSavePoint.moveable then

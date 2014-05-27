@@ -154,7 +154,7 @@ end
 -- Sound Effects Music [Channel: 1]
 local function playSound(name)
 	sfx = audio.play(name, {channel = 1, loops = 0})
-	print("play sound:", name)
+	-- print("play sound:", name)
 	
 	return sfx
 end
@@ -163,7 +163,7 @@ end
 local function playNarration(name)
 	audio.setVolume(0.5, { channel=2 })
 	narrator = audio.play(name, {channel = 2, loops=0})
-	print("play narration:", name)
+	-- print("play narration:", name)
 	
 	return narrator
 end
@@ -171,7 +171,7 @@ end
 -- Background Music [Channel: 3]
 local function playBGM(name)
 	bgm = audio.play(name, {channel = 3, loops=-1})
-	print("play BGM:", name)
+	-- print("play BGM:", name)
 	
 	return bgm
 end

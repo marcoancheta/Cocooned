@@ -84,8 +84,10 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		if event.phase == "began" then
 			-- if the object is a solid, call it's function
 			if (collideObject.collType == "solid" and collideObject.name ~= "walls") or (collideObject.name == "water") then
-				local col = require("Objects.collision." .. collideObject.func)
-				col.collide(collideObject, player, event, mapData, map, gui)	
+				if gameData.collOn then
+					local col = require("Objects.collision." .. collideObject.func)
+					col.collide(collideObject, player, event, mapData, map, gui)	
+				end
 			end
 		  
 			-- create particle effect

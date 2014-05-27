@@ -76,11 +76,12 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				if onlyWater then
 					--print(" YOU DROWNING NIGGA!!!")
 					if player.lastPositionSaved == false then
-						player:startDeathTimer(mapData)
+						player:startDeathTimer(mapData, gui)
 						player.lastPositionX = -100
 						player.lastPositionY = -100
 						player.lastPositionSaved = true
 						player.lastSavePoint = collideObject
+						player.lastSavePoint.pane = mapData.pane
 						player.imageObject.linearDamping = 3
 
 						local vx, vy = player.imageObject:getLinearVelocity()

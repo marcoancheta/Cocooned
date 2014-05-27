@@ -60,6 +60,8 @@ local playerInstance = {
 	lastSavePoint = nil,
 	lastPositionSaved = false,
 	onLand = true,
+	switchPanes = nil,
+	miniMap = nil,
 	
 	-- Booleans
 	deathTimer = nil,
@@ -343,6 +345,10 @@ function playerInstance:rotate (x,y)
 	self.imageObject.rotation = angle + 90
 end
 
+function playerInstance:saveSelf()
+
+end
+
 --------------------------------------------------------------------------------
 -- Death - player function that kills player and respawns
 --------------------------------------------------------------------------------
@@ -350,14 +356,15 @@ end
 --------------------------------------------------------------------------------
 
 
-local function killPlayer(player, mapData)
-	print("so dead " .. player.name)
+local function killPlayer(player, mapData, gui)
+	print("I'm dying in pane " .. mapData.pane)
 	player.lastPositionSaved = false
 	player.shook = false
 	player.onLand = true
 	gameData.inWater = false
 	gameData.allowPaneSwith = true
 	gameData.onIceberg = false
+	gameData.collOn = false
 
 	local waterCol = require("Objects.collision.waterCollision")
 	waterCol.reset()
@@ -374,6 +381,18 @@ local function killPlayer(player, mapData)
 		player.imageObject.x = player.lastPositionX
 		player.imageObject.y = player.lastPositionY
 	end
+
+	if player.lastSavePoint.pane ~= mapData.pane then
+		local tempPane = mapData.pane
+		mapData.pane = player.lastSavePoint.pane
+		print("I gotta move panes!!")
+		player.switchPanes.playTransition(tempPane, player.miniMap, mapData, gui, player)
+	else
+		print("I gotta turn collision ON!")
+		local function turnCollOn() gameData.collOn = true end
+		timer.performWithDelay(100, turnCollOn)
+	end
+
 end
 
 --------------------------------------------------------------------------------
@@ -381,9 +400,9 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:startDeathTimer (mapData)
+function playerInstance:startDeathTimer (mapData, gui)
 	print("Starting TIMER!!!!! HURRY!!")
-	local function passParams() killPlayer(self, mapData) end
+	local function passParams() killPlayer(self, mapData, gui) end
 	self.deathTimer = timer.performWithDelay(3000, passParams)
 end
 
