@@ -367,6 +367,7 @@ local function killPlayer(player, mapData, gui)
 	local waterCol = require("Objects.collision.waterCollision")
 	waterCol.reset()
 
+	player.imageObject.alpha = 1
 	player.imageObject.linearDamping = 1.25
 	player.imageObject:setLinearVelocity(0,0)
 	
