@@ -36,7 +36,7 @@ end
 -- creates the collision detection for that pane
 local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	
-	--resetCollision()
+	resetCollision()
 
 	-- function for pre collision 
 	-- before the object collides, call its own collide function

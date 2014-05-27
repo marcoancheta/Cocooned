@@ -109,26 +109,25 @@ local function onAccelerate(event, player)
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav
 	elseif gameData.inWater == true then
-		-- Freeze accelerometer gravity values
+		--sound.pauseSound(1)
 		physicsParam.xGrav = 0
 		physicsParam.yGrav = 0
 		
-		local ball = player.imageObject		
-		local degree = 0
-		local distanceCheck = 50
-		local shoreFound = false
-		local rotation = 36
-		local degreeAdd = 10
-		local foreverCheck = 0
-		local lastPoint = player.lastSavePoint
-		local useLastPoint = true
-		
 		-- Accelerometer Shake Event
 		if event.isShake and player.shook == false then
-			print("TITS")
 			emptyGroup(rayCastCheck)
 			emptyGroup(rayCastDistanceCheck)
-		
+				
+			local ball = player.imageObject		
+			local degree = 0
+			local distanceCheck = 50
+			local shoreFound = false
+			local rotation = 36
+			local degreeAdd = 10
+			local foreverCheck = 0
+			local lastPoint = player.lastSavePoint
+			local useLastPoint = true
+
 			if player.lastSavePoint.moveable then
 				useLastPoint = false
 			end
