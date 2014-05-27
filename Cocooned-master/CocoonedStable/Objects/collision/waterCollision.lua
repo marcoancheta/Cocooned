@@ -14,6 +14,7 @@ local uMath = require("utils.utilMath")
 --------------------------------------------------------------------------------
 local waterCount = 0
 local waterShadow
+local sinkTrans
 
 --------------------------------------------------------------------------------
 -- Clean Function - function for deleting all local variables
@@ -89,7 +90,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 				timer.performWithDelay(500, stopPlayer)
 				
-				local sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
+				sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 
 				--transition.to(player.imageObject, {time = 200, x = xf, y = yf})
 				--player.imageObject:setLinearVelocity(0,0)
@@ -117,7 +118,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				player:stopDeathTimer()
 				gameData.inWater = false
 				player.lastPositionSaved = false
-				--player.imageObject.alpha = 1
+				if sinkTrans then
+					transition.cancel(sinkTrans)
+				end
+				player.imageObject.alpha = 1
 				player.imageObject:setLinearVelocity(0,0)
 				player.imageObject.linearDamping = 1.25
 				gameData.allowPaneSwitch = true
