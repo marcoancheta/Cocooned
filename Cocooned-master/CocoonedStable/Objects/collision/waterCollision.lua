@@ -117,6 +117,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				player:stopDeathTimer()
 				gameData.inWater = false
 				player.lastPositionSaved = false
+				player.imageObject.alpha = 1
 				player.imageObject:setLinearVelocity(0,0)
 				player.imageObject.linearDamping = 1.25
 				gameData.allowPaneSwitch = true
