@@ -45,13 +45,14 @@ end
 -- Updated by: Andrew moved event.contact.isenabled to precollision
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	if(event.phase == "began") then
-		
-		--print("##############  I just collided with water ###############")
-		if (gameData.onIceberg == false) then
-			print("==================== began collided with water, count: " .. waterCount .. " ===================")		
-
+	
+	if (gameData.onIceberg == false) then
+		if(event.phase == "began") then
+			print("==================== began collided with water, count: " .. waterCount .. " ===================")				
 			if(waterCount == 0) then
+				print("##############  I just collided with water ###############")
+				waterCount = waterCount + 1
+				
 				-- Change gameData booleans to reflect player in water
 				gameData.inWater = true	
 				gameData.allowPaneSwitch = false
@@ -63,43 +64,42 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				player.lastPositionSaved = savePos(player)
 				-- Make player stuck in collide position
 				player.imageObject.linearDamping = 3
-
+				-- Locally store velocity x and y values
 				local vx, vy = player.imageObject:getLinearVelocity()
 				--print("entry velocity is " .. vx .. ", " .. vy)
 				local xf = player.imageObject.x + vx
 				local yf = player.imageObject.y + vy
+				-- Calculate distance between player's position and land position
 				local distance = uMath.distanceXY(player.imageObject.x, player.imageObject.y, xf, yf)
+				-- ---> Numbers. <---
 				local moveX = 100 * math.cos(math.acos(vx/distance))
 				local moveY = 100 * math.sin(math.asin(vy/distance))
-
+				-- Update xf and vf values
 				xf = player.imageObject.x + moveX
 				yf = player.imageObject.y + moveY
-
 				--print("player is at " .. player.imageObject.x .. ", " .. player.imageObject.y)
 				--print("move the player to this point: " .. xf .. ", " .. yf)
-
+				-- Update distance
 				distance = uMath.distanceXY(player.imageObject.x, player.imageObject.y, xf, yf)
-
-				local deltaX, deltaY = 0,0
-				deltaX = xf - player.imageObject.x
-				deltaY = yf - player.imageObject.y
-
+				-- Create deltaX and deltaY distances
+				local deltaX = xf - player.imageObject.x
+				local deltaY = yf - player.imageObject.y
+				-- Calculate and store angles
 				local angleX = math.acos(deltaX/distance)
 				local angleY = math.asin(deltaY/distance)
-
-				local jumpDirectionX, jumpDirectionY = 0,0
-				jumpDirectionX = 10 * math.cos(angleX)
-				jumpDirectionY = 10 * math.sin(angleY)
-
+				-- 
+				local jumpDirectionX = 10 * math.cos(angleX)
+				local jumpDirectionY = 10 * math.sin(angleY)
+				
 				player.imageObject:setLinearVelocity(0,0)
 				player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
 
-				local function stopPlayer()
-					print(">>>>>>>>>>>>> STOPPED DAT NIGGA")
-					player.imageObject:setLinearVelocity(0,0)
-				end
+				--local function stopPlayer()
+				--	print(">>>>>>>>>>>>> STOPPED DAT NIGGA")
+				--	player.imageObject:setLinearVelocity(0,0)
+				--end
 
-				timer.performWithDelay(500, stopPlayer)
+				--timer.performWithDelay(300, stopPlayer)
 
 				--transition.to(player.imageObject, {time = 200, x = xf, y = yf})
 				--player.imageObject:setLinearVelocity(0,0)
@@ -113,24 +113,27 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				player.lastSavePoint = waterShadow
 				gui.front:insert(waterShadow)
 			end
-			waterCount = waterCount + 1
-		end
-	elseif event.phase == "ended"  then
-		if (gameData.onIceberg == false) then
+			
+		elseif event.phase == "ended"  then
+		
 			if(waterCount > 0) then
 				waterCount = waterCount - 1
 				player.shook = false
 				print("==================== ended collided with water, count: " .. waterCount .. " ===================")
 			end
+			
 			if ( waterCount == 0 ) and player.onLand then
 				print("==================== OUT ended collided with water, count: " .. waterCount .. " ===================")
+				-- Set booleans back to default
 				player.shook = false
-				player:stopDeathTimer()
-				gameData.inWater = false
 				player.lastPositionSaved = false
+				gameData.inWater = false
+				gameData.allowPaneSwitch = true
+				-- Stop player death timer
+				player:stopDeathTimer()
+				-- Reset player's velocity and damping physics
 				player.imageObject:setLinearVelocity(0,0)
 				player.imageObject.linearDamping = 1.25
-				gameData.allowPaneSwitch = true
 			end
 		end
 	end
