@@ -288,6 +288,7 @@ local function onAccelerate(event, player)
 		--timer.performWithDelay(2000, pushDatNigga)
 		--transition.to(ball, {time = 200, x = lastPoint.x, y = lastPoint.y})
 	elseif gameData.inWater == false or gameData.onIceberg == true then
+		player.imageObject.alpha = 1
 		--sound.playNarration(sound.soundEffects[7])
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav
