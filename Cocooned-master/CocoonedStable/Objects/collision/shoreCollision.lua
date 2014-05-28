@@ -22,8 +22,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 	--if event.phase == "began" then
 		player.onLand = true
-		gameData.onIceberg = false
-		gameData.inWater = false
 	--elseif event.phase == "ended" then
 		--player.onLand = false
 	--end
