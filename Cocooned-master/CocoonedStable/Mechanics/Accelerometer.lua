@@ -128,12 +128,14 @@ local function launch(rayCastCheck, ball, player, useLastPoint)
 	local jumpDirectionX = 20 * math.cos(angleX)
 	local jumpDirectionY = 20 * math.sin(angleY)
 
-	--print("push player in " .. jumpDirectionX .. ", " .. jumpDirectionY)
+	print("push player in " .. jumpDirectionX .. ", " .. jumpDirectionY)
 	accelPlayer[1] = player
 	player.shook = true
 	ball.linearDamping = 0
 	ball:setLinearVelocity(deltaX*3, deltaY*3)
 	ball.alpha = 1
+	
+	print("STEP 6")
 end
 
 --------------------------------------------------------------------------------
@@ -229,6 +231,7 @@ local function shake(player)
 	-- End while loop
 	
 	launch(rayCastCheck, ball, player, useLastPoint)
+	print("STEP 5")
 end
 
 --------------------------------------------------------------------------------
@@ -251,13 +254,17 @@ local function onAccelerate(event, player)
 		physicsParam.xGrav = xGrav
 		physicsParam.yGrav = yGrav
 	elseif gameData.inWater == true then
+		print("STEP 1")
 		--sound.pauseSound(1)
 		physicsParam.xGrav = 0
 		physicsParam.yGrav = 0
 		
 		if event.isShake and player.shook == false then
+			print("STEP 2")
 			emptyGroup(rayCastCheck)
+			print("STEP 3")
 			emptyGroup(rayCastDistanceCheck)
+			print("STEP 4")
 			shake(player)
 		end
 	end
