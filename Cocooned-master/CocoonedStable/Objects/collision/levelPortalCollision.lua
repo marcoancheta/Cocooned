@@ -21,6 +21,12 @@ local selectLevel = {
 	version = 0
 }
 
+local function temp(target)
+	if gameData.inLevelSelector then
+		target:setLinearVelocity(0,0)
+	end
+end
+
 --------------------------------------------------------------------------------
 -- Collide Function - end game if exit portal is active
 --------------------------------------------------------------------------------
@@ -31,31 +37,27 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		-- Enable portal collision
 	--	event.other.isSensor = false
 	--end
-
-	local function temp(target)
-		if gameData.inLevelSelector then
-			target:setLinearVelocity(0,0)
-		end
-	end
 			
 	-- Check every portal to see if player has collided
 	for i=1, 15 do
 		if collideObject.name == "exitPortal" ..i.. "" then
-			-- Disable portal collision
-			collideObject.isSensor = true
-			selectLevel.world = gameData.mapData.world
-			selectLevel.levelNum = ""..i..""
-			selectLevel.pane = "M"		
-			-- Run goals
-			goals.onPlay(collideObject)			
-			goals.findGoals(selectLevel, gui)
-			-- Transfer selectLevel values to gameData.mapData
-			gameData.mapData = selectLevel
-			player.curse = 0
-			player.xGrav = 0
-			player.yGrav = 0
-			local trans = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y, onComplete = temp} )
-			break
+			if collideObject.isBodyActive == true then
+				-- Disable portal collision
+				collideObject.isBodyActive = false
+				selectLevel.world = gameData.mapData.world
+				selectLevel.levelNum = ""..i..""
+				selectLevel.pane = "M"		
+				-- Run goals
+				goals.onPlay(collideObject)			
+				goals.findGoals(selectLevel, gui)
+				-- Transfer selectLevel values to gameData.mapData
+				gameData.mapData = selectLevel
+				player.curse = 0
+				player.xGrav = 0
+				player.yGrav = 0
+				local trans = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y, onComplete=temp} )
+				break
+			end
 		--[[else
 			goals.hidePlay()
 

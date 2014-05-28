@@ -20,7 +20,7 @@ local levelPortalObject
 -- reenablePortal() - Re-enable portal that player collided with
 --------------------------------------------------------------------------------
 local function reenablePortal()
-	levelPortalObject.isSensor = false
+	levelPortalObject.isBodyActive = true
 end
 
 --------------------------------------------------------------------------------
