@@ -24,6 +24,12 @@ local five = {
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }
 	panes = {true,false,false,false,true},
+	-- Check to see which runes are available
+	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
+	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
+	--              {    Middle,     Up,   Down,  Right,  Left }
+	runeAvailable = {"pinkRune", "none", "none", "none", "none"},
+	-- Timer
 	timer = 200,
 	playerCount = 1,
 	playerPos = {{["x"]=5, ["y"]=5}},
@@ -47,7 +53,7 @@ local five = {
 		["exitPortal"] = 0,
 		["enemy"] = 0,
 		["fixedIceberg"] = 1,
-		["worldPortal"] = 0
+		["worldPortal"] = 0,
 	},
 	["D"] = {
 		["blueAura"] = 0,
@@ -134,8 +140,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
+		
 		-- Pink rune	
-		rune[3].x, rune[3].y = generate.tilesToPixels(3.5, 20)			
+		rune[3].x, rune[3].y = generate.tilesToPixels(3.5, 3)			
 		rune[3].isVisible = true
 		
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(17, 7)
@@ -187,6 +194,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(4, 4)
 
+		-- Purple rune	
+		rune[4].x, rune[4].y = generate.tilesToPixels(1.5, 1.5)			
+		rune[4].isVisible = true
+		
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 8, 16, five.wispCount)
 	end

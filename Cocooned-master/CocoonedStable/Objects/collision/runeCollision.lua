@@ -42,7 +42,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 	-- add rune to inventory
 	--player:addInventory(collideObject)
-	player:addRune(collideObject)
+	player:addRune(collideObject, map)
 
 	-- create rune animation collection sprite and play it
 	local runeCollide = display.newSprite(animation.sheetOptions.runeSheet, animation.spriteOptions.runeAnimation)
@@ -69,7 +69,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		sound.playSound(sound.soundEffects[11])
 		gameData.gRune = true
 		--player:moveWalls(gui)
-	elseif collideObject.name == "yellowRune" then
+	--elseif collideObject.name == "yellowRune" then
 	elseif collideObject.name == "purpleRune" then
 		collideObject:removeSelf()
 		-- Create animation for the ball shrinking 

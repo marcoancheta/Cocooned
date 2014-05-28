@@ -29,7 +29,6 @@ local sound = require("sound")
 local paneSheet
 local transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.spriteOptions.paneSwitch)
 
-
 --------------------------------------------------------------------------------
 -- turnCollOn - re-enable collision
 --------------------------------------------------------------------------------

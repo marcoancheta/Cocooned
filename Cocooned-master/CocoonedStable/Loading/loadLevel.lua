@@ -26,6 +26,10 @@ local miniMapMechanic = require("Mechanics.miniMap")
 local snow = require("utils.snow")
 -- GameData (gameData.lua)
 local gameData = require("Core.gameData")
+-- Inventory
+local inventory = require("Mechanics.inventoryMechanic")
+-- Level names
+local levelNames = require("utils.levelNames")
 
 --------------------------------------------------------------------------------
 -- Variables - variables for loading panes
@@ -156,22 +160,22 @@ local function createLevel(mapData, players)
 	end
 	
 	-- Create ball shadow
-	local shadowCirc
-	if gameData.shadow == true then
+	--local shadowCirc
+	--if gameData.shadow == true then
 		-- shadowCirc = display.newCircle(players[1].imageObject.x, players[1].imageObject.y, 43)
 		-- shadowCirc:setFillColor(86*0.0039216,72*0.0039216,92*0.0039216)
 		-- shadowCirc.alpha = 0.5
 		-- shadowCirc.name = "shadowCirc"
-	else
-		shadowCirc = nil
-	end
+	--else
+	--	shadowCirc = nil
+	--end
 	
 	-- Add objects to its proper groups
 	gui.back:insert(levelBG)	
 	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
-		if shadowCirc ~= nil then
-			gui.middle:insert(shadowCirc)
-		end
+		--if shadowCirc ~= nil then
+		--	gui.middle:insert(shadowCirc)
+		--end
 		gui.middle:insert(levelWalls)
 		for i = 1, gui.playerCount do
 			gui.front:insert(players[i].imageObject)
@@ -183,9 +187,9 @@ local function createLevel(mapData, players)
 	elseif mapData.levelNum == "LS" or mapData.levelNum == "world" then
 		----------------------------
 		-- Level selector exclusive
-		if shadowCirc ~= nil then
-			gui.middle:insert(shadowCirc)
-		end
+		--if shadowCirc ~= nil then
+		--	gui.middle:insert(shadowCirc)
+		--end
 		gui.middle:insert(players[1].imageObject)
 		gui.front:insert(levelWalls)
 		
@@ -209,6 +213,35 @@ local function createLevel(mapData, players)
 	return gui, miniMapDisplay, shadowCirc
 end
 
+local function activate(gui, mapData, player, miniMap)
+	local level = require("levels." .. levelNames[mapData.levelNum])
+	-- load in which pane player is in
+	for j=1, #level.runeAvailable do
+		-- Check rune inventory slots for runes collected
+		for i=1, #inventory.inventoryInstance.runes do
+			-- check which rune was collected and activate ability
+			if inventory.inventoryInstance.runes[i] == "blueRune" then
+				if level.runeAvailable[j] == inventory.inventoryInstance.runes[i] then
+					player:breakWalls(gui.front)
+				end
+			elseif inventory.inventoryInstance.runes[i] == "pinkRune" then
+				if level.runeAvailable[j] == inventory.inventoryInstance.runes[i] then
+					player:slowTime(gui.front)
+				end
+			elseif inventory.inventoryInstance.runes[i] == "greenRune" then
+				if level.runeAvailable[j] == inventory.inventoryInstance.runes[i] then
+					gameData.gRune = true
+					--player:moveWalls(gui)
+				end
+			elseif inventory.inventoryInstance.runes[i] == "purpleRune" then
+				if level.runeAvailable[j] == inventory.inventoryInstance.runes[i] then
+					player:shrink()
+				end
+			end
+		end
+	end
+end
+
 --------------------------------------------------------------------------------
 -- Change Pane - function that changes panes of level
 --------------------------------------------------------------------------------
@@ -219,7 +252,12 @@ local function changePane(gui, mapData, player, miniMap)
 	snow.meltSnow()
 	transition.cancel()
 	snow.new()
-
+	
+	-- if player is small, set player size back to normal
+	if player.small == true then
+		player:unshrink()
+	end
+	
 	-- load in wall collision
 	local levelBG, levelWalls = drawPane(mapData)
 	
@@ -228,11 +266,9 @@ local function changePane(gui, mapData, player, miniMap)
 	--gui.front:insert(player.imageObject)
 	objects.main(mapData, gui)
 
-	-- if player is small, set player size back to normal
-	if player.small == true then
-		player:unshrink()
-	end
-
+	-- Check rune inventory slots for runes collected
+	activate(gui, mapData, player, miniMap)
+	
 	-- check if player has finished level
 	levelFinished.checkWin(player, gui.front, mapData)
 	

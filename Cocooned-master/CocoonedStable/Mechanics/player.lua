@@ -100,9 +100,9 @@ local function changeBack(player)
 	physics.removeBody(player)
 	player:scale(2,2)
 	physics.addBody(player, {radius = 36, bounce = .25, density = 0.3})
-	if auraEmitter ~= nil then
-		auraEmitter:changeRadius(25)
-	end
+	--if auraEmitter ~= nil then
+	--	auraEmitter:changeRadius(25)
+	--end
 	physics.setGravity(0,0)
 	-- player.linearDamping = 1.25
 	-- player.density = .3
@@ -117,9 +117,9 @@ local function changeSize(player)
 	physics.removeBody(player)
 	player:scale(0.5,0.5)
 	physics.addBody(player, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
-	if auraEmitter ~= nil then
-		auraEmitter:changeRadius(-25)
-	end
+	--if auraEmitter ~= nil then
+	--	auraEmitter:changeRadius(-25)
+	--end
 	physics.setGravity(0,0)
 	--player.linearDamping = 1.25
 end
@@ -284,16 +284,6 @@ function playerInstance:unshrink()
 	timer.performWithDelay(100, delayShrink)
 end
 
-
---------------------------------------------------------------------------------
--- Rotate Transition - function that rotates player image object
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-local function rotateTransition(imageObject, rotationDelta, timeDelta)
-    transition.to(imageObject, {rotation=rotationDelta, time=timeDelta, transition=easing.inOutCubic, tag='rotation' } )
-end 
-
 --------------------------------------------------------------------------------
 -- Shrink - player function that calls delay timer for changeSize
 --------------------------------------------------------------------------------
@@ -304,6 +294,15 @@ function playerInstance:shrink()
 	local delayShrink = function() return changeSize( self.imageObject ) end
 	timer.performWithDelay(100, delayShrink)
 end
+
+--------------------------------------------------------------------------------
+-- Rotate Transition - function that rotates player image object
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function rotateTransition(imageObject, rotationDelta, timeDelta)
+    transition.to(imageObject, {rotation=rotationDelta, time=timeDelta, transition=easing.inOutCubic, tag='rotation' } )
+end 
 
 --------------------------------------------------------------------------------
 -- Slow Time - player function that slows time of moveable objects
@@ -350,9 +349,9 @@ function playerInstance:rotate (x,y)
 	self.imageObject.rotation = angle + 90
 end
 
-function playerInstance:saveSelf()
-
-end
+--function playerInstance:saveSelf()
+--
+--end
 
 --------------------------------------------------------------------------------
 -- Death - player function that kills player and respawns
