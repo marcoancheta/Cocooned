@@ -63,6 +63,8 @@ local ballPos = {
 	["15"]  = {["x"]=20, ["y"]=14},
 }
 
+local panes = {"M", "U", "D", "R", "L"}
+
 local myClosure = function() loaded = loaded + 1 return loading.updateLoading( loaded ) end
 local deleteClosure = function() return loading.deleteLoading() end
 
@@ -215,28 +217,25 @@ end
 
 local function activate(gui, mapData, player, miniMap)
 	local level = require("levels." .. levelNames[mapData.levelNum])
-	-- load in which pane player is in
-	for j=1, #level.runeAvailable do
-		-- Check rune inventory slots for runes collected
-		for i=1, #inventory.inventoryInstance.runes do
-			-- check which rune was collected and activate ability
-			if inventory.inventoryInstance.runes[i] == "blueRune" then
-				if level.runeAvailable[j] == inventory.inventoryInstance.runes[i] then
-					player:breakWalls(gui.front)
-				end
-			elseif inventory.inventoryInstance.runes[i] == "pinkRune" then
-				if level.runeAvailable[j] == inventory.inventoryInstance.runes[i] then
-					player:slowTime(gui.front)
-				end
-			elseif inventory.inventoryInstance.runes[i] == "greenRune" then
-				if level.runeAvailable[j] == inventory.inventoryInstance.runes[i] then
-					gameData.gRune = true
-					--player:moveWalls(gui)
-				end
-			elseif inventory.inventoryInstance.runes[i] == "purpleRune" then
-				if level.runeAvailable[j] == inventory.inventoryInstance.runes[i] then
-					player:shrink()
-				end
+	-- Check rune inventory slots for runes collected
+	for i=1, #inventory.inventoryInstance.runes do
+		-- check which rune was collected and activate ability
+		if inventory.inventoryInstance.runes[i] == "blueRune" then
+			if level.runeAvailable[mapData.pane] == inventory.inventoryInstance.runes[i] then
+				player:breakWalls(gui.front)
+			end
+		elseif inventory.inventoryInstance.runes[i] == "pinkRune" then
+			if level.runeAvailable[mapData.pane] == inventory.inventoryInstance.runes[i] then
+				player:slowTime(gui.front)
+			end
+		elseif inventory.inventoryInstance.runes[i] == "greenRune" then
+			if level.runeAvailable[mapData.pane] == inventory.inventoryInstance.runes[i] then
+				gameData.gRune = true
+				--player:moveWalls(gui)
+			end
+		elseif inventory.inventoryInstance.runes[i] == "purpleRune" then
+			if level.runeAvailable[mapData.pane] == inventory.inventoryInstance.runes[i] then
+				player:shrink()
 			end
 		end
 	end
@@ -252,12 +251,7 @@ local function changePane(gui, mapData, player, miniMap)
 	snow.meltSnow()
 	transition.cancel()
 	snow.new()
-	
-	-- if player is small, set player size back to normal
-	if player.small == true then
-		player:unshrink()
-	end
-	
+		
 	-- load in wall collision
 	local levelBG, levelWalls = drawPane(mapData)
 	
@@ -266,6 +260,11 @@ local function changePane(gui, mapData, player, miniMap)
 	--gui.front:insert(player.imageObject)
 	objects.main(mapData, gui)
 
+	-- if player is small, set player size back to normal
+	if player.small == true then
+		player:unshrink()
+	end
+	
 	-- Check rune inventory slots for runes collected
 	activate(gui, mapData, player, miniMap)
 	

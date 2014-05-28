@@ -27,8 +27,11 @@ local five = {
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	--              {    Middle,     Up,   Down,  Right,  Left }
-	runeAvailable = {"pinkRune", "none", "none", "none", "purpleRune"},
+	runeAvailable = {["M"]="pinkRune", 
+					 ["U"]="none", 
+					 ["D"]="none", 
+					 ["R"]="none", 
+					 ["L"]="purpleRune"},
 	-- Timer
 	timer = 200,
 	playerCount = 1,

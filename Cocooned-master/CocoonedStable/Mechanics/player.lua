@@ -99,7 +99,7 @@ local function changeBack(player)
 	print("un-shrinking the player back to normal size")
 	physics.removeBody(player)
 	player:scale(2,2)
-	physics.addBody(player, {radius = 36, bounce = .25, density = 0.3})
+	physics.addBody(player, {radius = 38, bounce = .25, density = 0.3})
 	--if auraEmitter ~= nil then
 	--	auraEmitter:changeRadius(25)
 	--end
@@ -311,7 +311,7 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:slowTime(map)
 	for check = 1, map.numChildren do
-		if map[check].moveable == true then
+		if map[check].moveable == true and map[check].name ~= "kipcha" then
 			map[check].time = 20000
 		end
 	end
