@@ -22,9 +22,7 @@ local levelPortalObject
 local function reenablePortal(obj)
 	levelPortalObject.isSensor = false
 	-- Reset player accelerometer values
-	obj.curse = 1
-	obj.xGrav = 0
-	obj.yGrav = 0
+	playerTemp.curse = 1
 end
 
 --------------------------------------------------------------------------------
@@ -57,7 +55,7 @@ local function hidePlay(playerTemp)
 	cancel.isVisible = false
 	cancel.isSensor = true
 	
-	local playerTrans = transition.to(playerTemp.imageObject, {time=1000, alpha=1, x=738, y=522, onComplete=reenablePortal})
+	local playerTrans = transition.to(playerTemp.imageObject, {time=500, alpha=1, x=738, y=522, onComplete=reenablePortal})
 	--play:removeEventListener("tap", tapOnce)
 	--cancel:removeEventListener("tap", tapOnce)
 end
