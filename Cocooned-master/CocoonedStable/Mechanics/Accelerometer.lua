@@ -190,7 +190,7 @@ local function shake(player)
 	end
 	
 	-- Keep checking for position until water is found
-	if shoreFound == false then
+	while shoreFound == false do
 		foreverCheck = foreverCheck + 1		
 		for i = 1, rotation do
 			local x = ball.x + (distanceCheck * math.cos(degree * (math.pi/180)))
@@ -237,7 +237,7 @@ local function shake(player)
 			-- Increase distances checked
 			distanceCheck = distanceCheck + 25	
 		end
-			
+	
 		---------------------------
 		------- DEBUG TEXT --------
 		--if foreverCheck > 20 then
@@ -283,9 +283,9 @@ local function onAccelerate(event, player)
 		if event.isShake and player.shook == false then
 			print(gameData.inWater)
 			print("STEP 2")
-			emptyGroup(rayCastCheck)
+			--emptyGroup(rayCastCheck)
 			print("STEP 3")
-			emptyGroup(rayCastDistanceCheck)
+			--emptyGroup(rayCastDistanceCheck)
 			print("STEP 4")
 			shake(player)
 		end

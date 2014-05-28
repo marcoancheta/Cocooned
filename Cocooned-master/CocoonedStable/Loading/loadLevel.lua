@@ -221,21 +221,29 @@ local function activate(gui, mapData, player, miniMap)
 	for i=1, #inventory.inventoryInstance.runes do
 		-- check which rune was collected and activate ability
 		if inventory.inventoryInstance.runes[i] == "blueRune" then
-			if level.runeAvailable[mapData.pane] == inventory.inventoryInstance.runes[i] then
-				player:breakWalls(gui.front)
+			for j=1, #level.runeAvailable[mapData.pane] do
+				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
+					player:breakWalls(gui.front)
+				end
 			end
 		elseif inventory.inventoryInstance.runes[i] == "pinkRune" then
-			if level.runeAvailable[mapData.pane] == inventory.inventoryInstance.runes[i] then
-				player:slowTime(gui.front)
+			for j=1, #level.runeAvailable[mapData.pane] do
+				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
+					player:slowTime(gui.front)
+				end
 			end
 		elseif inventory.inventoryInstance.runes[i] == "greenRune" then
-			if level.runeAvailable[mapData.pane] == inventory.inventoryInstance.runes[i] then
-				gameData.gRune = true
-				--player:moveWalls(gui)
+			for j=1, #level.runeAvailable[mapData.pane] do
+				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
+					gameData.gRune = true
+					--player:moveWalls(gui)
+				end
 			end
 		elseif inventory.inventoryInstance.runes[i] == "purpleRune" then
-			if level.runeAvailable[mapData.pane] == inventory.inventoryInstance.runes[i] then
-				player:shrink()
+			for j=1, #level.runeAvailable[mapData.pane] do
+				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
+					player:shrink()
+				end
 			end
 		end
 	end

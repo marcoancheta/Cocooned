@@ -24,7 +24,14 @@ local world = {
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }}
 	panes = {true,false,false,false,false},
-	
+	-- Check to see which runes are available
+	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
+	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
+	runeAvailable = {["M"]="none", 
+					 ["U"]="none", 
+					 ["D"]="none", 
+					 ["R"]="none", 
+					 ["L"]="none"},
 	-- number of wisps in the level
 	wispCount = 0,
 	waterCount = 0,

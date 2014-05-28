@@ -23,6 +23,14 @@ local thirteen = {
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }
 	panes = {true,true,false,true,true},
+	-- Check to see which runes are available
+	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
+	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
+	runeAvailable = {["M"]= {"none"}, 
+					 ["U"]= {"purpleRune", "pinkRune"}, 
+					 ["D"]= {"none"}, 
+					 ["R"]= {"pinkRune"}, 
+					 ["L"]= {"pinkRune"}},
 	timer = 300,
 	playerCount = 1,
 	playerPos = {{["x"]=21, ["y"]=12},},
@@ -224,6 +232,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Shrink
 		rune[4].x, rune[4].y = generate.tilesToPixels(3, 3)			
 		rune[4].isVisible = true
+		
 		-- Slow time 
 		rune[3].x, rune[3].y = generate.tilesToPixels(36, 3)			
 		rune[3].isVisible = true

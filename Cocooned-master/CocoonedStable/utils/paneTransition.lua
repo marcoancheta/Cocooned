@@ -20,6 +20,7 @@ local animation = require("Core.animation")
 local gameData = require("Core.gameData")
 -- Generate sound
 local sound = require("sound")
+local waterCol = require("Objects.collision.waterCollision")
 
 --------------------------------------------------------------------------------
 -- Variables
@@ -153,7 +154,10 @@ local function movePanes(event)
 	if inWater then
 		gameData.inWater = true
 		gameData.onLand = false
-				
+		
+		-- Transition player's alpha to 0
+		waterCol.sinkTrans = transition.to(params.player1.imageObject, {time=3000, alpha=0})
+		
 		savePoint = display.newCircle(playerPos.x, playerPos.y , 38)
 		savePoint.alpha = 0
 		savePoint.name = "paneSavePoint"
