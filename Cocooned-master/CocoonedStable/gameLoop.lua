@@ -72,13 +72,14 @@ local win = require("Core.win")
 local highScore = require("Core.highScore")
 -- Font
 local font = require("utils.font")
+-- Goals
+local goals = require("Core.goals")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-
 -- Initialize ball
 local ball
 local mapPanes
@@ -104,7 +105,6 @@ local tempPane -- variable that holds current pane player is in for later use
 local tutorialText
 
 local textObject = display.newText("", 600, 400, font.TEACHERA, 72)
-
 		
 local count = 0
 
@@ -320,7 +320,7 @@ local function loadMap(mapData)
 	table.insert(players, 2, player2)
 	-- Create player/ball object to map
 	ball = display.newSprite(animation.sheetOptions.playerSheet, animation.spriteOptions.player)
-	ball2 = display.newSprite(animation.sheetOptions.playerSheet, animation.spriteOptions.player)
+	ball2 = display.newSprite(animation.sheetOptions.playerSheet2, animation.spriteOptions.player)
 	-- set name and animation sequence for ball
 	ball.name = "player"
 	ball:setSequence("move")
@@ -337,7 +337,10 @@ local function loadMap(mapData)
 	ball2.density = .3
 	-- Assign balls to their respected player imageObjects
 	player1.imageObject = ball
-	player2.imageObject = ball2		
+	player2.imageObject = ball2	
+	-- Assign players paneTransition mechanic if needed
+	player1.switchPanes = paneTransition
+	player2.switchPanes = paneTransition
 	-- Load in map
 	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players)
 	-- Start mechanics
@@ -594,6 +597,7 @@ local function gameLoopEvents(event)
 		loadMap(mapData)
 		snow.new()
 		-- Re-evaluate gameData booleans
+		goals.destroyGoals()
 		gameData.inLevelSelector = 0
 		gameData.inWater = false
 		gameData.preGame = true

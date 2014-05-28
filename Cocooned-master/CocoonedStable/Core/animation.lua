@@ -66,11 +66,11 @@ local animation = {
 			{frames = {1}, name = "still", time = 250}
 		},
 		["exitPortal"] = {
-			{frames = {5, 4, 3, 2}, name = "move", time = 500}, 
+			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 850}, 
 			{frames = {1}, name = "still", time = 250}
 		},
 		["worldPortal"] = {
-			{frames = {5, 4, 3, 2}, name = "move", time = 500}, 
+			{frames = {9, 8, 7, 6, 5, 4, 3, 2, 1}, name = "move", time = 850}, 
 			{frames = {1}, name = "still", time = 250}
 		},
 		["wolf"] = {
@@ -98,6 +98,8 @@ local animation = {
 	--------------------------------------------------------------------------------
 	sheetOptions = {
 		playerSheet = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite.png", 
+				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9}),
+		playerSheet2 = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite2.png", 
 				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9}),
 		runeSheet = graphics.newImageSheet("mapdata/art/animation/runeAnimation.png", 
 					 {width = 72, height = 72, sheetContentWidth = 432, sheetContentHeight = 216, numFrames = 18}),

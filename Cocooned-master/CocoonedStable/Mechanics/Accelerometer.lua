@@ -117,6 +117,11 @@ local function onAccelerate(event, player)
 
 
 		local lastPoint = player.lastSavePoint
+		if lastPoint == nil then
+			print("I DONT EVEN HAVE A LAST POINT")
+		else
+			print("I died on pane : " .. lastPoint.pane)
+		end
 
 		local useLastPoint = true
 		if player.lastSavePoint.moveable then
@@ -279,10 +284,12 @@ local function onAccelerate(event, player)
 		ball.linearDamping = 0
 		--local function pushDatNigga()
 		ball:setLinearVelocity(deltaX*3, deltaY*3)
+		ball.alpha = 1
 		--end
 		--timer.performWithDelay(2000, pushDatNigga)
 		--transition.to(ball, {time = 200, x = lastPoint.x, y = lastPoint.y})
 	elseif gameData.inWater == false or gameData.onIceberg == true then
+		player.imageObject.alpha = 1
 		--sound.playNarration(sound.soundEffects[7])
 		-- offset the gravity to return
 		physicsParam.xGrav = xGrav

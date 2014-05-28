@@ -60,6 +60,8 @@ local playerInstance = {
 	lastSavePoint = nil,
 	lastPositionSaved = false,
 	onLand = true,
+	switchPanes = nil,
+	miniMap = nil,
 	
 	-- Booleans
 	deathTimer = nil,
@@ -94,13 +96,16 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeBack(player)
+	print("un-shrinking the player back to normal size")
 	physics.removeBody(player)
 	player:scale(2,2)
 	physics.addBody(player, {radius = 36, bounce = .25, density = 0.3})
-	auraEmitter:changeRadius(25)
+	if auraEmitter ~= nil then
+		auraEmitter:changeRadius(25)
+	end
 	physics.setGravity(0,0)
-	--player.linearDamping = 1.25
-	--player.density = .3
+	-- player.linearDamping = 1.25
+	-- player.density = .3
 end
 
 --------------------------------------------------------------------------------
@@ -112,7 +117,9 @@ local function changeSize(player)
 	physics.removeBody(player)
 	player:scale(0.5,0.5)
 	physics.addBody(player, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
-	auraEmitter:changeRadius(-25)
+	if auraEmitter ~= nil then
+		auraEmitter:changeRadius(-25)
+	end
 	physics.setGravity(0,0)
 	--player.linearDamping = 1.25
 end
@@ -343,27 +350,32 @@ function playerInstance:rotate (x,y)
 	self.imageObject.rotation = angle + 90
 end
 
+function playerInstance:saveSelf()
+
+end
+
 --------------------------------------------------------------------------------
 -- Death - player function that kills player and respawns
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-
-
-local function killPlayer(player, mapData)
-	print("so dead " .. player.name)
+local function killPlayer(player, mapData, gui)
+	print("I'm dying in pane " .. mapData.pane)
 	player.lastPositionSaved = false
 	player.shook = false
 	player.onLand = true
 	gameData.inWater = false
 	gameData.allowPaneSwith = true
 	gameData.onIceberg = false
+	gameData.collOn = false
 
 	local waterCol = require("Objects.collision.waterCollision")
 	waterCol.reset()
 
+	player.imageObject.alpha = 1
 	player.imageObject.linearDamping = 1.25
 	player.imageObject:setLinearVelocity(0,0)
+	
 	if player.lastPositionX == -100 then
 		player.imageObject.x = player.lastSavePoint.x
 		player.imageObject.y = player.lastSavePoint.y
@@ -374,6 +386,18 @@ local function killPlayer(player, mapData)
 		player.imageObject.x = player.lastPositionX
 		player.imageObject.y = player.lastPositionY
 	end
+
+	if player.lastSavePoint.pane ~= mapData.pane then
+		local tempPane = mapData.pane
+		mapData.pane = player.lastSavePoint.pane
+		print("I gotta move panes!!")
+		player.switchPanes.playTransition(tempPane, player.miniMap, mapData, gui, player)
+	else
+		print("I gotta turn collision ON!")
+		local function turnCollOn() gameData.collOn = true end
+		timer.performWithDelay(100, turnCollOn)
+	end
+
 end
 
 --------------------------------------------------------------------------------
@@ -381,9 +405,9 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:startDeathTimer (mapData)
+function playerInstance:startDeathTimer (mapData, gui)
 	print("Starting TIMER!!!!! HURRY!!")
-	local function passParams() killPlayer(self, mapData) end
+	local function passParams() killPlayer(self, mapData, gui) end
 	self.deathTimer = timer.performWithDelay(3000, passParams)
 end
 
