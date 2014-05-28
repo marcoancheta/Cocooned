@@ -295,7 +295,7 @@ end
 local function startPhys(event)
 	-- Start physics
 	physics.start()
-	-- Reapply curse
+	-- Reapply regular movement
 	player1.curse = 1
 	player2.curse = 1
 end
