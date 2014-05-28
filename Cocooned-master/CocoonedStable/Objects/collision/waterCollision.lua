@@ -72,6 +72,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				-- Clear waterShadow in clean function
 				clean()
 				-- Trigger booleans to reflect inWater
+				player.onLand = false
 				gameData.inWater = true
 				gameData.allowPaneSwitch = false
 				-- Start player's death timer
@@ -177,7 +178,8 @@ local waterCollision = {
 	collide = collide,
 	collideEnd = collideEnd,
 	reset = reset,
-	waterCount = waterCount
+	waterCount = waterCount,
+	sinkTrans = sinkTrans
 }
 
 return waterCollision

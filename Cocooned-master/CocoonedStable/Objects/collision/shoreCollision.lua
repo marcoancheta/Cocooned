@@ -20,11 +20,11 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		event.contact.isEnabled = false
 	end
 
-	if event.phase == "began" then
+	--if event.phase == "began" then
 		player.onLand = true
-	elseif event.phase == "ended" then
-		player.onLand = false
-	end
+	--elseif event.phase == "ended" then
+		--player.onLand = false
+	--end
 
 	--collideObject.isSensor = true
 	--[[

@@ -9,6 +9,7 @@ local sound = require("sound")
 local physics = require("physics")
 local generate = require("Objects.generateObjects")
 local uMath = require("utils.utilMath")
+local waterCol = require("Objects.collision.waterCollision")
 --NOTE: to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
 
 local rayCastCheck = display.newGroup()
@@ -129,6 +130,11 @@ local function launch(rayCastCheck, ball, player, useLastPoint, lastPoint)
 	local jumpDirectionY = 20 * math.sin(angleY)
 
 	print("push player in " .. jumpDirectionX .. ", " .. jumpDirectionY)
+	
+	if waterCol.sinkTrans ~= nil then
+		transition.cancel(waterCol.sinkTrans)
+	end
+	
 	accelPlayer[1] = player
 	player.shook = true
 	ball.linearDamping = 0
