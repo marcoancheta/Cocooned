@@ -85,12 +85,12 @@ local function calcAccelValues(event)
 end
 
 --------------------------------------------------------------------------------
--- launch(rayCastCheck, ball, player, useLastPoint) - 
+-- launch(rayCastCheck, ball, player, useLastPoint, lastPoint) - 
 --------------------------------------------------------------------------------
-local function launch(rayCastCheck, ball, player, useLastPoint)
+local function launch(rayCastCheck, ball, player, useLastPoint, lastPoint)
 	local choosePoint = 0
 	local minDist = math.huge
-	
+		
 	for i = 1, rayCastCheck.numChildren do
 		local dist
 		if useLastPoint then
@@ -230,7 +230,7 @@ local function shake(player)
 	end
 	-- End while loop
 	
-	launch(rayCastCheck, ball, player, useLastPoint)
+	launch(rayCastCheck, ball, player, useLastPoint, lastPoint)
 	print("STEP 5")
 end
 
