@@ -29,6 +29,18 @@ local function clean(event)
 end
 
 --------------------------------------------------------------------------------
+-- End Animation -- function that ends animation for water splash 
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function endAnimation( event )
+	if ( event.phase == "ended" ) then
+		local thisSprite = event.target  --"event.target" references the sprite
+		thisSprite:removeSelf()  --play the new sequence; it won't play automatically!
+	end
+end
+
+--------------------------------------------------------------------------------
 -- Collide Function - function for water collision
 --------------------------------------------------------------------------------
 -- Updated by: Robert James Ford XIII
@@ -38,7 +50,16 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if (gameData.onIceberg == false) then
 		if(event.phase == "began") then
 			gameData.inWater = true
-			
+			local splashAnim = display.newSprite(animation.sheetOptions.splashSheet, animation.spriteOptions.splash)	
+			-- Start splash at player location
+			splashAnim.x = player.imageObject.x
+			splashAnim.y = player.imageObject.y
+			-- Enlarge the size of the splash
+			splashAnim:scale(.5, .5)
+			splashAnim:setSequence("move")
+			splashAnim:play()
+			splashAnim:addEventListener( "sprite", endAnimation )
+
 			print("==================== began collided with water, count: " .. waterCount .. " ===================")
 
 			if(waterCount == 0) then
