@@ -30,6 +30,23 @@ local transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.s
 local paneSheet
 
 --------------------------------------------------------------------------------
+-- End Transition - function that ends pane switch transition
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function endTransition(event)
+	-- set sequence to stop and remove it
+	if transPic then
+		transPic:setSequence("stop")
+		transPic:removeSelf()
+		transPic = nil
+	end
+	
+	gameData.allowTouch = true
+	gameData.allowPaneSwitch = true
+end
+
+--------------------------------------------------------------------------------
 -- Move Panes - changes current pane to new one
 --------------------------------------------------------------------------------
 -- Updated by: Marco
@@ -74,7 +91,7 @@ local function movePanes(event)
 
 	-- delay collision detection for a little while
 	local function turnCollOn() gameData.collOn = true end
-	timer.performWithDelay(200, turnCollOn)
+	timer.performWithDelay(500, turnCollOn)
 
 	-- check if the player has swiped into water
 	local playerPos = params.player1.imageObject
@@ -136,24 +153,8 @@ local function movePanes(event)
 	else
 		print("IM ON LAND!!!")
 	end
-
-end
-
---------------------------------------------------------------------------------
--- End Transition - function that ends pane switch transition
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-local function endTransition(event)
-	-- set sequence to stop and remove it
-	if transPic then
-		transPic:setSequence("stop")
-		transPic:removeSelf()
-		transPic = nil
-	end
 	
-	gameData.allowTouch = true
-	gameData.allowPaneSwitch = true
+	endTransition(event)
 end
 
 --------------------------------------------------------------------------------
@@ -245,9 +246,9 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	end
 	
 	-- timers for deleting pane image and ending pane switch
-	local endTrans = timer.performWithDelay(1000, endTransition)
+	--local endTrans = timer.performWithDelay(1000, endTransition)
 		
-	local moveTrans = timer.performWithDelay(400, movePanes)
+	local moveTrans = timer.performWithDelay(600, movePanes)
 		  moveTrans.params = { tempPane = tempPane, 
 								miniMap = miniMap, 
 									gui = gui, 

@@ -132,6 +132,7 @@ local function launch(rayCastCheck, ball, player, useLastPoint, lastPoint)
 	print("push player in " .. jumpDirectionX .. ", " .. jumpDirectionY)
 	
 	if waterCol.sinkTrans ~= nil then
+		print("=====CANCEL TRANSITION WATERCOL.SINKTRANS=====")
 		transition.cancel(waterCol.sinkTrans)
 	end
 	
@@ -218,13 +219,12 @@ local function shake(player)
 		if shoreFound ~= true then
 			emptyGroup(rayCastDistanceCheck)
 			emptyGroup(rayCastCheck)
+			-- Reset degree
+			degree = 0
+			-- Increase distances checked
+			distanceCheck = distanceCheck + 25	
 		end
-		
-		-- Reset degree
-		degree = 0
-		-- Increase distances checked
-		distanceCheck = distanceCheck + 25	
-		
+			
 		---------------------------
 		------- DEBUG TEXT --------
 		--if foreverCheck > 20 then
