@@ -34,7 +34,7 @@ local playerInstance = {
 	magnetized = "neutral", -- {negative, neutral, positive}
 	color = "white",
 	image = "null",
-	name = "hello",
+	--name = "hello",
 	movement = "accel",
 	--escape = "center",
 	name = "kipcha",
@@ -103,7 +103,7 @@ local function changeBack(player)
 	--if auraEmitter ~= nil then
 	--	auraEmitter:changeRadius(25)
 	--end
-	physics.setGravity(0,0)
+	--physics.setGravity(0,0)
 	-- player.linearDamping = 1.25
 	-- player.density = .3
 end
@@ -120,7 +120,7 @@ local function changeSize(player)
 	--if auraEmitter ~= nil then
 	--	auraEmitter:changeRadius(-25)
 	--end
-	physics.setGravity(0,0)
+	--physics.setGravity(0,0)
 	--player.linearDamping = 1.25
 end
 
@@ -311,7 +311,7 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:slowTime(map)
 	for check = 1, map.numChildren do
-		if map[check].moveable == true and map[check].name ~= "kipcha" then
+		if map[check].moveable == true then
 			map[check].time = 20000
 		end
 	end
