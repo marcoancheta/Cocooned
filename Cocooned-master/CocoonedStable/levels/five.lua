@@ -145,8 +145,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	if mapData.pane == "M" then
 		
 		-- Pink rune	
-		rune[3].x, rune[3].y = generate.tilesToPixels(3.5, 3)			
-		rune[3].isVisible = true
+		rune[4].x, rune[4].y = generate.tilesToPixels(3.5, 3)			
+		rune[4].isVisible = true
 		
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(17, 7)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 7)
@@ -198,8 +198,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(4, 4)
 
 		-- Purple rune	
-		rune[4].x, rune[4].y = generate.tilesToPixels(1.5, 1.5)			
-		rune[4].isVisible = true
+		rune[3].x, rune[3].y = generate.tilesToPixels(1.5, 1.5)			
+		rune[3].isVisible = true
 		
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 8, 16, five.wispCount)

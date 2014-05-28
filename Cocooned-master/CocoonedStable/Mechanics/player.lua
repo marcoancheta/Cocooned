@@ -104,7 +104,7 @@ local function changeBack(player)
 	--	auraEmitter:changeRadius(25)
 	--end
 	--physics.setGravity(0,0)
-	-- player.linearDamping = 1.25
+	player.linearDamping = 1.25
 	-- player.density = .3
 end
 
