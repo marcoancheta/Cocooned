@@ -131,6 +131,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
+		-- Blue Aura
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
 		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(28, 6)
@@ -138,16 +139,18 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Shrink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(4, 3)			
 		rune[4].isVisible = true
-		
+
+		-- Exit Portal
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
+
+		-- Wisps
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(24, 6)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(26, 8)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(28, 9)
 		wisp[4].x, wisp[4].y = generate.tilesToPixels(30, 9)
 		wisp[5].x, wisp[5].y = generate.tilesToPixels(38, 10)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(38, 13)
-		
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 7)
 		
 		generate.gWisps(wisp, map, mapData, 1, 6, two.wispCount)
 		generate.gAuraWalls(map, mapData, "blueWall")

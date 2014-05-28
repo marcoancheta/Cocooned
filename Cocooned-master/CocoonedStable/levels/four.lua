@@ -135,6 +135,25 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Check which pane
 
 	if mapData.pane == "L" then
+		-- Icebergs
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(25, 17)
+		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(25, 10)
+		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(25, 10)
+		objects["fixedIceberg2"].eX, objects["fixedIceberg2"].eY = generate.tilesToPixels(4, 10)
+		objects["fixedIceberg3"].x, objects["fixedIceberg3"].y = generate.tilesToPixels(10, 10)
+		objects["fixedIceberg3"].eX, objects["fixedIceberg3"].eY = generate.tilesToPixels(10, 5)
+		objects["fixedIceberg1"].time = 7000
+		objects["fixedIceberg2"].time = 11000
+		objects["fixedIceberg3"].time = 3800
+		objects["fixedIceberg1"].movement = "fixed" 
+		objects["fixedIceberg2"].movement = "fixed" 
+		objects["fixedIceberg3"].movement = "fixed" 
+		
+		-- Exit Portal
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14.5, 3)
+
+		-- Wisps 
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(25, 17)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 15)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 13)
@@ -151,22 +170,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[14].x, wisp[14].y = generate.tilesToPixels(4, 10)
 		wisp[15].x, wisp[15].y = generate.tilesToPixels(10, 8)
 		wisp[16].x, wisp[16].y = generate.tilesToPixels(10, 6)
-
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(25, 17)
-		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(25, 10)
-		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(25, 10)
-		objects["fixedIceberg2"].eX, objects["fixedIceberg2"].eY = generate.tilesToPixels(4, 10)
-		objects["fixedIceberg3"].x, objects["fixedIceberg3"].y = generate.tilesToPixels(10, 10)
-		objects["fixedIceberg3"].eX, objects["fixedIceberg3"].eY = generate.tilesToPixels(10, 5)
-		objects["fixedIceberg1"].time = 7000
-		objects["fixedIceberg2"].time = 11000
-		objects["fixedIceberg3"].time = 3800
-		objects["fixedIceberg1"].movement = "fixed" 
-		objects["fixedIceberg2"].movement = "fixed" 
-		objects["fixedIceberg3"].movement = "fixed" 
-		
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14.5, 3)
 				
 		generate.gWisps(wisp, map, mapData, 1, 16, four.wispCount)
 		--generate.gAuraWalls(map, mapData, "blueWall")

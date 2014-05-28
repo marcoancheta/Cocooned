@@ -40,7 +40,7 @@ local five = {
 		["greenAura"] = 0,
 		["wolf"] = 0,
 		["fish1"] = 1,
-		["fish2"] = 0,
+		["fish2"] = 1,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -139,7 +139,22 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Pink rune	
 		rune[3].x, rune[3].y = generate.tilesToPixels(3.5, 20)			
 		rune[3].isVisible = true
+
+		-- Fish 
+		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(12, 2)
+ 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(12, 11)
+ 		objects["fish21"].x, objects["fish21"].y = generate.tilesToPixels(22, 11)
+ 		objects["fish21"].eX, objects["fish21"].eY = generate.tilesToPixels(22, 2)
+ 		objects["fish11"].time = 675
+ 		objects["fish21"].time = 675
+
+ 		-- Iceberg
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(3, 8)
+		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(3, 21)
+		objects["fixedIceberg1"].time = 3800
+		objects["fixedIceberg1"].movement = "fixed"
 		
+		-- Wisps
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(17, 7)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(25, 7)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(32, 10)
@@ -147,18 +162,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[5].x, wisp[5].y = generate.tilesToPixels(23, 16)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 19)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(35, 14)
-
-		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(12, 2)
- 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(12, 11)
- 		--objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(22, 11)
- 		--objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(22, 2)
- 		objects["fish11"].time = 675
- 		--objects["fish12"].time = 675
-
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(3, 8)
-		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(3, 21)
-		objects["fixedIceberg1"].time = 3800
-		objects["fixedIceberg1"].movement = "fixed"
 		
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 1, 7, five.wispCount)
