@@ -152,7 +152,7 @@ local function launch(rayCastCheck, ball, player, useLastPoint, lastPoint)
 	ball:setLinearVelocity(deltaX*3, deltaY*3)
 	ball.alpha = 1
 	-- Take 5 milliseconds to reset player's velocity
-	local stopTimer = timer.performWithDelay(500, stopPlayer)
+	local stopTimer = timer.performWithDelay(250, stopPlayer)
 	stopTimer.params = {playerParams = player}
 	
 	print("STEP 6")
