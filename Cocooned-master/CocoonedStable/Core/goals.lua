@@ -117,7 +117,12 @@ local function destroyGoals()
 		cancel:removeEventListener("tap", tapOnce)
 		cancel:removeSelf()
 		cancel = nil
-	end	
+	end
+	-- clear out playerTrans holder
+	if playerTrans ~= nil then
+		transition.cancel(playerTrans)
+		playerTrans = nil
+	end
 end
 
 --------------------------------------------------------------------------------
