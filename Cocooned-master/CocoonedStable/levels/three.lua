@@ -134,17 +134,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Slow time rune
 		rune[3].x, rune[3].y = generate.tilesToPixels(5, 5)			
 		rune[3].isVisible = true
-		
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(5, 8)
-		wisp[2].x, wisp[2].y = generate.tilesToPixels(5, 12)
-		wisp[3].x, wisp[3].y = generate.tilesToPixels(10, 12)
-		wisp[4].x, wisp[4].y = generate.tilesToPixels(15, 12)
-		-- Right three wisps
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(20, 12)
-		wisp[6].x, wisp[6].y = generate.tilesToPixels(25, 12)
-		wisp[7].x, wisp[7].y = generate.tilesToPixels(30, 12)
 
-		
+		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(30, 4)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(30, 19)
  		objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(22, 4)
@@ -155,8 +146,19 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish12"].time = 1375
  		objects["fish21"].time = 1375
 		
+		-- Exit portal
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(35, 12)
+		
+		-- Wisps
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(5, 8)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(5, 12)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(10, 12)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(15, 12)
+		-- Right three wisps
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(20, 12)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(25, 12)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(30, 12)
 
 		generate.gWisps(wisp, map, mapData, 1, 7, three.wispCount)
 	elseif mapData.pane == "L" then
