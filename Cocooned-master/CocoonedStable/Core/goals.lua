@@ -7,37 +7,20 @@
 local gameData = require("Core.gameData")
 local generate = require("Objects.generateObjects")
 local font = require("utils.font")
+
 ---------------------
 -- Local variables
 ---------------------
-local play, cancel
---local rune = {}
 local textObject = {}
+local play, cancel
 local playerTemp
 local levelPortalObject
 
 --------------------------------------------------------------------------------
--- destroyGoals - Destroy it all!
+-- reenablePortal() - Re-enable portal that player collided with
 --------------------------------------------------------------------------------
--- Updated by: Derrick
---------------------------------------------------------------------------------
-local function destroyGoals()
-	--print("Destroyed goalie")
-	
-	if textObject then	
-		for i=1, #textObject do
-			display.remove(textObject[i])
-		end
-	end
-	if play then
-		play:removeSelf()
-		play = nil		
-	end
-	if cancel then
-		cancel:removeSelf()
-		cancel = nil
-	end
-	textObject = nil
+local function reenablePortal()
+	levelPortalObject.isSensor = false
 end
 
 --------------------------------------------------------------------------------
@@ -50,41 +33,46 @@ local function onPlay(object)
 	textObject[2].isVisible = true
 	textObject[1].alpha = 0.8
 	textObject[2].alpha = 1
+	-- Hide play and cancel buttons & turn off physics for it
 	play.isVisible = true
-	play:addEventListener("tap", tapOnce)
+	play.isBodyActive = true
 	cancel.isVisible = true
-	cancel:addEventListener("tap", tapOnce)
+	cancel.isBodyActive = true
+	
 	levelPortalObject = object
+	
+	--play:addEventListener("tap", tapOnce)
+	--cancel:addEventListener("tap", tapOnce)
 end
 
 local function hidePlay()
 	textObject[1].isVisible = false
 	textObject[2].isVisible = false
 	play.isVisible = false
-	play:removeEventListener("tap", tapOnce)
+	play.isBodyActive = false
+	--play:removeEventListener("tap", tapOnce)
 	cancel.isVisible = false
-	cancel:removeEventListener("tap", tapOnce)
+	cancel.isBodyActive = false
+	--cancel:removeEventListener("tap", tapOnce)
 end
 
-local function reenablePortal()
-	levelPortalObject.isSensor = false
-end
 --------------------------------------------------------------------------------
 -- Tap Once - function is called when player1 taps screen
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-function tapOnce(event)
+local function tapOnce(event)
+	-- Check if player is in game and current scene is not in game options
 	if gameData.gameOptions ~= true then
 		-- Kipcha Play button detection
 		if event.target.name == "playButton" then	
 			-- Destroy goals map
-			destroyGoals()	
+			--destroyGoals()
 			gameData.gameStart = true
 		elseif event.target.name == "cancelButton" then
 			print("HIT CANCEL BUTTON!!!!")
-			hidePlay()
-			
+			-- Hide play/cancel buttons and goal texts
+			hidePlay()		
 			local portalTimer = timer.performWithDelay(1500, reenablePortal)
 			textObject[1].isVisible = false
 			textObject[2].isVisible = false
@@ -95,6 +83,36 @@ function tapOnce(event)
 	end
 end
 
+
+--------------------------------------------------------------------------------
+-- destroyGoals - Destroy it all!
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
+local function destroyGoals()
+	--print("Destroyed goalie")	
+	-- If text objects still exists
+	if textObject ~= nil then	
+		for i=1, #textObject do
+			display.remove(textObject[i])
+		end
+		
+		textObject = nil
+	end
+	-- If play button still exists
+	if play ~= nil then
+		play:removeEventListener("tap", tapOnce)
+		play:removeSelf()
+		play = nil		
+	end
+	-- If cancel button still exists
+	if cancel ~= nil then
+		cancel:removeEventListener("tap", tapOnce)
+		cancel:removeSelf()
+		cancel = nil
+	end	
+end
+
 --------------------------------------------------------------------------------
 -- drawGoals - Draw/Insert Objects
 --------------------------------------------------------------------------------
@@ -103,7 +121,6 @@ end
 local function drawGoals(gui, player)
 	-- Reinitialize arrays
 	textObject = {}
-
 	playerTemp = player
 
 	-- Goal text displayer
@@ -125,13 +142,17 @@ local function drawGoals(gui, player)
 	-- Create play button
 	play = display.newImageRect("mapdata/art/buttons/play.png", 275, 275)
 	play.x, play.y  = generate.tilesToPixels(36, 19)
-	play.isVisible = false
 	play.name = "playButton"
+	play:addEventListener("tap", tapOnce)
+	play.isVisible = false
+	play.isBodyActive = false
 
 	cancel = display.newImageRect("mapdata/art/buttons/cancel.png", 275, 275)
 	cancel.x, cancel.y = generate.tilesToPixels(5, 19)
-	cancel.isVisible = false
 	cancel.name = "cancelButton"
+	cancel:addEventListener("tap", tapOnce)
+	cancel.isVisible = false
+	cancel.isBodyActive = false
 			
 	-- insert objects to display group
 	gui.front:insert(textObject[1])

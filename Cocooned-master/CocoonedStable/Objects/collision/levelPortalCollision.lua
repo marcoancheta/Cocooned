@@ -26,29 +26,28 @@ local selectLevel = {
 --------------------------------------------------------------------------------
 -- Updated by: D
 --------------------------------------------------------------------------------
-local function collide(collideObject, player, event, mapData, map, gui)
-	-- Disable portal collision
-	event.other.isSensor = true
-	goals.drawGoals(gui, player)
-
-	local function resume()
+local function collide(collideObject, player, event, mapData, map, gui)	
+	--local function resume()
 		-- Enable portal collision
-		event.other.isSensor = false
-	end
+	--	event.other.isSensor = false
+	--end
 
 	local function temp(target)
 		if gameData.inLevelSelector then
 			target:setLinearVelocity(0,0)
 		end
 	end
-						
+			
+	-- Check every portal to see if player has collided
 	for i=1, 15 do
 		if collideObject.name == "exitPortal" ..i.. "" then
+			-- Disable portal collision
+			collideObject.isSensor = true
 			selectLevel.world = gameData.mapData.world
 			selectLevel.levelNum = ""..i..""
 			selectLevel.pane = "M"		
 			-- Run goals
-			goals.onPlay(event.other)			
+			goals.onPlay(collideObject)			
 			goals.findGoals(selectLevel, gui)
 			-- Transfer selectLevel values to gameData.mapData
 			gameData.mapData = selectLevel
@@ -57,13 +56,14 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			player.yGrav = 0
 			local trans = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y, onComplete = temp} )
 			break
-		else
+		--[[else
 			goals.hidePlay()
 
 			if trans then
 				transition.cancel(trans)
 				trans = nil
 			end
+		]]--
 		end
 	end
 end

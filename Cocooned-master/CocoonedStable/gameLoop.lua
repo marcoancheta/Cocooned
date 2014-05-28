@@ -72,13 +72,14 @@ local win = require("Core.win")
 local highScore = require("Core.highScore")
 -- Font
 local font = require("utils.font")
+-- Goals
+local goals = require("Core.goals")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-
 -- Initialize ball
 local ball
 local mapPanes
@@ -104,7 +105,6 @@ local tempPane -- variable that holds current pane player is in for later use
 local tutorialText
 
 local textObject = display.newText("", 600, 400, font.TEACHERA, 72)
-
 		
 local count = 0
 
@@ -605,6 +605,7 @@ local function gameLoopEvents(event)
 		loadMap(mapData)
 		snow.new()
 		-- Re-evaluate gameData booleans
+		goals.destroyGoals()
 		gameData.inLevelSelector = 0
 		gameData.inWater = false
 		gameData.preGame = true
