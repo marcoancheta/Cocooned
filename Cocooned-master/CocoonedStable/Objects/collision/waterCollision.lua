@@ -12,6 +12,10 @@ local uMath = require("utils.utilMath")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
+local waterCollision = {
+	sinkTrans = nil
+}
+
 local waterCount = 0
 local waterShadow
 local sinkTrans
@@ -120,7 +124,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				stopTimer = timer.performWithDelay(500, stopPlayer)
 				stopTimer.params = {playerParams = player}
 				-- Transition player's alpha to 0
-				sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
+				waterCollision.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 				-- Create new water shadow
 				--waterShadow = display.newCircle(player.lastPositionX, player.lastPositionY, 38)
 				--waterShadow.alpha = 0
@@ -149,8 +153,8 @@ local function collideEnd(collideObject, player, event, mapData, map, gui)
 				print("==================== ended collided with water, count: " .. waterCount .. " ===================")
 			elseif ( waterCount == 0 ) and player.onLand then
 				-- Cancel transitions
-				if sinkTrans then
-					transition.cancel(sinkTrans)
+				if waterCollision.sinkTrans then
+					transition.cancel(waterCollision.sinkTrans)
 				end
 				-- Turn off deathTimer
 				player:stopDeathTimer()
@@ -174,13 +178,10 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local waterCollision = {
-	collide = collide,
-	collideEnd = collideEnd,
-	reset = reset,
-	waterCount = waterCount,
-	sinkTrans = sinkTrans
-}
+waterCollision.collide = collide
+waterCollision.collideEnd = collideEnd
+waterCollision.reset = reset
+waterCollision.waterCount = waterCount
 
 return waterCollision
 -- end of waterCollision.lua
@@ -246,7 +247,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 				timer.performWithDelay(500, stopPlayer)
 				
-				sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
+				waterCollision.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 
 				--transition.to(player.imageObject, {time = 200, x = xf, y = yf})
 				--player.imageObject:setLinearVelocity(0,0)
@@ -275,8 +276,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				gameData.inWater = false
 				player.lastPositionSaved = false
 				
-				if sinkTrans then
-					transition.cancel(sinkTrans)
+				if waterCollision.sinkTrans then
+					transition.cancel(waterCollision.sinkTrans)
 				end
 				
 				player.imageObject.alpha = 1
