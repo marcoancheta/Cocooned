@@ -18,6 +18,10 @@ local function rad2deg(radian)
 	return deg
 end
 
+local function rayCasting()
+
+end
+
 local utilMath = {
 	distance = distance,
 	distanceXY = distanceXY,

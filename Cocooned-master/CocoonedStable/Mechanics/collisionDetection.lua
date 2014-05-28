@@ -89,12 +89,10 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 					col.collide(collideObject, player, event, mapData, map, gui)	
 				end
 			end
-		  
 			-- create particle effect
 			--if collideObject.collType == "wall" then
 				--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
 			--end
-			
 		elseif event.phase == "ended" then	
 			if collideObject.collType == "solid" then
 				local col = require("Objects.collision." .. collideObject.func)
@@ -102,10 +100,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			elseif collideObject.name == "water" then
 				local col = require("Objects.collision." .. collideObject.func)
 				col.collide(collideObject, player, event, mapData, map, gui)
-			end
-		else
-			if collideObject.name == "water" then
-				--print("still colliding with water")
 			end
 		end
 	end
