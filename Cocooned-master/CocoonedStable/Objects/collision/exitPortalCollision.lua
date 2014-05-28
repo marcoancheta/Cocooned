@@ -40,7 +40,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		player.imageObject:setLinearVelocity(0,0)
 		snow.meltSnow()
 		--print("exiting")
-		local transPortal = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
+		local transPortal = transition.to(player.imageObject, {time=200, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
 		gameData.gRune = false 
 	end
 	

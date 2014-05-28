@@ -29,7 +29,7 @@ local eight = {
 	playerPos = {{["x"]=20, ["y"]=15},},
 
 	-- number of wisps in the level
-	wispCount = 25,
+	wispCount = 12,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -38,8 +38,8 @@ local eight = {
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
-		["fish1"] = 2,
-		["fish2"] = 2,
+		["fish1"] = 4,
+		["fish2"] = 3,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
@@ -144,7 +144,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[5].x, wisp[5].y = generate.tilesToPixels(17, 13)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(23, 13)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(26, 13)
-		wisp[8].x, wisp[8].y = generate.tilesToPixels(29, 13)
+		wisp[8].x, wisp[8].y = generate.tilesToPixels(2, 13)
 		wisp[9].x, wisp[9].y = generate.tilesToPixels(31, 4)
 		wisp[10].x, wisp[10].y = generate.tilesToPixels(34, 3.5)
 		wisp[11].x, wisp[11].y = generate.tilesToPixels(31, 21)
@@ -163,17 +163,31 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish21"].eX, objects["fish21"].eY = generate.tilesToPixels(25, 3)
  		objects["fish21"].time = 675
 		
-		objects["fish22"].x, objects["fish22"].y = generate.tilesToPixels(25, 18)
- 		objects["fish22"].eX, objects["fish22"].eY = generate.tilesToPixels(23, 22)
-		objects["fish22"]:rotate(45)
+		objects["fish22"].x, objects["fish22"].y = generate.tilesToPixels(23, 22)
+ 		objects["fish22"].eX, objects["fish22"].eY = generate.tilesToPixels(25, 18)
+ 		objects["fish22"]:rotate(45)
  		objects["fish22"].time = 675
 
- 		-- Runes
- 		rune[3].x, rune[3].y = generate.tilesToPixels(37, 3)			
-		rune[3].isVisible = true
+ 		objects["fish13"].x, objects["fish13"].y = generate.tilesToPixels(20, 9)
+ 		objects["fish13"].eX, objects["fish13"].eY = generate.tilesToPixels(4, 5)
+ 		objects["fish13"]:rotate(95)
+ 		objects["fish13"].time = 1000
 
-		rune[4].x, rune[4].y = generate.tilesToPixels(37, 21)			
+ 		objects["fish23"].x, objects["fish23"].y = generate.tilesToPixels(3, 21)
+ 		objects["fish23"].eX, objects["fish23"].eY = generate.tilesToPixels(21, 17)
+ 		objects["fish23"]:rotate(95)
+ 		objects["fish23"].time = 1000
+
+ 		objects["fish14"].x, objects["fish14"].y = generate.tilesToPixels(26, 7)
+ 		objects["fish14"].eX, objects["fish14"].eY = generate.tilesToPixels(26, 18)
+ 		objects["fish14"].time = 675
+
+ 		-- Runes
+ 		rune[4].x, rune[4].y = generate.tilesToPixels(29, 13)			
 		rune[4].isVisible = true
+
+		rune[3].x, rune[3].y = generate.tilesToPixels(37, 21)			
+		rune[3].isVisible = true
 
 		-- Exit portal
  		objects["exitPortal1"]:setSequence("still")
