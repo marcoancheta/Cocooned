@@ -26,8 +26,16 @@ local sound = require("sound")
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.spriteOptions.paneSwitch)
 local paneSheet
+local transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.spriteOptions.paneSwitch)
+
+
+--------------------------------------------------------------------------------
+-- turnCollOn - re-enable collision
+--------------------------------------------------------------------------------
+local function turnCollOn() 
+	gameData.collOn = true 
+end
 
 --------------------------------------------------------------------------------
 -- End Transition - function that ends pane switch transition
@@ -44,6 +52,7 @@ local function endTransition(event)
 	
 	gameData.allowTouch = true
 	gameData.allowPaneSwitch = true
+	print("gameData.allowPaneSwitch", gameData.allowPaneSwitch)
 end
 
 --------------------------------------------------------------------------------
@@ -62,15 +71,18 @@ local function movePanes(event)
 
 	-- delete everything on map
 	objects.destroy(params.mapData)
-	for i = params.gui.back.numChildren,1, -1 do
-		params.gui.back[i]:removeSelf()
-	end
-	for i = params.gui.middle.numChildren, 1, -1 do
-		params.gui.middle[i]:removeSelf()
-	end
-	for i = params.gui.front.numChildren, 1, -1 do
-		if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
-			params.gui.front[i]:removeSelf()
+	
+	if params.gui then
+		for i = params.gui.back.numChildren,1, -1 do
+			params.gui.back[i]:removeSelf()
+		end		
+		for i = params.gui.middle.numChildren, 1, -1 do
+			params.gui.middle[i]:removeSelf()
+		end
+		for i = params.gui.front.numChildren, 1, -1 do
+			if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
+				params.gui.front[i]:removeSelf()
+			end
 		end
 	end
 	
@@ -90,70 +102,72 @@ local function movePanes(event)
 	collisionDetection.changeCollision(params.player1, params.mapData, params.gui, params.map)
 
 	-- delay collision detection for a little while
-	local function turnCollOn() gameData.collOn = true end
-	timer.performWithDelay(500, turnCollOn)
+	local collTimer = timer.performWithDelay(250, turnCollOn)
 
-	-- check if the player has swiped into water
-	local playerPos = params.player1.imageObject
-	local locationFound = false
-	local degree = 0
-	local distanceCheck = 70
-	local inWater = false
+	if gameData.inWater == true then
+		-- check if the player has swiped into water
+		local playerPos = params.player1.imageObject
+		local locationFound = false
+		local degree = 0
+		local distanceCheck = 70
+		local inWater = false
 
-	-- use raycasting to see the players surroundings
-	while locationFound == false do
-		for i = 1, 36 do
-			local x = playerPos.x + (distanceCheck * math.cos(degree * (math.pi/180)))
-			local y = playerPos.y + (distanceCheck * math.sin(degree * (math.pi/180)))
+		-- use raycasting to see the players surroundings
+		while locationFound == false do
+			for i = 1, 36 do
+				local x = playerPos.x + (distanceCheck * math.cos(degree * (math.pi/180)))
+				local y = playerPos.y + (distanceCheck * math.sin(degree * (math.pi/180)))
 
-			local hits = physics.rayCast(playerPos.x, playerPos.y, x, y, "sorted")
+				local hits = physics.rayCast(playerPos.x, playerPos.y, x, y, "sorted")
 
-			if (hits) then
-				for i,v in ipairs(hits)
-				do 
-				 	if v.object ~= nil then
-						if v.object.name == "water" then
-							locationFound = true
-							inWater = true
-							break
-						elseif v.object.name == "background" then
-							locationFound = true
-							break
+				if (hits) then
+					for i,v in ipairs(hits)	do 
+						if v.object ~= nil then
+							if v.object.name == "water" then
+								locationFound = true
+								inWater = true
+								break
+							elseif v.object.name == "background" then
+								locationFound = true
+								break
+							end
 						end
 					end
 				end
+				
+				degree = degree + 10
 			end
-			degree = degree + 10
+					
+			if ( distanceCheck > 300 ) then
+				print("no water or shore found, you should be fine")
+				locationFound = true
+				inWater = false
+			end
+			
+			distanceCheck = distanceCheck + 30
 		end
-		distanceCheck = distanceCheck + 30
-		if ( distanceCheck > 300 ) then
-			print("no water or shore found, you should be fine")
-			locationFound = true
-			inwater = false
-		end
-	end
 
-	if inWater then
-		gameData.inWater = true
-		gameData.onLand = false
-		if waterShadow then
-					waterShadow:removeSelf()
-					waterShadow = nil
+		if inWater then
+			gameData.inWater = true
+			gameData.onLand = false
+					
+			savePoint = display.newCircle(playerPos.x, playerPos.y , 38)
+			savePoint.alpha = 0
+			savePoint.name = "paneSavePoint"
+			
+			params.player1.lastSavePoint = savePoint
+			params.player1.lastPositionX = savePoint.x
+			params.player1.lastPositionY = savePoint.y
+			params.player1.lastSavePoint.pane = params.tempPane
+			params.player1.miniMap = params.miniMap
+			params.player1.lastPositionSaved = true
+			params.player1:startDeathTimer(params.mapData, params.gui)
+		else
+			print("IM ON LAND!!!")
 		end
-		savePoint = display.newCircle(playerPos.x, playerPos.y , 38)
-		savePoint.alpha = 0
-		savePoint.name = "paneSavePoint"
-		params.player1.lastSavePoint = savePoint
-		params.player1.lastPositionX = savePoint.x
-		params.player1.lastPositionY = savePoint.y
-		params.player1.lastSavePoint.pane = params.tempPane
-		params.player1.miniMap = params.miniMap
-		params.player1.lastPositionSaved = true
-		params.player1:startDeathTimer(params.mapData, params.gui)
-	else
-		print("IM ON LAND!!!")
 	end
 	
+	print("gameData.allowPaneSwitch", gameData.allowPaneSwitch)
 	endTransition(event)
 end
 

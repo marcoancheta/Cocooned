@@ -62,6 +62,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if (gameData.onIceberg == false) then
 		if(event.phase == "began") then					
 			print("====== began collided with water, count: " .. waterCount .. " =======")
+			gameData.inWater = true
 			if (waterCount == 0) then
 				local vx, vy
 				local xf, yf
@@ -76,7 +77,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				clean()
 				-- Trigger booleans to reflect inWater
 				player.onLand = false
-				gameData.inWater = true
 				gameData.allowPaneSwitch = false
 				-- Start player's death timer
 				player:startDeathTimer(mapData, miniMap, gui)
@@ -161,7 +161,7 @@ local function collideEnd(collideObject, player, event, mapData, map, gui)
 				player.shook = false
 				player.lastPositionSaved = false
 				player.imageObject:setLinearVelocity(0,0)
-				player.imageObject.linearDamping = 0
+				player.imageObject.linearDamping = 1.25
 				player.imageObject.alpha = 1
 				-- Reset gameData booleans
 				gameData.allowPaneSwitch = true

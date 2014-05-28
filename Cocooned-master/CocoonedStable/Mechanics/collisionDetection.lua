@@ -90,10 +90,10 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				end
 			end
 		elseif event.phase == "ended" then	
-			if collideObject.collType == "solid" then
+			if collideObject.collType == "solid" and collideObject.name ~= "iceberg" then
 				local col = require("Objects.collision." .. collideObject.func)
 				col.collide(collideObject, player, event, mapData, map, gui)	
-			elseif collideObject.name == "water" then
+			elseif collideObject.name == "water" or collideObject.name == "iceberg" then
 				local col = require("Objects.collision." .. collideObject.func)
 				col.collideEnd(collideObject, player, event, mapData, map, gui)
 			end

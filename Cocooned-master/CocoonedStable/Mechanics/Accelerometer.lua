@@ -148,10 +148,10 @@ local function launch(rayCastCheck, ball, player, useLastPoint, lastPoint)
 	
 	accelPlayer[1] = player
 	player.shook = true
-	ball.linearDamping = 0
+	ball.linearDamping = 1.25
 	ball:setLinearVelocity(deltaX*3, deltaY*3)
 	ball.alpha = 1
-	-- Take 5 milliseconds to reset player's velocity
+	-- Take 2.5 milliseconds to reset player's velocity
 	local stopTimer = timer.performWithDelay(250, stopPlayer)
 	stopTimer.params = {playerParams = player}
 	
