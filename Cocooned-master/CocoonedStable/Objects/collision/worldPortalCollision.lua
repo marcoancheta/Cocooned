@@ -57,7 +57,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			player.curse = 0
 			player.xGrav = 0
 			player.yGrav = 0
-			local trans = transition.to(player.imageObject, {time=500, x=collideObject.x, y=collideObject.y, onComplete = temp} )
+			local trans = transition.to(player.imageObject, {time=500, alpha=0, x=collideObject.x, y=collideObject.y-20, onComplete = temp} )
 		
 		end
 	end

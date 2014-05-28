@@ -14,13 +14,17 @@ local font = require("utils.font")
 local textObject = {}
 local play, cancel
 local playerTemp
+local playerTrans
 local levelPortalObject
 
 --------------------------------------------------------------------------------
 -- reenablePortal() - Re-enable portal that player collided with
 --------------------------------------------------------------------------------
-local function reenablePortal()
+local function reenablePortal(obj)
+	playerTrans = transition.to(playerTemp.imageObject, {time=200, alpha=1})
 	levelPortalObject.isSensor = false
+	-- Reset player accelerometer values
+	playerTemp.curse = 1
 end
 
 --------------------------------------------------------------------------------
@@ -28,30 +32,32 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function onPlay(object)
+local function onPlay(object, player)
 	textObject[1].isVisible = true
 	textObject[2].isVisible = true
 	textObject[1].alpha = 0.8
 	textObject[2].alpha = 1
 	-- Hide play and cancel buttons & turn off physics for it
+	play.isSensor = false
 	play.isVisible = true
-	play.isBodyActive = true
 	cancel.isVisible = true
-	cancel.isBodyActive = true
+	cancel.isSensor = false
 	
 	levelPortalObject = object	
 	--play:addEventListener("tap", tapOnce)
 	--cancel:addEventListener("tap", tapOnce)
 end
 
-local function hidePlay()
+local function hidePlay(playerTemp)
 	textObject[1].isVisible = false
 	textObject[2].isVisible = false
+	play.isSensor = true
 	play.isVisible = false
-	play.isBodyActive = false
-	--play:removeEventListener("tap", tapOnce)
 	cancel.isVisible = false
-	cancel.isBodyActive = false
+	cancel.isSensor = true
+	
+	playerTrans = transition.to(playerTemp.imageObject, {time=1000, x=738, y=522, onComplete=reenablePortal})
+	--play:removeEventListener("tap", tapOnce)
 	--cancel:removeEventListener("tap", tapOnce)
 end
 
@@ -67,19 +73,19 @@ local function tapOnce(event)
 		if event.target.name == "playButton" then	
 			-- Destroy goals gets called in gameLoop.lua under gameStart
 			--destroyGoals()
-			gameData.gameStart = true
+			playerTrans = transition.to(playerTemp.imageObject, {time=1000, alpha=0, 
+										onComplete=function() gameData.gameStart = true; end})
 		elseif event.target.name == "cancelButton" then
-			print("HIT CANCEL BUTTON!!!!")
-			-- Hide play/cancel buttons and goal texts
-			hidePlay()
+			print("HIT CANCEL BUTTON!!!!")			
 			-- Start timer to re-enable portals
-			local portalTimer = timer.performWithDelay(1500, reenablePortal)
+			--local portalTimer = timer.performWithDelay(1500, reenablePortal)
 			-- Hide all goal objects
-			textObject[1].isVisible = false
-			textObject[2].isVisible = false
-			play.isVisible = false
-			cancel.isVisible = false
-			playerTemp.curse = 1
+			--textObject[1].isVisible = false
+			--textObject[2].isVisible = false
+			--play.isVisible = false
+			--cancel.isVisible = false
+			-- Hide play/cancel buttons and goal texts
+			playerTrans = transition.to(playerTemp.imageObject, {time=100, alpha=0, onComplete=hidePlay(playerTemp)})
 		end
 	end
 end
@@ -111,7 +117,12 @@ local function destroyGoals()
 		cancel:removeEventListener("tap", tapOnce)
 		cancel:removeSelf()
 		cancel = nil
-	end	
+	end
+	-- clear out playerTrans holder
+	if playerTrans ~= nil then
+		transition.cancel(playerTrans)
+		playerTrans = nil
+	end
 end
 
 --------------------------------------------------------------------------------
