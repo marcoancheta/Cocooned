@@ -46,6 +46,16 @@ local function emptyGroup(displayGroup)
 end
 
 --------------------------------------------------------------------------------
+-- stopPlayer() - reset player's velocity to 0,0
+--------------------------------------------------------------------------------
+local function stopPlayer(event)
+	local params = event.source.params
+	print(">>>>>>>>>>>>> STOPPED DAT NIGGA")
+	params.playerParams.imageObject:setLinearVelocity(0,0)
+	gameData.allowPaneSwitch = true
+end
+
+--------------------------------------------------------------------------------
 -- calcAccelValues - calculate Accelerometer gravity values
 --------------------------------------------------------------------------------
 local function calcAccelValues(event)
@@ -141,6 +151,9 @@ local function launch(rayCastCheck, ball, player, useLastPoint, lastPoint)
 	ball.linearDamping = 0
 	ball:setLinearVelocity(deltaX*3, deltaY*3)
 	ball.alpha = 1
+	-- Take 5 milliseconds to reset player's velocity
+	local stopTimer = timer.performWithDelay(500, stopPlayer)
+	stopTimer.params = {playerParams = player}
 	
 	print("STEP 6")
 end

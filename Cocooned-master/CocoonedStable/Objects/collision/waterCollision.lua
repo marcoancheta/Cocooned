@@ -161,7 +161,7 @@ local function collideEnd(collideObject, player, event, mapData, map, gui)
 				player.shook = false
 				player.lastPositionSaved = false
 				player.imageObject:setLinearVelocity(0,0)
-				player.imageObject.linearDamping = 1.25
+				player.imageObject.linearDamping = 0
 				player.imageObject.alpha = 1
 				-- Reset gameData booleans
 				gameData.allowPaneSwitch = true
