@@ -19,7 +19,7 @@ local levelPortalObject
 --------------------------------------------------------------------------------
 -- reenablePortal() - Re-enable portal that player collided with
 --------------------------------------------------------------------------------
-local function reenablePortal()
+local function reenablePortal(obj)
 	levelPortalObject.isSensor = false
 end
 
@@ -28,7 +28,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function onPlay(object)
+local function onPlay(object, player)
 	textObject[1].isVisible = true
 	textObject[2].isVisible = true
 	textObject[1].alpha = 0.8
@@ -39,18 +39,21 @@ local function onPlay(object)
 	cancel.isVisible = true
 	cancel.isSensor = false
 	
+	player.imageObject.alpha = 0.7
 	levelPortalObject = object	
 	--play:addEventListener("tap", tapOnce)
 	--cancel:addEventListener("tap", tapOnce)
 end
 
-local function hidePlay()
+local function hidePlay(playerTemp)
 	textObject[1].isVisible = false
 	textObject[2].isVisible = false
 	play.isSensor = true
 	play.isVisible = false
 	cancel.isVisible = false
 	cancel.isSensor = true
+	
+	local playerTrans = transition.to(playerTemp.imageObject, {time=1000, alpha=1, x=738, y=522, onComplete=reenablePortal})
 	--play:removeEventListener("tap", tapOnce)
 	--cancel:removeEventListener("tap", tapOnce)
 end
@@ -69,17 +72,17 @@ local function tapOnce(event)
 			--destroyGoals()
 			gameData.gameStart = true
 		elseif event.target.name == "cancelButton" then
-			print("HIT CANCEL BUTTON!!!!")
-			-- Hide play/cancel buttons and goal texts
-			hidePlay()
+			print("HIT CANCEL BUTTON!!!!")			
 			-- Start timer to re-enable portals
-			local portalTimer = timer.performWithDelay(1500, reenablePortal)
+			--local portalTimer = timer.performWithDelay(1500, reenablePortal)
 			-- Hide all goal objects
 			--textObject[1].isVisible = false
 			--textObject[2].isVisible = false
 			--play.isVisible = false
 			--cancel.isVisible = false
 			playerTemp.curse = 1
+			-- Hide play/cancel buttons and goal texts
+			hidePlay(playerTemp)
 		end
 	end
 end
