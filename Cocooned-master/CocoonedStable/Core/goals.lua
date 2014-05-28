@@ -34,10 +34,10 @@ local function onPlay(object)
 	textObject[1].alpha = 0.8
 	textObject[2].alpha = 1
 	-- Hide play and cancel buttons & turn off physics for it
+	play.isSensor = false
 	play.isVisible = true
-	play.isBodyActive = true
 	cancel.isVisible = true
-	cancel.isBodyActive = true
+	cancel.isSensor = false
 	
 	levelPortalObject = object	
 	--play:addEventListener("tap", tapOnce)
@@ -47,11 +47,11 @@ end
 local function hidePlay()
 	textObject[1].isVisible = false
 	textObject[2].isVisible = false
+	play.isSensor = true
 	play.isVisible = false
-	play.isBodyActive = false
-	--play:removeEventListener("tap", tapOnce)
 	cancel.isVisible = false
-	cancel.isBodyActive = false
+	cancel.isSensor = true
+	--play:removeEventListener("tap", tapOnce)
 	--cancel:removeEventListener("tap", tapOnce)
 end
 
@@ -75,10 +75,10 @@ local function tapOnce(event)
 			-- Start timer to re-enable portals
 			local portalTimer = timer.performWithDelay(1500, reenablePortal)
 			-- Hide all goal objects
-			textObject[1].isVisible = false
-			textObject[2].isVisible = false
-			play.isVisible = false
-			cancel.isVisible = false
+			--textObject[1].isVisible = false
+			--textObject[2].isVisible = false
+			--play.isVisible = false
+			--cancel.isVisible = false
 			playerTemp.curse = 1
 		end
 	end
