@@ -39,8 +39,7 @@ local function onPlay(object)
 	cancel.isVisible = true
 	cancel.isBodyActive = true
 	
-	levelPortalObject = object
-	
+	levelPortalObject = object	
 	--play:addEventListener("tap", tapOnce)
 	--cancel:addEventListener("tap", tapOnce)
 end
@@ -66,14 +65,16 @@ local function tapOnce(event)
 	if gameData.gameOptions ~= true then
 		-- Kipcha Play button detection
 		if event.target.name == "playButton" then	
-			-- Destroy goals map
+			-- Destroy goals gets called in gameLoop.lua under gameStart
 			--destroyGoals()
 			gameData.gameStart = true
 		elseif event.target.name == "cancelButton" then
 			print("HIT CANCEL BUTTON!!!!")
 			-- Hide play/cancel buttons and goal texts
-			hidePlay()		
+			hidePlay()
+			-- Start timer to re-enable portals
 			local portalTimer = timer.performWithDelay(1500, reenablePortal)
+			-- Hide all goal objects
 			textObject[1].isVisible = false
 			textObject[2].isVisible = false
 			play.isVisible = false
@@ -146,7 +147,8 @@ local function drawGoals(gui, player)
 	play:addEventListener("tap", tapOnce)
 	play.isVisible = false
 	play.isBodyActive = false
-
+	
+	-- Create cancel button
 	cancel = display.newImageRect("mapdata/art/buttons/cancel.png", 275, 275)
 	cancel.x, cancel.y = generate.tilesToPixels(5, 19)
 	cancel.name = "cancelButton"
