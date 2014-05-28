@@ -96,15 +96,13 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeBack(player)
-	physics.removeBody(player)
+	--physics.removeBody(player)
 	player:scale(2,2)
 	physics.addBody(player, {radius = 38, bounce = .25, density = 0.3})
 	if auraEmitter ~= nil then
 		auraEmitter:changeRadius(25)
 	end
-	physics.setGravity(0,0)
-	player.linearDamping = 0
-	player.density = .3
+	player.linearDamping = 1.25
 	print("un-shrinking the player back to normal size")
 end
 
@@ -120,7 +118,6 @@ local function changeSize(player)
 	if auraEmitter ~= nil then
 		auraEmitter:changeRadius(-25)
 	end
-	physics.setGravity(0,0)
 	player.linearDamping = 1.25
 	print("SIZE")
 end
