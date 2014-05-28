@@ -21,6 +21,10 @@ local levelPortalObject
 --------------------------------------------------------------------------------
 local function reenablePortal(obj)
 	levelPortalObject.isSensor = false
+	-- Reset player accelerometer values
+	obj.curse = 1
+	obj.xGrav = 0
+	obj.yGrav = 0
 end
 
 --------------------------------------------------------------------------------
@@ -80,7 +84,6 @@ local function tapOnce(event)
 			--textObject[2].isVisible = false
 			--play.isVisible = false
 			--cancel.isVisible = false
-			playerTemp.curse = 1
 			-- Hide play/cancel buttons and goal texts
 			hidePlay(playerTemp)
 		end
