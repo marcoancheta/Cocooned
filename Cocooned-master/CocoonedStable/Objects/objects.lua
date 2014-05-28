@@ -56,19 +56,39 @@ local function init()
 		rune[i].collType = "solid"
 	end
 	
-	-- load object sprite sheets
+	-- load object sprite sheets*
+	-- Auras
 	sheetList["redAura"] = graphics.newImageSheet("mapdata/art/animation/redAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
 	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/animation/greenAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})	
 	sheetList["blueAura"] = graphics.newImageSheet("mapdata/art/animation/blueAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})				 
+	-- Old portal
 	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet.png", 
 				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
+	-- Exit portal 1
+	sheetList["exitPortal1"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet1.png", 
+				 {width = 503.5, height = 276, sheetContentWidth = 4550, sheetContentHeight = 277, numFrames = 9})
+	-- Exit portal 2
+	sheetList["exitPortal2"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet2.png", 
+				 {width = 503.5, height = 276, sheetContentWidth = 4550, sheetContentHeight = 277, numFrames = 9})
+	-- Exit portal 3
+	sheetList["exitPortal3"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet3.png", 
+				 {width = 503.5, height = 276, sheetContentWidth = 4550, sheetContentHeight = 277, numFrames = 9})
+	-- Exit portal 4
+	sheetList["exitPortal4"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet4.png", 
+				 {width = 503.5, height = 276, sheetContentWidth = 4550, sheetContentHeight = 277, numFrames = 9})
+	-- Exit portal 5
+	sheetList["exitPortal5"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet5.png", 
+				 {width = 503.5, height = 276, sheetContentWidth = 4550, sheetContentHeight = 277, numFrames = 9})
+	-- World portal
 	sheetList["worldPortal"] = graphics.newImageSheet("mapdata/art/animation/worldPortalSheet.png", 
-				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
+				 {width = 503.5, height = 276, sheetContentWidth = 4550, sheetContentHeight = 277, numFrames = 9})
+	-- Wolf
 	sheetList["wolf"] = graphics.newImageSheet("mapdata/art/animation/wolfSheet.png", 
 				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8})
+	-- Fishes
 	sheetList["fish1"] = graphics.newImageSheet("mapdata/art/animation/fish1sheet.png", 
 				 {width = 72, height = 72, sheetContentWidth = 360, sheetContentHeight = 72, numFrames = 5})
 	sheetList["fish2"] = graphics.newImageSheet("mapdata/art/animation/fish2sheet.png", 
@@ -85,7 +105,20 @@ end
 local function createAnimations(count, name, objectList)
 	for i = 1, count do
 		--print(name)
-		objectList[name .. i] = display.newSprite(sheetList[name], animation.spriteOptions[name])
+		if name ~= "exitPortal" then
+			objectList[name .. i] = display.newSprite(sheetList[name], animation.spriteOptions[name])
+		elseif name == "exitPortal" then
+			if i > 5 and i < 11 then
+				local j = i-5
+				objectList[name .. i] = display.newSprite(sheetList[name..j], animation.spriteOptions[name])
+			elseif i > 10 then
+				local j = i-10
+				objectList[name .. i] = display.newSprite(sheetList[name..j], animation.spriteOptions[name])
+			else
+				objectList[name .. i] = display.newSprite(sheetList[name..i], animation.spriteOptions[name])
+			end
+		end
+		
 		objectList[name .. i].name = name .. i
 		objectList[name .. i]:setSequence("move")
 		objectList[name .. i]:play()

@@ -152,13 +152,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[15].x, wisp[15].y = generate.tilesToPixels(10, 8)
 		wisp[16].x, wisp[16].y = generate.tilesToPixels(10, 6)
 
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(18, 18)
-		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(18, 22)
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(25, 17)
+		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(25, 10)
 		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(25, 10)
 		objects["fixedIceberg2"].eX, objects["fixedIceberg2"].eY = generate.tilesToPixels(4, 10)
 		objects["fixedIceberg3"].x, objects["fixedIceberg3"].y = generate.tilesToPixels(10, 10)
 		objects["fixedIceberg3"].eX, objects["fixedIceberg3"].eY = generate.tilesToPixels(10, 5)
-		objects["fixedIceberg1"].time = 3000
+		objects["fixedIceberg1"].time = 7000
 		objects["fixedIceberg2"].time = 11000
 		objects["fixedIceberg3"].time = 3800
 		objects["fixedIceberg1"].movement = "fixed" 
@@ -183,7 +183,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[2].x, rune[2].y = generate.tilesToPixels(10, 1.5)			
 		rune[2].isVisible = true
 
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(10, 5)
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(10, 8)
 		objects["fixedIceberg1"].time = 3800 --not needed if free
 		objects["fixedIceberg1"].movement = "free" --fixed or free
 
