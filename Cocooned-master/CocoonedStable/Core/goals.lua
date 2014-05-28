@@ -14,12 +14,14 @@ local font = require("utils.font")
 local textObject = {}
 local play, cancel
 local playerTemp
+local playerTrans
 local levelPortalObject
 
 --------------------------------------------------------------------------------
 -- reenablePortal() - Re-enable portal that player collided with
 --------------------------------------------------------------------------------
 local function reenablePortal(obj)
+	playerTrans = transition.to(playerTemp.imageObject, {time=200, alpha=1})
 	levelPortalObject.isSensor = false
 	-- Reset player accelerometer values
 	playerTemp.curse = 1
@@ -41,7 +43,6 @@ local function onPlay(object, player)
 	cancel.isVisible = true
 	cancel.isSensor = false
 	
-	player.imageObject.alpha = 0.7
 	levelPortalObject = object	
 	--play:addEventListener("tap", tapOnce)
 	--cancel:addEventListener("tap", tapOnce)
@@ -55,7 +56,7 @@ local function hidePlay(playerTemp)
 	cancel.isVisible = false
 	cancel.isSensor = true
 	
-	local playerTrans = transition.to(playerTemp.imageObject, {time=500, alpha=1, x=738, y=522, onComplete=reenablePortal})
+	playerTrans = transition.to(playerTemp.imageObject, {time=1000, x=738, y=522, onComplete=reenablePortal})
 	--play:removeEventListener("tap", tapOnce)
 	--cancel:removeEventListener("tap", tapOnce)
 end
@@ -72,7 +73,8 @@ local function tapOnce(event)
 		if event.target.name == "playButton" then	
 			-- Destroy goals gets called in gameLoop.lua under gameStart
 			--destroyGoals()
-			gameData.gameStart = true
+			playerTrans = transition.to(playerTemp.imageObject, {time=1000, alpha=0, 
+										onComplete=function() gameData.gameStart = true; end})
 		elseif event.target.name == "cancelButton" then
 			print("HIT CANCEL BUTTON!!!!")			
 			-- Start timer to re-enable portals
@@ -83,7 +85,7 @@ local function tapOnce(event)
 			--play.isVisible = false
 			--cancel.isVisible = false
 			-- Hide play/cancel buttons and goal texts
-			hidePlay(playerTemp)
+			playerTrans = transition.to(playerTemp.imageObject, {time=100, alpha=0, onComplete=hidePlay(playerTemp)})
 		end
 	end
 end
