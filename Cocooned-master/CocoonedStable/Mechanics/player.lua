@@ -96,16 +96,16 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeBack(player)
-	print("un-shrinking the player back to normal size")
 	physics.removeBody(player)
 	player:scale(2,2)
 	physics.addBody(player, {radius = 38, bounce = .25, density = 0.3})
-	--if auraEmitter ~= nil then
-	--	auraEmitter:changeRadius(25)
-	--end
-	--physics.setGravity(0,0)
-	player.linearDamping = 1.25
-	-- player.density = .3
+	if auraEmitter ~= nil then
+		auraEmitter:changeRadius(25)
+	end
+	physics.setGravity(0,0)
+	player.linearDamping = 0
+	player.density = .3
+	print("un-shrinking the player back to normal size")
 end
 
 --------------------------------------------------------------------------------
@@ -117,11 +117,12 @@ local function changeSize(player)
 	physics.removeBody(player)
 	player:scale(0.5,0.5)
 	physics.addBody(player, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
-	--if auraEmitter ~= nil then
-	--	auraEmitter:changeRadius(-25)
-	--end
-	--physics.setGravity(0,0)
-	--player.linearDamping = 1.25
+	if auraEmitter ~= nil then
+		auraEmitter:changeRadius(-25)
+	end
+	physics.setGravity(0,0)
+	player.linearDamping = 1.25
+	print("SIZE")
 end
 
 --------------------------------------------------------------------------------
@@ -235,8 +236,8 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:deleteAura()
 	if auraEmitter ~= nil then
-			auraEmitter:destroy()
-			auraEmitter=nil
+		auraEmitter:destroy()
+		auraEmitter=nil
 	end
 end
 
@@ -279,9 +280,10 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:unshrink()
+	--local delayShrink = function() return 
+	changeBack( self.imageObject )-- end
+	--timer.performWithDelay(100, delayShrink)
 	self.small = false
-	local delayShrink = function() return changeBack( self.imageObject ) end
-	timer.performWithDelay(100, delayShrink)
 end
 
 --------------------------------------------------------------------------------
@@ -290,9 +292,10 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:shrink() 
+	--local delayShrink = function() return 
+	changeSize( self.imageObject )-- end
+	--timer.performWithDelay(100, delayShrink)
 	self.small = true
-	local delayShrink = function() return changeSize( self.imageObject ) end
-	timer.performWithDelay(100, delayShrink)
 end
 
 --------------------------------------------------------------------------------
@@ -311,7 +314,7 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:slowTime(map)
 	for check = 1, map.numChildren do
-		if map[check].moveable == true then
+		if map[check].moveable == true and map[check].name ~= "player" then
 			map[check].time = 20000
 		end
 	end

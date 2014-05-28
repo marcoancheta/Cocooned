@@ -212,7 +212,7 @@ local function createLevel(mapData, players)
 	local loadingTimer = timer.performWithDelay(2000, deleteClosure)
 		
 	-- reutrn gui and miniMap
-	return gui, miniMapDisplay, shadowCirc
+	return gui, miniMapDisplay--, shadowCirc
 end
 
 local function activate(gui, mapData, player, miniMap)

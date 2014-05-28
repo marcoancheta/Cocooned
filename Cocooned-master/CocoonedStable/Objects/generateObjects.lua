@@ -144,7 +144,7 @@ local function gObjects(level, objects, map, mapData, runes)
 
 	-- goes down rune list and adds runes that are visible in pane
 	for i = 1, #runes do
-		print(#runes)
+		--print(#runes)
 		for j=1, i do				
 			if inventory.inventoryInstance.runes[j] ~= runes[i].name then
 				-- check if rune is visible and if so, add to map display group

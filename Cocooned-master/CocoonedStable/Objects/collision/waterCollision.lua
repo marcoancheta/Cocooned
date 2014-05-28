@@ -125,13 +125,13 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				-- Transition player's alpha to 0
 				waterCollision.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 				-- Create new water shadow
-				--waterShadow = display.newCircle(player.lastPositionX, player.lastPositionY, 38)
-				--waterShadow.alpha = 0
-				--waterShadow.name = "waterShadow"
+				waterShadow = display.newCircle(player.lastPositionX, player.lastPositionY, 38)
+				waterShadow.alpha = 0
+				waterShadow.name = "waterShadow"
 				--gui.front:insert(waterShadow)
-				player.lastSavePoint = {}
-				player.lastSavePoint.x = player.lastPositionX
-				player.lastSavePoint.y = player.lastPositionY
+				player.lastSavePoint = waterShadow
+				--player.lastSavePoint.x = player.lastPositionX
+				--player.lastSavePoint.y = player.lastPositionY
 				player.lastSavePoint.pane = mapData.pane
 			end
 			

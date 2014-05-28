@@ -119,8 +119,8 @@ local function launch(rayCastCheck, ball, player, useLastPoint, lastPoint)
 	end	
 
 	--print("Go to point : " .. choosePoint .. " at " .. rayCastCheck[choosePoint].x .. ", " .. rayCastCheck[choosePoint].y .. "with distance of " .. minDist)
-	rayCastCheck[choosePoint]:setFillColor(0,0,0)
-	rayCastCheck[choosePoint]:toFront()
+	--rayCastCheck[choosePoint]:setFillColor(0,0,0)
+	--rayCastCheck[choosePoint]:toFront()
 
 	local pushDistance = uMath.distance(ball, rayCastCheck[choosePoint])
 	local straightDistance = uMath.distance(ball, lastPoint)
@@ -173,7 +173,7 @@ local function shake(player)
 	-- Booleans
 	local useLastPoint = true
 	local shoreFound = false
-	--local foreverCheck = 0
+	local foreverCheck = 0
 	
 	---------------------------
 	------- DEBUG TEXT --------
@@ -190,8 +190,8 @@ local function shake(player)
 	end
 	
 	-- Keep checking for position until water is found
-	while shoreFound == false do
-		--foreverCheck = foreverCheck + 1		
+	if shoreFound == false then
+		foreverCheck = foreverCheck + 1		
 		for i = 1, rotation do
 			local x = ball.x + (distanceCheck * math.cos(degree * (math.pi/180)))
 			local y = ball.y + (distanceCheck * math.sin(degree * (math.pi/180)))
@@ -241,16 +241,18 @@ local function shake(player)
 		---------------------------
 		------- DEBUG TEXT --------
 		--if foreverCheck > 20 then
-			--print("you just hit a forever loop, we getting out of here!!")
+		--	print("you just hit a forever loop, we getting out of here!!")
 		--	break
 		--end		
 		------- DEBUG TEXT --------
 		---------------------------
 	end
 	-- End while loop
-	
-	launch(rayCastCheck, ball, player, useLastPoint, lastPoint)
 	print("STEP 5")
+	if rayCastCheck ~= nil then
+		launch(rayCastCheck, ball, player, useLastPoint, lastPoint)
+	end
+	print("STEP 7")
 end
 
 --------------------------------------------------------------------------------
@@ -277,8 +279,9 @@ local function onAccelerate(event, player)
 		--sound.pauseSound(1)
 		physicsParam.xGrav = 0
 		physicsParam.yGrav = 0
-		
+		print(gameData.inWater)
 		if event.isShake and player.shook == false then
+			print(gameData.inWater)
 			print("STEP 2")
 			emptyGroup(rayCastCheck)
 			print("STEP 3")
