@@ -54,8 +54,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			player.curse = 0
 			player.xGrav = 0
 			player.yGrav = 0
-			local trans = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y, onComplete = temp} )
-			break
+		
+			local trans = transition.to(player.imageObject, {time=100, x=collideObject.x, y=collideObject.y-10, onComplete = temp} )
+			-- Get out of for loop
+			--break
 		--[[else
 			goals.hidePlay()
 
