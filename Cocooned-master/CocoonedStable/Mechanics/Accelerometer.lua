@@ -11,7 +11,7 @@ local generate = require("Objects.generateObjects")
 local uMath = require("utils.utilMath")
 --NOTE: to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
 
-local rayCastCheck = display.newGroup()
+--local rayCastCheck = display.newGroup()
 local rayCastDistanceCheck = display.newGroup()
 
 -- local lastPointCheck = display.newGroup()
@@ -172,66 +172,68 @@ local function onAccelerate(event, player)
 		local degreeAdd = 10
 		local foreverCheck = 0
 
-		while  shoreFound == false do
-			foreverCheck = foreverCheck + 1
-			for i = 1, rotation do
-				local x = ball.x + (distanceCheck * math.cos(degree * (math.pi/180)))
-				local y = ball.y + (distanceCheck * math.sin(degree * (math.pi/180)))
-				-- local checkCircle = display.newCircle(x, y, 5)
-				-- checkCircle:setFillColor(0,1,0)
-				-- checkCircle.name = "check"
-				-- rayCastDistanceCheck:insert(checkCircle)
-				-- rayCastDistanceCheck:toFront()
+		-- while  shoreFound == false do
+		-- 	foreverCheck = foreverCheck + 1
+		-- 	for i = 1, rotation do
+		-- 		local x = ball.x + (distanceCheck * math.cos(degree * (math.pi/180)))
+		-- 		local y = ball.y + (distanceCheck * math.sin(degree * (math.pi/180)))
+		-- 		-- local checkCircle = display.newCircle(x, y, 5)
+		-- 		-- checkCircle:setFillColor(0,1,0)
+		-- 		-- checkCircle.name = "check"
+		-- 		-- rayCastDistanceCheck:insert(checkCircle)
+		-- 		-- rayCastDistanceCheck:toFront()
 
-				local hits = physics.rayCast(ball.x, ball.y, x, y, "sorted")
-				if ( hits ) then
-				    -- Output all the results.
-				    for i,v in ipairs(hits)
-				    do
-				    	if v.object.name == "background" or v.object.name == "iceberg" then
-					    	local pointC = display.newCircle(v.position.x, v.position.y, 1)
-					    	--pointC:setFillColor(1,0,0)
-					    	pointC.alpha = 0
-					    	pointC.name = v.object.name
-					    	rayCastCheck:insert(pointC)
-					    	rayCastCheck:toFront()
-					    end
+		-- 		local hits = physics.rayCast(ball.x, ball.y, x, y, "sorted")
+		-- 		if ( hits ) then
+		-- 		    -- Output all the results.
+		-- 		    for i,v in ipairs(hits)
+		-- 		    do
+		-- 		    	if v.object.name == "background" or v.object.name == "iceberg" then
+		-- 			    	local pointC = display.newCircle(v.position.x, v.position.y, 1)
+		-- 			    	--pointC:setFillColor(1,0,0)
+		-- 			    	pointC.alpha = 0
+		-- 			    	pointC.name = v.object.name
+		-- 			    	rayCastCheck:insert(pointC)
+		-- 			    	rayCastCheck:toFront()
+		-- 			    end
 
-				    end					
-				else
-				    -- There's no hit.
-				end
+		-- 		    end					
+		-- 		else
+		-- 		    -- There's no hit.
+		-- 		end
 
-				degree = degree + degreeAdd
-			end
-			if(distanceCheck >= 200) then
-				degreeAdd = 5
-				rotation = 72
-			end
-			degree = 0
+		-- 		degree = degree + degreeAdd
+		-- 	end
+		-- 	if(distanceCheck >= 200) then
+		-- 		degreeAdd = 5
+		-- 		rotation = 72
+		-- 	end
+		-- 	degree = 0
 
-			for i = 1, rayCastCheck.numChildren do
-				if useLastPoint then
-					local pointToSafety = uMath.distance(lastPoint, rayCastCheck[i])
-					--print("checking distance: " .. pointToSafety)
-					if math.abs(pointToSafety) < 80 then
-						shoreFound = true
-						break
-					end
-				end
-			end
-			distanceCheck = distanceCheck + 25
-			if foreverCheck > 20 then
-				--print("you just hit a forever loop, we getting out of here!!")
-				break
-			end
-			if shoreFound ~= true then
-				emptyGroup(rayCastDistanceCheck)
-				emptyGroup(rayCastCheck)
-			end
-		end
-		rayCastCheck:toFront()
+		-- 	for i = 1, rayCastCheck.numChildren do
+		-- 		if useLastPoint then
+		-- 			local pointToSafety = uMath.distance(lastPoint, rayCastCheck[i])
+		-- 			--print("checking distance: " .. pointToSafety)
+		-- 			if math.abs(pointToSafety) < 80 then
+		-- 				shoreFound = true
+		-- 				break
+		-- 			end
+		-- 		end
+		-- 	end
+		-- 	distanceCheck = distanceCheck + 25
+		-- 	if foreverCheck > 20 then
+		-- 		--print("you just hit a forever loop, we getting out of here!!")
+		-- 		break
+		-- 	end
+		-- 	if shoreFound ~= true then
+		-- 		emptyGroup(rayCastDistanceCheck)
+		-- 		emptyGroup(rayCastCheck)
+		-- 	end
+		-- end
+		-- rayCastCheck:toFront()
 		--print("display group has " .. rayCastCheck.numChildren .. " objects")
+		local nameCheck = {"background", "iceberg"}
+		local rayCastCheck = uMath.rayCastCircle(player.imageObject, player.lastSavePoint, 50, 300, nameCheck)
 
 		local choosePoint = 0
 		local minDist = math.huge
