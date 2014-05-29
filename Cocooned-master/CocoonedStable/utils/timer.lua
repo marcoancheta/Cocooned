@@ -207,7 +207,7 @@ local function inGame(gui, mapData)
 	if gameData.mapData.levelNum == "T" then
 		tutorialLib:showTipBox("tiltTip", gui)
 		local swipeTip = function() tutorialLib:showTipBox("swipePaneTip", gui) end
-		local tutorialTimer = performWithDelay(1500, swipeTip)
+		local swipeTimer = timer.performWithDelay(2000, swipeTip)
 	end	
 end
 

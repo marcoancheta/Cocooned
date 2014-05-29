@@ -81,7 +81,7 @@ local function moveAndAnimate(event, currPlayer, gui) --, physics
 		if gameData.inWater == false then
 			--print("out of water and moving")
 
-			print("Player force =", xForce, yForce)
+			--print("Player force =", xForce, yForce)
 			currPlayer.imageObject:applyForce(xForce, yForce,currPlayer.imageObject.x,currPlayer.imageObject.y)
 		end
 		
