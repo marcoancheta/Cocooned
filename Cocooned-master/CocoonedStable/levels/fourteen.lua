@@ -23,6 +23,14 @@ local fourteen = {
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }
 	panes = {true,true,true,true,true},
+	-- Check to see which runes are available
+	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
+	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
+	runeAvailable = {["M"]= {"purpleRune"}, 
+					 ["U"]= {"pinkRUne"}, 
+					 ["D"]= {"purpleRune"}, 
+					 ["R"]= {"pinkRune"}, 
+					 ["L"]= {"greenRune"}},
 	timer = 300,
 	playerCount = 1,
 	playerPos = {{["x"]=20, ["y"]=15},},
@@ -215,7 +223,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	-- set which panes are avaiable for player
 	map.front.panes = fourteen.panes
-	map.front.itemGoal = 1
+	map.front.itemGoal = 5
 end
 
 --------------------------------------------------------------------------------

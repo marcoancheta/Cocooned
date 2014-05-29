@@ -18,6 +18,7 @@ local physicsData = require("Loading.physicsData")
 local inventory = require("Mechanics.inventoryMechanic")
 --Array that holds all switch wall and free icebergs
 local accelObjects = require("Objects.accelerometerObjects")
+
 --------------------------------------------------------------------------------
 -- generate wisps functions
 --------------------------------------------------------------------------------
@@ -105,6 +106,9 @@ local function gObjects(level, objects, map, mapData, runes)
 				map.middle:insert(objects[name .. j])
 			elseif mapData.levelNum == "world" then
 				objects[name .. j].func = "worldPortalCollision"
+				if j == 4 then
+					objects[name .. j].func = "tutorialPortalCollision"
+				end
 				physics.addBody(objects[name ..j], "static", {bounce = 0, radius=50})
 				objects[name ..j].collType = "passThru"
 				-- add object to map display group
@@ -143,14 +147,14 @@ local function gObjects(level, objects, map, mapData, runes)
 
 	-- goes down rune list and adds runes that are visible in pane
 	for i = 1, #runes do
-		for j=1, i do
-			-- check if rune(s) exist inside player rune inventory
+		--print(#runes)
+		for j=1, i do				
 			if inventory.inventoryInstance.runes[j] ~= runes[i].name then
 				-- check if rune is visible and if so, add to map display group
 				if runes[i].isVisible == true then
 					map.front:insert(runes[i])
 				end
-			else
+			else				
 				runes[i].isVisible = false
 			end
 		end

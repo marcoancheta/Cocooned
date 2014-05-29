@@ -23,6 +23,14 @@ local fifteen = {
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }
 	panes = {true,true,true,true,true},
+	-- Check to see which runes are available
+	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
+	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
+	runeAvailable = {["M"]= {"none"}, 
+					 ["U"]= {"pinkRune", "purpleRune"}, 
+					 ["D"]= {"none"}, 
+					 ["R"]= {"purpleRune"}, 
+					 ["L"]= {"none"}},
 	timer = 300,
 	playerCount = 1,
 	playerPos = {{["x"]=12, ["y"]=16}},
@@ -162,12 +170,12 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- FISH GO HERE
 
 		-- Slow time rune
-		rune[3].x, rune[3].y = generate.tilesToPixels(23, 21)			
-		rune[3].isVisible = true
+		--rune[3].x, rune[3].y = generate.tilesToPixels(23, 21)			
+		--rune[3].isVisible = true
 
 		-- Slow time rune
-		rune[3].x, rune[3].y = generate.tilesToPixels(12, 22)			
-		rune[3].isVisible = true
+		--rune[3].x, rune[3].y = generate.tilesToPixels(12, 22)			
+		--rune[3].isVisible = true
 
 		-- Slow time rune
 		rune[3].x, rune[3].y = generate.tilesToPixels(35, 22)			
@@ -184,8 +192,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["greenAura2"].x, objects["greenAura2"].y = generate.tilesToPixels(24, 3)
 
 		-- Shrink rune
-		rune[4].x, rune[4].y = generate.tilesToPixels(33, 9)			
-		rune[4].isVisible = true
+		--rune[4].x, rune[4].y = generate.tilesToPixels(33, 9)			
+		--rune[4].isVisible = true
 
 		-- Shrink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(37, 18)			

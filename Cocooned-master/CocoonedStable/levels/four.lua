@@ -24,6 +24,14 @@ local four = {
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }
 	panes = {true,false,false,false,true},
+	-- Check to see which runes are available
+	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
+	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
+	runeAvailable = {["M"]= {"greenRune"}, 
+					 ["U"]= {"none"}, 
+					 ["D"]= {"none"}, 
+					 ["R"]= {"none"}, 
+					 ["L"]= {"none"}},
 	timer = 180,
 	playerCount = 1,
 	playerPos = {{["x"]=21, ["y"]=22}},

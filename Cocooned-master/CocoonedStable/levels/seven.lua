@@ -24,6 +24,14 @@ local seven = {
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }
 	panes = {true,false,false,true,true},
+	-- Check to see which runes are available
+	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
+	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
+	runeAvailable = {["M"]= {"purpleRune"}, 
+					 ["U"]= {"none"}, 
+					 ["D"]= {"none"}, 
+					 ["R"]= {"none"}, 
+					 ["L"]= {"greenRune"}},
 	timer = 300,
 	playerCount = 1,
 	playerPos = {{["x"]=4, ["y"]=4}},
@@ -155,7 +163,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 				
 		generate.gWisps(wisp, map, mapData, 1, 7, seven.wispCount)		
 		generate.gAuraWalls(map, mapData, "blueWall")
-		generate.gWater(map, mapData)
+		-- generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(7, 5)
 		wisp[9].x, wisp[9].y = generate.tilesToPixels(7, 7)
@@ -173,8 +181,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 8, 14, seven.wispCount)
 	elseif mapData.pane == "R" then						
-		rune[4].x, rune[4].y = generate.tilesToPixels(19.5, 12)			
-		rune[4].isVisible = true
+		--rune[4].x, rune[4].y = generate.tilesToPixels(19.5, 12)			
+		--rune[4].isVisible = true
 
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
