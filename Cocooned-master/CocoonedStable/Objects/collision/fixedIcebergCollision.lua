@@ -17,6 +17,11 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			player.lastPositionSaved = false
 			player.imageObject:setLinearVelocity(0,0)
 			player.imageObject.linearDamping = 1.25
+			if player.sinkTrans ~= nil then
+				transition.cancel(player.sinkTrans)
+				player.sinkTrans = nil
+			end
+			transition.to(player, {time = 300, x = collideObject.x, y = collideObject.y})
 		end
 		icebergCount = icebergCount + 1
 		--print("~~~~~~~~~~~~~~~~~~~~ On dat iceberg COUNT: " .. icebergCount .. " ~~~~~~~~~~~~~~~~~~~")

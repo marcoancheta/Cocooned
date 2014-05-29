@@ -62,6 +62,7 @@ local playerInstance = {
 	onLand = true,
 	switchPanes = nil,
 	miniMap = nil,
+	sinkTrans = nil,
 	
 	-- Booleans
 	deathTimer = nil,
