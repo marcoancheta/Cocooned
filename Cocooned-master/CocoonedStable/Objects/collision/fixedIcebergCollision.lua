@@ -17,6 +17,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			player.lastPositionSaved = false
 			player.imageObject:setLinearVelocity(0,0)
 			player.imageObject.linearDamping = 1.25
+			if player.sinkTrans ~= nil then
+				transition.cancel(player.sinkTrans)
+				player.sinkTrans = nil
+			end
 		end
 		icebergCount = icebergCount + 1
 		--print("~~~~~~~~~~~~~~~~~~~~ On dat iceberg COUNT: " .. icebergCount .. " ~~~~~~~~~~~~~~~~~~~")
@@ -35,7 +39,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 					shoreCheck[i] = nil
 				end
 			end
-			
+
 			if icebergCount == 0 then
 
 				gameData.onIceberg = false
@@ -129,6 +133,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 						player.imageObject:setLinearVelocity(0,0)
 						gameData.allowPaneSwitch = false
 						gameData.inWater = true
+
+						player.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 					end
 				end
 			end

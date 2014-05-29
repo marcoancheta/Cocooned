@@ -113,7 +113,7 @@ local linePts = {}
 
 local camera;
 local groupObj;
-local shadowCircle;
+--local shadowCircle;
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -177,6 +177,8 @@ local function tapMechanic(event)
 				paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
 			end
 		end
+		
+		--ball.x, ball.y = event.x, event.y
 	end
 end
 
@@ -342,7 +344,7 @@ local function loadMap(mapData)
 	player1.switchPanes = paneTransition
 	player2.switchPanes = paneTransition
 	-- Load in map
-	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players)
+	gui, miniMap = loadLevel.createLevel(mapData, players)
 	-- Start mechanics
 	for i = 1, gui.playerCount do
 		collisionDetection.createCollisionDetection(players[i].imageObject, player1, mapData, gui, gui.back[1])
@@ -407,7 +409,7 @@ local function clean(event)
 	player1.imageObject:removeSelf()
 	player1.imageObject = nil
 	
-	shadowCircle = nil
+	--shadowCircle = nil
 	
 	ball:removeSelf()
 	ball = nil
@@ -438,7 +440,6 @@ local function update(event)
 		-- Show physics bodies
 		physics.setDrawMode("hybrid")
 	end
-
 	-- Main Menu Runtime Event.
 	if gameData.inMainMenu then
 		-- Activate snow particle effect if in main menu
@@ -452,6 +453,7 @@ local function update(event)
 	end
 
 	-- World Selector Runtime Event.
+	--[[
 	if gameData.inWorldSelector == 1 then
 		-- Draw shadow under ball
 		if shadowCircle and ball then
@@ -459,7 +461,6 @@ local function update(event)
 			shadowCircle.y = ball.y
 		end
 	end
-	
 	-- Level Selector Runtime Event.
 	if gameData.inLevelSelector == 1 then
 		-- Draw shadow under ball
@@ -468,16 +469,19 @@ local function update(event)
 			shadowCircle.y = ball.y
 		end
 	end
-	
+	]]--
 	-- In-Game Runtime Event.
 	if gameData.ingame == 1 then
 		snow.gameSnow(event, mapData, gui)
-		if shadowCircle and ball then
+		--[[if shadowCircle and ball then
 			shadowCircle.x = ball.x
 			shadowCircle.y = ball.y
-		end
-	end
+		end]]--
 		
+		print("player damp", ball.linearDamping)
+		print("player dens", ball.density)
+	end
+	
 	-- In-Water Runtime Event.
 	if gameData.inWater then
 		-- Turn on pane switching and mini map
@@ -493,6 +497,16 @@ end
 local function gameLoopEvents(event)
 	-- Runtime functions
 	update(event)
+	
+	--[[
+	if mapData.levelNum == "6" then
+		if tutorialShown then
+			local tutorialTextTimer = timer.performWithDelay( 5000,  function() tutorialText = display.newTextBox("Double tap the screen to open up the minimap to switch panes or simply swipe away from the snow.", player.imageObject.x, player.imageObject.y - 50, font.TEACHERA, 15);end)
+			
+			tutorialShown = flase
+		end
+	end
+	]]--
 	
 	if gameData.gRune == true and gameData.isShowingMiniMap == false then
 		for check = 1, #accelObjects.switchWallAndIceberg do

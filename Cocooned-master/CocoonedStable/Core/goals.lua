@@ -21,7 +21,7 @@ local levelPortalObject
 -- reenablePortal() - Re-enable portal that player collided with
 --------------------------------------------------------------------------------
 local function reenablePortal(obj)
-	playerTrans = transition.to(playerTemp.imageObject, {time=200, alpha=1})
+	playerTrans = transition.to(playerTemp.imageObject, {time=1000, alpha=1})
 	levelPortalObject.isSensor = false
 	-- Reset player accelerometer values
 	playerTemp.curse = 1
@@ -56,7 +56,7 @@ local function hidePlay(playerTemp)
 	cancel.isVisible = false
 	cancel.isSensor = true
 	
-	playerTrans = transition.to(playerTemp.imageObject, {time=1000, x=738, y=522, onComplete=reenablePortal})
+	playerTrans = transition.to(playerTemp.imageObject, {time=300, x=738, y=522, onComplete=reenablePortal})
 	--play:removeEventListener("tap", tapOnce)
 	--cancel:removeEventListener("tap", tapOnce)
 end
@@ -85,7 +85,9 @@ local function tapOnce(event)
 			--play.isVisible = false
 			--cancel.isVisible = false
 			-- Hide play/cancel buttons and goal texts
-			playerTrans = transition.to(playerTemp.imageObject, {time=100, alpha=0, onComplete=hidePlay(playerTemp)})
+			--playerTemp.imageObject.alpha = 0.05
+			hidePlay(playerTemp)
+			playerTrans = transition.to(playerTemp.imageObject, {time=50, alpha=0})
 		end
 	end
 end
@@ -184,9 +186,9 @@ local function findGoals(mapData, gui)
 	local tempData = tonumber(mapData.levelNum)
 	
 	-- Different than levelNames.lua
-	local levelNames = {"Avalon", "Cittàgazze", "Lake Wobegon", "Waterdeep", "Rivendell", 
-						"Middle Earth", "Cabot Cove", "Fish Hell", "Gormenghast", "Emerald City",	
-						"Kakariko Village", "Middlemarch", "Castle Rock", "Middlemarch", "Santa Teresa"}
+	local levelNames = {"Lake Wabbagon", "Humble Beginnings", "Gone Fishing", "Treacherous Paths", "Windy Watery Pass", 
+						"Middle Earth", "Cabot Cove", "Fish Hell", "Island Hopping", "Cracked Ice",	
+						"Tilt o' Swirl", "Ancient Walls", "Walls of Green", "Ice Crystal Palace", "Severed Paths"}
 
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData then

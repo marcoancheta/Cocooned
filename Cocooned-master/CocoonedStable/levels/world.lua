@@ -24,7 +24,14 @@ local world = {
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }}
 	panes = {true,false,false,false,false},
-	
+	-- Check to see which runes are available
+	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
+	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
+	runeAvailable = {["M"]="none", 
+					 ["U"]="none", 
+					 ["D"]="none", 
+					 ["R"]="none", 
+					 ["L"]="none"},
 	-- number of wisps in the level
 	wispCount = 0,
 	waterCount = 0,
@@ -86,7 +93,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(32, 15)
 		
 		-- Corona Simulator Accel Coordinates:
-	 	--objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(14, 12)	
+	 	--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14, 12)	
 
 		-- Play animation for all world portals
 		for i=1, world["world"]["exitPortal"] do

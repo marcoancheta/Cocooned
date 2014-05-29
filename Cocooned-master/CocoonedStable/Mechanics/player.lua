@@ -34,7 +34,7 @@ local playerInstance = {
 	magnetized = "neutral", -- {negative, neutral, positive}
 	color = "white",
 	image = "null",
-	name = "hello",
+	--name = "hello",
 	movement = "accel",
 	--escape = "center",
 	name = "kipcha",
@@ -96,19 +96,16 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeBack(player)
-	print("un-shrinking the player back to normal size")
 	physics.removeBody(player)
 	player:scale(2,2)
-	player.width = player.width * 2
-	player.height = player.height * 2
 	physics.addBody(player, {radius = 36, bounce = .25, density = 0.3})
+	physics.addBody(player, {radius = 38, bounce = .25, density = 0.3})
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball
 		auraEmitter:changeRadius(25)
 	end
-	physics.setGravity(0,0)
-	-- player.linearDamping = 1.25
-	-- player.density = .3
+	--player.linearDamping = 1.25
+	print("un-shrinking the player back to normal size")
 end
 
 --------------------------------------------------------------------------------
@@ -119,8 +116,6 @@ end
 local function changeSize(player)
 	physics.removeBody(player)
 	player:scale(0.5,0.5)
-	player.width = player.width * .5
-	player.height = player.height * .5
 	physics.addBody(player, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball
@@ -128,7 +123,7 @@ local function changeSize(player)
 	end
 	physics.setGravity(0,0)
 	--player.linearDamping = 1.25
-	changeBack(player)
+	print("SIZE")
 end
 
 --------------------------------------------------------------------------------
@@ -247,8 +242,8 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:deleteAura()
 	if auraEmitter ~= nil then
-			auraEmitter:destroy()
-			auraEmitter=nil
+		auraEmitter:destroy()
+		auraEmitter=nil
 	end
 end
 
@@ -291,11 +286,44 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:unshrink()
-	self.small = false
-	local delayShrink = function() return changeBack( self.imageObject ) end
-	timer.performWithDelay(100, delayShrink)
+	--local delayShrink = function() return 
+	--changeBack( self.imageObject )-- end
+	--timer.performWithDelay(100, delayShrink)
+	
+	if self.small == true then
+		physics.removeBody(self.imageObject)
+		self.imageObject:scale(2,2)
+		physics.addBody(self.imageObject, {radius = 38, friction=0, bounce = .25, density = 0.3})
+		if auraEmitter ~= nil then
+			auraEmitter:changeRadius(25)
+		end
+		self.imageObject.linearDamping = 1.25
+		print("un-shrinking the player back to normal size")
+		self.small = false
+	end
 end
 
+--------------------------------------------------------------------------------
+-- Shrink - player function that calls delay timer for changeSize
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+function playerInstance:shrink() 
+	--local delayShrink = function() return 
+	--changeSize( self.imageObject )-- end
+	--timer.performWithDelay(100, delayShrink)
+	if self.small == false then
+		physics.removeBody(self.imageObject)
+		self.imageObject:scale(0.5,0.5)
+		physics.addBody(self.imageObject, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
+		if auraEmitter ~= nil then
+			auraEmitter:changeRadius(-25)
+		end
+		--player.linearDamping = 1.25
+		print("SIZE")
+		self.small = true
+	end
+end
 
 --------------------------------------------------------------------------------
 -- Rotate Transition - function that rotates player image object
@@ -307,24 +335,13 @@ local function rotateTransition(imageObject, rotationDelta, timeDelta)
 end 
 
 --------------------------------------------------------------------------------
--- Shrink - player function that calls delay timer for changeSize
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-function playerInstance:shrink() 
-	self.small = true
-	local delayShrink = function() return changeSize( self.imageObject ) end
-	timer.performWithDelay(100, delayShrink)
-end
-
---------------------------------------------------------------------------------
 -- Slow Time - player function that slows time of moveable objects
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:slowTime(map)
 	for check = 1, map.numChildren do
-		if map[check].moveable == true then
+		if map[check].moveable == true and map[check].name ~= "player" then
 			map[check].time = 20000
 		end
 	end
@@ -362,9 +379,9 @@ function playerInstance:rotate (x,y)
 	self.imageObject.rotation = angle + 90
 end
 
-function playerInstance:saveSelf()
-
-end
+--function playerInstance:saveSelf()
+--
+--end
 
 --------------------------------------------------------------------------------
 -- Death - player function that kills player and respawns
