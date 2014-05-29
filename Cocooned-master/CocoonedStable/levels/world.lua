@@ -95,6 +95,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Corona Simulator Accel Coordinates:
 	 	objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14, 12)	
 
+
 		-- Play animation for all world portals
 		for i=1, world["world"]["exitPortal"] do
 			objects["exitPortal" ..i.. ""]:setSequence("move")
