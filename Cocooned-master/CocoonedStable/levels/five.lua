@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- Cocofived by Damaged Panda Games (http://signup.cocofivedgame.com/)
+-- Cocooned by Damaged Panda Games (http://signup.cocofivedgame.com/)
 -- five.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -145,7 +145,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	if mapData.pane == "M" then
 		
 		-- Pink rune	
-		rune[3].x, rune[3].y = generate.tilesToPixels(3.5, 3)			
+		rune[3].x, rune[3].y = generate.tilesToPixels(3, 20)			
 		rune[3].isVisible = true
 
 		-- Fish 
