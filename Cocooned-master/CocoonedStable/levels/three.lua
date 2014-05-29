@@ -169,6 +169,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(30, 12)
 
 		generate.gWisps(wisp, map, mapData, 1, 7, three.wispCount)
+		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")

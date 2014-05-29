@@ -478,8 +478,8 @@ local function update(event)
 			shadowCircle.y = ball.y
 		end]]--
 		
-		print("player damp", ball.linearDamping)
-		print("player dens", ball.density)
+		-- print("player damp", ball.linearDamping)
+		-- print("player dens", ball.density)
 	end
 	
 	-- In-Water Runtime Event.

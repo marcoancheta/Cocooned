@@ -183,7 +183,10 @@ end
 --------------------------------------------------------------------------------
 local function findGoals(mapData, gui)
 	--local runeAmount = 0
-	local tempData = tonumber(mapData.levelNum)
+	local tempData = nil
+	if mapData.levelNum ~= "T" then
+		tempData = tonumber(mapData.levelNum)	
+	end
 	
 	-- Different than levelNames.lua
 	local levelNames = {"Lake Wabbagon", "Humble Beginnings", "Gone Fishing", "Treacherous Paths", "Windy Watery Pass", 
@@ -194,6 +197,9 @@ local function findGoals(mapData, gui)
 	if tempData then
 		print(tempData)
 		textObject[2].text = levelNames[tempData] --" | Time:"
+	else
+		print(tempData)
+		textObject[2].text = "Tutorial Level"
 	end
 end
 
