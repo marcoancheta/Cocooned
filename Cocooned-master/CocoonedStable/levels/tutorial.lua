@@ -23,7 +23,7 @@ local generate = require("Objects.generateObjects")
 local tutorial = { 
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }
-	panes = {true,false,false,false,true},
+	panes = {true,true,false,false,false},
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
@@ -36,7 +36,7 @@ local tutorial = {
 	playerCount = 1,
 	playerPos = {{["x"]=21, ["y"]=22}},
 	-- number of wisps in the level
-	wispCount = 0,
+	wispCount = 4,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -75,7 +75,7 @@ local tutorial = {
 		["worldPortal"] = 0
 	},
 	["U"] = {
-		["blueAura"] = 0,
+		["blueAura"] = 1,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -86,7 +86,7 @@ local tutorial = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0, 
+		["exitPortal"] = 1, 
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -144,16 +144,36 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	if mapData.pane == "L" then
 		
+	elseif mapData.pane == "M" then
+		-- Wisps
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(35, 18)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(33, 20)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(37, 20)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(35, 22)
+		--wisp[5].x, wisp[5].y = generate.tilesToPixels(38, 10)
+		--wisp[6].x, wisp[6].y = generate.tilesToPixels(38, 13)
+	
+		-- Shrink rune
+		rune[4].x, rune[4].y = generate.tilesToPixels(31, 9)			
+		rune[4].isVisible = true
+
+		generate.gWisps(wisp, map, mapData, 1, 4, tutorial.wispCount)
+	elseif mapData.pane == "U" then
 		-- Exit Portal
 		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14.5, 3)
-		
-	elseif mapData.pane == "M" then
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 12)
 
-	elseif mapData.pane == "U" then
-		if gameData.debugMode then
-			print("You shouldn't be in here...")
-		end
+		-- Slow time rune
+		rune[3].x, rune[3].y = generate.tilesToPixels(36, 18)			
+		rune[3].isVisible = true
+
+		-- Blue Aura
+		objects["blueAura1"]:setSequence("move")
+		objects["blueAura1"]:play()
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(32, 9)
+
+		generate.gAuraWalls(map, mapData, "blueWall")
+		generate.gWater(map, mapData)
 	elseif mapData.pane == "D" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
