@@ -54,6 +54,8 @@ local function loadGameSounds()
 	sound.backgroundMusic[2] = audio.loadStream("sounds/music/ArtemisMenu.mp3")
 	-- World 3 music
 	sound.backgroundMusic[3] = audio.loadStream("sounds/music/Spiritwatcher.mp3")
+	-- Level Complete Music
+	sound.backgroundMusic[4] = audio.loadStream("sounds/music/levelComplete.mp3")
 
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menuButton.wav")
