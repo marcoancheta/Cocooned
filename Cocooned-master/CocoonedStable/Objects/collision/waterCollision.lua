@@ -14,7 +14,6 @@ local uMath = require("utils.utilMath")
 --------------------------------------------------------------------------------
 local waterCount = 0
 local waterShadow
-local sinkTrans
 
 --------------------------------------------------------------------------------
 -- Clean Function - function for deleting all local variables
@@ -29,6 +28,18 @@ local function clean(event)
 end
 
 --------------------------------------------------------------------------------
+-- End Animation -- function that ends animation for water splash 
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function endAnimation( event )
+	if ( event.phase == "ended" ) then
+		local thisSprite = event.target  --"event.target" references the sprite
+		thisSprite:removeSelf()  --play the new sequence; it won't play automatically!
+	end
+end
+
+--------------------------------------------------------------------------------
 -- Collide Function - function for water collision
 --------------------------------------------------------------------------------
 -- Updated by: Robert James Ford XIII
@@ -38,7 +49,16 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if (gameData.onIceberg == false) then
 		if(event.phase == "began") then
 			gameData.inWater = true
-			
+			local splashAnim = display.newSprite(animation.sheetOptions.splashSheet, animation.spriteOptions.splash)	
+			-- Start splash at player location
+			splashAnim.x = player.imageObject.x
+			splashAnim.y = player.imageObject.y
+			-- Enlarge the size of the splash
+			splashAnim:scale(.5, .5)
+			splashAnim:setSequence("move")
+			splashAnim:play()
+			splashAnim:addEventListener( "sprite", endAnimation )
+
 			print("==================== began collided with water, count: " .. waterCount .. " ===================")
 
 			if(waterCount == 0) then
@@ -89,8 +109,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				end
 
 				timer.performWithDelay(500, stopPlayer)
-				
-				sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
+				player.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 
 				--transition.to(player.imageObject, {time = 200, x = xf, y = yf})
 				--player.imageObject:setLinearVelocity(0,0)
@@ -118,8 +137,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				player:stopDeathTimer()
 				gameData.inWater = false
 				player.lastPositionSaved = false
-				if sinkTrans then
-					transition.cancel(sinkTrans)
+				if player.sinkTrans ~= nil then
+					transition.cancel(player.sinkTrans)
+					player.sinkTrans = nil
 				end
 				player.imageObject.alpha = 1
 				player.imageObject:setLinearVelocity(0,0)
@@ -128,8 +148,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			end
 		end
 	end
-	
-	
+
+
 	--if gameData.onIceberg then
 		--print(" @@@@@@@@@@@@@@@ still on an iceberg")
 	--else

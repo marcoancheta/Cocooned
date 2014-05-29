@@ -23,6 +23,14 @@ local twelve = {
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }
 	panes = {true,false,false,true,true},
+	-- Check to see which runes are available
+	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
+	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
+	runeAvailable = {["M"]= {"none"}, 
+					 ["U"]= {"none"}, 
+					 ["D"]= {"none"}, 
+					 ["R"]= {"purpleRune"}, 
+					 ["L"]= {"none"}},
 	timer = 300,
 	playerCount = 1,
 	playerPos = {{["x"]=16, ["y"]=12},},
