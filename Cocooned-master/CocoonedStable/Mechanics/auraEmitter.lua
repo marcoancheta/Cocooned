@@ -16,8 +16,7 @@ math.randomseed(os.time())
 
 --TODO: fix auraEmitter bugs and put into gui instead of random group
 
-auraEmitterLib = {}
-local auraGroup
+local auraEmitterLib = {}
  
 local Random = math.random
 local msqrt = math.sqrt
@@ -47,7 +46,7 @@ function emit(ex, ey, player, radiusRange, initAlpha, endAlpha, particleDuration
     --calculate the random radius given to the particle
     particle.rad=msqrt(((player.imageObject.x-ex)*(player.imageObject.x-ex))+((player.imageObject.y-ey)*(player.imageObject.y-ey)))
     --insert and place particle
-    auraGroup:insert(particle)
+    gui.front:insert(particle)
     particle:toFront()
     particle.x = ex
     particle.y = ey
@@ -62,8 +61,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
-function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer, initAlpha, endAlpha, inParticleImage, inParticleImageWidth, inParticleImageHeight, particleNum)
-  auraGroup = display.newGroup()
+function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer, initAlpha, endAlpha, inParticleImage, inParticleImageWidth, inParticleImageHeight, particleNum, gui)
   local customEmitter = {}
   customEmitter.particles = {} 
   customEmitter.particleNum = particleNum 
@@ -141,8 +139,6 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer,
       self.particles[i]:removeSelf()
       self.particles[i] = nil
     end
-    auraGroup:removeSelf()
-    auraGroup = nil
     self = nil
   end
 
@@ -189,3 +185,5 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer,
   
   return customEmitter
 end
+
+return auraEmitterLib

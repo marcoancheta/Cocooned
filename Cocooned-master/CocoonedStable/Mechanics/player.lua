@@ -201,7 +201,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
-function playerInstance:changeColor(color)
+function playerInstance:changeColor(color, gui)
 	local colors ={
 		['white'] = {1,1,1},
 		['red'] = {255*0.00392156862, 116*0.00392156862, 123*0.00392156862}, 
@@ -214,7 +214,7 @@ function playerInstance:changeColor(color)
     self.imageObject:setFillColor(c[1],c[2],c[3])
     if auraEmitter == nil then
     	--starts up the aura emitter, gets updated in movement 
-    	auraEmitter=auraEmitterLib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20)
+    	auraEmitter=particle_lib.auraEmitterLib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
     end
 end
 
