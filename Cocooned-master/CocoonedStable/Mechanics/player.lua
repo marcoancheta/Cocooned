@@ -96,7 +96,7 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeBack(player)
-	--physics.removeBody(player)
+	physics.removeBody(player)
 	player:scale(2,2)
 	physics.addBody(player, {radius = 38, bounce = .25, density = 0.3})
 	if auraEmitter ~= nil then
@@ -277,14 +277,17 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:unshrink()
-	--local delayShrink = function() return 
-	--changeBack( self.imageObject )-- end
-	--timer.performWithDelay(100, delayShrink)
+	
 	
 	if self.small == true then
-		physics.removeBody(self.imageObject)
-		self.imageObject:scale(2,2)
-		physics.addBody(self.imageObject, {radius = 38, friction=0, bounce = .25, density = 0.3})
+		-- physics.removeBody(self.imageObject)
+		-- self.imageObject:scale(2,2)
+		-- physics.addBody(self.imageObject, {radius = 38, friction=0, bounce = .25, density = 0.3})
+
+		local delayShrink = function() return 
+		changeBack( self.imageObject ) end
+		timer.performWithDelay(100, delayShrink)
+
 		if auraEmitter ~= nil then
 			auraEmitter:changeRadius(25)
 		end
@@ -300,18 +303,18 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:shrink() 
-	--local delayShrink = function() return 
-	--changeSize( self.imageObject )-- end
-	--timer.performWithDelay(100, delayShrink)
+	
 	if self.small == false then
-		physics.removeBody(self.imageObject)
-		self.imageObject:scale(0.5,0.5)
-		physics.addBody(self.imageObject, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
+		-- physics.removeBody(self.imageObject)
+		-- self.imageObject:scale(0.5,0.5)
+		-- physics.addBody(self.imageObject, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
+		local delayShrink = function() return 
+		changeSize( self.imageObject ) end
+		timer.performWithDelay(100, delayShrink)
 		if auraEmitter ~= nil then
 			auraEmitter:changeRadius(-25)
 		end
 		--player.linearDamping = 1.25
-		print("SIZE")
 		self.small = true
 	end
 end

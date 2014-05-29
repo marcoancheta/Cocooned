@@ -242,8 +242,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[46].x, wisp[46].y = generate.tilesToPixels(24, 10)
 		wisp[47].x, wisp[47].y = generate.tilesToPixels(19, 7)
 
-
-
 		generate.gWisps(wisp, map, mapData, 30, 47, ten.wispCount)
 	end
 
