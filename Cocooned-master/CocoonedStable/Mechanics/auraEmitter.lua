@@ -35,7 +35,7 @@ local colors ={
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
-function emit(ex, ey, player, radiusRange, initAlpha, endAlpha, particleDuration)
+function emit(ex, ey, player, radiusRange, initAlpha, endAlpha, particleDuration, gui)
     local particle = nil
     -- set particle circle
     particle = display.newCircle(ex, ey, 5)
@@ -88,7 +88,7 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer,
         randRange = true
       end
     end
-    local p=emit(randX, randY, currPlayer, radiusRange, initAlpha, endAlpha, particleDuration)
+    local p=emit(randX, randY, currPlayer, radiusRange, initAlpha, endAlpha, particleDuration, gui)
     p.transition = transition.to(particle, {time=Random(300, 5000), alpha = 0})
     table.insert(customEmitter.particles, p)
     --p.isVisible = false

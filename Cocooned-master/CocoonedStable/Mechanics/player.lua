@@ -214,7 +214,7 @@ function playerInstance:changeColor(color, gui)
     self.imageObject:setFillColor(c[1],c[2],c[3])
     if auraEmitter == nil then
     	--starts up the aura emitter, gets updated in movement 
-    	auraEmitter=particle_lib.auraEmitterLib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
+    	auraEmitter=particle_lib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
     end
 end
 
