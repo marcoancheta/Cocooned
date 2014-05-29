@@ -35,7 +35,7 @@ end
 
 -- creates the collision detection for that pane
 local function createCollisionDetection(imageObject, player, mapData, gui, map)
-	
+
 	resetCollision()
 
 	-- function for pre collision 
@@ -43,12 +43,7 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	function imageObject:preCollision(event)
 		-- if the object is a passThru, calls it's collide function
 	    local collideObject = event.other
-		
-		if collideObject.collType == "passThru" and collideObject.name ~= "water" then
-			local col = require("Objects.collision." .. collideObject.func)
-			col.collide(collideObject, player, event, mapData, map, gui)
-	    end
-		
+
 		--[[
 		if event.contact then
 			--let the ball go through water
@@ -65,7 +60,12 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 			end
 		end
 		]]--
-		 --[[
+
+	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
+			local col = require("Objects.collision." .. collideObject.func)
+			col.collide(collideObject, player, event, mapData, map, gui)
+	    end
+	    --[[
 	    -- if the object is a solid, call it's collide function
 	    if collideObject.collType == "solid" or collideObject.collectable == true or collideObject.name == "wind" then
 			local col = require("Objects.collision." .. collideObject.func)
@@ -83,19 +83,29 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 		-- when collision began, do this
 		if event.phase == "began" then
 			-- if the object is a solid, call it's function
-			if gameData.collOn then
-				if (collideObject.collType == "solid" and collideObject.name ~= "walls") or (collideObject.name == "water") then
+			if (collideObject.collType == "solid" and collideObject.name ~= "walls") or (collideObject.name == "water") then
+				if gameData.collOn then
 					local col = require("Objects.collision." .. collideObject.func)
 					col.collide(collideObject, player, event, mapData, map, gui)	
 				end
 			end
+
+			-- create particle effect
+			--if collideObject.collType == "wall" then
+				--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
+			--end
+
 		elseif event.phase == "ended" then	
-			if collideObject.collType == "solid" and collideObject.name ~= "iceberg" then
+			if collideObject.collType == "solid" then
 				local col = require("Objects.collision." .. collideObject.func)
 				col.collide(collideObject, player, event, mapData, map, gui)	
-			elseif collideObject.name == "water" or collideObject.name == "iceberg" then
+			elseif collideObject.name == "water" then
 				local col = require("Objects.collision." .. collideObject.func)
-				col.collideEnd(collideObject, player, event, mapData, map, gui)
+				col.collide(collideObject, player, event, mapData, map, gui)
+			end
+		else
+			if collideObject.name == "water" then
+				--print("still colliding with water")
 			end
 		end
 	end

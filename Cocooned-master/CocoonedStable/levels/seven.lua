@@ -41,7 +41,7 @@ local seven = {
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
 	["M"] = {
-		["blueAura"] = 0,
+		["blueAura"] = 1,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -143,6 +143,16 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Check which pane
 
 	if mapData.pane == "M" then
+		-- Blue Aura
+		objects["blueAura1"]:setSequence("move")
+		objects["blueAura1"]:play()
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(3, 16)
+
+		-- Shrink rune
+		rune[4].x, rune[4].y = generate.tilesToPixels(4, 21)			
+		rune[4].isVisible = true
+
+		-- Wisps
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(12, 6)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(14, 8)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(16, 10)
@@ -150,10 +160,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[5].x, wisp[5].y = generate.tilesToPixels(30, 18)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(32, 20)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(34, 22)
-
-		-- Shrink rune
-		rune[4].x, rune[4].y = generate.tilesToPixels(4, 21)			
-		rune[4].isVisible = true
 				
 		generate.gWisps(wisp, map, mapData, 1, 7, seven.wispCount)		
 		generate.gAuraWalls(map, mapData, "blueWall")

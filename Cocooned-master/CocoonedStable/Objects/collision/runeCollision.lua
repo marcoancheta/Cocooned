@@ -49,6 +49,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	runeCollide.x, runeCollide.y = collideObject.x - 45, collideObject.y
 	runeCollide:setSequence("move")
 	runeCollide:play()
+	runeCollide:addEventListener( "sprite", endAnimation )
 
 	-- Create animation for the ball shrinking 
 	--local playerShrink = display.newSprite(animation.sheetOptions.shrinkSheet, spriteOptions.shrinkAnimation)

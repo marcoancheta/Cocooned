@@ -52,7 +52,7 @@ local six = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1,
+		["exitPortal"] = 0,
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -186,6 +186,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 5)
 
+		-- Wisps 
 		wisp[19].x, wisp[19].y = generate.tilesToPixels(21, 5)
 		wisp[20].x, wisp[20].y = generate.tilesToPixels(24, 6)
 		wisp[21].x, wisp[21].y = generate.tilesToPixels(25, 8.5)

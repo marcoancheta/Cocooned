@@ -186,9 +186,9 @@ local function findGoals(mapData, gui)
 	local tempData = tonumber(mapData.levelNum)
 	
 	-- Different than levelNames.lua
-	local levelNames = {"Avalon", "Cittàgazze", "Lake Wobegon", "Waterdeep", "Rivendell", 
-						"Middle Earth", "Cabot Cove", "Fish Hell", "Gormenghast", "Emerald City",	
-						"Kakariko Village", "Middlemarch", "Castle Rock", "Middlemarch", "Santa Teresa"}
+	local levelNames = {"Lake Wabbagon", "Humble Beginnings", "Gone Fishing", "Treacherous Paths", "Windy Watery Pass", 
+						"Middle Earth", "Cabot Cove", "Fish Hell", "Island Hopping", "Cracked Ice",	
+						"Tilt o' Swirl", "Ancient Walls", "Walls of Green", "Ice Crystal Palace", "Severed Paths"}
 
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData then
