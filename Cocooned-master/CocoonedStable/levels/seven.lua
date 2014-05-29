@@ -163,7 +163,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 				
 		generate.gWisps(wisp, map, mapData, 1, 7, seven.wispCount)		
 		generate.gAuraWalls(map, mapData, "blueWall")
-		generate.gWater(map, mapData)
+		-- generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(7, 5)
 		wisp[9].x, wisp[9].y = generate.tilesToPixels(7, 7)
