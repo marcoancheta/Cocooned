@@ -139,6 +139,12 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
+		-- Exit Portal
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(15, 22.5)
+		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 12)
+
+		-- Wisps
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(15, 13)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(13, 12)
 		wisp[3].x, wisp[3].y = generate.tilesToPixels(10, 12)
@@ -157,10 +163,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[16].x, wisp[16].y = generate.tilesToPixels(35, 14)
 		wisp[17].x, wisp[17].y = generate.tilesToPixels(36, 15)
 		wisp[18].x, wisp[18].y = generate.tilesToPixels(37, 14)
-
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(15, 22.5)
-		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 12)
 
 		generate.gWisps(wisp, map, mapData, 1, 18, one.wispCount)
 	elseif mapData.pane == "L" then

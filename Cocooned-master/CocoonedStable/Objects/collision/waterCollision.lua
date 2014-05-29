@@ -109,7 +109,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				end
 
 				timer.performWithDelay(500, stopPlayer)
-
 				player.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 
 				--transition.to(player.imageObject, {time = 200, x = xf, y = yf})

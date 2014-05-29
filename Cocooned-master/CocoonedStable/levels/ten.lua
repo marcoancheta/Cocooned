@@ -37,7 +37,7 @@ local ten = {
 	playerPos = {{["x"]=1.5, ["y"]=22},
 				 {["x"]=28, ["y"]=22},},
 	-- number of wisps in the level
-	wispCount = 29,
+	wispCount = 47,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -183,6 +183,12 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[27].x, wisp[27].y = generate.tilesToPixels(17, 21)
 		wisp[28].x, wisp[28].y = generate.tilesToPixels(16, 21)
 		wisp[29].x, wisp[29].y = generate.tilesToPixels(15, 19)
+		wisp[29].x, wisp[29].y = generate.tilesToPixels(33, 7)
+		wisp[29].x, wisp[29].y = generate.tilesToPixels(15, 19)
+		wisp[29].x, wisp[29].y = generate.tilesToPixels(15, 19)
+		wisp[29].x, wisp[29].y = generate.tilesToPixels(15, 19)
+		wisp[29].x, wisp[29].y = generate.tilesToPixels(15, 19)
+		wisp[29].x, wisp[29].y = generate.tilesToPixels(15, 19)
 
 		generate.gWisps(wisp, map, mapData, 18, 29, ten.wispCount)
 	elseif mapData.pane == "R" then
@@ -212,9 +218,33 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			print("You shouldn't be in here...")
 		end
 	elseif mapData.pane == "U" then
-		if gameData.debugMode then
-			print("You shouldn't be in here...")
-		end
+		-- Shrink rune
+		rune[4].x, rune[4].y = generate.tilesToPixels(6, 6)			
+		rune[4].isVisible = true
+
+		-- Wisps
+		wisp[30].x, wisp[30].y = generate.tilesToPixels(16, 6)
+		wisp[31].x, wisp[31].y = generate.tilesToPixels(16, 13)
+		wisp[32].x, wisp[32].y = generate.tilesToPixels(21, 15)
+		wisp[33].x, wisp[33].y = generate.tilesToPixels(22, 16)
+		wisp[34].x, wisp[34].y = generate.tilesToPixels(27, 20)
+		wisp[35].x, wisp[35].y = generate.tilesToPixels(32, 21)
+		wisp[36].x, wisp[36].y = generate.tilesToPixels(3, 17)
+		wisp[37].x, wisp[37].y = generate.tilesToPixels(2, 15)
+		wisp[38].x, wisp[38].y = generate.tilesToPixels(21, 4)
+		wisp[39].x, wisp[39].y = generate.tilesToPixels(2, 9)
+		wisp[40].x, wisp[40].y = generate.tilesToPixels(28, 11)
+		wisp[41].x, wisp[41].y = generate.tilesToPixels(20, 6)
+		wisp[42].x, wisp[42].y = generate.tilesToPixels(33, 7)
+		wisp[43].x, wisp[43].y = generate.tilesToPixels(34, 8)
+		wisp[44].x, wisp[44].y = generate.tilesToPixels(33, 1)
+		wisp[45].x, wisp[45].y = generate.tilesToPixels(31, 11)
+		wisp[46].x, wisp[46].y = generate.tilesToPixels(24, 10)
+		wisp[47].x, wisp[47].y = generate.tilesToPixels(19, 7)
+
+
+
+		generate.gWisps(wisp, map, mapData, 30, 47, ten.wispCount)
 	end
 
 	-- generates all objects in pane when locations are set
