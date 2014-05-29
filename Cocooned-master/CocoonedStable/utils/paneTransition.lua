@@ -20,14 +20,40 @@ local animation = require("Core.animation")
 local gameData = require("Core.gameData")
 -- Generate sound
 local sound = require("sound")
+local waterCol = require("Objects.collision.waterCollision")
 
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.spriteOptions.paneSwitch)
 local paneSheet
+local transPic = display.newSprite(animation.sheetOptions.paneSheet, animation.spriteOptions.paneSwitch)
+
+--------------------------------------------------------------------------------
+-- turnCollOn - re-enable collision
+--------------------------------------------------------------------------------
+local function turnCollOn() 
+	gameData.collOn = true 
+end
+
+--------------------------------------------------------------------------------
+-- End Transition - function that ends pane switch transition
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function endTransition(event)
+	-- set sequence to stop and remove it
+	if transPic then
+		transPic:setSequence("stop")
+		transPic:removeSelf()
+		transPic = nil
+	end
+	
+	gameData.allowTouch = true
+	gameData.allowPaneSwitch = true
+	print("gameData.allowPaneSwitch", gameData.allowPaneSwitch)
+end
 
 --------------------------------------------------------------------------------
 -- Move Panes - changes current pane to new one
@@ -45,15 +71,24 @@ local function movePanes(event)
 
 	-- delete everything on map
 	objects.destroy(params.mapData)
-	for i = params.gui.back.numChildren,1, -1 do
-		params.gui.back[i]:removeSelf()
-	end
-	for i = params.gui.middle.numChildren, 1, -1 do
-		params.gui.middle[i]:removeSelf()
-	end
-	for i = params.gui.front.numChildren, 1, -1 do
-		if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
-			params.gui.front[i]:removeSelf()
+	
+	if params.gui then
+		if params.gui.back ~= nil then
+			for i = params.gui.back.numChildren,1, -1 do
+				params.gui.back[i]:removeSelf()
+			end
+		end
+		if params.gui.middle ~= nil then
+			for i = params.gui.middle.numChildren, 1, -1 do
+				params.gui.middle[i]:removeSelf()
+			end
+		end
+		if params.gui.front ~= nil then
+			for i = params.gui.front.numChildren, 1, -1 do
+				if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
+					params.gui.front[i]:removeSelf()
+				end
+			end
 		end
 	end
 	
@@ -73,8 +108,7 @@ local function movePanes(event)
 	collisionDetection.changeCollision(params.player1, params.mapData, params.gui, params.map)
 
 	-- delay collision detection for a little while
-	local function turnCollOn() gameData.collOn = true end
-	timer.performWithDelay(200, turnCollOn)
+	local collTimer = timer.performWithDelay(100, turnCollOn)
 
 	-- check if the player has swiped into water
 	local playerPos = params.player1.imageObject
@@ -82,19 +116,17 @@ local function movePanes(event)
 	local degree = 0
 	local distanceCheck = 70
 	local inWater = false
-
+	
 	-- use raycasting to see the players surroundings
 	while locationFound == false do
 		for i = 1, 36 do
 			local x = playerPos.x + (distanceCheck * math.cos(degree * (math.pi/180)))
 			local y = playerPos.y + (distanceCheck * math.sin(degree * (math.pi/180)))
-
 			local hits = physics.rayCast(playerPos.x, playerPos.y, x, y, "sorted")
 
 			if (hits) then
-				for i,v in ipairs(hits)
-				do 
-				 	if v.object ~= nil then
+				for i,v in ipairs(hits)	do 
+					if v.object ~= nil then
 						if v.object.name == "water" then
 							locationFound = true
 							inWater = true
@@ -106,26 +138,30 @@ local function movePanes(event)
 					end
 				end
 			end
+				
 			degree = degree + 10
 		end
-		distanceCheck = distanceCheck + 30
+					
 		if ( distanceCheck > 300 ) then
 			print("no water or shore found, you should be fine")
 			locationFound = true
-			inwater = false
+			inWater = false
 		end
+			
+		distanceCheck = distanceCheck + 30
 	end
 
 	if inWater then
 		gameData.inWater = true
 		gameData.onLand = false
-		if waterShadow then
-					waterShadow:removeSelf()
-					waterShadow = nil
-		end
+		
+		-- Transition player's alpha to 0
+		waterCol.sinkTrans = transition.to(params.player1.imageObject, {time=3000, alpha=0})
+		
 		savePoint = display.newCircle(playerPos.x, playerPos.y , 38)
 		savePoint.alpha = 0
 		savePoint.name = "paneSavePoint"
+			
 		params.player1.lastSavePoint = savePoint
 		params.player1.lastPositionX = savePoint.x
 		params.player1.lastPositionY = savePoint.y
@@ -136,24 +172,10 @@ local function movePanes(event)
 	else
 		print("IM ON LAND!!!")
 	end
-
-end
-
---------------------------------------------------------------------------------
--- End Transition - function that ends pane switch transition
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-local function endTransition(event)
-	-- set sequence to stop and remove it
-	if transPic then
-		transPic:setSequence("stop")
-		transPic:removeSelf()
-		transPic = nil
-	end
+	--end
 	
-	gameData.allowTouch = true
-	gameData.allowPaneSwitch = true
+	print("gameData.allowPaneSwitch", gameData.allowPaneSwitch)
+	endTransition(event)
 end
 
 --------------------------------------------------------------------------------
@@ -245,9 +267,9 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	end
 	
 	-- timers for deleting pane image and ending pane switch
-	local endTrans = timer.performWithDelay(1000, endTransition)
+	--local endTrans = timer.performWithDelay(1000, endTransition)
 		
-	local moveTrans = timer.performWithDelay(400, movePanes)
+	local moveTrans = timer.performWithDelay(600, movePanes)
 		  moveTrans.params = { tempPane = tempPane, 
 								miniMap = miniMap, 
 									gui = gui, 

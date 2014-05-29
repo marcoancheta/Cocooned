@@ -72,11 +72,11 @@ end
 local function onAccelerate(event, player)
 	-- Print escape path
 	--print(player.escape)
-
+		
 	-- Accelerometer Tilt Events	
 	local xGrav = 0
 	local yGrav = 0
-
+		
 	-- Note: Accelerometer is always relative to the device in portrait orientation
 	-- X gravity change
 	if event.yInstant > 0.05 then
@@ -105,11 +105,11 @@ local function onAccelerate(event, player)
 		yGrav = 0
 		--sound.stopChannel(2)
 	end
-
+		
 	-- Accelerometer Shake Event
 	if event.isShake and gameData.inWater == true and player.shook == false then
 		--print(" IM FUCKING SHAKING NIGGA!!! ")
-
+		
 		emptyGroup(rayCastCheck)
 		emptyGroup(rayCastDistanceCheck)
 		-- emptyGroup(lastPointCheck)
@@ -153,12 +153,12 @@ local function onAccelerate(event, player)
 		-- 			    	lastPointCheck:insert(pointC)
 		-- 			    	lastPointCheck:toFront()
 		-- 			    end
-
+				        
 		-- 		    end					
 		-- 		else
 		-- 		    -- There's no hit.
 		-- 		end
-
+				
 		-- 		lpDegree = lpDegree + 10
 		-- 	end
 		-- end
@@ -196,12 +196,12 @@ local function onAccelerate(event, player)
 					    	rayCastCheck:insert(pointC)
 					    	rayCastCheck:toFront()
 					    end
-
+				        
 				    end					
 				else
 				    -- There's no hit.
 				end
-
+				
 				degree = degree + degreeAdd
 			end
 			if(distanceCheck >= 200) then
@@ -240,7 +240,7 @@ local function onAccelerate(event, player)
 			if useLastPoint then
 				dist = uMath.distance(rayCastCheck[i], lastPoint)
 				--print("Hit: " .. i .. " " .. rayCastCheck[i].name .. " at position " .. rayCastCheck[i].x .. ", " .. rayCastCheck[i].y .. " distance: " .. dist)
-
+				
 			else
 				dist = uMath.distance(rayCastCheck[i], ball)
 				--print("Hit: " .. i .. " " .. rayCastCheck[i].name .. " at position " .. rayCastCheck[i].x .. ", " .. rayCastCheck[i].y .. " distance: " .. dist)
@@ -299,7 +299,7 @@ local function onAccelerate(event, player)
 		physicsParam.xGrav = 0
 		physicsParam.yGrav = 0
 	end
-
+	
 	--return physics parameters
 	return physicsParam
 end
