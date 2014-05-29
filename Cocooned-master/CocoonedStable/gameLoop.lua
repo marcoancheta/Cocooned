@@ -617,7 +617,9 @@ local function gameLoopEvents(event)
 		snow.new()
 		-- Turn on pane switching and mini map
 		gameData.allowPaneSwitch = true
-		gameData.allowMiniMap = true
+		if mapData.levelNum == "T" then
+			gameData.allowMiniMap = true
+		end
 		-- Clear out pre-game
 		gameData.preGame = nil
 		-- Add game event listeners

@@ -9,6 +9,7 @@ local levelNames = require("utils.levelNames")
 local animation = require("Core.animation")
 local font = require("utils.font")
 local miniMap = require("Mechanics.miniMap")
+local tutorialLib = require("utils.tutorialLib")
 --------------------------------------------------------------------------------
 -- Variables - variables for loading panes
 --------------------------------------------------------------------------------
@@ -202,6 +203,12 @@ local function inGame(gui, mapData)
 	gui.front:insert(counterText)
 	-- loopLoc = 2 = inGame timer
 	gameTimer.loopLoc = 2
+	--set up tiltip if in tutorial level
+	if gameData.mapData.levelNum == "T" then
+		tutorialLib:showTipBox("tiltTip", gui)
+		local swipeTip = function() tutorialLib:showTipBox("swipePaneTip", gui) end
+		local tutorialTimer = performWithDelay(1500, swipeTip)
+	end	
 end
 
 --------------------------------------------------------------------------------
@@ -232,7 +239,8 @@ local function counterFunc(event)
 		overlay:removeSelf()
 		overlay = nil
 		-- Start physics/Add listeners in gameLoop
-		physics.start()		
+		physics.start()
+			
 		gameData.preGame = false
 		-- Clean up timer
 		cancelTimer()

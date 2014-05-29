@@ -99,6 +99,8 @@ local function changeBack(player)
 	print("un-shrinking the player back to normal size")
 	physics.removeBody(player)
 	player:scale(2,2)
+	player.width = player.width * 2
+	player.height = player.height * 2
 	physics.addBody(player, {radius = 36, bounce = .25, density = 0.3})
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball
@@ -117,6 +119,8 @@ end
 local function changeSize(player)
 	physics.removeBody(player)
 	player:scale(0.5,0.5)
+	player.width = player.width * .5
+	player.height = player.height * .5
 	physics.addBody(player, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball
@@ -124,6 +128,7 @@ local function changeSize(player)
 	end
 	physics.setGravity(0,0)
 	--player.linearDamping = 1.25
+	changeBack(player)
 end
 
 --------------------------------------------------------------------------------

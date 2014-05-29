@@ -14,6 +14,7 @@ local levelFinished = require("Core.levelFinished")
 local gameData = require("Core.gameData")
 local sound = require("sound")
 local animation = require("Core.animation")
+local tutorialLib = require("utils.tutorialLib")
 
 --------------------------------------------------------------------------------
 -- End Animation -- function that ends animation for collecting rune
@@ -63,7 +64,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	elseif collideObject.name == "pinkRune" then
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[10])
-		player:slowTime(gui.front)		
+		player:slowTime(gui.front)
+		if gameData.mapData.levelNum == "T" then
+			tutorialLib:showTipBox("rune2Tip", gui)
+		end		
 	elseif collideObject.name == "greenRune" then
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[11])
@@ -79,6 +83,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		playerShrink:play()
 		playerShrink:removeSelf( )
 		player:shrink()
+		if gameData.mapData.levelNum == "T" then
+			tutorialLib:showTipBox("rune1Tip", gui)
+		end
 	end
 	
 	-- remove rune
