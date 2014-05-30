@@ -609,6 +609,7 @@ local function gameLoopEvents(event)
 		loadMap(mapData)
 		snow.new()
 		-- Re-evaluate gameData booleans
+		gameData.deaths = 0
 		goals.destroyGoals()
 		gameData.inLevelSelector = 0
 		gameData.inWater = false

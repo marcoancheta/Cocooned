@@ -388,6 +388,7 @@ local function killPlayer(player, mapData, gui)
 	gameData.allowPaneSwith = true
 	gameData.onIceberg = false
 	gameData.collOn = false
+	gameData.deaths = gameData.deaths + 1
 
 	local waterCol = require("Objects.collision.waterCollision")
 	waterCol.reset()

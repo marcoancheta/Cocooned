@@ -155,7 +155,7 @@ local function timerStars(event)
 			  star.isVisible = true
 			  star.x, star.y = display.contentCenterX, display.contentCenterY+250
 		-- Transition alpha and star scaling in 7 milliseconds
-		local trans = transition.to(star, {time=600, alpha=1, xScale=5, yScale=5,
+		local trans = transition.to(star, {time=700, alpha=1, xScale=5, yScale=5,
 											x=display.contentCenterX, y=display.contentCenterY-50})
 		-- Update star score table
 		updateStars(3, params.mapData)
@@ -165,7 +165,7 @@ local function timerStars(event)
 			  star.isVisible = true
 			  star.x, star.y = display.contentCenterX, display.contentCenterY+250
 		-- Transition alpha and star scaling in 6 milliseconds
-		local trans = transition.to(star, {time=550, alpha=1, xScale=5, yScale=5, 
+		local trans = transition.to(star, {time=700, alpha=1, xScale=5, yScale=5, 
 											x=display.contentCenterX, y=display.contentCenterY-50})
 	end
 end
@@ -178,24 +178,24 @@ local function deathStars(event)
 	-- Locally store win time
 	local deaths = gameData.deaths
 	-- If there were no deaths GOLD STAR CHAMP
-	if (deaths == 0) then
+	if (deaths <= 1) then
 		local star = params.gStars[3]
 			  star.isVisible = true
 			  star:rotate(25)
 			  star.x, star.y = display.contentCenterX, display.contentCenterY+250
 		-- Transition alpha and star scaling in 8 milliseconds
-		local trans = transition.to(star, {time=600, alpha=1, xScale=5, yScale=5, 
+		local trans = transition.to(star, {time=800, alpha=1, xScale=5, yScale=5, 
 											x=display.contentCenterX+300, y=display.contentCenterY})
 		-- Update star score table
 		updateStars(4, params.mapData)
 	-- More than one star? Access denied
-	elseif (deaths > 0) then
+	elseif (deaths > 1) then
 		local star = params.gStars[6]
 			  star.isVisible = true
 			  star:rotate(25)
 			  star.x, star.y = display.contentCenterX, display.contentCenterY+250
 		-- Transition alpha and star scaling in 7 milliseconds
-		local trans = transition.to(star, {time=600, alpha=1, xScale=5, yScale=5, 
+		local trans = transition.to(star, {time=800, alpha=1, xScale=5, yScale=5, 
 											x=display.contentCenterX+300, y=display.contentCenterY})
 	end
 end
