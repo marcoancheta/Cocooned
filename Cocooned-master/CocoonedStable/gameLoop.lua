@@ -335,6 +335,7 @@ local function loadMap(mapData)
 	physics.addBody(ball, {radius = 38, bounce = .25})
 	ball.linearDamping = 1.25
 	ball.density = .3
+	ball.alpha = 0
 	-- add physics to ball2
 	physics.addBody(ball2, {radius = 38, bounce = .25})
 	ball2.linearDamping = 1.25
@@ -387,6 +388,8 @@ local function loadMap(mapData)
 	end
 	
 	local physicTimer = timer.performWithDelay(delay, startPhys)
+	-- Alpha transition (9 milliseconds)
+	local alphaTrans = transition.to(ball, {time=delay+1000, alpha=1})
 	
 	return player1
 end
