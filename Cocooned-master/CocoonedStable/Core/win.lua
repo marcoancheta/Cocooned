@@ -191,7 +191,7 @@ local function showScore(mapData, gui)
 	if mapData.levelNum ~= "T" then
 		local levelNumber = tonumber(mapData.levelNum)
 		scoreObj[2] = display.newText(levelNames.names[levelNumber], display.contentCenterX, 80, font.TEACHERA, 72)
-	elseif mapData.levelNum == "T" thene
+	elseif mapData.levelNum == "T" then
 		scoreObj[2] = display.newText("TUTORIAL", display.contentCenterX, 80, font.TEACHERA, 72)
 	end
 	
