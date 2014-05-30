@@ -379,11 +379,14 @@ local function loadMap(mapData)
 	player1.curse = 0
 	player2.curse = 0	
 	-- Delay physics restart
+	local delay = 0
 	if mapData.levelNum == "LS" then
-		local physicTimer = timer.performWithDelay(2000, startPhys)
+		delay = 2000
 	elseif mapData.levelNum == "world" then
-		local physicTimer = timer.performWithDelay(3000, startPhys)
+		delay = 3000
 	end
+	
+	local physicTimer = timer.performWithDelay(delay, startPhys)
 	
 	return player1
 end
