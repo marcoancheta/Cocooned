@@ -300,6 +300,8 @@ local function startPhys(event)
 	-- Reapply regular movement
 	player1.curse = 1
 	player2.curse = 1
+	-- print
+	print("START PHYSICS FOR: ", mapData.levelNum)
 end
 
 --------------------------------------------------------------------------------
@@ -377,7 +379,11 @@ local function loadMap(mapData)
 	player1.curse = 0
 	player2.curse = 0	
 	-- Delay physics restart
-	local physicTimer = timer.performWithDelay(2000, startPhys)
+	if mapData.levelNum == "LS" then
+		local physicTimer = timer.performWithDelay(2000, startPhys)
+	elseif mapData.levelNum == "world" then
+		local physicTimer = timer.performWithDelay(3000, startPhys)
+	end
 	
 	return player1
 end
@@ -534,7 +540,6 @@ local function gameLoopEvents(event)
 	-----------------------------
 	--[[ START WORLD SELECTOR]]--
 	if gameData.selectWorld then
-	
 		if gameData.inLevelSelector == 1 then
 			clean(event)
 			gameData.inLevelSelector = 0
