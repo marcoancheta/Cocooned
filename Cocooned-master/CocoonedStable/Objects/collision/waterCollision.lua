@@ -7,6 +7,7 @@ local gameData = require("Core.gameData")
 local sound = require("sound")
 local animation = require("Core.animation")
 local uMath = require("utils.utilMath")
+local tutorialLib = require("utils.tutorialLib")
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -62,6 +63,11 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			print("==================== began collided with water, count: " .. waterCount .. " ===================")
 
 			if(waterCount == 0) then
+				--check if player is in tutorial level and display water tip
+				if gameData.mapData.levelNum == "T" then
+					tutorialLib:showTipBox("waterTip", gui)
+				end
+
 				player:startDeathTimer(mapData, miniMap, gui)
 				gameData.allowPaneSwitch = false
 				player.lastPositionX = player.imageObject.x
