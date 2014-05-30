@@ -36,7 +36,9 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function onPlay(object, player, gui, mapData)
-	stars.goalStars(gStars, gui, mapData)
+	if mapData.levelNum ~= "T" then
+		stars.goalStars(gStars, gui, mapData)
+	end
 
 	textObject[1].isVisible = true
 	textObject[2].isVisible = true
