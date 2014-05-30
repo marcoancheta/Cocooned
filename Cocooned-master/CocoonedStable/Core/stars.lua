@@ -18,6 +18,7 @@ local stars = {
 		-- [2],[3],[4] = 0 player has not received a gold star, 1 player has received a gold star
 		-- [2] = wisps, [3] = time, [4] = deaths
 		--      [1][2][3][4]
+		["T"] = {0, 0, 0, 0},
 		["1"] = {0, 0, 0, 0},
 		["2"] = {0, 0, 0, 0},
 		["3"] = {0, 0, 0, 0},
