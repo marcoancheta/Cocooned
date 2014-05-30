@@ -331,7 +331,7 @@ end
 --------------------------------------------------------------------------------
 -- takes in a start and end index and creates those wisps only
 local function gAuraWalls(map, mapData, type)
-	local auraWall = display.newImageRect("mapdata/art/background/" ..mapData.levelNum.. "/aura/" ..mapData.pane..".png")
+	local auraWall = display.newImageRect("mapdata/art/background/" ..mapData.levelNum.. "/aura/" ..mapData.pane..".png", 1460, 864)
 	auraWall.alpha = 1
 	auraWall.name = "" .. type .. ""
 	auraWall.collType = "passThru"
