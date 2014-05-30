@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- Cocooned by Damaged Panda Games (http://signup.cocofourdgame.com/)
--- seven.lua
+-- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
+-- tutorial.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -16,27 +16,27 @@ local gameData = require("Core.gameData")
 local generate = require("Objects.generateObjects")
 
 --------------------------------------------------------------------------------
--- Level seven Variables
+-- Level Tutorial Variables
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local seven = { 
+local tutorial = { 
 	-- boolean for which pane is being used
 	-- { Middle, Up, Down, Right, Left }
-	panes = {true,false,false,true,true},
+	panes = {true,true,false,false,false},
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	runeAvailable = {["M"]= {"purpleRune"}, 
+	runeAvailable = {["M"]= {"greenRune"}, 
 					 ["U"]= {"none"}, 
 					 ["D"]= {"none"}, 
 					 ["R"]= {"none"}, 
-					 ["L"]= {"greenRune"}},
-	timer = 300,
+					 ["L"]= {"none"}},
+	timer = 180,
 	playerCount = 1,
-	playerPos = {{["x"]=4, ["y"]=4}},
+	playerPos = {{["x"]=21, ["y"]=22}},
 	-- number of wisps in the level
-	wispCount = 14,
+	wispCount = 4,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -75,18 +75,18 @@ local seven = {
 		["worldPortal"] = 0
 	},
 	["U"] = {
-		["blueAura"] = 0,
+		["blueAura"] = 1,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
-		["fish1"] = 0,
+		["fish1"] = 1,
 		["fish2"] = 0,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0, 
+		["exitPortal"] = 1, 
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -142,68 +142,67 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 
-	if mapData.pane == "M" then
+	if mapData.pane == "L" then
+		
+	elseif mapData.pane == "M" then
+		-- Wisps
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(35, 18)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(33, 20)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(37, 20)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(35, 22)
+		--wisp[5].x, wisp[5].y = generate.tilesToPixels(38, 10)
+		--wisp[6].x, wisp[6].y = generate.tilesToPixels(38, 13)
+	
+		-- Shrink rune
+		rune[4].x, rune[4].y = generate.tilesToPixels(31, 9)			
+		rune[4].isVisible = true
+
 		-- Blue Aura
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(3, 16)
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(32, 20)
 
-		-- Shrink rune
-		rune[4].x, rune[4].y = generate.tilesToPixels(4, 21)			
-		rune[4].isVisible = true
-
-		-- Wisps
-		wisp[1].x, wisp[1].y = generate.tilesToPixels(12, 6)
-		wisp[2].x, wisp[2].y = generate.tilesToPixels(14, 8)
-		wisp[3].x, wisp[3].y = generate.tilesToPixels(16, 10)
-		wisp[4].x, wisp[4].y = generate.tilesToPixels(28, 16)
-		wisp[5].x, wisp[5].y = generate.tilesToPixels(30, 18)
-		wisp[6].x, wisp[6].y = generate.tilesToPixels(32, 20)
-		wisp[7].x, wisp[7].y = generate.tilesToPixels(34, 22)
-				
-		generate.gWisps(wisp, map, mapData, 1, 7, seven.wispCount)		
-		generate.gAuraWalls(map, mapData, "blueWall")
-		-- generate.gWater(map, mapData)
-	elseif mapData.pane == "L" then
-		wisp[8].x, wisp[8].y = generate.tilesToPixels(7, 5)
-		wisp[9].x, wisp[9].y = generate.tilesToPixels(7, 7)
-		wisp[10].x, wisp[10].y = generate.tilesToPixels(7, 9)
-		wisp[11].x, wisp[11].y = generate.tilesToPixels(7, 11)
-		wisp[12].x, wisp[12].y = generate.tilesToPixels(9, 11)
-		wisp[13].x, wisp[13].y = generate.tilesToPixels(11, 11)
-		wisp[14].x, wisp[14].y = generate.tilesToPixels(13, 11)
-		
-		rune[2].x, rune[2].y = generate.tilesToPixels(35.5, 14.5)			
-		rune[2].isVisible = true
-
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(5, 21)
-		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 8, 14, seven.wispCount)
-	elseif mapData.pane == "R" then						
-		--rune[4].x, rune[4].y = generate.tilesToPixels(19.5, 12)			
-		--rune[4].isVisible = true
-
-		generate.gWater(map, mapData)
+		generate.gWisps(wisp, map, mapData, 1, 4, tutorial.wispCount)
 	elseif mapData.pane == "U" then
+		-- Fish
+		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(20, 5)
+ 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(20, 20)
+ 		objects["fish11"].time = 1375
+
+		-- Exit Portal
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 12)
+
+		-- Slow time rune
+		rune[3].x, rune[3].y = generate.tilesToPixels(36, 18)			
+		rune[3].isVisible = true
+
+		-- Blue Aura
+		objects["blueAura1"]:setSequence("move")
+		objects["blueAura1"]:play()
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(32, 9)
+
+		generate.gAuraWalls(map, mapData, "blueWall")
+		generate.gWater(map, mapData)
+	elseif mapData.pane == "D" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
 		end
-	elseif mapData.pane == "D" then
+	elseif mapData.pane == "R" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
 		end
 	end
 
 	-- generates all objects in pane when locations are set
-	generate.gObjects(seven, objects, map, mapData, rune)
+	generate.gObjects(tutorial, objects, map, mapData, rune)
 	-- generate all moveable objects in pane when locations are set
-	mObjects = generate.gMObjects(seven, objects, map, mapData)
+	mObjects = generate.gMObjects(tutorial, objects, map, mapData)
 	-- destroy the unused objects
-	generate.destroyObjects(seven, rune, wisp, water, wall, objects)
+	generate.destroyObjects(tutorial, rune, wisp, water, wall, objects)
 
 	-- set which panes are avaiable for player
-	map.front.panes = seven.panes
+	map.front.panes = tutorial.panes
 	map.front.itemGoal = 2
 end
 
@@ -232,6 +231,9 @@ local function destroyAll()
 		wall[i] = nil
 	end
 
+	if gameData.debugMode then
+		print("destroying objects", #mObjects)
+	end
 	-- destroy all moveable objects and stop moving them
 	for i=1, #mObjects do
 		if mObjects[i].moveable == true then
@@ -248,8 +250,8 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-seven.load = load
-seven.destroyAll = destroyAll
+tutorial.load = load
+tutorial.destroyAll = destroyAll
 
-return seven
--- end of seven.lua
+return tutorial
+-- end of tutorial.lua

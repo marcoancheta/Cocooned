@@ -102,7 +102,6 @@ function tutorialLib:showTipBox(tipType, gui)
 
 		--add tap functionality
 		toolTip[1]:addEventListener("tap", deleteHint)
-
 		--add text over box and add to gui
 		toolTip[2] = display.newText(tipText, toolTip[1].x, toolTip[1].y, font.TEACHERA, fontSize)
 		toolTip[2]:setFillColor(1,1,1)
@@ -121,4 +120,9 @@ function tutorialLib:showTipBox(tipType, gui)
 	end
 end
 
+<<<<<<< HEAD
 return tutorialLib
+=======
+return tutorialLib
+
+>>>>>>> origin/master

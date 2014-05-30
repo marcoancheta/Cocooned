@@ -297,7 +297,7 @@ end
 local function startPhys(event)
 	-- Start physics
 	physics.start()
-	-- Reapply curse
+	-- Reapply regular movement
 	player1.curse = 1
 	player2.curse = 1
 end
@@ -558,7 +558,9 @@ local function gameLoopEvents(event)
 		addGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
 		gameData.inWater = false
-		gameData.allowMiniMap = false
+		if mapData.levelNum ~= "T" then
+			gameData.allowMiniMap = false
+		end
 		gameData.allowPaneSwitch = false
 		gameData.inWorldSelector = 1
 		-- Switch off this loop
@@ -630,7 +632,9 @@ local function gameLoopEvents(event)
 		snow.new()
 		-- Turn on pane switching and mini map
 		gameData.allowPaneSwitch = true
-		gameData.allowMiniMap = true
+		if mapData.levelNum ~= "T" then
+			gameData.allowMiniMap = true
+		end
 		-- Clear out pre-game
 		gameData.preGame = nil
 		-- Add game event listeners

@@ -60,7 +60,7 @@ local world = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 3,
+		["exitPortal"] = 4,
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0,
@@ -93,7 +93,12 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(32, 15)
 		
 		-- Corona Simulator Accel Coordinates:
+<<<<<<< HEAD
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14, 12)	
+=======
+	 	objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(14, 12)	
+
+>>>>>>> origin/master
 
 		-- Play animation for all world portals
 		for i=1, world["world"]["exitPortal"] do

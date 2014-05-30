@@ -198,12 +198,18 @@ end
 --------------------------------------------------------------------------------
 local function findGoals(mapData, gui)
 	--local runeAmount = 0
-	local tempData = tonumber(mapData.levelNum)
-
+	local tempData = nil
+	if mapData.levelNum ~= "T" then
+		tempData = tonumber(mapData.levelNum)	
+	end
+		
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData then
 		print(tempData)
 		textObject[2].text = levelNames.names[tempData] --" | Time:"
+	else
+		print(tempData)
+		textObject[2].text = "Tutorial Level"
 	end
 end
 

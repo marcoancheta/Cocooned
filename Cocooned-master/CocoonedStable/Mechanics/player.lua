@@ -62,7 +62,6 @@ local playerInstance = {
 	onLand = true,
 	switchPanes = nil,
 	miniMap = nil,
-	sinkTrans = nil,
 	
 	-- Booleans
 	deathTimer = nil,
@@ -97,13 +96,15 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeBack(player)
-	--physics.removeBody(player)
+	physics.removeBody(player)
 	player:scale(2,2)
+	physics.addBody(player, {radius = 36, bounce = .25, density = 0.3})
 	physics.addBody(player, {radius = 38, bounce = .25, density = 0.3})
 	if auraEmitter ~= nil then
+		--changes the radius range of the aura particles to match up with the ball
 		auraEmitter:changeRadius(25)
 	end
-	player.linearDamping = 1.25
+	--player.linearDamping = 1.25
 	print("un-shrinking the player back to normal size")
 end
 
@@ -117,9 +118,11 @@ local function changeSize(player)
 	player:scale(0.5,0.5)
 	physics.addBody(player, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
 	if auraEmitter ~= nil then
+		--changes the radius range of the aura particles to match up with the ball
 		auraEmitter:changeRadius(-25)
 	end
-	player.linearDamping = 1.25
+	physics.setGravity(0,0)
+	--player.linearDamping = 1.25
 	print("SIZE")
 end
 
@@ -145,12 +148,13 @@ end
 --------------------------------------------------------------------------------
 -- Change Body Type - player function that changes properties of objects to moveable
 --------------------------------------------------------------------------------
--- Updated by: Marco
+-- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeBodyType(event)
 	local params = event.source.params
 	for check = 1, params.param1.front.numChildren do
 		local currObject = params.param1.front[check]
+		--enables the movement of the switch walls and free icebergs when player gets the specific rune
 		if  string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
 			params.param1.front[check].bodyType = "dynamic"
  			params.param1.front[check].isFixedRotation = true
@@ -197,7 +201,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
-function playerInstance:changeColor(color)
+function playerInstance:changeColor(color, gui)
 	local colors ={
 		['white'] = {1,1,1},
 		['red'] = {255*0.00392156862, 116*0.00392156862, 123*0.00392156862}, 
@@ -206,9 +210,11 @@ function playerInstance:changeColor(color)
 	}
     self.color = color
     c = colors[color]
+    --changes the color of the player
     self.imageObject:setFillColor(c[1],c[2],c[3])
     if auraEmitter == nil then
-    	auraEmitter=auraEmitterLib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20)
+    	--starts up the aura emitter, gets updated in movement 
+    	auraEmitter=particle_lib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
     end
 end
 
@@ -220,8 +226,10 @@ end
 function playerInstance:updateAura()
 	if auraEmitter ~= nil then
 		if self.color ~= "white" then
+			--updates positiion of the particles
 			auraEmitter:moveParticles(self.imageObject.x, self.imageObject.y, self.color)
 		else
+			--hides the particles if player changes color back to white
 			auraEmitter:hideParticles()
 		end
 	end
@@ -278,6 +286,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:unshrink()
+<<<<<<< HEAD
 	local delayShrink = function() return changeBack( self.imageObject ) end
 	timer.performWithDelay(100, delayShrink)
 	
@@ -285,6 +294,19 @@ function playerInstance:unshrink()
 		physics.removeBody(self.imageObject)
 		self.imageObject:scale(2,2)
 		physics.addBody(self.imageObject, {radius = 38, friction=0, bounce = .25, density = 0.3})
+=======
+	
+	
+	if self.small == true then
+		-- physics.removeBody(self.imageObject)
+		-- self.imageObject:scale(2,2)
+		-- physics.addBody(self.imageObject, {radius = 38, friction=0, bounce = .25, density = 0.3})
+
+		local delayShrink = function() return 
+		changeBack( self.imageObject ) end
+		timer.performWithDelay(100, delayShrink)
+
+>>>>>>> origin/master
 		if auraEmitter ~= nil then
 			auraEmitter:changeRadius(25)
 		end
@@ -301,17 +323,27 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:shrink() 
+<<<<<<< HEAD
 	local delayShrink = function() return changeSize (self.imageObject) end
 	timer.performWithDelay(100, delayShrink)
 	--[[if self.small == false then
 		physics.removeBody(self.imageObject)
 		self.imageObject:scale(0.5,0.5)
 		physics.addBody(self.imageObject, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
+=======
+	
+	if self.small == false then
+		-- physics.removeBody(self.imageObject)
+		-- self.imageObject:scale(0.5,0.5)
+		-- physics.addBody(self.imageObject, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
+		local delayShrink = function() return 
+		changeSize( self.imageObject ) end
+		timer.performWithDelay(100, delayShrink)
+>>>>>>> origin/master
 		if auraEmitter ~= nil then
 			auraEmitter:changeRadius(-25)
 		end
 		--player.linearDamping = 1.25
-		print("SIZE")
 		self.small = true
 	end]]--
 end
