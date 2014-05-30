@@ -218,6 +218,7 @@ local function initgStars()
 	
 	for i=1, #gStars do
 		gStars[i].isVisible = false
+		gStars[i]:scale(1.5, 1.5)
 	end
 	
 	return gStars
@@ -239,13 +240,11 @@ local function goalStars(gStars, gui, mapData)
 				gStars[j].x, gStars[j].y = (j*85), 85 
 				--print(gStars[j].x, gStars[j].y)
 				gStars[j].isVisible = true
-				gStars[j]:scale(1.5, 1.5)
 			elseif stars.tables[mapData.levelNum][j+1] == 0 then
 				--print("j+3: ", j+3)
 				gStars[j+3].x, gStars[j+3].y = (j*85), 85
 				--print(gStars[j+3].x, gStars[j+3].y)
 				gStars[j+3].isVisible = true
-				gStars[j+3]:scale(1.5, 1.5)
 			end
 		end
 	end
