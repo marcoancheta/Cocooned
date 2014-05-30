@@ -215,7 +215,7 @@ local function calcScore(mapData, gui)
 	local count = 0
 
 	if highScore.counter then
-		count = highScore.counter * 100
+		count = highScore.counter --* 100
 	end
 	
 	-- High Score hacks (MAX PTS!)

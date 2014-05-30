@@ -15,17 +15,20 @@ local sound = {
 	backgroundMusic = {},
 	soundEffects = {},
 }
-local name
 
+local name
 local sfx, bgm, narrator
 
 -- Reserve 3 main channels (SFX, Narration, BGM)
-audio.reserveChannels(3)
+audio.reserveChannels(5)
 
 -- Channel 1 = SFX, Channel 2 = Narration, Channel 3 = BGM
 audio.setVolume(0.5, {channel = 1} )
-audio.setVolume(1, {channel = 2} )
+audio.setVolume(0.5, {channel = 2} )
 audio.setVolume(0.5, {channel = 3} )
+audio.setVolume(0.5, {channel = 4} )
+audio.setVolume(0.5, {channel = 5} )
+
 --------------------------------------------------------------------------------
 -- Load Sounds (Menu, In-Game)
 --------------------------------------------------------------------------------
@@ -43,6 +46,9 @@ local function loadMenuSounds()
 	return backgroundMusic, soundEffects
 end
 
+---------------------------------------------------------------------------
+--- loadGameSounds() - Load all sounds that are going to be used in game
+---------------------------------------------------------------------------
 local function loadGameSounds()
 	if gameData.debugMode then
 		print("LOADED SOUNDS")
@@ -83,6 +89,8 @@ local function loadGameSounds()
 	sound.soundEffects[12] = audio.loadSound("sounds/enterPortal.wav")
 	--Fish sound
 	sound.soundEffects[13] = audio.loadSound("sounds/fish.wav")
+	-- Stars end transition sound
+	sound.soundEffects[14] = audio.loadSound("sounds/balloon_pop.wav")
 	
 	return backgroundMusic, soundEffects
 end
@@ -98,6 +106,8 @@ local function setVolume(chan, int)
 	
 	if chan == 1 then
 		gameData.sfxVolume = sim
+		audio.setVolume(sim, { channel=4 })
+		audio.setVolume(sim, { channel=5 })
 	elseif chan == 3 then
 		gameData.bgmVolume = sim
 	end
@@ -156,14 +166,13 @@ end
 -- Sound Effects Music [Channel: 1]
 local function playSound(name)
 	sfx = audio.play(name, {channel = 1, loops = 0})
-	-- print("play sound:", name)
-	
+	-- print("play sound:", name)	
 	return sfx
 end
 
 -- Narration/Ball rolling [Channel: 2]
 local function playNarration(name)
-	audio.setVolume(0.5, { channel=2 })
+	--audio.setVolume(0.5, { channel=2 })
 	narrator = audio.play(name, {channel = 2, loops=0})
 	-- print("play narration:", name)
 	

@@ -62,6 +62,7 @@ local playerInstance = {
 	onLand = true,
 	switchPanes = nil,
 	miniMap = nil,
+	sinkTrans = nil,
 	
 	-- Booleans
 	deathTimer = nil,
@@ -277,11 +278,10 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:unshrink()
-	--local delayShrink = function() return 
-	--changeBack( self.imageObject )-- end
-	--timer.performWithDelay(100, delayShrink)
+	local delayShrink = function() return changeBack( self.imageObject ) end
+	timer.performWithDelay(100, delayShrink)
 	
-	if self.small == true then
+	--[[if self.small == true then
 		physics.removeBody(self.imageObject)
 		self.imageObject:scale(2,2)
 		physics.addBody(self.imageObject, {radius = 38, friction=0, bounce = .25, density = 0.3})
@@ -290,8 +290,9 @@ function playerInstance:unshrink()
 		end
 		self.imageObject.linearDamping = 1.25
 		print("un-shrinking the player back to normal size")
-		self.small = false
-	end
+	end]]--
+	
+	self.small = false
 end
 
 --------------------------------------------------------------------------------
@@ -300,10 +301,9 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:shrink() 
-	--local delayShrink = function() return 
-	--changeSize( self.imageObject )-- end
-	--timer.performWithDelay(100, delayShrink)
-	if self.small == false then
+	local delayShrink = function() return changeSize (self.imageObject) end
+	timer.performWithDelay(100, delayShrink)
+	--[[if self.small == false then
 		physics.removeBody(self.imageObject)
 		self.imageObject:scale(0.5,0.5)
 		physics.addBody(self.imageObject, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
@@ -313,7 +313,7 @@ function playerInstance:shrink()
 		--player.linearDamping = 1.25
 		print("SIZE")
 		self.small = true
-	end
+	end]]--
 end
 
 --------------------------------------------------------------------------------

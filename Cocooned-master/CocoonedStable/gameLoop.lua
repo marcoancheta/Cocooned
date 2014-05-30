@@ -416,7 +416,7 @@ local function clean(event)
 	accelObjects.switchWallAndIceberg = nil
 	--miniMap:removeSelf()
 	--miniMap = nil
-		
+	
 	gui:removeSelf()
 	gui = nil
 		
@@ -440,9 +440,15 @@ local function update(event)
 		-- Show physics bodies
 		physics.setDrawMode("hybrid")
 	end
+
+	-- In-Water Runtime Event.
+	if gameData.inWater then
+		-- Turn on pane switching and mini map
+		gameData.allowPaneSwitch = false
+	end
 	
-	-- Main Menu Runtime Event.
-	if gameData.inMainMenu then
+	-- Main Menu Runtime Event & Winning Runtime Event.
+	if gameData.inMainMenu or gameData.winning then
 		-- Activate snow particle effect if in main menu
 		-- Draws snow every second
 		snow.makeSnow(event, mapData)
@@ -478,15 +484,6 @@ local function update(event)
 			shadowCircle.x = ball.x
 			shadowCircle.y = ball.y
 		end]]--
-		
-		print("player damp", ball.linearDamping)
-		print("player dens", ball.density)
-	end
-	
-	-- In-Water Runtime Event.
-	if gameData.inWater then
-		-- Turn on pane switching and mini map
-		gameData.allowPaneSwitch = false
 	end
 end
 
@@ -571,6 +568,7 @@ local function gameLoopEvents(event)
 	---------------------------
 	--[[ START LVL SELECTOR]]--
 	if gameData.selectLevel then
+		loadingScreen.loadingInit(gui)
 		clean(event)
 		
 		if gameData.debugMode then
@@ -593,6 +591,7 @@ local function gameLoopEvents(event)
 		gameData.inLevelSelector = 1
 		-- Switch off this loop
 		gameData.selectLevel = false
+		loadingScreen.deleteLoading()
 	end
 	
 	-----------------------
@@ -606,9 +605,7 @@ local function gameLoopEvents(event)
 		-- Set mapData to player's gameData mapData
 		mapData = gameData.mapData
 		mapData.pane = "M"
-		-- Load in map with new mapData
-
-		
+		-- Load in map with new mapData	
 		loadMap(mapData)
 		snow.new()
 		-- Re-evaluate gameData booleans
@@ -644,10 +641,10 @@ local function gameLoopEvents(event)
 	if gameData.levelRestart == true then
 		if gameData.debugMode then
 			print("Restarting Level...")
-		end
-	
+		end	
 		-- Clean
 		--clean(event)
+		
 		inventory.inventoryInstance:clear()
 		collisionDetection.resetCollision()
 		for i = 1, gui.playerCount do
@@ -698,6 +695,7 @@ local function gameLoopEvents(event)
 	
 		win.init(gui)
 		win.showScore(mapData, gui)
+		snow.new()
 		--loadingScreen.deleteLoading()
 		-- Turn off pane switching and mini map
 		menu.cleanInGameOptions()

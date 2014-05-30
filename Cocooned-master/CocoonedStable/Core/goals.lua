@@ -7,6 +7,8 @@
 local gameData = require("Core.gameData")
 local generate = require("Objects.generateObjects")
 local font = require("utils.font")
+local levelNames = require("utils.levelNames")
+local stars = require("Core.stars")
 
 ---------------------
 -- Local variables
@@ -16,6 +18,7 @@ local play, cancel
 local playerTemp
 local playerTrans
 local levelPortalObject
+local gStars
 
 --------------------------------------------------------------------------------
 -- reenablePortal() - Re-enable portal that player collided with
@@ -32,7 +35,9 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function onPlay(object, player)
+local function onPlay(object, player, gui, mapData)
+	stars.goalStars(gStars, gui, mapData)
+
 	textObject[1].isVisible = true
 	textObject[2].isVisible = true
 	textObject[1].alpha = 0.8
@@ -49,6 +54,10 @@ local function onPlay(object, player)
 end
 
 local function hidePlay(playerTemp)
+	for i=1, #gStars do
+		gStars[i].isVisible = false
+	end
+
 	textObject[1].isVisible = false
 	textObject[2].isVisible = false
 	play.isSensor = true
@@ -125,6 +134,8 @@ local function destroyGoals()
 		transition.cancel(playerTrans)
 		playerTrans = nil
 	end
+	
+	stars.clean()
 end
 
 --------------------------------------------------------------------------------
@@ -136,7 +147,9 @@ local function drawGoals(gui, player)
 	-- Reinitialize arrays
 	textObject = {}
 	playerTemp = player
-
+	stars.loadScore()
+	gStars = stars.initgStars()
+	
 	-- Goal text displayer
 	local text = "Level: "
 	
@@ -185,15 +198,10 @@ local function findGoals(mapData, gui)
 	--local runeAmount = 0
 	local tempData = tonumber(mapData.levelNum)
 	
-	-- Different than levelNames.lua
-	local levelNames = {"Lake Wabbagon", "Humble Beginnings", "Gone Fishing", "Treacherous Paths", "Windy Watery Pass", 
-						"Middle Earth", "Cabot Cove", "Fish Hell", "Island Hopping", "Cracked Ice",	
-						"Tilt o' Swirl", "Ancient Walls", "Walls of Green", "Ice Crystal Palace", "Severed Paths"}
-
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData then
 		print(tempData)
-		textObject[2].text = levelNames[tempData] --" | Time:"
+		textObject[2].text = levelNames.names[tempData] --" | Time:"
 	end
 end
 
