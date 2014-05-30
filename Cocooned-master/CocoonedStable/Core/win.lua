@@ -188,8 +188,13 @@ local function showScore(mapData, gui)
 	local alphatrans = transition.to(scoreObj[1], {time=500, alpha=1, onComplete= function() alphatrans=nil; end})
 	
 	-- Show level name
-	local levelNumber = tonumber(mapData.levelNum)
-	scoreObj[2] = display.newText(levelNames.names[levelNumber], display.contentCenterX, 80, font.TEACHERA, 72)
+	if mapData.levelNum ~= "T" then
+		local levelNumber = tonumber(mapData.levelNum)
+		scoreObj[2] = display.newText(levelNames.names[levelNumber], display.contentCenterX, 80, font.TEACHERA, 72)
+	elseif mapData.levelNum == "T" thene
+		scoreObj[2] = display.newText("TUTORIAL", display.contentCenterX, 80, font.TEACHERA, 72)
+	end
+	
 	scoreObj[2].x, scoreObj[2].y = display.contentCenterX, display.contentCenterY-200
 	scoreObj[2]:setFillColor(0, 0, 0)
 	scoreObj[2].alpha = 1
