@@ -22,6 +22,40 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				player.sinkTrans = nil
 			end
 		end
+<<<<<<< HEAD
+=======
+	end
+end
+
+
+local fixedIcebergCollision = {
+	collide = collide,
+	collideEnd = collideEnd,
+	reset = reset
+}
+
+return fixedIcebergCollision
+
+--[[ OLD CODE 
+local function collide(collideObject, player, event, mapData, map, gui)
+	if event.phase == "began" then
+		gameData.onIceberg = true
+		player.onLand = true
+		player:stopDeathTimer()
+		if gameData.inWater then
+			player.shook = false
+			gameData.inWater = false
+			gameData.allowPaneSwitch = true
+			player.lastPositionSaved = false
+			player.imageObject:setLinearVelocity(0,0)
+			player.imageObject.linearDamping = 1.25
+			if player.sinkTrans ~= nil then
+				transition.cancel(player.sinkTrans)
+				player.sinkTrans = nil
+			end
+			transition.to(player, {time = 300, x = collideObject.x, y = collideObject.y})
+		end
+>>>>>>> 35a8d8257de31f8f8dfd72765797bef98f6595d9
 		icebergCount = icebergCount + 1
 		--print("~~~~~~~~~~~~~~~~~~~~ On dat iceberg COUNT: " .. icebergCount .. " ~~~~~~~~~~~~~~~~~~~")
 
@@ -146,6 +180,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		print("gameData.onIceberg", gameData.onIceberg)
 	end
 end
+<<<<<<< HEAD
 
 local function reset()
 	icebergCount = 0
@@ -157,3 +192,6 @@ local fixedIcebergCollision = {
 }
 
 return fixedIcebergCollision
+=======
+]]--
+>>>>>>> 35a8d8257de31f8f8dfd72765797bef98f6595d9

@@ -141,8 +141,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	if mapData.pane == "M" then
 		-- Exit Portal
 		objects["exitPortal1"]:setSequence("still")
+<<<<<<< HEAD
 		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(15, 22.5)
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 12)
+=======
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(15, 22.5)
+		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 12)
+>>>>>>> 35a8d8257de31f8f8dfd72765797bef98f6595d9
 
 		-- Wisps
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(15, 13)

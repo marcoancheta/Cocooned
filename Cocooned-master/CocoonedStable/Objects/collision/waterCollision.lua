@@ -138,7 +138,11 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				gameData.inWater = false
 				player.lastPositionSaved = false
 				if player.sinkTrans ~= nil then
+<<<<<<< HEAD
 					transition.cancel(player.sinkTrans)
+=======
+					transition.cancel(sinkTrans)
+>>>>>>> 35a8d8257de31f8f8dfd72765797bef98f6595d9
 					player.sinkTrans = nil
 				end
 				player.imageObject.alpha = 1
