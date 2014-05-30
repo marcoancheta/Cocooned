@@ -11,7 +11,6 @@
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
-
 local generate = require("Objects.generateObjects")
 local font = require("utils.font")
 local gameData = require("Core.gameData")
@@ -120,9 +119,4 @@ function tutorialLib:showTipBox(tipType, gui)
 	end
 end
 
-<<<<<<< HEAD
 return tutorialLib
-=======
-return tutorialLib
-
->>>>>>> origin/master

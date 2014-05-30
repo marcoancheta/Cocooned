@@ -286,7 +286,6 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:unshrink()
-<<<<<<< HEAD
 	local delayShrink = function() return changeBack( self.imageObject ) end
 	timer.performWithDelay(100, delayShrink)
 	
@@ -294,19 +293,7 @@ function playerInstance:unshrink()
 		physics.removeBody(self.imageObject)
 		self.imageObject:scale(2,2)
 		physics.addBody(self.imageObject, {radius = 38, friction=0, bounce = .25, density = 0.3})
-=======
-	
-	
-	if self.small == true then
-		-- physics.removeBody(self.imageObject)
-		-- self.imageObject:scale(2,2)
-		-- physics.addBody(self.imageObject, {radius = 38, friction=0, bounce = .25, density = 0.3})
-
-		local delayShrink = function() return 
-		changeBack( self.imageObject ) end
-		timer.performWithDelay(100, delayShrink)
-
->>>>>>> origin/master
+		
 		if auraEmitter ~= nil then
 			auraEmitter:changeRadius(25)
 		end
@@ -323,23 +310,12 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:shrink() 
-<<<<<<< HEAD
 	local delayShrink = function() return changeSize (self.imageObject) end
 	timer.performWithDelay(100, delayShrink)
 	--[[if self.small == false then
 		physics.removeBody(self.imageObject)
 		self.imageObject:scale(0.5,0.5)
 		physics.addBody(self.imageObject, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
-=======
-	
-	if self.small == false then
-		-- physics.removeBody(self.imageObject)
-		-- self.imageObject:scale(0.5,0.5)
-		-- physics.addBody(self.imageObject, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
-		local delayShrink = function() return 
-		changeSize( self.imageObject ) end
-		timer.performWithDelay(100, delayShrink)
->>>>>>> origin/master
 		if auraEmitter ~= nil then
 			auraEmitter:changeRadius(-25)
 		end
