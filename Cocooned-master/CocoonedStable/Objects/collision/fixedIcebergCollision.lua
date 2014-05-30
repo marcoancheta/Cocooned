@@ -22,11 +22,12 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				player.sinkTrans = nil
 			end
 		end
-<<<<<<< HEAD
-=======
 	end
 end
 
+local function reset()
+	icebergCount = 0
+end
 
 local fixedIcebergCollision = {
 	collide = collide,
@@ -194,4 +195,4 @@ local fixedIcebergCollision = {
 return fixedIcebergCollision
 =======
 ]]--
->>>>>>> 35a8d8257de31f8f8dfd72765797bef98f6595d9
+
