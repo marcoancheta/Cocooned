@@ -147,7 +147,9 @@ local function drawGoals(gui, player)
 	-- Reinitialize arrays
 	textObject = {}
 	playerTemp = player
-	stars.loadScore()
+	local tables = stars.loadScore()
+	stars.tables = tables
+	--highScore.scoreTable = tables
 	gStars = stars.initgStars()
 	
 	-- Goal text displayer
