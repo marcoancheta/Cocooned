@@ -84,6 +84,7 @@ function tutorialLib:showTipBox(tipType, gui)
 	local boxHeight = hintText[tipType][6]
 	local fontSize = hintText[tipType][7]
 	local toolTip = {}
+	
 	if playerSeen == false then
 		--pause minimap functinality
 		gameData.allowMiniMap = false
