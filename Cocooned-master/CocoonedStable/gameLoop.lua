@@ -74,6 +74,8 @@ local highScore = require("Core.highScore")
 local font = require("utils.font")
 -- Goals
 local goals = require("Core.goals")
+-- Shadows
+local shadows = require("utils.shadows")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -113,7 +115,7 @@ local linePts = {}
 
 local camera;
 local groupObj;
---local shadowCircle;
+local shadowCircle;
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -347,7 +349,7 @@ local function loadMap(mapData)
 	player1.switchPanes = paneTransition
 	player2.switchPanes = paneTransition
 	-- Load in map
-	gui, miniMap = loadLevel.createLevel(mapData, players)
+	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players)
 	-- Start mechanics
 	for i = 1, gui.playerCount do
 		collisionDetection.createCollisionDetection(players[i].imageObject, player1, mapData, gui, gui.back[1])
@@ -421,7 +423,7 @@ local function clean(event)
 	player1.imageObject:removeSelf()
 	player1.imageObject = nil
 	
-	--shadowCircle = nil
+	shadowCircle = nil
 	
 	ball:removeSelf()
 	ball = nil
@@ -472,30 +474,30 @@ local function update(event)
 	end
 
 	-- World Selector Runtime Event.
-	--[[
 	if gameData.inWorldSelector == 1 then
 		-- Draw shadow under ball
 		if shadowCircle and ball then
-			shadowCircle.x = ball.x
-			shadowCircle.y = ball.y
+			shadowCircle.x = (ball.x + shadows.x)
+			shadowCircle.y = (ball.y + shadows.y)
 		end
 	end
+
 	-- Level Selector Runtime Event.
 	if gameData.inLevelSelector == 1 then
 		-- Draw shadow under ball
 		if shadowCircle and ball then
-			shadowCircle.x = ball.x
-			shadowCircle.y = ball.y
+			shadowCircle.x = (ball.x + shadows.x)
+			shadowCircle.y = (ball.y + shadows.y)
 		end
 	end
-	]]--
+	
 	-- In-Game Runtime Event.
 	if gameData.ingame == 1 then
 		snow.gameSnow(event, mapData, gui)
-		--[[if shadowCircle and ball then
-			shadowCircle.x = ball.x
-			shadowCircle.y = ball.y
-		end]]--
+		if shadowCircle and ball then
+			shadowCircle.x = (ball.x + shadows.x)
+			shadowCircle.y = (ball.y + shadows.y)
+		end
 	end
 end
 
@@ -574,6 +576,7 @@ local function gameLoopEvents(event)
 		end
 		gameData.allowPaneSwitch = false
 		gameData.inWorldSelector = 1
+		print ("Setting World Selector!!!!!!!!!!!!!!!!!!")
 		-- Switch off this loop
 		gameData.selectWorld = false
 	end

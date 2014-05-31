@@ -162,22 +162,22 @@ local function createLevel(mapData, players)
 	end
 	
 	-- Create ball shadow
-	--local shadowCirc
-	--if gameData.shadow == true then
-		-- shadowCirc = display.newCircle(players[1].imageObject.x, players[1].imageObject.y, 43)
-		-- shadowCirc:setFillColor(86*0.0039216,72*0.0039216,92*0.0039216)
-		-- shadowCirc.alpha = 0.5
-		-- shadowCirc.name = "shadowCirc"
-	--else
-	--	shadowCirc = nil
-	--end
+	local shadowCirc
+	if gameData.shadow == true then
+		 shadowCirc = display.newCircle(players[1].imageObject.x, players[1].imageObject.y, 43)
+		 shadowCirc:setFillColor(86*0.0039216,72*0.0039216,92*0.0039216)
+		 shadowCirc.alpha = 0.5
+		 shadowCirc.name = "shadowCirc"
+	else
+		shadowCirc = nil
+	end
 	
 	-- Add objects to its proper groups
 	gui.back:insert(levelBG)	
 	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
-		--if shadowCirc ~= nil then
-		--	gui.middle:insert(shadowCirc)
-		--end
+		if shadowCirc ~= nil then
+			gui.middle:insert(shadowCirc)
+		end
 		gui.middle:insert(levelWalls)
 		for i = 1, gui.playerCount do
 			gui.front:insert(players[i].imageObject)
@@ -189,9 +189,9 @@ local function createLevel(mapData, players)
 	elseif mapData.levelNum == "LS" or mapData.levelNum == "world" then
 		----------------------------
 		-- Level selector exclusive
-		--if shadowCirc ~= nil then
-		--	gui.middle:insert(shadowCirc)
-		--end
+		if shadowCirc ~= nil then
+			gui.middle:insert(shadowCirc)
+		end
 		gui.middle:insert(players[1].imageObject)
 		gui.front:insert(levelWalls)
 		
@@ -212,7 +212,7 @@ local function createLevel(mapData, players)
 	local loadingTimer = timer.performWithDelay(2000, deleteClosure)
 		
 	-- reutrn gui and miniMap
-	return gui, miniMapDisplay--, shadowCirc
+	return gui, miniMapDisplay, shadowCirc
 end
 
 local function activate(gui, mapData, player, miniMap)
