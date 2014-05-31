@@ -171,7 +171,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(20, 9)
 		generate.gWisps(wisp, map, mapData, 1, 23, eleven.wispCount)
-		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Wisps
@@ -210,6 +209,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[3].isVisible = true
 
 		generate.gWater(map, mapData)
+		generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWisps(wisp, map, mapData, 24, 39, eleven.wispCount)
 	elseif mapData.pane == "L" then
 		print("You shouldn't be in here...")
