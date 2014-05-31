@@ -172,7 +172,7 @@ local function createLevel(mapData, players)
 		-- Insert player
 		for i = 1, gui.playerCount do
 			players[i].imageObject.x, players[i].imageObject.y = generate.tilesToPixels(gui.playerPos[i]["x"], gui.playerPos[i]["y"])
-			gui.middle:insert(players[i].imageObject)
+			gui.front:insert(players[i].imageObject)
 		end
 		-- Load in objects
 		objects.main(mapData, gui) -- gui.front = map
@@ -181,9 +181,9 @@ local function createLevel(mapData, players)
 	elseif mapData.levelNum == "LS" or mapData.levelNum == "world" then
 		-- Load in objects
 		objects.main(mapData, gui) -- gui.front = map
-		gui.middle:insert(players[1].imageObject)
+		gui.middle:insert(levelWalls)
 		players[1].imageObject.x, players[1].imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
-		gui.front:insert(levelWalls)
+		gui.front:insert(players[1].imageObject)
 		
 		-- load in goals
 		goals.drawGoals(gui, players[1])

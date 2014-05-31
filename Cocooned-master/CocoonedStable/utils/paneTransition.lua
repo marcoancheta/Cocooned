@@ -80,14 +80,12 @@ local function movePanes(event)
 		end
 		if params.gui.middle ~= nil then
 			for i = params.gui.middle.numChildren, 1, -1 do
-				if params.gui.middle[i].name ~= "player" then
-					params.gui.middle[i]:removeSelf()
-				end
+				params.gui.middle[i]:removeSelf()
 			end
 		end
 		if params.gui.front ~= nil then
 			for i = params.gui.front.numChildren, 1, -1 do
-				if params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
+				if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
 					params.gui.front[i]:removeSelf()
 				end
 			end
