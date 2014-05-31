@@ -142,7 +142,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- Check which pane
 	if mapData.pane == "M" then
 		--generate.gWisps(wisp, map, mapData, 1, 23, fifteen.wispCount)
-		generate.gAuraWalls(map, mapData, "blueWall")
+		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Breakable rune
@@ -168,14 +168,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		-- FISH GO HERE
-
-		-- Slow time rune
-		--rune[3].x, rune[3].y = generate.tilesToPixels(23, 21)			
-		--rune[3].isVisible = true
-
-		-- Slow time rune
-		--rune[3].x, rune[3].y = generate.tilesToPixels(12, 22)			
-		--rune[3].isVisible = true
 
 		-- Slow time rune
 		rune[3].x, rune[3].y = generate.tilesToPixels(35, 22)			
