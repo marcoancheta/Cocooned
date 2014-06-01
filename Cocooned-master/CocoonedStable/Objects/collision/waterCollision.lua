@@ -74,7 +74,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				end
 
 				-- start the death timer
-				player:startDeathTimer(mapData, miniMap, gui)
+				player:startDeathTimer(mapData, gui)
 				gameData.allowPaneSwitch = false
 
 				-- set player variables
