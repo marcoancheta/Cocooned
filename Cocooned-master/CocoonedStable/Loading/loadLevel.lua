@@ -190,9 +190,9 @@ local function createLevel(mapData, players)
 		end		
 		-- Load in objects
 		objects.main(mapData, gui) -- gui.front = map
-		gui.middle:insert(levelWalls)
+		gui.middle:insert(players[1].imageObject)
 		players[1].imageObject.x, players[1].imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
-		gui.front:insert(players[1].imageObject)
+		gui.front:insert(levelWalls)
 		
 		-- load in goals
 		goals.drawGoals(gui, players[1])
