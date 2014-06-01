@@ -129,7 +129,7 @@ local function onAccelerate(event, player)
 				dist = uMath.distance(rayCastCheck[i], lastPoint)
 			-- if we dont use last point, find the closest point from player to rayCast data
 			else
-				dist = uMath.distance(rayCastCheck[i], ball)
+				dist = uMath.distance(rayCastCheck[i], player.imageObject)
 			end
 
 			-- if that dist is less that previous saved distance, save which rayCast data point it is
@@ -168,7 +168,7 @@ local function onAccelerate(event, player)
 		player.imageObject.linearDamping = 1.25
 
 		-- apply the calculated force onto the player
-		ball:applyForce(jumpDirectionX, jumpDirectionY, ball.x, ball.y)
+		player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
 
 		-- set player alpha back to 1
 		player.imageObject.alpha = 1
