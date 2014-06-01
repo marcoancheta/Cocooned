@@ -645,7 +645,7 @@ local function gameLoopEvents(event)
 			gameData.allowMiniMap = true
 		elseif gameData.mapData.levelNum == "T" then
 			--set up tiltip if in tutorial level
-			tutorialLib:showTipBox("tiltTip", 2, gui, player)
+			tutorialLib:showTipBox("tiltTip", 2, gui, player1)
 		end	
 		-- Clear out pre-game
 		gameData.preGame = nil
