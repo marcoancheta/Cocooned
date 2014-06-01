@@ -19,7 +19,7 @@ local M = {}
 function M.physicsData(scale)
 	local physics = { data =
 	{ 
-		
+
 		["L"] = {
                     
                     
@@ -171,7 +171,7 @@ function M.physicsData(scale)
                     
                     
 		}
-		
+
 		, 
 		["M"] = {
                     
@@ -281,7 +281,7 @@ function M.physicsData(scale)
                     
                     
 		}
-		
+
 	} }
 
         -- apply scale factor
@@ -297,7 +297,7 @@ function M.physicsData(scale)
                     end
                 end
         end
-	
+
 	function physics:get(name)
 		return unpack(self.data[name])
 	end
@@ -305,9 +305,8 @@ function M.physicsData(scale)
 	function physics:getFixtureId(name, index)
                 return self.data[name][index].pe_fixture_id
 	end
-	
+
 	return physics;
 end
 
 return M
-

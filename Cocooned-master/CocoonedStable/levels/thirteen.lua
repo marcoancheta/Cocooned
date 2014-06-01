@@ -13,6 +13,8 @@
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
 local generate = require("Objects.generateObjects")
+-- variable access for shadows
+local shadows = require("utils.shadows")
 
 --------------------------------------------------------------------------------
 -- Level thirteen Variables
@@ -180,7 +182,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		-- Runes
 		-- Slow time 
-		rune[3].x, rune[3].y = generate.tilesToPixels(2, 12)			
+		rune[3].x, rune[3].y = generate.tilesToPixels(10, 12)			
 		rune[3].isVisible = true
 
 		-- Icebergs
@@ -294,6 +296,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are avaiable for player
 	map.front.panes = thirteen.panes
 	map.front.itemGoal = 4
+
+	-- set shadow angle for the world
+	shadows.x = 0
+	shadows.y = 0
 end
 
 --------------------------------------------------------------------------------

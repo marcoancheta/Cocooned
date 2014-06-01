@@ -13,6 +13,7 @@
 local sound = require("sound")
 local gameData = require("Core.gameData")
 local snow = require("utils.snow")
+local tutorialLib = require("utils.tutorialLib")
 --local levelComplete = false
 local complete = function()	gameData.levelComplete = true; end
 
@@ -28,8 +29,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		end
 	
 		event.contact.isEnabled = false
-		event.other.isSensor = true
-	
+		event.other.isSensor = true	
 
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[12])
@@ -40,8 +40,12 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		player.imageObject:setLinearVelocity(0,0)
 		snow.meltSnow()
 		--print("exiting")
-		local transPortal = transition.to(player.imageObject, {time=200, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
+		local transPortal = transition.to(player.imageObject, {time=1000, alpha=0, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
 		gameData.gRune = false 
+	else
+		if gameData.mapData.levelNum == "T" then
+			tutorialLib:showTipBox("portalTip", gui)
+		end
 	end
 	
 	--[[

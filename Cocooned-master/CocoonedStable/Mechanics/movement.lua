@@ -36,6 +36,7 @@ local cCheck1, cCheck2
 --------------------------------------------------------------------------------
 local function moveAndAnimate(event, currPlayer, gui) --, physics
 	--print(currPlayer)
+
 	
 	local vx, vy = currPlayer.imageObject:getLinearVelocity()
 	local speed = math.sqrt((vy*vy)+(vx*vx))
@@ -79,6 +80,8 @@ local function moveAndAnimate(event, currPlayer, gui) --, physics
 		
 		if gameData.inWater == false then
 			--print("out of water and moving")
+
+			--print("Player force =", xForce, yForce)
 			currPlayer.imageObject:applyForce(xForce, yForce,currPlayer.imageObject.x,currPlayer.imageObject.y)
 		end
 		

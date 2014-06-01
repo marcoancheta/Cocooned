@@ -13,6 +13,8 @@
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
 local generate = require("Objects.generateObjects")
+-- variable access for shadows
+local shadows = require ("utils.shadows")
 
 --------------------------------------------------------------------------------
 -- Level eleven Variables
@@ -171,7 +173,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(20, 9)
 		generate.gWisps(wisp, map, mapData, 1, 23, eleven.wispCount)
-		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Wisps
@@ -210,6 +211,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[3].isVisible = true
 
 		generate.gWater(map, mapData)
+		generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWisps(wisp, map, mapData, 24, 39, eleven.wispCount)
 	elseif mapData.pane == "L" then
 		print("You shouldn't be in here...")
@@ -229,6 +231,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are avaiable for player
 	map.front.panes = eleven.panes
 	map.front.itemGoal = 1
+
+		-- set shadow angle for the world
+	shadows.x = 0
+	shadows.y = 0
 end
 
 --------------------------------------------------------------------------------

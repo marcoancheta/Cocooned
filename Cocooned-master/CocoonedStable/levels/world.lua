@@ -14,6 +14,8 @@ local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
 local generate = require("Objects.generateObjects")
 local movement = require("Mechanics.movement")
+-- variable access for shadows
+local shadows = require("utils.shadows")
 
 --------------------------------------------------------------------------------
 -- World Variables
@@ -90,10 +92,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Place World Portals.
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 15)
 		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(20.5, 11)
-		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(32, 15)
+		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(31, 15)
+		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(20.5, 19)	
 		
 		-- Corona Simulator Accel Coordinates:
-	 	objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(14, 12)	
+		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(14, 12)	
 
 
 		-- Play animation for all world portals
@@ -112,6 +115,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	generate.destroyObjects(world, rune, wisp, water, wall, objects)
 	-- set which panes are available for player
 	map.panes = world.panes
+	-- set shadow angle for the world
+	shadows.x = 0
+	shadows.y = 0
 end
 
 --------------------------------------------------------------------------------

@@ -13,6 +13,8 @@
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
 local generate = require("Objects.generateObjects")
+-- variable access for shadows
+local shadows = require("utils.shadows")
 
 --------------------------------------------------------------------------------
 -- Level twelve Variables
@@ -51,7 +53,7 @@ local twelve = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0,
+		["exitPortal"] = 1,
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -92,7 +94,7 @@ local twelve = {
 	},
 	["R"] = {
 		["blueAura"] = 1,
-		["redAura"] = 1,
+		["redAura"] = 0,
 		["greenAura"] = 2,
 		["wolf"] = 0,
 		["fish1"] = 0,
@@ -156,6 +158,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["greenAura2"]:play()
 		objects["greenAura2"].x, objects["greenAura2"].y = generate.tilesToPixels(4, 11)
 
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(37, 12)
+		
 		-- Generate objects 
 		generate.gWisps(wisp, map, mapData, 1, 4, twelve.wispCount)
 		generate.gAuraWalls(map, mapData, "greenWall")
@@ -174,9 +179,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["greenAura2"]:play()
 		objects["greenAura2"].x, objects["greenAura2"].y = generate.tilesToPixels(18, 1)
 
-		objects["redAura1"]:setSequence("move")
-		objects["redAura1"]:play()
-		objects["redAura1"].x, objects["redAura1"].y = generate.tilesToPixels(6, 16)
+		--objects["redAura1"]:setSequence("move")
+		--objects["redAura1"]:play()
+		--objects["redAura1"].x, objects["redAura1"].y = generate.tilesToPixels(6, 16)
 
 		-- Shrink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(10, 11)			
@@ -206,6 +211,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are avaiable for player
 	map.front.panes = twelve.panes
 	map.front.itemGoal = 1
+
+	-- set shadow angle for the world
+	shadows.x = 0
+	shadows.y = 0
 end
 
 --------------------------------------------------------------------------------
