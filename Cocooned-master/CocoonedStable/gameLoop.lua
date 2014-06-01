@@ -511,7 +511,9 @@ end
 local function gameLoopEvents(event)
 	-- Runtime functions
 	update(event)
-		
+	
+	--print(gameData.ingame)
+	
 	if gameData.gRune == true and gameData.isShowingMiniMap == false then
 		for check = 1, #accelObjects.switchWallAndIceberg do
   			local currObject = accelObjects.switchWallAndIceberg[check]
@@ -635,7 +637,12 @@ local function gameLoopEvents(event)
 		
 		-- Switch to in game loop
 		if mapData.levelNum ~= "T" then
+			-- in game 1 = regular
 			gameData.ingame = 1
+		elseif mapData.levelNum == "T" then
+			tutorialLib:init()
+			-- ingame 2 = tutorial
+			gameData.ingame = 2
 		end
 		
 		snow.new()
@@ -644,8 +651,10 @@ local function gameLoopEvents(event)
 		if mapData.levelNum ~= "T" then
 			gameData.allowMiniMap = true
 		elseif gameData.mapData.levelNum == "T" then
-			--set up tiltip if in tutorial level
-			tutorialLib:showTipBox("tiltTip", 2, gui, player1)
+			if tutorialLib.tutorialStatus == 0 then
+				--set up tiltip if in tutorial level
+				tutorialLib:showTipBox("tiltTip", 2, gui, player1)
+			end
 		end	
 		-- Clear out pre-game
 		gameData.preGame = nil

@@ -15,6 +15,7 @@ local goals = require("Core.goals")
 local widget = require("widget")
 local memory = require("memory")
 local snow = require("utils.snow")
+local tutorialLib = require("utils.tutorialLib")
 
 local menuGroup
 local menuObjects = nil
@@ -156,7 +157,7 @@ local function buttonPressed(event)
 				gameData.inWorldSelector = -1
 			elseif gameData.inLevelSelector == 1 then
 				gameData.inLevelSelector = -1
-			elseif gameData.ingame == 1 then
+			elseif gameData.ingame == 1 or gameData.ingame == 2 then
 				-- pause snow
 				snow.pauseSnow()
 				gameData.ingame = -1
@@ -188,6 +189,10 @@ local function buttonPressed(event)
 			-- turn off pane switch and minimap
 			gameData.allowPaneSwitch = false
 			gameData.allowMiniMap = false
+			-- clean tutorial files if exists
+			if tutorialLib.tutorialStatus then
+				tutorialLib:clean()
+			end
 		end
 		--gameData.gameOptions = false
 		gameData.gameEnd = true		
@@ -207,7 +212,11 @@ local function buttonPressed(event)
 		elseif gameData.ingame == -1 then
 			-- resume snow transition
 			snow.resumeSnow()
-			gameData.ingame = 1
+			if tutorialLib.tutorialStatus == 1 then
+				gameData.ingame = 2
+			else
+				gameData.ingame = 1
+			end
 			-- turn pane switch and mini map back on
 			gameData.allowPaneSwitch = true
 			gameData.allowMiniMap = true
@@ -225,6 +234,11 @@ local function buttonPressed(event)
 			gameData.inLevelSelector = 0
 			gameData.selectLevel = true
 		elseif gameData.ingame == -1 then
+			-- clean tutorial files if exists
+			if tutorialLib.tutorialStatus then
+				tutorialLib:clean()
+			end
+		
 			gameData.levelRestart = true
 		else
 			gameData.levelRestart = true
@@ -248,7 +262,14 @@ local function buttonPressed(event)
 			-- turn off pane switch and minimap
 			gameData.allowPaneSwitch = false
 			gameData.allowMiniMap = false
-			gameData.selectLevel = true
+			
+			-- clean tutorial files if exists
+			if tutorialLib.tutorialStatus == 1 then
+				tutorialLib:clean()
+				gameData.selectWorld = true
+			else
+				gameData.selectLevel = true
+			end
 		else
 			gameData.selectLevel = true
 		end

@@ -13,22 +13,55 @@ local gameTimer = require("utils.timer")
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
+local tutorialLib = {
+		tutorialStatus = 0,
+}
+
 local tempPlayer
 local tempGui
 local current
-local tutorialLib = {}
-local hintText = {
-	--name         popped up?, tutorial cut scene image locations                                          -- text, box x position, box y position, box width, box height,
-	["tiltTip"] = {false, "mapdata/art/cutscenes/tutorial/1.png", "mapdata/art/cutscenes/tutorial/2.png"}, --{false, "Tilt to move.", 20, 5, 700, 200, 72},
-	["pinkRuneTip"] = {false, "mapdata/art/cutscenes/tutorial/3.png", "mapdata/art/cutscenes/tutorial/4.png"}, --{false, "Runes grant abilities.", 20, 12, 800, 200, 68},
-	["purpRuneTip"] = {false, "mapdata/art/cutscenes/tutorial/3.png", "mapdata/art/cutscenes/tutorial/4.png"}, --{false, "Collect all runes in a level to activate portal.", 20, 5, 1200, 200, 48},
-	["kipcha"] = {false, "mapdata/art/cutscenes/tutorial/7.png"},
-	["waterTip"] = {false, "mapdata/art/cutscenes/tutorial/10.png", "mapdata/art/cutscenes/tutorial/11.png"}, --{false, "Shake to swim to shore.", 20, 12, 1000, 200, 72},
-	["swipePaneTip"] = {false, "mapdata/art/cutscenes/tutorial/8.png", "mapdata/art/cutscenes/tutorial/9.png"}, --{false, "Tap or swipe to swap panes.", 20, 19, 800, 200, 48}
-	["fishTip"] = {false, "mapdata/art/cutscenes/tutorial/12.png", "mapdata/art/cutscenes/tutorial/13.png", "mapdata/art/cutscenes/tutorial/14.png"},
-	["portalTip"] = {false, "mapdata/art/cutscenes/tutorial/5.png", "mapdata/art/cutscenes/tutorial/6.png"}, --{false, "Collect all runes in a level to activate portal.", 20, 19, 1200, 200, 48},
-	["runeObjective"] = {false, "mapdata/art/cutscenes/tutorial/3.png", "mapdata/art/cutscenes/tutorial/4.png"}
-}
+
+local hintText = {}
+
+--------------------------------------------------------------------------------
+-- init() - Initialize hintText array objects
+--------------------------------------------------------------------------------
+function tutorialLib:init()
+	hintText = {
+		--name         popped up?, tutorial cut scene image locations                                          -- text, box x position, box y position, box width, box height,
+		["tiltTip"] = {false, "mapdata/art/cutscenes/tutorial/1.png", "mapdata/art/cutscenes/tutorial/2.png"}, --{false, "Tilt to move.", 20, 5, 700, 200, 72},
+		["pinkRuneTip"] = {false, "mapdata/art/cutscenes/tutorial/3.png", "mapdata/art/cutscenes/tutorial/4.png"}, --{false, "Runes grant abilities.", 20, 12, 800, 200, 68},
+		["purpRuneTip"] = {false, "mapdata/art/cutscenes/tutorial/3.png", "mapdata/art/cutscenes/tutorial/4.png"}, --{false, "Collect all runes in a level to activate portal.", 20, 5, 1200, 200, 48},
+		["kipcha"] = {false, "mapdata/art/cutscenes/tutorial/7.png"},
+		["waterTip"] = {false, "mapdata/art/cutscenes/tutorial/10.png", "mapdata/art/cutscenes/tutorial/11.png"}, --{false, "Shake to swim to shore.", 20, 12, 1000, 200, 72},
+		["swipePaneTip"] = {false, "mapdata/art/cutscenes/tutorial/8.png", "mapdata/art/cutscenes/tutorial/9.png"}, --{false, "Tap or swipe to swap panes.", 20, 19, 800, 200, 48}
+		["fishTip"] = {false, "mapdata/art/cutscenes/tutorial/12.png", "mapdata/art/cutscenes/tutorial/13.png", "mapdata/art/cutscenes/tutorial/14.png"},
+		["portalTip"] = {false, "mapdata/art/cutscenes/tutorial/5.png", "mapdata/art/cutscenes/tutorial/6.png"}, --{false, "Collect all runes in a level to activate portal.", 20, 19, 1200, 200, 48},
+		["runeObjective"] = {false, "mapdata/art/cutscenes/tutorial/3.png", "mapdata/art/cutscenes/tutorial/4.png"}
+	}
+end
+
+--------------------------------------------------------------------------------
+-- clean() - Clear out hintText array objects
+--------------------------------------------------------------------------------
+function tutorialLib:clean()
+	if hintText then
+		hintText["tiltTip"] = nil
+		hintText["pinkRuneTip"] = nil
+		hintText["purpRuneTip"] = nil
+		hintText["kipcha"] = nil
+		hintText["waterTip"] = nil
+		hintText["swipePaneTip"] = nil
+		hintText["fishTip"] = nil
+		hintText["portalTip"] = nil
+		hintText["runeObjective"] = nil
+		hintText = nil
+	end
+	
+	if tutorialLib.tutorialStatus == 1 then
+		tutorialLib.tutorialStatus = 0
+	end
+end
 
 --------------------------------------------------------------------------------
 -- Checks if any tool tips are active
@@ -78,45 +111,49 @@ end
 -- Updated by: D
 --------------------------------------------------------------------------------
 local function toggleNext(event)
-	local tempCurr = current + 1
-	if hintText[event.target.name][tempCurr] ~= nil then
-		--print(tempCurr)
-		hintText[event.target.name].rect:removeEventListener("tap", toggleNext)
-		hintText[event.target.name].rect:removeSelf()
-		hintText[event.target.name][1] = false
-		hintText[event.target.name].active = false
-		tutorialLib:showTipBox(event.target.name, tempCurr, tempGui, tempPlayer)	
-	
-	elseif hintText[event.target.name][tempCurr] == nil then
-		-- Remove event listener
-		hintText[event.target.name].rect:removeEventListener("tap", toggleNext)
-		-- Special case for post-tilt tip
-		if event.target.name == "tiltTip" then
+	if gameData.ingame == 1 or gameData.ingame == 2 then
+		local tempCurr = current + 1
+		if hintText[event.target.name][tempCurr] ~= nil then
+			--print(tempCurr)
+			hintText[event.target.name].rect:removeEventListener("tap", toggleNext)
 			hintText[event.target.name].rect:removeSelf()
-			tutorialLib:showTipBox("runeObjective", 2, tempGui, tempPlayer)
-		-- Special case for post-portal tip
-		elseif event.target.name == "portalTip" then
-			hintText[event.target.name].rect:removeSelf()
-			tutorialLib:showTipBox("kipcha", 2, tempGui, tempPlayer)
-		-- Special case for kipcha interruption
-		elseif event.target.name == "kipcha" then
-			hintText[event.target.name].rect:removeSelf()
-			tutorialLib:showTipBox("swipePaneTip", 2, tempGui, tempPlayer)
-		-- Special event for post-swipe pane tip
-		elseif event.target.name == "swipePaneTip" then
-			gameData.ingame = 1
-			deleteHint(event)
-			gameTimer.resumeTimer()
-		else
-			-- Process rest of clean up
-			deleteHint(event)
-			-- Resume game timer
-			gameTimer.resumeTimer()
-			-- Resume physics
-			physics.start();
-			tempPlayer.curse = 1
-		end
-	end	
+			hintText[event.target.name][1] = false
+			hintText[event.target.name].active = false
+			tutorialLib:showTipBox(event.target.name, tempCurr, tempGui, tempPlayer)	
+		
+		elseif hintText[event.target.name][tempCurr] == nil then
+			-- Remove event listener
+			hintText[event.target.name].rect:removeEventListener("tap", toggleNext)
+			-- Special case for post-tilt tip
+			if event.target.name == "tiltTip" then
+				tutorialLib.tutorialStatus = 1
+				hintText[event.target.name].rect:removeSelf()
+				tutorialLib:showTipBox("runeObjective", 2, tempGui, tempPlayer)
+			-- Special case for post-portal tip
+			elseif event.target.name == "portalTip" then
+				hintText[event.target.name].rect:removeSelf()
+				tutorialLib:showTipBox("kipcha", 2, tempGui, tempPlayer)
+			-- Special case for kipcha interruption
+			elseif event.target.name == "kipcha" then
+				hintText[event.target.name].rect:removeSelf()
+				tutorialLib:showTipBox("swipePaneTip", 2, tempGui, tempPlayer)
+			-- Special event for post-swipe pane tip
+			elseif event.target.name == "swipePaneTip" then
+				hintText.tutorialStatus = 2
+				gameData.ingame = 1
+				deleteHint(event)
+				gameTimer.resumeTimer()
+			else
+				-- Process rest of clean up
+				deleteHint(event)
+				-- Resume game timer
+				--gameTimer.resumeTimer()
+				-- Resume physics
+				--physics.start();
+				--tempPlayer.curse = 1
+			end
+		end	
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -128,11 +165,11 @@ end
 --called in movement 
 function tutorialLib:showTipBox(tipType, value, gui, player)
 	-- Pause physics
-	physics.pause()
-	player.curse = 0
+	--physics.pause()
+	--player.curse = 0
 	tempPlayer = player
 	-- Pause game timer while tutorial screen is up
-	gameTimer.pauseTimer()
+	--gameTimer.pauseTimer()
 	-- temporarily store gui
 	tempGui = gui
 	-- temporarily store current value

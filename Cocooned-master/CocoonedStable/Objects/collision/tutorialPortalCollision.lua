@@ -7,6 +7,7 @@
 local sound = require("sound")
 local gameData = require("Core.gameData")
 local goals = require("Core.goals")
+local tutorialLib = require("utils.tutorialLib")
 
 --------------------------------------------------------------------------------
 -- Variables
