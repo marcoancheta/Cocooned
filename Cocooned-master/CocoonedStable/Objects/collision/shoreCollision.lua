@@ -10,7 +10,7 @@
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
 
-local waterShadow
+local waterShadow = nil
 
 --------------------------------------------------------------------------------
 -- Collide Function - function for water collision
@@ -25,15 +25,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if event.phase == "began" then
 		print("HIT SHORE!!!")
 		if gameData.inWater == false then
-			if waterShadow ~= nil then
-				waterShadow:removeSelf()
-				waterShadow = nil
-			end
-			waterShadow = display.newCircle(player.imageObject.x, player.imageObject.y, 38)
+			waterShadow = display.newCircle(player.imageObject.x, player.imageObject.y, 1)
 			waterShadow.alpha = 0
 			waterShadow.name = "waterShadow"
 
-			print(" >>>>>>>>>>>>>>>>>>>> LSP : " .. waterShadow.x .. ", " .. waterShadow.y)
 			gui.front:insert(waterShadow)
 			player.lastSavePoint = waterShadow
 			player.lastSavePoint.pane = mapData.pane

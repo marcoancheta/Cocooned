@@ -15,19 +15,11 @@ local gameData = require("Core.gameData")
 -- miniMap Mechanic (miniMap.lua)
 local miniMapMechanic = require("Mechanics.miniMap")
 -- variable for miniMap mechanic for previous tap time
-local particle_lib = require("utils.touchParticles")
+
 
 local tapTime = 0
 local canSwipe = true
 local tempPane, tempPane2
-
-local duration = 500
-local speed = 10
-local density = 1
-local range = 50
-local thickness = 100
-
-local touchEmitter = touchEmitterLib:createEmitter(range, thickness, duration, 1, 0, nil, nil, nil)
 
 local levelGroup = display.newGroup()
 --------------------------------------------------------------------------------
@@ -56,8 +48,6 @@ local function swipeScreen(event, mapData, miniMap, map)
 
 	-- save current pane for later use
 	tempPane = mapData.pane
-
-	touchEmitter:emit(levelGroup, event.x, event.y)
 
 	--------------------------------------------------------------------------------
 	-- swipe mechanic
