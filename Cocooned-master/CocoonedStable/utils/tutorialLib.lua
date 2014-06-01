@@ -4,18 +4,16 @@
 -- tutorialLib.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- lua class that holds functionality for tutorial textboxes
-
+local generate = require("Objects.generateObjects")
+local font = require("utils.font")
+local gameData = require("Core.gameData")
+local gameTimer = require("utils.timer")
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
-local generate = require("Objects.generateObjects")
-local font = require("utils.font")
-local gameData = require("Core.gameData")
-local gameTimer = require("utils.timer")
-
+local tempPlayer
 local tempGui
 local current
 local tutorialLib = {}
@@ -69,7 +67,7 @@ local function deleteHint(event)
 
 	--re-enable minimap functionality
 	if toolTipActive() == false then
-		local delay = function() gameData.allowMiniMap = true end
+		local delay = function() gameData.allowMiniMap = true; gameData.allowPaneSwitch = true; end
 		local timer = timer.performWithDelay(100, delay)
 	end
 end
@@ -114,6 +112,9 @@ local function toggleNext(event)
 			deleteHint(event)
 			-- Resume game timer
 			gameTimer.resumeTimer()
+			-- Resume physics
+			physics.start();
+			tempPlayer.curse = 1
 		end
 	end	
 end
@@ -125,7 +126,12 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 --called in movement 
-function tutorialLib:showTipBox(tipType, value, gui)
+function tutorialLib:showTipBox(tipType, value, gui, player)
+	-- Pause physics
+	physics.pause()
+	player.imageObject.curse = 0
+	tempPlayer = player
+	-- Pause game timer while tutorial screen is up
 	gameTimer.pauseTimer()
 	-- temporarily store gui
 	tempGui = gui
@@ -146,6 +152,7 @@ function tutorialLib:showTipBox(tipType, value, gui)
 	if playerSeen == false then
 		--pause minimap functinality
 		gameData.allowMiniMap = false
+		gameData.allowPaneSwitch = false
 
 		--create background box
 		--toolTip[1] = display.newRect(0, 0, boxWidth, boxHeight)

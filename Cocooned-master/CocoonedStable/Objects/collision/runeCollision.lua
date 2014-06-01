@@ -67,7 +67,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		sound.playSound(sound.soundEffects[10])
 		player:slowTime(gui.front)
 		if gameData.mapData.levelNum == "T" then
-			tutorialLib:showTipBox("pinkRuneTip", 2, gui)
+			tutorialLib:showTipBox("pinkRuneTip", 2, gui, player)
 		end		
 	elseif collideObject.name == "greenRune" then
 		sound.stopChannel(1)
@@ -85,7 +85,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		playerShrink:removeSelf( )
 		player:shrink()
 		if gameData.mapData.levelNum == "T" then
-			tutorialLib:showTipBox("purpRuneTip", 2, gui)
+			tutorialLib:showTipBox("purpRuneTip", 2, gui, player)
 		end
 	end
 	

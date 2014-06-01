@@ -44,7 +44,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		gameData.gRune = false 
 	elseif collideObject.sequence == "still" then
 		if gameData.mapData.levelNum == "T" then
-			tutorialLib:showTipBox("portalTip", 2, gui)
+			tutorialLib:showTipBox("portalTip", 2, gui, player)
 		end
 	end
 	
