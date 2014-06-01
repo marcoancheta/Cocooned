@@ -152,8 +152,6 @@ local function toggleNext(event)
 			else
 				if event.target.name == "waterTip" then
 					tutorialLib.tutorialStatus = 3
-				elseif event.target.name == "fishTip" then
-					tutorialLib.tutorialStatus = 4
 				end
 				
 				-- Resume physics
