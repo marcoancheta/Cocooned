@@ -164,7 +164,7 @@ function tutorialLib:showTipBox(tipType, value, gui)
 		--add text over box and add to gui
 		--toolTip[2] = display.newText(tipText, toolTip[1].x, toolTip[1].y, font.TEACHERA, fontSize)
 		--toolTip[2]:setFillColor(1,1,1)
-		gui.front:insert(toolTip[1])
+		gui.load:insert(toolTip[1])
 		--gui.front:insert(toolTip[2])
 
 		--set hint to seen.
