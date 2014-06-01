@@ -179,9 +179,13 @@ end
 --------------------------------------------------------------------------------
 --called in movement 
 function tutorialLib:showTipBox(tipType, value, gui, player)
-	-- Pause physics
-	physics.pause()
-	player.curse = 0
+	
+	if tipType == "fishTip" then
+		-- Pause physics
+		physics.pause()
+		player.curse = 0
+	end
+		
 	-- temporarily store player
 	tempPlayer = player
 	-- Pause game timer while tutorial screen is up
