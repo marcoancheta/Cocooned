@@ -16,7 +16,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		--timer.performWithDelay(5000, function() player.curse = 1 end)
 	--end
 	--player.curse = -1
-	if gameData.mapData.levelNum == "T" then
+	if mapData.levelNum == "T" then
 		tutorialLib:showTipBox("fishTip", 2, gui)
 	end	
 end
