@@ -7,32 +7,48 @@ local waterShadow
 
 local function collide(collideObject, player, event, mapData, map, gui)
 	if event.phase == "began" then
+		-- set the onIceberg variables
 		gameData.onIceberg = true
 		player.onLand = true
+
+		-- start player death timer
 		player:stopDeathTimer()
+
+		-- if the player was in water, then the player is safe now because they are on an iceberg
 		if gameData.inWater then
+			-- set player variables to safe ones
 			player.shook = false
 			gameData.inWater = false
 			gameData.allowPaneSwitch = true
 			player.lastPositionSaved = false
 			player.imageObject:setLinearVelocity(0,0)
 			player.imageObject.linearDamping = 1.25
+
+			-- stop the alpha animation
 			if player.sinkTrans ~= nil then
 				transition.cancel(player.sinkTrans)
 				player.sinkTrans = nil
 			end
 		end
+
+		-- increment the iceBerg count to make sure how many bodies of iceBerg the player is on
 		icebergCount = icebergCount + 1
-		--print("~~~~~~~~~~~~~~~~~~~~ On dat iceberg COUNT: " .. icebergCount .. " ~~~~~~~~~~~~~~~~~~~")
 
 	elseif event.phase == "ended" then
+
+		-- decrement the iceBerg count to make sure if the player is still on an Iceberg
 		if icebergCount > 0 then
-			--print(">>>>>>>>>>>>>>>>> Off dat iceberg COUNT: " .. icebergCount .. " <<<<<<<<<<<<<<<<<<<")
 			icebergCount = icebergCount - 1
 		end
+
+		-- calculate the distance of the player and the center of iceberg to see if he is still on it
 		local dist = uMath.distance(player.imageObject, collideObject)
 		--print("distance from center: " .. dist)
+
+		-- if the dist is greater than 65, then the player is out of iceBerg
 		if dist > 65 then
+
+			-- clear the display group for later calculations
 			if shoreCheck then
 				for i = shoreCheck.numChildren, 1, -1 do
 					shoreCheck[i]:removeSelf()
@@ -40,46 +56,31 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				end
 			end
 
+			-- if the icebergCound is 0 then the player is out of iceberg and we need to see if player is safe or not
 			if icebergCount == 0 then
 
+				-- set player booleans
 				gameData.onIceberg = false
 				player.onLand = false
-				local degree = 0
 
-				for i = 1, 36 do
-					local x = player.imageObject.x + (100 * math.cos(uMath.deg2rad(degree)))
-					local y = player.imageObject.y + (100 * math.sin(uMath.deg2rad(degree)))
+				-- check the surrounds of the player with rayCasting, check for background
+				local nameCheck = {"background"}
+				local shoreCheck = uMath.rayCastCircle(player.imageObject, nil, 100, 100, nameCheck)
 
-					local hits = physics.rayCast(player.imageObject.x, player.imageObject.y, x, y, "sorted")
-					if ( hits ) then
-					    -- Output all the results.
-					    for i,v in ipairs(hits)
-					    do
-					    	if v.object.name == "background" or v.object.name == "water" then
-						    	local pointC = display.newCircle(v.position.x, v.position.y, 5)
-						    	pointC:setFillColor(0.18,0.3,0.3)
-						    	pointC.name = v.object.name
-						    	pointC.alpha = 0
-						    	shoreCheck:insert(pointC)
-						    	shoreCheck:toFront()
-						    end
-					    end				
-					else
-					    -- There's no hit.
-					end
-					degree = degree + 10
-				end
-				--if shoreCheck.numChildren ~= 0 then print(" >>>>>>>>>>>>>>>>>>>>>>>>>>> WE GOT HITS <<<<<<<<<<<<<<<<<<<<<<<<<< ") end
+				-- check if the player is on land with raycasting data
 				local onlyWater = true
 				for i = 1, shoreCheck.numChildren do
-					--print("Hit: " .. i .. " " .. shoreCheck[i].name .. " at position " .. shoreCheck[i].x .. ", " .. shoreCheck[i].y)
+					-- if background object was found, then the player is on land
 					if shoreCheck[i].name == "background" then
 						onlyWater = false
 					end
 				end
+				
+				-- if this boolean is true then the player is on water and now we start death timer
 				if onlyWater then
-					--print(" YOU DROWNING NIGGA!!!")
 					if player.lastPositionSaved == false then
+
+						-- set the player variables
 						player:startDeathTimer(mapData, gui)
 						player.lastPositionX = -100
 						player.lastPositionY = -100
@@ -88,52 +89,34 @@ local function collide(collideObject, player, event, mapData, map, gui)
 						player.lastSavePoint.pane = mapData.pane
 						player.imageObject.linearDamping = 3
 
-						local vx, vy = player.imageObject:getLinearVelocity()
-						--print("entry velocity is " .. vx .. ", " .. vy)
+						-- calculate the next point of travel
+						local xf, yf = uMath.calcNextPoint(player, 100)
 
-
-						local xf = player.imageObject.x + vx
-						local yf = player.imageObject.y + vy
-
-						local distance = uMath.distanceXY(player.imageObject.x, player.imageObject.y, xf, yf)
-
-						local moveX = 100 * math.cos(math.acos(vx/distance))
-						local moveY = 100 * math.sin(math.asin(vy/distance))
-
-						xf = player.imageObject.x + moveX
-						yf = player.imageObject.y + moveY
-
-						--print("player is at " .. player.imageObject.x .. ", " .. player.imageObject.y)
-						--print("move the player to this point: " .. xf .. ", " .. yf)
-
+						-- calculate the distance traveled
 						distance = uMath.distanceXY(player.imageObject.x, player.imageObject.y, xf, yf)
 
-						local deltaX, deltaY = 0,0
-						deltaX = xf - player.imageObject.x
-						deltaY = yf - player.imageObject.y
+						-- calculate the force to apply on player to make sure they are fully in water
+						local jumpDirectionX, jumpDirectionY = 0, 0
+						jumpDirectionX, jumpDirectionY = uMath.calcDirectionForce(player.imageObject.x, player.imageObject.y, xf, yf, distance, 8)
 
-						local angleX = math.acos(deltaX/distance)
-						local angleY = math.asin(deltaY/distance)
-
-						local jumpDirectionX, jumpDirectionY = 0,0
-						jumpDirectionX = 8 * math.cos(angleX)
-						jumpDirectionY = 8 * math.sin(angleY)
-
+						-- apply that force onto the player
 						player.imageObject:setLinearVelocity(0,0)
 						player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
 
+						-- stop the player once they are fully in water
 						local function stopPlayer()
-							--print(">>>>>>>>>>>>> STOPPED DAT NIGGA")
 							player.imageObject:setLinearVelocity(0,0)
 						end
 
+						-- start timer to stop player when they are fully in water
 						timer.performWithDelay(500, stopPlayer)
-						--local moveIntoWater = transition.to(player.imageObject, {time = 200, x = xf, y = yf})
 
+						-- set player variables and game variables
 						player.imageObject:setLinearVelocity(0,0)
 						gameData.allowPaneSwitch = false
 						gameData.inWater = true
 
+						-- play alpha animation for player
 						player.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 					end
 				end

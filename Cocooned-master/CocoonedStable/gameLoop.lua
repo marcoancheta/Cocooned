@@ -512,8 +512,6 @@ local function gameLoopEvents(event)
 	-- Runtime functions
 	update(event)
 	
-	--print(gameData.ingame)
-	
 	if gameData.gRune == true and gameData.isShowingMiniMap == false then
 		for check = 1, #accelObjects.switchWallAndIceberg do
   			local currObject = accelObjects.switchWallAndIceberg[check]

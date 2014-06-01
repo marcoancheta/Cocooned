@@ -21,6 +21,7 @@ local gameData = require("Core.gameData")
 -- Generate sound
 local sound = require("sound")
 local waterCol = require("Objects.collision.waterCollision")
+local uMath = require("utils.utilMath")
 
 --------------------------------------------------------------------------------
 -- Variables
@@ -75,6 +76,7 @@ local function movePanes(event)
 	if params.gui then
 		if params.gui.back ~= nil then
 			for i = params.gui.back.numChildren,1, -1 do
+				print("destroyed")
 				params.gui.back[i]:removeSelf()
 			end
 		end
@@ -117,7 +119,7 @@ local function movePanes(event)
 	local distanceCheck = 70
 	local inWater = false
 	
-	-- use raycasting to see the players surroundings
+	--use raycasting to see the players surroundings
 	while locationFound == false do
 		for i = 1, 36 do
 			local x = playerPos.x + (distanceCheck * math.cos(degree * (math.pi/180)))
@@ -151,30 +153,44 @@ local function movePanes(event)
 		distanceCheck = distanceCheck + 30
 	end
 
+	-- this calc doesnt work for some reason...
+	-- local nameCheck = {"water", "background"}
+	-- local paneSwitchCheck = uMath.rayCastCircle(params.player1.imageObject, nil, 50, 300, nameCheck)
+	-- print("paneSwitchCheck " .. paneSwitchCheck.numChildren)
+	-- for i = 1, paneSwitchCheck.numChildren do
+	-- 	print("Found shore at " .. paneSwitchCheck[i].name .. " : " .. paneSwitchCheck[i].x .. ", " .. paneSwitchCheck[i].y)
+	-- end
+
 	if inWater then
 		gameData.inWater = true
 		gameData.onLand = false
 		
 		-- Transition player's alpha to 0
-		waterCol.sinkTrans = transition.to(params.player1.imageObject, {time=3000, alpha=0})
+		params.player1.sinkTrans = transition.to(params.player1.imageObject, {time=3000, alpha=0})
 		
+		-- save this last point
 		savePoint = display.newCircle(playerPos.x, playerPos.y , 38)
 		savePoint.alpha = 0
 		savePoint.name = "paneSavePoint"
 			
+		-- set player variables for later calculations
 		params.player1.lastSavePoint = savePoint
 		params.player1.lastPositionX = savePoint.x
 		params.player1.lastPositionY = savePoint.y
 		params.player1.lastSavePoint.pane = params.tempPane
 		params.player1.miniMap = params.miniMap
 		params.player1.lastPositionSaved = true
+
+		-- start the death timer
 		params.player1:startDeathTimer(params.mapData, params.gui)
 	else
-		print("IM ON LAND!!!")
+		-- print("IM ON LAND!!!")
+		-- else the player is safe and on land
 	end
 	--end
-	
-	print("gameData.allowPaneSwitch", gameData.allowPaneSwitch)
+	if params.player1.imageObject.alpha == 0 then
+		params.player1.imageObject.alpha = 1
+	end
 	endTransition(event)
 end
 
