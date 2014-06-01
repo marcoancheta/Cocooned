@@ -69,7 +69,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		
 		if gameData.mapData.levelNum == "T" then
 			if tutorialLib.tutorialStatus == 0 then
-				tutorialLib:showTipBox("pinkRuneTip", 2, gui, player)
+				tutorialLib:showTipBox("pinkRuneTip", 2, gui)
 			end
 		end		
 	elseif collideObject.name == "greenRune" then
@@ -89,7 +89,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		player:shrink()
 		if gameData.mapData.levelNum == "T" then
 			if tutorialLib.tutorialStatus == 0 then
-				tutorialLib:showTipBox("purpRuneTip", 2, gui, player)
+				tutorialLib:showTipBox("purpRuneTip", 2, gui)
 			end
 		end
 	end

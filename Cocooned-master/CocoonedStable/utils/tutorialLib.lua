@@ -119,7 +119,7 @@ local function toggleNext(event)
 			hintText[event.target.name].rect:removeSelf()
 			hintText[event.target.name][1] = false
 			hintText[event.target.name].active = false
-			tutorialLib:showTipBox(event.target.name, tempCurr, tempGui, tempPlayer)	
+			tutorialLib:showTipBox(event.target.name, tempCurr, tempGui)	
 		
 		elseif hintText[event.target.name][tempCurr] == nil then
 			-- Remove event listener
@@ -128,15 +128,15 @@ local function toggleNext(event)
 			if event.target.name == "tiltTip" then
 				tutorialLib.tutorialStatus = 1
 				hintText[event.target.name].rect:removeSelf()
-				tutorialLib:showTipBox("runeObjective", 2, tempGui, tempPlayer)
+				tutorialLib:showTipBox("runeObjective", 2, tempGui)
 			-- Special case for post-portal tip
 			elseif event.target.name == "portalTip" then
 				hintText[event.target.name].rect:removeSelf()
-				tutorialLib:showTipBox("kipcha", 2, tempGui, tempPlayer)
+				tutorialLib:showTipBox("kipcha", 2, tempGui)
 			-- Special case for kipcha interruption
 			elseif event.target.name == "kipcha" then
 				hintText[event.target.name].rect:removeSelf()
-				tutorialLib:showTipBox("swipePaneTip", 2, tempGui, tempPlayer)
+				tutorialLib:showTipBox("swipePaneTip", 2, tempGui)
 			-- Special event for post-swipe pane tip
 			elseif event.target.name == "swipePaneTip" then
 				hintText.tutorialStatus = 2
@@ -147,10 +147,9 @@ local function toggleNext(event)
 				-- Process rest of clean up
 				deleteHint(event)
 				-- Resume game timer
-				--gameTimer.resumeTimer()
+				gameTimer.resumeTimer()
 				-- Resume physics
 				--physics.start();
-				--tempPlayer.curse = 1
 			end
 		end	
 	end
@@ -163,13 +162,11 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 --called in movement 
-function tutorialLib:showTipBox(tipType, value, gui, player)
+function tutorialLib:showTipBox(tipType, value, gui)
 	-- Pause physics
 	--physics.pause()
-	--player.curse = 0
-	tempPlayer = player
 	-- Pause game timer while tutorial screen is up
-	--gameTimer.pauseTimer()
+	gameTimer.pauseTimer()
 	-- temporarily store gui
 	tempGui = gui
 	-- temporarily store current value
