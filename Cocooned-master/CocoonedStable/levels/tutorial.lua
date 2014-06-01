@@ -54,7 +54,7 @@ local tutorial = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0,
+		["exitPortal"] = 1,
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -88,7 +88,7 @@ local tutorial = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1, 
+		["exitPortal"] = 0, 
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -122,7 +122,7 @@ local tutorial = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1, 
+		["exitPortal"] = 0, 
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -145,7 +145,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Check which pane
 
 	if mapData.pane == "L" then
-		
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	elseif mapData.pane == "M" then
 		-- Wisps
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(35, 18)
@@ -163,6 +165,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
 		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(32, 20)
+		
+		-- Exit Portal
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 12)
 
 		generate.gWisps(wisp, map, mapData, 1, 4, tutorial.wispCount)
 	elseif mapData.pane == "U" then
@@ -170,10 +176,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(20, 5)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(20, 20)
  		objects["fish11"].time = 1375
-
-		-- Exit Portal
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 12)
 
 		-- Slow time rune
 		rune[3].x, rune[3].y = generate.tilesToPixels(36, 18)			

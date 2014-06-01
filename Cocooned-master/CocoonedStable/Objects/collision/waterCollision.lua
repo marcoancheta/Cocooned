@@ -65,7 +65,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			if(waterCount == 0) then
 				--check if player is in tutorial level and display water tip
 				if gameData.mapData.levelNum == "T" then
-					tutorialLib:showTipBox("waterTip", gui)
+					tutorialLib:showTipBox("waterTip", 2, gui)
 				end
 
 				player:startDeathTimer(mapData, miniMap, gui)

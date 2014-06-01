@@ -42,9 +42,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		--print("exiting")
 		local transPortal = transition.to(player.imageObject, {time=1000, alpha=0, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
 		gameData.gRune = false 
-	else
+	elseif collideObject.sequence == "still" then
 		if gameData.mapData.levelNum == "T" then
-			tutorialLib:showTipBox("portalTip", gui)
+			tutorialLib:showTipBox("portalTip", 2, gui)
 		end
 	end
 	
