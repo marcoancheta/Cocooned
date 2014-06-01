@@ -43,9 +43,9 @@ local tutorial = {
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
 	["M"] = {
-		["blueAura"] = 1,
+		["blueAura"] = 0,
 		["redAura"] = 0,
-		["greenAura"] = 0,
+		["greenAura"] = 1,
 		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
@@ -77,9 +77,9 @@ local tutorial = {
 		["worldPortal"] = 0
 	},
 	["U"] = {
-		["blueAura"] = 1,
+		["blueAura"] = 0,
 		["redAura"] = 0,
-		["greenAura"] = 0,
+		["greenAura"] = 1,
 		["wolf"] = 0,
 		["fish1"] = 1,
 		["fish2"] = 0,
@@ -162,13 +162,14 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[4].isVisible = true
 
 		-- Blue Aura
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(32, 20)
+		objects["greenAura1"]:setSequence("move")
+		objects["greenAura1"]:play()
+		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(32, 20)
 		
 		-- Exit Portal
 		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 12)
+		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 12)
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(20, 20)
 
 		generate.gWisps(wisp, map, mapData, 1, 4, tutorial.wispCount)
 	elseif mapData.pane == "U" then
@@ -182,11 +183,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[3].isVisible = true
 
 		-- Blue Aura
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(32, 9)
+		objects["greenAura1"]:setSequence("move")
+		objects["greenAura1"]:play()
+		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(32, 9)
 
-		generate.gAuraWalls(map, mapData, "blueWall")
+		generate.gAuraWalls(map, mapData, "greenWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "D" then
 		if gameData.debugMode then

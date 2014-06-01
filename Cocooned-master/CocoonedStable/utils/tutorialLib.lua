@@ -119,7 +119,7 @@ local function toggleNext(event)
 			hintText[event.target.name].rect:removeSelf()
 			hintText[event.target.name][1] = false
 			hintText[event.target.name].active = false
-			tutorialLib:showTipBox(event.target.name, tempCurr, tempGui)	
+			tutorialLib:showTipBox(event.target.name, tempCurr, tempGui, tempPlayer)	
 		
 		elseif hintText[event.target.name][tempCurr] == nil then
 			-- Remove event listener
@@ -128,28 +128,41 @@ local function toggleNext(event)
 			if event.target.name == "tiltTip" then
 				tutorialLib.tutorialStatus = 1
 				hintText[event.target.name].rect:removeSelf()
-				tutorialLib:showTipBox("runeObjective", 2, tempGui)
+				tutorialLib:showTipBox("runeObjective", 2, tempGui, tempPlayer)
 			-- Special case for post-portal tip
 			elseif event.target.name == "portalTip" then
+				tutorialLib.tutorialStatus = 2
 				hintText[event.target.name].rect:removeSelf()
-				tutorialLib:showTipBox("kipcha", 2, tempGui)
+				tutorialLib:showTipBox("kipcha", 2, tempGui, tempPlayer)
 			-- Special case for kipcha interruption
 			elseif event.target.name == "kipcha" then
 				hintText[event.target.name].rect:removeSelf()
-				tutorialLib:showTipBox("swipePaneTip", 2, tempGui)
+				tutorialLib:showTipBox("swipePaneTip", 2, tempGui, tempPlayer)
 			-- Special event for post-swipe pane tip
 			elseif event.target.name == "swipePaneTip" then
-				hintText.tutorialStatus = 2
+				--tutorialLib.tutorialStatus = 2
 				gameData.ingame = 1
 				gameTimer.resumeTimer()
+				-- Resume physics
+				physics.start();
+				tempPlayer.curse = 1
+				gameData.allowMiniMap = true
+				gameData.allowPaneSwitch = true
 				deleteHint(event)
 			else
+				if event.target.name == "waterTip" then
+					tutorialLib.tutorialStatus = 3
+				elseif event.target.name == "fishTip" then
+					tutorialLib.tutorialStatus = 4
+				end
+			
+				-- Resume physics
+				physics.start();
+				tempPlayer.curse = 1
 				-- Resume game timer
 				gameTimer.resumeTimer()
 				-- Process rest of clean up
 				deleteHint(event)
-				-- Resume physics
-				--physics.start();
 			end
 		end	
 	end
@@ -162,9 +175,11 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 --called in movement 
-function tutorialLib:showTipBox(tipType, value, gui)
+function tutorialLib:showTipBox(tipType, value, gui, player)
 	-- Pause physics
-	--physics.pause()
+	physics.pause()
+	player.curse = 0
+	tempPlayer = player
 	-- Pause game timer while tutorial screen is up
 	gameTimer.pauseTimer()
 	-- temporarily store gui

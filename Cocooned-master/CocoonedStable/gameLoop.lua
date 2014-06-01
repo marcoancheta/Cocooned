@@ -653,7 +653,7 @@ local function gameLoopEvents(event)
 		elseif gameData.mapData.levelNum == "T" then
 			if tutorialLib.tutorialStatus == 0 then
 				--set up tiltip if in tutorial level
-				tutorialLib:showTipBox("tiltTip", 2, gui)
+				tutorialLib:showTipBox("tiltTip", 2, gui, player)
 			end
 		end	
 		-- Clear out pre-game
