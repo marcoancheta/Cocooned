@@ -14,6 +14,8 @@
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
 local generate = require("Objects.generateObjects")
+-- variable access for shadows
+local shadows = require("utils.shadows")
 
 --------------------------------------------------------------------------------
 -- Level ten Variables
@@ -236,12 +238,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[40].x, wisp[40].y = generate.tilesToPixels(28, 11)
 		wisp[41].x, wisp[41].y = generate.tilesToPixels(20, 6)
 		wisp[42].x, wisp[42].y = generate.tilesToPixels(33, 7)
-		wisp[43].x, wisp[43].y = generate.tilesToPixels(34, 8)
-		wisp[44].x, wisp[44].y = generate.tilesToPixels(33, 1)
+		wisp[43].x, wisp[43].y = generate.tilesToPixels(34, 10)
+		wisp[44].x, wisp[44].y = generate.tilesToPixels(30, 6)
 		wisp[45].x, wisp[45].y = generate.tilesToPixels(31, 11)
 		wisp[46].x, wisp[46].y = generate.tilesToPixels(24, 10)
 		wisp[47].x, wisp[47].y = generate.tilesToPixels(19, 7)
 
+		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 30, 47, ten.wispCount)
 	end
 
@@ -255,6 +258,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are avaiable for player
 	map.front.panes = ten.panes
 	map.front.itemGoal = 1
+
+	-- set shadow angle for the world
+	shadows.x = 0
+	shadows.y = 0
 end
 
 --------------------------------------------------------------------------------

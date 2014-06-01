@@ -76,6 +76,8 @@ local font = require("utils.font")
 local goals = require("Core.goals")
 -- Shadows
 local shadows = require("utils.shadows")
+-- touch paricle effect
+local particle_lib = require("utils.touchParticles")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -117,6 +119,14 @@ local camera;
 local groupObj;
 local shadowCircle;
 
+local duration = 500
+local speed = 10
+local density = 1
+local range = 50
+local thickness = 100
+local touchEmitter = touchEmitterLib:createEmitter(range, thickness, duration, 1, 0, nil, nil, nil)
+local touchParticlesGroup = display.newGroup()
+
 --------------------------------------------------------------------------------
 -- Game Functions:
 ------- controlMovement
@@ -136,22 +146,23 @@ local function swipeMechanics(event)
 		print("Player Swipe Positions:", "x=" .. tilesX, "y=" .. tilesY)
 	end
 
-	
-	count = count + 1
-	-- save temp pane for later check
-	tempPane = mapData.pane
+	-- emit particles when you touch the screen
+	touchEmitter:emit(touchParticlesGroup, event.x, event.y)
 
-	-- call swipe mechanic and get new Pane
-	touch.swipeScreen(event, mapData, miniMap, gui.front)
-	
-	-- if touch ended then change map if pane is switched
-	if "ended" == event.phase and mapData.pane ~= tempPane then
-		-- play snow transition effect
-		if gameData.allowPaneSwitch then
+	if gameData.allowPaneSwitch then
+		count = count + 1
+		-- save temp pane for later check
+		tempPane = mapData.pane
+
+		-- call swipe mechanic and get new Pane
+		touch.swipeScreen(event, mapData, miniMap, gui.front)
+		
+		-- if touch ended then change map if pane is switched
+		if "ended" == event.phase and mapData.pane ~= tempPane then
+			-- play snow transition effect
 			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
 		end
 	end
-	
 end
 
 --------------------------------------------------------------------------------
@@ -384,9 +395,9 @@ local function loadMap(mapData)
 	-- Delay physics restart
 	local delay = 0
 	if mapData.levelNum == "LS" then
-		delay = 2000
+		delay = 3500
 	elseif mapData.levelNum == "world" then
-		delay = 3000
+		delay = 3500
 	end
 	
 	local physicTimer = timer.performWithDelay(delay, startPhys)
@@ -509,7 +520,6 @@ end
 local function gameLoopEvents(event)
 	-- Runtime functions
 	update(event)
-	
 	--[[
 	if mapData.levelNum == "6" then
 		if tutorialShown then

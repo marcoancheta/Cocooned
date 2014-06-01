@@ -25,7 +25,7 @@ local levelNames = {
 	["15"] = "fifteen",
 	
 	names = {"Lake Wabbagon", "Humble Beginnings", "Gone Fishing", "Treacherous Paths", "Windy Watery Pass", 
-				"Middle Earth", "Cabot Cove", "Fish Hell", "Island Hopping", "Cracked Ice",	
+				"Village Backcountry", "Cabot Cove", "Fish Hell", "Island Hopping", "Cracked Ice",	
 				"Tilt o' Swirl", "Ancient Walls", "Walls of Green", "Ice Crystal Palace", "Severed Paths"}
 
 }
