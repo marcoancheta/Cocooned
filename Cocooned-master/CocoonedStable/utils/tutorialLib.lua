@@ -85,7 +85,7 @@ local function toggleNext(event)
 		hintText[event.target.name].rect:removeSelf()
 		hintText[event.target.name][1] = false
 		hintText[event.target.name].active = false
-		tutorialLib:showTipBox(event.target.name, tempCurr, tempGui)	
+		tutorialLib:showTipBox(event.target.name, tempCurr, tempGui, tempPlayer)	
 	
 	elseif hintText[event.target.name][tempCurr] == nil then
 		-- Remove event listener
@@ -93,15 +93,15 @@ local function toggleNext(event)
 		-- Special case for post-tilt tip
 		if event.target.name == "tiltTip" then
 			hintText[event.target.name].rect:removeSelf()
-			tutorialLib:showTipBox("runeObjective", 2, tempGui)
+			tutorialLib:showTipBox("runeObjective", 2, tempGui, tempPlayer)
 		-- Special case for post-portal tip
 		elseif event.target.name == "portalTip" then
 			hintText[event.target.name].rect:removeSelf()
-			tutorialLib:showTipBox("kipcha", 2, tempGui)
+			tutorialLib:showTipBox("kipcha", 2, tempGui, tempPlayer)
 		-- Special case for kipcha interruption
 		elseif event.target.name == "kipcha" then
 			hintText[event.target.name].rect:removeSelf()
-			tutorialLib:showTipBox("swipePaneTip", 2, tempGui)
+			tutorialLib:showTipBox("swipePaneTip", 2, tempGui, tempPlayer)
 		-- Special event for post-swipe pane tip
 		elseif event.target.name == "swipePaneTip" then
 			gameData.ingame = 1
@@ -129,7 +129,7 @@ end
 function tutorialLib:showTipBox(tipType, value, gui, player)
 	-- Pause physics
 	physics.pause()
-	player.imageObject.curse = 0
+	player.curse = 0
 	tempPlayer = player
 	-- Pause game timer while tutorial screen is up
 	gameTimer.pauseTimer()
