@@ -173,7 +173,9 @@ local function movePanes(event)
 		print("IM ON LAND!!!")
 	end
 	--end
-	
+	if params.player1.imageObject.alpha == 0 then
+		params.player1.imageObject.alpha = 1
+	end
 	print("gameData.allowPaneSwitch", gameData.allowPaneSwitch)
 	endTransition(event)
 end

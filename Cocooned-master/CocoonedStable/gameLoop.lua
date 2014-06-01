@@ -509,7 +509,6 @@ end
 local function gameLoopEvents(event)
 	-- Runtime functions
 	update(event)
-	
 	--[[
 	if mapData.levelNum == "6" then
 		if tutorialShown then
