@@ -58,7 +58,7 @@ function tutorialLib:clean()
 		hintText = nil
 	end
 	
-	if tutorialLib.tutorialStatus == 1 then
+	if tutorialLib.tutorialStatus > 0 then
 		tutorialLib.tutorialStatus = 0
 	end
 end
@@ -141,13 +141,13 @@ local function toggleNext(event)
 			elseif event.target.name == "swipePaneTip" then
 				hintText.tutorialStatus = 2
 				gameData.ingame = 1
-				deleteHint(event)
 				gameTimer.resumeTimer()
-			else
-				-- Process rest of clean up
 				deleteHint(event)
+			else
 				-- Resume game timer
 				gameTimer.resumeTimer()
+				-- Process rest of clean up
+				deleteHint(event)
 				-- Resume physics
 				--physics.start();
 			end
