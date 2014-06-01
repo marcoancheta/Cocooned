@@ -144,22 +144,9 @@ local function createLevel(mapData, players)
 	gui:insert(gui.load)
 	
 	loading.loadingInit(gui) --initializes loading screen assets and displays them on top
-	--loaded = 0 -- current loading checkpoint, max is 6
-	
 	level = mapData.levelNum
-	
 	-- Load in map
 	local levelBG, levelWalls = drawPane(mapData)
-	-- Load in objects
-	objects.main(mapData, gui) -- gui.front = map
-	-- Load in player	
-	if level ~= "LS" and level ~= "world" then
-		for i = 1, gui.playerCount do
-			players[i].imageObject.x, players[i].imageObject.y = generate.tilesToPixels(gui.playerPos[i]["x"], gui.playerPos[i]["y"])
-		end
-	else
-		players[1].imageObject.x, players[1].imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
-	end
 	
 	-- Create ball shadow
 	local shadowCirc
@@ -172,33 +159,43 @@ local function createLevel(mapData, players)
 		shadowCirc = nil
 	end
 	
-	-- Add objects to its proper groups
+	-- Load in playerCount and playerPosition from level file
+	local level = require("levels." ..levelNames[mapData.levelNum])
+	gui.playerCount = level.playerCount
+	gui.playerPos = level.playerPos
+	-- Add Background to gui.back
 	gui.back:insert(levelBG)	
 	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
+		-- SHADOW
 		if shadowCirc ~= nil then
 			gui.middle:insert(shadowCirc)
 		end
+		-- WALLS
 		gui.middle:insert(levelWalls)
+		-- Insert player
 		for i = 1, gui.playerCount do
+			players[i].imageObject.x, players[i].imageObject.y = generate.tilesToPixels(gui.playerPos[i]["x"], gui.playerPos[i]["y"])
 			gui.front:insert(players[i].imageObject)
 		end
-		--gui.front:insert(player1.imageObject) -- in-game objects also draws here.
-		
+		-- Load in objects
+		objects.main(mapData, gui) -- gui.front = map
 		-- check if player has finished level
 		levelFinished.checkWin(players[1], gui.front, mapData)
 	elseif mapData.levelNum == "LS" or mapData.levelNum == "world" then
 		----------------------------
 		-- Level selector exclusive
+		-- SHADOW
 		if shadowCirc ~= nil then
 			gui.middle:insert(shadowCirc)
-		end
-		gui.middle:insert(players[1].imageObject)
-		gui.front:insert(levelWalls)
+		end		
+		-- Load in objects
+		objects.main(mapData, gui) -- gui.front = map
+		gui.middle:insert(levelWalls)
+		players[1].imageObject.x, players[1].imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
+		gui.front:insert(players[1].imageObject)
 		
-		-- if mapData.levelNum == "LS" then
-		-- 	-- load in goals
-			goals.drawGoals(gui, players[1])
-		-- end
+		-- load in goals
+		goals.drawGoals(gui, players[1])
 	end
 	
 	-- create miniMap for level

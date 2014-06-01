@@ -142,7 +142,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Blue Aura
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(28, 6)
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(28,6)
 		
 		-- Shrink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(4, 3)			

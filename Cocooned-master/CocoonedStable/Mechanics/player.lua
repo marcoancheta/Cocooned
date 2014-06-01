@@ -98,7 +98,6 @@ end
 local function changeBack(player)
 	physics.removeBody(player)
 	player:scale(2,2)
-	physics.addBody(player, {radius = 36, bounce = .25, density = 0.3})
 	physics.addBody(player, {radius = 38, bounce = .25, density = 0.3})
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball

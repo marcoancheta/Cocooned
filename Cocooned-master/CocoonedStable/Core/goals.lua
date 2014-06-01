@@ -88,15 +88,7 @@ local function tapOnce(event)
 										onComplete=function() gameData.gameStart = true; end})
 		elseif event.target.name == "cancelButton" then
 			print("HIT CANCEL BUTTON!!!!")			
-			-- Start timer to re-enable portals
-			--local portalTimer = timer.performWithDelay(1500, reenablePortal)
-			-- Hide all goal objects
-			--textObject[1].isVisible = false
-			--textObject[2].isVisible = false
-			--play.isVisible = false
-			--cancel.isVisible = false
 			-- Hide play/cancel buttons and goal texts
-			--playerTemp.imageObject.alpha = 0.05
 			hidePlay(playerTemp)
 			playerTrans = transition.to(playerTemp.imageObject, {time=50, alpha=0})
 		end

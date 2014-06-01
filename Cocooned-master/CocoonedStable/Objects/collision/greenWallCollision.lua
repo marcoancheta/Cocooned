@@ -13,6 +13,8 @@
 local function collide(collideObject, player, event, mapData, map, gui)
 	if player.color == 'green' then
 		event.contact.isEnabled = false
+	else
+		player.imageObject:toFront()
 	end
 end
 
