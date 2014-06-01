@@ -180,7 +180,7 @@ end
 --called in movement 
 function tutorialLib:showTipBox(tipType, value, gui, player)
 	
-	if tipType == "fishTip" then
+	if tipType ~= "fishTip" then
 		-- Pause physics
 		physics.pause()
 		player.curse = 0
