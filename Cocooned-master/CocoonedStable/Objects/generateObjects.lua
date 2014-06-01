@@ -120,7 +120,9 @@ local function gObjects(level, objects, map, mapData, runes)
 				if name == "fixedIceberg" then
 					physics.addBody(objects[name ..j], "static", physicsData.getObject(name):get(name))
 					--physics.addBody(objects[name .. j], "static", {bounce = 0})
-					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+					if objects[name .. j].movement == "free" then
+						table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+					end
 				-- Switch wall
 				elseif name == "switchWall" then
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
@@ -129,7 +131,7 @@ local function gObjects(level, objects, map, mapData, runes)
 				elseif name == "exitPortal" then
 					objects[name ..j]:scale(0.2, 0.2)
 					physics.addBody(objects[name ..j], "static", {bounce = 0, radius=28})
-					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+					--table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
 				-- Everything else
 				else
 					physics.addBody(objects[name ..j], "static", {bounce = 0})

@@ -523,7 +523,8 @@ local function gameLoopEvents(event)
 	if gameData.gRune == true and gameData.isShowingMiniMap == false then
 		for check = 1, #accelObjects.switchWallAndIceberg do
   			local currObject = accelObjects.switchWallAndIceberg[check]
-			if gameData.onIceberg == true or currObject.name == "switchWall" then
+			if string.find(currObject.name, "fixedIceberg") or string.find(currObject.name, "switchWall")then
+				print("MOVING SWITCHWALL!!!!!")
   				local velY = 0
   				local velX = 0
   				if player1.yGrav<0 then

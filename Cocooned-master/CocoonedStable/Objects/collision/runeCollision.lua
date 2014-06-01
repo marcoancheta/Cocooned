@@ -73,7 +73,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[11])
 		gameData.gRune = true
-		--player:moveWalls(gui)
+		player:moveWalls(gui)
 	--elseif collideObject.name == "yellowRune" then
 	elseif collideObject.name == "purpleRune" then
 		collideObject:removeSelf()
