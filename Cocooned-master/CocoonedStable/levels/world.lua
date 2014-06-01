@@ -96,7 +96,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(20.5, 19)	
 		
 		-- Corona Simulator Accel Coordinates:
-		--objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(14, 12)	
+		-- objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(14, 12)	
 
 
 		-- Play animation for all world portals
@@ -116,8 +116,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are available for player
 	map.panes = world.panes
 	-- set shadow angle for the world
-	shadows.x = 0
-	shadows.y = 0
+	shadows.x = 1
+	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

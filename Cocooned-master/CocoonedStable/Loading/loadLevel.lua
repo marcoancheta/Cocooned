@@ -151,9 +151,9 @@ local function createLevel(mapData, players)
 	-- Create ball shadow
 	local shadowCirc
 	if gameData.shadow == true then
-		 shadowCirc = display.newCircle(players[1].imageObject.x, players[1].imageObject.y, 43)
-		 shadowCirc:setFillColor(86*0.0039216,72*0.0039216,92*0.0039216)
-		 shadowCirc.alpha = 0.5
+		 shadowCirc = display.newImage("mapdata/art/shadows/ballshadow.png", players[1].imageObject.x, players[1].imageObject.y)	
+		 print (players[1].imageObject.x)
+		 print (players[1].imageObject.y)
 		 shadowCirc.name = "shadowCirc"
 	else
 		shadowCirc = nil

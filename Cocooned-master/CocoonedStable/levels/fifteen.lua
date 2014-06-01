@@ -36,7 +36,7 @@ local fifteen = {
 	timer = 300,
 	playerCount = 2,
 	playerPos = {{["x"]=12, ["y"]=16},
-				 {["x"]=20, ["y"]=12},},
+				 {["x"]=30, ["y"]=12},},
 	-- number of wisps in the level
 	wispCount = 1,
 	-- number of objects in each pane (M,D,U,R,L)
