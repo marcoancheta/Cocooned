@@ -496,7 +496,7 @@ local function update(event)
 	-- In-Game Runtime Event.
 	if gameData.ingame == 1 then
 		snow.gameSnow(event, mapData, gui)	
-		if shadowCircle and ball then
+		if shadowCircle and ball and gameData.ingame > 0 then
 			shadowCircle.x = (ball.x + shadows.x)
 			shadowCircle.y = (ball.y + shadows.y)
 		end
