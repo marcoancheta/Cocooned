@@ -13,6 +13,8 @@
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
 local generate = require("Objects.generateObjects")
+-- variable access for shadows
+local shadows = require("utils.shadows")
 
 --------------------------------------------------------------------------------
 -- Level fifteen Variables
@@ -32,8 +34,9 @@ local fifteen = {
 					 ["R"]= {"purpleRune"}, 
 					 ["L"]= {"none"}},
 	timer = 300,
-	playerCount = 1,
-	playerPos = {{["x"]=12, ["y"]=16}},
+	playerCount = 2,
+	playerPos = {{["x"]=12, ["y"]=16},
+				 {["x"]=20, ["y"]=12},},
 	-- number of wisps in the level
 	wispCount = 1,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -142,7 +145,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- Check which pane
 	if mapData.pane == "M" then
 		--generate.gWisps(wisp, map, mapData, 1, 23, fifteen.wispCount)
-		generate.gAuraWalls(map, mapData, "blueWall")
+		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Breakable rune
@@ -168,14 +171,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		-- FISH GO HERE
-
-		-- Slow time rune
-		--rune[3].x, rune[3].y = generate.tilesToPixels(23, 21)			
-		--rune[3].isVisible = true
-
-		-- Slow time rune
-		--rune[3].x, rune[3].y = generate.tilesToPixels(12, 22)			
-		--rune[3].isVisible = true
 
 		-- Slow time rune
 		rune[3].x, rune[3].y = generate.tilesToPixels(35, 22)			
@@ -216,6 +211,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are avaiable for player
 	map.front.panes = fifteen.panes
 	map.front.itemGoal = 2
+
+	-- set shadow angle for the world
+	shadows.x = 0
+	shadows.y = 0
 end
 
 --------------------------------------------------------------------------------

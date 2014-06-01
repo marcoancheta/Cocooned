@@ -76,6 +76,7 @@ local function movePanes(event)
 	if params.gui then
 		if params.gui.back ~= nil then
 			for i = params.gui.back.numChildren,1, -1 do
+				print("destroyed")
 				params.gui.back[i]:removeSelf()
 			end
 		end
@@ -186,7 +187,9 @@ local function movePanes(event)
 		print("IM ON LAND!!!")
 	end
 	--end
-	
+	if params.player1.imageObject.alpha == 0 then
+		params.player1.imageObject.alpha = 1
+	end
 	print("gameData.allowPaneSwitch", gameData.allowPaneSwitch)
 	endTransition(event)
 end

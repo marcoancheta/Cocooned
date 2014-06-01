@@ -74,6 +74,8 @@ local highScore = require("Core.highScore")
 local font = require("utils.font")
 -- Goals
 local goals = require("Core.goals")
+-- Shadows
+local shadows = require("utils.shadows")
 
 --------------------------------------------------------------------------------
 -- Local/Global Variables
@@ -113,7 +115,7 @@ local linePts = {}
 
 local camera;
 local groupObj;
---local shadowCircle;
+local shadowCircle;
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -297,9 +299,11 @@ end
 local function startPhys(event)
 	-- Start physics
 	physics.start()
-	-- Reapply curse
+	-- Reapply regular movement
 	player1.curse = 1
 	player2.curse = 1
+	-- print
+	print("START PHYSICS FOR: ", mapData.levelNum)
 end
 
 --------------------------------------------------------------------------------
@@ -333,6 +337,7 @@ local function loadMap(mapData)
 	physics.addBody(ball, {radius = 38, bounce = .25})
 	ball.linearDamping = 1.25
 	ball.density = .3
+	ball.alpha = 0
 	-- add physics to ball2
 	physics.addBody(ball2, {radius = 38, bounce = .25})
 	ball2.linearDamping = 1.25
@@ -344,7 +349,7 @@ local function loadMap(mapData)
 	player1.switchPanes = paneTransition
 	player2.switchPanes = paneTransition
 	-- Load in map
-	gui, miniMap = loadLevel.createLevel(mapData, players)
+	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players)
 	-- Start mechanics
 	for i = 1, gui.playerCount do
 		collisionDetection.createCollisionDetection(players[i].imageObject, player1, mapData, gui, gui.back[1])
@@ -377,7 +382,16 @@ local function loadMap(mapData)
 	player1.curse = 0
 	player2.curse = 0	
 	-- Delay physics restart
-	local physicTimer = timer.performWithDelay(2000, startPhys)
+	local delay = 0
+	if mapData.levelNum == "LS" then
+		delay = 3500
+	elseif mapData.levelNum == "world" then
+		delay = 3500
+	end
+	
+	local physicTimer = timer.performWithDelay(delay, startPhys)
+	-- Alpha transition (9 milliseconds)
+	local alphaTrans = transition.to(ball, {time=delay+1000, alpha=1})
 	
 	return player1
 end
@@ -409,14 +423,14 @@ local function clean(event)
 	player1.imageObject:removeSelf()
 	player1.imageObject = nil
 	
-	--shadowCircle = nil
+	shadowCircle = nil
 	
 	ball:removeSelf()
 	ball = nil
 	accelObjects.switchWallAndIceberg = nil
 	--miniMap:removeSelf()
 	--miniMap = nil
-		
+	
 	gui:removeSelf()
 	gui = nil
 		
@@ -440,9 +454,15 @@ local function update(event)
 		-- Show physics bodies
 		physics.setDrawMode("hybrid")
 	end
+
+	-- In-Water Runtime Event.
+	if gameData.inWater then
+		-- Turn on pane switching and mini map
+		gameData.allowPaneSwitch = false
+	end
 	
-	-- Main Menu Runtime Event.
-	if gameData.inMainMenu then
+	-- Main Menu Runtime Event & Winning Runtime Event.
+	if gameData.inMainMenu or gameData.winning then
 		-- Activate snow particle effect if in main menu
 		-- Draws snow every second
 		snow.makeSnow(event, mapData)
@@ -454,39 +474,30 @@ local function update(event)
 	end
 
 	-- World Selector Runtime Event.
-	--[[
 	if gameData.inWorldSelector == 1 then
 		-- Draw shadow under ball
 		if shadowCircle and ball then
-			shadowCircle.x = ball.x
-			shadowCircle.y = ball.y
+			shadowCircle.x = (ball.x + shadows.x)
+			shadowCircle.y = (ball.y + shadows.y)
 		end
 	end
+
 	-- Level Selector Runtime Event.
 	if gameData.inLevelSelector == 1 then
 		-- Draw shadow under ball
 		if shadowCircle and ball then
-			shadowCircle.x = ball.x
-			shadowCircle.y = ball.y
+			shadowCircle.x = (ball.x + shadows.x)
+			shadowCircle.y = (ball.y + shadows.y)
 		end
 	end
-	]]--
+	
 	-- In-Game Runtime Event.
 	if gameData.ingame == 1 then
 		snow.gameSnow(event, mapData, gui)
-		--[[if shadowCircle and ball then
-			shadowCircle.x = ball.x
-			shadowCircle.y = ball.y
-		end]]--
-		
-		-- print("player damp", ball.linearDamping)
-		-- print("player dens", ball.density)
-	end
-	
-	-- In-Water Runtime Event.
-	if gameData.inWater then
-		-- Turn on pane switching and mini map
-		gameData.allowPaneSwitch = false
+		if shadowCircle and ball then
+			shadowCircle.x = (ball.x + shadows.x)
+			shadowCircle.y = (ball.y + shadows.y)
+		end
 	end
 end
 
@@ -498,7 +509,6 @@ end
 local function gameLoopEvents(event)
 	-- Runtime functions
 	update(event)
-	
 	--[[
 	if mapData.levelNum == "6" then
 		if tutorialShown then
@@ -537,7 +547,6 @@ local function gameLoopEvents(event)
 	-----------------------------
 	--[[ START WORLD SELECTOR]]--
 	if gameData.selectWorld then
-	
 		if gameData.inLevelSelector == 1 then
 			clean(event)
 			gameData.inLevelSelector = 0
@@ -561,9 +570,12 @@ local function gameLoopEvents(event)
 		addGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
 		gameData.inWater = false
-		gameData.allowMiniMap = false
+		if mapData.levelNum ~= "T" then
+			gameData.allowMiniMap = false
+		end
 		gameData.allowPaneSwitch = false
 		gameData.inWorldSelector = 1
+		print ("Setting World Selector!!!!!!!!!!!!!!!!!!")
 		-- Switch off this loop
 		gameData.selectWorld = false
 	end
@@ -571,6 +583,7 @@ local function gameLoopEvents(event)
 	---------------------------
 	--[[ START LVL SELECTOR]]--
 	if gameData.selectLevel then
+		loadingScreen.loadingInit(gui)
 		clean(event)
 		
 		if gameData.debugMode then
@@ -593,6 +606,7 @@ local function gameLoopEvents(event)
 		gameData.inLevelSelector = 1
 		-- Switch off this loop
 		gameData.selectLevel = false
+		loadingScreen.deleteLoading()
 	end
 	
 	-----------------------
@@ -606,12 +620,11 @@ local function gameLoopEvents(event)
 		-- Set mapData to player's gameData mapData
 		mapData = gameData.mapData
 		mapData.pane = "M"
-		-- Load in map with new mapData
-
-		
+		-- Load in map with new mapData	
 		loadMap(mapData)
 		snow.new()
 		-- Re-evaluate gameData booleans
+		gameData.deaths = 0
 		goals.destroyGoals()
 		gameData.inLevelSelector = 0
 		gameData.inWater = false
@@ -632,7 +645,9 @@ local function gameLoopEvents(event)
 		snow.new()
 		-- Turn on pane switching and mini map
 		gameData.allowPaneSwitch = true
-		gameData.allowMiniMap = true
+		if mapData.levelNum ~= "T" then
+			gameData.allowMiniMap = true
+		end
 		-- Clear out pre-game
 		gameData.preGame = nil
 		-- Add game event listeners
@@ -644,10 +659,10 @@ local function gameLoopEvents(event)
 	if gameData.levelRestart == true then
 		if gameData.debugMode then
 			print("Restarting Level...")
-		end
-	
+		end	
 		-- Clean
 		--clean(event)
+		
 		inventory.inventoryInstance:clear()
 		collisionDetection.resetCollision()
 		for i = 1, gui.playerCount do
@@ -698,6 +713,7 @@ local function gameLoopEvents(event)
 	
 		win.init(gui)
 		win.showScore(mapData, gui)
+		snow.new()
 		--loadingScreen.deleteLoading()
 		-- Turn off pane switching and mini map
 		menu.cleanInGameOptions()

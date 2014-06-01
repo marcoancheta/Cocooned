@@ -11,13 +11,17 @@ local sound = require("sound")
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
+	collideObject.alpha = 0.75
+	
 	--player = player
 	if event.phase == "began" and player.color ~= "blue" then
-		player:changeColor('blue')
+		player:changeColor('blue', gui)
 
 		-- play sound
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[2])
+	elseif event.phase == "ended" then
+		collideObject.alpha = 1
 	end
 	
 	

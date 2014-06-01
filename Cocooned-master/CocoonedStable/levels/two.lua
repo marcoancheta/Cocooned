@@ -14,6 +14,8 @@
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
 local generate = require("Objects.generateObjects")
+-- variable access for shadows
+local shadows = require("utils.shadows")
 
 --------------------------------------------------------------------------------
 -- Level two Variables
@@ -142,7 +144,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Blue Aura
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(28, 6)
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(28,6)
 		
 		-- Shrink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(4, 3)			
@@ -190,6 +192,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are avaiable for player
 	map.front.panes = two.panes
 	map.front.itemGoal = 1
+
+	-- set shadow angle for the world
+	shadows.x = 0
+	shadows.y = 0
 end
 
 --------------------------------------------------------------------------------

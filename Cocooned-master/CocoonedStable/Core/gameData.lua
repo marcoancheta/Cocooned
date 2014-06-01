@@ -27,6 +27,7 @@ local gameData = {
 	inMainMenu = false,
 	updateOptions = false,
 	shadow = true,
+	winning = false,
 	
 	-- Level Selector Booleans
 	selectWorld = false,
@@ -55,7 +56,7 @@ local gameData = {
 	locked = false,
 	
 	-- Sound values
-	sfxVolume = 5,
+	sfxVolume = 10,
 	bgmVolume = 5,
 	
 	-- mapData global
@@ -68,7 +69,8 @@ local gameData = {
 	
 	-- Game values
 	gameTime = 0,
-	defaultTime = 0
+	defaultTime = 0,
+	deaths = 0,
 }
 
 return gameData

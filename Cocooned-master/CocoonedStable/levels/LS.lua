@@ -16,6 +16,8 @@ local gameData = require("Core.gameData")
 local generate = require("Objects.generateObjects")
 local movement = require("Mechanics.movement")
 local goals = require("Core.goals")
+-- variable access for shadows
+local shadows = require("utils.shadows")
 
 --------------------------------------------------------------------------------
 -- Level One Variables
@@ -161,6 +163,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	generate.destroyObjects(LS, rune, wisp, water, wall, objects)
 	-- set which panes are available for player
 	map.panes = LS.panes
+
+	-- set shadow angle for the world
+	shadows.x = 0
+	shadows.y = 0
 end
 
 --------------------------------------------------------------------------------

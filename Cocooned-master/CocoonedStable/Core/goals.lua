@@ -7,6 +7,8 @@
 local gameData = require("Core.gameData")
 local generate = require("Objects.generateObjects")
 local font = require("utils.font")
+local levelNames = require("utils.levelNames")
+local stars = require("Core.stars")
 
 ---------------------
 -- Local variables
@@ -16,6 +18,7 @@ local play, cancel
 local playerTemp
 local playerTrans
 local levelPortalObject
+local gStars
 
 --------------------------------------------------------------------------------
 -- reenablePortal() - Re-enable portal that player collided with
@@ -32,7 +35,11 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function onPlay(object, player)
+local function onPlay(object, player, gui, mapData)
+	if mapData.levelNum ~= "T" then
+		stars.goalStars(gStars, gui, mapData)
+	end
+
 	textObject[1].isVisible = true
 	textObject[2].isVisible = true
 	textObject[1].alpha = 0.8
@@ -49,6 +56,10 @@ local function onPlay(object, player)
 end
 
 local function hidePlay(playerTemp)
+	for i=1, #gStars do
+		gStars[i].isVisible = false
+	end
+
 	textObject[1].isVisible = false
 	textObject[2].isVisible = false
 	play.isSensor = true
@@ -77,15 +88,7 @@ local function tapOnce(event)
 										onComplete=function() gameData.gameStart = true; end})
 		elseif event.target.name == "cancelButton" then
 			print("HIT CANCEL BUTTON!!!!")			
-			-- Start timer to re-enable portals
-			--local portalTimer = timer.performWithDelay(1500, reenablePortal)
-			-- Hide all goal objects
-			--textObject[1].isVisible = false
-			--textObject[2].isVisible = false
-			--play.isVisible = false
-			--cancel.isVisible = false
 			-- Hide play/cancel buttons and goal texts
-			--playerTemp.imageObject.alpha = 0.05
 			hidePlay(playerTemp)
 			playerTrans = transition.to(playerTemp.imageObject, {time=50, alpha=0})
 		end
@@ -125,6 +128,8 @@ local function destroyGoals()
 		transition.cancel(playerTrans)
 		playerTrans = nil
 	end
+	
+	stars.clean()
 end
 
 --------------------------------------------------------------------------------
@@ -136,7 +141,11 @@ local function drawGoals(gui, player)
 	-- Reinitialize arrays
 	textObject = {}
 	playerTemp = player
-
+	local tables = stars.loadScore()
+	stars.tables = tables
+	--highScore.scoreTable = tables
+	gStars = stars.initgStars()
+	
 	-- Goal text displayer
 	local text = "Level: "
 	
@@ -187,16 +196,11 @@ local function findGoals(mapData, gui)
 	if mapData.levelNum ~= "T" then
 		tempData = tonumber(mapData.levelNum)	
 	end
-	
-	-- Different than levelNames.lua
-	local levelNames = {"Lake Wabbagon", "Humble Beginnings", "Gone Fishing", "Treacherous Paths", "Windy Watery Pass", 
-						"Middle Earth", "Cabot Cove", "Fish Hell", "Island Hopping", "Cracked Ice",	
-						"Tilt o' Swirl", "Ancient Walls", "Walls of Green", "Ice Crystal Palace", "Severed Paths"}
-
+		
 	-- Set amount of runes (runeAMT) based on level (temp = levelNum)
 	if tempData then
 		print(tempData)
-		textObject[2].text = levelNames[tempData] --" | Time:"
+		textObject[2].text = levelNames.names[tempData] --" | Time:"
 	else
 		print(tempData)
 		textObject[2].text = "Tutorial Level"

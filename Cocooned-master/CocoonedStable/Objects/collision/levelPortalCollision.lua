@@ -43,7 +43,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			selectLevel.levelNum = ""..i..""
 			selectLevel.pane = "M"		
 			-- Run goals
-			goals.onPlay(collideObject, player)			
+			goals.onPlay(collideObject, player, gui, selectLevel)			
 			goals.findGoals(selectLevel, gui)
 			-- Transfer selectLevel values to gameData.mapData
 			gameData.mapData = selectLevel

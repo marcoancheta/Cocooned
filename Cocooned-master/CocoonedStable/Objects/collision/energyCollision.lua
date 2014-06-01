@@ -6,7 +6,7 @@
 --------------------------------------------------------------------------------
 local sound = require("sound")
 local gameData = require("Core.gameData")
-local highScore = require("Core.highScore")
+local stars = require("Core.stars")
 local font = require("utils.font")
 --------------------------------------------------------------------------------
 -- Variables
@@ -36,11 +36,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	-- Created text object for wisp collision
 	plusTime = display.newText("+:01", collideObject.x, collideObject.y, font.TEACHERA, 55)
 	plusTime:setFillColor(0,0,0)
-	plusTime.name = "plusTime"
-	
-	if gui then
-		gui.front:insert(plusTime)
-	end
+	plusTime.name = "plusTime"	
+	gui.front:insert(plusTime)
 	
 	-- Initialize and run transition for plusTime text object
 	local wordTrans = transition.to(plusTime, {time=1000, y=collideObject.y-50, onComplete=removeObj})
@@ -51,7 +48,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	end
 	-- Add wisp into player's inventory
 	player:addInventory(collideObject)
-	highScore.addScore(1)
+	stars.addWisps(1)
 	-- Delete wisp
  	collideObject:removeSelf()
  	collideObject = nil

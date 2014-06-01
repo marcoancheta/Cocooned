@@ -22,6 +22,10 @@ local goals = require("Core.goals")
 local function temp(target)
 	if gameData.inWorldSelector then
 		goals.destroyGoals()
+		sound.stopChannel(3)
+		sound.soundClean()
+		sound.loadMenuSounds()
+		sound.playSound(sound.backgroundMusic[1])
 		gameData.selectWorld = true
 	end
 end

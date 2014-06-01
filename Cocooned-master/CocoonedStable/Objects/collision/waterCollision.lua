@@ -7,6 +7,7 @@ local gameData = require("Core.gameData")
 local sound = require("sound")
 local animation = require("Core.animation")
 local uMath = require("utils.utilMath")
+local tutorialLib = require("utils.tutorialLib")
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -62,10 +63,16 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			splashAnim:play()
 			splashAnim:addEventListener( "sprite", endAnimation )
 
-			print("==================== began collided with water, count: " .. waterCount .. " ===================")
+			-- print("==================== began collided with water, count: " .. waterCount .. " ===================")
 
 			-- if water count is 0, then the player just entered water and now we have to start the death timer
 			if(waterCount == 0) then
+
+				--check if player is in tutorial level and display water tip
+				if gameData.mapData.levelNum == "T" then
+					tutorialLib:showTipBox("waterTip", gui)
+				end
+
 				-- start the death timer
 				player:startDeathTimer(mapData, miniMap, gui)
 				gameData.allowPaneSwitch = false
@@ -80,7 +87,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				-- calculate the distance of travel for later calculation
 				distance = uMath.distanceXY(player.imageObject.x, player.imageObject.y, xf, yf)
 
-
 				-- calculate how much force to apply to the player so they are fully in water
 				local jumpDirectionX, jumpDirectionY = 0,0
 				jumpDirectionX, jumpDirectionY = uMath.calcDirectionForce(player.imageObject.x, player.imageObject.y, xf, yf, distance, 10)
@@ -91,7 +97,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 				-- stop the player after a certain time so they stay in the water
 				local function stopPlayer()
-					print(">>>>>>>>>>>>> STOPPED DAT NIGGA")
 					player.imageObject:setLinearVelocity(0,0)
 				end
 

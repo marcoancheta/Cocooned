@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- Cocooned by Damaged Panda Games (http://signup.cocoonedgame.com/)
--- levelPortalCollision.lua
+-- tutorialPortalCollision.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local sound = require("sound")
@@ -10,8 +10,6 @@ local goals = require("Core.goals")
 
 --------------------------------------------------------------------------------
 -- Variables
---------------------------------------------------------------------------------
--- Updated by: D
 --------------------------------------------------------------------------------
 -- Local mapData array clone
 local selectLevel = {
@@ -42,7 +40,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	selectLevel.levelNum = "T"
 	selectLevel.pane = "M"		
 	-- Run goals
-	goals.onPlay(collideObject, player)			
+	goals.onPlay(collideObject, player, gui, selectLevel)			
 	goals.findGoals(selectLevel, gui)
 	-- Transfer selectLevel values to gameData.mapData
 	gameData.mapData = selectLevel
