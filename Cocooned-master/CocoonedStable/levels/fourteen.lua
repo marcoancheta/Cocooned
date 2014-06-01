@@ -210,7 +210,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "D" then
 		-- Shrink rune
-		rune[4].x, rune[4].y = generate.tilesToPixels(38, 11)			
+		rune[4].x, rune[4].y = generate.tilesToPixels(20, 11)			
 		rune[4].isVisible = true
 	end
 

@@ -382,9 +382,9 @@ local function loadMap(mapData)
 	-- Delay physics restart
 	local delay = 0
 	if mapData.levelNum == "LS" then
-		delay = 2000
+		delay = 3500
 	elseif mapData.levelNum == "world" then
-		delay = 3000
+		delay = 3500
 	end
 	
 	local physicTimer = timer.performWithDelay(delay, startPhys)

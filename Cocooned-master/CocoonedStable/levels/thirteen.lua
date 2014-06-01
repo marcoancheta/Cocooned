@@ -180,7 +180,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		-- Runes
 		-- Slow time 
-		rune[3].x, rune[3].y = generate.tilesToPixels(2, 12)			
+		rune[3].x, rune[3].y = generate.tilesToPixels(10, 12)			
 		rune[3].isVisible = true
 
 		-- Icebergs
