@@ -155,7 +155,7 @@ local function toggleNext(event)
 				elseif event.target.name == "fishTip" then
 					tutorialLib.tutorialStatus = 4
 				end
-			
+				
 				-- Resume physics
 				physics.start();
 				tempPlayer.curse = 1
@@ -179,6 +179,7 @@ function tutorialLib:showTipBox(tipType, value, gui, player)
 	-- Pause physics
 	physics.pause()
 	player.curse = 0
+	-- temporarily store player
 	tempPlayer = player
 	-- Pause game timer while tutorial screen is up
 	gameTimer.pauseTimer()
