@@ -182,15 +182,15 @@ local function movePanes(event)
 		params.player1.lastPositionSaved = true
 
 		-- start the death timer
-		params.player1:startDeathTimer(params.mapData, params.miniMap, params.gui)
+		params.player1:startDeathTimer(params.mapData, params.gui)
 	else
-		print("IM ON LAND!!!")
+		-- print("IM ON LAND!!!")
+		-- else the player is safe and on land
 	end
 	--end
 	if params.player1.imageObject.alpha == 0 then
 		params.player1.imageObject.alpha = 1
 	end
-	print("gameData.allowPaneSwitch", gameData.allowPaneSwitch)
 	endTransition(event)
 end
 

@@ -259,7 +259,7 @@ local function changePane(gui, mapData, player, miniMap)
 		
 	-- load in wall collision
 	local levelBG, levelWalls = drawPane(mapData)
-	
+	print(gui.name)
 	gui.back:insert(levelBG)
 	gui.middle:insert(levelWalls)
 	--gui.front:insert(player.imageObject)
