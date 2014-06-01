@@ -149,11 +149,16 @@ local function toggleNext(event)
 				gameData.allowMiniMap = true
 				gameData.allowPaneSwitch = true
 				deleteHint(event)
-			else
-				if event.target.name == "waterTip" then
-					tutorialLib.tutorialStatus = 3
-				end
-				
+			elseif event.target.name == "waterTip" then
+				tutorialLib.tutorialStatus = 3
+				-- Resume physics
+				physics.start();
+				tempPlayer.curse = 1
+				-- Resume game timer
+				gameTimer.resumeTimer()
+				-- Process rest of clean up
+				deleteHint(event)
+			else				
 				-- Resume physics
 				physics.start();
 				tempPlayer.curse = 1
