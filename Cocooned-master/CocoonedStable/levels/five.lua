@@ -143,7 +143,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 		-- Check which pane
 	if mapData.pane == "M" then
-		
 		-- Pink rune	
 		rune[3].x, rune[3].y = generate.tilesToPixels(3, 20)			
 		rune[3].isVisible = true
@@ -173,7 +172,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 1, 7, five.wispCount)
-
 	elseif mapData.pane == "R" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")

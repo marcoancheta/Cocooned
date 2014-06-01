@@ -160,8 +160,8 @@ local function timerStars(event)
 											x=display.contentCenterX, y=display.contentCenterY-50})
 		-- Update star score table
 		updateStars(3, params.mapData)
-	-- Less than or equal to 50%
-	elseif (estimate <= 0.5) then
+	-- Less than 65%
+	elseif (estimate < 0.65) then
 		local star = params.gStars[5]
 			  star.isVisible = true
 			  star.x, star.y = display.contentCenterX, display.contentCenterY+250

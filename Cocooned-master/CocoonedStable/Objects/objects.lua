@@ -30,8 +30,7 @@ local sheetList = {}
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function init()
-	
+local function init()	
 	-- Load runes
 	rune[1] = display.newImage("mapdata/art/runes/blueRune.png")
 	rune[2] = display.newImage("mapdata/art/runes/greenRune.png")
@@ -183,8 +182,8 @@ local function main(mapData, map)
 	-- get which level lua, player is in
 	level = require("levels." .. levelNames[mapData.levelNum])
 
-	map.playerCount = level.playerCount
-	map.playerPos = level.playerPos
+	--map.playerCount = level.playerCount
+	--map.playerPos = level.playerPos
 	-- get objects and wisps list and create them
 	objects, wisp, water, wall, auraWall = createObjects(level, mapData)
 	-- load in which pane player is in

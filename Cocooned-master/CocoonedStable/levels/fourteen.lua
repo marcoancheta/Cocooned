@@ -27,7 +27,7 @@ local fourteen = {
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
 	runeAvailable = {["M"]= {"purpleRune"}, 
-					 ["U"]= {"pinkRUne"}, 
+					 ["U"]= {"pinkRune"}, 
 					 ["D"]= {"purpleRune"}, 
 					 ["R"]= {"pinkRune"}, 
 					 ["L"]= {"greenRune"}},

@@ -202,7 +202,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(37, 12)
 				
 		generate.gWisps(wisp, map, mapData, 1, 12, eight.wispCount)
-		--generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		if gameData.debugMode then
