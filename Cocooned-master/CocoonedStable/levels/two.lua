@@ -14,6 +14,8 @@
 local gameData = require("Core.gameData")
 -- generator for objects (generateObjects.lua)
 local generate = require("Objects.generateObjects")
+-- variable access for shadows
+local shadows = require("utils.shadows")
 
 --------------------------------------------------------------------------------
 -- Level two Variables
@@ -190,6 +192,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are avaiable for player
 	map.front.panes = two.panes
 	map.front.itemGoal = 1
+
+	-- set shadow angle for the world
+	shadows.x = 0
+	shadows.y = 0
 end
 
 --------------------------------------------------------------------------------
