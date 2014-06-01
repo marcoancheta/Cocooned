@@ -14,7 +14,6 @@ local tutorialLib = require("utils.tutorialLib")
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local waterCount = 0
-local waterShadow
 
 --------------------------------------------------------------------------------
 -- Clean Function - function for deleting all local variables
@@ -49,7 +48,11 @@ end
 local function collide(collideObject, player, event, mapData, map, gui)
 	if (gameData.onIceberg == false) then
 		if(event.phase == "began") then
+
+			-- set the player inWater variable
 			gameData.inWater = true
+
+			-- player the splash animation
 			local splashAnim = display.newSprite(animation.sheetOptions.splashSheet, animation.spriteOptions.splash)	
 			-- Start splash at player location
 			splashAnim.x = player.imageObject.x
@@ -60,93 +63,80 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			splashAnim:play()
 			splashAnim:addEventListener( "sprite", endAnimation )
 
-			print("==================== began collided with water, count: " .. waterCount .. " ===================")
+			-- print("==================== began collided with water, count: " .. waterCount .. " ===================")
 
+			-- if water count is 0, then the player just entered water and now we have to start the death timer
 			if(waterCount == 0) then
+
 				--check if player is in tutorial level and display water tip
 				if gameData.mapData.levelNum == "T" then
 					tutorialLib:showTipBox("waterTip", gui)
 				end
 
-				player:startDeathTimer(mapData, miniMap, gui)
+				-- start the death timer
+				player:startDeathTimer(mapData, gui)
 				gameData.allowPaneSwitch = false
-				player.lastPositionX = player.imageObject.x
-				player.lastPositionY = player.imageObject.y				
 
+				-- set player variables
 				player.lastPositionSaved = true
 				player.imageObject.linearDamping = 3
 
-				local vx, vy = player.imageObject:getLinearVelocity()
-				--print("entry velocity is " .. vx .. ", " .. vy)
+				-- calculate the players next location when entering the water
+				local xf, yf = uMath.calcNextPoint(player, 80)
 
-				local xf = player.imageObject.x + vx
-				local yf = player.imageObject.y + vy
-
-				local distance = uMath.distanceXY(player.imageObject.x, player.imageObject.y, xf, yf)
-
-				local moveX = 100 * math.cos(math.acos(vx/distance))
-				local moveY = 100 * math.sin(math.asin(vy/distance))
-
-				xf = player.imageObject.x + moveX
-				yf = player.imageObject.y + moveY
-
-				--print("player is at " .. player.imageObject.x .. ", " .. player.imageObject.y)
-				--print("move the player to this point: " .. xf .. ", " .. yf)
-
+				-- calculate the distance of travel for later calculation
 				distance = uMath.distanceXY(player.imageObject.x, player.imageObject.y, xf, yf)
 
-				local deltaX, deltaY = 0,0
-				deltaX = xf - player.imageObject.x
-				deltaY = yf - player.imageObject.y
-
-				local angleX = math.acos(deltaX/distance)
-				local angleY = math.asin(deltaY/distance)
-
+				-- calculate how much force to apply to the player so they are fully in water
 				local jumpDirectionX, jumpDirectionY = 0,0
-				jumpDirectionX = 10 * math.cos(angleX)
-				jumpDirectionY = 10 * math.sin(angleY)
+				jumpDirectionX, jumpDirectionY = uMath.calcDirectionForce(player.imageObject.x, player.imageObject.y, xf, yf, distance, 10)
 
+				-- apply that force to make sure the aplyer is fully in water
 				player.imageObject:setLinearVelocity(0,0)
 				player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
 
+				-- stop the player after a certain time so they stay in the water
 				local function stopPlayer()
-					print(">>>>>>>>>>>>> STOPPED DAT NIGGA")
 					player.imageObject:setLinearVelocity(0,0)
 				end
 
+				-- start the stop player function after 0.5 seconds
 				timer.performWithDelay(500, stopPlayer)
-				player.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 
-				--transition.to(player.imageObject, {time = 200, x = xf, y = yf})
-				--player.imageObject:setLinearVelocity(0,0)
-				if waterShadow then
-					waterShadow:removeSelf()
-					waterShadow = nil
-				end
-				waterShadow = display.newCircle(player.lastPositionX, player.lastPositionY, 38)
-				waterShadow.alpha = 0
-				waterShadow.name = "waterShadow"
-				gui.front:insert(waterShadow)
-				player.lastSavePoint = waterShadow
-				player.lastSavePoint.pane = mapData.pane
+				-- play alpha animation of player
+				player.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 			end
+
+			-- increment the water count to keep track of how many water bodies the player is in
 			waterCount = waterCount + 1
+
 		elseif event.phase == "ended"  then
+			-- increment the water collision count to keep track is player is stil in water bodies
 			if(waterCount > 0) then
 				waterCount = waterCount - 1
 				player.shook = false
-				print("==================== ended collided with water, count: " .. waterCount .. " ===================")
+				--print("==================== ended collided with water, count: " .. waterCount .. " ===================")
 			end
+			-- if the water count is at 0, the player is out of water and now set everything back to safe status
 			if ( waterCount == 0 ) and player.onLand then
-				print("==================== OUT ended collided with water, count: " .. waterCount .. " ===================")
+				--print("==================== OUT ended collided with water, count: " .. waterCount .. " ===================")
+
+				-- reset the player booleans
 				player.shook = false
-				player:stopDeathTimer()
 				gameData.inWater = false
 				player.lastPositionSaved = false
+
+				-- stop the death timer
+				player:stopDeathTimer()
+				
+				-- stop the alpha transition
 				if player.sinkTrans ~= nil then
+					print("stop trans")
 					transition.cancel(player.sinkTrans)
 					player.sinkTrans = nil
 				end
+
+				-- reset the player physics data
 				player.imageObject.alpha = 1
 				player.imageObject:setLinearVelocity(0,0)
 				player.imageObject.linearDamping = 1.25
@@ -192,10 +182,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 end
 
 local function reset()
-	if waterShadow then
-		waterShadow:removeSelf()
-		waterShadow = nil
-	end
 	waterCount = 0
 end
 

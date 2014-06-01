@@ -103,10 +103,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 				local col = require("Objects.collision." .. collideObject.func)
 				col.collide(collideObject, player, event, mapData, map, gui)
 			end
-		else
-			if collideObject.name == "water" then
-				--print("still colliding with water")
-			end
 		end
 	end
 
