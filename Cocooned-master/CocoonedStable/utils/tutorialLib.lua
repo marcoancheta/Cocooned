@@ -88,7 +88,7 @@ local function deleteHint(event)
 	--re-enable minimap functionality
 	--if toolTipActive() == false then
 	local delay = function() gameData.allowMiniMap = true; gameData.allowPaneSwitch = true; end
-	local delayTimer = timer.performWithDelay(100, delay)
+	local delayTimer = timer.performWithDelay(1000, delay)
 	--end
 end
 
