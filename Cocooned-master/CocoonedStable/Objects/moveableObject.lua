@@ -39,17 +39,19 @@ local hasMoved = true
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function moveforward(obj)
-	
-	print("moveF:")
+	--print("moveF:")
 	if obj.stop ~= true then
-		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = function() hasMoved = true; obj:setSequence("jumpingin"); obj:play() end})
+		if string.find(obj.name, "fish") then
+			forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = function() hasMoved = true; obj:setSequence("jumpingin"); obj:play() end})
+		else
+			forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
+		end
 		if obj.name ~= "iceberg" then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
 			obj:rotate(180)
 		end
 	end
-	--
 end
 
 --------------------------------------------------------------------------------
@@ -58,9 +60,9 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function fishAnimation(event)
-	print(event.phase, currObject.name)
+	--print(event.phase, currObject.name)
 	if event.phase == "ended" and string.find(event.target.name, "fish") then
-		print(jumpTo)
+		--print(jumpTo)
 		event.target:setSequence("still")
 		if jumpTo == "forward" then
 			moveforward(event.target)
@@ -81,10 +83,14 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function moveBackward(obj)
-	print("moveB:")
+	--print("moveB:")
 
 	if obj.stop ~= true then
-		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete =  function() hasMoved = true; obj:setSequence("jumpingin"); obj:play() end})
+		if string.find(obj.name, "fish") then
+			back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete =  function() hasMoved = true; obj:setSequence("jumpingin"); obj:play() end})
+		else
+			back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveforward})
+		end
 		if obj.name ~= "iceberg" then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
