@@ -129,8 +129,13 @@ local function toggleNext(event)
 			
 			-- Resume physics
 			physics.start();
+			if tempPlayer.small == true then
+				tempPlayer.curse = 0.5
+			else
+				tempPlayer.curse = 1
+			end
 			print("tempPlayer.curse", tempPlayer.curse)
-			tempPlayer.curse = tempPlayer.curse		
+			
 			-- Resume game timer
 			gameTimer.resumeTimer()
 			-- Process rest of clean up
