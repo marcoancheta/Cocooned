@@ -180,6 +180,7 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i].object = objects["fish1" .. i]
 		mObjects[i].object.isSensor = false
 		mObjects[i].moveable = true
+		mObjects[i].name = "fish"
 
 		-- set start and end points where moveable object will transition to
 		local startX, startY = objects["fish1" .. i].x, objects["fish1" .. i].y
@@ -211,6 +212,7 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i].object = objects["fish2" .. i-offset]
 		mObjects[i].object.isSensor = false
 		mObjects[i].moveable = true
+		mObjects[i].name = "fish"
 
 		-- set start and end points where moveable object will transition to
 		local startX, startY = objects["fish2" .. i-offset].x, objects["fish2" .. i-offset].y

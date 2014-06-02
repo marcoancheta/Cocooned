@@ -129,7 +129,7 @@ local function moveAndAnimate(event, currPlayer, gui) --, physics
 		currPlayer.imageObject:pause()
 	end
 	-- if player has an aura, show aura particles else hide it
-	currPlayer:updateAura()
+	currPlayer:updateAura(gui)
 
 	--rotate player based on velocity if player is moving, else rotate based on accelerometer
 	if (vx > 10 or vy > 10) and currPlayer.movement == "accel" then

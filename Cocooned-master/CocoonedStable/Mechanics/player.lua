@@ -221,7 +221,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
-function playerInstance:updateAura()
+function playerInstance:updateAura(gui)
 	if auraEmitter ~= nil then
 		if self.color ~= "white" then
 			--updates positiion of the particles
@@ -231,7 +231,9 @@ function playerInstance:updateAura()
 			auraEmitter:hideParticles()
 		end
 	else
-		auraEmitter=particle_lib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
+		if gameData.inLevelselector == false and gameData.inWorldSelector == false then
+			auraEmitter=particle_lib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
+		end
 	end
 end
 

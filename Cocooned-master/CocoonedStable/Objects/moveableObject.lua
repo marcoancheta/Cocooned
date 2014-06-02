@@ -23,8 +23,11 @@ local moveObject = {
 	endX = 0,
 	endY = 0,
 	time = 0,
-	stop = false
+	stop = false,
+	name = ''
 }
+
+local jumpTo = "forward"
 
 --------------------------------------------------------------------------------
 -- Move forward - function that transitions object to end point
@@ -35,7 +38,7 @@ local function moveforward(obj)
 	
 	--print("moveF:", obj.name)
 	if obj.stop ~= true then
-		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
+		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = jumpingInAnimation})
 		if obj.name ~= "iceberg" then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
@@ -43,6 +46,33 @@ local function moveforward(obj)
 		end
 	end
 	--
+end
+
+--------------------------------------------------------------------------------
+-- Move forward - function that transitions object to end point
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function jumpingOutAnimation()
+	self.object:setSequence("jumpingout")
+	if jumpTo == "forward" then
+		self.object:addEventListener( "sprite", moveforward)
+		jumpTo = "backward"
+	elseif jumpto == "backward" then
+		self.object:addEventListener( "sprite", movebackward)
+		jumpTo = "forward"
+	end
+end
+
+--------------------------------------------------------------------------------
+-- Move forward - function that transitions object to end point
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function jumpingInAnimation()
+	self.object:setSequence("jumpingin")
+	self.object:addEventListener("sprite", jumpingOutAnimation)
+	--TODO: call jumping out when finished
 end
 
 --------------------------------------------------------------------------------
@@ -54,7 +84,7 @@ function moveBackward(obj)
 
 	--print("moveB:", obj.name)
 	if obj.stop ~= true then
-		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveforward})
+		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = jumpingInAnimation})
 		if obj.name ~= "iceberg" then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
@@ -105,6 +135,9 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function moveObject:startTransition(obj)
+	if self.name == "fish" then
+		obj:addEventListener( "sprite", jumpingOutAnimation )
+	end
 	moveforward(obj)
 end
 
