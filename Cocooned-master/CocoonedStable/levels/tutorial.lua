@@ -29,8 +29,8 @@ local tutorial = {
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	runeAvailable = {["M"]= {"greenRune"}, 
-					 ["U"]= {"none"}, 
+	runeAvailable = {["M"]= {"purpleRune"}, 
+					 ["U"]= {"pinkRune"}, 
 					 ["D"]= {"none"}, 
 					 ["R"]= {"none"}, 
 					 ["L"]= {"none"}},
