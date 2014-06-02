@@ -125,7 +125,7 @@ local function changeSize(player)
 	end
 	physics.setGravity(0, 0)
 	player.imageObject.density = 3.0
-	player.imageObject.linearDamping = 1.25
+	player.imageObject.linearDamping = 8
 	player.small = true
 	--player.linearDamping = 1.25
 	print("SIZE")
