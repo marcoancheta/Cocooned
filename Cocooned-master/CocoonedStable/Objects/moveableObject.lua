@@ -24,10 +24,14 @@ local moveObject = {
 	endY = 0,
 	time = 0,
 	stop = false,
-	name = ''
+	name = '',
+	listener = ''
 }
 
 local jumpTo = "forward"
+local jump = "out"
+local currObject = ""
+local hasMoved = true
 
 --------------------------------------------------------------------------------
 -- Move forward - function that transitions object to end point
@@ -36,9 +40,9 @@ local jumpTo = "forward"
 --------------------------------------------------------------------------------
 local function moveforward(obj)
 	
-	--print("moveF:", obj.name)
+	print("moveF:")
 	if obj.stop ~= true then
-		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = jumpingInAnimation})
+		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = function() hasMoved = true; obj:setSequence("jumpingin"); obj:play() end})
 		if obj.name ~= "iceberg" then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
@@ -53,27 +57,23 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function jumpingOutAnimation()
-	self.object:setSequence("jumpingout")
-	if jumpTo == "forward" then
-		self.object:addEventListener( "sprite", moveforward)
-		jumpTo = "backward"
-	elseif jumpto == "backward" then
-		self.object:addEventListener( "sprite", movebackward)
-		jumpTo = "forward"
+local function fishAnimation(event)
+	print(event.phase, currObject.name)
+	if event.phase == "ended" and string.find(event.target.name, "fish") then
+		print(jumpTo)
+		event.target:setSequence("still")
+		if jumpTo == "forward" then
+			moveforward(event.target)
+			jumpTo = "backward"
+			hasMoved = false
+		elseif jumpTo == "backward" then
+			moveBackward(event.target)
+			jumpTo = "forward"
+			hasMoved = false
+		end
 	end
 end
 
---------------------------------------------------------------------------------
--- Move forward - function that transitions object to end point
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-local function jumpingInAnimation()
-	self.object:setSequence("jumpingin")
-	self.object:addEventListener("sprite", jumpingOutAnimation)
-	--TODO: call jumping out when finished
-end
 
 --------------------------------------------------------------------------------
 -- Move Backward - function that transitions object to start point
@@ -81,10 +81,10 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function moveBackward(obj)
+	print("moveB:")
 
-	--print("moveB:", obj.name)
 	if obj.stop ~= true then
-		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = jumpingInAnimation})
+		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete =  function() hasMoved = true; obj:setSequence("jumpingin"); obj:play() end})
 		if obj.name ~= "iceberg" then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
@@ -135,10 +135,12 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function moveObject:startTransition(obj)
-	if self.name == "fish" then
-		obj:addEventListener( "sprite", jumpingOutAnimation )
+	if string.find(self.name, "fish") then
+		currObject = obj
+		self.listener = obj:addEventListener( "sprite", fishAnimation )
+	else
+		moveforward(obj)
 	end
-	moveforward(obj)
 end
 
 

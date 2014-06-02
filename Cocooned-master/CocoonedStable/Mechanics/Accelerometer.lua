@@ -80,13 +80,13 @@ local function onAccelerate(event, player)
 		xGrav = -event.yInstant
 	elseif event.yGravity > 0.05 then
 		xGrav = -event.yGravity - gameData.offSetX
-		print(-event.yGravity, gameData.offSetX)
+		--print(-event.yGravity, gameData.offSetX)
 	elseif event.yGravity < -0.05 then
 		xGrav = -event.yGravity - gameData.offSetX
-		print(-event.yGravity, gameData.offSetX)
+		--print(-event.yGravity, gameData.offSetX)
 	else
 		xGrav = 0 - gameData.offSetX
-		print(-event.yGravity, gameData.offSetX)
+		--print(-event.yGravity, gameData.offSetX)
 		--sound.pauseSound(1)
 	end
 

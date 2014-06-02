@@ -78,16 +78,14 @@ local animation = {
 			{frames = {1}, name = "still", time = 250}
 		},
 		["fish1"] = {
-			{frames = {1,2,3,4,5}, name = "move", time = 300},
-			{frames = {3}, name = "still", time = 250},
-			{frames = {1}, name = "jumpingin", time = 250},
-			{frames = {5}, name = "jumpingout", time = 250}
+			{frames = {1,2,3,4,5}, name = "move",loopCount=1, time = 300},
+			{frames = {3}, name = "still",loopCount=1, time = 250},
+			{frames = {1,5}, name = "jumpingin", loopCount=1, time = 250}
 		}, 
 		["fish2"] = {
-			{frames = {1,2,3,4,5}, name = "move", time = 300},
-			{frames = {3}, name = "still", time = 250},
-			{frames = {1}, name = "jumpingin", time = 250},
-			{frames = {5}, name = "jumpingout", time = 250}
+			{frames = {1,2,3,4,5}, name = "move", loopCount = 1,time = 300},
+			{frames = {3}, name = "still", loopCount = 1, time = 250},
+			{frames = {1,5}, name = "jumpingin", loopCount = 1, time = 250}
 		},
 		["splash"] = {
 			{frames = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}, name = "move", time = 600, start=1, count=15, loopCount=1},
