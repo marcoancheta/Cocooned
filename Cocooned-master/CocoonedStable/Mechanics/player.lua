@@ -123,7 +123,7 @@ local function changeSize(player)
 		--changes the radius range of the aura particles to match up with the ball
 		auraEmitter:changeRadius(-25)
 	end
-	player.imageObject.density = 0.3
+	player.imageObject.density = 0.6
 	player.imageObject.linearDamping = 1.25
 	player.small = true
 	--player.linearDamping = 1.25
