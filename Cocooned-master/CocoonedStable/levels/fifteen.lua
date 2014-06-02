@@ -146,6 +146,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	if mapData.pane == "M" then
 		--generate.gWisps(wisp, map, mapData, 1, 23, fifteen.wispCount)
 		--generate.gAuraWalls(map, mapData, "blueWall")
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Breakable rune
@@ -156,6 +159,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Exit portal
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(21, 11)
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWater(map, mapData)
 		--generate.gWisps(wisp, map, mapData, 24, 39, fifteen.wispCount)
 	elseif mapData.pane == "L" then
@@ -168,6 +176,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(37, 8)
 		objects["fixedIceberg2"].time = 3800 --not needed if free
 		objects["fixedIceberg2"].movement = "free" --fixed or free
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		-- FISH GO HERE
@@ -194,10 +207,17 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[4].x, rune[4].y = generate.tilesToPixels(37, 18)			
 		rune[4].isVisible = true
 
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gAuraWalls(map, mapData, "greenWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "D" then
 		print("You shouldn't be in here...")
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 		generate.gWater(map, mapData)
 	end
 
@@ -212,9 +232,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	map.front.panes = fifteen.panes
 	map.front.itemGoal = 2
 
-	-- set shadow angle for the world
-	shadows.x = 1
-	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

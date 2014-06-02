@@ -153,6 +153,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Break objects rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(3, 21)			
 		rune[4].isVisible = true
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 	
 		--generate.gWisps(wisp, map, mapData, 1, 25, fourtween.wispCount)
 		--generate.gAuraWalls(map, mapData, "blueWall")
@@ -161,6 +165,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Runes
  		rune[2].x, rune[2].y = generate.tilesToPixels(2, 3)			
 		rune[2].isVisible = true
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		-- Slow time rune
@@ -180,6 +189,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["greenAura2"]:setSequence("move")
  		objects["greenAura2"]:play()
  		objects["greenAura2"].x, objects["greenAura2"].y = generate.tilesToPixels(22, 21)
+
+ 		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 
  		generate.gAuraWalls(map, mapData, "greenWall")
  		generate.gWater(map, mapData)
@@ -207,13 +220,21 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg4"].x, objects["fixedIceberg4"].y = generate.tilesToPixels(5, 11)
 		objects["fixedIceberg4"].eX, objects["fixedIceberg4"].eY = generate.tilesToPixels(5, 21)
 		objects["fixedIceberg4"].time = 7000
-		objects["fixedIceberg4"].movement = "fixed" 
+		objects["fixedIceberg4"].movement = "fixed"
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "D" then
 		-- Shrink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(20, 11)			
 		rune[4].isVisible = true
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 	end
 
 	-- generates all objects in pane when locations are set
@@ -227,9 +248,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	map.front.panes = fourteen.panes
 	map.front.itemGoal = 5
 
-	-- set shadow angle for the world
-	shadows.x = 1
-	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

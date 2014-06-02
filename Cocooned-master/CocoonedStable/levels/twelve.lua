@@ -160,6 +160,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(37, 12)
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 		
 		-- Generate objects 
 		generate.gWisps(wisp, map, mapData, 1, 4, twelve.wispCount)
@@ -187,12 +191,21 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[4].x, rune[4].y = generate.tilesToPixels(10, 11)			
 		rune[4].isVisible = true
 
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		--generate.gWater(map, mapData)
 		--generate.gWisps(wisp, map, mapData, 24, 39, twelve.wispCount)
 		generate.gAuraWalls(map, mapData, "greenWall")
 		generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gAuraWalls(map, mapData, "greenWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then

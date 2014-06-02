@@ -164,6 +164,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["blueAura1"]:play()
 		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(32, 20)
 
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWisps(wisp, map, mapData, 1, 4, tutorial.wispCount)
 	elseif mapData.pane == "U" then
 		-- Fish
@@ -183,6 +187,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
 		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(32, 9)
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 
 		generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
@@ -207,9 +215,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	map.front.panes = tutorial.panes
 	map.front.itemGoal = 2
 
-	-- set shadow angle for the world
-	shadows.x = 1
-	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------
