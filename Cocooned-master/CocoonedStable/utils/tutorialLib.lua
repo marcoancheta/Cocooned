@@ -115,6 +115,8 @@ local function toggleNext(event)
 			if event.target.name == "tiltTip" then
 				tutorialLib.tutorialStatus = 1
 				gameData.ingame = 1
+				physics.start();
+				tempPlayer.curse = 1
 			-- Special case for post-swipe tip
 			elseif event.target.name == "swipePaneTip" then
 				tutorialLib.tutorialStatus = 2
@@ -126,8 +128,8 @@ local function toggleNext(event)
 			end
 			
 			-- Resume physics
-			physics.start();
-			tempPlayer.curse = 1
+			--physics.start();
+			--tempPlayer.curse = 1			
 			-- Resume game timer
 			gameTimer.resumeTimer()
 			-- Process rest of clean up
@@ -148,8 +150,12 @@ function tutorialLib:showTipBox(tipType, value, gui, player)
 	gameData.allowMiniMap = false
 	gameData.allowPaneSwitch = false
 	-- Pause physics
-	physics.pause()
-	player.curse = 0		
+	
+	if tipType == "tiltTip" then
+		physics.pause()
+		player.curse = 0
+	end
+	
 	-- temporarily store player
 	tempPlayer = player
 	-- Pause game timer while tutorial screen is up

@@ -20,17 +20,12 @@ function M.physicsData(scale)
 	local physics = { data =
 	{ 
 		
-		["ball1"] = {
-                    
-                    
-                    
-                    {
-                    pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
-                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
-                    radius = 34.000
-                    }
-                    
-                    
+		["ball"] = {
+            {
+				pe_fixture_id = "", density = 0.3, friction = 0, bounce = 0.25, 
+				filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+				radius = 38.000
+			}
 		}
 		
 	} }

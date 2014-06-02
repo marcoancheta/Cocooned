@@ -88,7 +88,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		playerShrink:setSequence("move")
 		playerShrink:play()
 		playerShrink:removeSelf( )
-		player:shrink()
+		player:shrink(mapData)
 	end
 	
 	-- remove rune

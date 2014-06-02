@@ -108,7 +108,8 @@ local function movePanes(event)
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
 	collisionDetection.changeCollision(params.player1, params.mapData, params.gui, params.map)
-
+	
+	--[[
 	-- delay collision detection for a little while
 	local collTimer = timer.performWithDelay(100, turnCollOn)
 
@@ -187,6 +188,7 @@ local function movePanes(event)
 		-- print("IM ON LAND!!!")
 		-- else the player is safe and on land
 	end
+	]]--
 	--end
 	if params.player1.imageObject.alpha == 0 then
 		params.player1.imageObject.alpha = 1
