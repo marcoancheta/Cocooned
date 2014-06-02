@@ -104,6 +104,7 @@ local function changeBack(player)
 		auraEmitter:changeRadius(25)
 	end
 	physics.setGravity(0, 0)
+	player.curse = 1
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
 	player.small = false
