@@ -76,6 +76,8 @@ local font = require("utils.font")
 local goals = require("Core.goals")
 -- Shadows
 local shadows = require("utils.shadows")
+-- Tutorial
+local tutorialLib = require("utils.tutorialLib")
 -- touch paricle effect
 local particle_lib = require("utils.touchParticles")
 
@@ -504,7 +506,8 @@ local function update(event)
 	
 	-- In-Game Runtime Event.
 	if gameData.ingame == 1 then
-		snow.gameSnow(event, mapData, gui)
+		snow.gameSnow(event, mapData, gui)	
+		
 		if shadowCircle and ball then
 			shadowCircle.x = (ball.x + shadows.x)
 			shadowCircle.y = (ball.y + shadows.y)
@@ -520,15 +523,6 @@ end
 local function gameLoopEvents(event)
 	-- Runtime functions
 	update(event)
-	--[[
-	if mapData.levelNum == "6" then
-		if tutorialShown then
-			local tutorialTextTimer = timer.performWithDelay( 5000,  function() tutorialText = display.newTextBox("Double tap the screen to open up the minimap to switch panes or simply swipe away from the snow.", player.imageObject.x, player.imageObject.y - 50, font.TEACHERA, 15);end)
-			
-			tutorialShown = flase
-		end
-	end
-	]]--
 	
 	if gameData.gRune == true and gameData.isShowingMiniMap == false then
 		for check = 1, #accelObjects.switchWallAndIceberg do
@@ -601,7 +595,7 @@ local function gameLoopEvents(event)
 			print("In Level Selector")
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
-		
+				
 		-- Reset mapData to level select default
 		mapData.world = gameData.mapData.world
 		mapData.levelNum = "LS"
@@ -633,7 +627,7 @@ local function gameLoopEvents(event)
 		mapData.pane = "M"
 		-- Load in map with new mapData	
 		loadMap(mapData)
-		snow.new()
+		--snow.new()
 		-- Re-evaluate gameData booleans
 		gameData.deaths = 0
 		goals.destroyGoals()
@@ -653,12 +647,22 @@ local function gameLoopEvents(event)
 		
 		-- Switch to in game loop
 		gameData.ingame = 1
+		-- Initialize tutorial objects if in tutorial level only
+		if mapData.levelNum == "T" then
+			tutorialLib:init()
+		end
+		
 		snow.new()
 		-- Turn on pane switching and mini map
 		gameData.allowPaneSwitch = true
 		if mapData.levelNum ~= "T" then
 			gameData.allowMiniMap = true
-		end
+		elseif gameData.mapData.levelNum == "T" then
+			if tutorialLib.tutorialStatus == 0 then
+				--set up tiltip if in tutorial level
+				tutorialLib:showTipBox("tiltTip", 2, gui, player)
+			end
+		end	
 		-- Clear out pre-game
 		gameData.preGame = nil
 		-- Add game event listeners

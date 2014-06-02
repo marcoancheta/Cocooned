@@ -20,7 +20,8 @@ local selectLevel = {
 }
 
 local function temp(target)
-	if gameData.inLevelSelector then
+	if gameData.inWorldSelector then
+		gameData.inWorldSelector = 0
 		target:setLinearVelocity(0,0)
 	end
 end
