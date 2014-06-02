@@ -45,7 +45,8 @@ function emit(ex, ey, player, radiusRange, initAlpha, endAlpha, particleDuration
     particle.speed = Random(1, 8)
     --calculate the random radius given to the particle
     particle.rad=msqrt(((player.imageObject.x-ex)*(player.imageObject.x-ex))+((player.imageObject.y-ey)*(player.imageObject.y-ey)))
-    --insert and place particle
+    particle.name = "auraParticle"
+	--insert and place particle
     gui.front:insert(particle)
     particle:toFront()
     particle.x = ex

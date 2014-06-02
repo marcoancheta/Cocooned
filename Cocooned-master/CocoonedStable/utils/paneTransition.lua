@@ -159,7 +159,8 @@ local function movePanes(event)
 		end
 		if params.gui.front ~= nil then
 			for i = params.gui.front.numChildren, 1, -1 do
-				if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
+				if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "auraParticle" and 
+				params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
 					params.gui.front[i]:removeSelf()
 				end
 			end
