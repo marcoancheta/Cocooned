@@ -128,8 +128,9 @@ local function toggleNext(event)
 			end
 			
 			-- Resume physics
-			--physics.start();
-			--tempPlayer.curse = 1			
+			physics.start();
+			print("tempPlayer.curse", tempPlayer.curse)
+			tempPlayer.curse = tempPlayer.curse		
 			-- Resume game timer
 			gameTimer.resumeTimer()
 			-- Process rest of clean up
@@ -149,15 +150,13 @@ function tutorialLib:showTipBox(tipType, value, gui, player)
 	--pause minimap functinality
 	gameData.allowMiniMap = false
 	gameData.allowPaneSwitch = false
-	-- Pause physics
-	
-	--if tipType == "tiltTip" then
-	--	physics.pause()
-	--	player.curse = 0
-	--end
 	
 	-- temporarily store player
-	tempPlayer = player
+	tempPlayer = player	
+	-- Pause physics	
+	physics.pause()
+	player.curse = 0
+
 	-- Pause game timer while tutorial screen is up
 	gameTimer.pauseTimer()
 	-- temporarily store gui
