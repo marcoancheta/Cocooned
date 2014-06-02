@@ -159,13 +159,17 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	
 		-- Shrink rune
 		--rune[4].x, rune[4].y = generate.tilesToPixels(31, 9)
-		rune[4].x, rune[4].y = generate.tilesToPixels(18, 18)			
+		rune[4].x, rune[4].y = generate.tilesToPixels(30, 11)			
 		rune[4].isVisible = true
 		
 		-- Exit Portal
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 12)
 		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(20, 20)
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 
 		generate.gWisps(wisp, map, mapData, 1, 4, tutorial.wispCount)
 	elseif mapData.pane == "U" then
@@ -183,7 +187,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["greenAura1"]:play()
 		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(10, 9)
 
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 		generate.gAuraWalls(map, mapData, "greenWall")
+
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "D" then
 		if gameData.debugMode then
@@ -206,9 +214,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	map.front.panes = tutorial.panes
 	map.front.itemGoal = 2
 
-	-- set shadow angle for the world
-	shadows.x = 1
-	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

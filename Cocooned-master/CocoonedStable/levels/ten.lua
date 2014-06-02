@@ -171,6 +171,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[4].x, rune[4].y = generate.tilesToPixels(3, 15)			
 		rune[4].isVisible = true
 
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWisps(wisp, map, mapData, 1, 17, ten.wispCount)
 	elseif mapData.pane == "L" then
 		wisp[18].x, wisp[18].y = generate.tilesToPixels(3, 6)
@@ -191,6 +195,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[29].x, wisp[29].y = generate.tilesToPixels(15, 19)
 		wisp[29].x, wisp[29].y = generate.tilesToPixels(15, 19)
 		wisp[29].x, wisp[29].y = generate.tilesToPixels(15, 19)
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 
 		generate.gWisps(wisp, map, mapData, 18, 29, ten.wispCount)
 	elseif mapData.pane == "R" then
@@ -214,6 +222,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		-- Exit portal
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(19, 12)
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "D" then
 		if gameData.debugMode then
@@ -244,6 +257,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[46].x, wisp[46].y = generate.tilesToPixels(24, 10)
 		wisp[47].x, wisp[47].y = generate.tilesToPixels(19, 7)
 
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 30, 47, ten.wispCount)
 	end
@@ -259,9 +276,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	map.front.panes = ten.panes
 	map.front.itemGoal = 1
 
-	-- set shadow angle for the world
-	shadows.x = 1
-	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

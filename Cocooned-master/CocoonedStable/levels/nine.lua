@@ -172,6 +172,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(36, 2) 
 		objects["fixedIceberg1"].time = 5500
 		objects["fixedIceberg1"].movement = "fixed" 
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 				
 		generate.gWisps(wisp, map, mapData, 1, 17, nine.wispCount)
 		generate.gWater(map, mapData)
@@ -221,6 +225,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 3)
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 18, 23, nine.wispCount)
 
@@ -230,6 +239,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		rune[4].x, rune[4].y = generate.tilesToPixels(5, 5)			
 		rune[4].isVisible = true
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 24, 24, nine.wispCount)
@@ -261,6 +274,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fixedIceberg2"].time = 5500
 		objects["fixedIceberg2"].movement = "fixed"
 
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 25, 38, nine.wispCount)
 	elseif mapData.pane == "D" then
@@ -280,9 +297,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	map.front.panes = nine.panes
 	map.front.itemGoal = 2
 
-	-- set shadow angle for the world
-	shadows.x = 1
-	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

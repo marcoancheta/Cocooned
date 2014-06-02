@@ -89,6 +89,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- Check which pane
 	if mapData.pane == "LS" then
 		--print(mapData.world)
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		if mapData.world == "A" then
 			-- Place World "A" portals.
 			objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 15)
@@ -113,9 +118,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			end
 			-- Place World "B" portals.			
 			objects["exitPortal6"].x, objects["exitPortal6"].y = generate.tilesToPixels(10, 15)
-			objects["exitPortal9"].x, objects["exitPortal9"].y = generate.tilesToPixels(14, 12)		
+			objects["exitPortal7"].x, objects["exitPortal7"].y = generate.tilesToPixels(14, 12)		
 			objects["exitPortal8"].x, objects["exitPortal8"].y = generate.tilesToPixels(20.5, 11)
-			objects["exitPortal7"].x, objects["exitPortal7"].y = generate.tilesToPixels(28, 12)
+			objects["exitPortal9"].x, objects["exitPortal9"].y = generate.tilesToPixels(28, 12)
 			objects["exitPortal10"].x, objects["exitPortal10"].y = generate.tilesToPixels(31, 15)
 			-- Back to world portal
 			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 21.5)
@@ -164,9 +169,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are available for player
 	map.panes = LS.panes
 
-	-- set shadow angle for the world
-	shadows.x = 1
-	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

@@ -166,6 +166,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[17].x, wisp[17].y = generate.tilesToPixels(36, 15)
 		wisp[18].x, wisp[18].y = generate.tilesToPixels(37, 14)
 
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWisps(wisp, map, mapData, 1, 18, one.wispCount)
 	elseif mapData.pane == "L" then
 		if gameData.debugMode then
@@ -195,10 +199,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are avaiable for player
 	map.front.panes = one.panes
 	map.front.itemGoal = 0
-
-	-- set shadow angle for the world
-	shadows.x = 1
-	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

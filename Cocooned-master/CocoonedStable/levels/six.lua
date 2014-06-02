@@ -181,6 +181,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[17].x, wisp[17].y = generate.tilesToPixels(39.5, 8)
 		wisp[18].x, wisp[18].y = generate.tilesToPixels(39, 10)
 
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWisps(wisp, map, mapData, 1, 18, six.wispCount)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
@@ -200,6 +204,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[27].x, wisp[27].y = generate.tilesToPixels(21, 5)
 		wisp[28].x, wisp[28].y = generate.tilesToPixels(38, 7)
 		wisp[29].x, wisp[29].y = generate.tilesToPixels(38, 9)
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 
 		generate.gWisps(wisp, map, mapData, 19, 29, six.wispCount)
 		generate.gWater(map, mapData)
@@ -228,9 +236,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	map.front.panes = six.panes
 	map.front.itemGoal = 1
 
-	-- set shadow angle for the world
-	shadows.x = 17
-	shadows.y = 1
 end
 
 --------------------------------------------------------------------------------

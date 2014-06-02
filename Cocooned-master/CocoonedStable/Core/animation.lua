@@ -14,7 +14,7 @@ local animation = {
 	-- Load sprite animation parameters
 	spriteOptions = { 
 		player = {
-			{frames = {9,8,7,6,5,4,3,2,1}, name = "move", time = 500},
+			{frames = {1,2,3,4,5,6,7,8,9,10}, name = "move", time = 500},
 			--{frames = {20,19,18,17,16,15,14,13,12,11,10}, name = "shrink", time = 500},
 			{frames = {1}, name = "still", time = 250}
 		},
@@ -98,7 +98,7 @@ local animation = {
 	--------------------------------------------------------------------------------
 	sheetOptions = {
 		playerSheet = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite.png", 
-				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9}),
+				   {width = 72, height = 72, sheetContentWidth = 720, sheetContentHeight = 72, numFrames = 10}),
 		playerSheet2 = graphics.newImageSheet("mapdata/art/animation/AnimationRollSprite2.png", 
 				   {width = 72, height = 72, sheetContentWidth = 648, sheetContentHeight = 72, numFrames = 9}),
 		runeSheet = graphics.newImageSheet("mapdata/art/animation/runeAnimation.png", 
