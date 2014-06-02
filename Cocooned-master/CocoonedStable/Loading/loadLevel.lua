@@ -153,9 +153,9 @@ local function createLevel(mapData, players)
 	-- Create ball shadow
 	local shadowCirc
 	if gameData.shadow == true then
-		 shadowCirc = display.newCircle(players[1].imageObject.x, players[1].imageObject.y, 43)
-		 shadowCirc:setFillColor(86*0.0039216,72*0.0039216,92*0.0039216)
-		 shadowCirc.alpha = 0.5
+		 shadowCirc = display.newImage("mapdata/art/shadows/ballshadow.png", players[1].imageObject.x, players[1].imageObject.y)	
+		 print (players[1].imageObject.x)
+		 print (players[1].imageObject.y)
 		 shadowCirc.name = "shadowCirc"
 	else
 		shadowCirc = nil
@@ -168,12 +168,12 @@ local function createLevel(mapData, players)
 	-- Add Background to gui.back
 	gui.back:insert(levelBG)	
 	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
+		-- WALLS
+		gui.middle:insert(levelWalls)
 		-- SHADOW
 		if shadowCirc ~= nil then
 			gui.middle:insert(shadowCirc)
 		end
-		-- WALLS
-		gui.middle:insert(levelWalls)
 		-- Insert player
 		for i = 1, gui.playerCount do
 			players[i].imageObject.x, players[i].imageObject.y = generate.tilesToPixels(gui.playerPos[i]["x"], gui.playerPos[i]["y"])
