@@ -11,11 +11,6 @@ local generate = require("Objects.generateObjects")
 local uMath = require("utils.utilMath")
 --NOTE: to change gravity for certain objects use object.gravityScale(int) 0= no gravity 1= full gravity
 
-local rayCastCheck = display.newGroup()
-local rayCastDistanceCheck = display.newGroup()
-
--- local lastPointCheck = display.newGroup()
--- local lastPointDistanceCheck = display.newGroup()
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -72,7 +67,7 @@ end
 local function onAccelerate(event, player)
 	-- Print escape path
 	--print(player.escape)
-
+	
 	-- Accelerometer Tilt Events	
 	local xGrav = 0
 	local yGrav = 0
@@ -108,186 +103,76 @@ local function onAccelerate(event, player)
 
 	-- Accelerometer Shake Event
 	if event.isShake and gameData.inWater == true and player.shook == false then
-		--print(" IM FUCKING SHAKING NIGGA!!! ")
 
-		emptyGroup(rayCastCheck)
-		emptyGroup(rayCastDistanceCheck)
-		-- emptyGroup(lastPointCheck)
-		-- emptyGroup(lastPointDistanceCheck)
-
-
+		-- declare the players Last Save Point
 		local lastPoint = player.lastSavePoint
-		if lastPoint == nil then
-			print("I DONT EVEN HAVE A LAST POINT")
-		else
-			print("I died on pane : " .. lastPoint.pane)
-		end
 
+		-- check whether to use that last save point for later calculations
 		local useLastPoint = true
+
+		-- if the last point is a movable object, dont use that last save point because its not there anymore since object is moving
 		if player.lastSavePoint.moveable then
 			useLastPoint = false
 		end
-		--print("Player last position at : " .. player.lastPositionX .. ", " .. player.lastPositionY)
 
-		-- local lpDegree = 0
-		-- if useLastPoint then
+		-- check the player surroundsing for a safe location, look for background or iceberg
+		local nameCheck = {"background", "iceberg"}
+		local rayCastCheck = uMath.rayCastCircle(player.imageObject, player.lastSavePoint, 50, 300, nameCheck)
 
-		-- 	for i = 1, 36 do
-		-- 		local x = lastPoint.x + (50 * math.cos(lpDegree * (math.pi/180)))
-		-- 		local y = lastPoint.y + (50 * math.sin(lpDegree * (math.pi/180)))
-		-- 		-- local checkCircle = display.newCircle(x, y, 5)
-		-- 		-- checkCircle:setFillColor(1,0,1)
-		-- 		-- checkCircle.name = "check"
-		-- 		-- lastPointDistanceCheck:insert(checkCircle)
-		-- 		-- lastPointDistanceCheck:toFront()
-
-		-- 		local hits = physics.rayCast(lastPoint.x, lastPoint.y, x, y, "sorted")
-		-- 		if ( hits ) then
-		-- 		    -- Output all the results.
-		-- 		    for i,v in ipairs(hits)
-		-- 		    do
-		-- 		    	if v.object.name == "background" or v.object.name == "iceberg" then
-		-- 			    	local pointC = display.newCircle(v.position.x, v.position.y, 10)
-		-- 			    	pointC:setFillColor(1,1,0)
-		-- 			    	pointC.name = v.object.name
-		-- 			    	lastPointCheck:insert(pointC)
-		-- 			    	lastPointCheck:toFront()
-		-- 			    end
-
-		-- 		    end					
-		-- 		else
-		-- 		    -- There's no hit.
-		-- 		end
-
-		-- 		lpDegree = lpDegree + 10
-		-- 	end
-		-- end
-		-- lastPointCheck:toFront()
-
-		local ball = player.imageObject		
-		local degree = 0
-		local distanceCheck = 50
-		local shoreFound = false
-		local rotation = 36
-		local degreeAdd = 10
-		local foreverCheck = 0
-
-		while  shoreFound == false do
-			foreverCheck = foreverCheck + 1
-			for i = 1, rotation do
-				local x = ball.x + (distanceCheck * math.cos(degree * (math.pi/180)))
-				local y = ball.y + (distanceCheck * math.sin(degree * (math.pi/180)))
-				-- local checkCircle = display.newCircle(x, y, 5)
-				-- checkCircle:setFillColor(0,1,0)
-				-- checkCircle.name = "check"
-				-- rayCastDistanceCheck:insert(checkCircle)
-				-- rayCastDistanceCheck:toFront()
-
-				local hits = physics.rayCast(ball.x, ball.y, x, y, "sorted")
-				if ( hits ) then
-				    -- Output all the results.
-				    for i,v in ipairs(hits)
-				    do
-				    	if v.object.name == "background" or v.object.name == "iceberg" then
-					    	local pointC = display.newCircle(v.position.x, v.position.y, 1)
-					    	--pointC:setFillColor(1,0,0)
-					    	pointC.alpha = 0
-					    	pointC.name = v.object.name
-					    	rayCastCheck:insert(pointC)
-					    	rayCastCheck:toFront()
-					    end
-
-				    end					
-				else
-				    -- There's no hit.
-				end
-
-				degree = degree + degreeAdd
-			end
-			if(distanceCheck >= 200) then
-				degreeAdd = 5
-				rotation = 72
-			end
-			degree = 0
-
-			for i = 1, rayCastCheck.numChildren do
-				if useLastPoint then
-					local pointToSafety = uMath.distance(lastPoint, rayCastCheck[i])
-					--print("checking distance: " .. pointToSafety)
-					if math.abs(pointToSafety) < 80 then
-						shoreFound = true
-						break
-					end
-				end
-			end
-			distanceCheck = distanceCheck + 25
-			if foreverCheck > 20 then
-				--print("you just hit a forever loop, we getting out of here!!")
-				break
-			end
-			if shoreFound ~= true then
-				emptyGroup(rayCastDistanceCheck)
-				emptyGroup(rayCastCheck)
-			end
-		end
-		rayCastCheck:toFront()
-		--print("display group has " .. rayCastCheck.numChildren .. " objects")
-
+		-- find which point from rayCast data for the player to travel too
 		local choosePoint = 0
 		local minDist = math.huge
 		for i = 1, rayCastCheck.numChildren do
 			local dist
+			-- if we use the last point, find the closest point from rayCast data to the last save point
 			if useLastPoint then
 				dist = uMath.distance(rayCastCheck[i], lastPoint)
-				--print("Hit: " .. i .. " " .. rayCastCheck[i].name .. " at position " .. rayCastCheck[i].x .. ", " .. rayCastCheck[i].y .. " distance: " .. dist)
-
+			-- if we dont use last point, find the closest point from player to rayCast data
 			else
-				dist = uMath.distance(rayCastCheck[i], ball)
-				--print("Hit: " .. i .. " " .. rayCastCheck[i].name .. " at position " .. rayCastCheck[i].x .. ", " .. rayCastCheck[i].y .. " distance: " .. dist)
+				dist = uMath.distance(rayCastCheck[i], player.imageObject)
 			end
+
+			-- if that dist is less that previous saved distance, save which rayCast data point it is
 			if dist < minDist then
 				minDist = dist
 				choosePoint = i
 			end
 		end	
 
-		--print("Go to point : " .. choosePoint .. " at " .. rayCastCheck[choosePoint].x .. ", " .. rayCastCheck[choosePoint].y .. "with distance of " .. minDist)
+		-- move chosenPoint to front and make sure it is invisible
 		rayCastCheck[choosePoint]:setFillColor(0,0,0)
 		rayCastCheck[choosePoint]:toFront()
 
-		local pushDistance = uMath.distance(ball, rayCastCheck[choosePoint])
-		local straightDistance = uMath.distance(ball, lastPoint)
+		-- calculate the distance of player to chosen rayCast point and distance of player to last save point
+		local pushDistance = uMath.distance(player.imageObject, rayCastCheck[choosePoint])
+		local straightDistance = uMath.distance(player.imageObject, lastPoint)
 
+		-- save which distance to use and which location to move the player too
 		local chooseDistance = pushDistance
 		local chooseLocation = rayCastCheck[choosePoint]
 
+		-- if the distance from player to rayCast is greater then distance from player to save point and we should use the last save point,
+		-- then use the last point at chosen point and use the distance of player to last save point
 		if pushDistance > straightDistance and useLastPoint then
 			chooseLocation = lastPoint
 			chooseDistance = straightDistance
 		end
 
-		local deltaX, deltaY = 0,0
-		deltaX = chooseLocation.x - ball.x
-		deltaY = chooseLocation.y - ball.y
+		-- calculate the force to apply to the player to get out of water
+		local jumpDirectionX, jumpDirectionY = 0, 0
+		jumpDirectionX, jumpDirectionY = uMath.calcDirectionForce(player.imageObject.x, player.imageObject.y, chooseLocation.x, chooseLocation.y, chooseDistance, 20)
 
-		local angleX = math.acos(deltaX/chooseDistance)
-		local angleY = math.asin(deltaY/chooseDistance)
-
-		local jumpDirectionX, jumpDirectionY = 0,0
-		jumpDirectionX = 20 * math.cos(angleX)
-		jumpDirectionY = 20 * math.sin(angleY)
-
-		--print("push player in " .. jumpDirectionX .. ", " .. jumpDirectionY)
+		-- set the player variables back to normal
 		accelPlayer[1] = player
 		player.shook = true
-		--ball:applyForce(jumpDirectionX, jumpDirectionY, ball.x, ball.y)
-		ball.linearDamping = 0
-		--local function pushDatNigga()
-		ball:setLinearVelocity(deltaX*3, deltaY*3)
-		ball.alpha = 1
-		--end
-		--timer.performWithDelay(2000, pushDatNigga)
-		--transition.to(ball, {time = 200, x = lastPoint.x, y = lastPoint.y})
+		player.imageObject.linearDamping = 1.25
+
+		-- apply the calculated force onto the player
+		player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
+
+		-- set player alpha back to 1
+		player.imageObject.alpha = 1
+		
 	elseif gameData.inWater == false or gameData.onIceberg == true then
 		player.imageObject.alpha = 1
 		--sound.playNarration(sound.soundEffects[7])

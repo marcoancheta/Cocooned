@@ -229,8 +229,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	map.front.itemGoal = 1
 
 	-- set shadow angle for the world
-	shadows.x = 0
-	shadows.y = 0
+	shadows.x = 17
+	shadows.y = 1
 end
 
 --------------------------------------------------------------------------------
