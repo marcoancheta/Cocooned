@@ -265,15 +265,13 @@ local function changePane(gui, mapData, player, miniMap)
 	gui.back:insert(levelBG)
 	gui.middle:insert(levelWalls)
 	--gui.front:insert(player.imageObject)
-	objects.main(mapData, gui)
-
+	objects.main(mapData, gui)	
+	-- Check rune inventory slots for runes collected
+	activate(gui, mapData, player, miniMap)
 	-- if player is small, set player size back to normal
 	if player.small == true then
 		player:unshrink()
-	end
-	
-	-- Check rune inventory slots for runes collected
-	activate(gui, mapData, player, miniMap)	
+	end	
 	-- Check if tutorial level
 	if mapData.levelNum == "T" then
 		if tutorialLib.tutorialStatus >= 1 then
