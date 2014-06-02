@@ -87,8 +87,8 @@ local function deleteHint(event)
 
 	--re-enable minimap functionality
 	--if toolTipActive() == false then
-	--	local delay = function() gameData.allowMiniMap = true; gameData.allowPaneSwitch = true; end
-	--	local timer = timer.performWithDelay(100, delay)
+	local delay = function() gameData.allowMiniMap = true; gameData.allowPaneSwitch = true; end
+	local delayTimer = timer.performWithDelay(100, delay)
 	--end
 end
 
@@ -115,16 +115,14 @@ local function toggleNext(event)
 			if event.target.name == "tiltTip" then
 				tutorialLib.tutorialStatus = 1
 				gameData.ingame = 1
-				--physics.start();
-				--tempPlayer.curse = 1
 			-- Special case for post-swipe tip
 			elseif event.target.name == "swipePaneTip" then
 				tutorialLib.tutorialStatus = 2
-				gameData.allowMiniMap = true
-				gameData.allowPaneSwitch = true
+				--gameData.allowMiniMap = true
+				--gameData.allowPaneSwitch = true
 			elseif event.target.name == "waterTip" then
-				gameData.allowMiniMap = true
-				gameData.allowPaneSwitch = true
+				--gameData.allowMiniMap = true
+				--gameData.allowPaneSwitch = true
 			end
 			
 			-- Resume physics
