@@ -45,7 +45,7 @@ local tutorial = {
 	["M"] = {
 		["blueAura"] = 0,
 		["redAura"] = 0,
-		["greenAura"] = 1,
+		["greenAura"] = 0,
 		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
@@ -160,11 +160,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Shrink rune
 		rune[4].x, rune[4].y = generate.tilesToPixels(31, 9)			
 		rune[4].isVisible = true
-
-		-- Green Aura
-		--objects["greenAura1"]:setSequence("move")
-		--objects["greenAura1"]:play()
-		--objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(32, 20)
 		
 		-- Exit Portal
 		objects["exitPortal1"]:setSequence("still")
@@ -185,7 +180,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Green Aura
 		objects["greenAura1"]:setSequence("move")
 		objects["greenAura1"]:play()
-		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(32, 9)
+		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(10, 9)
 
 		generate.gAuraWalls(map, mapData, "greenWall")
 		generate.gWater(map, mapData)
