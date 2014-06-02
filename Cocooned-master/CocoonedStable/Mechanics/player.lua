@@ -154,7 +154,7 @@ local function changeBodyType(event)
 	for check = 1, params.param1.front.numChildren do
 		local currObject = params.param1.front[check]
 		--enables the movement of the switch walls and free icebergs when player gets the specific rune
-		if  string.sub(currObject.name,1,10) == "switchWall" or(string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
+		if  string.sub(currObject.name,1,10) == "switchWall" or (string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
 			params.param1.front[check].bodyType = "dynamic"
  			params.param1.front[check].isFixedRotation = true
 		end
@@ -213,7 +213,7 @@ function playerInstance:changeColor(color, gui)
     self.imageObject:setFillColor(c[1],c[2],c[3])
     if auraEmitter == nil then
     	--starts up the aura emitter, gets updated in movement 
-    	auraEmitter=particle_lib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
+    	auraEmitter = particle_lib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
     end
 end
 
@@ -285,7 +285,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:unshrink()
-	local delayShrink = function() return changeBack( self.imageObject ) end
+	local delayShrink = function() changeBack(self.imageObject); self.small=false; end
 	timer.performWithDelay(100, delayShrink)
 	
 	--[[if self.small == true then
@@ -299,8 +299,6 @@ function playerInstance:unshrink()
 		self.imageObject.linearDamping = 1.25
 		print("un-shrinking the player back to normal size")
 	end]]--
-	
-	self.small = false
 end
 
 --------------------------------------------------------------------------------
@@ -309,7 +307,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function playerInstance:shrink() 
-	local delayShrink = function() return changeSize (self.imageObject) end
+	local delayShrink = function() changeSize(self.imageObject); self.small=true; end
 	timer.performWithDelay(100, delayShrink)
 	--[[if self.small == false then
 		physics.removeBody(self.imageObject)
