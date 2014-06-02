@@ -275,8 +275,8 @@ local function changePane(gui, mapData, player, miniMap)
 	-- Check rune inventory slots for runes collected
 	activate(gui, mapData, player, miniMap)	
 	-- Check if tutorial level
-	if gameData.mapData.levelNum == "T" then
-		if tutorialLib.tutorialStatus == 1 then
+	if mapData.levelNum == "T" then
+		if tutorialLib.tutorialStatus >= 1 then
 			--set up tiltip if in tutorial level
 			tutorialLib:showTipBox("waterTip", 2, gui, player)
 		end

@@ -595,7 +595,7 @@ local function gameLoopEvents(event)
 			print("In Level Selector")
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
-		
+				
 		-- Reset mapData to level select default
 		mapData.world = gameData.mapData.world
 		mapData.levelNum = "LS"
