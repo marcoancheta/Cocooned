@@ -150,11 +150,13 @@ local function movePanes(event)
 			for i = params.gui.back.numChildren,1, -1 do
 				print("destroyed")
 				params.gui.back[i]:removeSelf()
+				params.gui.back[i] = nil
 			end
 		end
 		if params.gui.middle ~= nil then
 			for i = params.gui.middle.numChildren, 1, -1 do
 				params.gui.middle[i]:removeSelf()
+				params.gui.middle[i] = nil
 			end
 		end
 		if params.gui.front ~= nil then
@@ -162,6 +164,7 @@ local function movePanes(event)
 				if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "auraParticle" and 
 				params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
 					params.gui.front[i]:removeSelf()
+					params.gui.front[i] = nil
 				end
 			end
 		end
