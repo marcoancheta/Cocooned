@@ -126,7 +126,7 @@ local function toggleNext(event)
 			end
 			
 			-- Resume physics
-			physics.start();
+			--physics.start();
 			if tempPlayer.small == true then
 				tempPlayer.curse = 0.5
 			else
@@ -154,11 +154,11 @@ function tutorialLib:showTipBox(tipType, value, gui, player)
 	gameData.allowMiniMap = false
 	gameData.allowPaneSwitch = false
 	
+	-- Pause physics	
+	--physics.pause()
+	player.curse = 0
 	-- temporarily store player
 	tempPlayer = player	
-	-- Pause physics	
-	physics.pause()
-	player.curse = 0
 
 	-- Pause game timer while tutorial screen is up
 	gameTimer.pauseTimer()
