@@ -190,11 +190,6 @@ local function movePanes(event)
 	if params.player1.imageObject.alpha == 0 then
 		params.player1.imageObject.alpha = 1
 	end
-	-- if player is small, set player size back to normal
-	if player.small == true then
-		player:unshrink()
-	end	
-	
 	-- Run end transition event
 	endTransition(event)
 	
