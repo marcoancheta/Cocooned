@@ -22,7 +22,8 @@ local tempGui
 local current
 
 local hintText = {}
-
+-- Variable function used to re-enabled minimap and pane switching
+local delay = function() gameData.allowMiniMap = true; gameData.allowPaneSwitch = true; end
 --------------------------------------------------------------------------------
 -- init() - Initialize hintText array objects
 --------------------------------------------------------------------------------
@@ -87,8 +88,6 @@ local function deleteHint(event)
 
 	--re-enable minimap functionality
 	--if toolTipActive() == false then
-	local delay = function() gameData.allowMiniMap = true; gameData.allowPaneSwitch = true; end
-	local delayTimer = timer.performWithDelay(1000, delay)
 	--end
 end
 
@@ -98,48 +97,44 @@ end
 -- Updated by: D
 --------------------------------------------------------------------------------
 local function toggleNext(event)
-	if gameData.ingame == 1 or gameData.ingame == 2 then
-		local tempCurr = current + 1
-		if hintText[event.target.name][tempCurr] ~= nil then
-			--print(tempCurr)
-			hintText[event.target.name].rect:removeEventListener("tap", toggleNext)
-			hintText[event.target.name].rect:removeSelf()
-			hintText[event.target.name][1] = false
-			hintText[event.target.name].active = false
-			tutorialLib:showTipBox(event.target.name, tempCurr, tempGui, tempPlayer)	
+	local tempCurr = current + 1
+	if hintText[event.target.name][tempCurr] ~= nil then
+		--print(tempCurr)
+		hintText[event.target.name].rect:removeEventListener("tap", toggleNext)
+		hintText[event.target.name].rect:removeSelf()
+		hintText[event.target.name][1] = false
+		hintText[event.target.name].active = false
+		tutorialLib:showTipBox(event.target.name, tempCurr, tempGui, tempPlayer)	
 		
-		elseif hintText[event.target.name][tempCurr] == nil then
-			-- Remove event listener
-			hintText[event.target.name].rect:removeEventListener("tap", toggleNext)			
-			-- Special case for post-tilt tip
-			if event.target.name == "tiltTip" then
-				tutorialLib.tutorialStatus = 1
-				gameData.ingame = 1
-			-- Special case for post-swipe tip
-			elseif event.target.name == "swipePaneTip" then
-				tutorialLib.tutorialStatus = 2
-				--gameData.allowMiniMap = true
-				--gameData.allowPaneSwitch = true
-			elseif event.target.name == "waterTip" then
-				--gameData.allowMiniMap = true
-				--gameData.allowPaneSwitch = true
-			end
-			
-			-- Resume physics
-			--physics.start();
-			if tempPlayer.small == true then
-				tempPlayer.curse = 0.5
-			else
-				tempPlayer.curse = 1
-			end
-			print("tempPlayer.curse", tempPlayer.curse)
-			
-			-- Resume game timer
-			gameTimer.resumeTimer()
-			-- Process rest of clean up
-			deleteHint(event)
-		end	
-	end
+	elseif hintText[event.target.name][tempCurr] == nil then
+		-- Remove event listener
+		hintText[event.target.name].rect:removeEventListener("tap", toggleNext)			
+		-- Special case for post-tilt tip
+		if event.target.name == "tiltTip" then
+			tutorialLib.tutorialStatus = 1
+			gameData.ingame = 1
+		-- Special case for post-swipe tip
+		elseif event.target.name == "swipePaneTip" then
+			tutorialLib.tutorialStatus = 2
+			local delayTimer = timer.performWithDelay(1000, delay)
+		elseif event.target.name == "waterTip" then
+			local delayTimer = timer.performWithDelay(1000, delay)
+		end
+		
+		-- Resume physics
+		--physics.start();
+		if tempPlayer.small == true then
+			tempPlayer.curse = 0.5
+		else
+			tempPlayer.curse = 1
+		end
+		print("tempPlayer.curse", tempPlayer.curse)
+		
+		-- Resume game timer
+		gameTimer.resumeTimer()
+		-- Process rest of clean up
+		deleteHint(event)
+	end	
 end
 
 --------------------------------------------------------------------------------
