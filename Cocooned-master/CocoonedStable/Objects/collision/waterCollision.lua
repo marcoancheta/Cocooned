@@ -7,7 +7,6 @@ local gameData = require("Core.gameData")
 local sound = require("sound")
 local animation = require("Core.animation")
 local uMath = require("utils.utilMath")
-local tutorialLib = require("utils.tutorialLib")
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -67,14 +66,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 			-- if water count is 0, then the player just entered water and now we have to start the death timer
 			if(waterCount == 0) then
-
-				--check if player is in tutorial level and display water tip
-				if gameData.mapData.levelNum == "T" then
-					if tutorialLib.tutorialStatus < 3 then
-						tutorialLib:showTipBox("waterTip", 2, gui, player)
-					end
-				end
-
 				-- start the death timer
 				player:startDeathTimer(mapData, gui)
 				gameData.allowPaneSwitch = false

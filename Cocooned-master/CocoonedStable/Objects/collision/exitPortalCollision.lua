@@ -13,7 +13,6 @@
 local sound = require("sound")
 local gameData = require("Core.gameData")
 local snow = require("utils.snow")
-local tutorialLib = require("utils.tutorialLib")
 --local levelComplete = false
 local complete = function()	gameData.levelComplete = true; end
 
@@ -42,12 +41,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		--print("exiting")
 		local transPortal = transition.to(player.imageObject, {time=1000, alpha=0, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
 		gameData.gRune = false 
-	elseif collideObject.sequence == "still" then
-		if gameData.mapData.levelNum == "T" then
-			if tutorialLib.tutorialStatus <= 1 then
-				tutorialLib:showTipBox("portalTip", 2, gui, player)
-			end
-		end
 	end
 	
 	--[[

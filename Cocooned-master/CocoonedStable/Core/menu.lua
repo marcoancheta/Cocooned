@@ -157,7 +157,7 @@ local function buttonPressed(event)
 				gameData.inWorldSelector = -1
 			elseif gameData.inLevelSelector == 1 then
 				gameData.inLevelSelector = -1
-			elseif gameData.ingame == 1 or gameData.ingame == 2 then
+			elseif gameData.ingame == 1 then
 				-- pause snow
 				snow.pauseSnow()
 				gameData.ingame = -1
@@ -212,11 +212,7 @@ local function buttonPressed(event)
 		elseif gameData.ingame == -1 then
 			-- resume snow transition
 			snow.resumeSnow()
-			if tutorialLib.tutorialStatus == 1 then
-				gameData.ingame = 2
-			else
-				gameData.ingame = 1
-			end
+			gameData.ingame = 1
 			-- turn pane switch and mini map back on
 			gameData.allowPaneSwitch = true
 			gameData.allowMiniMap = true
@@ -264,7 +260,7 @@ local function buttonPressed(event)
 			gameData.allowMiniMap = false
 			
 			-- clean tutorial files if exists
-			if tutorialLib.tutorialStatus == 1 then
+			if tutorialLib.tutorialStatus >= 1 then
 				tutorialLib:clean()
 				gameData.selectWorld = true
 			else

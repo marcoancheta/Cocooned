@@ -30,6 +30,8 @@ local gameData = require("Core.gameData")
 local inventory = require("Mechanics.inventoryMechanic")
 -- Level names
 local levelNames = require("utils.levelNames")
+-- Tutorial
+local tutorialLib = require("utils.tutorialLib")
 
 --------------------------------------------------------------------------------
 -- Variables - variables for loading panes
@@ -271,11 +273,17 @@ local function changePane(gui, mapData, player, miniMap)
 	end
 	
 	-- Check rune inventory slots for runes collected
-	activate(gui, mapData, player, miniMap)
-	
+	activate(gui, mapData, player, miniMap)	
+	-- Check if tutorial level
+	if gameData.mapData.levelNum == "T" then
+		if tutorialLib.tutorialStatus == 1 then
+			--set up tiltip if in tutorial level
+			tutorialLib:showTipBox("waterTip", 2, gui, player)
+		end
+	end	
 	-- check if player has finished level
 	levelFinished.checkWin(player, gui.front, mapData)
-	
+		
 	-- return new pane
 	return gui
 end

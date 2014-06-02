@@ -505,10 +505,8 @@ local function update(event)
 	end
 	
 	-- In-Game Runtime Event.
-	if gameData.ingame > 0 then
-		if gameData.ingame == 1 then
-			snow.gameSnow(event, mapData, gui)	
-		end
+	if gameData.ingame == 1 then
+		snow.gameSnow(event, mapData, gui)	
 		
 		if shadowCircle and ball then
 			shadowCircle.x = (ball.x + shadows.x)
@@ -648,13 +646,10 @@ local function gameLoopEvents(event)
 		end
 		
 		-- Switch to in game loop
-		if mapData.levelNum ~= "T" then
-			-- in game 1 = regular
-			gameData.ingame = 1
-		elseif mapData.levelNum == "T" then
+		gameData.ingame = 1
+		-- Initialize tutorial objects if in tutorial level only
+		if mapData.levelNum == "T" then
 			tutorialLib:init()
-			-- ingame 2 = tutorial
-			gameData.ingame = 2
 		end
 		
 		snow.new()

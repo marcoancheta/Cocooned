@@ -74,6 +74,14 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	--elseif collideObject.name == "yellowRune" then
 	elseif collideObject.name == "purpleRune" then
 		collideObject:removeSelf()
+		
+		if gameData.mapData.levelNum == "T" then
+			if tutorialLib.tutorialStatus == 1 then
+				--set up tiltip if in tutorial level
+				tutorialLib:showTipBox("swipePaneTip", 2, gui, player)
+			end
+		end	
+		
 		-- Create animation for the ball shrinking 
 		local playerShrink = display.newSprite(animation.sheetOptions.shrinkSheet, animation.spriteOptions.shrinkAnimation)
 		playerShrink.x, playerShrink.y = collideObject.x, collideObject.y

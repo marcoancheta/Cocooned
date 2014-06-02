@@ -5,7 +5,6 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local gameData = require("Core.gameData")
-local tutorialLib = require("utils.tutorialLib")
 --------------------------------------------------------------------------------
 -- Collide Function - function for fish1 collision
 --------------------------------------------------------------------------------
@@ -16,11 +15,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		--timer.performWithDelay(5000, function() player.curse = 1 end)
 	--end
 	--player.curse = -1
-	if mapData.levelNum == "T" then
-		if tutorialLib.tutorialStatus < 4 then
-			tutorialLib:showTipBox("fishTip", 2, gui, player)
-		end
-	end	
 end
 
 --------------------------------------------------------------------------------
