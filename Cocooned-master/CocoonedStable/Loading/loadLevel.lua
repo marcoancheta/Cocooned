@@ -166,12 +166,12 @@ local function createLevel(mapData, players)
 	-- Add Background to gui.back
 	gui.back:insert(levelBG)	
 	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
+		-- WALLS
+		gui.middle:insert(levelWalls)
 		-- SHADOW
 		if shadowCirc ~= nil then
 			gui.middle:insert(shadowCirc)
 		end
-		-- WALLS
-		gui.middle:insert(levelWalls)
 		-- Insert player
 		for i = 1, gui.playerCount do
 			players[i].imageObject.x, players[i].imageObject.y = generate.tilesToPixels(gui.playerPos[i]["x"], gui.playerPos[i]["y"])
