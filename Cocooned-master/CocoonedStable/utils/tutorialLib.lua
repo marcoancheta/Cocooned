@@ -76,11 +76,6 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function deleteHint(event)							
-	--if tilt tip is deleted create a new swipe pane tip
-	--if event.target.name == " tiltTip" then
-		--local swipePaneTipTimer = timer.performWithDelay(1000, tutorialLib:showTipBox())
-	--end
-
 	--delete text, rect and listener
 	--hintText[event.target.name].rect:removeEventListener("tap", toggleNext)
 	hintText[event.target.name].rect:removeSelf()
@@ -115,8 +110,7 @@ local function toggleNext(event)
 		
 		elseif hintText[event.target.name][tempCurr] == nil then
 			-- Remove event listener
-			hintText[event.target.name].rect:removeEventListener("tap", toggleNext)
-			
+			hintText[event.target.name].rect:removeEventListener("tap", toggleNext)			
 			-- Special case for post-tilt tip
 			if event.target.name == "tiltTip" then
 				tutorialLib.tutorialStatus = 1
@@ -124,6 +118,9 @@ local function toggleNext(event)
 			-- Special case for post-swipe tip
 			elseif event.target.name == "swipePaneTip" then
 				tutorialLib.tutorialStatus = 2
+				gameData.allowMiniMap = true
+				gameData.allowPaneSwitch = true
+			elseif event.target.name == "waterTip" then
 				gameData.allowMiniMap = true
 				gameData.allowPaneSwitch = true
 			end
@@ -146,14 +143,13 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 --called in movement 
-function tutorialLib:showTipBox(tipType, value, gui, player)
-	
-	--if tipType ~= "fishTip" then
-		-- Pause physics
-		physics.pause()
-		player.curse = 0
-	--end
-		
+function tutorialLib:showTipBox(tipType, value, gui, player)	
+	--pause minimap functinality
+	gameData.allowMiniMap = false
+	gameData.allowPaneSwitch = false
+	-- Pause physics
+	physics.pause()
+	player.curse = 0		
 	-- temporarily store player
 	tempPlayer = player
 	-- Pause game timer while tutorial screen is up
@@ -163,14 +159,9 @@ function tutorialLib:showTipBox(tipType, value, gui, player)
 	-- temporarily store current value
 	current = value
 	
-	local playerSeen = hintText[tipType][1]
-		
 	local toolTip = {}
-	
+	local playerSeen = hintText[tipType][1]			
 	if playerSeen == false then
-		--pause minimap functinality
-		gameData.allowMiniMap = false
-		gameData.allowPaneSwitch = false
 		-- Create new image based on tipType
 		toolTip[1] = display.newImageRect(hintText[tipType][current], 1460, 864)
 		toolTip[1].x, toolTip[1].y = display.contentCenterX, display.contentCenterY
