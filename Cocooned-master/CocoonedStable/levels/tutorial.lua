@@ -159,7 +159,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	
 		-- Shrink rune
 		--rune[4].x, rune[4].y = generate.tilesToPixels(31, 9)
-		rune[4].x, rune[4].y = generate.tilesToPixels(18, 18)			
+		rune[4].x, rune[4].y = generate.tilesToPixels(30, 11)			
 		rune[4].isVisible = true
 		
 		-- Exit Portal
