@@ -118,13 +118,13 @@ end
 local function changeSize(player)
 	physics.removeBody(player.imageObject)
 	player.imageObject:scale(0.5,0.5)
-	physics.addBody(player.imageObject, {radius = 15, bounce = .25}) --, density = 0.7})
+	physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball
 		auraEmitter:changeRadius(-25)
 	end
 	player.imageObject.density = 0.6
-	player.imageObject.linearDamping = 1.25
+	player.imageObject.linearDamping = 12.50
 	player.small = true
 	--player.linearDamping = 1.25
 	print("SIZE")
