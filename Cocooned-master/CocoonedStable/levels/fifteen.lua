@@ -36,7 +36,7 @@ local fifteen = {
 	timer = 300,
 	playerCount = 2,
 	playerPos = {{["x"]=12, ["y"]=16},
-				 {["x"]=20, ["y"]=12},},
+				 {["x"]=30, ["y"]=12},},
 	-- number of wisps in the level
 	wispCount = 1,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -213,8 +213,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	map.front.itemGoal = 2
 
 	-- set shadow angle for the world
-	shadows.x = 0
-	shadows.y = 0
+	shadows.x = 1
+	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------
