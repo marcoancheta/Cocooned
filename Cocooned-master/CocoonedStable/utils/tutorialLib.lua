@@ -151,9 +151,11 @@ function tutorialLib:showTipBox(tipType, value, gui, player)
 	
 	-- Pause physics	
 	--physics.pause()
-	player.curse = 0
 	-- temporarily store player
-	tempPlayer = player	
+	tempPlayer = player
+	if tempPlayer.curse ~= 0 then
+		tempPlayer.curse = 0
+	end
 
 	-- Pause game timer while tutorial screen is up
 	gameTimer.pauseTimer()
