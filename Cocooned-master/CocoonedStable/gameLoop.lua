@@ -390,7 +390,7 @@ local function loadMap(mapData)
 		cutSceneSystem.cutScene(gui, mapData)
 	end		
 	-- Delay physics restart
-	local delay = 4500
+	local delay = 3500
 	-- Alpha transition to 1 (9 milliseconds)
 	local alphaTrans = transition.to(ball[1], {time=delay, alpha=1, onComplete=startPhys}) --ball, {time=delay+1000, alpha=1})	
 	
