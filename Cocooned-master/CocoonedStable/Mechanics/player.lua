@@ -124,8 +124,9 @@ local function changeSize(player)
 		auraEmitter:changeRadius(-25)
 	end
 	physics.setGravity(0, 0)
+	player.curse = 0.5
 	player.imageObject.density = 3.0
-	player.imageObject.linearDamping = 8
+	player.imageObject.linearDamping = 1.25
 	player.small = true
 	--player.linearDamping = 1.25
 	print("SIZE")

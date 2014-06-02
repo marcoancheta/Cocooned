@@ -183,7 +183,15 @@ local function movePanes(event)
 
 	-- delay collision detection for a little while
 	local collTimer = timer.performWithDelay(100, turnCollOn)
+	-- check if the player has swiped into water
 	pWater(event)
+	-- Change alpha back to 1 if player was invisible
+	if params.player1.imageObject.alpha == 0 then
+		params.player1.imageObject.alpha = 1
+	end
+	-- Run end transition event
+	endTransition(event)
+	
 	--[[
 	-- check if the player has swiped into water
 	local playerPos = params.player1.imageObject
@@ -262,10 +270,6 @@ local function movePanes(event)
 	end
 	]]--
 	--end
-	if params.player1.imageObject.alpha == 0 then
-		params.player1.imageObject.alpha = 1
-	end
-	endTransition(event)
 end
 
 --------------------------------------------------------------------------------
