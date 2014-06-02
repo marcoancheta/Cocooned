@@ -185,7 +185,75 @@ local function movePanes(event)
 	-- delay collision detection for a little while
 	local collTimer = timer.performWithDelay(100, turnCollOn)
 	-- check if the player has swiped into water
-	pWater(event)
+	local params = event.source.params
+	-- check if the player has swiped into water
+	local playerPos = params.player1.imageObject
+	local locationFound = false
+	local degree = 0
+	local distanceCheck = 70
+	local inWater = false
+	
+	--use raycasting to see the players surroundings
+	while locationFound == false do
+		for i = 1, 36 do
+			local x = playerPos.x + (distanceCheck * math.cos(degree * (math.pi/180)))
+			local y = playerPos.y + (distanceCheck * math.sin(degree * (math.pi/180)))
+			local hits = physics.rayCast(playerPos.x, playerPos.y, x, y, "sorted")
+
+			if (hits) then
+				for i,v in ipairs(hits)	do 
+					if v.object ~= nil then
+						if v.object.name == "water" then
+							locationFound = true
+							inWater = true
+							break
+						elseif v.object.name == "background" then
+							locationFound = true
+							break
+						end
+					end
+				end
+			end
+	
+			degree = degree + 10
+		end	
+
+		if ( distanceCheck > 300 ) then
+			print("no water or shore found, you should be fine")
+			locationFound = true
+			inWater = false
+		end 
+		distanceCheck = distanceCheck + 30
+		
+		--if ( distanceCheck > 300 ) then
+		--	print("no water or shore found, you should be fine")
+		--	locationFound = true
+		--	inWater = false
+		--end --else
+			--distanceCheck = distanceCheck + 30
+			--pWater(event)
+		--end
+	end
+
+	if inWater then
+		gameData.inWater = true
+		gameData.onLand = false
+		-- Transition player's alpha to 0
+		params.player1.sinkTrans = transition.to(params.player1.imageObject, {time=3000, alpha=0})
+		-- save this last point
+		savePoint = display.newCircle(playerPos.x, playerPos.y , 38)
+		savePoint.alpha = 0
+		savePoint.name = "paneSavePoint"
+		-- set player variables for later calculations
+		params.player1.lastSavePoint = savePoint
+		params.player1.lastPositionX = savePoint.x
+		params.player1.lastPositionY = savePoint.y
+		params.player1.lastSavePoint.pane = params.tempPane
+		params.player1.miniMap = params.miniMap
+		params.player1.lastPositionSaved = true
+		-- start the death timer
+		params.player1:startDeathTimer(params.mapData, params.gui)
+	end
 	-- Change alpha back to 1 if player was invisible
 	if params.player1.imageObject.alpha == 0 then
 		params.player1.imageObject.alpha = 1
