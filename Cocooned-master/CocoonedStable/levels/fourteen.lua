@@ -37,7 +37,7 @@ local fourteen = {
 	playerCount = 1,
 	playerPos = {{["x"]=20, ["y"]=15},},
 	-- number of wisps in the level
-	wispCount = 0,
+	wispCount = 37,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -157,9 +157,24 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- set shadow angle for the pane
 		shadows.x = 1
 		shadows.y = 18
-	
-		--generate.gWisps(wisp, map, mapData, 1, 25, fourtween.wispCount)
-		--generate.gAuraWalls(map, mapData, "blueWall")
+
+		--Wisps
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(34, 3)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(37, 7)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(34, 11)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(37, 15)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(11, 3)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(17, 7)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(20, 10)
+		wisp[8].x, wisp[8].y = generate.tilesToPixels(15, 15)
+		wisp[9].x, wisp[9].y = generate.tilesToPixels(12, 18)
+		wisp[10].x, wisp[10].y = generate.tilesToPixels(18, 21)
+		wisp[11].x, wisp[11].y = generate.tilesToPixels(14, 5)
+		wisp[12].x, wisp[12].y = generate.tilesToPixels(18, 13)
+		wisp[13].x, wisp[13].y = generate.tilesToPixels(15, 20)
+
+
+		generate.gWisps(wisp, map, mapData, 1, 13, fourteen.wispCount)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		-- Runes
@@ -170,6 +185,17 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		shadows.x = 1
 		shadows.y = 18
 
+		--Wisps
+		wisp[14].x, wisp[14].y = generate.tilesToPixels(34, 3)
+		wisp[15].x, wisp[15].y = generate.tilesToPixels(37, 7)
+		wisp[16].x, wisp[16].y = generate.tilesToPixels(34, 11)
+		wisp[17].x, wisp[17].y = generate.tilesToPixels(37, 15)
+		wisp[18].x, wisp[18].y = generate.tilesToPixels(13, 3)
+		wisp[19].x, wisp[19].y = generate.tilesToPixels(13, 10)
+		wisp[20].x, wisp[20].y = generate.tilesToPixels(10, 7)
+		wisp[21].x, wisp[21].y = generate.tilesToPixels(16, 7)
+		
+		generate.gWisps(wisp, map, mapData, 14, 21, fourteen.wispCount)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		-- Slow time rune
@@ -194,8 +220,27 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		shadows.x = 1
 		shadows.y = 18
 
+		-- Wisps
+		wisp[22].x, wisp[22].y = generate.tilesToPixels(15, 20)
+		wisp[23].x, wisp[23].y = generate.tilesToPixels(12, 16)
+		wisp[24].x, wisp[24].y = generate.tilesToPixels(10, 12)
+		wisp[25].x, wisp[25].y = generate.tilesToPixels(10, 9)
+		wisp[26].x, wisp[26].y = generate.tilesToPixels(10, 6)
+		wisp[27].x, wisp[27].y = generate.tilesToPixels(15, 11)
+		wisp[28].x, wisp[28].y = generate.tilesToPixels(21, 11)
+		wisp[29].x, wisp[29].y = generate.tilesToPixels(11, 3)
+		wisp[30].x, wisp[30].y = generate.tilesToPixels(16, 2)
+		wisp[31].x, wisp[31].y = generate.tilesToPixels(24, 2)
+		wisp[32].x, wisp[32].y = generate.tilesToPixels(35, 2)
+		wisp[33].x, wisp[33].y = generate.tilesToPixels(37, 6)
+		wisp[34].x, wisp[34].y = generate.tilesToPixels(36, 10)
+		wisp[35].x, wisp[35].y = generate.tilesToPixels(32, 10)
+		wisp[36].x, wisp[36].y = generate.tilesToPixels(38, 15)
+		wisp[37].x, wisp[37].y = generate.tilesToPixels(32, 21)
+
  		generate.gAuraWalls(map, mapData, "greenWall")
  		generate.gWater(map, mapData)
+ 		generate.gWisps(wisp, map, mapData, 22, 37, fourteen.wispCount)
 	elseif mapData.pane == "R" then
 		-- Slow time rune
 		rune[3].x, rune[3].y = generate.tilesToPixels(19, 2)			
