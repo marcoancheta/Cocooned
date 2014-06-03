@@ -54,10 +54,9 @@ end
 
 
 function splash(obj, direction) 
-	local fishSheet = graphics.newImageSheet("mapdata/art/animation/splashSheet.png", {width = 400, height = 329, sheetContentWidth = 6000, sheetContentHeight = 329, numFrames = 15})
-	local tempSplash=display.newSprite(fishSheet, 
-		{frames = {1,2,3,4,5}, name = "move", time = 250, start=1, count=15, loopCount=1}
-		)
+	local fishSplashSheet = graphics.newImageSheet("mapdata/art/animation/fishSplashSheet.png", {width = 500, height = 266, sheetContentWidth = 4000, sheetContentHeight = 266, numFrames = 8})
+	local tempSplash=display.newSprite(fishSplashSheet, 
+		{frames = {1,2,3,4,5,6,7,8}, name = "move", time = 400, start=1, count=8, loopCount=1})
 	obj.map.front:insert(tempSplash)
 	tempSplash:play()
 	tempSplash:scale(.4, .4)
@@ -66,9 +65,9 @@ function splash(obj, direction)
 	obj.isVisible = false
 
 	if direction == "backward" then
-		local timerback = timer.performWithDelay(250, function() tempSplash:removeSelf(); tempSplash = nil; moveBackward(obj); end)
+		local timerback = timer.performWithDelay(400, function() tempSplash:removeSelf(); tempSplash = nil; moveBackward(obj); end)
 	else
-		local timerforward = timer.performWithDelay(250, function() tempSplash:removeSelf(); tempSplash = nil; moveforward(obj); end)
+		local timerforward = timer.performWithDelay(400, function() tempSplash:removeSelf(); tempSplash = nil; moveforward(obj); end)
 	end
 end
 
