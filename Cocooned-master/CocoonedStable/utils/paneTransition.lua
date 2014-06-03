@@ -56,6 +56,9 @@ local function endTransition(event)
 	print("gameData.allowPaneSwitch", gameData.allowPaneSwitch)
 end
 
+--------------------------------------------------------------------------------
+-- pWater(event) 
+--------------------------------------------------------------------------------
 local function pWater(event)
 	local params = event.source.params
 	-- check if the player has swiped into water
@@ -130,6 +133,30 @@ local function pWater(event)
 	end
 end
 
+local function runReload(event)
+	local params = event.source.params
+	---------------------------------------------------
+	-- Play "character" teleportation animation here --
+	---------------------------------------------------
+	-- load new map pane
+	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
+	print("player Check 8 " .. params.player1.imageObject.x)
+	-- Reassign game mechanic listeners	
+	--params.gui.front:insert(params.player1.imageObject)
+	collisionDetection.changeCollision(params.player1, params.mapData, params.gui, params.map)
+	print("player Check 9 " .. params.player1.imageObject.x)
+	-- delay collision detection for a little while
+	local collTimer = timer.performWithDelay(100, turnCollOn)
+	-- check if the player has swiped into water
+	pWater(event)
+	-- Change alpha back to 1 if player was invisible
+	if params.player1.imageObject.alpha == 0 then
+		params.player1.imageObject.alpha = 1
+	end
+	-- Run end transition event
+	endTransition(event)
+end
+
 --------------------------------------------------------------------------------
 -- Move Panes - changes current pane to new one
 --------------------------------------------------------------------------------
@@ -180,6 +207,11 @@ local function movePanes(event)
 	if params.player1.small == true then
 		params.player1:unshrink()
 	end
+	
+	local delayer = timer.performWithDelay(10, runReload)
+	delayer.params = params
+	
+	--[[
 	---------------------------------------------------
 	-- Play "character" teleportation animation here --
 	---------------------------------------------------
@@ -200,7 +232,7 @@ local function movePanes(event)
 	end
 	-- Run end transition event
 	endTransition(event)
-		
+		]]--
 	--[[
 	-- check if the player has swiped into water
 	local playerPos = params.player1.imageObject
