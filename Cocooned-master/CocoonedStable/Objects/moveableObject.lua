@@ -25,7 +25,8 @@ local moveObject = {
 	time = 0,
 	stop = false,
 	name = '',
-	listener = ''
+	listener = '',
+	map = ''
 }
 
 
@@ -38,12 +39,12 @@ local moveObject = {
 function moveforward(obj)
 	--print("moveF:")
 	if obj.stop ~= true then
-		obj.isVisible = true
-		--if string.find(obj.name, "fish") then
-			--forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = function() moveBackward end})
-		--else
-		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = function() splash(obj, "backward") end})
-		--end
+		if string.find(obj.name, "fish") then
+			obj.isVisible = true
+			forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = function() splash(obj, "backward") end})
+		else
+		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = function() moveBackward(obj) end})
+		end
 		if obj.name ~= "iceberg" then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
@@ -81,12 +82,12 @@ function moveBackward(obj)
 	--print("moveB:")
 
 	if obj.stop ~= true then
-		--if string.find(obj.name, "fish") then
-		--	back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete =  function() hasMoved = true; obj:setSequence("jumpingin"); obj.sequence="jumpingin"; obj:play() end})
-		--else
-		obj.isVisible = true
-		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = function() splash(obj, "forward") end})
-		--end
+		if string.find(obj.name, "fish") then
+			obj.isVisible = true
+			back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = function() splash(obj, "forward") end})
+		else
+			back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = function() moveforward(obj) end})
+		end
 		if obj.name ~= "iceberg" then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
