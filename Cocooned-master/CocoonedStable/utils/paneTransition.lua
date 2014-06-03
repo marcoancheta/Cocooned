@@ -177,6 +177,9 @@ local function movePanes(event)
 	-- Re-initialize snow
 	snow.new()
 	print("player Check 7 " .. params.player1.imageObject.x)
+	if params.player1.small == true then
+		params.player1:unshrink()
+	end
 	---------------------------------------------------
 	-- Play "character" teleportation animation here --
 	---------------------------------------------------
@@ -197,7 +200,7 @@ local function movePanes(event)
 	end
 	-- Run end transition event
 	endTransition(event)
-	
+		
 	--[[
 	-- check if the player has swiped into water
 	local playerPos = params.player1.imageObject
