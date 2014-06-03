@@ -154,9 +154,9 @@ local function createLevel(mapData, players)
 	local shadowCirc
 	if gameData.shadow == true then
 		 shadowCirc = display.newImage("mapdata/art/shadows/ballshadow.png", players[1].imageObject.x, players[1].imageObject.y)	
-		 print (players[1].imageObject.x)
-		 print (players[1].imageObject.y)
 		 shadowCirc.name = "shadowCirc"
+		 shadowCirc:toBack()
+		 gui.front:insert(shadowCirc)
 	else
 		shadowCirc = nil
 	end
@@ -200,6 +200,9 @@ local function createLevel(mapData, players)
 		-- load in goals
 		goals.drawGoals(gui, players[1])
 	end
+
+	-- update the shadow position
+	shadowCirc.x, shadowCirc.y = players[1].imageObject.x, players[1].imageObject.y
 	
 	-- create miniMap for level
 	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, gui.front)
