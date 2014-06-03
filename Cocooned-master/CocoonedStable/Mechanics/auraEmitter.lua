@@ -133,16 +133,16 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer,
   function customEmitter:destroy()
     self:Deactivate()
     for i=1, self.particleNum do
-		if self.particles[i].transition ~= nil then
-			self.particles[i].transition.cancel()
-			self.particles[i].transition = nil
-		end
-		if self.particles[i] ~= nil then
-			self.particles[i]:removeSelf()
-			self.particles[i] = nil
-		end
-    end	
-	self = nil
+      if self.particles[i].transition ~= nil then
+        self.particles[i].transition.cancel()
+        self.particles[i].transition = nil
+      end
+      if self.particles[i] ~= nil then
+        self.particles[i]:removeSelf()
+        self.particles[i] = nil
+      end
+    end
+    self = nil
   end
 
   --------------------------------------------------------------------------------
