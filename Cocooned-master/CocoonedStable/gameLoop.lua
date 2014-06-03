@@ -524,6 +524,10 @@ local function update(event)
 
 	-- World Selector Runtime Event or Level Selector Runtime Event.
 	if gameData.inWorldSelector == 1 or gameData.inLevelSelector == 1 then
+		-- Reset curse
+		if gameLoop.player[1].curse == 0 then
+			gameLoop.player[1].curse = 1
+		end
 		-- Positions shadows under ball
 		shadowsPos(event)
 	end
