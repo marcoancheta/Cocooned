@@ -140,11 +140,9 @@ local function runReload(event)
 	---------------------------------------------------
 	-- load new map pane
 	--params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
-	print("player Check 8 " .. params.player1.imageObject.x)
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
 	collisionDetection.changeCollision(params.player1, params.mapData, params.gui, params.map)
-	print("player Check 9 " .. params.player1.imageObject.x)
 	-- delay collision detection for a little while
 	local collTimer = timer.performWithDelay(100, turnCollOn)
 	-- check if the player has swiped into water
@@ -203,7 +201,6 @@ local function movePanes(event)
 	snow.meltSnow()
 	-- Re-initialize snow
 	snow.new()
-	print("player Check 7 " .. params.player1.imageObject.x)
 	if params.player1.small == true then
 		params.player1:unshrink()
 	end

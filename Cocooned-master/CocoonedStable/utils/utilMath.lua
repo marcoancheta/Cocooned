@@ -34,15 +34,15 @@ end
 
 -- displayGroup for rayCasting calculations
 local pointsFound = display.newGroup()
-
 -- rayCasting function
 local function rayCastCircle(startPos, lastPos, startDist, maxDist, checkGroup)
 
+	print("check at point " .. startPos.x .. ", " .. startPos.y)
 	-- set the variables used for rayCasting calculations
 	local pointFound = false
 	local degree = 0
 	local distCheck = startDist
-	local rotation = 0
+	local rotation = 36
 	local degreeAdd = 10
 
 	-- clean the displayGroup from previous use
@@ -52,9 +52,12 @@ local function rayCastCircle(startPos, lastPos, startDist, maxDist, checkGroup)
 	while pointFound == false do
 		-- check raycasting in 360 degree radius
 		for i = 1, rotation do
-			-- find the point where raycasting will take place
-			local x = startPos.x + (distCheck + math.cos(degree * (math.pi/180)))
-			local y = startPos.y + (distCheck + math.sin(degree * (math.pi/180)))
+			-- find the point where raycasting will take placelocal point = display.newCircle(x, y, 5)
+			-- point:setFillColor(0,0,0)
+			-- pointsFound:insert(point)
+			-- pointsFound:toFront()
+			local x = startPos.x + (distCheck * math.cos(degree * (math.pi/180)))
+			local y = startPos.y + (distCheck * math.sin(degree * (math.pi/180)))
 
 			-- get raycast data
 			local hits = physics.rayCast(startPos.x, startPos.y, x, y, "sorted")
@@ -66,7 +69,7 @@ local function rayCastCircle(startPos, lastPos, startDist, maxDist, checkGroup)
 							-- check if any data is matching with what we want raycasting to check
 							-- if it doesm save that point to pointsFound display group
 							if v.object.name == checkGroup[n] then
-								local point = display.newCircle(v.position.x, v.position.y, 1)
+								local point = display.newCircle(v.position.x, v.position.y, 5)
 								point.alpha = 0
 								point.name = v.object.name .. "Point"
 								pointsFound:insert(point)
