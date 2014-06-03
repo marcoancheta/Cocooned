@@ -270,9 +270,11 @@ local function changePane(gui, mapData, player, miniMap)
 	-- Check rune inventory slots for runes collected
 	activate(gui, mapData, player, miniMap)
 	-- if player is small, set player size back to normal
+	print("player A1 " .. player.imageObject. x)
 	if player.small == true then
 		player:unshrink()
 	end	
+	print("player A2 " .. player.imageObject.x)
 	-- Check if tutorial level
 	if mapData.levelNum == "T" then
 		if tutorialLib.tutorialStatus >= 1 then
