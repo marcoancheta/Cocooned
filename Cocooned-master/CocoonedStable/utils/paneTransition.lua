@@ -139,7 +139,7 @@ local function runReload(event)
 	-- Play "character" teleportation animation here --
 	---------------------------------------------------
 	-- load new map pane
-	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
+	--params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
 	print("player Check 8 " .. params.player1.imageObject.x)
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
@@ -207,8 +207,9 @@ local function movePanes(event)
 	if params.player1.small == true then
 		params.player1:unshrink()
 	end
-	
-	local delayer = timer.performWithDelay(10, runReload)
+	-- load new map pane
+	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
+	local delayer = timer.performWithDelay(100, runReload)
 	delayer.params = params
 	
 	--[[
