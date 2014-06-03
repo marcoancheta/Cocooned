@@ -41,11 +41,12 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	function imageObject:preCollision(event)
 		-- if the object is a passThru, calls it's collide function
 	    local collideObject = event.other
-		
-	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
-			local col = require("Objects.collision." .. collideObject.func)
-			col.collide(collideObject, player, event, mapData, map, gui)
-	    end
+		if gameData.collOn then
+		    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
+				local col = require("Objects.collision." .. collideObject.func)
+				col.collide(collideObject, player, event, mapData, map, gui)
+		    end
+		end
 	end
 
 	--function for collision detection

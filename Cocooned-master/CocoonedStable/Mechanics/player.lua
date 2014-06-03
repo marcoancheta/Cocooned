@@ -97,6 +97,7 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeBack(player)
+	print("player Check 1 " .. player.imageObject.x)
 	physics.removeBody(player.imageObject)
 	player.imageObject:scale(2,2)
 	physics.addBody(player.imageObject, {radius = 38, bounce = .25})
@@ -109,6 +110,7 @@ local function changeBack(player)
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
 	player.small = false
+	print("player Check 2 " .. player.imageObject.x)
 	--player.linearDamping = 1.25
 	print("un-shrinking the player back to normal size")
 end
@@ -119,6 +121,7 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeSize(player)
+	print("player Check 3 " .. player.imageObject.x)
 	physics.removeBody(player.imageObject)
 	player.imageObject:scale(0.5,0.5)
 	physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
@@ -131,6 +134,7 @@ local function changeSize(player)
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
 	player.small = true
+	print("player Check 4 " .. player.imageObject.x)
 	--player.linearDamping = 1.25
 	print("SIZE")
 end

@@ -110,6 +110,7 @@ local function onAccelerate(event, player)
 		-- declare the players Last Save Point
 		local lastPoint = player.lastSavePoint
 
+		print("player Check 5 " .. player.imageObject.x)
 		-- check whether to use that last save point for later calculations
 		local useLastPoint = true
 
@@ -142,6 +143,7 @@ local function onAccelerate(event, player)
 			end
 		end	
 
+		print("player Check 6 " .. player.imageObject.x)
 		-- move chosenPoint to front and make sure it is invisible
 		rayCastCheck[choosePoint]:setFillColor(0,0,0)
 		rayCastCheck[choosePoint]:toFront()

@@ -181,7 +181,7 @@ local function showScore(mapData, gui)
 	--score = (temp + (gameData.gameTime * 100))
 		
 	-- Draw player ball for score transition
-	scoreObj[1] = display.newImageRect("mapdata/art/ball/ball1.png", 200, 200)
+	scoreObj[1] = display.newImageRect("mapdata/art/ball/ball.png", 200, 200)
 	--scoreObj[1]:scale(2, 2)
 	scoreObj[1].x, scoreObj[1].y = display.contentCenterX, display.contentCenterY+250
 	scoreObj[1].alpha = 0

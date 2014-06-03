@@ -218,6 +218,11 @@ local function createLevel(mapData, players)
 	return gui, miniMapDisplay, shadowCirc
 end
 
+--------------------------------------------------------------------------------
+-- Activate - re-activation of objects picked up in pane
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function activate(gui, mapData, player, miniMap)
 	local level = require("levels." .. levelNames[mapData.levelNum])
 	-- Check rune inventory slots for runes collected
@@ -245,7 +250,9 @@ local function activate(gui, mapData, player, miniMap)
 		elseif inventory.inventoryInstance.runes[i] == "purpleRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
-					player:shrink()
+					if player.small == false then
+						player:shrink()
+					end
 				end
 			end
 		end
@@ -273,9 +280,9 @@ local function changePane(gui, mapData, player, miniMap)
 	-- Check rune inventory slots for runes collected
 	activate(gui, mapData, player, miniMap)
 	-- if player is small, set player size back to normal
-	if player.small == true then
-		player:unshrink()
-	end	
+	print("player A1 " .. player.imageObject.x)
+	
+	print("player A2 " .. player.imageObject.x)
 	-- Check if tutorial level
 	if mapData.levelNum == "T" then
 		if tutorialLib.tutorialStatus >= 1 then
@@ -297,6 +304,7 @@ end
 --------------------------------------------------------------------------------
 local loadLevel = {
 	createLevel = createLevel,
+	activate = activate,
 	changePane = changePane
 }
 
