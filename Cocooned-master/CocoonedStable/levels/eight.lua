@@ -161,20 +161,20 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[12].x, wisp[12].y = generate.tilesToPixels(34, 21)
 
 		-- Fish 
-		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(20, 3)
- 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(20, 8)
+		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(20, 4)
+ 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(20, 8.5)
  		objects["fish11"].time = 675
 		
-		objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(20, 18)
- 		objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(20, 22)
+		objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(20, 17)
+ 		objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(20, 23)
  		objects["fish12"].time = 675
 
  		objects["fish21"].x, objects["fish21"].y = generate.tilesToPixels(25, 8)
  		objects["fish21"].eX, objects["fish21"].eY = generate.tilesToPixels(25, 3)
  		objects["fish21"].time = 675
 		
-		objects["fish22"].x, objects["fish22"].y = generate.tilesToPixels(23, 22)
- 		objects["fish22"].eX, objects["fish22"].eY = generate.tilesToPixels(25, 18)
+		objects["fish22"].x, objects["fish22"].y = generate.tilesToPixels(23, 23)
+ 		objects["fish22"].eX, objects["fish22"].eY = generate.tilesToPixels(25, 17)
  		objects["fish22"]:rotate(45)
  		objects["fish22"].time = 675
 
@@ -188,8 +188,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish23"]:rotate(95)
  		objects["fish23"].time = 1000
 
- 		objects["fish14"].x, objects["fish14"].y = generate.tilesToPixels(26, 7)
- 		objects["fish14"].eX, objects["fish14"].eY = generate.tilesToPixels(26, 18)
+ 		objects["fish14"].x, objects["fish14"].y = generate.tilesToPixels(26, 8)
+ 		objects["fish14"].eX, objects["fish14"].eY = generate.tilesToPixels(26, 17)
  		objects["fish14"].time = 675
 
  		-- Runes

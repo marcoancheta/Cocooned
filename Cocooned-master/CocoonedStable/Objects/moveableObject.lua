@@ -28,24 +28,22 @@ local moveObject = {
 	listener = ''
 }
 
-local jumpTo = "forward"
-local jump = "out"
-local currObject = ""
-local hasMoved = true
+
 
 --------------------------------------------------------------------------------
 -- Move forward - function that transitions object to end point
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function moveforward(obj)
+function moveforward(obj)
 	--print("moveF:")
 	if obj.stop ~= true then
-		if string.find(obj.name, "fish") then
-			forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = function() hasMoved = true; obj:setSequence("jumpingin"); obj:play() end})
-		else
-			forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = moveBackward})
-		end
+		obj.isVisible = true
+		--if string.find(obj.name, "fish") then
+			--forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = function() moveBackward end})
+		--else
+		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = function() splash(obj, "backward") end})
+		--end
 		if obj.name ~= "iceberg" then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
@@ -54,25 +52,23 @@ local function moveforward(obj)
 	end
 end
 
---------------------------------------------------------------------------------
--- Move forward - function that transitions object to end point
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-local function fishAnimation(event)
-	--print(event.phase, currObject.name)
-	if event.phase == "ended" and string.find(event.target.name, "fish") then
-		--print(jumpTo)
-		event.target:setSequence("still")
-		if jumpTo == "forward" then
-			moveforward(event.target)
-			jumpTo = "backward"
-			hasMoved = false
-		elseif jumpTo == "backward" then
-			moveBackward(event.target)
-			jumpTo = "forward"
-			hasMoved = false
-		end
+
+function splash(obj, direction) 
+	local fishSheet = graphics.newImageSheet("mapdata/art/animation/splashSheet.png", {width = 400, height = 329, sheetContentWidth = 6000, sheetContentHeight = 329, numFrames = 15})
+	local tempSplash=display.newSprite(fishSheet, 
+		{frames = {1,2,3,4,5}, name = "move", time = 250, start=1, count=15, loopCount=1}
+		)
+	obj.map.front:insert(tempSplash)
+	tempSplash:play()
+	tempSplash:scale(.4, .4)
+	tempSplash.x = obj.x
+	tempSplash.y = obj.y
+	obj.isVisible = false
+
+	if direction == "backward" then
+		local timerback = timer.performWithDelay(250, function() tempSplash:removeSelf(); tempSplash = nil; moveBackward(obj); end)
+	else
+		local timerforward = timer.performWithDelay(250, function() tempSplash:removeSelf(); tempSplash = nil; moveforward(obj); end)
 	end
 end
 
@@ -86,11 +82,12 @@ function moveBackward(obj)
 	--print("moveB:")
 
 	if obj.stop ~= true then
-		if string.find(obj.name, "fish") then
-			back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete =  function() hasMoved = true; obj:setSequence("jumpingin"); obj:play() end})
-		else
-			back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = moveforward})
-		end
+		--if string.find(obj.name, "fish") then
+		--	back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete =  function() hasMoved = true; obj:setSequence("jumpingin"); obj.sequence="jumpingin"; obj:play() end})
+		--else
+		obj.isVisible = true
+		back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = function() splash(obj, "forward") end})
+		--end
 		if obj.name ~= "iceberg" then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
@@ -141,12 +138,7 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 function moveObject:startTransition(obj)
-	if string.find(self.name, "fish") then
-		currObject = obj
-		self.listener = obj:addEventListener( "sprite", fishAnimation )
-	else
-		moveforward(obj)
-	end
+	moveforward(obj)
 end
 
 

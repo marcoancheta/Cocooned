@@ -88,10 +88,11 @@ local function init()
 	sheetList["wolf"] = graphics.newImageSheet("mapdata/art/animation/wolfSheet.png", 
 				 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8})
 	-- Fishes
-	sheetList["fish1"] = graphics.newImageSheet("mapdata/art/animation/fish1sheet.png", 
-				 {width = 72, height = 72, sheetContentWidth = 360, sheetContentHeight = 72, numFrames = 5})
-	sheetList["fish2"] = graphics.newImageSheet("mapdata/art/animation/fish2sheet.png", 
-				 {width = 72, height = 72, sheetContentWidth = 468, sheetContentHeight = 72, numFrames = 5})
+	sheetList["fish1"] = graphics.newImageSheet("mapdata/art/animation/fishspritesheet2.png", 
+				{width = 100, height = 100, sheetContentWidth = 1900, sheetContentHeight = 100, numFrames = 19})
+	sheetList["fish2"] =  graphics.newImageSheet("mapdata/art/animation/fishspritesheet2.png", 
+				{width = 100, height = 100, sheetContentWidth = 1900, sheetContentHeight = 100, numFrames = 19})
+
 	
 	return true
 end
@@ -159,11 +160,11 @@ local function createObjects(objectNumbers, mapData)
 	end	
 	
 	-- call function to animate objects
-	for i = 1, 8 do
+	for i = 1, 6 do
 		createAnimations(objectNumbers[mapData.pane][animation.objectNames[i]], animation.objectNames[i], objects)
 	end
 	-- call function that creates sprites
-	for i = 9, 14 do
+	for i = 7, 14 do
 		createSprites(objectNumbers[mapData.pane][animation.objectNames[i]], animation.objectNames[i], objects)
 	end
 
