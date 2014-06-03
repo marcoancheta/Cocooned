@@ -155,8 +155,8 @@ local function createLevel(mapData, players)
 	if gameData.shadow == true then
 		 shadowCirc = display.newImage("mapdata/art/shadows/ballshadow.png", players[1].imageObject.x, players[1].imageObject.y)	
 		 shadowCirc.name = "shadowCirc"
+		 gui.middle:insert(shadowCirc)
 		 shadowCirc:toBack()
-		 gui.front:insert(shadowCirc)
 	else
 		shadowCirc = nil
 	end
