@@ -37,7 +37,7 @@ audio.setVolume(0.5, {channel = 5} )
 local function loadMenuSounds()
 	-- BGM
 	-- Menu Music 
-	sound.backgroundMusic[1] = audio.loadStream("sounds/music/Soliloquy.ogg") -- or FallOfArcana.ogg
+	sound.backgroundMusic[1] = audio.loadStream("sounds/music/MP3/Soliloquy.mp3") -- or FallOfArcana.ogg
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menu_tone.wav")
 	-- Snow "ballin" [Note: this is a steam]
@@ -55,13 +55,13 @@ local function loadGameSounds()
 	end
 	-- BGM
 	-- World 1 music 
-	sound.backgroundMusic[1] = audio.loadStream("sounds/music/FallOfArcana.ogg")
+	sound.backgroundMusic[1] = audio.loadStream("sounds/music/MP3/FallOfArcana.mp3")
 	-- World 2 music
-	sound.backgroundMusic[2] = audio.loadStream("sounds/music/ArtemisMenu.ogg")
+	sound.backgroundMusic[2] = audio.loadStream("sounds/music/MP3/ArtemisMenu.mp3")
 	-- World 3 music
-	sound.backgroundMusic[3] = audio.loadStream("sounds/music/Spiritwatcher.ogg")
+	sound.backgroundMusic[3] = audio.loadStream("sounds/music/MP3/Spiritwatcher.mp3")
 	-- Level Complete Music
-	sound.backgroundMusic[4] = audio.loadStream("sounds/music/levelComplete.ogg")
+	sound.backgroundMusic[4] = audio.loadStream("sounds/music/MP3/levelComplete.mp3")
 
 	-- Menu buttons click
 	sound.soundEffects[1] = audio.loadSound("sounds/menuButton.wav")
