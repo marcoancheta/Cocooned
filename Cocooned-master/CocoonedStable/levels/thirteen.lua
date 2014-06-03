@@ -171,6 +171,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(4, 3)
 
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWisps(wisp, map, mapData, 1, 4, thirteen.wispCount)
 		generate.gAuraWalls(map, mapData, "greenWall")
 
@@ -203,6 +207,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["fish12"].x, objects["fish12"].y = generate.tilesToPixels(29, 5)
  		objects["fish12"].eX, objects["fish12"].eY = generate.tilesToPixels(29, 18)
 
+ 		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 
 		generate.gWater(map, mapData)
 		--generate.gWisps(wisp, map, mapData, 24, 39, thirteen.wispCount)
@@ -238,6 +245,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Slow time 
 		rune[3].x, rune[3].y = generate.tilesToPixels(36, 3)			
 		rune[3].isVisible = true
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 
 		generate.gWisps(wisp, map, mapData, 5, 18, thirteen.wispCount)
 		generate.gAuraWalls(map, mapData, "greenWall")
@@ -277,6 +288,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[3].x, rune[3].y = generate.tilesToPixels(4, 3)	
 		rune[3].isVisible = true
 
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+
 		generate.gWisps(wisp, map, mapData, 19, 23, thirteen.wispCount)
 		generate.gAuraWalls(map, mapData, "greenWall")
 		generate.gWater(map, mapData)
@@ -297,9 +312,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	map.front.panes = thirteen.panes
 	map.front.itemGoal = 4
 
-	-- set shadow angle for the world
-	shadows.x = 1
-	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

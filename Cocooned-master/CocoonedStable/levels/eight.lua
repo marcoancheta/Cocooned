@@ -202,6 +202,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Exit portal
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(37, 12)
+
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 				
 		generate.gWisps(wisp, map, mapData, 1, 12, eight.wispCount)
 		generate.gWater(map, mapData)
@@ -233,10 +237,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are avaiable for player
 	map.front.panes = eight.panes
 	map.front.itemGoal = 2
-
-	-- set shadow angle for the world
-	shadows.x = 1
-	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

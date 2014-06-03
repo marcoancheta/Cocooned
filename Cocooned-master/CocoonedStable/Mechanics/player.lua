@@ -97,13 +97,18 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeBack(player)
-	physics.removeBody(player)
-	player:scale(2,2)
-	physics.addBody(player, {radius = 38, bounce = .25, density = 0.3})
+	physics.removeBody(player.imageObject)
+	player.imageObject:scale(2,2)
+	physics.addBody(player.imageObject, {radius = 38, bounce = .25})
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball
 		auraEmitter:changeRadius(25)
 	end
+	physics.setGravity(0, 0)
+	player.curse = 1
+	player.imageObject.density = 0.3
+	player.imageObject.linearDamping = 1.25
+	player.small = false
 	--player.linearDamping = 1.25
 	print("un-shrinking the player back to normal size")
 end
@@ -114,18 +119,41 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeSize(player)
-	physics.removeBody(player)
-	player:scale(0.5,0.5)
-	physics.addBody(player, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
+	physics.removeBody(player.imageObject)
+	player.imageObject:scale(0.5,0.5)
+	physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball
 		auraEmitter:changeRadius(-25)
 	end
-	physics.setGravity(0,0)
+	physics.setGravity(0, 0)
+	player.curse = 0.5
+	player.imageObject.density = 0.3
+	player.imageObject.linearDamping = 1.25
+	player.small = true
 	--player.linearDamping = 1.25
 	print("SIZE")
 end
 
+--------------------------------------------------------------------------------
+-- UnShrink - player function that calls delay timer for changeBack
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+function playerInstance:unshrink()
+	local delayShrink = function() return changeBack(self); end
+	timer.performWithDelay(100, delayShrink)
+end
+
+--------------------------------------------------------------------------------
+-- Shrink - player function that calls delay timer for changeSize
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+function playerInstance:shrink() 
+	local delayShrink = function() return changeSize(self); end
+	timer.performWithDelay(100, delayShrink)
+end
 --------------------------------------------------------------------------------
 -- Change Type - player function that changes properties of objects to breakable
 --------------------------------------------------------------------------------
@@ -212,7 +240,8 @@ function playerInstance:changeColor(color, gui)
     self.imageObject:setFillColor(c[1],c[2],c[3])
     if auraEmitter == nil then
     	--starts up the aura emitter, gets updated in movement 
-    	auraEmitter=particle_lib:createEmitter(auraRange, auraDuration, self, 1, 0, nil, nil, nil, 20, gui)
+    	--auraEmitter=particle_lib:createEmitter(auraRange, auraDuration, self, 1, 0, nil, nil, nil, 20, gui)
+    	auraEmitter = particle_lib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
     end
 end
 
@@ -279,51 +308,6 @@ function playerInstance:attract(goTo)
 	--self.imageObject:applyLinearImpulse(-1, -1, self.imageObject.x, self.imageObject.y)
 	self.imageObject:setLinearVelocity(goTo, goTo, goTo, goTo)
 	self.imageObject.angularVelocity = 0
-end
-
-
---------------------------------------------------------------------------------
--- UnShrink - player function that calls delay timer for changeBack
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-function playerInstance:unshrink()
-	local delayShrink = function() return changeBack( self.imageObject ) end
-	timer.performWithDelay(100, delayShrink)
-	
-	--[[if self.small == true then
-		physics.removeBody(self.imageObject)
-		self.imageObject:scale(2,2)
-		physics.addBody(self.imageObject, {radius = 38, friction=0, bounce = .25, density = 0.3})
-		
-		if auraEmitter ~= nil then
-			auraEmitter:changeRadius(25)
-		end
-		self.imageObject.linearDamping = 1.25
-		print("un-shrinking the player back to normal size")
-	end]]--
-	
-	self.small = false
-end
-
---------------------------------------------------------------------------------
--- Shrink - player function that calls delay timer for changeSize
---------------------------------------------------------------------------------
--- Updated by: Marco
---------------------------------------------------------------------------------
-function playerInstance:shrink() 
-	local delayShrink = function() return changeSize (self.imageObject) end
-	timer.performWithDelay(100, delayShrink)
-	--[[if self.small == false then
-		physics.removeBody(self.imageObject)
-		self.imageObject:scale(0.5,0.5)
-		physics.addBody(self.imageObject, {radius = 15, bounce = .25, density = 0.2}) --, density = 0.7})
-		if auraEmitter ~= nil then
-			auraEmitter:changeRadius(-25)
-		end
-		--player.linearDamping = 1.25
-		self.small = true
-	end]]--
 end
 
 --------------------------------------------------------------------------------

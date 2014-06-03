@@ -29,8 +29,8 @@ local tutorial = {
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	runeAvailable = {["M"]= {"greenRune"}, 
-					 ["U"]= {"none"}, 
+	runeAvailable = {["M"]= {"purpleRune"}, 
+					 ["U"]= {"pinkRune"}, 
 					 ["D"]= {"none"}, 
 					 ["R"]= {"none"}, 
 					 ["L"]= {"none"}},
@@ -43,7 +43,7 @@ local tutorial = {
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
 	["M"] = {
-		["blueAura"] = 1,
+		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -54,7 +54,7 @@ local tutorial = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0,
+		["exitPortal"] = 1,
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -77,9 +77,9 @@ local tutorial = {
 		["worldPortal"] = 0
 	},
 	["U"] = {
-		["blueAura"] = 1,
+		["blueAura"] = 0,
 		["redAura"] = 0,
-		["greenAura"] = 0,
+		["greenAura"] = 1,
 		["wolf"] = 0,
 		["fish1"] = 1,
 		["fish2"] = 0,
@@ -88,7 +88,7 @@ local tutorial = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1, 
+		["exitPortal"] = 0, 
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -122,7 +122,7 @@ local tutorial = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1, 
+		["exitPortal"] = 0, 
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -145,7 +145,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Check which pane
 
 	if mapData.pane == "L" then
-		
+		if gameData.debugMode then
+			print("You shouldn't be in here...")
+		end
 	elseif mapData.pane == "M" then
 		-- Wisps
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(35, 18)
@@ -156,13 +158,18 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		--wisp[6].x, wisp[6].y = generate.tilesToPixels(38, 13)
 	
 		-- Shrink rune
-		rune[4].x, rune[4].y = generate.tilesToPixels(31, 9)			
+		--rune[4].x, rune[4].y = generate.tilesToPixels(31, 9)
+		rune[4].x, rune[4].y = generate.tilesToPixels(30, 11)			
 		rune[4].isVisible = true
+		
+		-- Exit Portal
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 12)
+		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(20, 20)
 
-		-- Blue Aura
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(32, 20)
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
 
 		generate.gWisps(wisp, map, mapData, 1, 4, tutorial.wispCount)
 	elseif mapData.pane == "U" then
@@ -171,20 +178,20 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(20, 20)
  		objects["fish11"].time = 1375
 
-		-- Exit Portal
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 12)
-
 		-- Slow time rune
 		rune[3].x, rune[3].y = generate.tilesToPixels(36, 18)			
 		rune[3].isVisible = true
 
-		-- Blue Aura
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(32, 9)
+		-- Green Aura
+		objects["greenAura1"]:setSequence("move")
+		objects["greenAura1"]:play()
+		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(10, 9)
 
-		generate.gAuraWalls(map, mapData, "blueWall")
+		-- set shadow angle for the pane
+		shadows.x = 1
+		shadows.y = 18
+		generate.gAuraWalls(map, mapData, "greenWall")
+
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "D" then
 		if gameData.debugMode then
@@ -207,9 +214,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	map.front.panes = tutorial.panes
 	map.front.itemGoal = 2
 
-	-- set shadow angle for the world
-	shadows.x = 1
-	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

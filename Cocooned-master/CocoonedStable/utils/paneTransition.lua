@@ -56,6 +56,78 @@ local function endTransition(event)
 	print("gameData.allowPaneSwitch", gameData.allowPaneSwitch)
 end
 
+local function pWater(event)
+	local params = event.source.params
+	-- check if the player has swiped into water
+	local playerPos = params.player1.imageObject
+	local locationFound = false
+	local degree = 0
+	local distanceCheck = 70
+	local inWater = false
+	
+	--use raycasting to see the players surroundings
+	while locationFound == false do
+		for i = 1, 36 do
+			local x = playerPos.x + (distanceCheck * math.cos(degree * (math.pi/180)))
+			local y = playerPos.y + (distanceCheck * math.sin(degree * (math.pi/180)))
+			local hits = physics.rayCast(playerPos.x, playerPos.y, x, y, "sorted")
+
+			if (hits) then
+				for i,v in ipairs(hits)	do 
+					if v.object ~= nil then
+						if v.object.name == "water" then
+							locationFound = true
+							inWater = true
+							break
+						elseif v.object.name == "background" then
+							locationFound = true
+							break
+						end
+					end
+				end
+			end
+	
+			degree = degree + 10
+		end	
+
+		if ( distanceCheck > 300 ) then
+			print("no water or shore found, you should be fine")
+			locationFound = true
+			inWater = false
+		end 
+		distanceCheck = distanceCheck + 30
+		
+		--if ( distanceCheck > 300 ) then
+		--	print("no water or shore found, you should be fine")
+		--	locationFound = true
+		--	inWater = false
+		--end --else
+			--distanceCheck = distanceCheck + 30
+			--pWater(event)
+		--end
+	end
+
+	if inWater then
+		gameData.inWater = true
+		gameData.onLand = false
+		-- Transition player's alpha to 0
+		params.player1.sinkTrans = transition.to(params.player1.imageObject, {time=3000, alpha=0})
+		-- save this last point
+		savePoint = display.newCircle(playerPos.x, playerPos.y , 38)
+		savePoint.alpha = 0
+		savePoint.name = "paneSavePoint"
+		-- set player variables for later calculations
+		params.player1.lastSavePoint = savePoint
+		params.player1.lastPositionX = savePoint.x
+		params.player1.lastPositionY = savePoint.y
+		params.player1.lastSavePoint.pane = params.tempPane
+		params.player1.miniMap = params.miniMap
+		params.player1.lastPositionSaved = true
+		-- start the death timer
+		params.player1:startDeathTimer(params.mapData, params.gui)
+	end
+end
+
 --------------------------------------------------------------------------------
 -- Move Panes - changes current pane to new one
 --------------------------------------------------------------------------------
@@ -78,17 +150,21 @@ local function movePanes(event)
 			for i = params.gui.back.numChildren,1, -1 do
 				print("destroyed")
 				params.gui.back[i]:removeSelf()
+				params.gui.back[i] = nil
 			end
 		end
 		if params.gui.middle ~= nil then
 			for i = params.gui.middle.numChildren, 1, -1 do
 				params.gui.middle[i]:removeSelf()
+				params.gui.middle[i] = nil
 			end
 		end
 		if params.gui.front ~= nil then
 			for i = params.gui.front.numChildren, 1, -1 do
-				if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
+				if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "auraParticle" and 
+				params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
 					params.gui.front[i]:removeSelf()
+					params.gui.front[i] = nil
 				end
 			end
 		end
@@ -111,7 +187,16 @@ local function movePanes(event)
 
 	-- delay collision detection for a little while
 	local collTimer = timer.performWithDelay(100, turnCollOn)
-
+	-- check if the player has swiped into water
+	pWater(event)
+	-- Change alpha back to 1 if player was invisible
+	if params.player1.imageObject.alpha == 0 then
+		params.player1.imageObject.alpha = 1
+	end
+	-- Run end transition event
+	endTransition(event)
+	
+	--[[
 	-- check if the player has swiped into water
 	local playerPos = params.player1.imageObject
 	local locationFound = false
@@ -183,15 +268,12 @@ local function movePanes(event)
 
 		-- start the death timer
 		params.player1:startDeathTimer(params.mapData, params.gui)
-	else
+	--else
 		-- print("IM ON LAND!!!")
 		-- else the player is safe and on land
 	end
+	]]--
 	--end
-	if params.player1.imageObject.alpha == 0 then
-		params.player1.imageObject.alpha = 1
-	end
-	endTransition(event)
 end
 
 --------------------------------------------------------------------------------
