@@ -331,7 +331,7 @@ end
 function playerInstance:slowTime(map)
 	for check = 1, map.numChildren do
 		if map[check].moveable == true and map[check].name ~= "player" then
-			--map[check].time = 20000
+			map[check].time = 20000
 		end
 	end
 end

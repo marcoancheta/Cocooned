@@ -86,7 +86,7 @@ function moveBackward(obj)
 			obj.isVisible = true
 			back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = function() splash(obj, "forward") end})
 		else
-			back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = function() moveforward() end})
+			back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = function() moveforward(obj) end})
 		end
 		if obj.name ~= "iceberg" then
 			sound.stopChannel(1)
