@@ -76,6 +76,8 @@ local font = require("utils.font")
 local goals = require("Core.goals")
 -- Shadows
 local shadows = require("utils.shadows")
+-- Tutorial
+local tutorialLib = require("utils.tutorialLib")
 -- touch paricle effect
 local particle_lib = require("utils.touchParticles")
 
@@ -84,48 +86,53 @@ local particle_lib = require("utils.touchParticles")
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
--- Initialize ball
-local ball
-local mapPanes
-local t = 1
-local timeCheck = 1
-local timeCount = 0
-local  physicsParam
+local gameLoop = {
+	player = {
+		[1] = nil,
+		[2] = nil
+	},
+}
 
+-- Arrays 
+local playerObj = {}
+local players = {}
+local linePts = {}
+
+-- Initialize ball
+local ball = {
+	[1] = nil,
+	[2] = nil
+}
 -- Initialize map data
-local mapData = {
+local mapData = { 
 	world = "A",
 	levelNum = 1,
 	pane = "M",
 	version = 0
 }
+ -- Initialize sprite array for loops
+local sprite = {
+	[1] = animation.sheetOptions.playerSheet,
+	[2] = animation.sheetOptions.playerSheet2
+}
 
---local miniMap
-local map, ball
+-- Initialize ball
+local playerAmount = 2
+local map
 local gui
-local line
-local player1, player2 -- create player variables
+local physicsParam
 local tempPane -- variable that holds current pane player is in for later use
-local tutorialText
-
-local textObject = display.newText("", 600, 400, font.TEACHERA, 72)
-		
-local count = 0
-
-local players = {}
-local linePts = {}
-
 local camera;
 local groupObj;
 local shadowCircle;
 
-local duration = 500
+-- Emitter things
+local duration = 1000
 local speed = 10
 local density = 1
 local range = 50
-local thickness = 100
+local thickness = 200
 local touchEmitter = touchEmitterLib:createEmitter(range, thickness, duration, 1, 0, nil, nil, nil)
-local touchParticlesGroup = display.newGroup()
 
 --------------------------------------------------------------------------------
 -- Game Functions:
@@ -147,10 +154,9 @@ local function swipeMechanics(event)
 	end
 
 	-- emit particles when you touch the screen
-	touchEmitter:emit(touchParticlesGroup, event.x, event.y)
+	touchEmitter:emit(gui.front, event.x, event.y)
 
 	if gameData.allowPaneSwitch then
-		count = count + 1
 		-- save temp pane for later check
 		tempPane = mapData.pane
 
@@ -160,7 +166,7 @@ local function swipeMechanics(event)
 		-- if touch ended then change map if pane is switched
 		if "ended" == event.phase and mapData.pane ~= tempPane then
 			-- play snow transition effect
-			paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
+			paneTransition.playTransition(tempPane, miniMap, mapData, gui, gameLoop.player[1]) --player1)
 		end
 	end
 end
@@ -181,13 +187,13 @@ local function tapMechanic(event)
 		tempPane = mapData.pane
 
 		-- call function for tap screen
-		touch.tapScreen(event, miniMap, mapData, physics, gui, player1)
+		touch.tapScreen(event, miniMap, mapData, physics, gui, gameLoop.player[1]) --player1)
 
 		-- check if pane is different from current one, if so, switch panes
 		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
 			-- play snow transition effect
 			if gameData.allowPaneSwitch then
-				paneTransition.playTransition(tempPane, miniMap, mapData, gui, player1)
+				paneTransition.playTransition(tempPane, miniMap, mapData, gui, gameLoop.player[1]) --player1)
 			end
 		end
 		
@@ -206,7 +212,6 @@ local function controlMovement(event)
 		for i = 1, gui.playerCount do
 			-- call accelerometer to get data
 			physicsParam = accelerometer.onAccelerate(event, players[i])
-			
 			-- set player's X and Y gravity times the player's curse
 			players[i].xGrav = physicsParam.xGrav
 			players[i].yGrav = physicsParam.yGrav
@@ -219,16 +224,10 @@ local function controlMovement(event)
 		
 	end
 	
-	if gameData.debugMode then
-		if event.isShake then
-			textObject.text = "Device Shaking!"
-			textObject.x = display.contentCenterX
-			textObject.y = display.contentCenterY
-			textObject:setFillColor(1,0,0)
-			textObject:toFront()
-		else
-			textObject:toBack()
-		end
+	--if gameData.debugMode then
+		--if event.isShake then
+		--	print("DEVICE IS SHAKING!!!!")
+		--end
 
 		--[[
 		accelValueX.text = string.sub(tostring(physicsParam.xGrav),1,4)
@@ -242,7 +241,7 @@ local function controlMovement(event)
 		accelValueY:setFillColor(1,0,0)
 		accelValueY:toFront()
 		]]--
-	end
+	--end
 end
 
 --------------------------------------------------------------------------------
@@ -255,21 +254,22 @@ local function speedUp(event)
 
 		for i = 1, gui.playerCount do
 			if players[i] ~= nil then
-			players[i].xGrav = players[i].xGrav*players[i].curse
-			players[i].yGrav = players[i].yGrav*players[i].curse
-			movement.moveAndAnimate(event, players[i], gui.middle)
-			--[[
-			local ballPt = {}
-			ballPt.x = player1.imageObject.x
-			ballPt.y = player1.imageObject.y
-					
-			table.insert(linePts, ballPt);
-			trails.drawTrail(event)
-			--table.remove(linePts, 1);
-			]]--
+				players[i].xGrav = players[i].xGrav*players[i].curse
+				players[i].yGrav = players[i].yGrav*players[i].curse
+				movement.moveAndAnimate(event, players[i], gui.middle)
 			end
 		end
 	end
+	
+	--[[
+	-- OLD TRAIL CODE
+	local ballPt = {}
+	ballPt.x = player1.imageObject.x
+	ballPt.y = player1.imageObject.y
+	table.insert(linePts, ballPt);
+	trails.drawTrail(event)
+	table.remove(linePts, 1);
+	]]--
 end
 
 --------------------------------------------------------------------------------
@@ -298,23 +298,42 @@ end
 --------------------------------------------------------------------------------
 local function removeGameLoopListeners(gui)
 	-- Remove object listeners
-	if gui then
-		gui.back:removeEventListener("touch", swipeMechanics)
-		gui.back:removeEventListener("tap", tapMechanic)
-	end
+	gui.back:removeEventListener("touch", swipeMechanics)
+	gui.back:removeEventListener("tap", tapMechanic)
 	Runtime:removeEventListener("accelerometer", controlMovement)
 	Runtime:removeEventListener("enterFrame", speedUp)
 end
 
-
+--------------------------------------------------------------------------------
+-- Restart physics and remove curse by +1
+--------------------------------------------------------------------------------
 local function startPhys(event)
 	-- Start physics
 	physics.start()
 	-- Reapply regular movement
-	player1.curse = 1
-	player2.curse = 1
+	gameLoop.player[1].curse = 1 --player1.curse = 1
+	gameLoop.player[2].curse = 1 --player2.curse = 1
 	-- print
 	print("START PHYSICS FOR: ", mapData.levelNum)
+end
+
+--------------------------------------------------------------------------------
+-- loadPlayer - Create ball and physics value for player
+--------------------------------------------------------------------------------
+local function loadPlayer(value, mapData)
+	local vBall = nil
+	local tSprite = sprite[value]
+	
+	vBall = display.newSprite(tSprite, animation.spriteOptions.player)
+	vBall.name = "player"
+	
+	physics.addBody(vBall, {radius = 38, bounce = .25})
+	
+	vBall.density = 0.3
+	vBall.linearDamping = 1.25
+	vBall.alpha = 0
+	
+	return vBall
 end
 
 --------------------------------------------------------------------------------
@@ -330,83 +349,96 @@ local function loadMap(mapData)
 	-- Start physics
 	physics.start()
 	physics.setScale(45)	
-	-- Initialize player(s)
-	player1 = player.create()
-	player2 = player.create()
-	table.insert(players, 1, player1)
-	table.insert(players, 2, player2)
-	-- Create player/ball object to map
-	ball = display.newSprite(animation.sheetOptions.playerSheet, animation.spriteOptions.player)
-	ball2 = display.newSprite(animation.sheetOptions.playerSheet2, animation.spriteOptions.player)
-	-- set name and animation sequence for ball
-	ball.name = "player"
-	ball:setSequence("move")
-	ball2.name = "player"
-	ball:setSequence("move")
-	-- add physics to ball
 	physics.setGravity(0,0)
-	physics.addBody(ball, {radius = 38, bounce = .25})
-	ball.linearDamping = 1.25
-	ball.density = .3
-	ball.alpha = 0
-	-- add physics to ball2
-	physics.addBody(ball2, {radius = 38, bounce = .25})
-	ball2.linearDamping = 1.25
-	ball2.density = .3
-	-- Assign balls to their respected player imageObjects
-	player1.imageObject = ball
-	player2.imageObject = ball2	
-	-- Assign players paneTransition mechanic if needed
-	player1.switchPanes = paneTransition
-	player2.switchPanes = paneTransition
+	
+	for i=1, playerAmount do
+		-- Initialize player(s)
+		gameLoop.player[i] = player.create()
+		players[i] = gameLoop.player[i]
+		ball[i] = loadPlayer(i, mapData)
+		-- Assign balls to their respected player imageObjects
+		gameLoop.player[i].imageObject = ball[i]
+		-- Assign players paneTransition mechanic if needed
+		gameLoop.player[i].switchPanes = paneTransition
+		gameLoop.player[i].curse = 0		
+	end
+	
 	-- Load in map
 	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players)
+
 	-- Start mechanics
-	for i = 1, gui.playerCount do
-		collisionDetection.createCollisionDetection(players[i].imageObject, player1, mapData, gui, gui.back[1])
+	for i = 1, gui.playerCount do		
+		-- Create collision
+		collisionDetection.createCollisionDetection(players[i].imageObject, gameLoop.player[1], mapData, gui, gui.back[1])
+		
+		-- If playerCount is only set to 1, destroy player 2
+		if gui.playerCount == 1 then
+			gameLoop.player[2].imageObject:removeSelf() --player2.imageObject:removeSelf()
+			gameLoop.player[2].imageObject = nil --player2.imageObject = nil
+			ball[2]:removeSelf() --ball2:removeSelf()
+			ball[2] = nil --ball2 = nil
+		end
 	end
-
-	if gui.playerCount == 1 then
-		ball2:removeSelf()
-		player2.imageObject:removeSelf()
-		player2.imageObject = nil
-		ball2:removeSelf()
-		ball2 = nil
-	end
-
+	
 	-- Create in game options button
 	menu.ingameOptionsbutton(event, gui)
-	
-	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
-		if gameData.debugMode then
-			print("mapData.levelNum", mapData.levelNum)
-		end
-		-- pause physics
-		physics.pause()
-		-- Run cut scene algorithm
-		cutSceneSystem.cutScene(gui, mapData)
-		--gameTimer.preGame(gui, mapData)
-	end	
 	-- Pause physics
 	physics.pause()
-	-- Make players stop moving
-	player1.curse = 0
-	player2.curse = 0	
+	-- Outside of Level Selector and World Selector
+	if mapData.levelNum ~= "LS" and mapData.levelNum ~= "world" then
+		-- Run cut scene algorithm
+		cutSceneSystem.cutScene(gui, mapData)
+	end		
 	-- Delay physics restart
-	local delay = 0
-	if mapData.levelNum == "LS" then
-		delay = 3500
-	elseif mapData.levelNum == "world" then
-		delay = 3500
+	local delay = 3500
+	-- Alpha transition to 1 (9 milliseconds)
+	local alphaTrans = transition.to(ball[1], {time=delay, alpha=1, onComplete=startPhys}) --ball, {time=delay+1000, alpha=1})	
+	
+	-- Debug print
+	for i=1, playerAmount do
+		if gameLoop.player[i] then
+			print("gameLoop.player["..i.."]", gameLoop.player[i].name)
+		end
+		if players[i] then
+			print("players["..i.."]", players[i].name)
+		end
+		if ball[i] then
+			print("ball["..i.."]", ball[i].name)
+		end
 	end
-	
-	local physicTimer = timer.performWithDelay(delay, startPhys)
-	-- Alpha transition (9 milliseconds)
-	local alphaTrans = transition.to(ball, {time=delay+1000, alpha=1})
-	
-	return player1
+		
+	-- Initialize player(s)
+	--gameLoop.player[1] = player.create()
+	--gameLoop.player[2] = player.create()
+	--players[1] = gameLoop.player[1]
+	--players[2] = gameLoop.player[2]		
+	--ball[1], ball[2] = loadPlayer(mapData)		
+	-- Assign balls to their respected player imageObjects
+	--gameLoop.player[1].imageObject = ball[1]  --player1.imageObject = ball
+	--gameLoop.player[2].imageObject = ball[2] --player2.imageObject = ball2
+	-- Assign players paneTransition mechanic if needed
+	--gameLoop.player[1].switchPanes = paneTransition --player1.switchPanes = paneTransition
+	--gameLoop.player[2].switchPanes = paneTransition --player2.switchPanes = paneTransition
+	-- Make players stop moving
+	--gameLoop.player[1].curse = 0 --player1.curse = 0
+	--gameLoop.player[2].curse = 0 --player2.curse = 0	
+	-- Start physics timer
+	--local physicTimer = timer.performWithDelay(delay, startPhys)	
+	--return player1
 end
 
+--------------------------------------------------------------------------------
+-- shadowsPos - position shadows
+--------------------------------------------------------------------------------
+local function shadowsPos(event)
+	for i=1, #ball do
+		-- Draw shadow under ball
+		if shadowCircle and ball[i] then --ball then
+			shadowCircle.x = (ball[i].x + shadows.x) --(ball.x + shadows.x)
+			shadowCircle.y = (ball[i].y + shadows.y) --(ball.y + shadows.y)
+		end
+	end
+end
 
 --------------------------------------------------------------------------------
 -- Clean - clean level
@@ -417,39 +449,45 @@ local function clean(event)
 	-- stop physics
 	physics.stop()
 	-- clean snow
-	snow.meltSnow()		
+	snow.meltSnow()
+	-- Clear inventory
+	inventory.inventoryInstance:clear()
+	-- call objects-destroy
+	objects.destroy(mapData)
 	-- remove all eventListeners
 	removeGameLoopListeners(gui)
+	
 	-- clear collision detections
 	for i = 1, gui.playerCount do
 		collisionDetection.destroyCollision(players[i].imageObject)
 	end
-
-	inventory.inventoryInstance:clear()
-	
 	-- destroy player instance
 	table.remove(players)
-	player1:resetRune()	
-	player1:deleteAura()
-	player1.imageObject:removeSelf()
-	player1.imageObject = nil
+	
+	-- destroy gameLoop.player instance
+	for i=1, #gameLoop.player do
+		if gameLoop.player[i] ~= nil then
+			gameLoop.player[i]:resetRune() --player1:resetRune()	
+			gameLoop.player[i]:deleteAura() --player1:deleteAura()
+			--gameLoop.player[i].imageObject:removeSelf() --player1.imageObject:removeSelf()
+			gameLoop.player[i].imageObject = nil --player1.imageObject = nil
+		end
+	end
+	-- destroy ball instance
+	for i=1, #ball do
+		if ball[i] ~= nil then
+			ball[i]:removeSelf() --ball:removeSelf()
+			ball[i] = nil --ball = nil
+		end
+	end
 	
 	shadowCircle = nil
-	
-	ball:removeSelf()
-	ball = nil
-	accelObjects.switchWallAndIceberg = nil
-	--miniMap:removeSelf()
-	--miniMap = nil
-	
+	accelObjects.switchWallAndIceberg = nil	
+	playerSheet = nil
 	gui:removeSelf()
 	gui = nil
-		
-	playerSheet = nil
-
-	-- call objects-destroy
-	objects.destroy(mapData)
 end
+
 --------------------------------------------------------------------------------
 -- Update (Runtime) - Functions that need to run non-stop during their events
 --------------------------------------------------------------------------------
@@ -484,32 +522,24 @@ local function update(event)
 		menu.update(groupObj)
 	end
 
-	-- World Selector Runtime Event.
-	if gameData.inWorldSelector == 1 then
-		-- Draw shadow under ball
-		if shadowCircle and ball then
-			shadowCircle.x = (ball.x + shadows.x)
-			shadowCircle.y = (ball.y + shadows.y)
-		end
+	-- World Selector Runtime Event or Level Selector Runtime Event.
+	if gameData.inWorldSelector == 1 or gameData.inLevelSelector == 1 then
+		-- Positions shadows under ball
+		shadowsPos(event)
 	end
-
-	-- Level Selector Runtime Event.
-	if gameData.inLevelSelector == 1 then
-		-- Draw shadow under ball
-		if shadowCircle and ball then
-			shadowCircle.x = (ball.x + shadows.x)
-			shadowCircle.y = (ball.y + shadows.y)
-		end
-	end
-	
+		
 	-- In-Game Runtime Event.
 	if gameData.ingame == 1 then
 		snow.gameSnow(event, mapData, gui)
-		if shadowCircle and ball then
-			shadowCircle.x = (ball.x + shadows.x)
-			shadowCircle.y = (ball.y + shadows.y)
-		end
+		-- Positions shadows under ball
+		shadowsPos(event)
 	end
+	
+	-- Level Selector Runtime Event.
+	--if gameData.inLevelSelector == 1 then
+		-- Positions shadows under ball
+	--	shadowsPos(event)
+	--end
 end
 
 --------------------------------------------------------------------------------
@@ -520,30 +550,22 @@ end
 local function gameLoopEvents(event)
 	-- Runtime functions
 	update(event)
-	--[[
-	if mapData.levelNum == "6" then
-		if tutorialShown then
-			local tutorialTextTimer = timer.performWithDelay( 5000,  function() tutorialText = display.newTextBox("Double tap the screen to open up the minimap to switch panes or simply swipe away from the snow.", player.imageObject.x, player.imageObject.y - 50, font.TEACHERA, 15);end)
-			
-			tutorialShown = flase
-		end
-	end
-	]]--
 	
 	if gameData.gRune == true and gameData.isShowingMiniMap == false then
 		for check = 1, #accelObjects.switchWallAndIceberg do
   			local currObject = accelObjects.switchWallAndIceberg[check]
-			if gameData.onIceberg == true or currObject.name == "switchWall" then
+			if string.find(currObject.name, "fixedIceberg") or string.find(currObject.name, "switchWall")then
+				print("MOVING SWITCHWALL!!!!!")
   				local velY = 0
   				local velX = 0
-  				if player1.yGrav<0 then
+  				if gameLoop.player[1].yGrav < 0 then --if player1.yGrav<0 then
   					velY = -40
-  				elseif player1.yGrav > 0 then
+  				elseif gameLoop.player[1].yGrav > 0 then --elseif player1.yGrav > 0 then
   					velY = 40
   				end
-  				if player1.xGrav<0 then
+  				if gameLoop.player[1].xGrav < 0 then --if player1.xGrav<0 then
   					velX = -40
-  				elseif player1.xGrav > 0 then
+  				elseif gameLoop.player[1].xGrav > 0 then --elseif player1.xGrav > 0 then
   					velX = 40
   				end
 				
@@ -570,13 +592,12 @@ local function gameLoopEvents(event)
 			print("In World Selector")
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
-				
 		-- Reset mapData to level select default
 		mapData.world = gameData.mapData.world
 		mapData.levelNum = "world"
 		mapData.pane = "world"
 		-- Load map
-		loadMap(mapData)
+		loadMap(mapData)		
 		-- Add game event listeners
 		addGameLoopListeners(gui)
 		-- Re-evaluate gameData booleans
@@ -601,7 +622,7 @@ local function gameLoopEvents(event)
 			print("In Level Selector")
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
-		
+				
 		-- Reset mapData to level select default
 		mapData.world = gameData.mapData.world
 		mapData.levelNum = "LS"
@@ -633,7 +654,6 @@ local function gameLoopEvents(event)
 		mapData.pane = "M"
 		-- Load in map with new mapData	
 		loadMap(mapData)
-		snow.new()
 		-- Re-evaluate gameData booleans
 		gameData.deaths = 0
 		goals.destroyGoals()
@@ -651,14 +671,23 @@ local function gameLoopEvents(event)
 			print("In Pre-game")
 		end
 		
+		snow.new()
 		-- Switch to in game loop
 		gameData.ingame = 1
-		snow.new()
+		-- Initialize tutorial objects if in tutorial level only
+		if mapData.levelNum == "T" then
+			tutorialLib:init()
+		end
 		-- Turn on pane switching and mini map
 		gameData.allowPaneSwitch = true
 		if mapData.levelNum ~= "T" then
 			gameData.allowMiniMap = true
-		end
+		elseif gameData.mapData.levelNum == "T" then
+			if tutorialLib.tutorialStatus == 0 then
+				--set up tiltip if in tutorial level
+				tutorialLib:showTipBox("tiltTip", 2, gui, player)
+			end
+		end	
 		-- Clear out pre-game
 		gameData.preGame = nil
 		-- Add game event listeners
@@ -831,13 +860,9 @@ local function gameLoopEvents(event)
 			gameTimer.pauseTimer()
 		end
 		-- Go to in-game option menu
-		groupObj = menu.ingameMenu(event, player1, player2, gui)
-		-- Cancel snow timer
-		--snow.meltSnow()
+		groupObj = menu.ingameMenu(event, gui)
 		-- Remove object listeners
 		removeGameLoopListeners(gui)
-		-- Re-evaluate gameData booleans
-		--gameData.updateOptions = true
 		-- Switch off this loop
 		gameData.inGameOptions = false
 	end
@@ -875,10 +900,8 @@ local function gameLoopEvents(event)
 	]]--
 end
 
-local gameLoop = {
-	gameLoopEvents = gameLoopEvents,
-	addGameLoopListeners = addGameLoopListeners,
-	removeGameLoopListeners = removeGameLoopListeners
-}
+gameLoop.gameLoopEvents = gameLoopEvents
+gameLoop.addGameLoopListeners = addGameLoopListeners
+gameLoop.removeGameLoopListeners = removeGameLoopListeners
 
 return gameLoop

@@ -120,7 +120,9 @@ local function gObjects(level, objects, map, mapData, runes)
 				if name == "fixedIceberg" then
 					physics.addBody(objects[name ..j], "static", physicsData.getObject(name):get(name))
 					--physics.addBody(objects[name .. j], "static", {bounce = 0})
-					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+					if objects[name .. j].movement == "free" then
+						table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+					end
 				-- Switch wall
 				elseif name == "switchWall" then
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
@@ -129,7 +131,7 @@ local function gObjects(level, objects, map, mapData, runes)
 				elseif name == "exitPortal" then
 					objects[name ..j]:scale(0.2, 0.2)
 					physics.addBody(objects[name ..j], "static", {bounce = 0, radius=28})
-					table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
+					--table.insert(accelObjects.switchWallAndIceberg,objects[name ..j])
 				-- Everything else
 				else
 					physics.addBody(objects[name ..j], "static", {bounce = 0})
@@ -178,6 +180,8 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i].object = objects["fish1" .. i]
 		mObjects[i].object.isSensor = false
 		mObjects[i].moveable = true
+		mObjects[i].name = "fish"
+		mObjects[i].object.map = map
 
 		-- set start and end points where moveable object will transition to
 		local startX, startY = objects["fish1" .. i].x, objects["fish1" .. i].y
@@ -189,6 +193,7 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i].object.endX, mObjects[i].object.endY = endX, endY
 		mObjects[i].object.time = time
 		mObjects[i].object.moveable = true
+		mObjects[i].object.sequence = ""
 
 		-- start moving object
 		map.front:insert(objects["fish1" .. i])
@@ -209,6 +214,8 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i].object = objects["fish2" .. i-offset]
 		mObjects[i].object.isSensor = false
 		mObjects[i].moveable = true
+		mObjects[i].object.sequence = ""
+		mObjects[i].object.map = map
 
 		-- set start and end points where moveable object will transition to
 		local startX, startY = objects["fish2" .. i-offset].x, objects["fish2" .. i-offset].y

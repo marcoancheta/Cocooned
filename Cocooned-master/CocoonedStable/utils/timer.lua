@@ -9,7 +9,7 @@ local levelNames = require("utils.levelNames")
 local animation = require("Core.animation")
 local font = require("utils.font")
 local miniMap = require("Mechanics.miniMap")
-local tutorialLib = require("utils.tutorialLib")
+--local tutorialLib = require("utils.tutorialLib")
 --------------------------------------------------------------------------------
 -- Variables - variables for loading panes
 --------------------------------------------------------------------------------
@@ -203,12 +203,6 @@ local function inGame(gui, mapData)
 	gui.front:insert(counterText)
 	-- loopLoc = 2 = inGame timer
 	gameTimer.loopLoc = 2
-	--set up tiltip if in tutorial level
-	if gameData.mapData.levelNum == "T" then
-		tutorialLib:showTipBox("tiltTip", gui)
-		local swipeTip = function() tutorialLib:showTipBox("swipePaneTip", gui) end
-		local swipeTimer = timer.performWithDelay(2000, swipeTip)
-	end	
 end
 
 --------------------------------------------------------------------------------

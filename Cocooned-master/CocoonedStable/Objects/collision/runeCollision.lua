@@ -66,17 +66,22 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[10])
 		player:slowTime(gui.front)
-		if gameData.mapData.levelNum == "T" then
-			tutorialLib:showTipBox("rune2Tip", gui)
-		end		
 	elseif collideObject.name == "greenRune" then
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[11])
 		gameData.gRune = true
-		--player:moveWalls(gui)
+		player:moveWalls(gui)
 	--elseif collideObject.name == "yellowRune" then
 	elseif collideObject.name == "purpleRune" then
 		collideObject:removeSelf()
+		
+		if gameData.mapData.levelNum == "T" then
+			if tutorialLib.tutorialStatus == 1 then
+				--set up tiltip if in tutorial level
+				tutorialLib:showTipBox("swipePaneTip", 2, gui, player)
+			end
+		end	
+		
 		-- Create animation for the ball shrinking 
 		local playerShrink = display.newSprite(animation.sheetOptions.shrinkSheet, animation.spriteOptions.shrinkAnimation)
 		playerShrink.x, playerShrink.y = collideObject.x, collideObject.y
@@ -84,9 +89,6 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		playerShrink:play()
 		playerShrink:removeSelf( )
 		player:shrink()
-		if gameData.mapData.levelNum == "T" then
-			tutorialLib:showTipBox("rune1Tip", gui)
-		end
 	end
 	
 	-- remove rune

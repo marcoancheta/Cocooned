@@ -35,43 +35,18 @@ end
 
 -- creates the collision detection for that pane
 local function createCollisionDetection(imageObject, player, mapData, gui, map)
-
 	resetCollision()
-
 	-- function for pre collision 
 	-- before the object collides, call its own collide function
 	function imageObject:preCollision(event)
 		-- if the object is a passThru, calls it's collide function
 	    local collideObject = event.other
-
-		--[[
-		if event.contact then
-			--let the ball go through water
-			if collideObject.name == "water" then
-				if gameData.inWater == false  and player.lastPositionSaved == false then
-					print("saving last position")
-					player.lastPositionX = imageObject.x
-					player.lastPositionY = imageObject.y
-					player.lastPositionSaved = true
-				end
-				-- disabled collision
-				event.contact.isEnabled = false
-				gameData.inWater = true
-			end
+		if gameData.collOn then
+		    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
+				local col = require("Objects.collision." .. collideObject.func)
+				col.collide(collideObject, player, event, mapData, map, gui)
+		    end
 		end
-		]]--
-
-	    if collideObject.collType == "passThru" and collideObject.name ~= "water" then
-			local col = require("Objects.collision." .. collideObject.func)
-			col.collide(collideObject, player, event, mapData, map, gui)
-	    end
-	    --[[
-	    -- if the object is a solid, call it's collide function
-	    if collideObject.collType == "solid" or collideObject.collectable == true or collideObject.name == "wind" then
-			local col = require("Objects.collision." .. collideObject.func)
-			col.collide(collideObject, player, event, mapData, map, gui)
-	    end
-	    ]]
 	end
 
 	--function for collision detection
@@ -89,12 +64,6 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 					col.collide(collideObject, player, event, mapData, map, gui)	
 				end
 			end
-
-			-- create particle effect
-			--if collideObject.collType == "wall" then
-				--timer.performWithDelay(100, emitParticles(collideObject, targetObject, gui, physics))
-			--end
-
 		elseif event.phase == "ended" then	
 			if collideObject.collType == "solid" then
 				local col = require("Objects.collision." .. collideObject.func)
@@ -142,8 +111,6 @@ local function destroyCollision(imageObject)
 		imageObject:removeEventListener("preCollision")
 	end
 end
-
-
 
 --------------------------------------------------------------------------------
 -- Finish up

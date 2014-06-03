@@ -30,6 +30,8 @@ local gameData = require("Core.gameData")
 local inventory = require("Mechanics.inventoryMechanic")
 -- Level names
 local levelNames = require("utils.levelNames")
+-- Tutorial
+local tutorialLib = require("utils.tutorialLib")
 
 --------------------------------------------------------------------------------
 -- Variables - variables for loading panes
@@ -152,9 +154,9 @@ local function createLevel(mapData, players)
 	local shadowCirc
 	if gameData.shadow == true then
 		 shadowCirc = display.newImage("mapdata/art/shadows/ballshadow.png", players[1].imageObject.x, players[1].imageObject.y)	
-		 print (players[1].imageObject.x)
-		 print (players[1].imageObject.y)
 		 shadowCirc.name = "shadowCirc"
+		 shadowCirc:toBack()
+		 gui.front:insert(shadowCirc)
 	else
 		shadowCirc = nil
 	end
@@ -190,13 +192,17 @@ local function createLevel(mapData, players)
 		end		
 		-- Load in objects
 		objects.main(mapData, gui) -- gui.front = map
+		-- Insert player
+		players[1].imageObject.x, players[1].imageObject.y = generate.tilesToPixels(gui.playerPos[1]["x"], gui.playerPos[1]["y"])
 		gui.middle:insert(players[1].imageObject)
-		players[1].imageObject.x, players[1].imageObject.y = generate.tilesToPixels(ballPos[mapData.levelNum]["x"], ballPos[mapData.levelNum]["y"])
 		gui.front:insert(levelWalls)
 		
 		-- load in goals
 		goals.drawGoals(gui, players[1])
 	end
+
+	-- update the shadow position
+	shadowCirc.x, shadowCirc.y = players[1].imageObject.x, players[1].imageObject.y
 	
 	-- create miniMap for level
 	local miniMapDisplay = miniMapMechanic.createMiniMap(mapData, gui.front)
@@ -212,6 +218,11 @@ local function createLevel(mapData, players)
 	return gui, miniMapDisplay, shadowCirc
 end
 
+--------------------------------------------------------------------------------
+-- Activate - re-activation of objects picked up in pane
+--------------------------------------------------------------------------------
+-- Updated by: Derrick
+--------------------------------------------------------------------------------
 local function activate(gui, mapData, player, miniMap)
 	local level = require("levels." .. levelNames[mapData.levelNum])
 	-- Check rune inventory slots for runes collected
@@ -239,7 +250,9 @@ local function activate(gui, mapData, player, miniMap)
 		elseif inventory.inventoryInstance.runes[i] == "purpleRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
-					player:shrink()
+					if player.small == false then
+						player:shrink()
+					end
 				end
 			end
 		end
@@ -263,19 +276,23 @@ local function changePane(gui, mapData, player, miniMap)
 	gui.back:insert(levelBG)
 	gui.middle:insert(levelWalls)
 	--gui.front:insert(player.imageObject)
-	objects.main(mapData, gui)
-
-	-- if player is small, set player size back to normal
-	if player.small == true then
-		player:unshrink()
-	end
-	
+	objects.main(mapData, gui)	
 	-- Check rune inventory slots for runes collected
 	activate(gui, mapData, player, miniMap)
+	-- if player is small, set player size back to normal
+	print("player A1 " .. player.imageObject.x)
 	
+	print("player A2 " .. player.imageObject.x)
+	-- Check if tutorial level
+	if mapData.levelNum == "T" then
+		if tutorialLib.tutorialStatus >= 1 then
+			--set up tiltip if in tutorial level
+			tutorialLib:showTipBox("waterTip", 2, gui, player)
+		end
+	end	
 	-- check if player has finished level
 	levelFinished.checkWin(player, gui.front, mapData)
-	
+		
 	-- return new pane
 	return gui
 end
@@ -287,6 +304,7 @@ end
 --------------------------------------------------------------------------------
 local loadLevel = {
 	createLevel = createLevel,
+	activate = activate,
 	changePane = changePane
 }
 

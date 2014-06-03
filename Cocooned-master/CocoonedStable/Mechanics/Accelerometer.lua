@@ -79,11 +79,14 @@ local function onAccelerate(event, player)
 	elseif event.yInstant < -0.05 then
 		xGrav = -event.yInstant
 	elseif event.yGravity > 0.05 then
-		xGrav = -event.yGravity
+		xGrav = -event.yGravity - gameData.offSetX
+		--print(-event.yGravity, gameData.offSetX)
 	elseif event.yGravity < -0.05 then
-		xGrav = -event.yGravity
+		xGrav = -event.yGravity - gameData.offSetX
+		--print(-event.yGravity, gameData.offSetX)
 	else
-		xGrav = 0
+		xGrav = 0 - gameData.offSetX
+		--print(-event.yGravity, gameData.offSetX)
 		--sound.pauseSound(1)
 	end
 
@@ -93,11 +96,11 @@ local function onAccelerate(event, player)
 	elseif event.xInstant < -0.05 then
 		yGrav = -event.xInstant
 	elseif event.xGravity > 0.05 then
-		yGrav = -event.xGravity
+		yGrav = -event.xGravity - gameData.offSetY
 	elseif event.xGravity < -0.05 then
-		yGrav = -event.xGravity
+		yGrav = -event.xGravity - gameData.offSetY
 	else
-		yGrav = 0
+		yGrav = 0 - gameData.offSetY
 		--sound.stopChannel(2)
 	end
 
@@ -107,6 +110,7 @@ local function onAccelerate(event, player)
 		-- declare the players Last Save Point
 		local lastPoint = player.lastSavePoint
 
+		print("player Check 5 " .. player.imageObject.x)
 		-- check whether to use that last save point for later calculations
 		local useLastPoint = true
 
@@ -139,6 +143,7 @@ local function onAccelerate(event, player)
 			end
 		end	
 
+		print("player Check 6 " .. player.imageObject.x)
 		-- move chosenPoint to front and make sure it is invisible
 		rayCastCheck[choosePoint]:setFillColor(0,0,0)
 		rayCastCheck[choosePoint]:toFront()

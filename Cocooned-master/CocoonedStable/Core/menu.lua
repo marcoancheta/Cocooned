@@ -15,6 +15,7 @@ local goals = require("Core.goals")
 local widget = require("widget")
 local memory = require("memory")
 local snow = require("utils.snow")
+local tutorialLib = require("utils.tutorialLib")
 
 local menuGroup
 local menuObjects = nil
@@ -62,6 +63,17 @@ local function cleanInGameOptions()
 		ingameOptions:removeSelf()
 		ingameOptions = nil
 	end
+end
+
+--------------------------------------------------------------------------------
+-- Get accelerometer readings
+--------------------------------------------------------------------------------
+local function getAccelOffset(event)
+	gameData.offSetX=-event.yGravity
+	gameData.offSetY=-event.xGravity
+	print("offsetY",gameData.offSetY)
+	print("offsetX",gameData.offSetX)
+	Runtime:removeEventListener("accelerometer", getAccelOffset)
 end
 
 --------------------------------------------------------------------------------
@@ -188,6 +200,10 @@ local function buttonPressed(event)
 			-- turn off pane switch and minimap
 			gameData.allowPaneSwitch = false
 			gameData.allowMiniMap = false
+			-- clean tutorial files if exists
+			if tutorialLib.tutorialStatus then
+				tutorialLib:clean()
+			end
 		end
 		--gameData.gameOptions = false
 		gameData.gameEnd = true		
@@ -225,6 +241,11 @@ local function buttonPressed(event)
 			gameData.inLevelSelector = 0
 			gameData.selectLevel = true
 		elseif gameData.ingame == -1 then
+			-- clean tutorial files if exists
+			if tutorialLib.tutorialStatus then
+				tutorialLib:clean()
+			end
+		
 			gameData.levelRestart = true
 		else
 			gameData.levelRestart = true
@@ -248,11 +269,19 @@ local function buttonPressed(event)
 			-- turn off pane switch and minimap
 			gameData.allowPaneSwitch = false
 			gameData.allowMiniMap = false
-			gameData.selectLevel = true
+			
+			-- clean tutorial files if exists
+			if tutorialLib.tutorialStatus >= 1 then
+				tutorialLib:clean()
+				gameData.selectWorld = true
+			else
+				gameData.selectLevel = true
+			end
 		else
 			gameData.selectLevel = true
 		end
-
+	elseif event.target.name == "calibrateAccelerometer" then
+		Runtime:addEventListener("accelerometer", getAccelOffset)	
 	end
 end
 
@@ -367,7 +396,15 @@ local function options(event)
 		[9] = display.newText("Music Volume: ", 350, 150, "Teacher_A", 52),
 		-- Pre-store location in array for value text
 		[10] = display.newText(gameData.sfxVolume*10, 350, 150, "Teacher_A", 40),
-		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40)
+		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40),
+		-- Invert switch
+		[12] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
+							   onPress = buttonPressed},
+		-- Invert text
+		[13] = display.newText("Invert Controls: ", 350, 150, "Teacher_A", 52),
+
+		-- Calibrate Accelerometer button
+		[14] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),
 	}
 	
 	menuObjects.name = "optGroup"
@@ -429,6 +466,27 @@ local function options(event)
 	menuObjects[11].x = display.contentCenterX + 225
 	menuObjects[11].y = display.contentCenterY
 	menuObjects[11]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
+
+	-- Inverted controls object
+	if gameData.invert then
+		menuObjects[12]:setState({isOn = true})
+	elseif gameData.invert == false then
+		menuObjects[12]:setState({isOn = false})
+	end
+	
+	menuObjects[12].x = display.contentCenterX + 200
+	menuObjects[12].y = display.contentCenterY + 125
+	menuObjects[12].name = "invertControlsSwitch"
+	-- Inverted Controls text
+	menuObjects[13].x = display.contentCenterX
+	menuObjects[13].y = display.contentCenterY + 125
+	menuObjects[13]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)	
+
+	-- Main Menu button
+	menuObjects[14].x = display.contentCenterX - 400
+	menuObjects[14].y = display.contentCenterY + 250
+	menuObjects[14].name = "calibrateAccelerometer"
+	menuObjects[14]:addEventListener("tap", buttonPressed)
 	
 	for i=1, #menuObjects do
 		menuGroup:insert(menuObjects[i])

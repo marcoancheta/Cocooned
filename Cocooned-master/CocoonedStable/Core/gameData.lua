@@ -71,6 +71,11 @@ local gameData = {
 	gameTime = 0,
 	defaultTime = 0,
 	deaths = 0,
+
+	--Accelerometer values
+	offSetX = 0,
+	offSetY = 0,
+	invert = false,
 }
 
 return gameData
