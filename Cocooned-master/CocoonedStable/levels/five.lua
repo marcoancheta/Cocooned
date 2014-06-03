@@ -29,7 +29,7 @@ local five = {
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	runeAvailable = {["M"]= {"purpleRune"}, 
+	runeAvailable = {["M"]= {"pinkRune"}, 
 					 ["U"]= {"none"}, 
 					 ["D"]= {"none"}, 
 					 ["R"]= {"none"}, 
@@ -146,8 +146,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Check which pane
 	if mapData.pane == "M" then
 		-- Pink rune	
-		rune[4].x, rune[4].y = generate.tilesToPixels(22, 22)			
-		rune[4].isVisible = true
+		rune[3].x, rune[3].y = generate.tilesToPixels(22, 22)			
+		rune[3].isVisible = true
 
 		-- Fish 
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(12, 2)

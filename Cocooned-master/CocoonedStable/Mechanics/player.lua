@@ -21,6 +21,7 @@ local particle_lib = require("Mechanics.auraEmitter")
 -- GameData variables/booleans (gameData.lua)
 local gameData = require("Core.gameData")
 local sound = require("sound")
+local accelObjects = require("Objects.accelerometerObjects")
 
 --------------------------------------------------------------------------------
 -- Player Instance - player instance table that holds all properties
@@ -179,13 +180,11 @@ end
 --------------------------------------------------------------------------------
 local function changeBodyType(event)
 	local params = event.source.params
-	for check = 1, params.param1.front.numChildren do
+	for check = 1, #accelObjects.switchWallAndIceberg do
 		local currObject = params.param1.front[check]
 		--enables the movement of the switch walls and free icebergs when player gets the specific rune
-		if  string.sub(currObject.name,1,10) == "switchWall" or (string.sub(currObject.name,1,12) == "fixedIceberg" and currObject.movement == "free") then
-			params.param1.front[check].bodyType = "dynamic"
- 			params.param1.front[check].isFixedRotation = true
-		end
+		params.param1.front[check].bodyType = "dynamic"
+		params.param1.front[check].isFixedRotation = true
 	end
 end
 
@@ -241,6 +240,7 @@ function playerInstance:changeColor(color, gui)
     self.imageObject:setFillColor(c[1],c[2],c[3])
     if auraEmitter == nil then
     	--starts up the aura emitter, gets updated in movement 
+    	--auraEmitter=particle_lib:createEmitter(auraRange, auraDuration, self, 1, 0, nil, nil, nil, 20, gui)
     	auraEmitter = particle_lib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
     end
 end
@@ -250,7 +250,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
-function playerInstance:updateAura()
+function playerInstance:updateAura(gui)
 	if auraEmitter ~= nil then
 		if self.color ~= "white" then
 			--updates positiion of the particles
@@ -258,6 +258,10 @@ function playerInstance:updateAura()
 		else
 			--hides the particles if player changes color back to white
 			auraEmitter:hideParticles()
+		end
+	else
+		if gameData.inLevelselector == false and gameData.inWorldSelector == false then
+			auraEmitter=particle_lib:createEmitter(range, duration, self, 1, 0, nil, nil, nil, 20, gui)
 		end
 	end
 end
@@ -269,7 +273,7 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:deleteAura()
 	if auraEmitter ~= nil then
-		auraEmitter:destroy()
+		--auraEmitter:destroy()
 		auraEmitter=nil
 	end
 end
