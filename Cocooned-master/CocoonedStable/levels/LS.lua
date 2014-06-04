@@ -89,18 +89,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- Check which pane
 	if mapData.pane == "LS" then
 		--print(mapData.world)
-
-		-- set shadow angle for the pane
-		shadows.x = 1
-		shadows.y = 18
-
 		if mapData.world == "A" then
 			-- Place World "A" portals.
 			objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 15)
-			objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(14, 12)		
+			objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(14, 12)		
 			objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(20.5, 11)
 			objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(28, 12)
-			objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(31, 15)
+			objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(31, 15)
 			-- Hide all portals between 6-15.
 			for i=6, LS["LS"]["exitPortal"] do
 				objects["exitPortal" ..i.. ""].isVisible = false
@@ -169,6 +164,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	-- set which panes are available for player
 	map.panes = LS.panes
 
+	-- set shadow angle for the world
+	shadows.x = 1
+	shadows.y = 18
 end
 
 --------------------------------------------------------------------------------

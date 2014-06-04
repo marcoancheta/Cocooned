@@ -558,15 +558,16 @@ local function gameLoopEvents(event)
 				print("MOVING SWITCHWALL!!!!!")
   				local velY = 0
   				local velX = 0
+  				-- Change speed of moving object
   				if gameLoop.player[1].yGrav < 0 then --if player1.yGrav<0 then
-  					velY = -40
+  					velY = -100
   				elseif gameLoop.player[1].yGrav > 0 then --elseif player1.yGrav > 0 then
-  					velY = 40
+  					velY = 100
   				end
   				if gameLoop.player[1].xGrav < 0 then --if player1.xGrav<0 then
-  					velX = -40
+  					velX = -100
   				elseif gameLoop.player[1].xGrav > 0 then --elseif player1.xGrav > 0 then
-  					velX = 40
+  					velX = 100
   				end
 				
 				currObject:setLinearVelocity(velX, velY)
