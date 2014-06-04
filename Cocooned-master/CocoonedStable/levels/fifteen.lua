@@ -175,6 +175,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		shadows.y = 18
 
 		generate.gWater(map, mapData)
+		generate.gBreakWalls(map, mapData, "breakWall")	
 		--generate.gWisps(wisp, map, mapData, 24, 39, fifteen.wispCount)
 	elseif mapData.pane == "L" then
 		-- Icebergs

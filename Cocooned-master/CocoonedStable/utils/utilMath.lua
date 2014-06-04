@@ -142,7 +142,7 @@ local function calcDirectionForce(startPosX, startPosY, endPosX, endPosY, dist, 
 end
 
 -- calculate the next travel point of player depending on their velocity
-local function calcNextPoint(player, distance)
+local function calcNextPoint(player, pushDistance)
 
 	-- get the players velocity
 	local vx, vy = player.imageObject:getLinearVelocity()
@@ -155,8 +155,8 @@ local function calcNextPoint(player, distance)
 	local distance = distanceXY(player.imageObject.x, player.imageObject.y, xf, yf)
 
 	-- get the travel movement depending on how far you want player to travel in velocity direction
-	local moveX = distance * math.cos(math.acos(vx/distance))
-	local moveY = distance * math.sin(math.asin(vy/distance))
+	local moveX = pushDistance * math.cos(math.acos(vx/distance))
+	local moveY = pushDistance * math.sin(math.asin(vy/distance))
 
 	-- get that final location you want the player to go to
 	xf = player.imageObject.x + moveX

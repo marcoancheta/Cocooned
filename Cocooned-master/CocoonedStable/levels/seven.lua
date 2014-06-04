@@ -36,7 +36,7 @@ local seven = {
 					 ["L"]= {"greenRune"}},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {{["x"]=4, ["y"]=4}},
+	playerPos = {{["x"]=30, ["y"]=22}},
 	-- number of wisps in the level
 	wispCount = 14,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -162,7 +162,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		shadows.x = 1
 		shadows.y = 18
 				
-		generate.gWisps(wisp, map, mapData, 1, 7, seven.wispCount)		
+		generate.gWisps(wisp, map, mapData, 1, 7, seven.wispCount)
+		generate.gBreakWalls(map, mapData, "breakWall")		
 		-- generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(7, 5)

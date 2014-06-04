@@ -339,8 +339,6 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:breakWalls(map)
 	self.breakable = true
-	local timer = timer.performWithDelay(100, changeType)
-		  timer.params = {param1 = map}
 end
 
 --------------------------------------------------------------------------------
