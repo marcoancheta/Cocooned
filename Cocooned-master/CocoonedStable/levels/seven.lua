@@ -29,14 +29,14 @@ local seven = {
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	runeAvailable = {["M"]= {"purpleRune"}, 
+	runeAvailable = {["M"]= {"blueRune"}, 
 					 ["U"]= {"none"}, 
 					 ["D"]= {"none"}, 
 					 ["R"]= {"none"}, 
 					 ["L"]= {"greenRune"}},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {{["x"]=30, ["y"]=22}},
+	playerPos = {{["x"]=5, ["y"]=6}},
 	-- number of wisps in the level
 	wispCount = 14,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -146,8 +146,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	if mapData.pane == "M" then
 		-- Shrink rune
-		rune[4].x, rune[4].y = generate.tilesToPixels(4, 21)			
-		rune[4].isVisible = true
+		rune[1].x, rune[1].y = generate.tilesToPixels(4, 21)			
+		rune[1].isVisible = true
 
 		-- Wisps
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(12, 6)
