@@ -29,7 +29,7 @@ local three = {
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	runeAvailable = {["M"]= {"pinkRune", "greenRune"}, 
+	runeAvailable = {["M"]= {"pinkRune"}, 
 					 ["U"]= {"none"}, 
 					 ["D"]= {"none"}, 
 					 ["R"]= {"none"}, 
@@ -53,7 +53,7 @@ local three = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 1,
+		["switchWall"] = 0,
 		["exitPortal"] = 1,
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
@@ -144,9 +144,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Slow time rune
 		rune[3].x, rune[3].y = generate.tilesToPixels(5, 5)			
 		rune[3].isVisible = true
-		-- Switch wall rune
-		rune[2].x, rune[2].y = generate.tilesToPixels(8, 6)			
-		rune[2].isVisible = true
 
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(30, 4)
@@ -159,9 +156,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
  		objects["fish12"].time = 1375
  		objects["fish21"].time = 1375
 
- 		--switchWall
- 		objects["switchWall1"].x, objects["switchWall1"].y = generate.tilesToPixels(10, 10)
-		
 		-- Exit portal
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(35, 12)

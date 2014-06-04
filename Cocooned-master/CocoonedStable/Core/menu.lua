@@ -397,14 +397,15 @@ local function options(event)
 		-- Pre-store location in array for value text
 		[10] = display.newText(gameData.sfxVolume*10, 350, 150, "Teacher_A", 40),
 		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40),
+		
 		-- Invert switch
-		[12] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
+		--[[[12] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
 							   onPress = buttonPressed},
 		-- Invert text
 		[13] = display.newText("Invert Controls: ", 350, 150, "Teacher_A", 52),
 
 		-- Calibrate Accelerometer button
-		[14] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),
+		[14] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),]]--
 	}
 	
 	menuObjects.name = "optGroup"
@@ -468,7 +469,7 @@ local function options(event)
 	menuObjects[11]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 
 	-- Inverted controls object
-	if gameData.invert then
+	--[[if gameData.invert then
 		menuObjects[12]:setState({isOn = true})
 	elseif gameData.invert == false then
 		menuObjects[12]:setState({isOn = false})
@@ -477,6 +478,7 @@ local function options(event)
 	menuObjects[12].x = display.contentCenterX + 200
 	menuObjects[12].y = display.contentCenterY + 125
 	menuObjects[12].name = "invertControlsSwitch"
+	
 	-- Inverted Controls text
 	menuObjects[13].x = display.contentCenterX
 	menuObjects[13].y = display.contentCenterY + 125
@@ -487,6 +489,7 @@ local function options(event)
 	menuObjects[14].y = display.contentCenterY + 250
 	menuObjects[14].name = "calibrateAccelerometer"
 	menuObjects[14]:addEventListener("tap", buttonPressed)
+	]]--
 	
 	for i=1, #menuObjects do
 		menuGroup:insert(menuObjects[i])

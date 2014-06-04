@@ -772,7 +772,7 @@ local function gameLoopEvents(event)
 		if gameData.debugMode then
 			print("Ending game...")
 		end
-	
+		menu.cleanInGameOptions()
 		--sound.soundClean()
 		-- Switch off game booleans
 		if gameData.ingame == -1 then

@@ -813,6 +813,11 @@ function M.physicsData(scale)
                     
 		}
 		
+		, 
+		["D"] = {
+                    
+		}
+		
 	} }
 
         -- apply scale factor
