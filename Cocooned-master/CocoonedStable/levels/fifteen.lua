@@ -38,7 +38,7 @@ local fifteen = {
 	playerPos = {{["x"]=12, ["y"]=16},
 				 {["x"]=30, ["y"]=12},},
 	-- number of wisps in the level
-	wispCount = 1,
+	wispCount = 9,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -81,7 +81,7 @@ local fifteen = {
 		["redAura"] = 0,
 		["greenAura"] = 2,
 		["wolf"] = 0,
-		["fish1"] = 0,
+		["fish1"] = 1,
 		["fish2"] = 0,
 		["blueTotem"] = 0,
 		["redTotem"] = 0,
@@ -144,11 +144,21 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 	-- Check which pane
 	if mapData.pane == "M" then
-		--generate.gWisps(wisp, map, mapData, 1, 23, fifteen.wispCount)
-		--generate.gAuraWalls(map, mapData, "blueWall")
+		-- Wisps
+		wisp[1].x, wisp[1].y = generate.tilesToPixels(17, 2)
+		wisp[2].x, wisp[2].y = generate.tilesToPixels(21, 3)
+		wisp[3].x, wisp[3].y = generate.tilesToPixels(25, 2)
+		wisp[4].x, wisp[4].y = generate.tilesToPixels(29, 3)
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(11, 21)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(15, 22)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(19, 21)
+		wisp[8].x, wisp[8].y = generate.tilesToPixels(23, 22)
+
 		-- set shadow angle for the pane
 		shadows.x = 1
 		shadows.y = 18
+
+		generate.gWisps(wisp, map, mapData, 1, 8, fifteen.wispCount)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Breakable rune
@@ -165,10 +175,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		shadows.y = 18
 
 		generate.gWater(map, mapData)
+		generate.gBreakWalls(map, mapData, "breakWall")	
 		--generate.gWisps(wisp, map, mapData, 24, 39, fifteen.wispCount)
 	elseif mapData.pane == "L" then
-		-- FISH GO HERE
-
+		-- Icebergs
 		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(30, 2)
 		objects["fixedIceberg1"].time = 3800 --not needed if free
 		objects["fixedIceberg1"].movement = "free" --fixed or free
@@ -183,7 +193,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
-		-- FISH GO HERE
+		-- Wisps
+		wisp[9].x, wisp[9].y = generate.tilesToPixels(6, 10)
+		
+		-- Fish
+		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(25, 10)
+ 		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(29, 16)
+ 		objects["fish11"].time = 1375
 
 		-- Slow time rune
 		rune[3].x, rune[3].y = generate.tilesToPixels(35, 22)			
@@ -211,6 +227,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		shadows.x = 1
 		shadows.y = 18
 
+		generate.gWisps(wisp, map, mapData, 9, 9, fifteen.wispCount)
 		generate.gAuraWalls(map, mapData, "greenWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "D" then

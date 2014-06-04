@@ -94,11 +94,8 @@ local function pWater(event)
 		end	
 
 		if ( distanceCheck > 300 ) then
-			print("no water or shore found, you should be fine")
 			locationFound = true
 			inWater = false
-		else
-			print("you in water mayne!!")
 		end 
 		distanceCheck = distanceCheck + 30
 		

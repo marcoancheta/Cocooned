@@ -29,6 +29,11 @@ local function getAura(levelNum)
 	return (require("levels." .. levelNum .. "_collision.auraWalls")).physicsData(1.0)
 end
 
+-- Physics data for aura walls
+local function getBreak(levelNum)
+	return (require("levels." .. levelNum .. "_collision.breakWalls")).physicsData(1.0)
+end
+
 -- Physics data for shore
 local function getFloor(levelNum)
 	return (require("levels." .. levelNum .. "_collision.floor")).physicsData(1.0)
@@ -45,6 +50,7 @@ local physicsData = {
 	getWorldData = getWorldData,
 	getWater = getWater,
 	getAura = getAura,
+	getBreak = getBreak,
 	getFloor = getFloor,
 	getObject = getObject
 }
