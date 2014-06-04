@@ -29,7 +29,7 @@ local three = {
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	runeAvailable = {["M"]= {"pinkRune", "greenRune"}, 
+	runeAvailable = {["M"]= {"pinkRune"}, 
 					 ["U"]= {"none"}, 
 					 ["D"]= {"none"}, 
 					 ["R"]= {"none"}, 
