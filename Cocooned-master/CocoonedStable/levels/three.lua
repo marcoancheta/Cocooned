@@ -144,12 +144,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Slow time rune
 		rune[3].x, rune[3].y = generate.tilesToPixels(5, 5)			
 		rune[3].isVisible = true
-<<<<<<< HEAD
-=======
-		-- Switch wall rune
-		rune[2].x, rune[2].y = generate.tilesToPixels(8, 6)			
-		rune[2].isVisible = true
->>>>>>> b8d77b064e7d307c31499d343c2be60a65a10532
 
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(30, 4)
