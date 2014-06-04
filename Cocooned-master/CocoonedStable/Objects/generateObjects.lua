@@ -180,7 +180,6 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i].object = objects["fish1" .. i]
 		mObjects[i].object.isSensor = false
 		mObjects[i].moveable = true
-		mObjects[i].name = "fish"
 		mObjects[i].object.map = map
 
 		-- set start and end points where moveable object will transition to
@@ -193,7 +192,6 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i].object.endX, mObjects[i].object.endY = endX, endY
 		mObjects[i].object.time = time
 		mObjects[i].object.moveable = true
-		mObjects[i].object.sequence = ""
 
 		-- start moving object
 		map.front:insert(objects["fish1" .. i])
@@ -214,7 +212,6 @@ local function gMObjects(level, objects, map, mapData)
 		mObjects[i].object = objects["fish2" .. i-offset]
 		mObjects[i].object.isSensor = false
 		mObjects[i].moveable = true
-		mObjects[i].object.sequence = ""
 		mObjects[i].object.map = map
 
 		-- set start and end points where moveable object will transition to

@@ -211,7 +211,7 @@ local function controlMovement(event)
 	if gameData.isShowingMiniMap == false and gameData.gameEnd == false then
 		for i = 1, gui.playerCount do
 			-- call accelerometer to get data
-			physicsParam = accelerometer.onAccelerate(event, players[i])
+			physicsParam = accelerometer.onAccelerate(event, players[i], mapData)
 			-- set player's X and Y gravity times the player's curse
 			players[i].xGrav = physicsParam.xGrav
 			players[i].yGrav = physicsParam.yGrav
