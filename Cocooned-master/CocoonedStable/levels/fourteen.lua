@@ -176,7 +176,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		generate.gWisps(wisp, map, mapData, 1, 13, fourteen.wispCount)
 		generate.gWater(map, mapData)
-		generate.gBreakwalls(map, mapData, "breakWall")
+		generate.gBreakWalls(map, mapData, "breakWall")
 	elseif mapData.pane == "L" then
 		-- Runes
  		rune[2].x, rune[2].y = generate.tilesToPixels(2, 3)			
@@ -198,7 +198,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		
 		generate.gWisps(wisp, map, mapData, 14, 21, fourteen.wispCount)
 		generate.gWater(map, mapData)
-		generate.gBreakwalls(map, mapData, "breakWall")
+		generate.gBreakWalls(map, mapData, "breakWall")
 	elseif mapData.pane == "U" then
 		-- Slow time rune
 		rune[3].x, rune[3].y = generate.tilesToPixels(3, 2)			

@@ -168,7 +168,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Generate objects 
 		generate.gWisps(wisp, map, mapData, 1, 4, twelve.wispCount)
 		generate.gAuraWalls(map, mapData, "greenWall")
-		generate.gBreakwalls(map, mapData, "breakWall")
+		generate.gBreakWalls(map, mapData, "breakWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Auras 
@@ -208,7 +208,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		shadows.y = 18
 
 		generate.gAuraWalls(map, mapData, "greenWall")
-		generate.gBreakwalls(map, mapData, "breakWall")
+		generate.gBreakWalls(map, mapData, "breakWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
