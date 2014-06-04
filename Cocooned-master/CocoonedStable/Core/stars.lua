@@ -43,6 +43,30 @@ local stars = {
 
 local gStars = {}
 
+-----------------------------------------------------------------------
+------ Initialize Stars Drawn  ----------------------------------------
+-----------------------------------------------------------------------
+local function initgStars()
+	-- goalStar array
+	gStars = {
+		-- Gold stars
+		[1] = display.newImageRect("mapdata/art/stars/star.png", 50, 50),
+		[2] = display.newImageRect("mapdata/art/stars/star2.png", 50, 50),
+		[3] = display.newImageRect("mapdata/art/stars/star.png", 50, 50),
+		-- Empty stars
+		[4] = display.newImageRect("mapdata/art/stars/star_empty.png", 50, 50),
+		[5] = display.newImageRect("mapdata/art/stars/star_empty.png", 50, 50),
+		[6] = display.newImageRect("mapdata/art/stars/star_empty.png", 50, 50)
+	}
+	
+	for i=1, #gStars do
+		gStars[i].isVisible = false
+		gStars[i]:scale(1.5, 1.5)
+	end
+	
+	return gStars
+end
+
 --------------------------------------------------------------------------------
 -- saveScore - Save starss to device root.
 --------------------------------------------------------------------------------
@@ -135,8 +159,9 @@ local function wispStars(event)
 			  star:rotate(-25)
 			  star.x, star.y = display.contentCenterX, display.contentCenterY+250
 		local trans = transition.to(star, {time=600, alpha=1, xScale=5, yScale=5,
-											x=display.contentCenterX-300, y=display.contentCenterY})
+											x=display.contentCenterX-300, y=display.contentCenterY})	
 	end
+
 end
 
 --------------------------------------------------------------------------------
@@ -199,30 +224,6 @@ local function deathStars(event)
 		local trans = transition.to(star, {time=800, alpha=1, xScale=5, yScale=5, 
 											x=display.contentCenterX+300, y=display.contentCenterY})
 	end
-end
-
------------------------------------------------------------------------
------- Initialize Stars Drawn  ----------------------------------------
------------------------------------------------------------------------
-local function initgStars()
-	-- goalStar array
-	gStars = {
-		-- Gold stars
-		[1] = display.newImageRect("mapdata/art/stars/star.png", 50, 50),
-		[2] = display.newImageRect("mapdata/art/stars/star.png", 50, 50),
-		[3] = display.newImageRect("mapdata/art/stars/star.png", 50, 50),
-		-- Empty stars
-		[4] = display.newImageRect("mapdata/art/stars/star_empty.png", 50, 50),
-		[5] = display.newImageRect("mapdata/art/stars/star_empty.png", 50, 50),
-		[6] = display.newImageRect("mapdata/art/stars/star_empty.png", 50, 50)
-	}
-	
-	for i=1, #gStars do
-		gStars[i].isVisible = false
-		gStars[i]:scale(1.5, 1.5)
-	end
-	
-	return gStars
 end
 
 -----------------------------------------------------------------------
