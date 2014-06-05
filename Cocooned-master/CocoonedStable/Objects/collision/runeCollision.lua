@@ -22,10 +22,15 @@ local tutorialLib = require("utils.tutorialLib")
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function endAnimation( event )
-	if ( event.phase == "ended" ) then
-		local thisSprite = event.target  --"event.target" references the sprite
-		thisSprite:removeSelf()  --play the new sequence; it won't play automatically!
-	end
+	local params = event.source.params
+	params.rCollide:removeSelf()
+	params.rCollide = nil
+	
+
+	--if ( event.phase == "ended" ) then
+	--	local thisSprite = event.target  --"event.target" references the sprite
+	--	thisSprite:removeSelf()  --play the new sequence; it won't play automatically!
+	--end	
 end
 
 --------------------------------------------------------------------------------
@@ -50,7 +55,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	runeCollide.x, runeCollide.y = collideObject.x - 45, collideObject.y
 	runeCollide:setSequence("move")
 	runeCollide:play()
-	runeCollide:addEventListener( "sprite", endAnimation )
+	--runeCollide:addEventListener( "sprite", endAnimation )
+	local remAnim = timer.performWithDelay(1500, endAnimation)
+	remAnim.params = {rCollide = runeCollide}
 
 	-- Create animation for the ball shrinking 
 	--local playerShrink = display.newSprite(animation.sheetOptions.shrinkSheet, spriteOptions.shrinkAnimation)
