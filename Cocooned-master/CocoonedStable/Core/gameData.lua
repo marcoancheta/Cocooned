@@ -202,6 +202,10 @@ function gameData:printData()
 	print("gRune", self.gRune)
 	
 	print("locked", self.locked)
+	
+	print("gameData.mapData.world", self.mapData.world)
+	print("gameData.mapData.levelNum", self.mapData.levelNum)
+	print("gameData.mapData.pane", self.mapData.pane)
 end
 
 
