@@ -78,4 +78,49 @@ local gameData = {
 	invert = false,
 }
 
+local function printData()
+	print("preGame", preGame)
+	print("gameStart", gameStart)
+	print("gameScore", gameScore)
+	print("gameEnd", gameEnd)
+	print("ingame", ingame)
+	print("resumeGame", resumeGame)
+	print("menuOn", menuOn)
+	print("inGameOptions", inGameOptions)
+	print("gameOptions", gameOptions)
+	print("inOptions", inOptions)
+	print("inMainMenu", inMainMenu)
+	print("updateOptions", updateOptions)
+	print("shadow", shadow)
+	print("winning", winning)
+	
+	-- Level Selector Booleans
+	print("selectWorld", selectWorld)
+	print("inWorldSelector", inWorldSelector)
+	print("selectLevel", selectLevel)
+	print("inLevelSelector", inLevelSelector)
+	
+	-- Touch interface booleans
+	print("allowTouch", allowTouch)
+	print("allowPaneSwitch", allowPaneSwitch)
+	
+	-- Minimap Booleans
+	print("allowMiniMap", allowMiniMap)
+	print("showMiniMap", showMiniMap)
+	print("isShowingMiniMap", isShowingMiniMap)
+
+	-- Collision Booleans
+	print("collOn", collOn)
+	
+	-- Game Booleans
+	print("inWater", inWater)
+	print("levelComplete", levelComplete)
+	print("onIceberg", onIceberg)
+	print("gRune", gRune)
+	
+	print("locked", locked)
+end
+
+gameData.printData = printData
+
 return gameData
