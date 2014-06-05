@@ -580,7 +580,7 @@ local function gameLoopEvents(event)
 		
 	-----------------------------
 	--[[ START WORLD SELECTOR]]--
-	if gameData.selectWorld then
+	if gameData.selectWorld then	
 		if gameData.inLevelSelector == 1 then
 			clean(event)
 			gameData.inLevelSelector = 0
@@ -610,6 +610,7 @@ local function gameLoopEvents(event)
 		gameData.inWorldSelector = 1
 		print ("Setting World Selector!!!!!!!!!!!!!!!!!!")
 		-- Switch off this loop
+		gameData.collOn = true
 		gameData.selectWorld = false
 	end
 		
