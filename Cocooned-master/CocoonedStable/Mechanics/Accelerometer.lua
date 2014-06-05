@@ -175,6 +175,12 @@ local function onAccelerate(event, player, mapData)
 		player.shook = true
 		player.imageObject.linearDamping = 1.25
 
+		-- if the player is small, decrease the push force
+		if player.small == true then
+			jumpDirectionX = jumpDirectionX / 3
+			jumpDirectionY = jumpDirectionY / 3
+		end
+
 		-- apply the calculated force onto the player
 		player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
 
