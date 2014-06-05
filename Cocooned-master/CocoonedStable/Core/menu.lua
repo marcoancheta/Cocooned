@@ -352,14 +352,14 @@ local function options(event)
 	-- Image sheet options and declaration
 	local options = {
 		frames = {
-			{ x=0, y=0, width=9, height=64 },
-			{ x=35, y=0, width=9, height=64 },
-			{ x=112, y=0, width=9, height=64 },
-			{ x=120, y=0, width=292, height=64 },
-			{ x=420, y=0, width=64, height=64 }
+			{ x=0, y=0, width=40, height=70 },
+			{ x=80, y=0, width=40, height=70 },
+			{ x=205, y=0, width=40, height=70 },
+			{ x=248, y=0, width=64, height=70 },
+			{ x=336, y=0, width=70, height=70 }
 		},
-		sheetContentWidth = 464,
-		sheetContentHeight = 64
+		sheetContentWidth = 406,
+		sheetContentHeight = 70
 	}
 	
 	local sliderSheet = graphics.newImageSheet("mapdata/art/slider/sliderSheet.png", options )
@@ -384,12 +384,12 @@ local function options(event)
 		[5] = display.newText("Debug Mode: ", 350, 150, "Teacher_A", 52),
 		-- Sound controller (SFX[6] - BGM[7])
 		[6] = widget.newSlider{sheet = sliderSheet, leftFrame = 1, middleFrame = 2, rightFrame = 3, fillFrame = 4,
-								frameWidth = 38, frameHeight = 64, handleFrame = 5, handleWidth = 64, handleHeight = 64,
-								orientation="horizontal", width=375, height=1000, value = sfxVal, 
+								frameWidth = 32, frameHeight = 70, handleFrame = 5, handleWidth = 90, handleHeight = 90,
+								orientation="horizontal", width=360, height=80, value = sfxVal, 
 								listener=sfxController},
 		[7] = widget.newSlider{sheet = sliderSheet, leftFrame = 1, middleFrame = 2, rightFrame = 3, fillFrame = 4,
-								frameWidth = 36, frameHeight = 64, handleFrame = 5, handleWidth = 64, handleHeight = 64,
-								orientation="horizontal", width=375, height=1000, value = bgmVal, 
+								frameWidth = 32, frameHeight = 70, handleFrame = 5, handleWidth = 90, handleHeight = 90,
+								orientation="horizontal", width=360, height=80, value = bgmVal, 
 								listener=bgmController},
 		-- Sound text
 		[8] = display.newText("Sound Volume: ", 350, 150, "Teacher_A", 52),
