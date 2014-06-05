@@ -91,12 +91,12 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		-- Place World Portals.
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 15)
-		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(20.5, 11)
+		--objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(20.5, 11)
 		objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(31, 15)
 		objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(20.5, 19)	
 		
 		-- Corona Simulator Accel Coordinates:
-		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14, 12)	
+		objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(14, 12)	
 
 		-- set shadow angle for the pane
 		shadows.x = 1
