@@ -236,6 +236,7 @@ local function activate(gui, mapData, player, miniMap)
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
 					if player.large == false then
 						player:breakWalls(gui.front)
+						player.large = true
 						player:unshrink()
 					end
 				end
@@ -257,6 +258,7 @@ local function activate(gui, mapData, player, miniMap)
 			for j=1, #level.runeAvailable[mapData.pane] do
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
 					if player.small == false then
+						player.small = true
 						player:shrink()
 					end
 				end
