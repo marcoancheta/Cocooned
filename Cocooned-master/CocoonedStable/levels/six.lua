@@ -32,7 +32,7 @@ local six = {
 	runeAvailable = {["M"]= {"pinkRune"}, 
 					 ["U"]= {"none"}, 
 					 ["D"]= {"none"}, 
-					 ["R"]= {"none"}, 
+					 ["R"]= {"blueRune"}, 
 					 ["L"]= {"none"}},
 	timer = 300,
 	playerCount = 1,
@@ -188,6 +188,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWisps(wisp, map, mapData, 1, 18, six.wispCount)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
+		-- Rune 
+		rune[1].x, rune[1].y = generate.tilesToPixels(12, 12)	--4,21		
+		rune[1].isVisible = true
+		
 		-- Exit portals
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(38, 5)

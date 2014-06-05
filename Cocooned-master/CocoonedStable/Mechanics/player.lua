@@ -70,6 +70,7 @@ local playerInstance = {
 	speedUpTimer = nil,
 	deathScreen = nil,
 	small = false,
+	large = false,
 	breakable = false,
 	shook = false,
 	
@@ -108,7 +109,9 @@ local function changeBack(player)
 	player.curse = 1
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
-	player.small = false
+	if player.small == true then
+		player.small = false
+	end
 	--player.linearDamping = 1.25
 	print("un-shrinking the player back to normal size")
 end
@@ -130,7 +133,9 @@ local function changeSize(player)
 	player.curse = 0.5
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
-	player.small = true
+	if player.small == false then
+		player.small = true
+	end
 	--player.linearDamping = 1.25
 	print("SIZE")
 end
