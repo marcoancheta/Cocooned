@@ -78,49 +78,119 @@ local gameData = {
 	invert = false,
 }
 
-local function printData()
-	print("preGame", preGame)
-	print("gameStart", gameStart)
-	print("gameScore", gameScore)
-	print("gameEnd", gameEnd)
-	print("ingame", ingame)
-	print("resumeGame", resumeGame)
-	print("menuOn", menuOn)
-	print("inGameOptions", inGameOptions)
-	print("gameOptions", gameOptions)
-	print("inOptions", inOptions)
-	print("inMainMenu", inMainMenu)
-	print("updateOptions", updateOptions)
-	print("shadow", shadow)
-	print("winning", winning)
+function gameData:resetData()
+	-- print("BEGIN RESET")
+	
+	-- toggle debug mode
+	self.debugMode = false
+	
+	-- Game Loop Booleans
+	self.preGame = nil
+	self.gameStart = false
+	self.gameScore = false
+	self.gameEnd = false
+	self.ingame = 0
+	self.resumeGame = false
+	self.menuOn = true	
+	self.inGameOptions = false
+	self.gameOptions = false
+	self.inOptions = false
+	self.inMainMenu = false
+	self.updateOptions = false
+	self.shadow = true
+	self.winning = false
 	
 	-- Level Selector Booleans
-	print("selectWorld", selectWorld)
-	print("inWorldSelector", inWorldSelector)
-	print("selectLevel", selectLevel)
-	print("inLevelSelector", inLevelSelector)
+	self.selectWorld = false
+	self.inWorldSelector = 0
+	self.selectLevel = false
+	self.inLevelSelector = 0
 	
 	-- Touch interface booleans
-	print("allowTouch", allowTouch)
-	print("allowPaneSwitch", allowPaneSwitch)
+	self.allowTouch = false
+	self.allowPaneSwitch = false
 	
 	-- Minimap Booleans
-	print("allowMiniMap", allowMiniMap)
-	print("showMiniMap", showMiniMap)
-	print("isShowingMiniMap", isShowingMiniMap)
+	self.allowMiniMap = false
+	self.showMiniMap = false
+	self.isShowingMiniMap = false
 
 	-- Collision Booleans
-	print("collOn", collOn)
+	self.collOn = true
 	
 	-- Game Booleans
-	print("inWater", inWater)
-	print("levelComplete", levelComplete)
-	print("onIceberg", onIceberg)
-	print("gRune", gRune)
+	self.inWater = false
+	self.levelComplete = false
+	self.onIceberg = false
+	self.gRune = false	
+	self.locked = false
 	
-	print("locked", locked)
+	-- Game values
+	self.gameTime = 0
+	self.defaultTime = 0
+	self.deaths = 0
+	
+	-- print("RESET COMPLETE")
 end
 
-gameData.printData = printData
+function gameData:resetVolume()
+	-- Sound values
+	self.sfxVolume = 10
+	self.bgmVolume = 5
+end
+
+function gameData:resetMapData()
+	-- mapData global
+	self.mapData = {
+		world = "A",
+		levelNum = 1,
+		pane = "M",
+		version = 0
+	}
+end
+
+function gameData:printData()
+	print("preGame", self.preGame)
+	print("gameStart", self.gameStart)
+	print("gameScore", self.gameScore)
+	print("gameEnd", self.gameEnd)
+	print("ingame", self.ingame)
+	print("resumeGame", self.resumeGame)
+	print("menuOn", self.menuOn)
+	print("inGameOptions", self.inGameOptions)
+	print("gameOptions", self.gameOptions)
+	print("inOptions", self.inOptions)
+	print("inMainMenu", self.inMainMenu)
+	print("updateOptions", self.updateOptions)
+	print("shadow", self.shadow)
+	print("winning", self.winning)
+	
+	-- Level Selector Booleans
+	print("selectWorld", self.selectWorld)
+	print("inWorldSelector", self.inWorldSelector)
+	print("selectLevel", self.selectLevel)
+	print("inLevelSelector", self.inLevelSelector)
+	
+	-- Touch interface booleans
+	print("allowTouch", self.allowTouch)
+	print("allowPaneSwitch", self.allowPaneSwitch)
+	
+	-- Minimap Booleans
+	print("allowMiniMap", self.allowMiniMap)
+	print("showMiniMap", self.showMiniMap)
+	print("isShowingMiniMap", self.isShowingMiniMap)
+
+	-- Collision Booleans
+	print("collOn", self.collOn)
+	
+	-- Game Booleans
+	print("inWater", self.inWater)
+	print("levelComplete", self.levelComplete)
+	print("onIceberg", self.onIceberg)
+	print("gRune", self.gRune)
+	
+	print("locked", self.locked)
+end
+
 
 return gameData

@@ -806,11 +806,14 @@ local function gameLoopEvents(event)
 		if gameData.debugMode then
 			print("Main menu on...")
 		end		
-		
-		gameData.printData()
-		
+				
 		-- Go to main menu
 		menu.clean()
+		
+		if gameLoop.player[1] then
+			gameLoop.player[1]:stopDeathTimer()
+		end
+		
 		gameData.updateOptions = false
 		gameData.gameTime = 0
 		gameData.ingame = 0
@@ -830,6 +833,7 @@ local function gameLoopEvents(event)
 		gameData.inMainMenu = true
 		-- Switch off this loop
 		gameData.menuOn = false
+		gameData:printData()
 	end
 		
 	----------------------
