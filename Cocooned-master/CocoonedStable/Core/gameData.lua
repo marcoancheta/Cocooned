@@ -11,7 +11,7 @@
 --------------------------------------------------------------------------------
 local gameData = {
 	-- toggle debug mode
-	debugMode = false,
+	debugMode = true,
 	
 	-- Game Loop Booleans
 	preGame = nil,
@@ -78,6 +78,9 @@ local gameData = {
 	invert = false,
 }
 
+---------------------------------------------------------------------------------------------
+-- gameData:resetData() - Reset gameData back to default, as if fresh restart on data
+---------------------------------------------------------------------------------------------
 function gameData:resetData()
 	-- print("BEGIN RESET")
 	
@@ -133,12 +136,18 @@ function gameData:resetData()
 	-- print("RESET COMPLETE")
 end
 
+---------------------------------------------------------------------------------------------
+-- gameData:resetVolume() - Reset volume back to default factory values
+---------------------------------------------------------------------------------------------
 function gameData:resetVolume()
 	-- Sound values
 	self.sfxVolume = 10
 	self.bgmVolume = 5
 end
 
+---------------------------------------------------------------------------------------------
+-- gameData:resetMapData() - Reset gameData.mapData back to default
+---------------------------------------------------------------------------------------------
 function gameData:resetMapData()
 	-- mapData global
 	self.mapData = {
@@ -149,6 +158,9 @@ function gameData:resetMapData()
 	}
 end
 
+---------------------------------------------------------------------------------------------
+-- gameData:printData() - Print everything in here out to console
+---------------------------------------------------------------------------------------------
 function gameData:printData()
 	print("preGame", self.preGame)
 	print("gameStart", self.gameStart)

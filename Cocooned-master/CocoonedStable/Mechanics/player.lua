@@ -99,11 +99,12 @@ end
 --------------------------------------------------------------------------------
 local function changeBack(player)
 	physics.removeBody(player.imageObject)
-	player.imageObject:scale(2,2)
 	
 	if player.small == false then
+		player.imageObject:scale(2,2)
 		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
 	elseif player.large == true then
+		player.imageObject:scale(1.5,1.5)
 		physics.addBody(player.imageObject, {radius = 76, bounce = .25})
 	end
 	

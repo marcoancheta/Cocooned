@@ -611,6 +611,9 @@ local function gameLoopEvents(event)
 		print ("Setting World Selector!!!!!!!!!!!!!!!!!!")
 		-- Switch off this loop
 		gameData.selectWorld = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 		
 	---------------------------
@@ -640,6 +643,9 @@ local function gameLoopEvents(event)
 		-- Switch off this loop
 		gameData.selectLevel = false
 		loadingScreen.deleteLoading()
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	-----------------------
@@ -663,6 +669,9 @@ local function gameLoopEvents(event)
 		gameData.preGame = true
 		-- Switch off this loop
 		gameData.gameStart = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	-------------------------
@@ -693,6 +702,9 @@ local function gameLoopEvents(event)
 		gameData.preGame = nil
 		-- Add game event listeners
 		addGameLoopListeners(gui)
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 		
 	-----------------------
@@ -719,6 +731,9 @@ local function gameLoopEvents(event)
 		gameData.onIceberg = false
 		-- Switch off this loop
 		gameData.levelRestart = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 		
 	------------------------
@@ -743,6 +758,9 @@ local function gameLoopEvents(event)
 		end
 		-- Switch off this loop
 		gameData.levelComplete = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	--------------------
@@ -764,6 +782,9 @@ local function gameLoopEvents(event)
 		gameData.allowPaneSwitch = false
 		gameData.allowMiniMap = false
 		gameData.gameScore = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	----------------------
@@ -798,6 +819,9 @@ local function gameLoopEvents(event)
 		
 		-- Switch off this loop
 		gameData.gameEnd = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	-------------------
@@ -833,7 +857,10 @@ local function gameLoopEvents(event)
 		gameData.inMainMenu = true
 		-- Switch off this loop
 		gameData.menuOn = false
-		gameData:printData()
+		
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 		
 	----------------------
@@ -851,7 +878,11 @@ local function gameLoopEvents(event)
 		gameData.updateOptions = true
 		gameData.inMainMenu = false
 		-- Switch off this loop
-		gameData.inOptions = false		
+		gameData.inOptions = false	
+
+		if gameData.debugMode then			
+			gameData:printData()
+		end				
 	end
 	
 	-------------------------
@@ -872,6 +903,10 @@ local function gameLoopEvents(event)
 		removeGameLoopListeners(gui)
 		-- Switch off this loop
 		gameData.inGameOptions = false
+		
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	---------------------
@@ -894,6 +929,10 @@ local function gameLoopEvents(event)
 		gameTimer.resumeTimer()	
 		-- Switch off this loop
 		gameData.resumeGame = false
+		
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	--[[	
