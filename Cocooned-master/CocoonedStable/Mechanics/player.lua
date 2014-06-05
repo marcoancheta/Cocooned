@@ -109,9 +109,9 @@ local function changeBack(player)
 	player.curse = 1
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
-	if player.small == true then
-		player.small = false
-	end
+	--if player.small == true then
+	--	player.small = false
+	--end
 	--player.linearDamping = 1.25
 	print("un-shrinking the player back to normal size")
 end
@@ -133,9 +133,9 @@ local function changeSize(player)
 	player.curse = 0.5
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
-	if player.small == false then
-		player.small = true
-	end
+	--if player.small == false then
+	--	player.small = true
+	--end
 	--player.linearDamping = 1.25
 	print("SIZE")
 end
