@@ -610,7 +610,6 @@ local function gameLoopEvents(event)
 		gameData.inWorldSelector = 1
 		print ("Setting World Selector!!!!!!!!!!!!!!!!!!")
 		-- Switch off this loop
-		gameData.collOn = true
 		gameData.selectWorld = false
 	end
 		
@@ -807,6 +806,8 @@ local function gameLoopEvents(event)
 		if gameData.debugMode then
 			print("Main menu on...")
 		end		
+		
+		gameData.printData()
 		
 		-- Go to main menu
 		menu.clean()
