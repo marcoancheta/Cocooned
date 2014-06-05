@@ -103,15 +103,19 @@ local function changeBack(player)
 	if player.small == false then
 		player.imageObject:scale(2,2)
 		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(25)
+		end
 	elseif player.large == true then
 		player.imageObject:scale(1.5,1.5)
-		physics.addBody(player.imageObject, {radius = 76, bounce = .25})
+		physics.addBody(player.imageObject, {radius = 114, bounce = .25})
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(50)
+		end
 	end
 	
-	if auraEmitter ~= nil then
-		--changes the radius range of the aura particles to match up with the ball
-		auraEmitter:changeRadius(25)
-	end
 	physics.setGravity(0, 0)
 	player.curse = 1
 	player.imageObject.density = 0.3

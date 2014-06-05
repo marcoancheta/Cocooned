@@ -208,5 +208,4 @@ function gameData:printData()
 	print("gameData.mapData.pane", self.mapData.pane)
 end
 
-
 return gameData
