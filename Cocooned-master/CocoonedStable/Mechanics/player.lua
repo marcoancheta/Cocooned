@@ -133,8 +133,10 @@ local function changeSize(player)
 		
 	if player.small == true then
 		physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
+		player.curse = 0.5
 	elseif player.large == false then
 		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+		player.curse = 1
 	end
 	
 	if auraEmitter ~= nil then
@@ -142,7 +144,6 @@ local function changeSize(player)
 		auraEmitter:changeRadius(-25)
 	end
 	physics.setGravity(0, 0)
-	player.curse = 0.5
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
 	--if player.small == false then
