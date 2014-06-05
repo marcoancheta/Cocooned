@@ -204,10 +204,12 @@ local function movePanes(event)
 	-- Re-initialize player values
 	if params.player1.small == true then
 		params.player1:unshrink()
+		params.player1.small = false
 	elseif params.player1.breakable == true then
 		params.player1.breakable = false
 	elseif params.player1.large == true then
 		params.player1:shrink()
+		params.player1.large = false
 	end
 	-- load new map pane
 	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
