@@ -618,15 +618,18 @@ local function gameLoopEvents(event)
 		
 	---------------------------
 	--[[ START LVL SELECTOR]]--
-	if gameData.selectLevel then
-		loadingScreen.loadingInit(gui)
-		clean(event)
-		
+	if gameData.selectLevel then	
 		if gameData.debugMode then
 			print("In Level Selector")
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
-				
+		-- Activate loading screen
+		loadingScreen.loadingInit(gui)
+		clean(event)
+		-- Cancel death timer if player quits while in water
+		if gameLoop.player[1] then
+			gameLoop.player[1]:stopDeathTimer()
+		end		
 		-- Reset mapData to level select default
 		mapData.world = gameData.mapData.world
 		mapData.levelNum = "LS"
@@ -715,7 +718,10 @@ local function gameLoopEvents(event)
 		end	
 		-- Clean
 		--clean(event)
-		
+		-- Cancel death timer if player quits while in water
+		if gameLoop.player[1] then
+			gameLoop.player[1]:stopDeathTimer()
+		end
 		inventory.inventoryInstance:clear()
 		collisionDetection.resetCollision()
 		for i = 1, gui.playerCount do
@@ -794,6 +800,10 @@ local function gameLoopEvents(event)
 			print("Ending game...")
 		end
 		menu.cleanInGameOptions()
+		-- Cancel death timer if player quits while in water
+		if gameLoop.player[1] then
+			gameLoop.player[1]:stopDeathTimer()
+		end
 		--sound.soundClean()
 		-- Switch off game booleans
 		if gameData.ingame == -1 then
@@ -833,7 +843,7 @@ local function gameLoopEvents(event)
 				
 		-- Go to main menu
 		menu.clean()
-		
+		-- Cancel death timer if player quits while in water
 		if gameLoop.player[1] then
 			gameLoop.player[1]:stopDeathTimer()
 		end
