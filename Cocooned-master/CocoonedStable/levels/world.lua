@@ -98,6 +98,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Corona Simulator Accel Coordinates:
 		-- objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(14, 12)	
 
+
 		-- set shadow angle for the pane
 		shadows.x = 1
 		shadows.y = 18
