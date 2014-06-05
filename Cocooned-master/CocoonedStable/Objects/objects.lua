@@ -57,15 +57,15 @@ local function init()
 	
 	-- load object sprite sheets*
 	-- Auras
-	sheetList["redAura"] = graphics.newImageSheet("mapdata/art/animation/redAuraSheet.png", 
-				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
+	--sheetList["redAura"] = graphics.newImageSheet("mapdata/art/animation/redAuraSheet.png", 
+	--			 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})
 	sheetList["greenAura"] = graphics.newImageSheet("mapdata/art/animation/greenAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})	
 	sheetList["blueAura"] = graphics.newImageSheet("mapdata/art/animation/blueAuraSheet.png", 
 				 {width = 103, height = 103, sheetContentWidth = 2060, sheetContentHeight = 103, numFrames = 20})				 
 	-- Old portal
-	sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet.png", 
-				 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
+	--sheetList["exitPortal"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet.png", 
+	--			 {width = 72, height = 39, sheetContentWidth = 362, sheetContentHeight = 39, numFrames = 5})
 	-- Exit portal 1
 	sheetList["exitPortal1"] = graphics.newImageSheet("mapdata/art/animation/exitPortalSheet1.png", 
 				 {width = 503.5, height = 276, sheetContentWidth = 4550, sheetContentHeight = 277, numFrames = 9})
