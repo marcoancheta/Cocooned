@@ -100,7 +100,13 @@ end
 local function changeBack(player)
 	physics.removeBody(player.imageObject)
 	player.imageObject:scale(2,2)
-	physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+	
+	if player.small == false then
+		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+	elseif player.large == true then
+		physics.addBody(player.imageObject, {radius = 76, bounce = .25})
+	end
+	
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball
 		auraEmitter:changeRadius(25)
@@ -124,7 +130,13 @@ end
 local function changeSize(player)
 	physics.removeBody(player.imageObject)
 	player.imageObject:scale(0.5,0.5)
-	physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
+		
+	if player.small == true then
+		physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
+	elseif player.large == false then
+		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+	end
+	
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball
 		auraEmitter:changeRadius(-25)
