@@ -71,7 +71,7 @@ local function rayCastCircle(startPos, lastPos, startDist, maxDist, checkGroup)
 							if v.object.name == checkGroup[n] then
 								local point = display.newCircle(v.position.x, v.position.y, 5)
 								point.alpha = 0
-								point.name = v.object.name .. "Point"
+								point.name = v.object.name
 								pointsFound:insert(point)
 								pointsFound:toFront()
 							end
