@@ -28,11 +28,11 @@ local fourteen = {
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	runeAvailable = {["M"]= {"blueRune"}, 
+	runeAvailable = {["M"]= {"greenRune"}, 
 					 ["U"]= {"pinkRune"}, 
 					 ["D"]= {"purpleRune"}, 
 					 ["R"]= {"pinkRune"}, 
-					 ["L"]= {"greenRune"}},
+					 ["L"]= {"blueRune"}},
 	timer = 300,
 	playerCount = 1,
 	playerPos = {{["x"]=20, ["y"]=15},},
