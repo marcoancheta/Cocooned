@@ -151,8 +151,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(2, 11)
 
 		-- Break objects rune
-		rune[2].x, rune[2].y = generate.tilesToPixels(3, 21)			
-		rune[2].isVisible = true
+		rune[1].x, rune[1].y = generate.tilesToPixels(3, 21)			
+		rune[1].isVisible = true
 
 		-- set shadow angle for the pane
 		shadows.x = 1
