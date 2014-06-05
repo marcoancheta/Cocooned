@@ -82,12 +82,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			end
 		end	
 		
-		-- Create animation for the ball shrinking 
-		local playerShrink = display.newSprite(animation.sheetOptions.shrinkSheet, animation.spriteOptions.shrinkAnimation)
-		playerShrink.x, playerShrink.y = collideObject.x, collideObject.y
-		playerShrink:setSequence("move")
-		playerShrink:play()
-		playerShrink:removeSelf( )
+		-- shrink the player		
 		player:shrink()
 	end
 	

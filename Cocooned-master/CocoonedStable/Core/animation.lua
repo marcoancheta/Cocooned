@@ -43,7 +43,7 @@ local animation = {
 			{frames = {1}, name = "stop", time = 250}
 		},
 		shrinkAnimation = {
-			{frames = {1,2,3,4,5,6,7,8,9,10,11}, name = "move", time = 750, loopCount = 1},
+			{frames = {1,2,3,4,5,6,7,8}, name = "move", time = 750, loopCount = 1},
 			{frames = {1}, name = "stop", time = 250}
 		},
 		deathAnimation = {
