@@ -63,8 +63,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[9])
 		player:breakWalls(map)
-		player:unshrink()
 		player.large = true
+		player:unshrink()
 	elseif collideObject.name == "pinkRune" then
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[10])
@@ -86,8 +86,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		end	
 		
 		-- shrink the player		
-		player:shrink()
 		player.small = true
+		player:shrink()
 	end
 	
 	-- remove rune

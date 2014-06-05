@@ -35,9 +35,7 @@ local cCheck1, cCheck2
 -- Last update: Andrew added the force put on a player for use with moveable walls
 --------------------------------------------------------------------------------
 local function moveAndAnimate(event, currPlayer, gui) --, physics
-	--print(currPlayer)
-
-	
+	--print(currPlayer.imageObject)	
 	local vx, vy = currPlayer.imageObject:getLinearVelocity()
 	local speed = math.sqrt((vy*vy)+(vx*vx))
 	

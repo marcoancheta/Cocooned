@@ -234,7 +234,10 @@ local function activate(gui, mapData, player, miniMap)
 		if inventory.inventoryInstance.runes[i] == "blueRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
-					player:breakWalls(gui.front)
+					if player.large == false then
+						player:breakWalls(gui.front)
+						player:unshrink()
+					end
 				end
 			end
 		elseif inventory.inventoryInstance.runes[i] == "pinkRune" then
