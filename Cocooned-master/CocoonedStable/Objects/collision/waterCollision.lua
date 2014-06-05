@@ -73,6 +73,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				-- set player variables
 				player.lastPositionSaved = true
 				player.imageObject.linearDamping = 3
+				if player.small then
+					player.imageObject.linearDamping = 10
+				end
 
 				-- calculate the players next location when entering the water
 				local xf, yf = uMath.calcNextPoint(player, 80)
