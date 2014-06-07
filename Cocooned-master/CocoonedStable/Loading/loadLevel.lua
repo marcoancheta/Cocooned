@@ -126,6 +126,9 @@ end
 local function createLevel(mapData, players)	
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
+	print("check gui original pos " .. gui.x .. ", " .. gui.y)
+	gui.originalX = gui.x
+	gui.originalY = gui.y
 	gui.name = "main gui"
 		
 	-- Create GUI subgroups
@@ -155,8 +158,8 @@ local function createLevel(mapData, players)
 	if gameData.shadow == true then
 		 shadowCirc = display.newImage("mapdata/art/shadows/ballshadow.png", players[1].imageObject.x, players[1].imageObject.y)	
 		 shadowCirc.name = "shadowCirc"
+		 gui.middle:insert(shadowCirc)
 		 shadowCirc:toBack()
-		 gui.front:insert(shadowCirc)
 	else
 		shadowCirc = nil
 	end
@@ -231,7 +234,11 @@ local function activate(gui, mapData, player, miniMap)
 		if inventory.inventoryInstance.runes[i] == "blueRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
-					player:breakWalls(gui.front)
+					if player.large == false then
+						player:breakWalls(gui.front)
+						player.large = true
+						player:unshrink()
+					end
 				end
 			end
 		elseif inventory.inventoryInstance.runes[i] == "pinkRune" then
@@ -251,6 +258,7 @@ local function activate(gui, mapData, player, miniMap)
 			for j=1, #level.runeAvailable[mapData.pane] do
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
 					if player.small == false then
+						player.small = true
 						player:shrink()
 					end
 				end
@@ -280,9 +288,7 @@ local function changePane(gui, mapData, player, miniMap)
 	-- Check rune inventory slots for runes collected
 	activate(gui, mapData, player, miniMap)
 	-- if player is small, set player size back to normal
-	print("player A1 " .. player.imageObject.x)
 	
-	print("player A2 " .. player.imageObject.x)
 	-- Check if tutorial level
 	if mapData.levelNum == "T" then
 		if tutorialLib.tutorialStatus >= 1 then

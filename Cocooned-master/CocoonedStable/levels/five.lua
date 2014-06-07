@@ -29,7 +29,7 @@ local five = {
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	runeAvailable = {["M"]= {"purpleRune"}, 
+	runeAvailable = {["M"]= {"pinkRune"}, 
 					 ["U"]= {"none"}, 
 					 ["D"]= {"none"}, 
 					 ["R"]= {"none"}, 
@@ -37,7 +37,7 @@ local five = {
 	-- Timer
 	timer = 200,
 	playerCount = 1,
-	playerPos = {{["x"]=22, ["y"]=22}},
+	playerPos = {{["x"]=5, ["y"]=5}},
 	-- number of wisps in the level
 	wispCount = 16,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -146,7 +146,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Check which pane
 	if mapData.pane == "M" then
 		-- Pink rune	
-		rune[3].x, rune[3].y = generate.tilesToPixels(22, 22)			
+		rune[3].x, rune[3].y = generate.tilesToPixels(3, 20)			
 		rune[3].isVisible = true
 
 		-- Fish 

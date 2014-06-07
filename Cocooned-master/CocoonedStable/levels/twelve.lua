@@ -28,11 +28,11 @@ local twelve = {
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	runeAvailable = {["M"]= {"none"}, 
+	runeAvailable = {["M"]= {"blueRune"}, 
 					 ["U"]= {"none"}, 
 					 ["D"]= {"none"}, 
 					 ["R"]= {"purpleRune"}, 
-					 ["L"]= {"none"}},
+					 ["L"]= {"blueRune"}},
 	timer = 300,
 	playerCount = 1,
 	playerPos = {{["x"]=16, ["y"]=12},},
@@ -143,6 +143,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	objectList = objects
 	-- Check which pane
 	if mapData.pane == "M" then
+		-- Break walls rune
+		rune[1].x, rune[1].y = generate.tilesToPixels(25, 11)			
+		rune[1].isVisible = true
+
 		-- Wisps
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(27, 8)
 		wisp[2].x, wisp[2].y = generate.tilesToPixels(29, 11)
@@ -168,6 +172,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Generate objects 
 		generate.gWisps(wisp, map, mapData, 1, 4, twelve.wispCount)
 		generate.gAuraWalls(map, mapData, "greenWall")
+		generate.gBreakWalls(map, mapData, "breakWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Auras 
@@ -201,12 +206,16 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
+		-- Break walls rune
+		rune[1].x, rune[1].y = generate.tilesToPixels(5, 11)			
+		rune[1].isVisible = true
 
 		-- set shadow angle for the pane
 		shadows.x = 1
 		shadows.y = 18
 
 		generate.gAuraWalls(map, mapData, "greenWall")
+		generate.gBreakWalls(map, mapData, "breakWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
@@ -223,7 +232,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	-- set which panes are avaiable for player
 	map.front.panes = twelve.panes
-	map.front.itemGoal = 1
+	map.front.itemGoal = 3
 
 	-- set shadow angle for the world
 	shadows.x = 1

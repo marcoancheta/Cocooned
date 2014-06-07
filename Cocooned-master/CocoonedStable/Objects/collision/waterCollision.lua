@@ -74,6 +74,11 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				player.lastPositionSaved = true
 				player.imageObject.linearDamping = 3
 
+				-- if the player is small, further increase the linear damping
+				if player.small then
+					player.imageObject.linearDamping = 10
+				end
+
 				-- calculate the players next location when entering the water
 				local xf, yf = uMath.calcNextPoint(player, 80)
 
@@ -83,6 +88,12 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				-- calculate how much force to apply to the player so they are fully in water
 				local jumpDirectionX, jumpDirectionY = 0,0
 				jumpDirectionX, jumpDirectionY = uMath.calcDirectionForce(player.imageObject.x, player.imageObject.y, xf, yf, distance, 10)
+
+				-- if the player is small, decrease the push velocity into water
+				if player.small then
+					jumpDirectionX = jumpDirectionX / 2
+					jumpDirectionY = jumpDirectionY / 2
+				end
 
 				-- apply that force to make sure the aplyer is fully in water
 				player.imageObject:setLinearVelocity(0,0)

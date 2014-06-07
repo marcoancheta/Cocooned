@@ -70,6 +70,7 @@ local playerInstance = {
 	speedUpTimer = nil,
 	deathScreen = nil,
 	small = false,
+	large = false,
 	breakable = false,
 	shook = false,
 	
@@ -97,20 +98,31 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeBack(player)
-	print("player Check 1 " .. player.imageObject.x)
 	physics.removeBody(player.imageObject)
-	player.imageObject:scale(2,2)
-	physics.addBody(player.imageObject, {radius = 38, bounce = .25})
-	if auraEmitter ~= nil then
-		--changes the radius range of the aura particles to match up with the ball
-		auraEmitter:changeRadius(25)
+	
+	if player.small == false then
+		player.imageObject:scale(2,2)
+		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(25)
+		end
+	elseif player.large == true then
+		player.imageObject:scale(1.5,1.5)
+		physics.addBody(player.imageObject, {radius = 114, bounce = .25})
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(50)
+		end
 	end
+	
 	physics.setGravity(0, 0)
 	player.curse = 1
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
-	player.small = false
-	print("player Check 2 " .. player.imageObject.x)
+	--if player.small == true then
+	--	player.small = false
+	--end
 	--player.linearDamping = 1.25
 	print("un-shrinking the player back to normal size")
 end
@@ -121,20 +133,27 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 local function changeSize(player)
-	print("player Check 3 " .. player.imageObject.x)
 	physics.removeBody(player.imageObject)
 	player.imageObject:scale(0.5,0.5)
-	physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
+		
+	if player.small == true then
+		physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
+		player.curse = 0.5
+	elseif player.large == false then
+		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+		player.curse = 1
+	end
+	
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball
 		auraEmitter:changeRadius(-25)
 	end
 	physics.setGravity(0, 0)
-	player.curse = 0.5
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
-	player.small = true
-	print("player Check 4 " .. player.imageObject.x)
+	--if player.small == false then
+	--	player.small = true
+	--end
 	--player.linearDamping = 1.25
 	print("SIZE")
 end
@@ -343,8 +362,6 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:breakWalls(map)
 	self.breakable = true
-	local timer = timer.performWithDelay(100, changeType)
-		  timer.params = {param1 = map}
 end
 
 --------------------------------------------------------------------------------

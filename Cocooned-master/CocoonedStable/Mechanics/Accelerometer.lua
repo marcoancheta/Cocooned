@@ -64,7 +64,7 @@ end
 -- Updated by: Derrick
 -- Previous: Andrew 
 --------------------------------------------------------------------------------
-local function onAccelerate(event, player)
+local function onAccelerate(event, player, mapData)
 	-- Print escape path
 	--print(player.escape)
 	
@@ -110,18 +110,22 @@ local function onAccelerate(event, player)
 		-- declare the players Last Save Point
 		local lastPoint = player.lastSavePoint
 
-		print("player Check 5 " .. player.imageObject.x)
 		-- check whether to use that last save point for later calculations
 		local useLastPoint = true
 
 		-- if the last point is a movable object, dont use that last save point because its not there anymore since object is moving
-		if player.lastSavePoint.moveable then
+		if player.lastSavePoint.moveable or (player.lastSavePoint.pane ~= mapData.pane) then
 			useLastPoint = false
 		end
 
 		-- check the player surroundsing for a safe location, look for background or iceberg
 		local nameCheck = {"background", "iceberg"}
-		local rayCastCheck = uMath.rayCastCircle(player.imageObject, player.lastSavePoint, 50, 300, nameCheck)
+		local rayCastCheck
+		if useLastPoint then
+			rayCastCheck = uMath.rayCastCircle(player.imageObject, player.lastSavePoint, 50, 300, nameCheck)
+		else
+			rayCastCheck = uMath.rayCastCircle(player.imageObject, nil, 50, 300, nameCheck)
+		end
 
 		-- find which point from rayCast data for the player to travel too
 		local choosePoint = 0
@@ -143,7 +147,6 @@ local function onAccelerate(event, player)
 			end
 		end	
 
-		print("player Check 6 " .. player.imageObject.x)
 		-- move chosenPoint to front and make sure it is invisible
 		rayCastCheck[choosePoint]:setFillColor(0,0,0)
 		rayCastCheck[choosePoint]:toFront()
@@ -171,6 +174,12 @@ local function onAccelerate(event, player)
 		accelPlayer[1] = player
 		player.shook = true
 		player.imageObject.linearDamping = 1.25
+
+		-- if the player is small, decrease the push force
+		if player.small == true then
+			jumpDirectionX = jumpDirectionX / 3
+			jumpDirectionY = jumpDirectionY / 3
+		end
 
 		-- apply the calculated force onto the player
 		player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)

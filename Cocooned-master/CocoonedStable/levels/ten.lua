@@ -39,7 +39,7 @@ local ten = {
 	playerPos = {{["x"]=1.5, ["y"]=22},
 				 {["x"]=28, ["y"]=22},},
 	-- number of wisps in the level
-	wispCount = 47,
+	wispCount = 57,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -202,6 +202,17 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		generate.gWisps(wisp, map, mapData, 18, 29, ten.wispCount)
 	elseif mapData.pane == "R" then
+		-- Wisps
+		wisp[30].x, wisp[30].y = generate.tilesToPixels(2, 16)
+		wisp[31].x, wisp[31].y = generate.tilesToPixels(4, 12)
+		wisp[32].x, wisp[32].y = generate.tilesToPixels(6, 8)
+		wisp[33].x, wisp[33].y = generate.tilesToPixels(9, 5)
+		wisp[34].x, wisp[34].y = generate.tilesToPixels(13, 4)
+		wisp[35].x, wisp[35].y = generate.tilesToPixels(17, 3)
+		wisp[36].x, wisp[36].y = generate.tilesToPixels(21, 4)
+		wisp[37].x, wisp[37].y = generate.tilesToPixels(26, 5)
+		wisp[38].x, wisp[38].y = generate.tilesToPixels(29, 7)
+		wisp[39].x, wisp[39].y = generate.tilesToPixels(30, 10)
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(15, 15)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(22, 8)
@@ -228,6 +239,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		shadows.y = 18
 
 		generate.gWater(map, mapData)
+		generate.gWisps(wisp, map, mapData, 30, 39, ten.wispCount)
 	elseif mapData.pane == "D" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")
@@ -238,31 +250,31 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[4].isVisible = true
 
 		-- Wisps
-		wisp[30].x, wisp[30].y = generate.tilesToPixels(16, 6)
-		wisp[31].x, wisp[31].y = generate.tilesToPixels(16, 13)
-		wisp[32].x, wisp[32].y = generate.tilesToPixels(21, 15)
-		wisp[33].x, wisp[33].y = generate.tilesToPixels(22, 16)
-		wisp[34].x, wisp[34].y = generate.tilesToPixels(27, 20)
-		wisp[35].x, wisp[35].y = generate.tilesToPixels(32, 21)
-		wisp[36].x, wisp[36].y = generate.tilesToPixels(3, 17)
-		wisp[37].x, wisp[37].y = generate.tilesToPixels(2, 15)
-		wisp[38].x, wisp[38].y = generate.tilesToPixels(21, 4)
-		wisp[39].x, wisp[39].y = generate.tilesToPixels(2, 9)
-		wisp[40].x, wisp[40].y = generate.tilesToPixels(28, 11)
-		wisp[41].x, wisp[41].y = generate.tilesToPixels(20, 6)
-		wisp[42].x, wisp[42].y = generate.tilesToPixels(33, 7)
-		wisp[43].x, wisp[43].y = generate.tilesToPixels(34, 10)
-		wisp[44].x, wisp[44].y = generate.tilesToPixels(30, 6)
-		wisp[45].x, wisp[45].y = generate.tilesToPixels(31, 11)
-		wisp[46].x, wisp[46].y = generate.tilesToPixels(24, 10)
-		wisp[47].x, wisp[47].y = generate.tilesToPixels(19, 7)
+		wisp[40].x, wisp[40].y = generate.tilesToPixels(16, 6)
+		wisp[41].x, wisp[41].y = generate.tilesToPixels(16, 13)
+		wisp[42].x, wisp[42].y = generate.tilesToPixels(21, 15)
+		wisp[43].x, wisp[43].y = generate.tilesToPixels(22, 16)
+		wisp[44].x, wisp[44].y = generate.tilesToPixels(27, 20)
+		wisp[45].x, wisp[45].y = generate.tilesToPixels(32, 21)
+		wisp[46].x, wisp[46].y = generate.tilesToPixels(3, 17)
+		wisp[47].x, wisp[47].y = generate.tilesToPixels(2, 15)
+		wisp[48].x, wisp[48].y = generate.tilesToPixels(21, 4)
+		wisp[49].x, wisp[49].y = generate.tilesToPixels(2, 9)
+		wisp[50].x, wisp[50].y = generate.tilesToPixels(28, 11)
+		wisp[51].x, wisp[51].y = generate.tilesToPixels(20, 6)
+		wisp[52].x, wisp[52].y = generate.tilesToPixels(33, 7)
+		wisp[53].x, wisp[53].y = generate.tilesToPixels(34, 10)
+		wisp[54].x, wisp[54].y = generate.tilesToPixels(30, 6)
+		wisp[55].x, wisp[55].y = generate.tilesToPixels(31, 11)
+		wisp[56].x, wisp[56].y = generate.tilesToPixels(24, 10)
+		wisp[57].x, wisp[57].y = generate.tilesToPixels(19, 7)
 
 		-- set shadow angle for the pane
 		shadows.x = 1
 		shadows.y = 18
 
 		generate.gWater(map, mapData)
-		generate.gWisps(wisp, map, mapData, 30, 47, ten.wispCount)
+		generate.gWisps(wisp, map, mapData, 40, 57, ten.wispCount)
 	end
 
 	-- generates all objects in pane when locations are set

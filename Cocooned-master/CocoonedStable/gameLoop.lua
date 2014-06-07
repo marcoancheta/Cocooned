@@ -211,7 +211,7 @@ local function controlMovement(event)
 	if gameData.isShowingMiniMap == false and gameData.gameEnd == false then
 		for i = 1, gui.playerCount do
 			-- call accelerometer to get data
-			physicsParam = accelerometer.onAccelerate(event, players[i])
+			physicsParam = accelerometer.onAccelerate(event, players[i], mapData)
 			-- set player's X and Y gravity times the player's curse
 			players[i].xGrav = physicsParam.xGrav
 			players[i].yGrav = physicsParam.yGrav
@@ -550,7 +550,7 @@ end
 local function gameLoopEvents(event)
 	-- Runtime functions
 	update(event)
-	
+		
 	if gameData.gRune == true and gameData.isShowingMiniMap == false then
 		for check = 1, #accelObjects.switchWallAndIceberg do
   			local currObject = accelObjects.switchWallAndIceberg[check]
@@ -558,15 +558,16 @@ local function gameLoopEvents(event)
 				print("MOVING SWITCHWALL!!!!!")
   				local velY = 0
   				local velX = 0
+  				-- Change speed of moving object
   				if gameLoop.player[1].yGrav < 0 then --if player1.yGrav<0 then
-  					velY = -40
+  					velY = -100
   				elseif gameLoop.player[1].yGrav > 0 then --elseif player1.yGrav > 0 then
-  					velY = 40
+  					velY = 100
   				end
   				if gameLoop.player[1].xGrav < 0 then --if player1.xGrav<0 then
-  					velX = -40
+  					velX = -100
   				elseif gameLoop.player[1].xGrav > 0 then --elseif player1.xGrav > 0 then
-  					velX = 40
+  					velX = 100
   				end
 				
 				currObject:setLinearVelocity(velX, velY)
@@ -579,7 +580,7 @@ local function gameLoopEvents(event)
 		
 	-----------------------------
 	--[[ START WORLD SELECTOR]]--
-	if gameData.selectWorld then
+	if gameData.selectWorld then	
 		if gameData.inLevelSelector == 1 then
 			clean(event)
 			gameData.inLevelSelector = 0
@@ -610,19 +611,25 @@ local function gameLoopEvents(event)
 		print ("Setting World Selector!!!!!!!!!!!!!!!!!!")
 		-- Switch off this loop
 		gameData.selectWorld = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 		
 	---------------------------
 	--[[ START LVL SELECTOR]]--
-	if gameData.selectLevel then
-		loadingScreen.loadingInit(gui)
-		clean(event)
-		
+	if gameData.selectLevel then	
 		if gameData.debugMode then
 			print("In Level Selector")
 			print("gameData.mapData.world", gameData.mapData.world)
 		end
-				
+		-- Activate loading screen
+		loadingScreen.loadingInit(gui)
+		clean(event)
+		-- Cancel death timer if player quits while in water
+		if gameLoop.player[1] then
+			gameLoop.player[1]:stopDeathTimer()
+		end		
 		-- Reset mapData to level select default
 		mapData.world = gameData.mapData.world
 		mapData.levelNum = "LS"
@@ -639,6 +646,9 @@ local function gameLoopEvents(event)
 		-- Switch off this loop
 		gameData.selectLevel = false
 		loadingScreen.deleteLoading()
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	-----------------------
@@ -662,6 +672,9 @@ local function gameLoopEvents(event)
 		gameData.preGame = true
 		-- Switch off this loop
 		gameData.gameStart = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	-------------------------
@@ -692,6 +705,9 @@ local function gameLoopEvents(event)
 		gameData.preGame = nil
 		-- Add game event listeners
 		addGameLoopListeners(gui)
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 		
 	-----------------------
@@ -702,7 +718,10 @@ local function gameLoopEvents(event)
 		end	
 		-- Clean
 		--clean(event)
-		
+		-- Cancel death timer if player quits while in water
+		if gameLoop.player[1] then
+			gameLoop.player[1]:stopDeathTimer()
+		end
 		inventory.inventoryInstance:clear()
 		collisionDetection.resetCollision()
 		for i = 1, gui.playerCount do
@@ -718,6 +737,9 @@ local function gameLoopEvents(event)
 		gameData.onIceberg = false
 		-- Switch off this loop
 		gameData.levelRestart = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 		
 	------------------------
@@ -742,6 +764,9 @@ local function gameLoopEvents(event)
 		end
 		-- Switch off this loop
 		gameData.levelComplete = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	--------------------
@@ -763,6 +788,9 @@ local function gameLoopEvents(event)
 		gameData.allowPaneSwitch = false
 		gameData.allowMiniMap = false
 		gameData.gameScore = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	----------------------
@@ -771,7 +799,11 @@ local function gameLoopEvents(event)
 		if gameData.debugMode then
 			print("Ending game...")
 		end
-	
+		menu.cleanInGameOptions()
+		-- Cancel death timer if player quits while in water
+		if gameLoop.player[1] then
+			gameLoop.player[1]:stopDeathTimer()
+		end
 		--sound.soundClean()
 		-- Switch off game booleans
 		if gameData.ingame == -1 then
@@ -797,6 +829,9 @@ local function gameLoopEvents(event)
 		
 		-- Switch off this loop
 		gameData.gameEnd = false
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	-------------------
@@ -805,9 +840,14 @@ local function gameLoopEvents(event)
 		if gameData.debugMode then
 			print("Main menu on...")
 		end		
-		
+				
 		-- Go to main menu
 		menu.clean()
+		-- Cancel death timer if player quits while in water
+		if gameLoop.player[1] then
+			gameLoop.player[1]:stopDeathTimer()
+		end
+		
 		gameData.updateOptions = false
 		gameData.gameTime = 0
 		gameData.ingame = 0
@@ -827,6 +867,10 @@ local function gameLoopEvents(event)
 		gameData.inMainMenu = true
 		-- Switch off this loop
 		gameData.menuOn = false
+		
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 		
 	----------------------
@@ -844,7 +888,11 @@ local function gameLoopEvents(event)
 		gameData.updateOptions = true
 		gameData.inMainMenu = false
 		-- Switch off this loop
-		gameData.inOptions = false		
+		gameData.inOptions = false	
+
+		if gameData.debugMode then			
+			gameData:printData()
+		end				
 	end
 	
 	-------------------------
@@ -865,6 +913,10 @@ local function gameLoopEvents(event)
 		removeGameLoopListeners(gui)
 		-- Switch off this loop
 		gameData.inGameOptions = false
+		
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	---------------------
@@ -887,6 +939,10 @@ local function gameLoopEvents(event)
 		gameTimer.resumeTimer()	
 		-- Switch off this loop
 		gameData.resumeGame = false
+		
+		if gameData.debugMode then			
+			gameData:printData()
+		end		
 	end
 	
 	--[[	

@@ -352,14 +352,14 @@ local function options(event)
 	-- Image sheet options and declaration
 	local options = {
 		frames = {
-			{ x=0, y=0, width=9, height=64 },
-			{ x=35, y=0, width=9, height=64 },
-			{ x=112, y=0, width=9, height=64 },
-			{ x=120, y=0, width=292, height=64 },
-			{ x=420, y=0, width=64, height=64 }
+			{ x=0, y=0, width=40, height=70 },
+			{ x=80, y=0, width=40, height=70 },
+			{ x=205, y=0, width=40, height=70 },
+			{ x=248, y=0, width=64, height=70 },
+			{ x=336, y=0, width=70, height=70 }
 		},
-		sheetContentWidth = 464,
-		sheetContentHeight = 64
+		sheetContentWidth = 406,
+		sheetContentHeight = 70
 	}
 	
 	local sliderSheet = graphics.newImageSheet("mapdata/art/slider/sliderSheet.png", options )
@@ -384,12 +384,12 @@ local function options(event)
 		[5] = display.newText("Debug Mode: ", 350, 150, "Teacher_A", 52),
 		-- Sound controller (SFX[6] - BGM[7])
 		[6] = widget.newSlider{sheet = sliderSheet, leftFrame = 1, middleFrame = 2, rightFrame = 3, fillFrame = 4,
-								frameWidth = 38, frameHeight = 64, handleFrame = 5, handleWidth = 64, handleHeight = 64,
-								orientation="horizontal", width=375, height=1000, value = sfxVal, 
+								frameWidth = 32, frameHeight = 70, handleFrame = 5, handleWidth = 90, handleHeight = 90,
+								orientation="horizontal", width=360, height=80, value = sfxVal, 
 								listener=sfxController},
 		[7] = widget.newSlider{sheet = sliderSheet, leftFrame = 1, middleFrame = 2, rightFrame = 3, fillFrame = 4,
-								frameWidth = 36, frameHeight = 64, handleFrame = 5, handleWidth = 64, handleHeight = 64,
-								orientation="horizontal", width=375, height=1000, value = bgmVal, 
+								frameWidth = 32, frameHeight = 70, handleFrame = 5, handleWidth = 90, handleHeight = 90,
+								orientation="horizontal", width=360, height=80, value = bgmVal, 
 								listener=bgmController},
 		-- Sound text
 		[8] = display.newText("Sound Volume: ", 350, 150, "Teacher_A", 52),
@@ -397,14 +397,15 @@ local function options(event)
 		-- Pre-store location in array for value text
 		[10] = display.newText(gameData.sfxVolume*10, 350, 150, "Teacher_A", 40),
 		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40),
+		
 		-- Invert switch
-		[12] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
+		--[[[12] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
 							   onPress = buttonPressed},
 		-- Invert text
 		[13] = display.newText("Invert Controls: ", 350, 150, "Teacher_A", 52),
 
 		-- Calibrate Accelerometer button
-		[14] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),
+		[14] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),]]--
 	}
 	
 	menuObjects.name = "optGroup"
@@ -468,7 +469,7 @@ local function options(event)
 	menuObjects[11]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 
 	-- Inverted controls object
-	if gameData.invert then
+	--[[if gameData.invert then
 		menuObjects[12]:setState({isOn = true})
 	elseif gameData.invert == false then
 		menuObjects[12]:setState({isOn = false})
@@ -477,6 +478,7 @@ local function options(event)
 	menuObjects[12].x = display.contentCenterX + 200
 	menuObjects[12].y = display.contentCenterY + 125
 	menuObjects[12].name = "invertControlsSwitch"
+	
 	-- Inverted Controls text
 	menuObjects[13].x = display.contentCenterX
 	menuObjects[13].y = display.contentCenterY + 125
@@ -487,6 +489,7 @@ local function options(event)
 	menuObjects[14].y = display.contentCenterY + 250
 	menuObjects[14].name = "calibrateAccelerometer"
 	menuObjects[14]:addEventListener("tap", buttonPressed)
+	]]--
 	
 	for i=1, #menuObjects do
 		menuGroup:insert(menuObjects[i])

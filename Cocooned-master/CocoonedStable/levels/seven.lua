@@ -29,21 +29,21 @@ local seven = {
 	-- Check to see which runes are available
 	-- Choices: "none", "blueRune", "greenRune", "pinkRune", "purpleRune", "yellowRune"
 	--             nil,    rune[1],     rune[2],    rune[3],      rune[4],      rune[5]
-	runeAvailable = {["M"]= {"purpleRune"}, 
+	runeAvailable = {["M"]= {"blueRune"}, 
 					 ["U"]= {"none"}, 
 					 ["D"]= {"none"}, 
 					 ["R"]= {"none"}, 
 					 ["L"]= {"greenRune"}},
 	timer = 300,
 	playerCount = 1,
-	playerPos = {{["x"]=4, ["y"]=4}},
+	playerPos = {{["x"]=5, ["y"]=6}},
 	-- number of wisps in the level
-	wispCount = 14,
+	wispCount = 26,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
 	["M"] = {
-		["blueAura"] = 1,
+		["blueAura"] = 0,
 		["redAura"] = 0,
 		["greenAura"] = 0,
 		["wolf"] = 0,
@@ -145,14 +145,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Check which pane
 
 	if mapData.pane == "M" then
-		-- Blue Aura
-		objects["blueAura1"]:setSequence("move")
-		objects["blueAura1"]:play()
-		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(3, 16)
-
-		-- Shrink rune
-		rune[4].x, rune[4].y = generate.tilesToPixels(4, 21)			
-		rune[4].isVisible = true
+		-- Break walls rune
+		rune[1].x, rune[1].y = generate.tilesToPixels(4, 21)			
+		rune[1].isVisible = true
 
 		-- Wisps
 		wisp[1].x, wisp[1].y = generate.tilesToPixels(12, 6)
@@ -167,8 +162,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		shadows.x = 1
 		shadows.y = 18
 				
-		generate.gWisps(wisp, map, mapData, 1, 7, seven.wispCount)		
-		generate.gAuraWalls(map, mapData, "blueWall")
+		generate.gWisps(wisp, map, mapData, 1, 7, seven.wispCount)
+		generate.gBreakWalls(map, mapData, "breakWall")		
 		-- generate.gWater(map, mapData)
 	elseif mapData.pane == "L" then
 		wisp[8].x, wisp[8].y = generate.tilesToPixels(7, 5)
@@ -192,14 +187,26 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 8, 14, seven.wispCount)
 	elseif mapData.pane == "R" then						
-		--rune[4].x, rune[4].y = generate.tilesToPixels(19.5, 12)			
-		--rune[4].isVisible = true
+		-- Wisps
+		wisp[15].x, wisp[15].y = generate.tilesToPixels(15, 6)
+		wisp[16].x, wisp[16].y = generate.tilesToPixels(15, 9)
+		wisp[17].x, wisp[17].y = generate.tilesToPixels(15, 13)
+		wisp[18].x, wisp[18].y = generate.tilesToPixels(15, 17)
+		wisp[19].x, wisp[19].y = generate.tilesToPixels(8, 17)
+		wisp[20].x, wisp[20].y = generate.tilesToPixels(15, 5)
+		wisp[21].x, wisp[21].y = generate.tilesToPixels(18, 5)
+		wisp[22].x, wisp[22].y = generate.tilesToPixels(21, 5)
+		wisp[23].x, wisp[23].y = generate.tilesToPixels(38, 17)
+		wisp[24].x, wisp[24].y = generate.tilesToPixels(34, 17)
+		wisp[25].x, wisp[25].y = generate.tilesToPixels(30, 17)
+		wisp[26].x, wisp[26].y = generate.tilesToPixels(26, 17)
 
 		-- set shadow angle for the pane
 		shadows.x = 1
 		shadows.y = 18
 
 		generate.gWater(map, mapData)
+		generate.gWisps(wisp, map, mapData, 15, 26, seven.wispCount)
 	elseif mapData.pane == "U" then
 		if gameData.debugMode then
 			print("You shouldn't be in here...")

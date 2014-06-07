@@ -43,7 +43,7 @@ local animation = {
 			{frames = {1}, name = "stop", time = 250}
 		},
 		shrinkAnimation = {
-			{frames = {1,2,3,4,5,6,7,8,9,10,11}, name = "move", time = 750, loopCount = 1},
+			{frames = {1,2,3,4,5,6,7,8}, name = "move", time = 750, loopCount = 1},
 			{frames = {1}, name = "stop", time = 250}
 		},
 		deathAnimation = {
@@ -80,12 +80,12 @@ local animation = {
 		["fish1"] = {
 			{frames = {1,2,3,4,5}, name = "move", loopCount = 1,time = 300},
 			{frames = {9,10,11,12}, name = "still", loopCount = 1, time = 250},
-			{frames = {13,14,15,16,17,18,19,1,2,3,4,5,6,7,8,}, name = "jumpingin", loopCount = 1, time = 250}
+			{frames = {13,14,15,16,17,18,19,1,2,3,4,5,6,7,8}, name = "jumpingin", loopCount = 1, time = 250}
 		},
 		["fish2"] = {
 			{frames = {1,2,3,4,5}, name = "move", loopCount = 1,time = 300},
 			{frames = {9,10,11,12}, name = "still", loopCount = 1, time = 250},
-			{frames = {13,14,15,16,17,18,19,1,2,3,4,5,6,7,8,}, name = "jumpingin", loopCount = 1, time = 250}
+			{frames = {13,14,15,16,17,18,19,1,2,3,4,5,6,7,8}, name = "jumpingin", loopCount = 1, time = 250}
 		},
 		["splash"] = {
 			{frames = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}, name = "move", time = 600, start=1, count=15, loopCount=1},
@@ -111,8 +111,8 @@ local animation = {
 					 {width = 72, height = 72, sheetContentWidth = 432, sheetContentHeight = 216, numFrames = 18}),
 		shrinkSheet = graphics.newImageSheet("mapdata/art/animation/switchPanesSheet.png", 
 					 {width = 72, height = 72, sheetContentWidth = 792, sheetContentHeight = 72, numFrames = 11}),
-		deathSheet = graphics.newImageSheet("mapdata/art/animation/screenCrack.png", 
-					 {width = 1552, height = 864, sheetContentWidth =3108, sheetContentHeight =1728, numFrames = 4}),
+		--deathSheet = graphics.newImageSheet("mapdata/art/animation/screenCrack.png", 
+		--			 {width = 1552, height = 864, sheetContentWidth =3108, sheetContentHeight =1728, numFrames = 4}),
 		wolfSheet = graphics.newImageSheet("mapdata/art/animation/wolfSheet.png", 
 					 {width = 144, height = 72, sheetContentWidth = 1152, sheetContentHeight = 72, numFrames = 8}),
 		paneSheet = graphics.newImageSheet("mapdata/art/animation/snowAnimation.png", 

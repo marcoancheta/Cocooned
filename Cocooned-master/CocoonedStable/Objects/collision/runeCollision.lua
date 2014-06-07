@@ -25,7 +25,7 @@ local function endAnimation( event )
 	if ( event.phase == "ended" ) then
 		local thisSprite = event.target  --"event.target" references the sprite
 		thisSprite:removeSelf()  --play the new sequence; it won't play automatically!
-	end
+	end	
 end
 
 --------------------------------------------------------------------------------
@@ -52,6 +52,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	runeCollide:play()
 	runeCollide:addEventListener( "sprite", endAnimation )
 
+
 	-- Create animation for the ball shrinking 
 	--local playerShrink = display.newSprite(animation.sheetOptions.shrinkSheet, spriteOptions.shrinkAnimation)
 	--playerShrink.x, playerShrink.y = collideObject.x - 45, collideObject.y
@@ -62,6 +63,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[9])
 		player:breakWalls(map)
+		player.large = true
+		player:unshrink()
 	elseif collideObject.name == "pinkRune" then
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[10])
@@ -82,12 +85,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			end
 		end	
 		
-		-- Create animation for the ball shrinking 
-		local playerShrink = display.newSprite(animation.sheetOptions.shrinkSheet, animation.spriteOptions.shrinkAnimation)
-		playerShrink.x, playerShrink.y = collideObject.x, collideObject.y
-		playerShrink:setSequence("move")
-		playerShrink:play()
-		playerShrink:removeSelf( )
+		-- shrink the player		
+		player.small = true
 		player:shrink()
 	end
 	

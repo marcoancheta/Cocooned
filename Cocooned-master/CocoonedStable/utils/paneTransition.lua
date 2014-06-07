@@ -94,11 +94,8 @@ local function pWater(event)
 		end	
 
 		if ( distanceCheck > 300 ) then
-			print("no water or shore found, you should be fine")
 			locationFound = true
 			inWater = false
-		else
-			print("you in water mayne!!")
 		end 
 		distanceCheck = distanceCheck + 30
 		
@@ -140,11 +137,9 @@ local function runReload(event)
 	---------------------------------------------------
 	-- load new map pane
 	--params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
-	print("player Check 8 " .. params.player1.imageObject.x)
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
 	collisionDetection.changeCollision(params.player1, params.mapData, params.gui, params.map)
-	print("player Check 9 " .. params.player1.imageObject.x)
 	-- delay collision detection for a little while
 	local collTimer = timer.performWithDelay(100, turnCollOn)
 	-- check if the player has swiped into water
@@ -206,9 +201,17 @@ local function movePanes(event)
 	snow.meltSnow()
 	-- Re-initialize snow
 	snow.new()
-	print("player Check 7 " .. params.player1.imageObject.x)
+	-- Re-initialize player values
 	if params.player1.small == true then
+		params.player1.small = false
 		params.player1:unshrink()
+	end
+	if params.player1.breakable == true then
+		params.player1.breakable = false
+	end
+	if params.player1.large == true then
+		params.player1.large = false
+		params.player1:shrink()		
 	end
 	-- load new map pane
 	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)

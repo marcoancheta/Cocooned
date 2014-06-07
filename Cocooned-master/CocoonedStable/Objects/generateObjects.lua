@@ -333,7 +333,6 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
--- takes in a start and end index and creates those wisps only
 local function gAuraWalls(map, mapData, type)
 	local auraWall = display.newImageRect("mapdata/art/background/" ..mapData.levelNum.. "/aura/" ..mapData.pane..".png", 1460, 864)
 	auraWall.alpha = 1
@@ -344,6 +343,25 @@ local function gAuraWalls(map, mapData, type)
 	auraWall.y = display.contentCenterY
 	physics.addBody(auraWall, "static", physicsData.getAura(mapData.levelNum):get(mapData.pane))
 	map.front:insert(auraWall)
+end
+
+--------------------------------------------------------------------------------
+-- Generate breakable walls collision
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function gBreakWalls(map, mapData, typeName)
+	local breakWall = display.newImageRect("mapdata/art/background/" ..mapData.levelNum.. "/breakable/" ..mapData.pane..".png", 1440, 864)
+	breakWall.alpha = 1
+	breakWall.breakCount = 0
+	breakWall.justHit = false
+	breakWall.name = "" .. typeName .. ""
+	breakWall.collType = "solid"
+	breakWall.func = typeName .. "Collision"
+	breakWall.x = display.contentCenterX
+	breakWall.y = display.contentCenterY
+	physics.addBody(breakWall, "static", physicsData.getBreak(mapData.levelNum):get(mapData.pane))
+	map.front:insert(breakWall)
 end
 
 --------------------------------------------------------------------------------
@@ -422,6 +440,7 @@ generateObjects = {
 	gWisps = gWisps,
 	gMObjects = gMObjects,
 	gWater = gWater,
+	gBreakWalls = gBreakWalls,
 	gWalls = gWalls,
 	gAuraWalls = gAuraWalls,
 	destroyObjects = destroyObjects,
