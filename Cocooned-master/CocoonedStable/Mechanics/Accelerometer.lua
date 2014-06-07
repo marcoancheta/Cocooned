@@ -74,14 +74,14 @@ local function onAccelerate(event, player)
 
 	-- Note: Accelerometer is always relative to the device in portrait orientation
 	-- X gravity change
-	if event.yInstant > 0.05 then
+	if event.yInstant > 0.05 - gameData.offSetX then
 		xGrav = -event.yInstant
-	elseif event.yInstant < -0.05 then
+	elseif event.yInstant < -0.05 - gameData.offSetX then
 		xGrav = -event.yInstant
-	elseif event.yGravity > 0.05 then
+	elseif event.yGravity > 0.05 - gameData.offSetX then
 		xGrav = -event.yGravity - gameData.offSetX
 		--print(-event.yGravity, gameData.offSetX)
-	elseif event.yGravity < -0.05 then
+	elseif event.yGravity < -0.05 - gameData.offSetX then
 		xGrav = -event.yGravity - gameData.offSetX
 		--print(-event.yGravity, gameData.offSetX)
 	else
@@ -91,13 +91,13 @@ local function onAccelerate(event, player)
 	end
 
 	-- Y gravity change
-	if event.xInstant > 0.05 then
+	if event.xInstant > 0.05 - gameData.offSetY then
 		yGrav = -event.xInstant
-	elseif event.xInstant < -0.05 then
+	elseif event.xInstant < -0.05 - gameData.offSetY then
 		yGrav = -event.xInstant
-	elseif event.xGravity > 0.05 then
+	elseif event.xGravity > 0.05 - gameData.offSetY then
 		yGrav = -event.xGravity - gameData.offSetY
-	elseif event.xGravity < -0.05 then
+	elseif event.xGravity < -0.05 - gameData.offSetY then
 		yGrav = -event.xGravity - gameData.offSetY
 	else
 		yGrav = 0 - gameData.offSetY

@@ -79,7 +79,7 @@ end
 --------------------------------------------------------------------------------
 -- Player Accelerometer Controls
 --------------------------------------------------------------------------------
---[[
+
 local function playerAC(int)
 	if player1 ~= nil then
 		player1.imageObject.linearDamping = player1.imageObject.linearDamping + int
@@ -93,7 +93,7 @@ local function playerAC(int)
 		playerText:toFront()
 	end
 end
-]]--
+
 
 --------------------------------------------------------------------------------
 -- Menu options update function. Pass in menuObjects.
