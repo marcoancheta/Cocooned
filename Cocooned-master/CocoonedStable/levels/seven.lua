@@ -121,7 +121,7 @@ local seven = {
 		["redTotem"] = 0,
 		["greenTotem"] = 0,
 		["switch"] = 0,
-		["switchWall"] = 0,
+		["switchWall"] = 1,
 		["exitPortal"] = 1, 
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
@@ -174,11 +174,16 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[13].x, wisp[13].y = generate.tilesToPixels(11, 11)
 		wisp[14].x, wisp[14].y = generate.tilesToPixels(13, 11)
 		
+		-- Move objects rune 
 		rune[2].x, rune[2].y = generate.tilesToPixels(35.5, 14.5)			
 		rune[2].isVisible = true
 
+		-- Exit Portal
 		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(5, 21)
+
+		-- Moveable object
+  		objects["switchWall1"].x, objects["switchWall1"].y = generate.tilesToPixels(5, 21)
 
 		-- set shadow angle for the pane
 		shadows.x = 1

@@ -124,6 +124,10 @@ local function runWinner(mapData, gui)
 	--highScore.scoreTable = tables
 	--highScore.updateScore(mapData, gui, score)
 	--highScore.counter = 0
+
+	-- Play level complete tune
+	sound.stopChannel(1)
+	sound.playSound(sound.backgroundMusic[4])
 	
 	-- Restart Level button
 	buttonObj[1] = display.newImageRect("mapdata/art/buttons/restart.png", 200, 200)

@@ -35,8 +35,9 @@ local six = {
 					 ["R"]= {"none"}, 
 					 ["L"]= {"none"}},
 	timer = 300,
-	playerCount = 1,
-	playerPos = {{["x"]=25, ["y"]=14}},
+	playerCount = 2,
+	playerPos = {{["x"]=25, ["y"]=14},
+				{["x"]=30, ["y"]=14}},
 	-- number of wisps in the level
 	wispCount = 29,
 	-- number of objects in each pane (M,D,U,R,L)
