@@ -32,7 +32,7 @@ local ten = {
 	runeAvailable = {["M"]= {"purpleRune"}, 
 					 ["U"]= {"none"}, 
 					 ["D"]= {"none"}, 
-					 ["R"]= {"none"}, 
+					 ["R"]= {"pinkRune"}, 
 					 ["L"]= {"none"}},
 	timer = 300,
 	playerCount = 2,
@@ -213,6 +213,11 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[37].x, wisp[37].y = generate.tilesToPixels(26, 5)
 		wisp[38].x, wisp[38].y = generate.tilesToPixels(29, 7)
 		wisp[39].x, wisp[39].y = generate.tilesToPixels(30, 10)
+
+		-- Slow time rune
+		rune[3].x, rune[3].y = generate.tilesToPixels(30, 17)			
+		rune[3].isVisible = true
+
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(15, 15)
  		objects["fish11"].eX, objects["fish11"].eY = generate.tilesToPixels(22, 8)
@@ -286,7 +291,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	-- set which panes are avaiable for player
 	map.front.panes = ten.panes
-	map.front.itemGoal = 1
+	map.front.itemGoal = 2
 
 end
 

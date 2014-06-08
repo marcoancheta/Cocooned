@@ -37,7 +37,7 @@ local eleven = {
 	playerCount = 1,
 	playerPos = {{["x"]=4, ["y"]=4},},
 	-- number of wisps in the level
-	wispCount = 39,
+	wispCount = 38,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -166,7 +166,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[20].x, wisp[20].y = generate.tilesToPixels(27, 16)
 		wisp[21].x, wisp[21].y = generate.tilesToPixels(30, 13)
 		wisp[22].x, wisp[22].y = generate.tilesToPixels(12, 15)
-		wisp[23].x, wisp[23].y = generate.tilesToPixels(29, 8)
 		
 		-- set shadow angle for the pane
 		shadows.x = 1
@@ -175,26 +174,26 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Exit portal
  		objects["exitPortal1"]:setSequence("still")
 		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(20, 9)
-		generate.gWisps(wisp, map, mapData, 1, 23, eleven.wispCount)
+		generate.gWisps(wisp, map, mapData, 1, 22, eleven.wispCount)
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
 		-- Wisps
-		wisp[24].x, wisp[24].y = generate.tilesToPixels(6, 12)
-		wisp[25].x, wisp[25].y = generate.tilesToPixels(7, 7)
-		wisp[26].x, wisp[26].y = generate.tilesToPixels(11, 4)
-		wisp[27].x, wisp[27].y = generate.tilesToPixels(17, 2)
-		wisp[28].x, wisp[28].y = generate.tilesToPixels(22, 1)
-		wisp[29].x, wisp[29].y = generate.tilesToPixels(30, 1)
-		wisp[30].x, wisp[30].y = generate.tilesToPixels(35, 4)
-		wisp[31].x, wisp[31].y = generate.tilesToPixels(37, 7)
-		wisp[32].x, wisp[32].y = generate.tilesToPixels(33, 18)
-		wisp[33].x, wisp[33].y = generate.tilesToPixels(36, 14)
-		wisp[34].x, wisp[34].y = generate.tilesToPixels(25, 18)
-		wisp[35].x, wisp[35].y = generate.tilesToPixels(19, 17)
-		wisp[36].x, wisp[36].y = generate.tilesToPixels(24, 7)
-		wisp[37].x, wisp[37].y = generate.tilesToPixels(22, 9)
-		wisp[38].x, wisp[38].y = generate.tilesToPixels(24, 11)
-		wisp[39].x, wisp[39].y = generate.tilesToPixels(26, 9)
+		wisp[23].x, wisp[23].y = generate.tilesToPixels(6, 12)
+		wisp[24].x, wisp[24].y = generate.tilesToPixels(7, 7)
+		wisp[25].x, wisp[25].y = generate.tilesToPixels(11, 4)
+		wisp[26].x, wisp[26].y = generate.tilesToPixels(17, 2)
+		wisp[27].x, wisp[27].y = generate.tilesToPixels(22, 1)
+		wisp[28].x, wisp[28].y = generate.tilesToPixels(30, 1)
+		wisp[29].x, wisp[29].y = generate.tilesToPixels(35, 4)
+		wisp[30].x, wisp[30].y = generate.tilesToPixels(37, 7)
+		wisp[31].x, wisp[31].y = generate.tilesToPixels(33, 18)
+		wisp[32].x, wisp[32].y = generate.tilesToPixels(36, 14)
+		wisp[33].x, wisp[33].y = generate.tilesToPixels(25, 18)
+		wisp[34].x, wisp[34].y = generate.tilesToPixels(19, 17)
+		wisp[35].x, wisp[35].y = generate.tilesToPixels(24, 7)
+		wisp[36].x, wisp[36].y = generate.tilesToPixels(22, 9)
+		wisp[37].x, wisp[37].y = generate.tilesToPixels(24, 11)
+		wisp[38].x, wisp[38].y = generate.tilesToPixels(26, 9)
 		
 		-- Fish
 		objects["fish11"].x, objects["fish11"].y = generate.tilesToPixels(30, 17)
@@ -219,7 +218,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		generate.gWater(map, mapData)
 		generate.gAuraWalls(map, mapData, "blueWall")
-		generate.gWisps(wisp, map, mapData, 24, 39, eleven.wispCount)
+		generate.gWisps(wisp, map, mapData, 23, 38, eleven.wispCount)
 	elseif mapData.pane == "L" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "U" then

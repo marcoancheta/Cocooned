@@ -79,10 +79,6 @@ local function init(gui)
 	--print("RUN")
 	textObj = {}
 	scoreObj = {}
-	-- Create overlay object
-	overlay = display.newImageRect("mapdata/art/background/screens/levelComplete.png", 1460, 860)
-	overlay.x, overlay.y = display.contentCenterX, display.contentCenterY
-	overlay.alpha = 0
 	
 	local overTrans = transition.to(overlay, {time=300, alpha=0.95})
 	
@@ -137,6 +133,11 @@ local function runWinner(mapData, gui)
 	buttonObj[2] = display.newImageRect("mapdata/art/buttons/levelselect.png", 200, 200)
 	buttonObj[2].name = "select"
 	buttonObj[2].x, buttonObj[2].y = generate.tilesToPixels(36, 19)
+
+	-- Create overlay object
+	overlay = display.newImageRect("mapdata/art/background/screens/levelComplete.png", 1460, 860)
+	overlay.x, overlay.y = display.contentCenterX, display.contentCenterY
+	overlay.alpha = 0
 	
 	for i=1, #buttonObj do
 		buttonObj[i]:scale(1.5, 1.5)

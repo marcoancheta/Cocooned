@@ -224,6 +224,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Wisps
 		wisp[28].x, wisp[28].y = generate.tilesToPixels(20, 15)
 
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(12, 7)
+		objects["fixedIceberg1"].time = 3800 --not needed if free
+		objects["fixedIceberg1"].movement = "free" --fixed or free
+
 		-- Runes
 		rune[2].x, rune[2].y = generate.tilesToPixels(5, 5)			
 		rune[2].isVisible = true
