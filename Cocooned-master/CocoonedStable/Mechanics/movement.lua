@@ -102,28 +102,57 @@ local function moveAndAnimate(event, currPlayer, gui) --, physics
  			snowEmitter:emit(gui, currPlayer.imageObject.x + offSet1, currPlayer.imageObject.y + offSet2)
  		end
  		]]
-
-		if speed > 1125 then
+ 		if speed > 3200 then
+ 			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = 3.0
+ 		elseif speed > 2300 then
+ 			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = 2.8
+ 		elseif speed > 2000 then
+ 			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = 2.75
+		elseif speed > 1125 then
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = 2.5
+		elseif speed > 860 then 
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = 2.25
 		elseif speed > 600 then
 			--local delay = timer.performWithDelay(4000, sound.playEventSound, 0)
 			--delay.params = {params1 = event, params2 = sound.rollSnowSound}
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = 2
+		elseif speed > 450 then
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = 1.75
 		elseif speed > 300 then
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = 1.5
+		elseif speed > 225 then
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = 1.25
+		elseif speed > 150 then
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = 1.0
+		elseif speed > 100 then
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = .75
 		elseif speed > 30 then
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = .5
 		elseif speed > 10 then
 			currPlayer.imageObject:play()
 			currPlayer.imageObject.timeScale = .25
+		elseif speed > 7 then 
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = .15
+		elseif speed > 5 then 
+			currPlayer.imageObject:play()
+			currPlayer.imageObject.timeScale = .5
 		else
 			currPlayer.imageObject:pause()
 		end
-	else
+	else 
 		currPlayer.imageObject:pause()
 	end
 	-- if player has an aura, show aura particles else hide it
