@@ -11,12 +11,10 @@
 local inventoryInstance = {
 	items = {},
 	size = 1,
-	runes = {["M"] = {}, 
-			 ["U"] = {}, 
-			 ["D"] = {}, 
-			 ["R"] = {}, 
-			 ["L"] = {}},
-	runeSize = 1
+	-- THIS FUCKING DOES NOTHING:
+	runes = {},
+	runeSize = 1,
+	name = "inventory"
 }
 
 local wispAmount = 0
@@ -37,8 +35,10 @@ end
 --------------------------------------------------------------------------------
 function inventoryInstance:addRune(item, map, mapData)
 	print("mapData.pane", mapData.pane)
-	print("self.runes[mapData.pane]", self.runes[mapData.pane])
+	print("self.runeSize", self.runeSize)
+	print("item.name", item.name)
 	self.runes[mapData.pane][self.runeSize] = item.name
+	print("self.runes["..mapData.pane.."]", self.runes[mapData.pane][1])
 	print("add inventory", #self.runes, item.name)
 	self.runeSize = self.runeSize + 1
 end
