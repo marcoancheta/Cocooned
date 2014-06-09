@@ -11,7 +11,11 @@
 local inventoryInstance = {
 	items = {},
 	size = 1,
-	runes = {},
+	runes = {["M"] = {}, 
+			 ["U"] = {}, 
+			 ["D"] = {}, 
+			 ["R"] = {}, 
+			 ["L"] = {}},
 	runeSize = 1
 }
 
@@ -31,8 +35,8 @@ end
 --------------------------------------------------------------------------------
 -- Add Rune - function that adds rune name to inventory table
 --------------------------------------------------------------------------------
-function inventoryInstance:addRune(item, map)
-	self.runes[self.runeSize] = item.name
+function inventoryInstance:addRune(item, map, mapData)
+	self.runes[mapData.pane][self.runeSize] = item.name
 	print("add inventory", #self.runes, item.name)
 	self.runeSize = self.runeSize + 1
 end
