@@ -75,9 +75,9 @@ local function onAccelerate(event, player, mapData)
 	-- Note: Accelerometer is always relative to the device in portrait orientation
 	-- X gravity change
 	if event.yInstant > 0.05 - gameData.offSetX then
-		xGrav = -event.yInstant
+		xGrav = -event.yInstant 
 	elseif event.yInstant < -0.05 - gameData.offSetX then
-		xGrav = -event.yInstant
+		xGrav = -event.yInstant 
 	elseif event.yGravity > 0.05 - gameData.offSetX then
 		xGrav = -event.yGravity - gameData.offSetX
 		--print(-event.yGravity, gameData.offSetX)
@@ -103,6 +103,8 @@ local function onAccelerate(event, player, mapData)
 		yGrav = 0 - gameData.offSetY
 		--sound.stopChannel(2)
 	end
+
+	xGrav = xGrav * gameData.invert
 
 	-- Accelerometer Shake Event
 	if event.isShake and gameData.inWater == true and player.shook == false then

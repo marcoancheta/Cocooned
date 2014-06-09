@@ -75,7 +75,7 @@ local gameData = {
 	--Accelerometer values
 	offSetX = 0,
 	offSetY = 0,
-	invert = false,
+	invert = 1,
 }
 
 ---------------------------------------------------------------------------------------------

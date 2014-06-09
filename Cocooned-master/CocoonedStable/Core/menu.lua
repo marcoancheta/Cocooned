@@ -71,8 +71,6 @@ end
 local function getAccelOffset(event)
 	gameData.offSetX=-event.yGravity
 	gameData.offSetY=-event.xGravity
-	print("offsetY",gameData.offSetY)
-	print("offsetX",gameData.offSetX)
 	Runtime:removeEventListener("accelerometer", getAccelOffset)
 end
 
@@ -282,6 +280,15 @@ local function buttonPressed(event)
 		end
 	elseif event.target.name == "calibrateAccelerometer" then
 		Runtime:addEventListener("accelerometer", getAccelOffset)	
+	--[[ invert controls switch button pressed ]]--
+	elseif event.target.name == "invertControlsSwitch" then
+		local switch = event.target		
+		if switch.isOn then
+			gameData.invert = -1
+		else
+			gameData.invert = 1
+		end
+		memory.toggle()	
 	end
 end
 
@@ -398,14 +405,14 @@ local function options(event)
 		[10] = display.newText(gameData.sfxVolume*10, 350, 150, "Teacher_A", 40),
 		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40),
 		
-		-- Invert switch
-		--[[[12] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
+		Invert switch
+		[12] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
 							   onPress = buttonPressed},
 		-- Invert text
 		[13] = display.newText("Invert Controls: ", 350, 150, "Teacher_A", 52),
 
 		-- Calibrate Accelerometer button
-		[14] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),]]--
+		[14] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),
 	}
 	
 	menuObjects.name = "optGroup"
