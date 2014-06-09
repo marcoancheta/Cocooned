@@ -203,15 +203,15 @@ local function movePanes(event)
 	snow.new()
 	-- Re-initialize player values
 	if params.player1.small == true then
-		params.player1.small = false
 		params.player1:unshrink()
+		params.player1.small = false
 	end
 	if params.player1.breakable == true then
 		params.player1.breakable = false
 	end
 	if params.player1.large == true then
-		params.player1.large = false
-		params.player1:shrink()		
+		params.player1:shrink()	
+		params.player1.large = false	
 	end
 	-- load new map pane
 	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)

@@ -54,7 +54,7 @@ local tutorial = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 1,
+		["exitPortal"] = 0,
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -88,7 +88,7 @@ local tutorial = {
 		["greenTotem"] = 0,
 		["switch"] = 0,
 		["switchWall"] = 0,
-		["exitPortal"] = 0, 
+		["exitPortal"] = 1, 
 		["enemy"] = 0,
 		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
@@ -162,11 +162,6 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		rune[4].x, rune[4].y = generate.tilesToPixels(30, 11)			
 		rune[4].isVisible = true
 		
-		-- Exit Portal
-		objects["exitPortal1"]:setSequence("still")
-		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 12)
-		--objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(20, 20)
-
 		-- set shadow angle for the pane
 		shadows.x = 1
 		shadows.y = 18
@@ -186,6 +181,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		objects["greenAura1"]:setSequence("move")
 		objects["greenAura1"]:play()
 		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(10, 9)
+
+		-- Exit Portal
+		objects["exitPortal1"]:setSequence("still")
+		objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(3, 12)
 
 		-- set shadow angle for the pane
 		shadows.x = 1

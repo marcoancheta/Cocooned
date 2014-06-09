@@ -37,7 +37,7 @@ local twelve = {
 	playerCount = 1,
 	playerPos = {{["x"]=16, ["y"]=12},},
 	-- number of wisps in the level
-	wispCount = 4,
+	wispCount = 19,
 	-- number of objects in each pane (M,D,U,R,L)
 	-- if there is a certain object in that pane, set the quantity of that object here
 	-- else leave it at 0
@@ -93,9 +93,9 @@ local twelve = {
 		["worldPortal"] = 0
 	},
 	["R"] = {
-		["blueAura"] = 1,
+		["blueAura"] = 2,
 		["redAura"] = 0,
-		["greenAura"] = 2,
+		["greenAura"] = 4,
 		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
@@ -175,10 +175,30 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gBreakWalls(map, mapData, "breakWall")
 		generate.gWater(map, mapData)
 	elseif mapData.pane == "R" then
+		-- Wisps
+		wisp[5].x, wisp[5].y = generate.tilesToPixels(19, 5)
+		wisp[6].x, wisp[6].y = generate.tilesToPixels(20, 8)
+		wisp[7].x, wisp[7].y = generate.tilesToPixels(25, 10)
+		wisp[8].x, wisp[8].y = generate.tilesToPixels(29, 9)
+		wisp[9].x, wisp[9].y = generate.tilesToPixels(33, 6)
+		wisp[10].x, wisp[10].y = generate.tilesToPixels(20, 11)
+		wisp[11].x, wisp[11].y = generate.tilesToPixels(20, 16)
+		wisp[12].x, wisp[12].y = generate.tilesToPixels(17, 12)
+		wisp[13].x, wisp[13].y = generate.tilesToPixels(24, 12)
+		wisp[14].x, wisp[14].y = generate.tilesToPixels(39, 16)
+		wisp[15].x, wisp[15].y = generate.tilesToPixels(33, 16)
+		wisp[16].x, wisp[16].y = generate.tilesToPixels(28, 18)
+		wisp[17].x, wisp[17].y = generate.tilesToPixels(13, 17)
+
+
 		-- Auras 
 		objects["blueAura1"]:setSequence("move")
 		objects["blueAura1"]:play()
 		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(2, 20)
+
+		objects["blueAura2"]:setSequence("move")
+		objects["blueAura2"]:play()
+		objects["blueAura2"].x, objects["blueAura2"].y = generate.tilesToPixels(2, 12)
 
 		objects["greenAura1"]:setSequence("move")
 		objects["greenAura1"]:play()
@@ -186,7 +206,15 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		objects["greenAura2"]:setSequence("move")
 		objects["greenAura2"]:play()
-		objects["greenAura2"].x, objects["greenAura2"].y = generate.tilesToPixels(18, 1)
+		objects["greenAura2"].x, objects["greenAura2"].y = generate.tilesToPixels(6, 17)
+
+		objects["greenAura3"]:setSequence("move")
+		objects["greenAura3"]:play()
+		objects["greenAura3"].x, objects["greenAura3"].y = generate.tilesToPixels(10, 20)
+
+		objects["greenAura4"]:setSequence("move")
+		objects["greenAura4"]:play()
+		objects["greenAura4"].x, objects["greenAura4"].y = generate.tilesToPixels(18, 1)
 
 		--objects["redAura1"]:setSequence("move")
 		--objects["redAura1"]:play()
@@ -205,7 +233,12 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gAuraWalls(map, mapData, "greenWall")
 		generate.gAuraWalls(map, mapData, "blueWall")
 		generate.gWater(map, mapData)
+		generate.gWisps(wisp, map, mapData, 5, 17, twelve.wispCount)
 	elseif mapData.pane == "L" then
+		-- Wisps
+		wisp[18].x, wisp[18].y = generate.tilesToPixels(21, 2)
+		wisp[19].x, wisp[19].y = generate.tilesToPixels(20, 22)
+
 		-- Break walls rune
 		rune[1].x, rune[1].y = generate.tilesToPixels(5, 11)			
 		rune[1].isVisible = true
@@ -217,6 +250,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		generate.gAuraWalls(map, mapData, "greenWall")
 		generate.gBreakWalls(map, mapData, "breakWall")
 		generate.gWater(map, mapData)
+		generate.gWisps(wisp, map, mapData, 18, 19, twelve.wispCount)
 	elseif mapData.pane == "U" then
 		print("You shouldn't be in here...")
 	elseif mapData.pane == "D" then

@@ -90,7 +90,7 @@ local nine = {
 		["switchWall"] = 0,
 		["exitPortal"] = 0, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 0,
+		["fixedIceberg"] = 1,
 		["worldPortal"] = 0
 	},
 	["R"] = {
@@ -224,6 +224,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		-- Wisps
 		wisp[28].x, wisp[28].y = generate.tilesToPixels(20, 15)
 
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(12, 7)
+		objects["fixedIceberg1"].time = 3800 --not needed if free
+		objects["fixedIceberg1"].movement = "free" --fixed or free
+
 		-- Runes
 		rune[2].x, rune[2].y = generate.tilesToPixels(5, 5)			
 		rune[2].isVisible = true
@@ -255,13 +259,13 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[42].x, wisp[42].y = generate.tilesToPixels(20, 8)
 
 		-- Icebergs
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(29, 16)
+		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(29, 15)
 		objects["fixedIceberg1"].eX, objects["fixedIceberg1"].eY = generate.tilesToPixels(29, 8) 
 		objects["fixedIceberg1"].time = 5500
 		objects["fixedIceberg1"].movement = "fixed" 
 
-		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(2, 3)
-		objects["fixedIceberg2"].eX, objects["fixedIceberg2"].eY = generate.tilesToPixels(16, 3) 
+		objects["fixedIceberg2"].x, objects["fixedIceberg2"].y = generate.tilesToPixels(2, 4)
+		objects["fixedIceberg2"].eX, objects["fixedIceberg2"].eY = generate.tilesToPixels(16, 4) 
 		objects["fixedIceberg2"].time = 5500
 		objects["fixedIceberg2"].movement = "fixed"
 
