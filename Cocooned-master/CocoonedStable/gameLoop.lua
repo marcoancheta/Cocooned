@@ -371,7 +371,7 @@ local function loadMap(mapData)
 		-- Create collision
 		collisionDetection.createCollisionDetection(players[i].imageObject, gameLoop.player[1], mapData, gui, gui.back[1])
 		-- Create rune inventory for player
-		players[1].inventory.runes = {
+		players[1].inventory.inventoryInstance.runes = {
 			["M"] = {},
 			["D"] = {},
 			["L"] = {},
