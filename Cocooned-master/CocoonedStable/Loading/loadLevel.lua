@@ -230,7 +230,7 @@ local function activate(gui, mapData, player, miniMap)
 	-- Check rune inventory slots for runes collected
 	for i=1, #inventory.inventoryInstance.runes do
 		-- check which rune was collected and activate ability
-		if inventory.inventoryInstance.runes[mapData.pane][i] == "blueRune" then
+		if player.inventory.runes[mapData.pane][i] == "blueRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[mapData.pane][i] then
 					if player.large == false then
@@ -240,20 +240,20 @@ local function activate(gui, mapData, player, miniMap)
 					end
 				end
 			end
-		elseif inventory.inventoryInstance.runes[mapData.pane][i] == "pinkRune" then
+		elseif player.inventory.runes[mapData.pane][i] == "pinkRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[mapData.pane][i] then
 					player:slowTime(gui.front)
 				end
 			end
-		elseif inventory.inventoryInstance.runes[mapData.pane][i] == "greenRune" then
+		elseif player.inventory.runes[mapData.pane][i] == "greenRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[mapData.pane][i] then
 					gameData.gRune = true
 					--player:moveWalls(gui)
 				end
 			end
-		elseif inventory.inventoryInstance.runes[mapData.pane][i] == "purpleRune" then
+		elseif player.inventory.runes[mapData.pane][i] == "purpleRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[mapData.pane][i] then
 					if player.small == false then
