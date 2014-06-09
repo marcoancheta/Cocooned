@@ -198,16 +198,7 @@ local function createLevel(mapData, players)
 		-- Insert player
 		players[1].imageObject.x, players[1].imageObject.y = generate.tilesToPixels(gui.playerPos[1]["x"], gui.playerPos[1]["y"])
 		gui.middle:insert(players[1].imageObject)
-		gui.front:insert(levelWalls)
-		
-		players[1].inventory.runes = {
-			["M"] = {},
-			["D"] = {},
-			["L"] = {},
-			["R"] = {},
-			["U"] = {},
-		}
-		
+		gui.front:insert(levelWalls)		
 		-- load in goals
 		goals.drawGoals(gui, players[1])
 	end
