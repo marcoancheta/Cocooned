@@ -465,8 +465,8 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:addRune(item, map)
-	self.inventory:addRune(item, map)
+function playerInstance:addRune(item, map, mapData)
+	self.inventory:addRune(item, map, mapData)
 end
 
 --------------------------------------------------------------------------------
