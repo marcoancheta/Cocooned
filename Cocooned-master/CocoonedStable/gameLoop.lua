@@ -446,8 +446,17 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function clean(event)
+	print ("Global variables:")
+	for k,v in pairs( _G ) do
+	   print( k .. " => ", v )
+	end
 	-- stop physics
 	physics.stop()
+	--
+	for check = 1, gui.front.numChildren do
+		print(gui.front[check].name)
+			
+	end
 	-- clean snow
 	snow.meltSnow()
 	-- Clear inventory

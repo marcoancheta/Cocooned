@@ -168,6 +168,7 @@ function auraEmitterLib:createEmitter(radiusRange, particleDuration, currPlayer,
       particle.x, particle.y = playerX + particle.rad * Cos( particle.iDegreeRotation * pi / 180 ), playerY + particle.rad * Sin( particle.iDegreeRotation * pi / 180 )
       particle.iDegreeRotation = particle.iDegreeRotation+particle.speed
       local c = colors[color]
+      particle:setFillColor( c[1], c[2], c[3])
       if particle.alpha == 0 then
         particle.alpha = 1
         particle.transition = transition.to(particle, {time=Random(300, 5000), alpha = 0})

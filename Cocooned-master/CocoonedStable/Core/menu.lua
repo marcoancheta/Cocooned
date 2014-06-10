@@ -279,7 +279,7 @@ local function buttonPressed(event)
 			gameData.selectLevel = true
 		end
 	elseif event.target.name == "calibrateAccelerometer" then
-		Runtime:addEventListener("accelerometer", getAccelOffset)	
+		local eventListener = Runtime:addEventListener("accelerometer", getAccelOffset)	
 	--[[ invert controls switch button pressed ]]--
 	elseif event.target.name == "invertControlsSwitch" then
 		local switch = event.target		
