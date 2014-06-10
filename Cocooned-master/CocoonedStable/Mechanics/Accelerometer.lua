@@ -104,7 +104,7 @@ local function onAccelerate(event, player, mapData)
 		--sound.stopChannel(2)
 	end
 
-	xGrav = xGrav * gameData.invert
+	yGrav = yGrav * gameData.invert
 
 	-- Accelerometer Shake Event
 	if event.isShake and gameData.inWater == true and player.shook == false then
