@@ -208,8 +208,4 @@ function gameData:printData()
 	print("gameData.mapData.pane", self.mapData.pane)
 end
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/Elephant-Butts
 return gameData

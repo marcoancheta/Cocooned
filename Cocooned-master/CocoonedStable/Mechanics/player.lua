@@ -99,10 +99,7 @@ end
 --------------------------------------------------------------------------------
 local function changeBack(player)
 	physics.removeBody(player.imageObject)
-<<<<<<< HEAD
-=======
-	print("================", player.inventory.runes["M"][1])
->>>>>>> origin/Elephant-Butts
+	--print("================", player.inventory.runes["M"][1])
 	
 	if player.small == false then
 		player.imageObject:scale(2,2)
@@ -113,11 +110,7 @@ local function changeBack(player)
 		end
 	elseif player.large == true then
 		player.imageObject:scale(1.5,1.5)
-<<<<<<< HEAD
 		physics.addBody(player.imageObject, {radius = 114, bounce = .25})
-=======
-		physics.addBody(player.imageObject, {radius = 76, bounce = .25})
->>>>>>> origin/Elephant-Butts
 		if auraEmitter ~= nil then
 			--changes the radius range of the aura particles to match up with the ball
 			auraEmitter:changeRadius(50)
@@ -147,16 +140,6 @@ local function changeSize(player)
 	if player.small == true then
 		physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
 		player.curse = 0.5
-<<<<<<< HEAD
-	elseif player.large == false then
-		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
-		player.curse = 1
-	end
-	
-	if auraEmitter ~= nil then
-		--changes the radius range of the aura particles to match up with the ball
-		auraEmitter:changeRadius(-25)
-=======
 		if auraEmitter ~= nil then
 			--changes the radius range of the aura particles to match up with the ball
 			auraEmitter:changeRadius(-25)
@@ -168,7 +151,6 @@ local function changeSize(player)
 			--changes the radius range of the aura particles to match up with the ball
 			auraEmitter:changeRadius(-25)
 		end	
->>>>>>> origin/Elephant-Butts
 	end
 
 	physics.setGravity(0, 0)

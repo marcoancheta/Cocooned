@@ -203,14 +203,6 @@ local function movePanes(event)
 	-- Re-initialize snow
 	snow.new()
 	-- Re-initialize player values
-<<<<<<< HEAD
-	if params.player1.small == true then
-		params.player1:unshrink()
-		params.player1.small = false
-	end
-	if params.player1.breakable == true then
-		params.player1.breakable = false
-=======
 	if params.player[1] then
 		if params.player[1].small == true then
 			params.player[1].small = false
@@ -223,7 +215,6 @@ local function movePanes(event)
 			params.player[1].large = false
 			params.player[1]:shrink()		
 		end
->>>>>>> origin/Elephant-Butts
 	end
 	if params.player1.large == true then
 		params.player1:shrink()	

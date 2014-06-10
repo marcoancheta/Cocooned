@@ -233,19 +233,11 @@ local function activate(gui, mapData, player, miniMap)
 		-- check which rune was collected and activate ability
 		if player[1].inventory.runes[mapData.pane][i] == "blueRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
-<<<<<<< HEAD
-				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
-					if player.large == false then
-						player:breakWalls(gui.front)
-						player.large = true
-						player:unshrink()
-=======
 				if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
 					if player[1].large == false then
 						player[1]:breakWalls(gui.front)
 						player[1].large = true
 						player[1]:unshrink()
->>>>>>> origin/Elephant-Butts
 					end
 				end
 			end
@@ -264,17 +256,10 @@ local function activate(gui, mapData, player, miniMap)
 			end
 		elseif player[1].inventory.runes[mapData.pane][i] == "purpleRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
-<<<<<<< HEAD
-				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
-					if player.small == false then
-						player.small = true
-						player:shrink()
-=======
 				if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
 					if player[1].small == false then
 						player[1].small = true
 						player[1]:shrink()
->>>>>>> origin/Elephant-Butts
 					end
 				end
 			end

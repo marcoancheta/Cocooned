@@ -612,12 +612,8 @@ local function gameLoopEvents(event)
 		
 	-----------------------------
 	--[[ START WORLD SELECTOR]]--
-<<<<<<< HEAD
-	if gameData.selectWorld then	
-=======
 	if gameData.selectWorld then
 		loadingScreen.deleteLoading(gui)
->>>>>>> origin/Elephant-Butts
 		if gameData.inLevelSelector == 1 then
 			clean(event)
 			gameData.inLevelSelector = 0
@@ -650,12 +646,7 @@ local function gameLoopEvents(event)
 		gameData.selectWorld = false
 		if gameData.debugMode then			
 			gameData:printData()
-<<<<<<< HEAD
-		end		
-=======
 		end	
-		--loadingScreen.deleteLoading(gui)		
->>>>>>> origin/Elephant-Butts
 	end
 		
 	---------------------------
@@ -687,17 +678,11 @@ local function gameLoopEvents(event)
 		gameData.inLevelSelector = 1
 		-- Switch off this loop
 		gameData.selectLevel = false
-<<<<<<< HEAD
-		loadingScreen.deleteLoading()
-		if gameData.debugMode then			
-			gameData:printData()
-		end		
-=======
+
 		if gameData.debugMode then			
 			gameData:printData()
 		end		
 		loadingScreen.deleteLoading(gui)
->>>>>>> origin/Elephant-Butts
 	end
 	
 	-----------------------
@@ -885,25 +870,6 @@ local function gameLoopEvents(event)
 	
 	-------------------
 	--[[ MAIN MENU ]]--
-<<<<<<< HEAD
-	if gameData.menuOn then
-		if gameData.debugMode then
-			print("Main menu on...")
-		end		
-				
-		-- Go to main menu
-		menu.clean()
-		-- Cancel death timer if player quits while in water
-		if gameLoop.player[1] then
-			gameLoop.player[1]:stopDeathTimer()
-		end
-		
-		gameData.updateOptions = false
-		gameData.gameTime = 0
-		gameData.ingame = 0
-		gameData.inLevelSelector = 0
-		gameData.inWorldSelector = 0
-=======
 	if gameData.menuOn then	
 		-- Initialize gui, if gui is nil
 		if gui == nil then
@@ -911,7 +877,6 @@ local function gameLoopEvents(event)
 		end
 		-- Go to main menu
 		menu.clean()		
->>>>>>> origin/Elephant-Butts
 		snow.new()
 		menu.mainMenu(event, gui)
 		mapDataDefault()		
@@ -935,14 +900,9 @@ local function gameLoopEvents(event)
 		gameData.inMainMenu = true
 		-- Switch off this loop
 		gameData.menuOn = false
-<<<<<<< HEAD
-		
-		if gameData.debugMode then			
-=======
 		-- Debug prints
 		if gameData.debugMode then	
 			print("Main menu on...")		
->>>>>>> origin/Elephant-Butts
 			gameData:printData()
 		end		
 	end
@@ -962,19 +922,11 @@ local function gameLoopEvents(event)
 		gameData.updateOptions = true
 		gameData.inMainMenu = false
 		-- Switch off this loop
-<<<<<<< HEAD
-		gameData.inOptions = false	
-
-		if gameData.debugMode then			
-			gameData:printData()
-		end				
-=======
 		gameData.inOptions = false
 		if gameData.debugMode then			
 			gameData:printData()
 		end				
 		loadingScreen.deleteLoading(gui)
->>>>>>> origin/Elephant-Butts
 	end
 	
 	-------------------------
