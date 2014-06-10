@@ -350,7 +350,7 @@ local function loadPlayer(value, mapData)
 	vBall = display.newSprite(tSprite, animation.spriteOptions.player)
 	vBall.name = "player"
 	
-	physics.addBody(vBall, {radius = 38, bounce = .25})
+	physics.addBody(vBall, {radius = 36, bounce = .25})
 	
 	vBall.density = 0.3
 	vBall.linearDamping = 1.25
