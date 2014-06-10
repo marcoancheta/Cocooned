@@ -53,7 +53,7 @@ local playerInstance = {
 	maxSpeed = 6,
 	speedConst = 5,
 	defaultSpeed = 7,
-	radius = 38, --default radius
+	radius = 36, --default radius
 
 	--waterEscape variables
 	lastPositionX = nil,
@@ -103,7 +103,7 @@ local function changeBack(player)
 	
 	if player.small == false then
 		player.imageObject:scale(2,2)
-		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+		physics.addBody(player.imageObject, {radius = 36, bounce = .25})
 		if auraEmitter ~= nil then
 			--changes the radius range of the aura particles to match up with the ball
 			auraEmitter:changeRadius(25)
@@ -138,14 +138,14 @@ local function changeSize(player)
 	player.imageObject:scale(0.5,0.5)
 		
 	if player.small == true then
-		physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
+		physics.addBody(player.imageObject, {radius = 18, bounce = .25}) --, density = 0.7})
 		player.curse = 0.5
 		if auraEmitter ~= nil then
 			--changes the radius range of the aura particles to match up with the ball
 			auraEmitter:changeRadius(-25)
 		end	
 	elseif player.large == false then
-		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+		physics.addBody(player.imageObject, {radius = 36, bounce = .25})
 		player.curse = 1
 		if auraEmitter ~= nil then
 			--changes the radius range of the aura particles to match up with the ball
