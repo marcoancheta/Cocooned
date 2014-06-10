@@ -133,7 +133,7 @@ local function buttonPressed(event)
 	sound.playSound(sound.soundEffects[1])
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then
-		--loadingScreen.loadingInit(tempGui)
+		loadingScreen.loadingInit(tempGui)
 		-- show pressed objects
 		menuObjects[4].alpha = 1
 		-- Remove menuGroup
