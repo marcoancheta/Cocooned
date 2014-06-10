@@ -405,7 +405,7 @@ local function options(event)
 		[10] = display.newText(gameData.sfxVolume*10, 350, 150, "Teacher_A", 40),
 		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40),
 		
-		Invert switch
+		--Invert switch
 		[12] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
 							   onPress = buttonPressed},
 		-- Invert text
@@ -476,7 +476,7 @@ local function options(event)
 	menuObjects[11]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 
 	-- Inverted controls object
-	--[[if gameData.invert then
+	if gameData.invert then
 		menuObjects[12]:setState({isOn = true})
 	elseif gameData.invert == false then
 		menuObjects[12]:setState({isOn = false})
@@ -496,7 +496,6 @@ local function options(event)
 	menuObjects[14].y = display.contentCenterY + 250
 	menuObjects[14].name = "calibrateAccelerometer"
 	menuObjects[14]:addEventListener("tap", buttonPressed)
-	]]--
 	
 	for i=1, #menuObjects do
 		menuGroup:insert(menuObjects[i])
