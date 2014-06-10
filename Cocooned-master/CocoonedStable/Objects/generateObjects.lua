@@ -156,13 +156,15 @@ local function gObjects(level, objects, map, mapData, runes, player)
 			--print('player[1].inventory.runes["M"][1]', player[1].inventory.runes["M"][1])
 			for j=1, i do	
 				--print('player[1].inventory.runes["M"][1]', player[1].inventory.runes["M"][1])		
-				if player[1].inventory.runes[mapData.pane][j] ~= runes[i].name then
-					-- check if rune is visible and if so, add to map display group
-					if runes[i].isVisible == true then
-						map.front:insert(runes[i])
+				if player[1] then
+					if player[1].inventory.runes[mapData.pane][j] ~= runes[i].name then
+						-- check if rune is visible and if so, add to map display group
+						if runes[i].isVisible == true then
+							map.front:insert(runes[i])
+						end
+					else				
+						runes[i].isVisible = false
 					end
-				else				
-					runes[i].isVisible = false
 				end
 			end
 		end

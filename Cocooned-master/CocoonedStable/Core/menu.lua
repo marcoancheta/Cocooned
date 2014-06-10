@@ -115,6 +115,12 @@ local function update(objGroup)
 	end
 end
 
+-- Main Menu
+local transDelay = {
+	[1] = function() gameData.selectWorld=true; clean(); gameData.inMainMenu=false; end,
+	[2] = function() gameData.inOptions=true; clean(); gameData.inMainMenu=false; end
+}
+
 --------------------------------------------------------------------------------
 -- Button events - function that holds button functionality
 --------------------------------------------------------------------------------
@@ -125,19 +131,30 @@ local function buttonPressed(event)
 	sound.playSound(sound.soundEffects[1])
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then
+		-- temporarily hide unpressed objects
+		--menuObjects[2].isVisible = false
+		-- show pressed objects
+		menuObjects[4].alpha = 1
 		-- Remove menuGroup
-		clean()
+		--clean()
 		-- User pressed play, set gameActive to true
-		gameData.inMainMenu = false
-		gameData.selectWorld = true		
+		local tempTran = transition.to(menuObjects[4],{time=100, alpha=1})
+		local tempTrans = transition.to(menuObjects[2],{time=500, alpha=0, onComplete=transDelay[1]})
+		--gameData.selectWorld = true		
 	--[[ Options button pressed ]]--
 	elseif event.target.name == "optionButton" then	
+		-- temporarily hide unpressed objects
+		--menuObjects[3].isVisible = false
+		-- show pressed objects
+		menuObjects[5].alpha = 1
 		-- Remove menuGroup
-		clean()
-		snow.meltSnow()
+		--clean()
+		--snow.meltSnow()
 		-- Call to options display
-		gameData.inMainMenu = false
-		gameData.inOptions = true		
+		local tempTran = transition.to(menuObjects[5],{time=100, alpha=1})
+		local tempTrans = transition.to(menuObjects[3],{time=500, alpha=0, onComplete=transDelay[2]})
+		--gameData.inMainMenu = false
+		--gameData.inOptions = true		
 	--[[ Back to Main button pressed ]]--
 	elseif event.target.name == "BacktoMain" then
 		if gameData.debugMode then
@@ -244,8 +261,7 @@ local function buttonPressed(event)
 			-- clean tutorial files if exists
 			if tutorialLib.tutorialStatus then
 				tutorialLib:clean()
-			end
-		
+			end		
 			gameData.levelRestart = true
 		else
 			gameData.levelRestart = true
@@ -268,8 +284,7 @@ local function buttonPressed(event)
 			gameData.ingame = 0
 			-- turn off pane switch and minimap
 			gameData.allowPaneSwitch = false
-			gameData.allowMiniMap = false
-			
+			gameData.allowMiniMap = false			
 			-- clean tutorial files if exists
 			if tutorialLib.tutorialStatus >= 1 then
 				tutorialLib:clean()
@@ -296,7 +311,6 @@ local function mainMenu(event)
 	end
 	
 	if audio.isChannelPlaying(3) == false then
-		print(audio.isChannelPlaying(3))
 		sound.loadMenuSounds()
 		sound.playBGM(sound.backgroundMusic[1])
 	end
@@ -308,31 +322,38 @@ local function mainMenu(event)
 		-- Add main menu background image
 		[1] = display.newImageRect("mapdata/art/TitleScreen.png", 1460, 864),
 		-- Add Play button
-		--[2] = display.newImageRect("mapdata/art/buttons/newgame.png", 400, 150),
-		[2] = display.newCircle(display.contentCenterX - 350, display.contentCenterY + 210, 100 ),
-		-- Option buttons: See play button details
-		--[3] = display.newImageRect("mapdata/art/buttons/options.png", 400, 150)
-		[3] = display.newCircle(display.contentCenterX + 370, display.contentCenterY + 210, 100 )
+		[2] = display.newImageRect("mapData/art/buttons/play_unpressed.png", 400, 250),
+		-- Add Option buttons
+		[3] = display.newImageRect("mapData/art/buttons/options_unpressed.png", 400, 250),
+		-- Add Play (Pressed) button
+		[4] = display.newImageRect("mapData/art/buttons/play_pressed.png", 400, 250),
+		-- Add Option (Pressed) buttons
+		[5] = display.newImageRect("mapData/art/buttons/options_pressed.png", 400, 250)		
 	}
-		
+	
+	-- main menu background
+	menuObjects[1].x = display.contentCenterX
+	menuObjects[1].y = display.contentCenterY
+	-- Add names for buttons for listener event
+	menuObjects[2].name = "playButton"
+	menuObjects[3].name = "optionButton"
+	-- Position buttons
+	-- [unpressed]
+	menuObjects[2].x, menuObjects[2].y = display.contentCenterX - 300, display.contentCenterY + 200
+	menuObjects[3].x, menuObjects[3].y = display.contentCenterX + 300, display.contentCenterY + 200	
+	-- [pressed]
+	menuObjects[4].x, menuObjects[4].y = display.contentCenterX - 300, display.contentCenterY + 200
+	menuObjects[5].x, menuObjects[5].y = display.contentCenterX + 300, display.contentCenterY + 200
+	-- temporarily hide pressed objects
+	menuObjects[4].alpha = 0
+	menuObjects[5].alpha = 0
+	
+	-- Iterate through all objects and apply as necessary	
 	for i=1, #menuObjects do		
-		if i > 1 then
-			if i==2 then
-				menuObjects[i].name = "playButton"
-				--menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
-				menuObjects[i]:setFillColor(0,0,0,0.01) 
-			elseif i==3 then
-				menuObjects[i].name = "optionButton"
-				--menuObjects[i]:setFillColor(123*0.004,215*0.004,203*0.004, 0.8)
-				menuObjects[i]:setFillColor(0,0,0,0.01) 			
-			end
+		if i > 1 and i < 4 then
 			-- add event listener for new game and options only
 			menuObjects[i]:addEventListener("tap", buttonPressed)
-		else
-			menuObjects[i].x = display.contentCenterX
-			menuObjects[i].y = display.contentCenterY
 		end
-		
 		menuGroup:insert(menuObjects[i])
 	end
 	
