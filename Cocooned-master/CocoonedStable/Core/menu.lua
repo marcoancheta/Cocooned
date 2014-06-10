@@ -322,7 +322,7 @@ local function mainMenu(event)
 		-- Add main menu background image
 		[1] = display.newImageRect("mapdata/art/TitleScreen.png", 1460, 864),
 		-- Add Play button
-		[2] = display.newImageRect("mapData/art/buttons/play_unpressed.png", 400, 250),
+		[2] = display.newImageRect("mapdata/art/buttons/play_unpressed.png", 400, 250),
 		-- Add Option buttons
 		[3] = display.newImageRect("mapdata/art/buttons/options_unpressed.png", 400, 250),
 		-- Add Play (Pressed) button
