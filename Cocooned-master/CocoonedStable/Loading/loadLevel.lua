@@ -123,7 +123,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function createLevel(mapData, players)	
+local function createLevel(mapData, players, player, gui)	
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
 	print("check gui original pos " .. gui.x .. ", " .. gui.y)
@@ -147,8 +147,9 @@ local function createLevel(mapData, players)
 	gui:insert(gui.middle)
 	gui:insert(gui.front)
 	gui:insert(gui.load)
-	
-	loading.loadingInit(gui) --initializes loading screen assets and displays them on top
+	--initializes loading screen assets and displays them on top
+	loading.loadingInit(gui)
+
 	level = mapData.levelNum
 	-- Load in map
 	local levelBG, levelWalls = drawPane(mapData)
@@ -183,7 +184,7 @@ local function createLevel(mapData, players)
 			gui.front:insert(players[i].imageObject)
 		end
 		-- Load in objects
-		objects.main(mapData, gui) -- gui.front = map
+		objects.main(mapData, gui, players, player) -- gui.front = map
 		-- check if player has finished level
 		levelFinished.checkWin(players[1], gui.front, mapData)
 	elseif mapData.levelNum == "LS" or mapData.levelNum == "world" then
@@ -194,12 +195,11 @@ local function createLevel(mapData, players)
 			gui.middle:insert(shadowCirc)
 		end		
 		-- Load in objects
-		objects.main(mapData, gui) -- gui.front = map
+		objects.main(mapData, gui, players, player) -- gui.front = map
 		-- Insert player
 		players[1].imageObject.x, players[1].imageObject.y = generate.tilesToPixels(gui.playerPos[1]["x"], gui.playerPos[1]["y"])
 		gui.middle:insert(players[1].imageObject)
-		gui.front:insert(levelWalls)
-		
+		gui.front:insert(levelWalls)		
 		-- load in goals
 		goals.drawGoals(gui, players[1])
 	end
@@ -229,37 +229,52 @@ end
 local function activate(gui, mapData, player, miniMap)
 	local level = require("levels." .. levelNames[mapData.levelNum])
 	-- Check rune inventory slots for runes collected
-	for i=1, #inventory.inventoryInstance.runes do
+	for i=1, #player[1].inventory.runes[mapData.pane] do
 		-- check which rune was collected and activate ability
-		if inventory.inventoryInstance.runes[i] == "blueRune" then
+		if player[1].inventory.runes[mapData.pane][i] == "blueRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
+<<<<<<< HEAD
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
 					if player.large == false then
 						player:breakWalls(gui.front)
 						player.large = true
 						player:unshrink()
+=======
+				if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
+					if player[1].large == false then
+						player[1]:breakWalls(gui.front)
+						player[1].large = true
+						player[1]:unshrink()
+>>>>>>> origin/Elephant-Butts
 					end
 				end
 			end
-		elseif inventory.inventoryInstance.runes[i] == "pinkRune" then
+		elseif player[1].inventory.runes[mapData.pane][i] == "pinkRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
-				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
-					player:slowTime(gui.front)
+				if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
+					player[1]:slowTime(gui.front)
 				end
 			end
-		elseif inventory.inventoryInstance.runes[i] == "greenRune" then
+		elseif player[1].inventory.runes[mapData.pane][i] == "greenRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
-				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
+				if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
 					gameData.gRune = true
 					--player:moveWalls(gui)
 				end
 			end
-		elseif inventory.inventoryInstance.runes[i] == "purpleRune" then
+		elseif player[1].inventory.runes[mapData.pane][i] == "purpleRune" then
 			for j=1, #level.runeAvailable[mapData.pane] do
+<<<<<<< HEAD
 				if level.runeAvailable[mapData.pane][j] == inventory.inventoryInstance.runes[i] then
 					if player.small == false then
 						player.small = true
 						player:shrink()
+=======
+				if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
+					if player[1].small == false then
+						player[1].small = true
+						player[1]:shrink()
+>>>>>>> origin/Elephant-Butts
 					end
 				end
 			end
@@ -272,7 +287,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function changePane(gui, mapData, player, miniMap)
+local function changePane(gui, mapData, players, player, miniMap)
 	-- Delete old snow
 	snow.meltSnow()
 	transition.cancel()
@@ -280,24 +295,21 @@ local function changePane(gui, mapData, player, miniMap)
 		
 	-- load in wall collision
 	local levelBG, levelWalls = drawPane(mapData)
-	print(gui.name)
 	gui.back:insert(levelBG)
 	gui.middle:insert(levelWalls)
 	--gui.front:insert(player.imageObject)
-	objects.main(mapData, gui)	
+	objects.main(mapData, gui, players, player)	
 	-- Check rune inventory slots for runes collected
-	activate(gui, mapData, player, miniMap)
-	-- if player is small, set player size back to normal
-	
+	activate(gui, mapData, player, miniMap)	
 	-- Check if tutorial level
 	if mapData.levelNum == "T" then
 		if tutorialLib.tutorialStatus >= 1 then
 			--set up tiltip if in tutorial level
-			tutorialLib:showTipBox("waterTip", 2, gui, player)
+			tutorialLib:showTipBox("waterTip", 2, gui, player[1])
 		end
 	end	
 	-- check if player has finished level
-	levelFinished.checkWin(player, gui.front, mapData)
+	levelFinished.checkWin(player[1], gui.front, mapData)
 		
 	-- return new pane
 	return gui

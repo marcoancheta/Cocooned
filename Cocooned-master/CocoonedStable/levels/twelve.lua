@@ -139,12 +139,13 @@ local mObjectslocal
 --------------------------------------------------------------------------------
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
-local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
+local function load(mapData, map, rune, objects, wisp, water, wall, auraWall, players, player)
 	objectList = objects
 	-- Check which pane
 	if mapData.pane == "M" then
 		-- Break walls rune
-		rune[1].x, rune[1].y = generate.tilesToPixels(25, 11)			
+		rune[1].x, rune[1].y = generate.tilesToPixels(25, 11)	
+		--rune[1].x, rune[1].y = generate.tilesToPixels(16, 12)			
 		rune[1].isVisible = true
 
 		-- Wisps
@@ -240,7 +241,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[19].x, wisp[19].y = generate.tilesToPixels(20, 22)
 
 		-- Break walls rune
-		rune[1].x, rune[1].y = generate.tilesToPixels(5, 11)			
+		rune[1].x, rune[1].y = generate.tilesToPixels(5, 11)		
 		rune[1].isVisible = true
 
 		-- set shadow angle for the pane
@@ -258,7 +259,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	end
 
 	-- generates all objects in pane when locations are set
-	generate.gObjects(twelve, objects, map, mapData, rune)
+	generate.gObjects(twelve, objects, map, mapData, rune, player)
 	-- generate all moveable objects in pane when locations are set
 	mObjects = generate.gMObjects(twelve, objects, map, mapData)
 	-- destroy the unused objects

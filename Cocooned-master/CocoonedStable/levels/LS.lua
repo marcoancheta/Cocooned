@@ -82,7 +82,7 @@ local mObjectslocal
 --------------------------------------------------------------------------------
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
-local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
+local function load(mapData, map, rune, objects, wisp, water, wall, auraWall, players, player)
 	--locks = {}
 	objectList = objects
 			
@@ -128,11 +128,19 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 				end
 			end
 			-- Place World "C" portals.
+<<<<<<< HEAD
 			objects["exitPortal15"].x, objects["exitPortal15"].y = generate.tilesToPixels(10, 15)
 			objects["exitPortal11"].x, objects["exitPortal11"].y = generate.tilesToPixels(14, 12)		
 			objects["exitPortal13"].x, objects["exitPortal13"].y = generate.tilesToPixels(20.5, 11)
 			objects["exitPortal14"].x, objects["exitPortal14"].y = generate.tilesToPixels(28, 12)
 			objects["exitPortal12"].x, objects["exitPortal12"].y = generate.tilesToPixels(31, 15)
+=======
+			objects["exitPortal11"].x, objects["exitPortal11"].y = generate.tilesToPixels(10, 15)
+			objects["exitPortal12"].x, objects["exitPortal12"].y = generate.tilesToPixels(14, 12)		
+			objects["exitPortal13"].x, objects["exitPortal13"].y = generate.tilesToPixels(20.5, 11)
+			objects["exitPortal14"].x, objects["exitPortal14"].y = generate.tilesToPixels(28, 12)
+			objects["exitPortal15"].x, objects["exitPortal15"].y = generate.tilesToPixels(31, 15)
+>>>>>>> origin/Elephant-Butts
 			-- Back to world portal
 			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 21.5)
 		end
@@ -150,7 +158,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	end
 	
 	-- generates all objects in pane when locations are set
-	generate.gObjects(LS, objects, map, mapData, rune)
+	generate.gObjects(LS, objects, map, mapData, rune, player)
 	-- generate all moveable objects in pane when locations are set
 	mObjects = generate.gMObjects(LS, objects, map, mapData)
 	

@@ -11,27 +11,17 @@ local gameData = require("Core.gameData")
 -- Updated by: 
 --------------------------------------------------------------------------------
 local loadingBG
-local displayX = 1460
-local displayY = 864
 --------------------------------------------------------------------------------
 -- Loading Init - function that initialzies loading screen
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function loadingInit(gui)
-	if gameData.levelComplete == true then 
-		loadingBG = display.newImageRect('mapdata/art/background/screens/levelComplete.png', displayX, displayY)
-	elseif gameData.gameEnd == true then
-		loadingBG = display.newImageRect('mapdata/art/background/screens/gameOver.png', displayX, displayY)
-	else
-		loadingBG = display.newImageRect('mapdata/art/background/screens/loadingScreen.png', displayX, displayY)
-	end
-	
+	loadingBG = display.newImageRect('mapdata/art/background/screens/loadingScreen.png', 1460, 864)	
 	loadingBG.x = display.contentCenterX
 	loadingBG.y = display.contentCenterY
 	gui.load:insert(loadingBG)
-	--loadingBG:toFront()
-	
+
 	return loadingBG
 end
 
@@ -40,9 +30,11 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function deleteLoading()
+local function deleteLoading(gui)
 	if loadingBG then 
-		--display.remove(loadingBG)
+		print("REMOVE LOADING BG")
+		display.remove(loadingBG)
+		--gui.load:remove(loadingBG)
 		loadingBG:removeSelf()
 		loadingBG = nil
 	end

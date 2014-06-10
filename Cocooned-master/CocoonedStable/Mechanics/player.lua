@@ -99,6 +99,10 @@ end
 --------------------------------------------------------------------------------
 local function changeBack(player)
 	physics.removeBody(player.imageObject)
+<<<<<<< HEAD
+=======
+	print("================", player.inventory.runes["M"][1])
+>>>>>>> origin/Elephant-Butts
 	
 	if player.small == false then
 		player.imageObject:scale(2,2)
@@ -109,7 +113,11 @@ local function changeBack(player)
 		end
 	elseif player.large == true then
 		player.imageObject:scale(1.5,1.5)
+<<<<<<< HEAD
 		physics.addBody(player.imageObject, {radius = 114, bounce = .25})
+=======
+		physics.addBody(player.imageObject, {radius = 76, bounce = .25})
+>>>>>>> origin/Elephant-Butts
 		if auraEmitter ~= nil then
 			--changes the radius range of the aura particles to match up with the ball
 			auraEmitter:changeRadius(50)
@@ -139,6 +147,7 @@ local function changeSize(player)
 	if player.small == true then
 		physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
 		player.curse = 0.5
+<<<<<<< HEAD
 	elseif player.large == false then
 		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
 		player.curse = 1
@@ -147,7 +156,21 @@ local function changeSize(player)
 	if auraEmitter ~= nil then
 		--changes the radius range of the aura particles to match up with the ball
 		auraEmitter:changeRadius(-25)
+=======
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(-25)
+		end	
+	elseif player.large == false then
+		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+		player.curse = 1
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(-25)
+		end	
+>>>>>>> origin/Elephant-Butts
 	end
+
 	physics.setGravity(0, 0)
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
@@ -177,6 +200,7 @@ function playerInstance:shrink()
 	local delayShrink = function() return changeSize(self); end
 	timer.performWithDelay(100, delayShrink)
 end
+
 --------------------------------------------------------------------------------
 -- Change Type - player function that changes properties of objects to breakable
 --------------------------------------------------------------------------------
@@ -193,7 +217,6 @@ local function changeType(event)
 	end
 end
 ]]--
-
 
 
 --------------------------------------------------------------------------------
@@ -469,8 +492,8 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:addRune(item, map)
-	self.inventory:addRune(item, map)
+function playerInstance:addRune(item, map, mapData)
+	self.inventory:addRune(item, map, mapData)
 end
 
 --------------------------------------------------------------------------------
