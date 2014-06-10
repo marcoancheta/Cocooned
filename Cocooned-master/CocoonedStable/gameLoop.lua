@@ -613,7 +613,7 @@ local function gameLoopEvents(event)
 	-----------------------------
 	--[[ START WORLD SELECTOR]]--
 	if gameData.selectWorld then
-		--loadingScreen.loadingInit(gui)
+		loadingScreen.deleteLoading(gui)
 		if gameData.inLevelSelector == 1 then
 			clean(event)
 			gameData.inLevelSelector = 0
