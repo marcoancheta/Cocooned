@@ -123,16 +123,17 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function createLevel(mapData, players, player)	
+local function createLevel(mapData, players, player, gui)	
+	loading.loadingInit(gui) --initializes loading screen assets and displays them on top
 	-- Create game user interface (GUI) group
-	local gui = display.newGroup()
-	print("check gui original pos " .. gui.x .. ", " .. gui.y)
+	--local gui = display.newGroup()
+	--print("check gui original pos " .. gui.x .. ", " .. gui.y)
 	gui.originalX = gui.x
 	gui.originalY = gui.y
 	gui.name = "main gui"
 		
 	-- Create GUI subgroups
-	gui.load = display.newGroup()
+	--[[gui.load = display.newGroup()
 	gui.front = display.newGroup()
 	gui.middle = display.newGroup()
 	gui.back = display.newGroup()
@@ -147,8 +148,7 @@ local function createLevel(mapData, players, player)
 	gui:insert(gui.middle)
 	gui:insert(gui.front)
 	gui:insert(gui.load)
-	
-	loading.loadingInit(gui) --initializes loading screen assets and displays them on top
+	]]--
 	level = mapData.levelNum
 	-- Load in map
 	local levelBG, levelWalls = drawPane(mapData)

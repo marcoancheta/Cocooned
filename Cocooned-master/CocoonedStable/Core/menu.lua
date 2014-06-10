@@ -16,7 +16,9 @@ local widget = require("widget")
 local memory = require("memory")
 local snow = require("utils.snow")
 local tutorialLib = require("utils.tutorialLib")
+local loadingScreen = require("Loading.loadingScreen")
 
+local tempGui
 local menuGroup
 local menuObjects = nil
 local ingameOptions
@@ -47,7 +49,7 @@ end
 --------------------------------------------------------------------------------
 -- Clean menu system
 --------------------------------------------------------------------------------
-local function clean()
+local function clean()	
 	if menuGroup then
 		menuGroup:removeSelf()
 		menuGroup = nil
@@ -117,8 +119,8 @@ end
 
 -- Main Menu
 local transDelay = {
-	[1] = function() gameData.selectWorld=true; clean(); gameData.inMainMenu=false; end,
-	[2] = function() gameData.inOptions=true; clean(); gameData.inMainMenu=false; end
+	[1] = function() clean(); gameData.selectWorld=true; gameData.inMainMenu=false; end,
+	[2] = function() clean(); gameData.inOptions=true; gameData.inMainMenu=false; end
 }
 
 --------------------------------------------------------------------------------
@@ -131,28 +133,26 @@ local function buttonPressed(event)
 	sound.playSound(sound.soundEffects[1])
 	--[[ Play button pressed ]]--
 	if event.target.name == "playButton" then
-		-- temporarily hide unpressed objects
-		--menuObjects[2].isVisible = false
+		--loadingScreen.loadingInit(tempGui)
 		-- show pressed objects
 		menuObjects[4].alpha = 1
 		-- Remove menuGroup
 		--clean()
 		-- User pressed play, set gameActive to true
-		local tempTran = transition.to(menuObjects[4],{time=100, alpha=1})
-		local tempTrans = transition.to(menuObjects[2],{time=500, alpha=0, onComplete=transDelay[1]})
+		local tempTran = transition.to(menuObjects[4],{time=250, alpha=1, onComplete=transDelay[1]})
+		--local tempTrans = transition.to(menuObjects[2],{time=200, alpha=0, onComplete=transDelay[1]})
 		--gameData.selectWorld = true		
 	--[[ Options button pressed ]]--
 	elseif event.target.name == "optionButton" then	
-		-- temporarily hide unpressed objects
-		--menuObjects[3].isVisible = false
+		loadingScreen.loadingInit(tempGui)
 		-- show pressed objects
 		menuObjects[5].alpha = 1
 		-- Remove menuGroup
 		--clean()
 		--snow.meltSnow()
 		-- Call to options display
-		local tempTran = transition.to(menuObjects[5],{time=100, alpha=1})
-		local tempTrans = transition.to(menuObjects[3],{time=500, alpha=0, onComplete=transDelay[2]})
+		local tempTran = transition.to(menuObjects[5],{time=250, alpha=1, onComplete=transDelay[2]})
+		--local tempTrans = transition.to(menuObjects[3],{time=200, alpha=0, onComplete=transDelay[2]})
 		--gameData.inMainMenu = false
 		--gameData.inOptions = true		
 	--[[ Back to Main button pressed ]]--
@@ -305,7 +305,9 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
-local function mainMenu(event)
+local function mainMenu(event, gui)
+	tempGui = gui
+
 	if gameData.debugMode then
 		print("In Main Menu")
 	end
@@ -354,6 +356,7 @@ local function mainMenu(event)
 			-- add event listener for new game and options only
 			menuObjects[i]:addEventListener("tap", buttonPressed)
 		end
+		--menuGroup:insert(menuObjects[i])
 		menuGroup:insert(menuObjects[i])
 	end
 	

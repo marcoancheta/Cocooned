@@ -283,6 +283,29 @@ local function mapDataDefault()
 end
 
 --------------------------------------------------------------------------------
+-- initGUI() - initialize gui
+--------------------------------------------------------------------------------
+local function initGUI()
+	gui = display.newGroup()
+	-- Create GUI subgroups
+	gui.load = display.newGroup()
+	gui.front = display.newGroup()
+	gui.middle = display.newGroup()
+	gui.back = display.newGroup()
+
+	gui.load.name = "load"
+	gui.front.name = "front"
+	gui.back.name = "back"
+	gui.middle.name = "middle"
+
+	-- Add subgroups into main GUI group
+	gui:insert(gui.back)
+	gui:insert(gui.middle)
+	gui:insert(gui.front)
+	gui:insert(gui.load)
+end
+
+--------------------------------------------------------------------------------
 -- Add gameLoop game listeners
 --------------------------------------------------------------------------------
 local function addGameLoopListeners(gui)
@@ -336,6 +359,7 @@ local function loadPlayer(value, mapData)
 	return vBall
 end
 
+
 --------------------------------------------------------------------------------
 -- Load Map - loads start of level
 --------------------------------------------------------------------------------
@@ -373,7 +397,7 @@ local function loadMap(mapData)
 	}	
 	
 	-- Load in map
-	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players, gameLoop.player)
+	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players, gameLoop.player, gui)
 
 	-- Start mechanics
 	for i = 1, gui.playerCount do		
@@ -588,7 +612,8 @@ local function gameLoopEvents(event)
 		
 	-----------------------------
 	--[[ START WORLD SELECTOR]]--
-	if gameData.selectWorld then	
+	if gameData.selectWorld then
+		--loadingScreen.loadingInit(gui)
 		if gameData.inLevelSelector == 1 then
 			clean(event)
 			gameData.inLevelSelector = 0
@@ -621,7 +646,8 @@ local function gameLoopEvents(event)
 		gameData.selectWorld = false
 		if gameData.debugMode then			
 			gameData:printData()
-		end		
+		end	
+		--loadingScreen.deleteLoading(gui)		
 	end
 		
 	---------------------------
@@ -650,10 +676,10 @@ local function gameLoopEvents(event)
 		gameData.inLevelSelector = 1
 		-- Switch off this loop
 		gameData.selectLevel = false
-		loadingScreen.deleteLoading()
 		if gameData.debugMode then			
 			gameData:printData()
 		end		
+		loadingScreen.deleteLoading(gui)
 	end
 	
 	-----------------------
@@ -834,28 +860,27 @@ local function gameLoopEvents(event)
 	
 	-------------------
 	--[[ MAIN MENU ]]--
-	if gameData.menuOn then
-		if gameData.debugMode then
-			print("Main menu on...")
-		end		
-				
+	if gameData.menuOn then	
+		-- Initialize gui, if gui is nil
+		if gui == nil then
+			initGUI()
+		end
 		-- Go to main menu
-		menu.clean()
-		
+		menu.clean()		
+		snow.new()
+		menu.mainMenu(event, gui)
+		mapDataDefault()		
+		gameTimer.cancelTimer()
+		-- Stop player death timer if player still exists
 		if gameLoop.player[1] then
 			gameLoop.player[1]:stopDeathTimer()
-		end
-		
-		gameData.updateOptions = false
+		end		
+		-- Re-evaluate gameData booleans
 		gameData.gameTime = 0
 		gameData.ingame = 0
 		gameData.inLevelSelector = 0
 		gameData.inWorldSelector = 0
-		snow.new()
-		menu.mainMenu(event)
-		mapDataDefault()		
-		gameTimer.cancelTimer()
-		-- Re-evaluate gameData booleans
+		gameData.updateOptions = false
 		gameData.inWater = false
 		gameData.onIceberg = false
 		gameData.allowPaneSwitch = false
@@ -865,8 +890,9 @@ local function gameLoopEvents(event)
 		gameData.inMainMenu = true
 		-- Switch off this loop
 		gameData.menuOn = false
-		
-		if gameData.debugMode then			
+		-- Debug prints
+		if gameData.debugMode then	
+			print("Main menu on...")		
 			gameData:printData()
 		end		
 	end
@@ -886,11 +912,11 @@ local function gameLoopEvents(event)
 		gameData.updateOptions = true
 		gameData.inMainMenu = false
 		-- Switch off this loop
-		gameData.inOptions = false	
-
+		gameData.inOptions = false
 		if gameData.debugMode then			
 			gameData:printData()
 		end				
+		loadingScreen.deleteLoading(gui)
 	end
 	
 	-------------------------
