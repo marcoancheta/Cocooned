@@ -144,8 +144,8 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall, pl
 	-- Check which pane
 	if mapData.pane == "M" then
 		-- Break walls rune
-		--rune[1].x, rune[1].y = generate.tilesToPixels(25, 11)	
-		rune[1].x, rune[1].y = generate.tilesToPixels(16, 12)			
+		rune[1].x, rune[1].y = generate.tilesToPixels(25, 11)	
+		--rune[1].x, rune[1].y = generate.tilesToPixels(16, 12)			
 		rune[1].isVisible = true
 
 		-- Wisps

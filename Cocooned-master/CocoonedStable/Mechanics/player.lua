@@ -104,15 +104,19 @@ local function changeBack(player)
 	if player.small == false then
 		player.imageObject:scale(2,2)
 		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(25)
+		end
 	elseif player.large == true then
 		player.imageObject:scale(1.5,1.5)
 		physics.addBody(player.imageObject, {radius = 76, bounce = .25})
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(50)
+		end
 	end
 	
-	if auraEmitter ~= nil then
-		--changes the radius range of the aura particles to match up with the ball
-		auraEmitter:changeRadius(25)
-	end
 	physics.setGravity(0, 0)
 	player.curse = 1
 	player.imageObject.density = 0.3
@@ -136,15 +140,19 @@ local function changeSize(player)
 	if player.small == true then
 		physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
 		player.curse = 0.5
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(-25)
+		end	
 	elseif player.large == false then
 		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
 		player.curse = 1
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(-25)
+		end	
 	end
-	
-	if auraEmitter ~= nil then
-		--changes the radius range of the aura particles to match up with the ball
-		auraEmitter:changeRadius(-25)
-	end
+
 	physics.setGravity(0, 0)
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
@@ -174,6 +182,7 @@ function playerInstance:shrink()
 	local delayShrink = function() return changeSize(self); end
 	timer.performWithDelay(100, delayShrink)
 end
+
 --------------------------------------------------------------------------------
 -- Change Type - player function that changes properties of objects to breakable
 --------------------------------------------------------------------------------
@@ -190,7 +199,6 @@ local function changeType(event)
 	end
 end
 ]]--
-
 
 
 --------------------------------------------------------------------------------
