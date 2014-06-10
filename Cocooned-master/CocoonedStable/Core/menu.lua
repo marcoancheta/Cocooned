@@ -324,11 +324,11 @@ local function mainMenu(event)
 		-- Add Play button
 		[2] = display.newImageRect("mapData/art/buttons/play_unpressed.png", 400, 250),
 		-- Add Option buttons
-		[3] = display.newImageRect("mapData/art/buttons/options_unpressed.png", 400, 250),
+		[3] = display.newImageRect("mapdata/art/buttons/options_unpressed.png", 400, 250),
 		-- Add Play (Pressed) button
-		[4] = display.newImageRect("mapData/art/buttons/play_pressed.png", 400, 250),
+		[4] = display.newImageRect("mapdata/art/buttons/play_pressed.png", 400, 250),
 		-- Add Option (Pressed) buttons
-		[5] = display.newImageRect("mapData/art/buttons/options_pressed.png", 400, 250)		
+		[5] = display.newImageRect("mapdata/art/buttons/options_pressed.png", 400, 250)		
 	}
 	
 	-- main menu background
