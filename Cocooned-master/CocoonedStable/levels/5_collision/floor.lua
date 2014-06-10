@@ -34,7 +34,19 @@ function M.physicsData(scale)
                     {
                     pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
                     filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
-                    shape = {   -29, 335  ,  -1, 321  ,  31, 309  ,  3, 344  ,  -40, 365  ,  -77, 367  }
+                    shape = {   -116, 400  ,  -75, 400  ,  -142, 432  ,  -187, 432  }
+                    }
+                     ,
+                    {
+                    pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    shape = {   -77, 367  ,  -29, 335  ,  -40, 365  ,  -75, 400  ,  -116, 400  }
+                    }
+                     ,
+                    {
+                    pe_fixture_id = "", density = 2, friction = 0, bounce = 0, 
+                    filter = { categoryBits = 1, maskBits = 65535, groupIndex = 0 },
+                    shape = {   -29, 335  ,  -1, 321  ,  31, 309  ,  3, 344  ,  -40, 365  }
                     }
                      ,
                     {
