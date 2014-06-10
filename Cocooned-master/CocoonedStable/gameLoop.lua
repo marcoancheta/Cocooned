@@ -166,7 +166,7 @@ local function swipeMechanics(event)
 		-- if touch ended then change map if pane is switched
 		if "ended" == event.phase and mapData.pane ~= tempPane then
 			-- play snow transition effect
-			paneTransition.playTransition(tempPane, miniMap, mapData, gui, gameLoop.player[1]) --player1)
+			paneTransition.playTransition(tempPane, miniMap, mapData, gui, gameLoop.player, players) --player1)
 		end
 	end
 end
@@ -193,7 +193,7 @@ local function tapMechanic(event)
 		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
 			-- play snow transition effect
 			if gameData.allowPaneSwitch then
-				paneTransition.playTransition(tempPane, miniMap, mapData, gui, gameLoop.player[1]) --player1)
+				paneTransition.playTransition(tempPane, miniMap, mapData, gui, gameLoop.player, players) --player1)
 			end
 		end
 		
@@ -314,7 +314,7 @@ local function startPhys(event)
 	gameLoop.player[1].curse = 1 --player1.curse = 1
 	gameLoop.player[2].curse = 1 --player2.curse = 1
 	-- print
-	print("START PHYSICS FOR: ", mapData.levelNum)
+	--print("START PHYSICS FOR: ", mapData.levelNum)
 end
 
 --------------------------------------------------------------------------------
@@ -363,21 +363,22 @@ local function loadMap(mapData)
 		gameLoop.player[i].curse = 0		
 	end
 	
+	-- Create rune inventory for player
+	gameLoop.player[1].inventory.runes = {
+		["M"] = {},
+		["D"] = {},
+		["L"] = {},
+		["R"] = {},
+		["U"] = {},
+	}	
+	
 	-- Load in map
-	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players)
+	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players, gameLoop.player)
 
 	-- Start mechanics
 	for i = 1, gui.playerCount do		
 		-- Create collision
 		collisionDetection.createCollisionDetection(players[i].imageObject, gameLoop.player[1], mapData, gui, gui.back[1])
-		-- Create rune inventory for player
-		players[1].inventory.runes = {
-			["M"] = {},
-			["D"] = {},
-			["L"] = {},
-			["R"] = {},
-			["U"] = {},
-		}
 		-- If playerCount is only set to 1, destroy player 2
 		if gui.playerCount == 1 then
 			gameLoop.player[2].imageObject:removeSelf() --player2.imageObject:removeSelf()

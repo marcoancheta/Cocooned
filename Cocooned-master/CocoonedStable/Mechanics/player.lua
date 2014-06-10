@@ -99,6 +99,7 @@ end
 --------------------------------------------------------------------------------
 local function changeBack(player)
 	physics.removeBody(player.imageObject)
+	print("================", player.inventory.runes["M"][1])
 	
 	if player.small == false then
 		player.imageObject:scale(2,2)

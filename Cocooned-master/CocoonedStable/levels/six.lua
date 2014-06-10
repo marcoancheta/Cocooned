@@ -140,7 +140,7 @@ local mObjectslocal
 --------------------------------------------------------------------------------
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
-local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
+local function load(mapData, map, rune, objects, wisp, water, wall, auraWall, players, player)
 	objectList = objects
 		-- Check which pane
 
@@ -227,7 +227,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	end
 
 	-- generates all objects in pane when locations are set
-	generate.gObjects(six, objects, map, mapData, rune)
+	generate.gObjects(six, objects, map, mapData, rune, player)
 	-- generate all moveable objects in pane when locations are set
 	mObjects = generate.gMObjects(six, objects, map, mapData)
 	-- destroy the unused objects
