@@ -216,10 +216,7 @@ local function movePanes(event)
 			params.player[1]:shrink()		
 		end
 	end
-	if params.player1.large == true then
-		params.player1:shrink()	
-		params.player1.large = false	
-	end
+
 	-- load new map pane
 	params.gui = loadLevel.changePane(params.gui, params.mapData, params.players, params.player, params.miniMap)
 	local delayer = timer.performWithDelay(100, runReload)
