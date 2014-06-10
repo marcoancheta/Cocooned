@@ -141,8 +141,8 @@ local function runReload(event)
 	--params.gui.front:insert(params.player1.imageObject)
 	collisionDetection.changeCollision(params.player[1], params.mapData, params.gui, params.map)
 	-- delay collision detection for a little while
-	gameData.collOn = true 
-	--local collTimer = timer.performWithDelay(100, turnCollOn)
+	--gameData.collOn = true 
+	local collTimer = timer.performWithDelay(100, turnCollOn)
 	-- check if the player has swiped into water
 	pWater(event)
 	-- Change alpha back to 1 if player was invisible
