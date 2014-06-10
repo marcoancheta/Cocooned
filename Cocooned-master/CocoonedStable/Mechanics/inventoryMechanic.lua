@@ -33,13 +33,13 @@ end
 -- Add Rune - function that adds rune name to inventory table
 --------------------------------------------------------------------------------
 function inventoryInstance:addRune(item, map, mapData)
-	print("mapData.pane", mapData.pane)
-	print("self.runeSize", self.runeSize)
-	print("item.name", item.name)
+	--print("mapData.pane", mapData.pane)
+	--print("self.runeSize", self.runeSize)
+	--print("item.name", item.name)
 	self.runes[mapData.pane][self.runeSize] = item.name
-	print(self.name)
-	print("self.runes["..mapData.pane.."]", self.runes[mapData.pane][1])
-	print("add inventory", #self.runes, item.name)
+	--print(self.name)
+	--print("self.runes["..mapData.pane.."]", self.runes[mapData.pane][1])
+	--print("add inventory", #self.runes, item.name)
 	self.runeSize = self.runeSize + 1
 end
 
