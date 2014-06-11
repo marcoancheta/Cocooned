@@ -32,11 +32,12 @@ local seven = {
 	runeAvailable = {["M"]= {"blueRune"}, 
 					 ["U"]= {"none"}, 
 					 ["D"]= {"none"}, 
-					 ["R"]= {"none"}, 
-					 ["L"]= {"greenRune"}},
+					 ["R"]= {"blueRune"}, 
+					 ["L"]= {"purpleRune"}},
 	timer = 300,
-	playerCount = 1,
-	playerPos = {{["x"]=5, ["y"]=6}},
+	playerCount = 2,
+	playerPos = {{["x"]=8, ["y"]=6}, 
+				 {["x"]=11, ["y"]=6}},
 	-- number of wisps in the level
 	wispCount = 27,
 	-- number of objects in each pane (M,D,U,R,L)
@@ -94,9 +95,9 @@ local seven = {
 		["worldPortal"] = 0
 	},
 	["R"] = {
-		["blueAura"] = 0,
+		["blueAura"] = 2,
 		["redAura"] = 0,
-		["greenAura"] = 0,
+		["greenAura"] = 1,
 		["wolf"] = 0,
 		["fish1"] = 0,
 		["fish2"] = 0,
@@ -124,7 +125,7 @@ local seven = {
 		["switchWall"] = 0,
 		["exitPortal"] = 1, 
 		["enemy"] = 0,
-		["fixedIceberg"] = 1,
+		["fixedIceberg"] = 0,
 		["worldPortal"] = 0
 	}
 }
@@ -146,7 +147,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 	if mapData.pane == "M" then
 		-- Break walls rune
-		rune[1].x, rune[1].y = generate.tilesToPixels(4, 21)			
+		rune[1].x, rune[1].y = generate.tilesToPixels(35, 3)			
 		rune[1].isVisible = true
 
 		-- Wisps
@@ -157,7 +158,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[5].x, wisp[5].y = generate.tilesToPixels(30, 18)
 		wisp[6].x, wisp[6].y = generate.tilesToPixels(32, 20)
 		wisp[7].x, wisp[7].y = generate.tilesToPixels(34, 22)
-		wisp[8].x, wisp[8].y = generate.tilesToPixels(36, 1)
+		wisp[8].x, wisp[8].y = generate.tilesToPixels(18, 12)
 
 
 		-- set shadow angle for the pane
@@ -175,14 +176,10 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		wisp[13].x, wisp[13].y = generate.tilesToPixels(9, 11)
 		wisp[14].x, wisp[14].y = generate.tilesToPixels(11, 11)
 		wisp[15].x, wisp[15].y = generate.tilesToPixels(13, 11)
-
-		objects["fixedIceberg1"].x, objects["fixedIceberg1"].y = generate.tilesToPixels(26, 21)
-		objects["fixedIceberg1"].time = 3800 --not needed if free
-		objects["fixedIceberg1"].movement = "free" --fixed or free
 		
-		-- Move objects rune 
-		rune[2].x, rune[2].y = generate.tilesToPixels(35.5, 14.5)			
-		rune[2].isVisible = true
+		-- Shrink rune 
+		rune[4].x, rune[4].y = generate.tilesToPixels(35.5, 14.5)			
+		rune[4].isVisible = true
 
 		-- Exit Portal
 		objects["exitPortal1"]:setSequence("still")
@@ -194,7 +191,26 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 
 		generate.gWater(map, mapData)
 		generate.gWisps(wisp, map, mapData, 9, 15, seven.wispCount)
-	elseif mapData.pane == "R" then						
+	elseif mapData.pane == "R" then	
+		-- Blue Aura
+		objects["blueAura1"]:setSequence("move")
+		objects["blueAura1"]:play()
+		objects["blueAura1"].x, objects["blueAura1"].y = generate.tilesToPixels(6,2)
+
+		-- Blue Aura
+		objects["blueAura2"]:setSequence("move")
+		objects["blueAura2"]:play()
+		objects["blueAura2"].x, objects["blueAura2"].y = generate.tilesToPixels(28,9)
+
+		-- Blue Aura
+		objects["greenAura1"]:setSequence("move")
+		objects["greenAura1"]:play()
+		objects["greenAura1"].x, objects["greenAura1"].y = generate.tilesToPixels(25,13)
+
+		-- Break walls rune
+		rune[1].x, rune[1].y = generate.tilesToPixels(19, 23)			
+		rune[1].isVisible = true
+
 		-- Wisps
 		wisp[16].x, wisp[16].y = generate.tilesToPixels(15, 6)
 		wisp[17].x, wisp[17].y = generate.tilesToPixels(15, 9)
