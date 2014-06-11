@@ -425,7 +425,9 @@ local function loadMap(mapData)
 	local delay = 3500
 	-- Alpha transition to 1 (9 milliseconds)
 	local alphaTrans = transition.to(ball[1], {time=delay, alpha=1, onComplete=startPhys}) --ball, {time=delay+1000, alpha=1})	
-	
+	if ball[2] then
+		local betaTrans = transition.to(ball[2], {time=delay, alpha=1})
+	end
 	-- Debug print
 	for i=1, playerAmount do
 		if gameLoop.player[i] then

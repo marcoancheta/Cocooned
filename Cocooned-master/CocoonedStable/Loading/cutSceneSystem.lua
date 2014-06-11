@@ -157,7 +157,7 @@ local function cutScene(gui, mapData)
 		scenes[currScene]:addEventListener("tap", nextSceneOrDeleteA)
 		scenes[currScene].isVisible = true
 	else
-		local counter = 5
+		local counter = 3
 		gameTimer.preGame(tempGui, tempMapData, counter)
 	end
 	
@@ -195,7 +195,6 @@ local function endCutScene(gui, mapData)
 		scenes[currScene]:addEventListener("tap", nextSceneOrDeleteB)
 		scenes[currScene].isVisible = true
 	else
-		print("++++++++++++++++++++++FAIL+++++++++++++++++++++++")
 		gameData.levelComplete = true
 	end
 end

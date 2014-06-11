@@ -295,14 +295,14 @@ local function changePane(gui, mapData, players, player, miniMap)
 			tutorialLib:showTipBox("waterTip", 2, gui, player[1])
 		end
 	end	
-	-- check if player has finished level
-	levelFinished.checkWin(player[1], gui.front, mapData)
 	-- reset curse
 	if player[1].small == true then
 		player[1].curse = 0.5
 	else
 		player[1].curse = 1
 	end
+	-- check if player has finished level
+	levelFinished.checkWin(player[1], gui.front, mapData)
 	-- return new pane
 	return gui
 end
