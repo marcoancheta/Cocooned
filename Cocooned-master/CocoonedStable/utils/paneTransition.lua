@@ -334,7 +334,7 @@ local function playTransition(tempPane, miniMap, mapData, gui, player, players)
 	gameData.allowTouch = false
 	gameData.collOn = false
 	
-	sound.stopChannel(1)
+	--sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[3])
 	
 	if transPic then

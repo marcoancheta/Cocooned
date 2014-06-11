@@ -440,7 +440,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:startDeathTimer (mapData, gui)
+function playerInstance:startDeathTimer(mapData, gui)
 	local function passParams() killPlayer(self, mapData, gui) end
 	self.deathTimer = timer.performWithDelay(3000, passParams)
 end

@@ -116,6 +116,8 @@ local function toggleNext(event)
 		-- Special case for post-swipe tip
 		elseif event.target.name == "swipePaneTip" then
 			tutorialLib.tutorialStatus = 2
+			--gameData.allowMiniMap = true 
+			--gameData.allowPaneSwitch = true
 			local delayTimer = timer.performWithDelay(1000, delay)
 		elseif event.target.name == "waterTip" then
 			local delayTimer = timer.performWithDelay(1000, delay)
@@ -129,6 +131,7 @@ local function toggleNext(event)
 			tempPlayer.curse = 1
 		end
 		print("tempPlayer.curse", tempPlayer.curse)
+		gameData.inTutorial = false
 		
 		-- Resume game timer
 		gameTimer.resumeTimer()
@@ -148,7 +151,7 @@ function tutorialLib:showTipBox(tipType, value, gui, player)
 	--pause minimap functinality
 	gameData.allowMiniMap = false
 	gameData.allowPaneSwitch = false
-	
+	gameData.inTutorial = true
 	-- Pause physics	
 	physics.pause()
 	-- temporarily store player

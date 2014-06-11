@@ -228,38 +228,40 @@ end
 --------------------------------------------------------------------------------
 local function activate(gui, mapData, player, miniMap)
 	local level = require("levels." .. levelNames[mapData.levelNum])
-	-- Check rune inventory slots for runes collected
-	for i=1, #player[1].inventory.runes[mapData.pane] do
-		-- check which rune was collected and activate ability
-		if player[1].inventory.runes[mapData.pane][i] == "blueRune" then
-			for j=1, #level.runeAvailable[mapData.pane] do
-				if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
-					if player[1].large == false then
-						player[1]:breakWalls(gui.front)
-						player[1].large = true
-						player[1]:unshrink()
+	if player[1] then
+		-- Check rune inventory slots for runes collected
+		for i=1, #player[1].inventory.runes[mapData.pane] do
+			-- check which rune was collected and activate ability
+			if player[1].inventory.runes[mapData.pane][i] == "blueRune" then
+				for j=1, #level.runeAvailable[mapData.pane] do
+					if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
+						if player[1].large == false then
+							player[1]:breakWalls(gui.front)
+							player[1].large = true
+							player[1]:unshrink()
+						end
 					end
 				end
-			end
-		elseif player[1].inventory.runes[mapData.pane][i] == "pinkRune" then
-			for j=1, #level.runeAvailable[mapData.pane] do
-				if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
-					player[1]:slowTime(gui.front)
+			elseif player[1].inventory.runes[mapData.pane][i] == "pinkRune" then
+				for j=1, #level.runeAvailable[mapData.pane] do
+					if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
+						player[1]:slowTime(gui.front)
+					end
 				end
-			end
-		elseif player[1].inventory.runes[mapData.pane][i] == "greenRune" then
-			for j=1, #level.runeAvailable[mapData.pane] do
-				if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
-					gameData.gRune = true
-					--player:moveWalls(gui)
+			elseif player[1].inventory.runes[mapData.pane][i] == "greenRune" then
+				for j=1, #level.runeAvailable[mapData.pane] do
+					if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
+						gameData.gRune = true
+						--player:moveWalls(gui)
+					end
 				end
-			end
-		elseif player[1].inventory.runes[mapData.pane][i] == "purpleRune" then
-			for j=1, #level.runeAvailable[mapData.pane] do
-				if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
-					if player[1].small == false then
-						player[1].small = true
-						player[1]:shrink()
+			elseif player[1].inventory.runes[mapData.pane][i] == "purpleRune" then
+				for j=1, #level.runeAvailable[mapData.pane] do
+					if level.runeAvailable[mapData.pane][j] == player[1].inventory.runes[mapData.pane][i] then
+						if player[1].small == false then
+							player[1].small = true
+							player[1]:shrink()
+						end
 					end
 				end
 			end
@@ -287,7 +289,7 @@ local function changePane(gui, mapData, players, player, miniMap)
 	-- Check rune inventory slots for runes collected
 	activate(gui, mapData, player, miniMap)	
 	-- Check if tutorial level
-	if mapData.levelNum == "T" then
+	if mapData.levelNum == "T" and mapData.pane == "U" then
 		if tutorialLib.tutorialStatus >= 1 then
 			--set up tiltip if in tutorial level
 			tutorialLib:showTipBox("waterTip", 2, gui, player[1])
@@ -295,7 +297,12 @@ local function changePane(gui, mapData, players, player, miniMap)
 	end	
 	-- check if player has finished level
 	levelFinished.checkWin(player[1], gui.front, mapData)
-		
+	-- reset curse
+	if player[1].small == true then
+		player[1].curse = 0.5
+	else
+		player[1].curse = 1
+	end
 	-- return new pane
 	return gui
 end

@@ -22,7 +22,7 @@ local function loadingInit(gui)
 	loadingBG.y = display.contentCenterY
 	gui.load:insert(loadingBG)
 
-	print("DONNNNNEEEEEE LOADING")
+	--print("DONNNNNEEEEEE LOADING")
 	
 	return loadingBG
 end
