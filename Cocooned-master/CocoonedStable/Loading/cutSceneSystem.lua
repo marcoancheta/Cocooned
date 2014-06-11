@@ -95,6 +95,7 @@ local function nextSceneOrDelete(event)
 		tempMapData = nil
 	else
 		currScene = currScene +1
+		scenes[currScene].isVisible = true
 	end
 end
 
@@ -105,15 +106,17 @@ local function cutScene(gui, mapData)
 	-- Temporary store gui and mapData for use in nextSceneOrDelete
 	tempGui = gui
 	tempMapData = mapData
-	
+	physics.pause()
 	--print(mapData.levelNum)	
 	if screensA[mapData.levelNum] > 0 then
+		print("mapData.levelNum", mapData.levelNum)
 		for i= screensA[mapData.levelNum], 1, -1 do
-			if mapData.levelNum ~= 8 or mapData.levelNum ~= 12 then
-				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/A/"..i..".jpg", 1460, 864)
-				scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
-			else
+			if mapData.levelNum == "8" or mapData.levelNum == "12" then
 				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/A/"..i..".png", 1460, 864)
+				scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
+				scenes[i].isVisible = false
+			elseif mapData.levelNum ~= "8" and mapData.levelNum ~= "12" then
+				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/A/"..i..".jpg", 1460, 864)
 				scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
 			end				
 		end
@@ -125,6 +128,7 @@ local function cutScene(gui, mapData)
 		-- Add tap listener to play button
 		nextScene:addEventListener("tap", nextSceneOrDelete)
 		currScene = 1
+		scenes[currScene].isVisible = true
 	else
 		local counter = 5
 		gameTimer.preGame(tempGui, tempMapData, counter)
@@ -143,7 +147,7 @@ local function endCutScene(gui, mapData)
 	--print(mapData.levelNum)	
 	if screensB[mapData.levelNum] > 0 then
 		for i= screensB[mapData.levelNum], 1, -1 do
-			if mapData.levelNum ~= 6 then
+			if mapData.levelNum ~= "6" then
 				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".jpg", 1460, 864)
 			else
 				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".png", 1460, 864)
