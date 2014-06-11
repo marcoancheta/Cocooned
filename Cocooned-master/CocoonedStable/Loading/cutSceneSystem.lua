@@ -142,7 +142,7 @@ local function endCutScene(gui, mapData)
 	if screensB[mapData.levelNum] > 0 then
 		for i= screensB[mapData.levelNum], 1, -1 do
 			if mapData.levelNum ~= 6 then
-				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".jng", 1460, 864)
+				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".jpg", 1460, 864)
 			else
 				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".png", 1460, 864)
 			end
