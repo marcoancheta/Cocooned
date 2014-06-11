@@ -43,7 +43,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 	-- add rune to inventory
 	--player:addInventory(collideObject)
-	player:addRune(collideObject, map)
+	player:addRune(collideObject, map, mapData)
 
 	-- create rune animation collection sprite and play it
 	local runeCollide = display.newSprite(animation.sheetOptions.runeSheet, animation.spriteOptions.runeAnimation)

@@ -78,7 +78,8 @@ end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 -- finalizing objects in pane
-local function gObjects(level, objects, map, mapData, runes)
+local function gObjects(level, objects, map, mapData, runes, player)
+
 	-- goes down object list and sets all their properties
 	accelObjects.switchWallAndIceberg = {}
 	for i = 1, #animation.objectNames do
@@ -147,17 +148,24 @@ local function gObjects(level, objects, map, mapData, runes)
 		end
 	end
 
-	-- goes down rune list and adds runes that are visible in pane
-	for i = 1, #runes do
-		--print(#runes)
-		for j=1, i do				
-			if inventory.inventoryInstance.runes[j] ~= runes[i].name then
-				-- check if rune is visible and if so, add to map display group
-				if runes[i].isVisible == true then
-					map.front:insert(runes[i])
+	if mapData.pane ~= "world" and mapData.pane ~= "LS" then
+		-- goes down rune list and adds runes that are visible in pane
+		for i = 1, #runes do
+			--print(mapData.pane)
+			--print("player[1].name", player[1].name)
+			--print('player[1].inventory.runes["M"][1]', player[1].inventory.runes["M"][1])
+			for j=1, i do	
+				--print('player[1].inventory.runes["M"][1]', player[1].inventory.runes["M"][1])		
+				if player[1] then
+					if player[1].inventory.runes[mapData.pane][j] ~= runes[i].name then
+						-- check if rune is visible and if so, add to map display group
+						if runes[i].isVisible == true then
+							map.front:insert(runes[i])
+						end
+					else				
+						runes[i].isVisible = false
+					end
 				end
-			else				
-				runes[i].isVisible = false
 			end
 		end
 	end
