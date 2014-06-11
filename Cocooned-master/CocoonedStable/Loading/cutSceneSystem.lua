@@ -20,7 +20,7 @@ local loading = require("Loading.loadingScreen")
 -- Arrays
 local scenes = {}
 -- Level number = number of cutscenes
-local numberOfScreens = { ["LS"] = 0, ["T"] = 10, ["1"] = 0,  ["2"] = 0, 
+local numberOfScreens = { ["LS"] = 0, ["T"] = 10, ["1"] = 24,  ["2"] = 0, 
 						 ["3"] = 0,  ["4"] = 0,  ["5"] = 0, 
 						 ["6"] = 19,  ["7"] = 0,  ["8"] = 0, 
 						 ["9"] = 0,  ["10"] = 0, ["11"] = 0, 
