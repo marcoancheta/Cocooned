@@ -124,9 +124,11 @@ end
 -- Updated by: Derrick
 --------------------------------------------------------------------------------
 local function createLevel(mapData, players, player, gui)	
+	print("+++++++++++++++++++++++++ SCRAPPPEEE +++++++++++++++++++++++++++++++")
+	
 	-- Create game user interface (GUI) group
 	local gui = display.newGroup()
-	print("check gui original pos " .. gui.x .. ", " .. gui.y)
+	--print("check gui original pos " .. gui.x .. ", " .. gui.y)
 	gui.originalX = gui.x
 	gui.originalY = gui.y
 	gui.name = "main gui"
@@ -147,8 +149,6 @@ local function createLevel(mapData, players, player, gui)
 	gui:insert(gui.middle)
 	gui:insert(gui.front)
 	gui:insert(gui.load)
-	--initializes loading screen assets and displays them on top
-	loading.loadingInit(gui)
 
 	level = mapData.levelNum
 	-- Load in map

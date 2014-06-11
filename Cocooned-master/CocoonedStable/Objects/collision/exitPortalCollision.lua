@@ -4,17 +4,19 @@
 -- exitPortalCollision.lua
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
+local sound = require("sound")
+local gameData = require("Core.gameData")
+local snow = require("utils.snow")
+local cutScenes = require("Loading.cutSceneSystem")
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local sound = require("sound")
-local gameData = require("Core.gameData")
-local snow = require("utils.snow")
---local levelComplete = false
-local complete = function()	gameData.levelComplete = true; end
+local tempData
+local tempGui
+
+local complete = function()	cutScenes.endCutScene(tempGui, tempData); end
 
 --------------------------------------------------------------------------------
 -- Collide Function - end game if exit portal is active
@@ -22,6 +24,9 @@ local complete = function()	gameData.levelComplete = true; end
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
+	tempGui = gui
+	tempData = mapData
+	
 	if collideObject.sequence == "move" then
 		if gameData.gameTime > 0 then
 			print("Win gameData.gameTime", gameData.gameTime)
