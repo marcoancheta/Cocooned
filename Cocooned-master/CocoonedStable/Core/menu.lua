@@ -295,7 +295,9 @@ local function buttonPressed(event)
 		end
 	elseif event.target.name == "calibrateAccelerometer" then
 		local eventListener = Runtime:addEventListener("accelerometer", getAccelOffset)	
+	end
 	--[[ invert controls switch button pressed ]]--
+	--[[
 	elseif event.target.name == "invertControlsSwitch" then
 		local switch = event.target		
 		if switch.isOn then
@@ -304,7 +306,7 @@ local function buttonPressed(event)
 			gameData.invert = 1
 		end
 		memory.toggle()	
-	end
+	end]]--
 end
 
 --------------------------------------------------------------------------------
@@ -430,13 +432,13 @@ local function options(event)
 		[11] = display.newText(gameData.bgmVolume*10, 350, 150, "Teacher_A", 40),
 		
 		--Invert switch
-		[12] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
-							   onPress = buttonPressed},
+		--[12] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
+							   --onPress = buttonPressed},
 		-- Invert text
-		[13] = display.newText("Invert Controls: ", 350, 150, "Teacher_A", 52),
+		--[13] = display.newText("Invert Controls: ", 350, 150, "Teacher_A", 52),
 
 		-- Calibrate Accelerometer button
-		[14] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),
+		[12] = display.newImageRect("mapdata/art/buttons/main.png", 300, 300),
 	}
 	
 	menuObjects.name = "optGroup"
@@ -499,6 +501,7 @@ local function options(event)
 	menuObjects[11].y = display.contentCenterY
 	menuObjects[11]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)
 
+	--[[
 	-- Inverted controls object
 	if gameData.invert then
 		menuObjects[12]:setState({isOn = true})
@@ -514,12 +517,13 @@ local function options(event)
 	menuObjects[13].x = display.contentCenterX
 	menuObjects[13].y = display.contentCenterY + 125
 	menuObjects[13]:setFillColor(86*0.0039216, 3*0.0039216, 102*0.0039216)	
+	]]
 
 	-- Main Menu button
-	menuObjects[14].x = display.contentCenterX - 400
-	menuObjects[14].y = display.contentCenterY + 250
-	menuObjects[14].name = "calibrateAccelerometer"
-	menuObjects[14]:addEventListener("tap", buttonPressed)
+	menuObjects[12].x = display.contentCenterX - 400
+	menuObjects[12].y = display.contentCenterY + 250
+	menuObjects[12].name = "calibrateAccelerometer"
+	menuObjects[12]:addEventListener("tap", buttonPressed)
 	
 	for i=1, #menuObjects do
 		menuGroup:insert(menuObjects[i])

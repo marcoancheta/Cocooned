@@ -386,7 +386,7 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:rotate (x,y)
 	transition.cancel('rotation')
-	angle = (floor(atan2(y, x)*( 180 / pi))) 
+	local angle = (floor(atan2(y, x)*( 180 / pi))) 
 	self.imageObject.rotation = angle + 90
 end
 
