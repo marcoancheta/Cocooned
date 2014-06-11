@@ -46,23 +46,26 @@ local tempMapData
 --------------------------------------------------------------------------------
 -- nextSceneOrDelete - ?
 --------------------------------------------------------------------------------
-local function nextSceneOrDelete(event)
+local function nextSceneOrDeleteA(event)
 	--print("nextSceneOrDelete")	
 	if scenes[currScene] ~= nil then
+		scenes[currScene]:removeEventListener("tap", nextSceneOrDeleteA)
 		-- Delete scene on screen.
 		scenes[currScene]:removeSelf()
 		scenes[currScene] = nil	
 	end
 	-- Clear variables if current scene reaches levels' maximum amount of scenes
 	if currScene == screensA[tempMapData.levelNum] then
+		-- Remove event listener from currScene
+		--scenes[currScene]:removeEventListener("tap", nextSceneOrDeleteA)
 		-- Clear current scene
 		currScene = nil
 		-- Remove event listener from nextScene
-		if nextScene ~= nil then
-			nextScene:removeEventListener("tap", nextSceneOrDelete)
-			nextScene:removeSelf()
-			nextScene = nil	
-		end
+		--if nextScene ~= nil then
+		--	nextScene:removeEventListener("tap", nextSceneOrDeleteA)
+		--	nextScene:removeSelf()
+		--	nextScene = nil	
+		--end
 		-- Clear scenes array
 		scenes = nil
 		scenes = {}
@@ -74,15 +77,36 @@ local function nextSceneOrDelete(event)
 		-- Clear temporary gui and mapData variables
 		tempGui = nil
 		tempMapData = nil
-	elseif currScene == screensB[tempMapData.levelNum] then
+	else
+		currScene = currScene +1
+		scenes[currScene]:addEventListener("tap", nextSceneOrDeleteA)
+		scenes[currScene].isVisible = true
+	end
+end
+
+--------------------------------------------------------------------------------
+-- nextSceneOrDelete - ?
+--------------------------------------------------------------------------------
+local function nextSceneOrDeleteB(event)
+	--print("nextSceneOrDelete")	
+	if scenes[currScene] ~= nil then
+		scenes[currScene]:removeEventListener("tap", nextSceneOrDeleteB)
+		-- Delete scene on screen.
+		scenes[currScene]:removeSelf()
+		scenes[currScene] = nil	
+	end
+	-- Clear variables if current scene reaches levels' maximum amount of scenes
+	if currScene == screensB[tempMapData.levelNum] then
+		-- Remove event listener from currScene
+		--scenes[currScene]:removeEventListener("tap", nextSceneOrDeleteB)
 		-- Clear current scene
 		currScene = nil
 		-- Remove event listener from nextScene
-		if nextScene ~= nil then
-			nextScene:removeEventListener("tap", nextSceneOrDelete)
-			nextScene:removeSelf()
-			nextScene = nil	
-		end
+		--if nextScene ~= nil then
+		--	nextScene:removeEventListener("tap", nextSceneOrDeleteB)
+		--	nextScene:removeSelf()
+		--	nextScene = nil	
+		--end
 		-- Clear scenes array
 		scenes = nil
 		scenes = {}
@@ -95,6 +119,7 @@ local function nextSceneOrDelete(event)
 		tempMapData = nil
 	else
 		currScene = currScene +1
+		scenes[currScene]:addEventListener("tap", nextSceneOrDeleteB)
 		scenes[currScene].isVisible = true
 	end
 end
@@ -123,12 +148,13 @@ local function cutScene(gui, mapData)
 		end
 		--print("drawing next scene")
 		-- Create nextScene button
-		nextScene = display.newImageRect("mapdata/art/buttons/next.png", 250, 250)
+		--nextScene = display.newImageRect("mapdata/art/buttons/next.png", 250, 250)
 		-- map nextScene button to right corner
-		nextScene.x, nextScene.y = generate.tilesToPixels(36, 20)
-		-- Add tap listener to play button
-		nextScene:addEventListener("tap", nextSceneOrDelete)
+		--nextScene.x, nextScene.y = generate.tilesToPixels(36, 20)
+		--nextScene:addEventListener("tap", nextSceneOrDeleteA)
 		currScene = 1
+		-- Add tap listener to play button
+		scenes[currScene]:addEventListener("tap", nextSceneOrDeleteA)
 		scenes[currScene].isVisible = true
 	else
 		local counter = 5
@@ -160,14 +186,16 @@ local function endCutScene(gui, mapData)
 		end
 		--print("drawing next scene")
 		-- Create nextScene button
-		nextScene = display.newImageRect("mapdata/art/buttons/next.png", 250, 250)
+		--nextScene = display.newImageRect("mapdata/art/buttons/next.png", 250, 250)
 		-- map nextScene button to right corner
-		nextScene.x, nextScene.y = generate.tilesToPixels(36, 20)
-		-- Add tap listener to play button
-		nextScene:addEventListener("tap", nextSceneOrDelete)
+		--nextScene.x, nextScene.y = generate.tilesToPixels(36, 20)
+		--nextScene:addEventListener("tap", nextSceneOrDeleteB)
 		currScene = 1
+		-- Add tap listener to play button
+		scenes[currScene]:addEventListener("tap", nextSceneOrDeleteB)
 		scenes[currScene].isVisible = true
 	else
+		print("++++++++++++++++++++++FAIL+++++++++++++++++++++++")
 		gameData.levelComplete = true
 	end
 end
