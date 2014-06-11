@@ -109,12 +109,13 @@ local function cutScene(gui, mapData)
 	--print(mapData.levelNum)	
 	if screensA[mapData.levelNum] > 0 then
 		for i= screensA[mapData.levelNum], 1, -1 do
-			if mapData.levelNum ~= 8 and mapData.levelNum ~= 12 then
+			if mapData.levelNum ~= 8 or mapData.levelNum ~= 12 then
 				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/A/"..i..".jpg", 1460, 864)
+				scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
 			else
 				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/A/"..i..".png", 1460, 864)
+				scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
 			end				
-			scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
 		end
 		--print("drawing next scene")
 		-- Create nextScene button
