@@ -118,6 +118,7 @@ local function cutScene(gui, mapData)
 			elseif mapData.levelNum ~= "8" and mapData.levelNum ~= "12" then
 				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/A/"..i..".jpg", 1460, 864)
 				scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
+				scenes[i].isVisible = false
 			end				
 		end
 		--print("drawing next scene")
@@ -149,8 +150,10 @@ local function endCutScene(gui, mapData)
 		for i= screensB[mapData.levelNum], 1, -1 do
 			if mapData.levelNum ~= "6" then
 				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".jpg", 1460, 864)
+				scenes[i].isVisible = false
 			else
 				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".png", 1460, 864)
+				scenes[i].isVisible = false
 			end
 			
 			scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
@@ -163,6 +166,7 @@ local function endCutScene(gui, mapData)
 		-- Add tap listener to play button
 		nextScene:addEventListener("tap", nextSceneOrDelete)
 		currScene = 1
+		scenes[currScene].isVisible = true
 	else
 		gameData.levelComplete = true
 	end
