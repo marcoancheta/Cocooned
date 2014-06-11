@@ -129,11 +129,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall, pl
 			end
 			-- Place World "C" portals.
 			objects["exitPortal11"].x, objects["exitPortal11"].y = generate.tilesToPixels(10, 15)
-<<<<<<< HEAD
-			objects["exitPortal15"].x, objects["exitPortal15"].y = generate.tilesToPixels(14, 12)		
-=======
 			objects["exitPortal12"].x, objects["exitPortal12"].y = generate.tilesToPixels(14, 12)		
->>>>>>> e485582856645ac2f602002a00f559ce83095b10
 			objects["exitPortal13"].x, objects["exitPortal13"].y = generate.tilesToPixels(20.5, 11)
 			objects["exitPortal14"].x, objects["exitPortal14"].y = generate.tilesToPixels(28, 12)
 			objects["exitPortal15"].x, objects["exitPortal15"].y = generate.tilesToPixels(31, 15)
