@@ -82,10 +82,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 						-- set the player variables
 						player:startDeathTimer(mapData, gui)
-						player.lastPositionX = -100
-						player.lastPositionY = -100
 						player.lastPositionSaved = true
-						player.lastSavePoint = collideObject
 						player.lastSavePoint.pane = mapData.pane
 						player.imageObject.linearDamping = 3
 
