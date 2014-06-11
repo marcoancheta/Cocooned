@@ -62,7 +62,7 @@ end
 local function pWater(event)
 	local params = event.source.params
 	-- check if the player has swiped into water
-	local playerPos = params.player1.imageObject
+	local playerPos = params.player[1].imageObject
 	local locationFound = false
 	local degree = 0
 	local distanceCheck = 70
@@ -113,20 +113,20 @@ local function pWater(event)
 		gameData.inWater = true
 		gameData.onLand = false
 		-- Transition player's alpha to 0
-		params.player1.sinkTrans = transition.to(params.player1.imageObject, {time=3000, alpha=0})
+		params.player[1].sinkTrans = transition.to(params.player[1].imageObject, {time=3000, alpha=0})
 		-- save this last point
 		savePoint = display.newCircle(playerPos.x, playerPos.y , 38)
 		savePoint.alpha = 0
 		savePoint.name = "paneSavePoint"
 		-- set player variables for later calculations
-		params.player1.lastSavePoint = savePoint
-		params.player1.lastPositionX = savePoint.x
-		params.player1.lastPositionY = savePoint.y
-		params.player1.lastSavePoint.pane = params.tempPane
-		params.player1.miniMap = params.miniMap
-		params.player1.lastPositionSaved = true
+		params.player[1].lastSavePoint = savePoint
+		params.player[1].lastPositionX = savePoint.x
+		params.player[1].lastPositionY = savePoint.y
+		params.player[1].lastSavePoint.pane = params.tempPane
+		params.player[1].miniMap = params.miniMap
+		params.player[1].lastPositionSaved = true
 		-- start the death timer
-		params.player1:startDeathTimer(params.mapData, params.gui)
+		params.player[1]:startDeathTimer(params.mapData, params.gui)
 	end
 end
 
@@ -139,14 +139,15 @@ local function runReload(event)
 	--params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
-	collisionDetection.changeCollision(params.player1, params.mapData, params.gui, params.map)
+	collisionDetection.changeCollision(params.player[1], params.mapData, params.gui, params.map)
 	-- delay collision detection for a little while
+	--gameData.collOn = true 
 	local collTimer = timer.performWithDelay(100, turnCollOn)
 	-- check if the player has swiped into water
 	pWater(event)
 	-- Change alpha back to 1 if player was invisible
-	if params.player1.imageObject.alpha == 0 then
-		params.player1.imageObject.alpha = 1
+	if params.player[1].imageObject.alpha == 0 then
+		params.player[1].imageObject.alpha = 1
 	end
 	-- Run end transition event
 	endTransition(event)
@@ -188,7 +189,7 @@ local function movePanes(event)
 		if params.gui.front ~= nil then
 			for i = params.gui.front.numChildren, 1, -1 do
 				
-				if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "auraParticle" and 
+				if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "kipcha" and params.gui.front[i].name ~= "auraParticle" and 
 				params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
 					params.gui.front[i]:removeSelf()
 					params.gui.front[i] = nil
@@ -202,19 +203,22 @@ local function movePanes(event)
 	-- Re-initialize snow
 	snow.new()
 	-- Re-initialize player values
-	if params.player1.small == true then
-		params.player1:unshrink()
-		params.player1.small = false
+	if params.player[1] then
+		if params.player[1].small == true then
+			params.player[1].small = false
+			params.player[1]:unshrink()
+		end
+		if params.player[1].breakable == true then
+			params.player[1].breakable = false
+		end
+		if params.player[1].large == true then
+			params.player[1].large = false
+			params.player[1]:shrink()		
+		end
 	end
-	if params.player1.breakable == true then
-		params.player1.breakable = false
-	end
-	if params.player1.large == true then
-		params.player1:shrink()	
-		params.player1.large = false	
-	end
+
 	-- load new map pane
-	params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
+	params.gui = loadLevel.changePane(params.gui, params.mapData, params.players, params.player, params.miniMap)
 	local delayer = timer.performWithDelay(100, runReload)
 	delayer.params = params
 	
@@ -325,7 +329,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function playTransition(tempPane, miniMap, mapData, gui, player1)
+local function playTransition(tempPane, miniMap, mapData, gui, player, players)
 	gameData.allowPaneSwitch = false
 	gameData.allowTouch = false
 	gameData.collOn = false
@@ -414,8 +418,9 @@ local function playTransition(tempPane, miniMap, mapData, gui, player1)
 	local moveTrans = timer.performWithDelay(600, movePanes)
 		  moveTrans.params = { tempPane = tempPane, 
 								miniMap = miniMap, 
-									gui = gui, 
-								player1 = player1, 
+									gui = gui,
+								players = players,
+								player = player, 
 								mapData = mapData  }
 end
 

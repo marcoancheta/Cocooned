@@ -82,7 +82,7 @@ local mObjectslocal
 --------------------------------------------------------------------------------
 -- loads objects depending on which pane player is in
 -- this is where the objects locations are set in each pane
-local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
+local function load(mapData, map, rune, objects, wisp, water, wall, auraWall, players, player)
 	--locks = {}
 	objectList = objects
 			
@@ -92,9 +92,9 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 		if mapData.world == "A" then
 			-- Place World "A" portals.
 			objects["exitPortal1"].x, objects["exitPortal1"].y = generate.tilesToPixels(10, 15)
-			objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(14, 12)		
+			objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(14, 12)		
 			objects["exitPortal3"].x, objects["exitPortal3"].y = generate.tilesToPixels(20.5, 11)
-			objects["exitPortal2"].x, objects["exitPortal2"].y = generate.tilesToPixels(28, 12)
+			objects["exitPortal4"].x, objects["exitPortal4"].y = generate.tilesToPixels(28, 12)
 			objects["exitPortal5"].x, objects["exitPortal5"].y = generate.tilesToPixels(31, 15)
 			-- Hide all portals between 6-15.
 			for i=6, LS["LS"]["exitPortal"] do
@@ -129,10 +129,14 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 			end
 			-- Place World "C" portals.
 			objects["exitPortal11"].x, objects["exitPortal11"].y = generate.tilesToPixels(10, 15)
+<<<<<<< HEAD
 			objects["exitPortal15"].x, objects["exitPortal15"].y = generate.tilesToPixels(14, 12)		
+=======
+			objects["exitPortal12"].x, objects["exitPortal12"].y = generate.tilesToPixels(14, 12)		
+>>>>>>> e485582856645ac2f602002a00f559ce83095b10
 			objects["exitPortal13"].x, objects["exitPortal13"].y = generate.tilesToPixels(20.5, 11)
 			objects["exitPortal14"].x, objects["exitPortal14"].y = generate.tilesToPixels(28, 12)
-			objects["exitPortal12"].x, objects["exitPortal12"].y = generate.tilesToPixels(31, 15)
+			objects["exitPortal15"].x, objects["exitPortal15"].y = generate.tilesToPixels(31, 15)
 			-- Back to world portal
 			objects["worldPortal1"].x, objects["worldPortal1"].y = generate.tilesToPixels(20.5, 21.5)
 		end
@@ -150,7 +154,7 @@ local function load(mapData, map, rune, objects, wisp, water, wall, auraWall)
 	end
 	
 	-- generates all objects in pane when locations are set
-	generate.gObjects(LS, objects, map, mapData, rune)
+	generate.gObjects(LS, objects, map, mapData, rune, player)
 	-- generate all moveable objects in pane when locations are set
 	mObjects = generate.gMObjects(LS, objects, map, mapData)
 	

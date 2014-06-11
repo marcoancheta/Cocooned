@@ -53,7 +53,7 @@ local playerInstance = {
 	maxSpeed = 6,
 	speedConst = 5,
 	defaultSpeed = 7,
-	radius = 38, --default radius
+	radius = 36, --default radius
 
 	--waterEscape variables
 	lastPositionX = nil,
@@ -99,10 +99,11 @@ end
 --------------------------------------------------------------------------------
 local function changeBack(player)
 	physics.removeBody(player.imageObject)
+	--print("================", player.inventory.runes["M"][1])
 	
 	if player.small == false then
 		player.imageObject:scale(2,2)
-		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+		physics.addBody(player.imageObject, {radius = 36, bounce = .25})
 		if auraEmitter ~= nil then
 			--changes the radius range of the aura particles to match up with the ball
 			auraEmitter:changeRadius(25)
@@ -137,17 +138,21 @@ local function changeSize(player)
 	player.imageObject:scale(0.5,0.5)
 		
 	if player.small == true then
-		physics.addBody(player.imageObject, {radius = 19, bounce = .25}) --, density = 0.7})
+		physics.addBody(player.imageObject, {radius = 18, bounce = .25}) --, density = 0.7})
 		player.curse = 0.5
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(-25)
+		end	
 	elseif player.large == false then
-		physics.addBody(player.imageObject, {radius = 38, bounce = .25})
+		physics.addBody(player.imageObject, {radius = 36, bounce = .25})
 		player.curse = 1
+		if auraEmitter ~= nil then
+			--changes the radius range of the aura particles to match up with the ball
+			auraEmitter:changeRadius(-25)
+		end	
 	end
-	
-	if auraEmitter ~= nil then
-		--changes the radius range of the aura particles to match up with the ball
-		auraEmitter:changeRadius(-25)
-	end
+
 	physics.setGravity(0, 0)
 	player.imageObject.density = 0.3
 	player.imageObject.linearDamping = 1.25
@@ -177,6 +182,7 @@ function playerInstance:shrink()
 	local delayShrink = function() return changeSize(self); end
 	timer.performWithDelay(100, delayShrink)
 end
+
 --------------------------------------------------------------------------------
 -- Change Type - player function that changes properties of objects to breakable
 --------------------------------------------------------------------------------
@@ -193,7 +199,6 @@ local function changeType(event)
 	end
 end
 ]]--
-
 
 
 --------------------------------------------------------------------------------
@@ -469,8 +474,8 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:addRune(item, map)
-	self.inventory:addRune(item, map)
+function playerInstance:addRune(item, map, mapData)
+	self.inventory:addRune(item, map, mapData)
 end
 
 --------------------------------------------------------------------------------

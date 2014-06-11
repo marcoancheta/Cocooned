@@ -166,7 +166,7 @@ local function swipeMechanics(event)
 		-- if touch ended then change map if pane is switched
 		if "ended" == event.phase and mapData.pane ~= tempPane then
 			-- play snow transition effect
-			paneTransition.playTransition(tempPane, miniMap, mapData, gui, gameLoop.player[1]) --player1)
+			paneTransition.playTransition(tempPane, miniMap, mapData, gui, gameLoop.player, players) --player1)
 		end
 	end
 end
@@ -193,7 +193,7 @@ local function tapMechanic(event)
 		if mapData.pane ~= tempPane and gameData.isShowingMiniMap ~= true then
 			-- play snow transition effect
 			if gameData.allowPaneSwitch then
-				paneTransition.playTransition(tempPane, miniMap, mapData, gui, gameLoop.player[1]) --player1)
+				paneTransition.playTransition(tempPane, miniMap, mapData, gui, gameLoop.player, players) --player1)
 			end
 		end
 		
@@ -283,6 +283,29 @@ local function mapDataDefault()
 end
 
 --------------------------------------------------------------------------------
+-- initGUI() - initialize gui
+--------------------------------------------------------------------------------
+local function initGUI()
+	gui = display.newGroup()
+	-- Create GUI subgroups
+	gui.load = display.newGroup()
+	gui.front = display.newGroup()
+	gui.middle = display.newGroup()
+	gui.back = display.newGroup()
+
+	gui.load.name = "load"
+	gui.front.name = "front"
+	gui.back.name = "back"
+	gui.middle.name = "middle"
+
+	-- Add subgroups into main GUI group
+	gui:insert(gui.back)
+	gui:insert(gui.middle)
+	gui:insert(gui.front)
+	gui:insert(gui.load)
+end
+
+--------------------------------------------------------------------------------
 -- Add gameLoop game listeners
 --------------------------------------------------------------------------------
 local function addGameLoopListeners(gui)
@@ -314,7 +337,7 @@ local function startPhys(event)
 	gameLoop.player[1].curse = 1 --player1.curse = 1
 	gameLoop.player[2].curse = 1 --player2.curse = 1
 	-- print
-	print("START PHYSICS FOR: ", mapData.levelNum)
+	--print("START PHYSICS FOR: ", mapData.levelNum)
 end
 
 --------------------------------------------------------------------------------
@@ -327,7 +350,7 @@ local function loadPlayer(value, mapData)
 	vBall = display.newSprite(tSprite, animation.spriteOptions.player)
 	vBall.name = "player"
 	
-	physics.addBody(vBall, {radius = 38, bounce = .25})
+	physics.addBody(vBall, {radius = 36, bounce = .25})
 	
 	vBall.density = 0.3
 	vBall.linearDamping = 1.25
@@ -335,6 +358,7 @@ local function loadPlayer(value, mapData)
 	
 	return vBall
 end
+
 
 --------------------------------------------------------------------------------
 -- Load Map - loads start of level
@@ -363,14 +387,22 @@ local function loadMap(mapData)
 		gameLoop.player[i].curse = 0		
 	end
 	
+	-- Create rune inventory for player
+	gameLoop.player[1].inventory.runes = {
+		["M"] = {},
+		["D"] = {},
+		["L"] = {},
+		["R"] = {},
+		["U"] = {},
+	}	
+	
 	-- Load in map
-	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players)
+	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players, gameLoop.player, gui)
 
 	-- Start mechanics
 	for i = 1, gui.playerCount do		
 		-- Create collision
 		collisionDetection.createCollisionDetection(players[i].imageObject, gameLoop.player[1], mapData, gui, gui.back[1])
-		
 		-- If playerCount is only set to 1, destroy player 2
 		if gui.playerCount == 1 then
 			gameLoop.player[2].imageObject:removeSelf() --player2.imageObject:removeSelf()
@@ -580,7 +612,8 @@ local function gameLoopEvents(event)
 		
 	-----------------------------
 	--[[ START WORLD SELECTOR]]--
-	if gameData.selectWorld then	
+	if gameData.selectWorld then
+		loadingScreen.deleteLoading(gui)
 		if gameData.inLevelSelector == 1 then
 			clean(event)
 			gameData.inLevelSelector = 0
@@ -613,7 +646,7 @@ local function gameLoopEvents(event)
 		gameData.selectWorld = false
 		if gameData.debugMode then			
 			gameData:printData()
-		end		
+		end	
 	end
 		
 	---------------------------
@@ -645,10 +678,11 @@ local function gameLoopEvents(event)
 		gameData.inLevelSelector = 1
 		-- Switch off this loop
 		gameData.selectLevel = false
-		loadingScreen.deleteLoading()
+
 		if gameData.debugMode then			
 			gameData:printData()
 		end		
+		loadingScreen.deleteLoading(gui)
 	end
 	
 	-----------------------
@@ -836,28 +870,27 @@ local function gameLoopEvents(event)
 	
 	-------------------
 	--[[ MAIN MENU ]]--
-	if gameData.menuOn then
-		if gameData.debugMode then
-			print("Main menu on...")
-		end		
-				
+	if gameData.menuOn then	
+		-- Initialize gui, if gui is nil
+		if gui == nil then
+			initGUI()
+		end
 		-- Go to main menu
-		menu.clean()
-		-- Cancel death timer if player quits while in water
+		menu.clean()		
+		snow.new()
+		menu.mainMenu(event, gui)
+		mapDataDefault()		
+		gameTimer.cancelTimer()
+		-- Stop player death timer if player still exists
 		if gameLoop.player[1] then
 			gameLoop.player[1]:stopDeathTimer()
-		end
-		
-		gameData.updateOptions = false
+		end		
+		-- Re-evaluate gameData booleans
 		gameData.gameTime = 0
 		gameData.ingame = 0
 		gameData.inLevelSelector = 0
 		gameData.inWorldSelector = 0
-		snow.new()
-		menu.mainMenu(event)
-		mapDataDefault()		
-		gameTimer.cancelTimer()
-		-- Re-evaluate gameData booleans
+		gameData.updateOptions = false
 		gameData.inWater = false
 		gameData.onIceberg = false
 		gameData.allowPaneSwitch = false
@@ -867,8 +900,9 @@ local function gameLoopEvents(event)
 		gameData.inMainMenu = true
 		-- Switch off this loop
 		gameData.menuOn = false
-		
-		if gameData.debugMode then			
+		-- Debug prints
+		if gameData.debugMode then	
+			print("Main menu on...")		
 			gameData:printData()
 		end		
 	end
@@ -888,11 +922,11 @@ local function gameLoopEvents(event)
 		gameData.updateOptions = true
 		gameData.inMainMenu = false
 		-- Switch off this loop
-		gameData.inOptions = false	
-
+		gameData.inOptions = false
 		if gameData.debugMode then			
 			gameData:printData()
 		end				
+		loadingScreen.deleteLoading(gui)
 	end
 	
 	-------------------------

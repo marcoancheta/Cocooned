@@ -177,7 +177,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-local function main(mapData, map)
+local function main(mapData, gui, players, player)
 	-- call initialize function to initialize all objects and sprite sheets
 	init()
 	-- get which level lua, player is in
@@ -187,8 +187,11 @@ local function main(mapData, map)
 	--map.playerPos = level.playerPos
 	-- get objects and wisps list and create them
 	objects, wisp, water, wall, auraWall = createObjects(level, mapData)
+	
+	--print('player[1].inventory.runes["M"][1]', player[1].inventory.runes["M"][1])
+	
 	-- load in which pane player is in
-	level.load(mapData, map, rune, objects, wisp, water, wall, auraWall)
+	level.load(mapData, gui, rune, objects, wisp, water, wall, auraWall, players, player)
 end
 
 
