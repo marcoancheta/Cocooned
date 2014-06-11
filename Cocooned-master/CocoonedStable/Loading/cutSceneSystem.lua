@@ -12,6 +12,7 @@
 -- Load in classes
 --------------------------------------------------------------------------------
 local gameTimer = require("utils.timer")
+local gameData = require("Core.gameData")
 local generate = require("Objects.generateObjects")
 local loading = require("Loading.loadingScreen")
 --------------------------------------------------------------------------------
