@@ -25,6 +25,9 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if event.phase == "began" then
 		print("HIT SHORE!!!")
 		if gameData.inWater == false then
+			gameData.allowPaneSwitch = true
+			gameData.allowMiniMap = true
+		
 			waterShadow = display.newCircle(player.imageObject.x, player.imageObject.y, 1)
 			waterShadow.alpha = 0
 			waterShadow.name = "waterShadow"

@@ -188,7 +188,6 @@ local function movePanes(event)
 		end
 		if params.gui.front ~= nil then
 			for i = params.gui.front.numChildren, 1, -1 do
-				
 				if params.gui.front[i].name ~= "player" and params.gui.front[i].name ~= "kipcha" and params.gui.front[i].name ~= "auraParticle" and 
 				params.gui.front[i].name ~= "timer" and params.gui.front[i].name ~= "inGameOptionsBTN" then
 					params.gui.front[i]:removeSelf()
@@ -334,7 +333,7 @@ local function playTransition(tempPane, miniMap, mapData, gui, player, players)
 	gameData.allowTouch = false
 	gameData.collOn = false
 	
-	sound.stopChannel(1)
+	--sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[3])
 	
 	if transPic then
