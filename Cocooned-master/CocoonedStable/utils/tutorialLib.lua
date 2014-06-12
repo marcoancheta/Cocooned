@@ -147,29 +147,29 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 --called in movement 
-function tutorialLib:showTipBox(tipType, value, gui, player)	
-	--pause minimap functinality
-	gameData.allowMiniMap = false
-	gameData.allowPaneSwitch = false
-	gameData.inTutorial = true
-	-- Pause physics	
-	physics.pause()
-	-- temporarily store player
-	tempPlayer = player
-	if tempPlayer.curse ~= 0 then
-		tempPlayer.curse = 0
-	end
-
-	-- Pause game timer while tutorial screen is up
-	gameTimer.pauseTimer()
-	-- temporarily store gui
-	tempGui = gui
-	-- temporarily store current value
-	current = value
-	
+function tutorialLib:showTipBox(tipType, value, gui, player)		
 	local toolTip = {}
 	local playerSeen = hintText[tipType][1]			
 	if playerSeen == false then
+		--pause minimap functinality
+		gameData.allowMiniMap = false
+		gameData.allowPaneSwitch = false
+		gameData.inTutorial = true
+		-- Pause physics	
+		physics.pause()
+		-- temporarily store player
+		tempPlayer = player
+		if tempPlayer.curse ~= 0 then
+			tempPlayer.curse = 0
+		end
+
+		-- Pause game timer while tutorial screen is up
+		gameTimer.pauseTimer()
+		-- temporarily store gui
+		tempGui = gui
+		-- temporarily store current value
+		current = value
+	
 		-- Create new image based on tipType
 		toolTip[1] = display.newImageRect(hintText[tipType][current], 1460, 864)
 		toolTip[1].x, toolTip[1].y = display.contentCenterX, display.contentCenterY
