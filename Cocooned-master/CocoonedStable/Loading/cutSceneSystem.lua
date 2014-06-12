@@ -191,59 +191,27 @@ local function endCutScene(gui, mapData)
 	tempMapData = mapData
 	
 	--print(mapData.levelNum)	
-	if screensA[mapData.levelNum] > 0 then
-		for i= screensA[mapData.levelNum], 1, -1 do
-			if mapData.levelNum ~= 8 and mapData.levelNum ~= 12 then
-				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/A/"..i..".jpg", 1460, 864)
+	if screensB[mapData.levelNum] > 0 then
+		for i= screensB[mapData.levelNum], 1, -1 do
+			if mapData.levelNum ~= "6" then
+				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".jpg", 1460, 864)
+				scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
+				scenes[i].isVisible = false
 			else
-				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/A/"..i..".png", 1460, 864)
-			end				
-			scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
+				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".png", 1460, 864)
+				scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
+				scenes[i].isVisible = false
+			end
 		end
 		--print("drawing next scene")
 		-- Create nextScene button
 		--nextScene = display.newImageRect("mapdata/art/buttons/next.png", 250, 250)
 		-- map nextScene button to right corner
-		nextScene.x, nextScene.y = generate.tilesToPixels(36, 20)
-		-- Add tap listener to play button
-		nextScene:addEventListener("tap", nextSceneOrDelete)
+		--nextScene.x, nextScene.y = generate.tilesToPixels(36, 20)
 		currScene = 1
 		-- Add tap listener to play button
 		scenes[currScene]:addEventListener("tap", nextSceneOrDeleteB)
 		scenes[currScene].isVisible = true
-	else
-		gameData.levelComplete = true
-	end
-	
-end
-
---------------------------------------------------------------------------------
--- endCutScene(gui, mapData) - plays when level contains a cutscene
---------------------------------------------------------------------------------
-local function endCutScene(gui, mapData)
-	-- Temporary store gui and mapData for use in nextSceneOrDelete
-	tempGui = gui
-	tempMapData = mapData
-	
-	--print(mapData.levelNum)	
-	if screensB[mapData.levelNum] > 0 then
-		for i= screensB[mapData.levelNum], 1, -1 do
-			if mapData.levelNum ~= 6 then
-				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".jpg", 1460, 864)
-			else
-				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".png", 1460, 864)
-			end
-			
-			scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
-		end
-		--print("drawing next scene")
-		-- Create nextScene button
-		nextScene = display.newImageRect("mapdata/art/buttons/next.png", 250, 250)
-		-- map nextScene button to right corner
-		nextScene.x, nextScene.y = generate.tilesToPixels(36, 20)
-		-- Add tap listener to play button
-		nextScene:addEventListener("tap", nextSceneOrDelete)
-		currScene = 1
 	else
 		gameData.levelComplete = true
 	end
