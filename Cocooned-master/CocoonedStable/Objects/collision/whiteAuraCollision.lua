@@ -18,7 +18,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[2])
 
-	player:changeColor('white', gui)
+	player[1]:changeColor('white', gui)
 
 end
 

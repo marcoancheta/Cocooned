@@ -26,7 +26,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	sound.stopChannel(1)
 	sound.playSound(sound.soundEffects[2])
 	event.contact.isEnabled = false
-	player:changeColor('green', gui)
+	player[1]:changeColor('green', gui)
 	--local closure = function() return player:changeColor('white') end
 	--timer1 = timer.performWithDelay( 10000, closure, 1)
 end

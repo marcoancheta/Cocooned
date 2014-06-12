@@ -12,11 +12,11 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	if player.color == 'blue' then
+	if player[1].color == 'blue' then
 		collideObject:toFront()
 		event.contact.isEnabled = false
 	else
-		player.imageObject:toFront()
+		player[1].imageObject:toFront()
 	end
 	
 	--GA.newEvent ( "design", {event_id = "collide:" ..collideObject.name, area = "level: "..mapData.levelNum, x=player.imageObject.x, y=player.imageObject.y } )

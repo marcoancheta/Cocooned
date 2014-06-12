@@ -43,7 +43,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 	-- add rune to inventory
 	--player:addInventory(collideObject)
-	player:addRune(collideObject, map, mapData)
+	player[1]:addRune(collideObject, map, mapData)
 
 	-- create rune animation collection sprite and play it
 	local runeCollide = display.newSprite(animation.sheetOptions.runeSheet, animation.spriteOptions.runeAnimation)
@@ -62,18 +62,18 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	if collideObject.name == "blueRune" then
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[9])
-		player:breakWalls(map)
-		player.large = true
-		player:unshrink()
+		player[1]:breakWalls(map)
+		player[1].large = true
+		player[1]:unshrink()
 	elseif collideObject.name == "pinkRune" then
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[10])
-		player:slowTime(gui.front)
+		player[1]:slowTime(gui.front)
 	elseif collideObject.name == "greenRune" then
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[11])
 		gameData.gRune = true
-		player:moveWalls(gui)
+		player[1]:moveWalls(gui)
 	--elseif collideObject.name == "yellowRune" then
 	elseif collideObject.name == "purpleRune" then
 		collideObject:removeSelf()
@@ -81,13 +81,13 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		if gameData.mapData.levelNum == "T" then
 			if tutorialLib.tutorialStatus == 1 then
 				--set up tiltip if in tutorial level
-				tutorialLib:showTipBox("swipePaneTip", 2, gui, player)
+				tutorialLib:showTipBox("swipePaneTip", 2, gui, player[1])
 			end
 		end	
 		
 		-- shrink the player		
-		player.small = true
-		player:shrink()
+		player[1].small = true
+		player[1]:shrink()
 	end
 	
 	-- remove rune
@@ -95,7 +95,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
  	if gui then
 		-- check if player has reached level goal
-		levelFinished.checkWin(player, gui.front, mapData)
+		levelFinished.checkWin(player[1], gui.front, mapData)
 	end
 end
 

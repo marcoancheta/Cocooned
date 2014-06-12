@@ -47,7 +47,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		gameData.gameTime = tempTime + 2
 	end
 	-- Add wisp into player's inventory
-	player:addInventory(collideObject)
+	player[1]:addInventory(collideObject)
 	stars.addWisps(1)
 	-- Delete wisp
  	collideObject:removeSelf()

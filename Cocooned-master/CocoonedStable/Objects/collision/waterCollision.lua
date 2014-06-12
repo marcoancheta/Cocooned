@@ -54,8 +54,8 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			-- player the splash animation
 			local splashAnim = display.newSprite(animation.sheetOptions.splashSheet, animation.spriteOptions.splash)	
 			-- Start splash at player location
-			splashAnim.x = player.imageObject.x
-			splashAnim.y = player.imageObject.y
+			splashAnim.x = player[1].imageObject.x
+			splashAnim.y = player[1].imageObject.y
 			-- Enlarge the size of the splash
 			splashAnim:scale(.5, .5)
 			splashAnim:setSequence("move")
@@ -67,27 +67,27 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			-- if water count is 0, then the player just entered water and now we have to start the death timer
 			if(waterCount == 0) then
 				-- start the death timer
-				player:startDeathTimer(mapData, gui)
+				player[1]:startDeathTimer(mapData, gui)
 				gameData.allowPaneSwitch = false
 
 				-- set player variables
-				player.lastPositionSaved = true
-				player.imageObject.linearDamping = 3
+				player[1].lastPositionSaved = true
+				player[1].imageObject.linearDamping = 3
 
 				-- if the player is small, further increase the linear damping
-				if player.small then
-					player.imageObject.linearDamping = 10
+				if player[1].small then
+					player[1].imageObject.linearDamping = 10
 				end
 
 				-- calculate the players next location when entering the water
-				local xf, yf = uMath.calcNextPoint(player, 80)
+				local xf, yf = uMath.calcNextPoint(player[1], 80)
 
 				-- calculate the distance of travel for later calculation
-				distance = uMath.distanceXY(player.imageObject.x, player.imageObject.y, xf, yf)
+				distance = uMath.distanceXY(player[1].imageObject.x, player[1].imageObject.y, xf, yf)
 
 				-- calculate how much force to apply to the player so they are fully in water
 				local jumpDirectionX, jumpDirectionY = 0,0
-				jumpDirectionX, jumpDirectionY = uMath.calcDirectionForce(player.imageObject.x, player.imageObject.y, xf, yf, distance, 10)
+				jumpDirectionX, jumpDirectionY = uMath.calcDirectionForce(player[1].imageObject.x, player[1].imageObject.y, xf, yf, distance, 10)
 
 				-- if the player is small, decrease the push velocity into water
 				if player.small then
@@ -96,19 +96,19 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				end
 
 				-- apply that force to make sure the aplyer is fully in water
-				player.imageObject:setLinearVelocity(0,0)
-				player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
+				player[1].imageObject:setLinearVelocity(0,0)
+				player[1].imageObject:applyForce(jumpDirectionX, jumpDirectionY, player[1].imageObject.x, player[1].imageObject.y)
 
 				-- stop the player after a certain time so they stay in the water
 				local function stopPlayer()
-					player.imageObject:setLinearVelocity(0,0)
+					player[1].imageObject:setLinearVelocity(0,0)
 				end
 
 				-- start the stop player function after 0.5 seconds
 				timer.performWithDelay(500, stopPlayer)
 
 				-- play alpha animation of player
-				player.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
+				player[1].sinkTrans = transition.to(player[1].imageObject, {time=3000, alpha=0})
 			end
 
 			-- increment the water count to keep track of how many water bodies the player is in
@@ -118,32 +118,32 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			-- increment the water collision count to keep track is player is stil in water bodies
 			if(waterCount > 0) then
 				waterCount = waterCount - 1
-				player.shook = false
+				player[1].shook = false
 				--print("==================== ended collided with water, count: " .. waterCount .. " ===================")
 			end
 			-- if the water count is at 0, the player is out of water and now set everything back to safe status
-			if ( waterCount == 0 ) and player.onLand then
+			if ( waterCount == 0 ) and player[1].onLand then
 				--print("==================== OUT ended collided with water, count: " .. waterCount .. " ===================")
 
 				-- reset the player booleans
-				player.shook = false
+				player[1].shook = false
 				gameData.inWater = false
-				player.lastPositionSaved = false
+				player[1].lastPositionSaved = false
 
 				-- stop the death timer
-				player:stopDeathTimer()
+				player[1]:stopDeathTimer()
 				
 				-- stop the alpha transition
-				if player.sinkTrans ~= nil then
+				if player[1].sinkTrans ~= nil then
 					print("stop trans")
-					transition.cancel(player.sinkTrans)
-					player.sinkTrans = nil
+					transition.cancel(player[1].sinkTrans)
+					player[1].sinkTrans = nil
 				end
 
 				-- reset the player physics data
-				player.imageObject.alpha = 1
-				player.imageObject:setLinearVelocity(0,0)
-				player.imageObject.linearDamping = 1.25
+				player[1].imageObject.alpha = 1
+				player[1].imageObject:setLinearVelocity(0,0)
+				player[1].imageObject.linearDamping = 1.25
 				gameData.allowPaneSwitch = true
 			end
 		end

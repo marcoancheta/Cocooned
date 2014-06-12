@@ -20,8 +20,8 @@ local sound = require("sound")
 local function collide(collideObject, player, event, mapData, map, gui)
 	--sound.playSound(event, sound.totemSound)
 	print("collided with greenTotem")
-	if player.color ~= 'green' then
-		player:totemRepel()
+	if player[1].color ~= 'green' then
+		player[1]:totemRepel()
 	end
 end
 

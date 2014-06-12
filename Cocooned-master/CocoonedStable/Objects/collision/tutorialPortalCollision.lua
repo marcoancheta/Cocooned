@@ -41,15 +41,15 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	selectLevel.levelNum = "T"
 	selectLevel.pane = "M"		
 	-- Run goals
-	goals.onPlay(collideObject, player, gui, selectLevel)			
+	goals.onPlay(collideObject, player[1], gui, selectLevel)			
 	goals.findGoals(selectLevel, gui)
 	-- Transfer selectLevel values to gameData.mapData
 	gameData.mapData = selectLevel
-	player.curse = 0
-	player.xGrav = 0
-	player.yGrav = 0
+	player[1].curse = 0
+	player[1].xGrav = 0
+	player[1].yGrav = 0
 
-	local trans = transition.to(player.imageObject, {time=300, alpha=0.75, x=collideObject.x, y=collideObject.y-20, onComplete = temp})
+	local trans = transition.to(player[1].imageObject, {time=300, alpha=0.75, x=collideObject.x, y=collideObject.y-20, onComplete = temp})
 	
 	-- Get out of for loop
 	--break

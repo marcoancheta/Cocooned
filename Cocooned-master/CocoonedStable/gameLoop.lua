@@ -402,7 +402,7 @@ local function loadMap(mapData)
 	-- Start mechanics
 	for i = 1, gui.playerCount do		
 		-- Create collision
-		collisionDetection.createCollisionDetection(players[i].imageObject, gameLoop.player[1], mapData, gui, gui.back[1])
+		collisionDetection.createCollisionDetection(players[i].imageObject, gameLoop.player, mapData, gui, gui.back[1])
 		-- If playerCount is only set to 1, destroy player 2
 		if gui.playerCount == 1 then
 			gameLoop.player[2].imageObject:removeSelf() --player2.imageObject:removeSelf()

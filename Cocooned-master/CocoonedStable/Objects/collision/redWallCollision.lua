@@ -11,7 +11,7 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	if player.color == 'red' then
+	if player[1].color == 'red' then
 		event.contact.isEnabled = false
 	end
 end

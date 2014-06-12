@@ -15,7 +15,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		collideObject:toFront()
 		event.contact.isEnabled = false
 	else
-		player.imageObject:toFront()
+		player[1].imageObject:toFront()
 	end
 end
 

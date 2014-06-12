@@ -15,7 +15,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	
 	--player = player
 	if event.phase == "began" and player.color ~= "blue" then
-		player:changeColor('blue', gui)
+		player[1]:changeColor('blue', gui)
 
 		-- play sound
 		sound.stopChannel(1)

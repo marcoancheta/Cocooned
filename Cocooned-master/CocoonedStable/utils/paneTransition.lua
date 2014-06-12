@@ -61,72 +61,75 @@ end
 --------------------------------------------------------------------------------
 local function pWater(event)
 	local params = event.source.params
-	-- check if the player has swiped into water
-	local playerPos = params.player[1].imageObject
-	local locationFound = false
-	local degree = 0
-	local distanceCheck = 70
-	local inWater = false
 	
-	--use raycasting to see the players surroundings
-	while locationFound == false do
-		for i = 1, 36 do
-			local x = playerPos.x + (distanceCheck * math.cos(degree * (math.pi/180)))
-			local y = playerPos.y + (distanceCheck * math.sin(degree * (math.pi/180)))
-			local hits = physics.rayCast(playerPos.x, playerPos.y, x, y, "sorted")
+	if params.player[1] then
+		-- check if the player has swiped into water
+		local playerPos = params.player[1].imageObject
+		local locationFound = false
+		local degree = 0
+		local distanceCheck = 70
+		local inWater = false
+		
+		--use raycasting to see the players surroundings
+		while locationFound == false do
+			for i = 1, 36 do
+				local x = playerPos.x + (distanceCheck * math.cos(degree * (math.pi/180)))
+				local y = playerPos.y + (distanceCheck * math.sin(degree * (math.pi/180)))
+				local hits = physics.rayCast(playerPos.x, playerPos.y, x, y, "sorted")
 
-			if (hits) then
-				for i,v in ipairs(hits)	do 
-					if v.object ~= nil then
-						if v.object.name == "water" then
-							locationFound = true
-							inWater = true
-							break
-						elseif v.object.name == "background" then
-							locationFound = true
-							break
+				if (hits) then
+					for i,v in ipairs(hits)	do 
+						if v.object ~= nil then
+							if v.object.name == "water" then
+								locationFound = true
+								inWater = true
+								break
+							elseif v.object.name == "background" then
+								locationFound = true
+								break
+							end
 						end
 					end
 				end
-			end
-	
-			degree = degree + 10
-		end	
-
-		if ( distanceCheck > 300 ) then
-			locationFound = true
-			inWater = false
-		end 
-		distanceCheck = distanceCheck + 30
 		
-		--if ( distanceCheck > 300 ) then
-		--	print("no water or shore found, you should be fine")
-		--	locationFound = true
-		--	inWater = false
-		--end --else
-			--distanceCheck = distanceCheck + 30
-			--pWater(event)
-		--end
-	end
+				degree = degree + 10
+			end	
 
-	if inWater then
-		gameData.inWater = true
-		gameData.onLand = false
-		-- Transition player's alpha to 0
-		params.player[1].sinkTrans = transition.to(params.player[1].imageObject, {time=3000, alpha=0})
-		-- save this last point
-		savePoint = display.newCircle(playerPos.x, playerPos.y , 38)
-		savePoint.alpha = 0
-		savePoint.name = "paneSavePoint"
-		-- set player variables for later calculations
-		params.player[1].lastSavePoint = savePoint
-		params.player[1].lastPositionX = savePoint.x
-		params.player[1].lastPositionY = savePoint.y
-		params.player[1].lastSavePoint.pane = params.tempPane
-		params.player[1].miniMap = params.miniMap
-		params.player[1].lastPositionSaved = true
-		-- start the death timer
-		params.player[1]:startDeathTimer(params.mapData, params.gui)
+			if ( distanceCheck > 300 ) then
+				locationFound = true
+				inWater = false
+			end 
+			distanceCheck = distanceCheck + 30
+			
+			--if ( distanceCheck > 300 ) then
+			--	print("no water or shore found, you should be fine")
+			--	locationFound = true
+			--	inWater = false
+			--end --else
+				--distanceCheck = distanceCheck + 30
+				--pWater(event)
+			--end
+		end
+
+		if inWater then
+			gameData.inWater = true
+			gameData.onLand = false
+			-- Transition player's alpha to 0
+			params.player[1].sinkTrans = transition.to(params.player[1].imageObject, {time=3000, alpha=0})
+			-- save this last point
+			savePoint = display.newCircle(playerPos.x, playerPos.y , 38)
+			savePoint.alpha = 0
+			savePoint.name = "paneSavePoint"
+			-- set player variables for later calculations
+			params.player[1].lastSavePoint = savePoint
+			params.player[1].lastPositionX = savePoint.x
+			params.player[1].lastPositionY = savePoint.y
+			params.player[1].lastSavePoint.pane = params.tempPane
+			params.player[1].miniMap = params.miniMap
+			params.player[1].lastPositionSaved = true
+			-- start the death timer
+			params.player[1]:startDeathTimer(params.mapData, params.gui)
+		end
 	end
 end
 
@@ -139,15 +142,20 @@ local function runReload(event)
 	--params.gui = loadLevel.changePane(params.gui, params.mapData, params.player1, params.miniMap)
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
-	collisionDetection.changeCollision(params.player[1], params.mapData, params.gui, params.map)
-	-- delay collision detection for a little while
-	--gameData.collOn = true 
-	local collTimer = timer.performWithDelay(100, turnCollOn)
-	-- check if the player has swiped into water
-	pWater(event)
-	-- Change alpha back to 1 if player was invisible
-	if params.player[1].imageObject.alpha == 0 then
-		params.player[1].imageObject.alpha = 1
+	if params.player then
+		collisionDetection.changeCollision(params.player, params.mapData, params.gui, params.map)
+		-- delay collision detection for a little while
+		--gameData.collOn = true 
+		local collTimer = timer.performWithDelay(100, turnCollOn)
+		-- check if the player has swiped into water
+		pWater(event)
+		
+		if params.player[1] ~= nil then
+			-- Change alpha back to 1 if player was invisible
+			if params.player[1].imageObject.alpha == 0 then
+				params.player[1].imageObject.alpha = 1
+			end
+		end
 	end
 	-- Run end transition event
 	endTransition(event)
@@ -216,10 +224,17 @@ local function movePanes(event)
 		end
 	end
 
-	-- load new map pane
-	params.gui = loadLevel.changePane(params.gui, params.mapData, params.players, params.player, params.miniMap)
-	local delayer = timer.performWithDelay(100, runReload)
-	delayer.params = params
+	if params.player then
+		-- load new map pane
+		params.gui = loadLevel.changePane(params.gui, params.mapData, params.players, params.player, params.miniMap)
+		local delayer = timer.performWithDelay(100, runReload)
+		delayer.params = { tempPane = params.tempPane, 
+								miniMap = params.miniMap, 
+									gui = params.gui,
+								players = params.players,
+								 player = params.player, 
+								mapData = params.mapData  }
+	end
 	
 	--[[
 	---------------------------------------------------
