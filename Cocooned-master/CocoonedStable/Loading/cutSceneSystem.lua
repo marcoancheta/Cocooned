@@ -77,25 +77,6 @@ local function nextSceneOrDeleteA(event)
 		-- Clear temporary gui and mapData variables
 		tempGui = nil
 		tempMapData = nil
-	elseif currScene == screensB[tempMapData.levelNum] then
-		-- Clear current scene
-		currScene = nil
-		-- Remove event listener from nextScene
-		if nextScene ~= nil then
-			nextScene:removeEventListener("tap", nextSceneOrDelete)
-			nextScene:removeSelf()
-			nextScene = nil	
-		end
-		-- Clear scenes array
-		scenes = nil
-		scenes = {}
-		-- Run pregame timer events
-		gameData.levelComplete = true
-		-- destroy loading screen
-		--local loadingTimer = timer.performWithDelay(2000, deleteClosure)
-		-- Clear temporary gui and mapData variables
-		tempGui = nil
-		tempMapData = nil
 	else
 		currScene = currScene +1
 		scenes[currScene]:addEventListener("tap", nextSceneOrDeleteA)
