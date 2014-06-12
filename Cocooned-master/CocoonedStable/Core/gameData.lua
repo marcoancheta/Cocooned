@@ -28,6 +28,7 @@ local gameData = {
 	updateOptions = false,
 	shadow = true,
 	winning = false,
+	inTutorial = false,
 	
 	-- Level Selector Booleans
 	selectWorld = false,

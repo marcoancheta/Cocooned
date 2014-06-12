@@ -386,7 +386,7 @@ end
 --------------------------------------------------------------------------------
 function playerInstance:rotate (x,y)
 	transition.cancel('rotation')
-	angle = (floor(atan2(y, x)*( 180 / pi))) 
+	local angle = (floor(atan2(y, x)*( 180 / pi))) 
 	self.imageObject.rotation = angle + 90
 end
 
@@ -440,7 +440,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:startDeathTimer (mapData, gui)
+function playerInstance:startDeathTimer(mapData, gui)
 	local function passParams() killPlayer(self, mapData, gui) end
 	self.deathTimer = timer.performWithDelay(3000, passParams)
 end

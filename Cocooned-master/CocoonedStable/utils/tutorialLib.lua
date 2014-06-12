@@ -8,6 +8,7 @@ local generate = require("Objects.generateObjects")
 local font = require("utils.font")
 local gameData = require("Core.gameData")
 local gameTimer = require("utils.timer")
+
 --------------------------------------------------------------------------------
 -- Variables
 --------------------------------------------------------------------------------
@@ -30,13 +31,13 @@ local delay = function() gameData.allowMiniMap = true; gameData.allowPaneSwitch 
 function tutorialLib:init()
 	hintText = {
 		--name         popped up?, tutorial cut scene image locations                                          -- text, box x position, box y position, box width, box height,
-		["tiltTip"] = {false, "mapdata/art/cutscenes/tutorial/1.png", "mapdata/art/cutscenes/tutorial/2.png",
-						"mapdata/art/cutscenes/tutorial/3.png", "mapdata/art/cutscenes/tutorial/4.png", 
-						"mapdata/art/cutscenes/tutorial/5.png", "mapdata/art/cutscenes/tutorial/7.png"},
-		["swipePaneTip"] = {false, "mapdata/art/cutscenes/tutorial/8.png", "mapdata/art/cutscenes/tutorial/9.png"},
-		["waterTip"] = {false, "mapdata/art/cutscenes/tutorial/10.png", "mapdata/art/cutscenes/tutorial/11.png",
-							"mapdata/art/cutscenes/tutorial/12.png", "mapdata/art/cutscenes/tutorial/13.png", 
-							"mapdata/art/cutscenes/tutorial/14.png"}
+		["tiltTip"] = {false, "mapdata/art/cutscenes/T/tutorial/1.png", "mapdata/art/cutscenes/T/tutorial/2.png",
+						"mapdata/art/cutscenes/T/tutorial/3.png", "mapdata/art/cutscenes/T/tutorial/4.png", 
+						"mapdata/art/cutscenes/T/tutorial/5.png", "mapdata/art/cutscenes/T/tutorial/7.png"},
+		["swipePaneTip"] = {false, "mapdata/art/cutscenes/T/tutorial/8.png", "mapdata/art/cutscenes/T/tutorial/9.png"},
+		["waterTip"] = {false, "mapdata/art/cutscenes/T/tutorial/10.png", "mapdata/art/cutscenes/T/tutorial/11.png",
+							"mapdata/art/cutscenes/T/tutorial/12.png", "mapdata/art/cutscenes/T/tutorial/13.png", 
+							"mapdata/art/cutscenes/T/tutorial/14.png"}
 	}
 end
 
@@ -115,19 +116,22 @@ local function toggleNext(event)
 		-- Special case for post-swipe tip
 		elseif event.target.name == "swipePaneTip" then
 			tutorialLib.tutorialStatus = 2
+			--gameData.allowMiniMap = true 
+			--gameData.allowPaneSwitch = true
 			local delayTimer = timer.performWithDelay(1000, delay)
 		elseif event.target.name == "waterTip" then
 			local delayTimer = timer.performWithDelay(1000, delay)
 		end
 		
 		-- Resume physics
-		--physics.start();
-		--if tempPlayer.small == true then
-		--	tempPlayer.curse = 0.5
-		--else
-		--	tempPlayer.curse = 1
-		--end
-		--print("tempPlayer.curse", tempPlayer.curse)
+		physics.start();
+		if tempPlayer.small == true then
+			tempPlayer.curse = 0.5
+		else
+			tempPlayer.curse = 1
+		end
+		print("tempPlayer.curse", tempPlayer.curse)
+		gameData.inTutorial = false
 		
 		-- Resume game timer
 		gameTimer.resumeTimer()
@@ -147,14 +151,14 @@ function tutorialLib:showTipBox(tipType, value, gui, player)
 	--pause minimap functinality
 	gameData.allowMiniMap = false
 	gameData.allowPaneSwitch = false
-	
+	gameData.inTutorial = true
 	-- Pause physics	
-	--physics.pause()
+	physics.pause()
 	-- temporarily store player
-	--tempPlayer = player
-	--if tempPlayer.curse ~= 0 then
-	--	tempPlayer.curse = 0
-	--end
+	tempPlayer = player
+	if tempPlayer.curse ~= 0 then
+		tempPlayer.curse = 0
+	end
 
 	-- Pause game timer while tutorial screen is up
 	gameTimer.pauseTimer()
