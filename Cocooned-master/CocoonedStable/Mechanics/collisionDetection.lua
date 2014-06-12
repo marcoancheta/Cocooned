@@ -52,22 +52,15 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 	--function for collision detection
 	-- when an object collides, call its own collide function
 	local function onLocalCollision(self, event)
-		if player then
-			-- save the collide object
-			local collideObject = event.other
-
-			-- when collision began, do this
-			if event.phase == "began" then
-				-- if the object is a solid, call it's function
-				if (collideObject.collType == "solid" and collideObject.name ~= "walls") or (collideObject.name == "water") then
-					if gameData.collOn then
+		-- save the collide object
+		local collideObject = event.other
+		-- when collision began, do this
+		if event.phase == "began" then
+			-- if the object is a solid, call it's function
+			if (collideObject.collType == "solid" and collideObject.name ~= "walls") or (collideObject.name == "water") then
+				if gameData.collOn then
+					if player then	
 						local col = require("Objects.collision." .. collideObject.func)
-						print(collideObject.name)
-						print(player[1].name)
-						print(event)
-						print(mapData)
-						print(gui.front)
-						print(gui)
 						col.collide(collideObject, player, event, mapData, gui.front, gui)	
 					end
 				end
