@@ -56,11 +56,8 @@ local function nextSceneOrDeleteA(event)
 	end
 	-- Clear variables if current scene reaches levels' maximum amount of scenes
 	if currScene == screensA[tempMapData.levelNum] then
-<<<<<<< HEAD
-=======
 		-- Remove event listener from currScene
 		--scenes[currScene]:removeEventListener("tap", nextSceneOrDeleteA)
->>>>>>> 195e964ecd48541425951bf9b5885b3d3b5b64cd
 		-- Clear current scene
 		currScene = nil
 		-- Remove event listener from nextScene
@@ -194,7 +191,6 @@ local function endCutScene(gui, mapData)
 	tempMapData = mapData
 	
 	--print(mapData.levelNum)	
-<<<<<<< HEAD
 	if screensA[mapData.levelNum] > 0 then
 		for i= screensA[mapData.levelNum], 1, -1 do
 			if mapData.levelNum ~= 8 and mapData.levelNum ~= 12 then
@@ -202,32 +198,15 @@ local function endCutScene(gui, mapData)
 			else
 				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/A/"..i..".png", 1460, 864)
 			end				
-=======
-	if screensB[mapData.levelNum] > 0 then
-		for i= screensB[mapData.levelNum], 1, -1 do
-			if mapData.levelNum ~= "6" then
-				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".jpg", 1460, 864)
-				scenes[i].isVisible = false
-			else
-				scenes[i] = display.newImageRect("mapdata/art/cutscenes/"..mapData.levelNum.."/B/"..i..".png", 1460, 864)
-				scenes[i].isVisible = false
-			end
-			
->>>>>>> 195e964ecd48541425951bf9b5885b3d3b5b64cd
 			scenes[i].x, scenes[i].y = display.contentCenterX, display.contentCenterY
 		end
 		--print("drawing next scene")
 		-- Create nextScene button
 		--nextScene = display.newImageRect("mapdata/art/buttons/next.png", 250, 250)
 		-- map nextScene button to right corner
-<<<<<<< HEAD
 		nextScene.x, nextScene.y = generate.tilesToPixels(36, 20)
 		-- Add tap listener to play button
 		nextScene:addEventListener("tap", nextSceneOrDelete)
-=======
-		--nextScene.x, nextScene.y = generate.tilesToPixels(36, 20)
-		--nextScene:addEventListener("tap", nextSceneOrDeleteB)
->>>>>>> 195e964ecd48541425951bf9b5885b3d3b5b64cd
 		currScene = 1
 		-- Add tap listener to play button
 		scenes[currScene]:addEventListener("tap", nextSceneOrDeleteB)
