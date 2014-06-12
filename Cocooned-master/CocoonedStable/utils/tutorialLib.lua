@@ -147,7 +147,6 @@ end
 -- Updated by: Andrew
 --------------------------------------------------------------------------------
 --called in movement 
-<<<<<<< HEAD
 function tutorialLib:showTipBox(tipType, value, gui, player)	
 	--pause minimap functinality
 	gameData.allowMiniMap = false
@@ -168,9 +167,7 @@ function tutorialLib:showTipBox(tipType, value, gui, player)
 	-- temporarily store current value
 	current = value
 	
-=======
 function tutorialLib:showTipBox(tipType, value, gui, player)		
->>>>>>> 195e964ecd48541425951bf9b5885b3d3b5b64cd
 	local toolTip = {}
 	local playerSeen = hintText[tipType][1]			
 	if playerSeen == false then
@@ -211,3 +208,4 @@ function tutorialLib:showTipBox(tipType, value, gui, player)
 end
 
 return tutorialLib
+end

@@ -303,15 +303,12 @@ local function changePane(gui, mapData, players, player, miniMap)
 	end
 	-- check if player has finished level
 	levelFinished.checkWin(player[1], gui.front, mapData)
-<<<<<<< HEAD
 	-- reset curse
 	if player[1].small == true then
 		player[1].curse = 0.5
 	else
 		player[1].curse = 1
 	end
-=======
->>>>>>> 195e964ecd48541425951bf9b5885b3d3b5b64cd
 	-- return new pane
 	return gui
 end
