@@ -37,9 +37,10 @@ end
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)									
 	if collideObject.name == "worldPortal1" then
+		print(player.imageObject.name)
 		-- Disable portal collision
 		event.other.isSensor = true
-		local trans = transition.to(player[1].imageObject, {time=500, alpha=0, x=collideObject.x, y=collideObject.y, onComplete = temp} )
+		local trans = transition.to(player.imageObject, {time=500, alpha=0, x=collideObject.x, y=collideObject.y, onComplete = temp} )
 	end
 end
 
