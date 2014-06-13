@@ -287,7 +287,7 @@ local function changePane(gui, mapData, players, player, miniMap)
 	--gui.front:insert(player.imageObject)
 	objects.main(mapData, gui, players, player)	
 	-- Check rune inventory slots for runes collected
-	activate(gui, mapData, player, miniMap)	
+	activate(gui, mapData, players, miniMap)	
 	-- Check if tutorial level
 	if mapData.levelNum == "T" and mapData.pane == "U" then
 		if tutorialLib.tutorialStatus >= 1 then
