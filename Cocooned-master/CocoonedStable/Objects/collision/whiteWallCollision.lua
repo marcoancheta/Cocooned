@@ -13,7 +13,7 @@ local sound = require("sound")
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	if player[1].color == 'white' then
+	if player.color == 'white' then
 		-- play sound
 	    sound.playSound(sound.soundEffects[6])
 		event.contact.isEnabled = false

@@ -12,7 +12,7 @@
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	event.contact.isEnabled = false
-	player[1]:addInventory(collideObject)
+	player:addInventory(collideObject)
  	collideObject:removeSelf( )
 end
 

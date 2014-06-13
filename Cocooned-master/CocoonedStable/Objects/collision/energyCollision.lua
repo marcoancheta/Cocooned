@@ -27,7 +27,7 @@ end
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
 	-- Disable wisp object collision to allow player to pass thru
-	print("collected wisp " .. player[1].name)
+	print("collected wisp " .. player.name)
 	event.contact.isEnabled = false
 	--collideObject.isSensor = true
 	-- Play wisp sound effect
@@ -47,7 +47,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		gameData.gameTime = tempTime + 2
 	end
 	-- Add wisp into player's inventory
-	player[1]:addInventory(collideObject)
+	player:addInventory(collideObject)
 	stars.addWisps(1)
 	-- Delete wisp
  	collideObject:removeSelf()

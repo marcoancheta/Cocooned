@@ -66,9 +66,13 @@ function splash(obj, direction)
 	obj.isVisible = false
 
 	if direction == "backward" then
-		local timerback = timer.performWithDelay(400, function() tempSplash:removeSelf(); tempSplash = nil; moveBackward(obj); end)
+		if tempSplash ~= nil then
+			local timerback = timer.performWithDelay(400, function() tempSplash:removeSelf(); tempSplash = nil; moveBackward(obj); end)
+		end
 	else
-		local timerforward = timer.performWithDelay(400, function() tempSplash:removeSelf(); tempSplash = nil; moveforward(obj); end)
+		if tempSplash ~= nil then
+			local timerforward = timer.performWithDelay(400, function() tempSplash:removeSelf(); tempSplash = nil; moveforward(obj); end)
+		end
 	end
 end
 

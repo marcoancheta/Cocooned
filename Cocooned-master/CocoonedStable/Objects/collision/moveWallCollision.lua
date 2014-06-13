@@ -11,10 +11,10 @@
 -- Updated by: Marco
 --------------------------------------------------------------------------------
 local function collide(collideObject, player, event, mapData, map, gui)
-	if player[1].curse == 1 then
-		timer.performWithDelay(5000, function() player[1].curse = 1 end)
+	if player.curse == 1 then
+		timer.performWithDelay(5000, function() player.curse = 1 end)
 	end
-	player[1].curse = -1
+	player.curse = -1
 end
 
 --------------------------------------------------------------------------------

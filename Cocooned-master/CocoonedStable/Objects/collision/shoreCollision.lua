@@ -28,18 +28,18 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			gameData.allowPaneSwitch = true
 			gameData.allowMiniMap = true
 		
-			waterShadow = display.newCircle(player[1].imageObject.x, player[1].imageObject.y, 1)
+			waterShadow = display.newCircle(player.imageObject.x, player.imageObject.y, 1)
 			waterShadow.alpha = 0
 			waterShadow.name = "waterShadow"
 
 			gui.front:insert(waterShadow)
-			player[1].lastSavePoint = waterShadow
-			player[1].lastSavePoint.pane = mapData.pane
+			player.lastSavePoint = waterShadow
+			player.lastSavePoint.pane = mapData.pane
 		end
 		player.onLand = true
 	elseif event.phase == "ended" then
 		print("LEAVING SHORE!!")
-		player[1].onLand = false
+		player.onLand = false
 	end
 
 	--collideObject.isSensor = true

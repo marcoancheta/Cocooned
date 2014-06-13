@@ -54,10 +54,10 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			event.other.isSensor = true
 			selectWorld.world = world[i]				
 			gameData.mapData.world = selectWorld.world
-			player[1].curse = 0
-			player[1].xGrav = 0
-			player[1].yGrav = 0
-			local trans = transition.to(player[1].imageObject, {time=500, alpha=0, x=collideObject.x, y=collideObject.y-20, onComplete = temp} )
+			player.curse = 0
+			player.xGrav = 0
+			player.yGrav = 0
+			local trans = transition.to(player.imageObject, {time=500, alpha=0, x=collideObject.x, y=collideObject.y-20, onComplete = temp} )
 		
 		end
 	end

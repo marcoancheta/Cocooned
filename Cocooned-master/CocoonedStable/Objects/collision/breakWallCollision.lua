@@ -38,7 +38,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 
 	if event.phase == "began" then
 		-- if breakCount is less than 3 and the wall hasn't been hit then increment and shake screen
-		if collideObject.breakCount < 3  and collideObject.justHit == false and player[1].breakable then
+		if collideObject.breakCount < 3  and collideObject.justHit == false and player.breakable then
 			print("breaking")
 			-- increment breakCount counter and set boolean of just hit
 			collideObject.breakCount = collideObject.breakCount + 1
@@ -51,7 +51,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		end
 	elseif event.phase == "ended" then
 		-- print("ended collision with break wall")
-		if collideObject.breakCount < 3  and player[1].breakable then
+		if collideObject.breakCount < 3  and player.breakable then
 			-- function for changeing boolean to false so that player can hit the 
 			local function changeBool(event)
 				collideObject.justHit = false
@@ -59,7 +59,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 			-- delay the timer to give time for shake to be done
 			timer.performWithDelay(1000, changeBool)
 		-- if the breakCount is 3, then destroy that wall
-		elseif collideObject.breakCount == 3 and player[1].breakable then
+		elseif collideObject.breakCount == 3 and player.breakable then
 			collideObject.breakCount = collideObject.breakCount + 1
 			transition.to(collideObject, {time = 300, alpha = 0, onComplete = function() collideObject:removeSelf() end})
 		end

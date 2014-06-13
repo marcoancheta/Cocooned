@@ -62,14 +62,14 @@ local function createCollisionDetection(imageObject, player, mapData, gui, map)
 					local col = require("Objects.collision." .. collideObject.func)
 					col.collide(collideObject, player, event, mapData, gui.front, gui)	
 				end
-			elseif event.phase == "ended" then	
-				if collideObject.collType == "solid" then
-					local col = require("Objects.collision." .. collideObject.func)
-					col.collide(collideObject, player, event, mapData, gui.front, gui)	
-				elseif collideObject.name == "water" then
-					local col = require("Objects.collision." .. collideObject.func)
-					col.collide(collideObject, player, event, mapData, gui.front, gui)
-				end
+			end
+		elseif event.phase == "ended" then	
+			if collideObject.collType == "solid" then
+				local col = require("Objects.collision." .. collideObject.func)
+				col.collide(collideObject, player, event, mapData, gui.front, gui)	
+			elseif collideObject.name == "water" then
+				local col = require("Objects.collision." .. collideObject.func)
+				col.collide(collideObject, player, event, mapData, gui.front, gui)
 			end
 		end
 	end
@@ -90,12 +90,12 @@ end
 -- changes the collision detection for all objects in new pane
 local function changeCollision(player, mapData, gui, map)
 	-- remove old collision detection event listeners
-	player[1].imageObject:removeEventListener("collision", player[1].imageObject)
-	player[1].imageObject:removeEventListener("preCollision")
+	player.imageObject:removeEventListener("collision", player.imageObject)
+	player.imageObject:removeEventListener("preCollision")
 
 	-- create new collision detection event listeners
 	resetCollision()
-	createCollisionDetection(player[1].imageObject, player, mapData, gui, map)
+	createCollisionDetection(player.imageObject, player, mapData, gui, map)
 end
 
 --------------------------------------------------------------------------------

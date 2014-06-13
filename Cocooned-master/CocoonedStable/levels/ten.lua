@@ -37,7 +37,7 @@ local ten = {
 	timer = 300,
 	playerCount = 2,
 	playerPos = {{["x"]=1.5, ["y"]=22},
-				 {["x"]=28, ["y"]=22},},
+				 {["x"]=28, ["y"]=18},},
 	-- number of wisps in the level
 	wispCount = 57,
 	-- number of objects in each pane (M,D,U,R,L)

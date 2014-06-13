@@ -143,7 +143,7 @@ local function runReload(event)
 	-- Reassign game mechanic listeners	
 	--params.gui.front:insert(params.player1.imageObject)
 	if params.player then
-		collisionDetection.changeCollision(params.player, params.mapData, params.gui, params.map)
+		
 		-- delay collision detection for a little while
 		--gameData.collOn = true 
 		local collTimer = timer.performWithDelay(100, turnCollOn)
@@ -155,6 +155,16 @@ local function runReload(event)
 			if params.player[1].imageObject.alpha == 0 then
 				params.player[1].imageObject.alpha = 1
 			end
+			collisionDetection.changeCollision(params.players[1], params.mapData, params.gui, params.map)
+		end
+		if params.player[2] ~= nil then
+			if params.player[2].imageObject.alpha == 0 then
+				params.player[2].imageObject.alpha = 1
+			end
+			if params.gui.playerCount == 2 then
+				collisionDetection.changeCollision(params.players[2], params.mapData, params.gui, params.map)
+			end
+			print("we got a second player!")
 		end
 	end
 	-- Run end transition event

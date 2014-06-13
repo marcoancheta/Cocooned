@@ -36,24 +36,24 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		sound.stopChannel(1)
 		sound.playSound(sound.soundEffects[12])
 
-		player[1].curse = 0
-		player[1].xGrav = 0
-		player[1].yGrav = 0
-		player[1].imageObject:setLinearVelocity(0,0)
+		player.curse = 0
+		player.xGrav = 0
+		player.yGrav = 0
+		player.imageObject:setLinearVelocity(0,0)
 		
-		if gui.playerCount == 2 then
-			player[2].curse = 0
-			player[2].xGrav = 0
-			player[2].yGrav = 0
-			player[2].imageObject:setLinearVelocity(0,0)
-		end
+		-- if gui.playerCount == 2 then
+		-- 	player[2].curse = 0
+		-- 	player[2].xGrav = 0
+		-- 	player[2].yGrav = 0
+		-- 	player[2].imageObject:setLinearVelocity(0,0)
+		-- end
 		
 		snow.meltSnow()
 		--print("exiting")
 		gameData.allowPaneSwitch = false
 		gameData.allowMiniMap = false
 		local complete = function()	cutScenes.endCutScene(gui, mapData); end
-		local transPortal = transition.to(player[1].imageObject, {time=1000, alpha=0, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
+		local transPortal = transition.to(player.imageObject, {time=1000, alpha=0, x=collideObject.x, y=collideObject.y-15, onComplete = complete} )
 		gameData.gRune = false 
 	end
 	

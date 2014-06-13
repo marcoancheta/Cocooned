@@ -395,21 +395,24 @@ local function loadMap(mapData)
 		["R"] = {},
 		["U"] = {},
 	}	
+
+	gameLoop.player[2].inventory.runes = gameLoop.player[1].inventory.runes
 	
 	-- Load in map
 	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players, gameLoop.player, gui)
 
 	-- Start mechanics
 	for i = 1, gui.playerCount do
-		print("gameLoop.player[i].name", gameLoop.player[i].name)
+		print("Player " .. i .. " " .. gameLoop.player[i].name)
 		-- Create collision
-		collisionDetection.createCollisionDetection(players[i].imageObject, gameLoop.player, mapData, gui, gui.back[1])
+		collisionDetection.createCollisionDetection(players[i].imageObject, gameLoop.player[i], mapData, gui, gui.back[1])
 		-- If playerCount is only set to 1, destroy player 2
 		if gui.playerCount == 1 then
 			gameLoop.player[2].imageObject:removeSelf() --player2.imageObject:removeSelf()
 			gameLoop.player[2].imageObject = nil --player2.imageObject = nil
 			ball[2]:removeSelf() --ball2:removeSelf()
 			ball[2] = nil --ball2 = nil
+			print("remove player")
 		end
 	end
 	
@@ -432,13 +435,13 @@ local function loadMap(mapData)
 	-- Debug print
 	for i=1, playerAmount do
 		if gameLoop.player[i] then
-			print("gameLoop.player["..i.."]", gameLoop.player[i].name)
+			--print("gameLoop.player["..i.."]", gameLoop.player[i].name)
 		end
 		if players[i] then
-			print("players["..i.."]", players[i].name)
+			--print("players["..i.."]", players[i].name)
 		end
 		if ball[i] then
-			print("ball["..i.."]", ball[i].name)
+			--print("ball["..i.."]", ball[i].name)
 		end
 	end
 		
