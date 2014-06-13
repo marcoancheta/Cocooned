@@ -426,7 +426,7 @@ local function killPlayer(player, mapData, gui)
 		local tempPane = mapData.pane
 		mapData.pane = player.lastSavePoint.pane
 		players = {player}
-		player.switchPanes.playTransition(tempPane, player.miniMap, mapData, gui, player, gameData.players)
+		player.switchPanes.playTransition(tempPane, player.miniMap, mapData, gui, player, players)
 	end
 
 	-- turn coll detection back on
