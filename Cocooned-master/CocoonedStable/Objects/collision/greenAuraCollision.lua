@@ -23,7 +23,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 	collideObject.alpha = 0.75
 
 	--player = player
-	if event.phase == "began" and player.color ~= "blue" then
+	if event.phase == "began" and player.color ~= "green" then
 		player:changeColor('green', gui)
 
 		-- play sound
