@@ -425,11 +425,15 @@ local function killPlayer(player, mapData, gui)
 	if player.lastSavePoint.pane ~= mapData.pane then
 		local tempPane = mapData.pane
 		mapData.pane = player.lastSavePoint.pane
-		player.switchPanes.playTransition(tempPane, player.miniMap, mapData, gui, player)
+		players = {player}
+		player.switchPanes.playTransition(tempPane, player.miniMap, mapData, gui, player, gameData.players)
 	end
 
 	-- turn coll detection back on
-	local function turnCollOn() gameData.collOn = true end
+	local function turnCollOn() 
+		gameData.collOn = true 
+		player.imageObject.alpha = 1
+	end
 	timer.performWithDelay(100, turnCollOn)
 	
 
@@ -440,7 +444,7 @@ end
 --------------------------------------------------------------------------------
 -- Updated by: Marco
 --------------------------------------------------------------------------------
-function playerInstance:startDeathTimer(mapData, gui)
+function playerInstance:startDeathTimer(mapData, gui, players)
 	local function passParams() killPlayer(self, mapData, gui) end
 	self.deathTimer = timer.performWithDelay(3000, passParams)
 end

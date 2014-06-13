@@ -398,6 +398,7 @@ local function loadMap(mapData)
 
 	gameLoop.player[2].inventory.runes = gameLoop.player[1].inventory.runes
 	
+	gameData.players = gameLoop.player
 	-- Load in map
 	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players, gameLoop.player, gui)
 

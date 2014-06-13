@@ -29,6 +29,18 @@ local moveObject = {
 	map = ''
 }
 
+--------------------------------------------------------------------------------
+-- End Animation -- function that ends animation for water splash 
+--------------------------------------------------------------------------------
+-- Updated by: Marco
+--------------------------------------------------------------------------------
+local function endAnimation( event )
+	if ( event.phase == "ended" ) then
+		local thisSprite = event.target  --"event.target" references the sprite
+		thisSprite:removeSelf()  --play the new sequence; it won't play automatically!
+	end
+end
+
 
 
 --------------------------------------------------------------------------------
@@ -45,10 +57,10 @@ function moveforward(obj)
 		else
 		forward = transition.to(obj, {time = obj.time, x = obj.endX, y = obj.endY, onComplete = function() moveBackward(obj) end})
 		end
-		if obj.name ~= "iceberg" then
+		if obj.name ~= "iceberg" and obj ~= nil then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
-			obj:rotate(180)
+			-- obj:rotate(180)
 		end
 	end
 end
@@ -64,14 +76,15 @@ function splash(obj, direction)
 	tempSplash.x = obj.x
 	tempSplash.y = obj.y
 	obj.isVisible = false
+	tempSplash:addEventListener( "sprite", endAnimation )
 
 	if direction == "backward" then
-		if tempSplash ~= nil then
-			local timerback = timer.performWithDelay(400, function() tempSplash:removeSelf(); tempSplash = nil; moveBackward(obj); end)
+		if obj ~= nil then
+			local timerback = timer.performWithDelay(400, function() moveBackward(obj); end)
 		end
 	else
-		if tempSplash ~= nil then
-			local timerforward = timer.performWithDelay(400, function() tempSplash:removeSelf(); tempSplash = nil; moveforward(obj); end)
+		if obj ~= nil then
+			local timerforward = timer.performWithDelay(400, function() moveforward(obj); end)
 		end
 	end
 end
@@ -92,10 +105,10 @@ function moveBackward(obj)
 		else
 			back = transition.to(obj, {time = obj.time, x = obj.startX, y = obj.startY, onComplete = function() moveforward(obj) end})
 		end
-		if obj.name ~= "iceberg" then
+		if obj.name ~= "iceberg" and obj ~= nil then
 			sound.stopChannel(1)
 			sound.playSound(sound.soundEffects[13])
-			obj:rotate(180)
+			-- obj:rotate(180)
 		end
 	end
 	--obj:rotate(180)

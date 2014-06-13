@@ -84,7 +84,8 @@ local gameData = {
 ---------------------------------------------------------------------------------------------
 function gameData:resetData()
 	-- print("BEGIN RESET")
-	
+	self.players = {}
+
 	-- toggle debug mode
 	self.debugMode = false
 	
