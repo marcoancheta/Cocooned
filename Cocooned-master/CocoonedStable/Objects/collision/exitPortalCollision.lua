@@ -41,7 +41,7 @@ local function collide(collideObject, player, event, mapData, map, gui)
 		player[1].yGrav = 0
 		player[1].imageObject:setLinearVelocity(0,0)
 		
-		if player[2] then
+		if gui.playerCount == 2 then
 			player[2].curse = 0
 			player[2].xGrav = 0
 			player[2].yGrav = 0

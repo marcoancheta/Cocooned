@@ -400,7 +400,8 @@ local function loadMap(mapData)
 	gui, miniMap, shadowCircle = loadLevel.createLevel(mapData, players, gameLoop.player, gui)
 
 	-- Start mechanics
-	for i = 1, gui.playerCount do		
+	for i = 1, gui.playerCount do
+		print("gameLoop.player[i].name", gameLoop.player[i].name)
 		-- Create collision
 		collisionDetection.createCollisionDetection(players[i].imageObject, gameLoop.player, mapData, gui, gui.back[1])
 		-- If playerCount is only set to 1, destroy player 2
