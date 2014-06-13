@@ -212,7 +212,7 @@ local function createLevel(mapData, players, player, gui)
 		  miniMapDisplay.name = "miniMapName"
 	
 	-- check if player has finished level
-	levelFinished.checkWin(players[1], gui.front, mapData)
+	levelFinished.checkWin(gameData.players[1], gui.front, mapData)
 	
 	-- destroy loading screen
 	local loadingTimer = timer.performWithDelay(2000, deleteClosure)
