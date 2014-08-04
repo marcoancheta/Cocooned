@@ -79,42 +79,44 @@ local function collide(collideObject, player, event, mapData, map, gui)
 				-- if this boolean is true then the player is on water and now we start death timer
 				if onlyWater then
 					if player.lastPositionSaved == false then
+						if(playefr ~= nil) then
 
-						-- set the player variables
-						player:startDeathTimer(mapData, gui)
-						player.lastPositionSaved = true
-						player.lastSavePoint.pane = mapData.pane
-						player.imageObject.linearDamping = 3
+							-- set the player variables
+							player:startDeathTimer(mapData, gui)
+							player.lastPositionSaved = true
+							player.lastSavePoint.pane = mapData.pane
+							player.imageObject.linearDamping = 3
 
-						-- calculate the next point of travel
-						local xf, yf = uMath.calcNextPoint(player, 100)
+							-- calculate the next point of travel
+							local xf, yf = uMath.calcNextPoint(player, 100)
 
-						-- calculate the distance traveled
-						distance = uMath.distanceXY(playefr.imageObject.x, player.imageObject.y, xf, yf)
+							-- calculate the distance traveled
+							distance = uMath.distanceXY(playefr.imageObject.x, player.imageObject.y, xf, yf)
 
-						-- calculate the force to apply on player to make sure they are fully in water
-						local jumpDirectionX, jumpDirectionY = 0, 0
-						jumpDirectionX, jumpDirectionY = uMath.calcDirectionForce(player.imageObject.x, player.imageObject.y, xf, yf, distance, 8)
+							-- calculate the force to apply on player to make sure they are fully in water
+							local jumpDirectionX, jumpDirectionY = 0, 0
+							jumpDirectionX, jumpDirectionY = uMath.calcDirectionForce(player.imageObject.x, player.imageObject.y, xf, yf, distance, 8)
 
-						-- apply that force onto the player
-						player.imageObject:setLinearVelocity(0,0)
-						player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
-
-						-- stop the player once they are fully in water
-						local function stopPlayer()
+							-- apply that force onto the player
 							player.imageObject:setLinearVelocity(0,0)
+							player.imageObject:applyForce(jumpDirectionX, jumpDirectionY, player.imageObject.x, player.imageObject.y)
+
+							-- stop the player once they are fully in water
+							local function stopPlayer()
+								player.imageObject:setLinearVelocity(0,0)
+							end
+
+							-- start timer to stop player when they are fully in water
+							timer.performWithDelay(500, stopPlayer)
+
+							-- set player variables and game variables
+							player.imageObject:setLinearVelocity(0,0)
+							gameData.allowPaneSwitch = false
+							gameData.inWater = true
+
+							-- play alpha animation for player
+							player.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 						end
-
-						-- start timer to stop player when they are fully in water
-						timer.performWithDelay(500, stopPlayer)
-
-						-- set player variables and game variables
-						player.imageObject:setLinearVelocity(0,0)
-						gameData.allowPaneSwitch = false
-						gameData.inWater = true
-
-						-- play alpha animation for player
-						player.sinkTrans = transition.to(player.imageObject, {time=3000, alpha=0})
 					end
 				end
 			end

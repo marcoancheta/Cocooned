@@ -17,6 +17,7 @@ local memory = require("memory")
 local snow = require("utils.snow")
 local tutorialLib = require("utils.tutorialLib")
 local loadingScreen = require("Loading.loadingScreen")
+local creditsScreen = require("Loading.creditsScreen")
 
 local tempGui
 local menuGroup
@@ -124,6 +125,19 @@ local transDelay = {
 }
 
 --------------------------------------------------------------------------------
+-- CreditsTouched - function that destroys credits screen
+--------------------------------------------------------------------------------
+-- Updated by: John
+--------------------------------------------------------------------------------
+function creditsTouched()
+	gameData.debugMode = false
+	print("REMOVE LOADING BG")
+	display.remove(creditsBG)
+	creditsBG:removeSelf()
+	creditsBG = nil
+end
+
+--------------------------------------------------------------------------------
 -- Button events - function that holds button functionality
 --------------------------------------------------------------------------------
 -- Updated by: Derrick
@@ -168,9 +182,12 @@ local function buttonPressed(event)
 	elseif event.target.name == "debugSwitch" then
 		local switch = event.target		
 		if switch.isOn then
-			gameData.debugMode = true
-		else
-			gameData.debugMode = false
+			print("credits screen")
+			creditsScreen.creditsInit(tempGui)
+			creditsBG = display.newImageRect('mapdata/art/credits.png', 1460, 864)
+			creditsBG.x = display.contentCenterX
+			creditsBG.y = display.contentCenterY
+			creditsBG:addEventListener("touch", creditsTouched)
 		end
 		memory.toggle()		
 	--[[ In game options button pressed ]]--	
@@ -405,7 +422,7 @@ local function options(event)
 		[4] = widget.newSwitch{style = "onOff", id = "onOffSwitch", 
 							   onPress = buttonPressed},
 		-- Debug text
-		[5] = display.newText("Debug Mode: ", 350, 150, "Teacher_A", 52),
+		[5] = display.newText("Credits ", 350, 150, "Teacher_A", 52),
 		-- Sound controller (SFX[6] - BGM[7])
 		[6] = widget.newSlider{sheet = sliderSheet, leftFrame = 1, middleFrame = 2, rightFrame = 3, fillFrame = 4,
 								frameWidth = 32, frameHeight = 70, handleFrame = 5, handleWidth = 90, handleHeight = 90,
